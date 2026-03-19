@@ -3,10 +3,14 @@ module.exports = {
   content: [
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./pages/**/*.{js,ts,jsx,tsx,mdx}", // por si usas pages también
+    "./lib/**/*.{js,ts,jsx,tsx,mdx}",
+    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     extend: {
+      fontFamily: {
+        serif: ['var(--font-fraunces)', 'Georgia', 'serif'],
+      },
       colors: {
         // Colores premium del proyecto
         main: "#0f172a", // dark blue (slate-900)

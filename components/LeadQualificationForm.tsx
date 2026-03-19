@@ -11,6 +11,35 @@
 
 import { useState, FormEvent } from 'react';
 
+/* ─── Fidelidapp API ─── */
+const FIDELIDAPP_URL = process.env.NEXT_PUBLIC_FIDELIDAPP_URL ?? '';
+const FIDELIDAPP_ACCOUNT_ID = process.env.NEXT_PUBLIC_FIDELIDAPP_ACCOUNT_ID ?? '';
+
+async function sendLeadToFidelidapp(
+  email: string,
+  name: string,
+  phone: string,
+) {
+  if (!FIDELIDAPP_URL || !FIDELIDAPP_ACCOUNT_ID) return;
+  try {
+    await fetch(`${FIDELIDAPP_URL}/api/landing/register`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name,
+        email,
+        phone,
+        accountId: FIDELIDAPP_ACCOUNT_ID,
+        tags: 'lead-qualification',
+      }),
+    });
+  } catch {
+    // Non-blocking
+  }
+}
+
+const SCHEDULING_URL = 'https://capu.villelab.com/schedule/reunion-descubrimiento-con-alvaro';
+
 interface LeadQualificationFormProps {
   serviceName: string;
   phoneNumber?: string;
@@ -40,6 +69,9 @@ export default function LeadQualificationForm({
     const email = formData.get('email') as string;
     const phone = formData.get('phone') as string;
     const business = formData.get('business') as string;
+
+    // Send lead to Fidelidapp (non-blocking)
+    sendLeadToFidelidapp(email, name, phone);
 
     // Pequeño delay para mostrar el estado de carga antes de redirigir
     await new Promise(resolve => setTimeout(resolve, 900));

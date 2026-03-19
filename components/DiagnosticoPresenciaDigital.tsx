@@ -10,6 +10,30 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { X } from 'lucide-react';
 
 const WHATSAPP_PHONE = '56920115198';
+const SCHEDULING_URL = 'https://capu.villelab.com/schedule/reunion-descubrimiento-con-alvaro';
+
+/* ─── Fidelidapp API ─── */
+const FIDELIDAPP_URL = process.env.NEXT_PUBLIC_FIDELIDAPP_URL ?? '';
+const FIDELIDAPP_ACCOUNT_ID = process.env.NEXT_PUBLIC_FIDELIDAPP_ACCOUNT_ID ?? '';
+
+async function sendQuizToFidelidapp(answers: Answers, total: number, tierLabel: string) {
+  if (!FIDELIDAPP_URL || !FIDELIDAPP_ACCOUNT_ID) return;
+  try {
+    await fetch(`${FIDELIDAPP_URL}/api/landing/register`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name: '',
+        email: '',
+        phone: '',
+        accountId: FIDELIDAPP_ACCOUNT_ID,
+        tags: 'diagnostico-quiz',
+      }),
+    });
+  } catch {
+    // Non-blocking
+  }
+}
 
 const INTRO = {
   title: 'Diagnóstico de presencia digital',
@@ -228,17 +252,15 @@ export default function DiagnosticoPresenciaDigital({ open, onClose }: Diagnosti
     onClose();
   }, [onClose]);
 
-  const openWhatsApp = useCallback(() => {
+  const openScheduling = useCallback(() => {
     if (!result) return;
-    const message = [
-      'Hola, acabo de hacer el diagnóstico de presencia digital.',
-      `Resultado: ${result.title}`,
-      '',
-      'Quiero agendar el diagnóstico gratis.',
-    ].join('\n');
-    window.open(buildWhatsAppUrl(message), '_blank', 'noopener,noreferrer');
+    // Fire lead to Fidelidapp (non-blocking)
+    const tier = getResultTier(answers);
+    const { total } = getScores(answers);
+    sendQuizToFidelidapp(answers, total, tier);
+    window.open(SCHEDULING_URL, '_blank', 'noopener,noreferrer');
     handleClose();
-  }, [result, handleClose]);
+  }, [result, answers, handleClose]);
 
   const totalSteps = 1 + QUESTIONS.length + 1; // intro + questions + result
   const progressStep = isIntro ? 0 : isResult ? totalSteps - 1 : step + 1;
@@ -380,10 +402,10 @@ export default function DiagnosticoPresenciaDigital({ open, onClose }: Diagnosti
                     </p>
                     <button
                       type="button"
-                      onClick={openWhatsApp}
+                      onClick={openScheduling}
                       className="w-full mt-6 py-4 rounded-xl bg-accent hover:bg-accent/90 text-white font-semibold text-base border border-accent/30 hover:shadow-[0_0_24px_rgba(33,117,161,0.3)] transition-all"
                     >
-                      {result.nextStep}
+                      Agendar reunión de descubrimiento
                     </button>
                   </motion.div>
                 )}

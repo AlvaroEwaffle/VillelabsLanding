@@ -2,9 +2,12 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   distDir: 'dist',
-  output: 'export', // Necesario para que Wrangler Pages pueda servir los archivos estáticos desde ./dist
+  output: 'export',
   images: {
-    unoptimized: true, // Requerido para output: 'export'
+    unoptimized: true,
+  },
+  turbopack: {
+    root: __dirname,
   },
 };
 

@@ -1,6 +1,6 @@
 import type { MetadataRoute } from 'next';
 
-const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://alvarovillena.cl';
+const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://villelab.com';
 
 export const dynamic = 'force-static';
 

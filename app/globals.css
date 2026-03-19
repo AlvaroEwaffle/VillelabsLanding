@@ -13,7 +13,7 @@
     padding-bottom: env(safe-area-inset-bottom);
     overflow: hidden;
   }
-  
+
   .h-screen-fixed-top {
     height: 100vh;
     max-height: 100vh;
@@ -21,21 +21,21 @@
     padding-bottom: env(safe-area-inset-bottom);
     overflow: hidden;
   }
-  
+
   /* Legacy - mantener por compatibilidad pero no usar */
   .min-h-screen-safe {
     min-height: 100dvh;
     padding-top: env(safe-area-inset-top);
     padding-bottom: env(safe-area-inset-bottom);
   }
-  
+
   .min-h-screen-safe-top {
     min-height: 100dvh;
     padding-top: calc(env(safe-area-inset-top) + 4rem);
     padding-bottom: env(safe-area-inset-bottom);
   }
 
-  /* Portfolio: ocultar scrollbar en móvil (strip horizontal), mostrar en desktop */
+  /* Portfolio: ocultar scrollbar en movil (strip horizontal), mostrar en desktop */
   .portfolio-scroll {
     -ms-overflow-style: none;
     scrollbar-width: none;
@@ -76,8 +76,6 @@
 
 html {
   scroll-behavior: smooth;
-  /* Scroll snap configuration - aplicado al contenedor principal */
-  scroll-snap-type: y mandatory;
   overflow-y: scroll;
   overflow-x: hidden;
   width: 100%;
@@ -89,21 +87,38 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* Asegurar que el body ocupe toda la altura */
   min-height: 100vh;
   overflow-x: hidden;
   width: 100%;
-  /* Safe areas para iOS */
+  /* Safe areas for iOS */
   padding-top: env(safe-area-inset-top);
   padding-bottom: env(safe-area-inset-bottom);
 }
 
-/* Respetar prefers-reduced-motion */
+/* Infinite scroll animation for client logos */
+@keyframes scroll-logos {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-scroll-logos {
+  animation: scroll-logos 30s linear infinite;
+}
+
+.animate-scroll-logos:hover {
+  animation-play-state: paused;
+}
+
+/* Respect prefers-reduced-motion */
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
   }
-  
+
   *,
   *::before,
   *::after {

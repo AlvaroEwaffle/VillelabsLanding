@@ -1,9 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import LenisProvider from "@/components/LenisProvider";
-import SEOHead from "@/components/SEOHead";
-import WhatsAppFloatButton from "@/components/WhatsAppFloatButton";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -15,7 +12,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://alvarovillena.cl";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://villelab.com";
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -26,28 +23,39 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Diseño Web Boutique de Alto Impacto | Villelabs | Álvaro Villena",
+    default: "Villelabs | Revenue Systems, Not Just Websites",
     template: "%s | Villelabs",
   },
   description:
-    "Transformamos tu identidad en un sistema digital premium que destaca y convierte. Diseño boutique de alto impacto implementado en 2 semanas para escalar tu autoridad y facturación.",
+    "We build digital systems that convert visitors into clients. Landing pages, strategic websites, and custom platforms for businesses ready to grow.",
   keywords: [
-    "diseño web boutique",
-    "sistema digital de alto impacto",
-    "landing page premium",
-    "diseño web para founders",
-    "marca personal premium",
-    "conversión digital",
+    "web design agency",
+    "revenue systems",
+    "landing pages",
+    "custom platforms",
+    "conversion optimization",
+    "strategic websites",
+    "sales funnels",
+    "process automation",
+    "AI chatbots",
+    "web development Chile",
+    "agencia chatbot IA Chile",
+    "automatizacion de procesos empresa Chile",
+    "desarrollo plataforma SaaS Santiago",
+    "agencia diseno web Chile",
+    "desarrollo MVP Chile",
     "Villelabs",
-    "Álvaro Villena",
-    "diseño web de lujo",
-    "estrategia digital boutique",
-    "diagnóstico digital",
-    "web estratégica",
+    "Alvaro Villena",
+    "digital strategy",
+    "business growth",
+    "Agile PM LATAM",
+    "AI consulting Chile",
+    "product management LATAM",
+    "villelab",
   ],
-  authors: [{ name: "Álvaro Villena", url: siteUrl }],
-  creator: "Álvaro Villena",
-  publisher: "Álvaro Villena",
+  authors: [{ name: "Alvaro Villena", url: siteUrl }],
+  creator: "Alvaro Villena",
+  publisher: "Villelabs",
   robots: {
     index: true,
     follow: true,
@@ -61,27 +69,27 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
-    locale: "es_ES",
+    locale: "en_US",
     url: siteUrl,
-    siteName: "Villelabs - Diseño Web Boutique",
-    title: "Diseño Web Boutique de Alto Impacto | Villelabs",
+    siteName: "Villelabs",
+    title: "Villelabs | Revenue Systems, Not Just Websites",
     description:
-      "Transformamos tu identidad en un sistema digital premium que destaca y convierte. Tu marca merece una experiencia única.",
+      "We build digital systems that convert visitors into clients. Landing pages, strategic websites, and custom platforms for businesses ready to grow.",
     images: [
       {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Villelabs - Diseño Web Boutique de Alto Impacto",
+        alt: "Villelabs - Revenue Systems, Not Just Websites",
       },
       { url: "/icono.png", width: 512, height: 512, alt: "Villelabs" },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Diseño Web Boutique de Alto Impacto | Villelabs",
+    title: "Villelabs | Revenue Systems, Not Just Websites",
     description:
-      "Sistema digital premium diseñado para escalar tu autoridad y facturación en 2 semanas.",
+      "We build digital systems that convert visitors into clients. Custom platforms, strategic websites, and landing pages.",
     creator: "@alvarovillena",
     images: ["/og-image.jpg"],
   },
@@ -102,7 +110,7 @@ export const metadata: Metadata = {
     "msapplication-TileImage": "/icono.png",
     "apple-mobile-web-app-capable": "yes",
     "apple-mobile-web-app-status-bar-style": "black-translucent",
-    "apple-mobile-web-app-title": "Álvaro Villena",
+    "apple-mobile-web-app-title": "Villelabs",
   },
 };
 
@@ -112,8 +120,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es">
+    <html lang="en">
       <head>
+        {/* Language detection — runs before React hydration to minimize FOUC */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var l=localStorage.getItem('villelabs_lang');if(l==='es'||l==='en'){document.documentElement.lang=l}else if(navigator.language&&navigator.language.toLowerCase().startsWith('es')){document.documentElement.lang='es'}}catch(e){}})();`,
+          }}
+        />
         {/* Google Tag Manager */}
         <script
           dangerouslySetInnerHTML={{
@@ -139,11 +153,7 @@ export default function RootLayout({
           ></iframe>
         </noscript>
         {/* End Google Tag Manager (noscript) */}
-        <SEOHead />
-        <LenisProvider>
-          {children}
-        </LenisProvider>
-        <WhatsAppFloatButton />
+        {children}
       </body>
     </html>
   );
