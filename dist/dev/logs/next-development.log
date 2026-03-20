@@ -1,4 +1,0 @@
-[00:00:00.935] Server  LOG     ✓ Ready in 751ms
-[00:00:08.428] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:08.540] Browser WARN    Image with src "http://localhost:3002/icono.png" has "fill" and a height value of 0. This is likely because the parent element of the image has not been styled to have a set height.
-[00:01:28.509] Server  LOG     ✓ Compiled in 195ms
