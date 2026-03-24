@@ -38,7 +38,7 @@ async function sendLeadToFidelidapp(
   }
 }
 
-const SCHEDULING_URL = 'https://capu.villelab.com/schedule/reunion-descubrimiento-con-alvaro';
+const SCHEDULING_URL = 'https://capu.villelab.com/schedule/reunion-descubrimiento-con-alvaro/';
 
 interface LeadQualificationFormProps {
   serviceName: string;
