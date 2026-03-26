@@ -3,6 +3,7 @@
 > 6 videos para Instagram Reels, LinkedIn y Meta Ads.
 > Todos grabados en el consultorio de Alonso de Ercilla, Nunoa.
 > Tono: calido, directo, profesional. Chileno natural, sin chilenismos excesivos.
+> **v2 — Feedback editorial Josefa aplicado:** hooks reforzados, frases fraseable, CTAs variados, conexion emocional.
 
 ---
 
@@ -14,13 +15,19 @@
 
 ### Guion hablado
 
-"Hola, soy Daniel Reyes. Soy Doctor en Psicologia de la Universidad de Chile y llevo mas de 20 anos acompanando a personas que quieren entender lo que les pasa y cambiar lo que no les funciona.
+"Elegir psicologo no es facil. Y elegir al que no es el indicado puede hacerte perder tiempo, dinero y confianza.
+
+Soy Daniel Reyes, Doctor en Psicologia de la Universidad de Chile. Llevo mas de 20 anos acompanando a personas que quieren entender lo que les pasa y cambiar lo que no les funciona.
 
 Trabajo con terapia individual, de pareja y terapia sexual. Atiendo presencial en mi consultorio en Nunoa y online para todo Chile.
 
 Mi enfoque es directo: desde la primera sesion definimos juntos que queremos lograr y como vamos a llegar. No es un proceso eterno ni un espacio donde solo se habla. Es un trabajo con objetivos claros.
 
 El primer paso siempre es el mas dificil. Si estas listo, agenda tu primera consulta abajo."
+
+### Frase fraseable (texto en pantalla)
+
+> "20 anos eligiendo sentarme frente a mis pacientes. Porque este trabajo importa."
 
 ### Direccion visual
 
@@ -36,9 +43,11 @@ El primer paso siempre es el mas dificil. Si estas listo, agenda tu primera cons
 
 ### Textos en pantalla (overlays)
 
-1. "Dr. Daniel Reyes" + "Doctor en Psicologia, U. de Chile" (aparece los primeros 5 segundos)
-2. "20+ anos de experiencia clinica" (segundo 15)
-3. "Agenda tu primera consulta" + flecha hacia abajo (ultimos 5 segundos)
+1. "Elegir psicologo no es facil." (primeros 3 segundos, fuente grande — HOOK)
+2. "Dr. Daniel Reyes" + "Doctor en Psicologia, U. de Chile" (aparece segundo 8)
+3. "20+ anos de experiencia clinica" (segundo 20)
+4. "20 anos eligiendo sentarme frente a mis pacientes." (segundo 40 — FRASE FRASEABLE)
+5. "Agenda tu primera consulta" + flecha hacia abajo (ultimos 5 segundos)
 
 ### Musica / Mood
 
@@ -48,6 +57,7 @@ El primer paso siempre es el mas dificil. Si estas listo, agenda tu primera cons
 
 ### CTA final
 
+**Tipo:** Captacion directa.
 Texto en pantalla: "Agenda tu primera consulta" + link al sitio / Calendly.
 
 ---
@@ -60,15 +70,23 @@ Texto en pantalla: "Agenda tu primera consulta" + link al sitio / Calendly.
 
 ### Guion hablado
 
-"Hay una pregunta que me hacen mucho: como se si lo que siento necesita ayuda profesional?
+"Si te estas preguntando si lo que sientes necesita ayuda profesional, probablemente ya sabes la respuesta.
 
-Mi respuesta es directa: si te lo estas preguntando, probablemente ya lo sabes.
+Soy Daniel Reyes, psicologo clinico. Y esa pregunta me la hacen todos los dias.
 
-No necesitas estar en crisis para buscar a un psicologo. A veces es esa sensacion constante de que algo no funciona. El insomnio que no para. La irritabilidad que no entiendes. Sentir que tu relacion se esta deteriorando y no sabes por que.
+No necesitas estar en crisis para buscar a un psicologo. A veces es esa sensacion constante de que algo no funciona. El insomnio que no para. La irritabilidad que no entiendes. Sentir que tu relacion se esta deteriorando y no sabes por que. Llevas tiempo aguantando algo que podrias estar trabajando.
 
-No tiene que ser dramatico. Puede ser simplemente la sensacion de que llevas mucho tiempo aguantando algo que podrias estar trabajando.
+No tiene que ser dramatico. Muchas veces el mayor obstaculo no es el problema: es creer que todavia no es suficiente para pedir ayuda.
 
-Si esto te resuena, hablemos."
+Si esto te resuena, cuéntame en los comentarios o escribeme."
+
+### Frase fraseable (texto en pantalla)
+
+> "No necesitas estar en crisis para pedir ayuda."
+
+### Conexion emocional agregada
+
+La linea "Llevas tiempo aguantando algo que podrias estar trabajando" aparece en pantalla antes de la solucion, generando identificacion antes de la propuesta de valor.
 
 ### Direccion visual
 
@@ -84,9 +102,10 @@ Si esto te resuena, hablemos."
 
 ### Textos en pantalla (overlays)
 
-1. "Cuando buscar ayuda profesional?" (primeros 3 segundos, fuente grande)
-2. "No necesitas estar en crisis" (segundo 18)
-3. "Hablemos" + icono de calendario (ultimos 3 segundos)
+1. "Si te lo estas preguntando, probablemente ya sabes la respuesta." (primeros 4 segundos — HOOK)
+2. "No necesitas estar en crisis para pedir ayuda." (segundo 18 — FRASE FRASEABLE)
+3. "Llevas tiempo aguantando algo que podrias estar trabajando." (segundo 30 — IDENTIFICACION)
+4. "Cuéntame en comentarios" + icono de chat (ultimos 3 segundos — CTA suave)
 
 ### Musica / Mood
 
@@ -96,7 +115,9 @@ Si esto te resuena, hablemos."
 
 ### CTA final
 
-Texto: "Agenda una primera consulta. Link en la bio."
+**Tipo:** Awareness — CTA suave.
+Texto: "Te identificas? Cuéntame en los comentarios."
+Subtexto: "Link en la bio para agendar consulta."
 
 ---
 
@@ -108,15 +129,25 @@ Texto: "Agenda una primera consulta. Link en la bio."
 
 ### Guion hablado
 
-"Las parejas que llegan a terapia no llegan rotas. Llegan antes de romperse.
+"Las parejas no llegan rotas a terapia. Llegan tarde.
 
-Muchas veces es una distancia que se fue instalando de a poco. Conversaciones que antes fluian y ahora terminan en pelea. La sensacion de que estan juntos pero solos.
+Soy Daniel Reyes, psicologo clinico especializado en terapia de pareja.
+
+Lo mas comun que escucho es: 'llegamos cuando ya no habia casi nada'. Y la mayoria de las veces, el problema empezo anos antes: con una distancia que se fue instalando de a poco, con conversaciones que antes fluian y ahora terminan en pelea, con la sensacion de estar juntos pero solos.
 
 La terapia de pareja no es el ultimo recurso. Es una inversion en lo que mas importa.
 
-Lo que hago es darles herramientas concretas para comunicarse mejor, entender lo que le pasa al otro y reconstruir la conexion. Desde la primera sesion ya se van con algo practico.
+Les doy herramientas concretas para comunicarse mejor, entender lo que le pasa al otro y reconstruir la conexion. Desde la primera sesion ya se van con algo practico.
 
 Si sienten que necesitan ayuda como pareja, agenda una consulta. Lo peor que puede pasar es que descubran que estan mejor de lo que creen."
+
+### Frase fraseable (texto en pantalla)
+
+> "Las parejas no llegan rotas a terapia… llegan tarde."
+
+### Conexion emocional agregada
+
+La descripcion especifica "estar juntos pero solos" antes de presentar la solucion ancla el video en una emocion reconocible para la audiencia objetivo.
 
 ### Direccion visual
 
@@ -130,9 +161,9 @@ Si sienten que necesitan ayuda como pareja, agenda una consulta. Lo peor que pue
 
 ### Textos en pantalla (overlays)
 
-1. "Terapia de pareja" (titulo, primeros 3 segundos)
-2. "No es el ultimo recurso" (segundo 12, enfasis visual)
-3. "Herramientas concretas desde la sesion 1" (segundo 30)
+1. "Las parejas no llegan rotas a terapia… llegan tarde." (primeros 4 segundos — HOOK + FRASE FRASEABLE)
+2. "No es el ultimo recurso." (segundo 15, enfasis visual)
+3. "Herramientas concretas desde la sesion 1" (segundo 35)
 
 ### Musica / Mood
 
@@ -142,6 +173,7 @@ Si sienten que necesitan ayuda como pareja, agenda una consulta. Lo peor que pue
 
 ### CTA final
 
+**Tipo:** Captacion directa.
 "Agenda una consulta de pareja. Presencial en Nunoa u online para todo Chile."
 
 ---
@@ -154,11 +186,15 @@ Si sienten que necesitan ayuda como pareja, agenda una consulta. Lo peor que pue
 
 ### Guion hablado
 
-"Si no estas en Santiago, no es excusa para no tener acceso a psicoterapia de calidad.
+"No estar en Santiago ya no es excusa para no ir a terapia.
 
-Trabajo online con personas en todo Chile: desde Arica a Punta Arenas. La evidencia clinica muestra que la terapia por videollamada funciona igual de bien que la presencial.
+Soy Daniel Reyes y atiendo online a personas en todo Chile: desde Arica a Punta Arenas.
 
-Lo unico que necesitas es un espacio tranquilo, una buena conexion y ganas de trabajar en ti. El resto lo ponemos nosotros."
+La evidencia clinica muestra que la terapia por videollamada funciona igual de bien que la presencial. Lo unico que necesitas es un espacio tranquilo, buena conexion y ganas de trabajar en ti. El resto lo ponemos nosotros."
+
+### Frase fraseable (texto en pantalla)
+
+> "No estar en Santiago ya no es excusa para no ir a terapia."
 
 ### Direccion visual
 
@@ -172,9 +208,10 @@ Lo unico que necesitas es un espacio tranquilo, una buena conexion y ganas de tr
 
 ### Textos en pantalla (overlays)
 
-1. "Atencion online para TODO Chile" (grande, primeros 3 seg)
-2. "Desde Arica a Punta Arenas" (segundo 10)
-3. "Agenda tu sesion online" (ultimos 3 seg)
+1. "No estar en Santiago ya no es excusa." (grande, primeros 3 seg — HOOK + FRASE FRASEABLE)
+2. "Atencion online para TODO Chile" (segundo 5)
+3. "Desde Arica a Punta Arenas" (segundo 12)
+4. "Agenda tu sesion online" (ultimos 3 seg)
 
 ### Musica / Mood
 
@@ -183,7 +220,8 @@ Lo unico que necesitas es un espacio tranquilo, una buena conexion y ganas de tr
 
 ### CTA final
 
-"Agenda tu primera consulta online."
+**Tipo:** Captacion directa.
+"Agenda tu primera consulta online." + link.
 
 ---
 
@@ -195,13 +233,23 @@ Lo unico que necesitas es un espacio tranquilo, una buena conexion y ganas de tr
 
 ### Guion hablado
 
-"La terapia sexologica sigue siendo uno de los grandes tabues en salud mental. Y eso tiene un costo enorme: personas que sufren en silencio durante anos por problemas que tienen solucion concreta.
+"Hay algo que muchas personas llevan anos sin hablarle a nadie. Ni a su pareja. Ni a su medico. Y mucho menos a un psicologo.
 
-Problemas de deseo, disfunciones sexuales, dolor, dificultades con la intimidad. Son temas que muchas veces no se hablan ni con la pareja, menos con un profesional.
+Soy Daniel Reyes, psicologo clinico especializado en sexologia.
 
-Pero la realidad es que la mayoria de estos problemas tienen abordaje clinico efectivo. No es magia ni es eterno. Es un proceso terapeutico con herramientas especificas.
+La terapia sexologica sigue siendo uno de los grandes tabues en salud mental. Y eso tiene un costo enorme: personas que sufren en silencio durante anos por problemas que tienen solucion concreta.
 
-Si hay algo que llevas tiempo evitando, este es un espacio seguro para hablarlo."
+Problemas de deseo, disfunciones sexuales, dolor, dificultades con la intimidad. La mayoria de estos problemas tienen abordaje clinico efectivo. No es magia ni es eterno. Es un proceso terapeutico con herramientas especificas.
+
+Si hay algo que llevas tiempo evitando, este es un espacio seguro para hablarlo. No necesitas estar listo. Solo necesitas dar el primer paso."
+
+### Frase fraseable (texto en pantalla)
+
+> "Hay cosas que llevan anos sin hablarse. Aqui es donde se hablan."
+
+### Conexion emocional agregada
+
+La apertura "ni a su pareja, ni a su medico, ni a un psicologo" crea identificacion profunda antes de cualquier propuesta de valor, validando el silencio del espectador.
 
 ### Direccion visual
 
@@ -216,9 +264,10 @@ Si hay algo que llevas tiempo evitando, este es un espacio seguro para hablarlo.
 
 ### Textos en pantalla (overlays)
 
-1. "Terapia Sexual" + "Un espacio seguro para hablar" (primeros 5 seg)
-2. "Problemas con solucion clinica" (segundo 20)
-3. "Agenda una consulta confidencial" (ultimos 5 seg)
+1. "Hay algo que muchas personas llevan anos sin hablarle a nadie." (primeros 5 seg — HOOK)
+2. "Problemas con solucion clinica." (segundo 22)
+3. "Aqui es donde se hablan." (segundo 38 — FRASE FRASEABLE)
+4. "Guarda este video si lo necesitas." (ultimos 5 seg — CTA suave)
 
 ### Musica / Mood
 
@@ -228,7 +277,8 @@ Si hay algo que llevas tiempo evitando, este es un espacio seguro para hablarlo.
 
 ### CTA final
 
-"Si hay algo que llevas tiempo evitando, hablemos. Link en la bio."
+**Tipo:** Awareness — CTA suave.
+"Guarda este video. Y cuando estes listo, link en la bio."
 
 ---
 
@@ -240,15 +290,23 @@ Si hay algo que llevas tiempo evitando, este es un espacio seguro para hablarlo.
 
 ### Guion hablado
 
-"Siempre me preguntan: que te diferencia de otros psicologos?
+"Despues de 20 anos atendiendo pacientes, esto es lo que aprendes: que los titulos importan, pero no lo son todo.
 
-Voy a ser directo. Soy Doctor en Psicologia de la Universidad de Chile. No es solo un titulo: son anos de investigacion, de formacion clinica avanzada y de aprender a distinguir lo que funciona de lo que no.
+Soy Daniel Reyes. Soy Doctor en Psicologia de la Universidad de Chile. Eso no es solo un titulo: son anos de investigacion, de formacion clinica avanzada y de aprender a distinguir lo que funciona de lo que no.
 
-Llevo mas de 20 anos en consulta. He atendido a cientos de personas en Santiago y en regiones. He trabajado como consultor en contextos internacionales y me he especializado en tres areas que muy pocos cubren juntas: terapia individual, de pareja y sexual.
+He atendido a cientos de personas en Santiago y en regiones. He trabajado como consultor en contextos internacionales y me he especializado en tres areas que muy pocos cubren juntas: terapia individual, de pareja y sexual.
 
-Pero lo que realmente me diferencia no es un titulo. Es que despues de 20 anos sigo eligiendo estar sentado frente a mis pacientes. Porque este trabajo importa. Y porque los resultados que veo todos los dias me confirman que funciona.
+Pero lo que realmente me diferencia no es un titulo. Es que despues de 20 anos sigo eligiendo sentarme frente a mis pacientes. Porque este trabajo importa.
 
 Si quieres trabajar con alguien que tiene la experiencia, la formacion y la vocacion, agenda una consulta. La primera sesion es de evaluacion: ahi decidimos juntos si soy el profesional adecuado para ti."
+
+### Frase fraseable (texto en pantalla)
+
+> "Los titulos importan. Pero despues de 20 anos, lo que queda es la vocacion."
+
+### Conexion emocional agregada
+
+La apertura con la frase reflexiva "esto es lo que aprendes" posiciona a Daniel no como alguien que enumera logros, sino como alguien que reflexiona sobre su carrera — generando cercania antes de presentar las credenciales.
 
 ### Direccion visual
 
@@ -266,11 +324,12 @@ Si quieres trabajar con alguien que tiene la experiencia, la formacion y la voca
 
 ### Textos en pantalla (overlays)
 
-1. "Que me diferencia?" (titulo grande, primeros 3 seg)
-2. "PhD Psicologia — Universidad de Chile" (segundo 10, con icono de diploma)
-3. "20+ anos de experiencia clinica" (segundo 22)
-4. "Consultor internacional" (segundo 28)
-5. "Agenda tu primera consulta" (ultimos 5 seg)
+1. "Despues de 20 anos, esto es lo que aprendes." (primeros 4 seg — HOOK)
+2. "PhD Psicologia — Universidad de Chile" (segundo 12, con icono de diploma)
+3. "20+ anos de experiencia clinica" (segundo 24)
+4. "Consultor internacional" (segundo 30)
+5. "Los titulos importan. Pero lo que queda es la vocacion." (segundo 45 — FRASE FRASEABLE)
+6. "Agenda tu primera consulta" (ultimos 5 seg)
 
 ### Musica / Mood
 
@@ -280,6 +339,7 @@ Si quieres trabajar con alguien que tiene la experiencia, la formacion y la voca
 
 ### CTA final
 
+**Tipo:** Captacion directa.
 "Agenda tu primera consulta. La primera sesion es de evaluacion: ahi decidimos juntos."
 
 ---
@@ -311,3 +371,13 @@ Si quieres trabajar con alguien que tiene la experiencia, la formacion y la voca
 - No incluir caras de pacientes reales en ningun video.
 - Los testimonios escritos en la landing NO se leen en video (son de personas distintas).
 - Confirmar con Daniel que esta comodo con cada guion antes de grabar.
+
+### Resumen de cambios v2 (feedback Josefa)
+| Video | Hook anterior | Hook v2 | CTA v2 |
+|---|---|---|---|
+| 1 — Presentacion | "Hola, soy Daniel Reyes..." | "Elegir psicologo no es facil..." | Captacion directa (igual) |
+| 2 — Cuando buscar | "Hay una pregunta que me hacen mucho..." | "Si te lo estas preguntando, probablemente ya sabes..." | CTA suave: "Cuéntame en comentarios" |
+| 3 — Pareja | "Las parejas que llegan a terapia no llegan rotas." | "Las parejas no llegan rotas a terapia. Llegan tarde." | Captacion directa (igual) |
+| 4 — Online | "Si no estas en Santiago..." | "No estar en Santiago ya no es excusa para no ir a terapia." | Captacion directa (igual) |
+| 5 — Sexual | "La terapia sexologica sigue siendo..." | "Hay algo que muchas personas llevan anos sin hablarle a nadie." | CTA suave: "Guarda este video" |
+| 6 — Credenciales | "Siempre me preguntan: que te diferencia..." | "Despues de 20 anos atendiendo pacientes, esto es lo que aprendes." | Captacion directa (igual) |

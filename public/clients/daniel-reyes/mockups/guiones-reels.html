@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Guiones Reels — Dr. Daniel Reyes | Reyes Pace</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── Reset & Base ─────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black:      #0F0F0F;
+      --black-mid:  #161616;
+      --black-soft: #1E1E1E;
+      --card-bg:    #252525;
+      --green-lime: #D8FF96;
+      --green-dim:  #A8CC60;
+      --beige:      #DAD4CA;
+      --warm-gray:  #E4E4DB;
+      --muted:      #7A7A72;
+      --border:     #2E2E2E;
+      --hook-bg:    rgba(216,255,150,0.08);
+      --cta-bg:     rgba(216,255,150,0.12);
+      --quote-bg:   #1A1A14;
+      --sidebar-w:  280px;
+      --font-mono:  'Courier Prime', 'Courier New', monospace;
+      --font-ui:    'Inter', system-ui, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--warm-gray);
+      font-family: var(--font-ui);
+      font-size: 15px;
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+    }
+
+    /* ─── Sidebar ───────────────────────────────────────────── */
+    .sidebar {
+      width: var(--sidebar-w);
+      min-height: 100vh;
+      background: var(--black-mid);
+      border-right: 1px solid var(--border);
+      position: fixed;
+      top: 0; left: 0;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      z-index: 100;
+    }
+
+    .sidebar-header {
+      padding: 24px 20px 20px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .sidebar-brand {
+      font-family: var(--font-ui);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--green-lime);
+      margin-bottom: 4px;
+    }
+
+    .sidebar-client {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--warm-gray);
+      line-height: 1.3;
+    }
+
+    .sidebar-meta {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 6px;
+    }
+
+    .sidebar-nav {
+      padding: 16px 0;
+      flex: 1;
+    }
+
+    .sidebar-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: 8px 20px 4px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 9px 20px;
+      cursor: pointer;
+      transition: background 0.15s;
+      border: none;
+      background: none;
+      width: 100%;
+      text-align: left;
+      color: var(--beige);
+      text-decoration: none;
+    }
+
+    .nav-item:hover { background: var(--black-soft); }
+    .nav-item.active { background: var(--black-soft); border-left: 2px solid var(--green-lime); }
+
+    .nav-num {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--muted);
+      min-width: 20px;
+      padding-top: 1px;
+    }
+
+    .nav-text { font-size: 13px; line-height: 1.35; }
+    .nav-platform {
+      font-size: 10px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .sidebar-footer {
+      padding: 16px 20px;
+      border-top: 1px solid var(--border);
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    /* ─── Main content ──────────────────────────────────────── */
+    .main {
+      margin-left: var(--sidebar-w);
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ─── Top bar ───────────────────────────────────────────── */
+    .topbar {
+      background: var(--black-mid);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+
+    .topbar-title {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--warm-gray);
+    }
+
+    .topbar-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn {
+      font-family: var(--font-ui);
+      font-size: 12px;
+      font-weight: 500;
+      padding: 7px 14px;
+      border-radius: 4px;
+      border: none;
+      cursor: pointer;
+      transition: opacity 0.15s, background 0.15s;
+      letter-spacing: 0.03em;
+    }
+
+    .btn-ghost {
+      background: var(--black-soft);
+      color: var(--warm-gray);
+      border: 1px solid var(--border);
+    }
+    .btn-ghost:hover { background: #2A2A2A; }
+
+    .btn-primary {
+      background: var(--green-lime);
+      color: var(--black);
+    }
+    .btn-primary:hover { opacity: 0.9; }
+
+    /* ─── Content area ──────────────────────────────────────── */
+    .content {
+      padding: 48px;
+      max-width: 820px;
+    }
+
+    /* ─── Script card ───────────────────────────────────────── */
+    .script-section {
+      display: none;
+    }
+    .script-section.active {
+      display: block;
+    }
+
+    .script-header {
+      margin-bottom: 36px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .script-number {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      margin-bottom: 8px;
+    }
+
+    .script-title {
+      font-family: var(--font-mono);
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--warm-gray);
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+
+    .script-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .tag {
+      font-size: 11px;
+      font-weight: 500;
+      padding: 3px 9px;
+      border-radius: 3px;
+      letter-spacing: 0.04em;
+    }
+    .tag-duration { background: #252520; color: var(--beige); border: 1px solid var(--border); }
+    .tag-platform { background: #20252A; color: #8BBDD8; border: 1px solid #1E2D3A; }
+    .tag-purpose  { background: #20201A; color: #C8C090; border: 1px solid #2E2D1E; }
+
+    .script-purpose {
+      font-size: 13px;
+      color: var(--muted);
+      font-style: italic;
+    }
+
+    /* ─── Block sections ────────────────────────────────────── */
+    .block {
+      margin-bottom: 28px;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .block-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 16px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .block-timecode {
+      font-size: 10px;
+      font-weight: 400;
+      opacity: 0.7;
+      letter-spacing: 0.06em;
+    }
+
+    .block-body {
+      padding: 20px 24px;
+      font-family: var(--font-mono);
+      font-size: 14.5px;
+      line-height: 1.75;
+    }
+
+    /* Hook */
+    .block-hook .block-header { background: rgba(216,255,150,0.15); color: var(--green-lime); }
+    .block-hook .block-body   { background: var(--hook-bg); color: var(--warm-gray); }
+
+    /* Presentacion */
+    .block-pres .block-header { background: #1E1E1E; color: var(--muted); }
+    .block-pres .block-body   { background: #181818; color: var(--beige); }
+
+    /* Desarrollo */
+    .block-dev .block-header  { background: #1E1E1E; color: var(--muted); }
+    .block-dev .block-body    { background: #181818; color: var(--beige); }
+
+    /* Frase destacada */
+    .block-quote {
+      background: var(--quote-bg);
+      border: 1px solid #2A2A20;
+      border-radius: 6px;
+      padding: 28px 36px;
+      margin-bottom: 28px;
+      position: relative;
+    }
+    .block-quote::before {
+      content: '\201C';
+      font-family: Georgia, serif;
+      font-size: 72px;
+      color: var(--green-lime);
+      opacity: 0.25;
+      position: absolute;
+      top: -8px;
+      left: 16px;
+      line-height: 1;
+    }
+    .block-quote-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--green-dim);
+      margin-bottom: 12px;
+    }
+    .block-quote-text {
+      font-family: var(--font-mono);
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--warm-gray);
+      line-height: 1.5;
+      font-style: italic;
+    }
+
+    /* CTA */
+    .block-cta .block-header { background: rgba(216,255,150,0.10); color: var(--green-dim); }
+    .block-cta .block-body   { background: var(--cta-bg); color: var(--warm-gray); }
+
+    /* Overlays / Visual */
+    .block-visual .block-header { background: #1A1A24; color: #8888CC; }
+    .block-visual .block-body   { background: #161620; color: #AAAACC; }
+
+    .block-visual .block-body ul,
+    .block-dev .block-body ul,
+    .block-pres .block-body ul {
+      list-style: none;
+      padding: 0;
+    }
+    .block-visual .block-body li::before,
+    .block-dev .block-body li::before,
+    .block-pres .block-body li::before {
+      content: '— ';
+      color: var(--muted);
+    }
+
+    /* CTA type badge */
+    .cta-type {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 2px 8px;
+      border-radius: 3px;
+      margin-bottom: 10px;
+    }
+    .cta-soft   { background: rgba(216,255,150,0.12); color: var(--green-dim); }
+    .cta-strong { background: rgba(216,255,150,0.22); color: var(--green-lime); }
+
+    /* ─── Navigation buttons ────────────────────────────────── */
+    .script-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .nav-btn {
+      font-family: var(--font-ui);
+      font-size: 13px;
+      font-weight: 500;
+      padding: 10px 20px;
+      border-radius: 5px;
+      border: 1px solid var(--border);
+      background: var(--black-soft);
+      color: var(--warm-gray);
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .nav-btn:hover { background: #2A2A2A; border-color: #3A3A3A; }
+    .nav-btn:disabled { opacity: 0.3; cursor: default; }
+
+    .nav-counter {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    /* ─── Print styles ──────────────────────────────────────── */
+    @media print {
+      .sidebar, .topbar, .script-nav { display: none !important; }
+      .main { margin-left: 0; }
+      .content { padding: 24px; }
+      .script-section { display: block !important; }
+      .script-section:not(.active) { page-break-before: always; }
+      body { background: white; color: black; }
+      .block-hook .block-header,
+      .block-cta .block-header { background: #f0f0f0 !important; color: black !important; }
+      .block-hook .block-body,
+      .block-cta .block-body,
+      .block-pres .block-body,
+      .block-dev .block-body,
+      .block-visual .block-body { background: #fafafa !important; color: black !important; }
+      .block-quote { background: #f5f5f0 !important; }
+      .block-quote-text { color: black !important; }
+    }
+
+    /* ─── Responsive ────────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .sidebar { display: none; }
+      .main { margin-left: 0; }
+      .topbar { padding: 12px 20px; }
+      .content { padding: 24px 20px; }
+      .script-title { font-size: 18px; }
+    }
+
+    @media (max-width: 600px) {
+      .topbar-actions .btn-ghost:not(.mobile-show) { display: none; }
+    }
+
+    /* ─── Scrollbar ─────────────────────────────────────────── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--black); }
+    ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+  </style>
+</head>
+<body>
+
+<!-- ═══ SIDEBAR ════════════════════════════════════════════ -->
+<nav class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <div class="sidebar-brand">Reyes Pace</div>
+    <div class="sidebar-client">Centro de Psicologia Clinica</div>
+    <div class="sidebar-meta">6 guiones · Instagram Reels · v2</div>
+  </div>
+
+  <div class="sidebar-nav">
+    <div class="sidebar-label">Guiones</div>
+
+    <a class="nav-item active" onclick="showScript(0)" href="#">
+      <span class="nav-num">#01</span>
+      <div>
+        <div class="nav-text">Presentacion</div>
+        <div class="nav-platform">Hero · LinkedIn · Meta Ads</div>
+      </div>
+    </a>
+
+    <a class="nav-item" onclick="showScript(1)" href="#">
+      <span class="nav-num">#02</span>
+      <div>
+        <div class="nav-text">Cuando buscar ayuda</div>
+        <div class="nav-platform">Instagram · Meta Ads</div>
+      </div>
+    </a>
+
+    <a class="nav-item" onclick="showScript(2)" href="#">
+      <span class="nav-num">#03</span>
+      <div>
+        <div class="nav-text">Terapia de pareja</div>
+        <div class="nav-platform">Meta Ads · Instagram</div>
+      </div>
+    </a>
+
+    <a class="nav-item" onclick="showScript(3)" href="#">
+      <span class="nav-num">#04</span>
+      <div>
+        <div class="nav-text">Online para todo Chile</div>
+        <div class="nav-platform">Meta Ads · Instagram Stories</div>
+      </div>
+    </a>
+
+    <a class="nav-item" onclick="showScript(4)" href="#">
+      <span class="nav-num">#05</span>
+      <div>
+        <div class="nav-text">Terapia sexual</div>
+        <div class="nav-platform">LinkedIn · Instagram</div>
+      </div>
+    </a>
+
+    <a class="nav-item" onclick="showScript(5)" href="#">
+      <span class="nav-num">#06</span>
+      <div>
+        <div class="nav-text">Credenciales</div>
+        <div class="nav-platform">LinkedIn · Meta Ads · Landing</div>
+      </div>
+    </a>
+  </div>
+
+  <div class="sidebar-footer">
+    Feedback editorial aplicado<br>
+    Josefa — Mar 2026
+  </div>
+</nav>
+
+<!-- ═══ MAIN ════════════════════════════════════════════════ -->
+<div class="main">
+
+  <!-- Topbar -->
+  <div class="topbar">
+    <div class="topbar-title">
+      <span id="topbar-script-num">GUION #01</span>
+      <span style="color:var(--muted);margin:0 8px">·</span>
+      <span id="topbar-script-title" style="color:var(--muted)">Presentacion</span>
+    </div>
+    <div class="topbar-actions">
+      <button class="btn btn-ghost mobile-show" onclick="toggleSidebar()">Indice</button>
+      <button class="btn btn-primary" onclick="printScript()">Imprimir</button>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="content">
+
+    <!-- ═══ GUION 01 — PRESENTACION ═══════════════════════ -->
+    <div class="script-section active" id="script-0">
+      <div class="script-header">
+        <div class="script-number">GUION #01 DE 06</div>
+        <div class="script-title">Presentacion</div>
+        <div class="script-meta">
+          <span class="tag tag-duration">60 – 90 seg</span>
+          <span class="tag tag-platform">Hero del sitio</span>
+          <span class="tag tag-platform">LinkedIn</span>
+          <span class="tag tag-platform">Meta Ads Awareness</span>
+          <span class="tag tag-purpose">Awareness · Autoridad</span>
+        </div>
+        <div class="script-purpose">Introducir a Daniel como profesional. Pieza central de toda la estrategia.</div>
+      </div>
+
+      <div class="block block-hook">
+        <div class="block-header">
+          [ HOOK ]
+          <span class="block-timecode">0:00 – 0:08</span>
+        </div>
+        <div class="block-body">
+          "Elegir psicologo no es facil. Y elegir al que no es el indicado puede hacerte perder tiempo, dinero y confianza."
+        </div>
+      </div>
+
+      <div class="block block-pres">
+        <div class="block-header">
+          [ PRESENTACION ]
+          <span class="block-timecode">0:08 – 0:16</span>
+        </div>
+        <div class="block-body">
+          "Soy Daniel Reyes, Doctor en Psicologia de la Universidad de Chile. Llevo mas de 20 anos acompanando a personas que quieren entender lo que les pasa y cambiar lo que no les funciona."
+        </div>
+      </div>
+
+      <div class="block block-dev">
+        <div class="block-header">
+          [ DESARROLLO ]
+          <span class="block-timecode">0:16 – 1:05</span>
+        </div>
+        <div class="block-body">
+          "Trabajo con terapia individual, de pareja y terapia sexual. Atiendo presencial en mi consultorio en Nunoa y online para todo Chile.<br><br>Mi enfoque es directo: desde la primera sesion definimos juntos que queremos lograr y como vamos a llegar. No es un proceso eterno ni un espacio donde solo se habla. Es un trabajo con objetivos claros.<br><br>El primer paso siempre es el mas dificil. Si estas listo, agenda tu primera consulta abajo."
+        </div>
+      </div>
+
+      <div class="block-quote">
+        <div class="block-quote-label">Frase fraseable — texto en pantalla (seg 40)</div>
+        <div class="block-quote-text">20 anos eligiendo sentarme frente a mis pacientes. Porque este trabajo importa.</div>
+      </div>
+
+      <div class="block block-visual">
+        <div class="block-header">
+          [ OVERLAYS / TEXTOS EN PANTALLA ]
+          <span class="block-timecode">Cronologia</span>
+        </div>
+        <div class="block-body">
+          <ul>
+            <li>0:00 — "Elegir psicologo no es facil." (HOOK, fuente grande)</li>
+            <li>0:08 — "Dr. Daniel Reyes" + "Doctor en Psicologia, U. de Chile"</li>
+            <li>0:20 — "20+ anos de experiencia clinica"</li>
+            <li>0:40 — "20 anos eligiendo sentarme frente a mis pacientes." (FRASE FRASEABLE)</li>
+            <li>Final — "Agenda tu primera consulta" + flecha hacia abajo</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="block block-cta">
+        <div class="block-header">
+          [ CTA ]
+          <span class="block-timecode">1:05 – 1:20</span>
+        </div>
+        <div class="block-body">
+          <span class="cta-type cta-strong">Captacion directa</span><br>
+          "Agenda tu primera consulta" + link al sitio / Calendly.
+        </div>
+      </div>
+
+      <div class="script-nav">
+        <button class="nav-btn" disabled>← Anterior</button>
+        <span class="nav-counter">1 / 6</span>
+        <button class="nav-btn" onclick="showScript(1)">Siguiente →</button>
+      </div>
+    </div>
+
+
+    <!-- ═══ GUION 02 — CUANDO BUSCAR AYUDA ════════════════ -->
+    <div class="script-section" id="script-1">
+      <div class="script-header">
+        <div class="script-number">GUION #02 DE 06</div>
+        <div class="script-title">Cuando buscar ayuda?</div>
+        <div class="script-meta">
+          <span class="tag tag-duration">60 seg</span>
+          <span class="tag tag-platform">Instagram Reels</span>
+          <span class="tag tag-platform">Meta Ads Awareness</span>
+          <span class="tag tag-purpose">Awareness · Conexion emocional</span>
+        </div>
+        <div class="script-purpose">Conectar con personas que estan dudando. Awareness puro.</div>
+      </div>
+
+      <div class="block block-hook">
+        <div class="block-header">
+          [ HOOK ]
+          <span class="block-timecode">0:00 – 0:07</span>
+        </div>
+        <div class="block-body">
+          "Si te estas preguntando si lo que sientes necesita ayuda profesional, probablemente ya sabes la respuesta."
+        </div>
+      </div>
+
+      <div class="block block-pres">
+        <div class="block-header">
+          [ PRESENTACION ]
+          <span class="block-timecode">0:07 – 0:13</span>
+        </div>
+        <div class="block-body">
+          "Soy Daniel Reyes, psicologo clinico. Y esa pregunta me la hacen todos los dias."
+        </div>
+      </div>
+
+      <div class="block block-dev">
+        <div class="block-header">
+          [ DESARROLLO + IDENTIFICACION ]
+          <span class="block-timecode">0:13 – 0:52</span>
+        </div>
+        <div class="block-body">
+          "No necesitas estar en crisis para buscar a un psicologo. A veces es esa sensacion constante de que algo no funciona. El insomnio que no para. La irritabilidad que no entiendes. Sentir que tu relacion se esta deteriorando y no sabes por que.<br><br>Llevas tiempo aguantando algo que podrias estar trabajando.<br><br>No tiene que ser dramatico. Muchas veces el mayor obstaculo no es el problema: es creer que todavia no es suficiente para pedir ayuda."
+        </div>
+      </div>
+
+      <div class="block-quote">
+        <div class="block-quote-label">Frase fraseable — texto en pantalla (seg 18)</div>
+        <div class="block-quote-text">No necesitas estar en crisis para pedir ayuda.</div>
+      </div>
+
+      <div class="block block-visual">
+        <div class="block-header">
+          [ OVERLAYS / TEXTOS EN PANTALLA ]
+          <span class="block-timecode">Cronologia</span>
+        </div>
+        <div class="block-body">
+          <ul>
+            <li>0:00 — "Si te lo estas preguntando, probablemente ya sabes la respuesta." (HOOK)</li>
+            <li>0:18 — "No necesitas estar en crisis para pedir ayuda." (FRASE FRASEABLE)</li>
+            <li>0:30 — "Llevas tiempo aguantando algo que podrias estar trabajando." (IDENTIFICACION)</li>
+            <li>Final — "Te identificas? Cuéntame en los comentarios" + icono de chat</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="block block-cta">
+        <div class="block-header">
+          [ CTA ]
+          <span class="block-timecode">0:52 – 1:00</span>
+        </div>
+        <div class="block-body">
+          <span class="cta-type cta-soft">Awareness — CTA suave</span><br>
+          "Te identificas? Cuéntame en los comentarios."<br>
+          <span style="color:var(--muted);font-size:12px">(Subtexto: "Link en la bio para agendar consulta.")</span>
+        </div>
+      </div>
+
+      <div class="script-nav">
+        <button class="nav-btn" onclick="showScript(0)">← Anterior</button>
+        <span class="nav-counter">2 / 6</span>
+        <button class="nav-btn" onclick="showScript(2)">Siguiente →</button>
+      </div>
+    </div>
+
+
+    <!-- ═══ GUION 03 — TERAPIA DE PAREJA ══════════════════ -->
+    <div class="script-section" id="script-2">
+      <div class="script-header">
+        <div class="script-number">GUION #03 DE 06</div>
+        <div class="script-title">Terapia de pareja</div>
+        <div class="script-meta">
+          <span class="tag tag-duration">45 – 60 seg</span>
+          <span class="tag tag-platform">Meta Ads Pareja</span>
+          <span class="tag tag-platform">Instagram Reels</span>
+          <span class="tag tag-purpose">Captacion · Desmontar mito</span>
+        </div>
+        <div class="script-purpose">Desmontar la idea de que terapia de pareja es el ultimo recurso.</div>
+      </div>
+
+      <div class="block block-hook">
+        <div class="block-header">
+          [ HOOK ]
+          <span class="block-timecode">0:00 – 0:06</span>
+        </div>
+        <div class="block-body">
+          "Las parejas no llegan rotas a terapia. Llegan tarde."
+        </div>
+      </div>
+
+      <div class="block block-pres">
+        <div class="block-header">
+          [ PRESENTACION ]
+          <span class="block-timecode">0:06 – 0:12</span>
+        </div>
+        <div class="block-body">
+          "Soy Daniel Reyes, psicologo clinico especializado en terapia de pareja."
+        </div>
+      </div>
+
+      <div class="block block-dev">
+        <div class="block-header">
+          [ DESARROLLO + IDENTIFICACION ]
+          <span class="block-timecode">0:12 – 0:48</span>
+        </div>
+        <div class="block-body">
+          "Lo mas comun que escucho es: 'llegamos cuando ya no habia casi nada'. Y la mayoria de las veces, el problema empezo anos antes: con una distancia que se fue instalando de a poco, con conversaciones que antes fluian y ahora terminan en pelea, con la sensacion de estar juntos pero solos.<br><br>La terapia de pareja no es el ultimo recurso. Es una inversion en lo que mas importa.<br><br>Les doy herramientas concretas para comunicarse mejor, entender lo que le pasa al otro y reconstruir la conexion. Desde la primera sesion ya se van con algo practico.<br><br>Lo peor que puede pasar es que descubran que estan mejor de lo que creen."
+        </div>
+      </div>
+
+      <div class="block-quote">
+        <div class="block-quote-label">Frase fraseable — hook inicial + texto en pantalla</div>
+        <div class="block-quote-text">Las parejas no llegan rotas a terapia… llegan tarde.</div>
+      </div>
+
+      <div class="block block-visual">
+        <div class="block-header">
+          [ OVERLAYS / TEXTOS EN PANTALLA ]
+          <span class="block-timecode">Cronologia</span>
+        </div>
+        <div class="block-body">
+          <ul>
+            <li>0:00 — "Las parejas no llegan rotas a terapia… llegan tarde." (HOOK + FRASE FRASEABLE)</li>
+            <li>0:15 — "No es el ultimo recurso." (enfasis visual)</li>
+            <li>0:35 — "Herramientas concretas desde la sesion 1"</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="block block-cta">
+        <div class="block-header">
+          [ CTA ]
+          <span class="block-timecode">0:48 – 1:00</span>
+        </div>
+        <div class="block-body">
+          <span class="cta-type cta-strong">Captacion directa</span><br>
+          "Agenda una consulta de pareja. Presencial en Nunoa u online para todo Chile."
+        </div>
+      </div>
+
+      <div class="script-nav">
+        <button class="nav-btn" onclick="showScript(1)">← Anterior</button>
+        <span class="nav-counter">3 / 6</span>
+        <button class="nav-btn" onclick="showScript(3)">Siguiente →</button>
+      </div>
+    </div>
+
+
+    <!-- ═══ GUION 04 — ONLINE PARA TODO CHILE ════════════ -->
+    <div class="script-section" id="script-3">
+      <div class="script-header">
+        <div class="script-number">GUION #04 DE 06</div>
+        <div class="script-title">Online para todo Chile</div>
+        <div class="script-meta">
+          <span class="tag tag-duration">30 seg</span>
+          <span class="tag tag-platform">Meta Ads Todo Chile</span>
+          <span class="tag tag-platform">Instagram Stories</span>
+          <span class="tag tag-purpose">Captacion · Cobertura nacional</span>
+        </div>
+        <div class="script-purpose">Captar pacientes fuera de Santiago. Terapia online igual de efectiva.</div>
+      </div>
+
+      <div class="block block-hook">
+        <div class="block-header">
+          [ HOOK ]
+          <span class="block-timecode">0:00 – 0:05</span>
+        </div>
+        <div class="block-body">
+          "No estar en Santiago ya no es excusa para no ir a terapia."
+        </div>
+      </div>
+
+      <div class="block block-pres">
+        <div class="block-header">
+          [ PRESENTACION ]
+          <span class="block-timecode">0:05 – 0:10</span>
+        </div>
+        <div class="block-body">
+          "Soy Daniel Reyes y atiendo online a personas en todo Chile: desde Arica a Punta Arenas."
+        </div>
+      </div>
+
+      <div class="block block-dev">
+        <div class="block-header">
+          [ DESARROLLO ]
+          <span class="block-timecode">0:10 – 0:25</span>
+        </div>
+        <div class="block-body">
+          "La evidencia clinica muestra que la terapia por videollamada funciona igual de bien que la presencial. Lo unico que necesitas es un espacio tranquilo, buena conexion y ganas de trabajar en ti. El resto lo ponemos nosotros."
+        </div>
+      </div>
+
+      <div class="block-quote">
+        <div class="block-quote-label">Frase fraseable — hook + texto en pantalla</div>
+        <div class="block-quote-text">No estar en Santiago ya no es excusa para no ir a terapia.</div>
+      </div>
+
+      <div class="block block-visual">
+        <div class="block-header">
+          [ OVERLAYS / TEXTOS EN PANTALLA ]
+          <span class="block-timecode">Cronologia</span>
+        </div>
+        <div class="block-body">
+          <ul>
+            <li>0:00 — "No estar en Santiago ya no es excusa." (HOOK, fuente grande)</li>
+            <li>0:05 — "Atencion online para TODO Chile"</li>
+            <li>0:12 — "Desde Arica a Punta Arenas"</li>
+            <li>Final — "Agenda tu sesion online"</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="block block-cta">
+        <div class="block-header">
+          [ CTA ]
+          <span class="block-timecode">0:25 – 0:30</span>
+        </div>
+        <div class="block-body">
+          <span class="cta-type cta-strong">Captacion directa</span><br>
+          "Agenda tu primera consulta online." + link.
+        </div>
+      </div>
+
+      <div class="script-nav">
+        <button class="nav-btn" onclick="showScript(2)">← Anterior</button>
+        <span class="nav-counter">4 / 6</span>
+        <button class="nav-btn" onclick="showScript(4)">Siguiente →</button>
+      </div>
+    </div>
+
+
+    <!-- ═══ GUION 05 — TERAPIA SEXUAL ════════════════════ -->
+    <div class="script-section" id="script-4">
+      <div class="script-header">
+        <div class="script-number">GUION #05 DE 06</div>
+        <div class="script-title">Terapia sexual</div>
+        <div class="script-meta">
+          <span class="tag tag-duration">60 seg</span>
+          <span class="tag tag-platform">LinkedIn</span>
+          <span class="tag tag-platform">Instagram Reels</span>
+          <span class="tag tag-purpose">Educativo · Desmitificar</span>
+        </div>
+        <div class="script-purpose">Desmitificar la terapia sexual. Posicionar a Daniel como especialista.</div>
+      </div>
+
+      <div class="block block-hook">
+        <div class="block-header">
+          [ HOOK ]
+          <span class="block-timecode">0:00 – 0:08</span>
+        </div>
+        <div class="block-body">
+          "Hay algo que muchas personas llevan anos sin hablarle a nadie. Ni a su pareja. Ni a su medico. Y mucho menos a un psicologo."
+        </div>
+      </div>
+
+      <div class="block block-pres">
+        <div class="block-header">
+          [ PRESENTACION ]
+          <span class="block-timecode">0:08 – 0:14</span>
+        </div>
+        <div class="block-body">
+          "Soy Daniel Reyes, psicologo clinico especializado en sexologia."
+        </div>
+      </div>
+
+      <div class="block block-dev">
+        <div class="block-header">
+          [ DESARROLLO ]
+          <span class="block-timecode">0:14 – 0:52</span>
+        </div>
+        <div class="block-body">
+          "La terapia sexologica sigue siendo uno de los grandes tabues en salud mental. Y eso tiene un costo enorme: personas que sufren en silencio durante anos por problemas que tienen solucion concreta.<br><br>Problemas de deseo, disfunciones sexuales, dolor, dificultades con la intimidad. La mayoria de estos problemas tienen abordaje clinico efectivo. No es magia ni es eterno. Es un proceso terapeutico con herramientas especificas.<br><br>Si hay algo que llevas tiempo evitando, este es un espacio seguro para hablarlo. No necesitas estar listo. Solo necesitas dar el primer paso."
+        </div>
+      </div>
+
+      <div class="block-quote">
+        <div class="block-quote-label">Frase fraseable — texto en pantalla (seg 38)</div>
+        <div class="block-quote-text">Hay cosas que llevan anos sin hablarse. Aqui es donde se hablan.</div>
+      </div>
+
+      <div class="block block-visual">
+        <div class="block-header">
+          [ OVERLAYS / TEXTOS EN PANTALLA ]
+          <span class="block-timecode">Cronologia</span>
+        </div>
+        <div class="block-body">
+          <ul>
+            <li>0:00 — "Hay algo que muchas personas llevan anos sin hablarle a nadie." (HOOK)</li>
+            <li>0:22 — "Problemas con solucion clinica."</li>
+            <li>0:38 — "Aqui es donde se hablan." (FRASE FRASEABLE)</li>
+            <li>Final — "Guarda este video si lo necesitas."</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="block block-cta">
+        <div class="block-header">
+          [ CTA ]
+          <span class="block-timecode">0:52 – 1:00</span>
+        </div>
+        <div class="block-body">
+          <span class="cta-type cta-soft">Awareness — CTA suave</span><br>
+          "Guarda este video. Y cuando estes listo, link en la bio."
+        </div>
+      </div>
+
+      <div class="script-nav">
+        <button class="nav-btn" onclick="showScript(3)">← Anterior</button>
+        <span class="nav-counter">5 / 6</span>
+        <button class="nav-btn" onclick="showScript(5)">Siguiente →</button>
+      </div>
+    </div>
+
+
+    <!-- ═══ GUION 06 — CREDENCIALES ═══════════════════════ -->
+    <div class="script-section" id="script-5">
+      <div class="script-header">
+        <div class="script-number">GUION #06 DE 06</div>
+        <div class="script-title">Credenciales — Por que confiar</div>
+        <div class="script-meta">
+          <span class="tag tag-duration">60 – 90 seg</span>
+          <span class="tag tag-platform">LinkedIn</span>
+          <span class="tag tag-platform">Meta Ads Retargeting</span>
+          <span class="tag tag-platform">Landing Page</span>
+          <span class="tag tag-purpose">Autoridad · Consideracion</span>
+        </div>
+        <div class="script-purpose">Posicionar la autoridad de Daniel. Diferenciador vs. competencia.</div>
+      </div>
+
+      <div class="block block-hook">
+        <div class="block-header">
+          [ HOOK ]
+          <span class="block-timecode">0:00 – 0:08</span>
+        </div>
+        <div class="block-body">
+          "Despues de 20 anos atendiendo pacientes, esto es lo que aprendes: que los titulos importan, pero no lo son todo."
+        </div>
+      </div>
+
+      <div class="block block-pres">
+        <div class="block-header">
+          [ PRESENTACION ]
+          <span class="block-timecode">0:08 – 0:16</span>
+        </div>
+        <div class="block-body">
+          "Soy Daniel Reyes. Soy Doctor en Psicologia de la Universidad de Chile. Eso no es solo un titulo: son anos de investigacion, de formacion clinica avanzada y de aprender a distinguir lo que funciona de lo que no."
+        </div>
+      </div>
+
+      <div class="block block-dev">
+        <div class="block-header">
+          [ DESARROLLO ]
+          <span class="block-timecode">0:16 – 1:05</span>
+        </div>
+        <div class="block-body">
+          "He atendido a cientos de personas en Santiago y en regiones. He trabajado como consultor en contextos internacionales y me he especializado en tres areas que muy pocos cubren juntas: terapia individual, de pareja y sexual.<br><br>Pero lo que realmente me diferencia no es un titulo. Es que despues de 20 anos sigo eligiendo sentarme frente a mis pacientes. Porque este trabajo importa.<br><br>Si quieres trabajar con alguien que tiene la experiencia, la formacion y la vocacion, agenda una consulta. La primera sesion es de evaluacion: ahi decidimos juntos si soy el profesional adecuado para ti."
+        </div>
+      </div>
+
+      <div class="block-quote">
+        <div class="block-quote-label">Frase fraseable — texto en pantalla (seg 45)</div>
+        <div class="block-quote-text">Los titulos importan. Pero despues de 20 anos, lo que queda es la vocacion.</div>
+      </div>
+
+      <div class="block block-visual">
+        <div class="block-header">
+          [ OVERLAYS / TEXTOS EN PANTALLA ]
+          <span class="block-timecode">Cronologia</span>
+        </div>
+        <div class="block-body">
+          <ul>
+            <li>0:00 — "Despues de 20 anos, esto es lo que aprendes." (HOOK)</li>
+            <li>0:12 — "PhD Psicologia — Universidad de Chile" + icono diploma</li>
+            <li>0:24 — "20+ anos de experiencia clinica"</li>
+            <li>0:30 — "Consultor internacional"</li>
+            <li>0:45 — "Los titulos importan. Pero lo que queda es la vocacion." (FRASE FRASEABLE)</li>
+            <li>Final — "Agenda tu primera consulta"</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="block block-cta">
+        <div class="block-header">
+          [ CTA ]
+          <span class="block-timecode">1:05 – 1:25</span>
+        </div>
+        <div class="block-body">
+          <span class="cta-type cta-strong">Captacion directa</span><br>
+          "Agenda tu primera consulta. La primera sesion es de evaluacion: ahi decidimos juntos."
+        </div>
+      </div>
+
+      <div class="script-nav">
+        <button class="nav-btn" onclick="showScript(4)">← Anterior</button>
+        <span class="nav-counter">6 / 6</span>
+        <button class="nav-btn" disabled>Siguiente →</button>
+      </div>
+    </div>
+
+  </div><!-- /content -->
+</div><!-- /main -->
+
+
+<script>
+  const titles = [
+    ['#01', 'Presentacion'],
+    ['#02', 'Cuando buscar ayuda'],
+    ['#03', 'Terapia de pareja'],
+    ['#04', 'Online para todo Chile'],
+    ['#05', 'Terapia sexual'],
+    ['#06', 'Credenciales'],
+  ];
+
+  let currentScript = 0;
+
+  function showScript(index) {
+    // Hide all
+    document.querySelectorAll('.script-section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+
+    // Show target
+    document.getElementById('script-' + index).classList.add('active');
+    document.querySelectorAll('.nav-item')[index].classList.add('active');
+
+    // Update topbar
+    document.getElementById('topbar-script-num').textContent = 'GUION ' + titles[index][0];
+    document.getElementById('topbar-script-title').textContent = titles[index][1];
+
+    currentScript = index;
+
+    // Scroll to top of content
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    return false;
+  }
+
+  function printScript() {
+    window.print();
+  }
+
+  function toggleSidebar() {
+    const sb = document.getElementById('sidebar');
+    const isVisible = sb.style.display !== 'none' && sb.style.display !== '';
+    if (isVisible) {
+      sb.style.display = 'none';
+    } else {
+      sb.style.display = 'flex';
+    }
+  }
+
+  // Keyboard navigation
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowRight' && currentScript < 5) showScript(currentScript + 1);
+    if (e.key === 'ArrowLeft'  && currentScript > 0) showScript(currentScript - 1);
+  });
+</script>
+
+</body>
+</html>
