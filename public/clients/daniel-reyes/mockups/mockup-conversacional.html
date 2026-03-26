@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dr. Daniel Reyes — Psicologia Clinica Chile</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --cream: #FAFAF8;
+      --warm-bg: #F5F3EE;
+      --warm-card: #FFFFFE;
+      --text: #2D2A26;
+      --text-light: #6B6560;
+      --text-muted: #9C9590;
+      --blue: #8bb6d9;
+      --blue-dark: #5a8db8;
+      --blue-deeper: #2c6a96;
+      --orange: #e85a2b;
+      --orange-light: rgba(232,90,43,0.08);
+      --blue-light: rgba(139,182,217,0.1);
+      --border: #E8E4DF;
+      --border-light: #F0EDE8;
+      --radius: 16px;
+      --radius-sm: 10px;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.02);
+      --shadow-md: 0 4px 16px rgba(0,0,0,0.06), 0 1px 4px rgba(0,0,0,0.03);
+      --shadow-lg: 0 12px 40px rgba(0,0,0,0.08);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      color: var(--text);
+      background: var(--cream);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ===== NAV ===== */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(250,250,248,0.9);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-light);
+      padding: 0 24px;
+    }
+    .nav-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+    .nav-brand {
+      font-weight: 700;
+      font-size: 17px;
+      color: var(--text);
+      text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 24px; align-items: center; }
+    .nav-links a {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-light);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nav-cta-link {
+      background: var(--orange) !important;
+      color: white !important;
+      padding: 8px 18px !important;
+      border-radius: 10px !important;
+      font-weight: 600 !important;
+    }
+
+    @media (max-width: 768px) {
+      .nav-links a:not(.nav-cta-link) { display: none; }
+    }
+
+    /* ===== MAIN CONTENT COLUMN ===== */
+    .content-col {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    .wide-col {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ===== HERO / INTRO ===== */
+    .hero {
+      padding: 120px 24px 60px;
+      text-align: center;
+    }
+    .hero-inner { max-width: 720px; margin: 0 auto; }
+    .hero-photo {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      margin: 0 auto 28px;
+      border: 3px solid var(--blue);
+      background: var(--warm-bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      font-size: 12px;
+      text-align: center;
+    }
+    .hero-greeting {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--blue-dark);
+      margin-bottom: 12px;
+      letter-spacing: 0.02em;
+    }
+    .hero h1 {
+      font-size: clamp(28px, 4.5vw, 44px);
+      font-weight: 800;
+      color: var(--text);
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin-bottom: 24px;
+    }
+
+    /* ===== PERSONAL INTRO ===== */
+    .personal-intro {
+      padding: 20px 24px 60px;
+    }
+    .speech-bubble {
+      background: var(--warm-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 36px 32px;
+      position: relative;
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 32px;
+    }
+    .speech-bubble::before {
+      content: '';
+      position: absolute;
+      top: -10px;
+      left: 48px;
+      width: 20px;
+      height: 20px;
+      background: var(--warm-card);
+      border-left: 1px solid var(--border);
+      border-top: 1px solid var(--border);
+      transform: rotate(45deg);
+    }
+    .speech-text {
+      font-size: 17px;
+      color: var(--text);
+      line-height: 1.85;
+    }
+    .speech-text strong { color: var(--blue-deeper); font-weight: 700; }
+    .speech-author {
+      margin-top: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .speech-author-photo {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: var(--blue-light);
+      border: 2px solid var(--blue);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9px;
+      color: var(--text-muted);
+    }
+    .speech-author-name { font-size: 14px; font-weight: 600; color: var(--text); }
+    .speech-author-title { font-size: 12px; color: var(--text-muted); }
+
+    /* ===== SECTION STYLES ===== */
+    .section { padding: 60px 24px; }
+    .section-warm { background: var(--warm-bg); }
+    .section-blue { background: linear-gradient(180deg, rgba(139,182,217,0.08) 0%, var(--cream) 100%); }
+
+    .conv-header {
+      margin-bottom: 40px;
+    }
+    .conv-label {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--blue-dark);
+      margin-bottom: 8px;
+    }
+    .conv-title {
+      font-size: clamp(24px, 3.5vw, 36px);
+      font-weight: 800;
+      color: var(--text);
+      line-height: 1.2;
+      letter-spacing: -0.01em;
+    }
+    .conv-subtitle {
+      font-size: 16px;
+      color: var(--text-light);
+      margin-top: 12px;
+      line-height: 1.7;
+    }
+
+    /* ===== WHEN TO SEEK HELP ===== */
+    .signs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+    }
+    .sign-card {
+      background: var(--warm-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.25s;
+    }
+    .sign-card:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+    }
+    .sign-icon {
+      width: 44px; height: 44px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 20px;
+    }
+    .sign-icon.blue { background: var(--blue-light); }
+    .sign-icon.orange { background: var(--orange-light); }
+    .sign-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+    .sign-desc {
+      font-size: 14px;
+      color: var(--text-light);
+      line-height: 1.6;
+    }
+
+    /* ===== SERVICES CONVERSATIONAL ===== */
+    .service-conv {
+      background: var(--warm-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 20px;
+      transition: box-shadow 0.25s;
+    }
+    .service-conv:hover { box-shadow: var(--shadow-md); }
+    .service-conv-header {
+      padding: 28px 28px 0;
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+    .service-conv-icon {
+      width: 52px; height: 52px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 24px;
+    }
+    .service-conv:nth-child(1) .service-conv-icon { background: var(--blue-light); }
+    .service-conv:nth-child(2) .service-conv-icon { background: var(--orange-light); }
+    .service-conv:nth-child(3) .service-conv-icon { background: rgba(139,182,217,0.15); }
+    .service-conv-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+    .service-conv-price {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--blue-deeper);
+    }
+    .service-conv-body {
+      padding: 16px 28px 28px;
+    }
+    .service-conv-text {
+      font-size: 15px;
+      color: var(--text-light);
+      line-height: 1.75;
+    }
+    .service-conv-image {
+      width: 100%;
+      height: 200px;
+      background: var(--warm-bg);
+      border-top: 1px solid var(--border-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      font-size: 12px;
+    }
+
+    /* ===== TESTIMONIALS ===== */
+    .testimonial-featured {
+      background: var(--warm-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 40px 36px;
+      box-shadow: var(--shadow-md);
+      margin-bottom: 24px;
+      position: relative;
+    }
+    .testimonial-featured::before {
+      content: '\201C';
+      position: absolute;
+      top: 16px; left: 24px;
+      font-size: 64px;
+      color: var(--blue);
+      opacity: 0.3;
+      font-family: Georgia, serif;
+      line-height: 1;
+    }
+    .testimonial-quote {
+      font-size: 19px;
+      color: var(--text);
+      line-height: 1.8;
+      font-style: italic;
+      margin-bottom: 20px;
+      position: relative;
+      z-index: 1;
+    }
+    .testimonial-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .testimonial-avatar {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      background: var(--blue-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--blue-deeper);
+    }
+    .testimonial-name { font-size: 15px; font-weight: 600; color: var(--text); }
+    .testimonial-detail { font-size: 13px; color: var(--text-muted); }
+    .testimonial-stars {
+      color: #fbbf24;
+      font-size: 14px;
+      letter-spacing: 2px;
+      margin-bottom: 16px;
+    }
+
+    .testimonials-small-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+    }
+    .testi-small {
+      background: var(--warm-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 24px;
+      box-shadow: var(--shadow-sm);
+    }
+    .testi-small .testimonial-quote {
+      font-size: 15px;
+      margin-bottom: 16px;
+    }
+
+    /* ===== FAQ CONVERSATIONAL ===== */
+    .faq-conv {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    .faq-item {
+      background: var(--warm-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      margin-bottom: 12px;
+      overflow: hidden;
+    }
+    .faq-q {
+      padding: 20px 24px;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .faq-q::before {
+      content: 'P:';
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--orange);
+      background: var(--orange-light);
+      padding: 4px 8px;
+      border-radius: 6px;
+      flex-shrink: 0;
+    }
+    .faq-a {
+      padding: 0 24px 20px 24px;
+      margin-left: 48px;
+      font-size: 15px;
+      color: var(--text-light);
+      line-height: 1.75;
+    }
+    .faq-a::before {
+      content: 'R: ';
+      font-weight: 700;
+      color: var(--blue-deeper);
+    }
+
+    /* ===== PRICING TRANSPARENT ===== */
+    .pricing-table {
+      background: var(--warm-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+    .pricing-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 28px;
+      border-bottom: 1px solid var(--border-light);
+    }
+    .pricing-row:last-child { border-bottom: none; }
+    .pricing-row-type {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .pricing-row-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+    .pricing-row-amount {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--blue-deeper);
+      text-align: right;
+      white-space: nowrap;
+    }
+    .pricing-note {
+      padding: 16px 28px;
+      background: var(--blue-light);
+      font-size: 14px;
+      color: var(--text-light);
+      text-align: center;
+    }
+
+    /* ===== ISAPRES ===== */
+    .isapre-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      margin-top: 24px;
+    }
+    .isapre-badge {
+      background: var(--warm-card);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 8px 20px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-light);
+    }
+
+    /* ===== CTA SECTION ===== */
+    .cta-warm {
+      background: var(--warm-card);
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      padding: 48px 36px;
+      text-align: center;
+      box-shadow: var(--shadow-lg);
+    }
+    .cta-warm h2 {
+      font-size: clamp(24px, 3vw, 32px);
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 12px;
+    }
+    .cta-warm p {
+      font-size: 16px;
+      color: var(--text-light);
+      max-width: 480px;
+      margin: 0 auto 32px;
+    }
+    .cta-buttons {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    /* ===== BUTTONS ===== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      border-radius: 12px;
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-primary { background: var(--blue-dark); color: white; }
+    .btn-primary:hover { background: var(--blue-deeper); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(90,141,184,0.3); }
+    .btn-orange { background: var(--orange); color: white; }
+    .btn-orange:hover { background: #d04e22; transform: translateY(-1px); }
+    .btn-outline { background: transparent; color: var(--text); border: 1.5px solid var(--border); }
+    .btn-outline:hover { border-color: var(--text-light); background: var(--warm-bg); }
+    .btn-whatsapp { background: #25D366; color: white; }
+    .btn-whatsapp:hover { background: #1fb855; }
+
+    /* ===== CONTACT FORM ===== */
+    .form-warm {
+      background: var(--warm-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 40px 32px;
+      box-shadow: var(--shadow-sm);
+      max-width: 520px;
+      margin: 0 auto;
+    }
+    .form-warm-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+    .form-warm-sub {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 28px;
+    }
+    .fg { margin-bottom: 16px; }
+    .fg label {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+    .fg input, .fg textarea, .fg select {
+      width: 100%;
+      padding: 13px 16px;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      color: var(--text);
+      background: var(--cream);
+      transition: all 0.2s;
+    }
+    .fg input:focus, .fg textarea:focus, .fg select:focus {
+      outline: none;
+      border-color: var(--blue-dark);
+      box-shadow: 0 0 0 3px rgba(139,182,217,0.15);
+      background: white;
+    }
+    .fg textarea { resize: vertical; min-height: 80px; }
+    .form-submit {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 12px;
+      background: var(--blue-dark);
+      color: white;
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+      margin-top: 8px;
+    }
+    .form-submit:hover { background: var(--blue-deeper); }
+
+    /* ===== FOOTER ===== */
+    .footer {
+      background: var(--text);
+      color: rgba(255,255,255,0.5);
+      padding: 48px 24px;
+      text-align: center;
+    }
+    .footer strong { color: white; }
+    .footer-links {
+      margin-top: 16px;
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+    }
+    .footer-links a {
+      font-size: 13px;
+      color: rgba(255,255,255,0.4);
+      text-decoration: none;
+    }
+    .footer-links a:hover { color: white; }
+
+    /* ===== STICKY MOBILE CTA ===== */
+    .sticky-cta {
+      display: none;
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      z-index: 90;
+      background: rgba(250,250,248,0.95);
+      backdrop-filter: blur(12px);
+      border-top: 1px solid var(--border);
+      padding: 12px 16px;
+    }
+    .sticky-cta-inner { display: flex; gap: 8px; max-width: 480px; margin: 0 auto; }
+    .sticky-cta .btn { flex: 1; justify-content: center; padding: 12px 16px; font-size: 14px; }
+
+    @media (max-width: 768px) {
+      .sticky-cta { display: block; }
+      body { padding-bottom: 72px; }
+      .section { padding: 48px 20px; }
+      .hero { padding: 100px 20px 48px; }
+      .signs-grid { grid-template-columns: 1fr; }
+      .testimonials-small-grid { grid-template-columns: 1fr; }
+      .pricing-row { flex-direction: column; align-items: flex-start; gap: 8px; }
+      .pricing-row-amount { text-align: left; }
+    }
+
+    /* ===== IMG PLACEHOLDER ===== */
+    .img-placeholder {
+      background: var(--warm-bg);
+      border: 2px dashed var(--border);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      font-size: 12px;
+      font-weight: 500;
+      text-align: center;
+      padding: 16px;
+    }
+
+    .divider {
+      width: 60px;
+      height: 3px;
+      background: var(--blue);
+      border-radius: 2px;
+      margin: 0 auto 40px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="#" class="nav-brand">Dr. Daniel Reyes</a>
+      <div class="nav-links">
+        <a href="#servicios">Servicios</a>
+        <a href="#testimonios">Testimonios</a>
+        <a href="#tarifas">Tarifas</a>
+        <a href="#faq">FAQ</a>
+        <a href="#contacto" class="nav-cta-link">Agendar</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-inner">
+      <img src="../photos/headshot-professional.png" alt="Dr. Daniel Reyes" class="hero-photo" style="object-fit:cover;">
+      <div class="hero-greeting">Hola, soy Daniel</div>
+      <h1>Llevo mas de 20 anos acompanando a personas que quieren entender lo que les pasa.</h1>
+    </div>
+  </section>
+
+  <!-- PERSONAL INTRO (DANIEL SPEAKS) -->
+  <section class="personal-intro">
+    <div class="content-col">
+      <div class="speech-bubble">
+        <p class="speech-text">
+          Soy <strong>Doctor en Psicologia de la Universidad de Chile</strong> y trabajo como psicologo clinico desde hace mas de dos decadas. He atendido a cientos de personas en terapia individual, de pareja y sexual.
+          <br><br>
+          Lo que me motiva sigue siendo lo mismo que el primer dia: ayudarte a entender lo que sientes y a cambiar lo que no te funciona. No con frases bonitas, sino con herramientas concretas.
+          <br><br>
+          Si estas leyendo esto, probablemente ya sabes que necesitas ayuda. <strong>El primer paso es el mas dificil. Pero no tienes que darlo solo.</strong>
+        </p>
+        <div class="speech-author">
+          <img src="../photos/headshot-professional.png" alt="DR" style="width:40px;height:40px;border-radius:50%;object-fit:cover;border:2px solid var(--blue);">
+          <div>
+            <div class="speech-author-name">Dr. Daniel Reyes Pace</div>
+            <div class="speech-author-title">PhD Psicologia, U. de Chile &middot; 20+ anos &middot; Nunoa + Online</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHEN TO SEEK HELP -->
+  <section class="section section-warm">
+    <div class="wide-col">
+      <div class="conv-header" style="text-align:center;">
+        <div class="conv-label">Cuando buscar ayuda</div>
+        <h2 class="conv-title">No necesitas estar en crisis<br>para pedir ayuda profesional.</h2>
+        <p class="conv-subtitle">Estas son algunas senales de que una conversacion conmigo podria ayudarte:</p>
+      </div>
+      <div class="signs-grid">
+        <div class="sign-card">
+          <div class="sign-icon blue">&#128148;</div>
+          <div>
+            <div class="sign-title">Tu relacion de pareja no va bien</div>
+            <div class="sign-desc">Sientes que se estan distanciando, que pelean por todo o que la comunicacion se rompio.</div>
+          </div>
+        </div>
+        <div class="sign-card">
+          <div class="sign-icon orange">&#128561;</div>
+          <div>
+            <div class="sign-title">Ansiedad que no para</div>
+            <div class="sign-desc">Preocupacion constante, insomnio, tension que no logras soltar ni cuando descansas.</div>
+          </div>
+        </div>
+        <div class="sign-card">
+          <div class="sign-icon blue">&#128546;</div>
+          <div>
+            <div class="sign-title">Tristeza persistente</div>
+            <div class="sign-desc">Falta de energia, desmotivacion, sensacion de que nada tiene sentido o de que estas estancado.</div>
+          </div>
+        </div>
+        <div class="sign-card">
+          <div class="sign-icon orange">&#128584;</div>
+          <div>
+            <div class="sign-title">Problemas de sexualidad</div>
+            <div class="sign-desc">Disfunciones, falta de deseo, temas que llevas anos evitando y que tienen solucion clinica.</div>
+          </div>
+        </div>
+        <div class="sign-card">
+          <div class="sign-icon blue">&#128556;</div>
+          <div>
+            <div class="sign-title">Un duelo que no cierra</div>
+            <div class="sign-desc">Perdida de alguien importante, separacion, cambio de vida que aun no logras procesar.</div>
+          </div>
+        </div>
+        <div class="sign-card">
+          <div class="sign-icon orange">&#129300;</div>
+          <div>
+            <div class="sign-title">No sabes que te pasa</div>
+            <div class="sign-desc">Sientes que algo no funciona pero no sabes que es. Eso tambien es razon suficiente para consultar.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="section" id="servicios">
+    <div class="content-col">
+      <div class="conv-header" style="text-align:center;">
+        <div class="conv-label">Servicios</div>
+        <h2 class="conv-title">Tres formas de trabajar juntos</h2>
+        <p class="conv-subtitle">Cada proceso es distinto. Estos son los tres tipos de consulta que ofrezco:</p>
+      </div>
+
+      <div class="service-conv">
+        <div class="service-conv-header">
+          <div class="service-conv-icon">&#128100;</div>
+          <div>
+            <div class="service-conv-title">Terapia Individual</div>
+            <div class="service-conv-price">$50.000 - $60.000 CLP / sesion</div>
+          </div>
+        </div>
+        <div class="service-conv-body">
+          <p class="service-conv-text">Para ansiedad, depresion, estres, duelos, autoestima y desarrollo personal. Trabajamos con objetivos claros desde la primera sesion. No es un proceso eterno: la idea es que logres tus objetivos y puedas seguir sin mi.</p>
+        </div>
+        <div class="service-conv-image" style="padding:0;border:none;"><img src="../photos/consultation-session.png" alt="Terapia Individual" style="width:100%;height:200px;object-fit:cover;display:block;"></div>
+      </div>
+
+      <div class="service-conv">
+        <div class="service-conv-header">
+          <div class="service-conv-icon">&#128107;</div>
+          <div>
+            <div class="service-conv-title">Terapia de Pareja</div>
+            <div class="service-conv-price">$70.000 - $80.000 CLP / sesion</div>
+          </div>
+        </div>
+        <div class="service-conv-body">
+          <p class="service-conv-text">Las parejas que llegan a terapia no llegan rotas. Llegan antes de romperse. Trabajamos la comunicacion, los patrones de conflicto y la reconexion emocional. Herramientas concretas desde la primera sesion.</p>
+        </div>
+        <div class="service-conv-image" style="padding:0;border:none;"><img src="../photos/couples-therapy-room.png" alt="Terapia de Pareja" style="width:100%;height:200px;object-fit:cover;display:block;"></div>
+      </div>
+
+      <div class="service-conv">
+        <div class="service-conv-header">
+          <div class="service-conv-icon">&#10084;&#65039;</div>
+          <div>
+            <div class="service-conv-title">Terapia Sexual</div>
+            <div class="service-conv-price">$50.000 - $60.000 CLP / sesion</div>
+          </div>
+        </div>
+        <div class="service-conv-body">
+          <p class="service-conv-text">La terapia sexologica sigue siendo uno de los grandes tabues en salud mental. Y eso tiene un costo enorme: personas que sufren en silencio durante anos por problemas que tienen solucion concreta. Disfunciones, deseo, identidad y salud sexual.</p>
+        </div>
+        <div class="service-conv-image" style="padding:0;border:none;"><img src="../photos/waiting-room.png" alt="Terapia Sexual" style="width:100%;height:200px;object-fit:cover;display:block;"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="section section-blue" id="testimonios">
+    <div class="wide-col">
+      <div class="conv-header" style="text-align:center;">
+        <div class="conv-label">Testimonios</div>
+        <h2 class="conv-title">Lo que dicen quienes<br>han pasado por consulta</h2>
+      </div>
+      <div class="divider"></div>
+
+      <!-- Featured testimonial -->
+      <div class="content-col" style="padding:0;">
+        <div class="testimonial-featured">
+          <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="testimonial-quote">"Llegue en un momento muy dificil y Daniel supo acogerme con profesionalismo y calidez. Me ayudo a entender patrones que repetia sin darme cuenta. Totalmente recomendado."</p>
+          <div class="testimonial-meta">
+            <div class="testimonial-avatar">CM</div>
+            <div>
+              <div class="testimonial-name">Carolina M.</div>
+              <div class="testimonial-detail">Terapia individual, 8 meses</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonials-small-grid" style="margin-top:24px;">
+        <div class="testi-small">
+          <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="testimonial-quote">"La terapia de pareja con Daniel fue un antes y un despues para nosotros. Nos dio herramientas concretas desde la primera sesion. Hoy nos comunicamos mucho mejor."</p>
+          <div class="testimonial-meta">
+            <div class="testimonial-avatar">RC</div>
+            <div>
+              <div class="testimonial-name">Rodrigo y Camila</div>
+              <div class="testimonial-detail">Terapia de pareja, 6 meses</div>
+            </div>
+          </div>
+        </div>
+        <div class="testi-small">
+          <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="testimonial-quote">"Busque un psicologo para tratar ansiedad y Daniel fue la mejor decision que pude tomar. Su enfoque es directo, profesional y humano. Senti confianza desde el primer dia."</p>
+          <div class="testimonial-meta">
+            <div class="testimonial-avatar">FA</div>
+            <div>
+              <div class="testimonial-name">Felipe A.</div>
+              <div class="testimonial-detail">Terapia individual, 1 ano</div>
+            </div>
+          </div>
+        </div>
+        <div class="testi-small">
+          <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="testimonial-quote">"Llevaba anos evitando el tema de la sexualidad en terapia. Con Daniel pude hablar abiertamente por primera vez. Es un profesional serio y preparado."</p>
+          <div class="testimonial-meta">
+            <div class="testimonial-avatar">AL</div>
+            <div>
+              <div class="testimonial-name">Andrea L.</div>
+              <div class="testimonial-detail">Terapia sexual, 5 meses</div>
+            </div>
+          </div>
+        </div>
+        <div class="testi-small">
+          <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="testimonial-quote">"Vivo en Temuco y tomo consulta online. Funciona igual de bien que presencial. Daniel se adapta perfecto al formato."</p>
+          <div class="testimonial-meta">
+            <div class="testimonial-avatar">VR</div>
+            <div>
+              <div class="testimonial-name">Valentina R.</div>
+              <div class="testimonial-detail">Terapia online, 4 meses</div>
+            </div>
+          </div>
+        </div>
+        <div class="testi-small">
+          <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="testimonial-quote">"Lo que mas valoro es su honestidad. Daniel no te dice lo que quieres escuchar: te ayuda a ver lo que necesitas ver."</p>
+          <div class="testimonial-meta">
+            <div class="testimonial-avatar">MG</div>
+            <div>
+              <div class="testimonial-name">Matias G.</div>
+              <div class="testimonial-detail">Terapia individual, 10 meses</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section" id="faq">
+    <div class="wide-col">
+      <div class="conv-header" style="text-align:center;">
+        <div class="conv-label">Preguntas frecuentes</div>
+        <h2 class="conv-title">Todo lo que necesitas saber<br>antes de agendar</h2>
+      </div>
+      <div class="faq-conv">
+        <div class="faq-item">
+          <div class="faq-q">Como es la primera sesion?</div>
+          <div class="faq-a">Conversamos sobre lo que te trae a consulta, revisamos tu historia relevante y definimos juntos los objetivos del proceso. Dura entre 50 y 60 minutos. No hay compromiso de continuar si no te sientes comodo.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">Cuanto dura un proceso terapeutico?</div>
+          <div class="faq-a">Depende de cada caso. Hay procesos focalizados de 8 a 12 sesiones y otros que necesitan mas tiempo. Desde la primera sesion te doy una estimacion honesta.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">Puedo usar mi Isapre?</div>
+          <div class="faq-a">Si. Emitimos boleta de honorarios para que puedas solicitar reembolso parcial en Banmedica, Colmena, Consalud, Cruz Blanca, Vida Tres y Fonasa. El porcentaje depende de tu plan.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">La terapia online funciona igual?</div>
+          <div class="faq-a">Si. La evidencia clinica muestra que la terapia por videollamada tiene la misma efectividad para la mayoria de las condiciones. Trabajo con pacientes online en todo Chile con excelentes resultados.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">Puedo agendar sin llamar?</div>
+          <div class="faq-a">Por supuesto. Puedes agendar directo con Calendly, completar el formulario de contacto o escribirnos por WhatsApp. Respondemos en menos de 2 horas.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">Que pasa si cancelo una sesion?</div>
+          <div class="faq-a">Solo pedimos aviso con 24 horas de anticipacion. Las cancelaciones con menos tiempo se cobran como sesion tomada, salvo emergencias.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="section section-warm" id="tarifas">
+    <div class="content-col">
+      <div class="conv-header" style="text-align:center;">
+        <div class="conv-label">Tarifas</div>
+        <h2 class="conv-title">Precios claros, sin sorpresas</h2>
+        <p class="conv-subtitle">Valores por sesion. Reembolso parcial con Isapre o Fonasa.</p>
+      </div>
+      <div class="pricing-table">
+        <div class="pricing-row">
+          <div>
+            <div class="pricing-row-type">Consulta Individual</div>
+            <div class="pricing-row-desc">Sesion de 50 minutos, presencial o online</div>
+          </div>
+          <div class="pricing-row-amount">$50.000 - $60.000</div>
+        </div>
+        <div class="pricing-row">
+          <div>
+            <div class="pricing-row-type">Consulta de Pareja</div>
+            <div class="pricing-row-desc">Sesion de 60 minutos, presencial o online</div>
+          </div>
+          <div class="pricing-row-amount">$70.000 - $80.000</div>
+        </div>
+        <div class="pricing-row">
+          <div>
+            <div class="pricing-row-type">Terapia Sexual</div>
+            <div class="pricing-row-desc">Sesion de 50 minutos, presencial o online</div>
+          </div>
+          <div class="pricing-row-amount">$50.000 - $60.000</div>
+        </div>
+        <div class="pricing-note">Emitimos boleta para reembolso con Isapre o Fonasa</div>
+      </div>
+
+      <div style="text-align:center; margin-top:24px;">
+        <div class="isapre-badges">
+          <span class="isapre-badge">Banmedica</span>
+          <span class="isapre-badge">Colmena</span>
+          <span class="isapre-badge">Consalud</span>
+          <span class="isapre-badge">Fonasa</span>
+          <span class="isapre-badge">Cruz Blanca</span>
+          <span class="isapre-badge">Vida Tres</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section" id="contacto">
+    <div class="content-col">
+      <div class="cta-warm">
+        <h2>Listo para dar el primer paso?</h2>
+        <p>Agenda tu primera consulta o dejanos tus datos. Respondemos dentro de 2 horas en dia habil.</p>
+        <div class="cta-buttons">
+          <a href="#" class="btn btn-primary">Agendar con Calendly</a>
+          <a href="https://wa.me/56920115198" class="btn btn-whatsapp">WhatsApp</a>
+        </div>
+      </div>
+
+      <div style="text-align:center; margin: 40px 0 16px; color:var(--text-muted); font-size:14px;">o dejanos tus datos directamente</div>
+
+      <div class="form-warm">
+        <div class="form-warm-title">Formulario de contacto</div>
+        <div class="form-warm-sub">Te contactamos dentro de 2 horas.</div>
+        <form>
+          <div class="fg">
+            <label>Nombre</label>
+            <input type="text" placeholder="Tu nombre completo">
+          </div>
+          <div class="fg">
+            <label>Email</label>
+            <input type="email" placeholder="tu@email.com">
+          </div>
+          <div class="fg">
+            <label>Telefono (opcional)</label>
+            <input type="tel" placeholder="+56 9 1234 5678">
+          </div>
+          <div class="fg">
+            <label>Que tipo de consulta te interesa?</label>
+            <select>
+              <option value="">Selecciona</option>
+              <option>Terapia individual</option>
+              <option>Terapia de pareja</option>
+              <option>Terapia sexual</option>
+              <option>No estoy seguro/a</option>
+            </select>
+          </div>
+          <div class="fg">
+            <label>Cuentanos un poco (opcional)</label>
+            <textarea placeholder="Lo que sientas comodo compartir. Esto nos ayuda a preparar mejor la primera sesion."></textarea>
+          </div>
+          <button type="submit" class="form-submit">Enviar consulta</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p><strong>Dr. Daniel Reyes Pace</strong><br>
+    Doctor en Psicologia, Universidad de Chile<br>
+    Nunoa, Santiago &middot; Online para todo Chile</p>
+    <div class="footer-links">
+      <a href="#">Privacidad</a>
+      <a href="#">Terminos</a>
+      <a href="https://www.psicologiaclinicachile.cl" target="_blank">psicologiaclinicachile.cl</a>
+    </div>
+  </footer>
+
+  <!-- STICKY MOBILE CTA -->
+  <div class="sticky-cta">
+    <div class="sticky-cta-inner">
+      <a href="#contacto" class="btn btn-primary">Agendar consulta</a>
+      <a href="https://wa.me/56920115198" class="btn btn-whatsapp">WhatsApp</a>
+    </div>
+  </div>
+
+</body>
+</html>

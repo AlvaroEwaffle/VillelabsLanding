@@ -1,0 +1,3 @@
+/cases/*    /work/:splat    301
+/portfolio  /work           301
+/consulting /services       301

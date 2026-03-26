@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dr. Daniel Reyes — Portal de Proyecto | VilleLab</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --blue: #8bb6d9;
+      --blue-dark: #5a8db8;
+      --blue-deeper: #2c6a96;
+      --orange: #e85a2b;
+      --orange-dark: #c44a1f;
+      --bg: #0f1117;
+      --surface: #1a1d27;
+      --surface-hover: #222632;
+      --border: #2a2e3a;
+      --text: #e8e8ec;
+      --text-muted: #8b8fa0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 60px 24px 80px;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(139,182,217,0.1);
+      color: var(--blue);
+      padding: 6px 16px;
+      border-radius: 100px;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 20px;
+    }
+
+    .badge .dot {
+      width: 6px;
+      height: 6px;
+      background: var(--orange);
+      border-radius: 50%;
+    }
+
+    .header h1 {
+      font-size: 32px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+    }
+
+    .header h1 span { color: var(--blue); }
+
+    .header p {
+      font-size: 15px;
+      color: var(--text-muted);
+      max-width: 500px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--orange);
+      margin-bottom: 16px;
+      padding-top: 8px;
+    }
+
+    .card-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 40px;
+    }
+
+    .card {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px 24px;
+      text-decoration: none;
+      color: var(--text);
+      transition: all 0.2s;
+    }
+
+    .card:hover {
+      background: var(--surface-hover);
+      border-color: var(--blue-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 20px rgba(139,182,217,0.1);
+    }
+
+    .card-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 22px;
+    }
+
+    .card-icon.blue { background: rgba(139,182,217,0.12); }
+    .card-icon.orange { background: rgba(232,90,43,0.12); }
+    .card-icon.green { background: rgba(34,197,94,0.12); }
+
+    .card-content { flex: 1; }
+
+    .card-title {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+
+    .card-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .card-arrow {
+      color: var(--text-muted);
+      font-size: 18px;
+      transition: transform 0.2s;
+    }
+
+    .card:hover .card-arrow {
+      transform: translateX(4px);
+      color: var(--blue);
+    }
+
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 8px 0 32px;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 48px;
+      padding-top: 32px;
+      border-top: 1px solid var(--border);
+    }
+
+    .footer p {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .footer a {
+      color: var(--blue);
+      text-decoration: none;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+
+    .preview-strip {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 40px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+    }
+
+    .preview-strip img {
+      width: 120px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+
+    .photo-gallery {
+      margin-bottom: 40px;
+    }
+
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 12px;
+    }
+
+    .photo-grid a {
+      display: block;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      transition: all 0.2s;
+    }
+
+    .photo-grid a:hover {
+      border-color: var(--blue-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(139,182,217,0.2);
+    }
+
+    .photo-grid img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .photo-grid .photo-label {
+      padding: 8px 12px;
+      font-size: 12px;
+      color: var(--text-muted);
+      background: var(--surface);
+    }
+
+    @media (max-width: 600px) {
+      .container { padding: 40px 16px 60px; }
+      .header h1 { font-size: 26px; }
+      .card { padding: 16px 18px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <div class="header">
+      <div class="badge"><span class="dot"></span> Proyecto activo</div>
+      <h1>Dr. Daniel <span>Reyes</span></h1>
+      <p>Portal de proyecto para la propuesta de sitio web y contenido digital del Dr. Daniel Reyes Pace, psicologo clinico.</p>
+    </div>
+
+    <!-- Asset preview strip — Bauhaus illustrations -->
+    <div class="preview-strip">
+      <img src="./assets/hero-online.png" alt="Hero">
+      <img src="./assets/service-online.png" alt="Individual">
+      <img src="./assets/service-couples.png" alt="Pareja">
+      <img src="./assets/service-sexual.png" alt="Sexual">
+      <img src="./assets/trust-credentials.png" alt="Credenciales">
+      <img src="./assets/atmosphere-office.png" alt="Consultorio">
+      <img src="./assets/atmosphere-calm.png" alt="Ambiente">
+      <img src="./assets/atmosphere-welcome.png" alt="Bienvenida">
+      <img src="./assets/atmosphere-growth.png" alt="Crecimiento">
+      <img src="./assets/trust-testimonials.png" alt="Testimonios">
+    </div>
+
+    <!-- Professional photos preview strip -->
+    <div class="preview-strip">
+      <img src="./photos/headshot-professional.png" alt="Retrato profesional">
+      <img src="./photos/consultation-session.png" alt="Sesion de consulta">
+      <img src="./photos/at-desk-working.png" alt="En el escritorio">
+      <img src="./photos/welcoming-patient.png" alt="Bienvenida">
+      <img src="./photos/waiting-room.png" alt="Sala de espera">
+      <img src="./photos/couples-therapy-room.png" alt="Sala de terapia de pareja">
+      <img src="./photos/online-therapy-session.png" alt="Sesion online">
+      <img src="./photos/clinic-corridor.png" alt="Pasillo clinica">
+      <img src="./photos/credentials-wall.png" alt="Credenciales">
+      <img src="./photos/garden-portrait.png" alt="Retrato jardin">
+    </div>
+
+    <!-- Propuesta -->
+    <div class="section-label">Propuesta comercial</div>
+    <div class="card-grid">
+      <a href="/proposals/DanielReyes" class="card">
+        <div class="card-icon orange">&#128196;</div>
+        <div class="card-content">
+          <div class="card-title">Propuesta de servicios</div>
+          <div class="card-desc">Alcance, entregables, inversion y cronograma del proyecto web + contenido.</div>
+        </div>
+        <span class="card-arrow">&rarr;</span>
+      </a>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- Mockup Recomendado -->
+    <div class="section-label">Mockup recomendado (basado en tu feedback)</div>
+    <div class="card-grid">
+      <a href="./mockups/mockup-institucional.html" class="card" style="border-color: var(--orange); border-width: 2px;">
+        <div class="card-icon orange">&#127963;</div>
+        <div class="card-content">
+          <div class="card-title">Opcion 4 — Institucional</div>
+          <div class="card-desc">Enfoque en el centro. Limpio + estructurado, tipografia sobria, paleta contenida. Basado en tu feedback.</div>
+        </div>
+        <span class="card-arrow">&rarr;</span>
+      </a>
+    </div>
+
+    <div class="section-label" style="margin-top: 24px; opacity: 0.5;">Mockups anteriores (referencia)</div>
+    <div class="card-grid">
+      <a href="./mockups/mockup-minimal-clinico.html" class="card" style="opacity: 0.6;">
+        <div class="card-icon blue">&#127912;</div>
+        <div class="card-content">
+          <div class="card-title">Opcion 1 — Minimal Clinico</div>
+          <div class="card-desc">Limpio, profesional, centrado. Fondo blanco, tipografia Inter, confianza inmediata.</div>
+        </div>
+        <span class="card-arrow">&rarr;</span>
+      </a>
+      <a href="./mockups/mockup-bauhaus-moderno.html" class="card" style="opacity: 0.6;">
+        <div class="card-icon blue">&#9632;</div>
+        <div class="card-content">
+          <div class="card-title">Opcion 2 — Bauhaus Moderno</div>
+          <div class="card-desc">Bold, geometrico, impactante. Fondo oscuro, formas angulares, naranja vibrante.</div>
+        </div>
+        <span class="card-arrow">&rarr;</span>
+      </a>
+      <a href="./mockups/mockup-conversacional.html" class="card" style="opacity: 0.6;">
+        <div class="card-icon blue">&#128172;</div>
+        <div class="card-content">
+          <div class="card-title">Opcion 3 — Conversacional Calido</div>
+          <div class="card-desc">Cercano, humano, narrativo. Fondo crema, Daniel habla directo, tono personal.</div>
+        </div>
+        <span class="card-arrow">&rarr;</span>
+      </a>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- Documentos -->
+    <div class="section-label">Contenido y estrategia</div>
+    <div class="card-grid">
+      <a href="./mockups/guiones-reels.md" class="card">
+        <div class="card-icon green">&#127909;</div>
+        <div class="card-content">
+          <div class="card-title">Guiones de Reels (6 videos)</div>
+          <div class="card-desc">Guiones completos para 6 reels de Instagram: hooks, escenas y CTAs listos para grabar.</div>
+        </div>
+        <span class="card-arrow">&rarr;</span>
+      </a>
+      <a href="./mockups/paquete-replicable.md" class="card">
+        <div class="card-icon green">&#128230;</div>
+        <div class="card-content">
+          <div class="card-title">Paquete Replicable</div>
+          <div class="card-desc">Documento de alcance del paquete completo: web + contenido + automatizacion.</div>
+        </div>
+        <span class="card-arrow">&rarr;</span>
+      </a>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- Fotografia Profesional -->
+    <div class="section-label">Fotografia profesional (10 fotos generadas con IA)</div>
+    <div class="photo-gallery">
+      <div class="photo-grid">
+        <a href="./photos/headshot-professional.png" target="_blank">
+          <img src="./photos/headshot-professional.png" alt="Retrato profesional">
+          <div class="photo-label">01 — Retrato profesional</div>
+        </a>
+        <a href="./photos/consultation-session.png" target="_blank">
+          <img src="./photos/consultation-session.png" alt="Sesion de consulta">
+          <div class="photo-label">02 — Sesion de consulta</div>
+        </a>
+        <a href="./photos/at-desk-working.png" target="_blank">
+          <img src="./photos/at-desk-working.png" alt="En el escritorio">
+          <div class="photo-label">03 — En el escritorio</div>
+        </a>
+        <a href="./photos/welcoming-patient.png" target="_blank">
+          <img src="./photos/welcoming-patient.png" alt="Bienvenida al paciente">
+          <div class="photo-label">04 — Bienvenida al paciente</div>
+        </a>
+        <a href="./photos/waiting-room.png" target="_blank">
+          <img src="./photos/waiting-room.png" alt="Sala de espera">
+          <div class="photo-label">05 — Sala de espera</div>
+        </a>
+        <a href="./photos/couples-therapy-room.png" target="_blank">
+          <img src="./photos/couples-therapy-room.png" alt="Sala terapia de pareja">
+          <div class="photo-label">06 — Sala terapia de pareja</div>
+        </a>
+        <a href="./photos/online-therapy-session.png" target="_blank">
+          <img src="./photos/online-therapy-session.png" alt="Terapia online">
+          <div class="photo-label">07 — Terapia online</div>
+        </a>
+        <a href="./photos/clinic-corridor.png" target="_blank">
+          <img src="./photos/clinic-corridor.png" alt="Pasillo de la clinica">
+          <div class="photo-label">08 — Pasillo de la clinica</div>
+        </a>
+        <a href="./photos/credentials-wall.png" target="_blank">
+          <img src="./photos/credentials-wall.png" alt="Muro de credenciales">
+          <div class="photo-label">09 — Muro de credenciales</div>
+        </a>
+        <a href="./photos/garden-portrait.png" target="_blank">
+          <img src="./photos/garden-portrait.png" alt="Retrato en jardin">
+          <div class="photo-label">10 — Retrato en jardin</div>
+        </a>
+      </div>
+    </div>
+
+    <div class="footer">
+      <p>Proyecto gestionado por <a href="https://villelab.com" target="_blank">VilleLab</a> &middot; Alvaro Villena</p>
+    </div>
+
+  </div>
+</body>
+</html>

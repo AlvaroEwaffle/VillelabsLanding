@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plan de Marketing 2026 — Villelabs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700&family=DM+Mono:ital,wght@0,300;0,400;1,300&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:      #0D0F14;
+    --bg2:     #13161E;
+    --bg3:     #1A1E2A;
+    --surface: #1E2230;
+    --rule:    #262B3A;
+    --rule2:   #313749;
+
+    --cyan:    #00C8A8;
+    --cyan2:   #00A88A;
+    --cyan-bg: rgba(0,200,168,.08);
+    --blue:    #3B82F6;
+    --blue-bg: rgba(59,130,246,.08);
+    --amber:   #F59E0B;
+    --amber-bg:rgba(245,158,11,.08);
+    --red:     #EF4444;
+    --red-bg:  rgba(239,68,68,.08);
+    --cons:    #A78BFA;
+    --cons-bg: rgba(167,139,250,.1);
+    --green:   #34D399;
+    --green-bg:rgba(52,211,153,.08);
+
+    --ink:     #F1F3F9;
+    --mid:     #9BA3BC;
+    --soft:    #5E6680;
+    --white:   #FFFFFF;
+
+    --phase1:  #3B82F6;
+    --phase2:  #00C8A8;
+    --phase3:  #A78BFA;
+
+    --serif: 'Syne', system-ui, sans-serif;
+    --sans:  'DM Sans', system-ui, sans-serif;
+    --mono:  'DM Mono', monospace;
+    --r: 4px;
+  }
+
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--ink);
+    font-size: 15px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── LAYOUT ───────────────────────────────────────── */
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 28px; }
+
+  /* ── TOPBAR ───────────────────────────────────────── */
+  #topbar {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(13,15,20,.92);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--rule);
+    padding: 0 28px;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 52px;
+    transition: box-shadow .2s;
+  }
+  #topbar.scrolled { box-shadow: 0 1px 20px rgba(0,0,0,.5); }
+  .topbar-left {
+    font-family: var(--mono);
+    font-size: 11px; color: var(--soft); letter-spacing: .04em;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .topbar-logo { color: var(--cyan); font-weight: 400; }
+  .topbar-right { display: flex; gap: 6px; }
+  .phase-dot {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 11px; font-weight: 500; color: var(--soft);
+    padding: 3px 10px; border-radius: 20px;
+    border: 1px solid var(--rule2);
+    cursor: pointer; transition: all .15s; text-decoration: none;
+    font-family: var(--mono);
+  }
+  .phase-dot:hover { border-color: var(--cyan); color: var(--cyan); }
+  .phase-dot .dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+
+  /* ── COVER ────────────────────────────────────────── */
+  #cover {
+    padding: 120px 0 80px;
+    border-bottom: 1px solid var(--rule);
+    position: relative; overflow: hidden;
+  }
+  #cover::before {
+    content: '';
+    position: absolute; top: -40px; right: -80px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(0,200,168,.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .cover-label {
+    font-family: var(--mono);
+    font-size: 11px; color: var(--cyan); margin-bottom: 28px;
+    display: flex; align-items: center; gap: 10px;
+    letter-spacing: .06em;
+  }
+  .cover-label::after { content: ''; flex: 1; max-width: 40px; height: 1px; background: var(--cyan); opacity: .4; }
+  h1.cover-title {
+    font-family: var(--serif);
+    font-size: clamp(34px, 5.5vw, 54px);
+    font-weight: 700;
+    line-height: 1.08;
+    letter-spacing: -.02em;
+    color: var(--ink);
+    margin-bottom: 12px;
+  }
+  h1.cover-title span { color: var(--cyan); }
+  .cover-sub {
+    font-size: 16px; color: var(--mid); font-weight: 300;
+    margin-bottom: 48px; max-width: 520px; line-height: 1.7;
+  }
+  .cover-meta { display: flex; gap: 32px; flex-wrap: wrap; }
+  .meta-item { display: flex; flex-direction: column; gap: 3px; }
+  .meta-label { font-family: var(--mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--soft); }
+  .meta-value { font-size: 14px; color: var(--ink); font-weight: 500; }
+  .meta-value.live { color: var(--cyan); }
+
+  /* ── PROGRESS ─────────────────────────────────────── */
+  #progress-overview {
+    padding: 40px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .progress-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    border-radius: var(--r);
+    overflow: hidden;
+  }
+  .prog-card { background: var(--bg2); padding: 20px 22px; display: flex; flex-direction: column; gap: 12px; }
+  .prog-card-header { display: flex; align-items: center; justify-content: space-between; }
+  .prog-phase-label { font-family: var(--mono); font-size: 10px; font-weight: 400; letter-spacing: .08em; text-transform: uppercase; }
+  .prog-pct { font-family: var(--serif); font-size: 22px; font-weight: 700; }
+  .prog-bar-bg { height: 2px; background: var(--rule2); border-radius: 2px; overflow: hidden; }
+  .prog-bar-fill { height: 100%; border-radius: 2px; transition: width .6s ease; }
+  .prog-details { font-family: var(--mono); font-size: 11px; color: var(--soft); }
+
+  /* ── SECTIONS ─────────────────────────────────────── */
+  .section { padding: 72px 0 48px; border-bottom: 1px solid var(--rule); }
+  .section:last-child { border-bottom: none; }
+  .section-number {
+    font-family: var(--mono); font-size: 11px; color: var(--soft); letter-spacing: .08em;
+    display: block; margin-bottom: 18px;
+  }
+  h2.section-title {
+    font-family: var(--serif);
+    font-size: clamp(24px, 4vw, 36px);
+    font-weight: 700; letter-spacing: -.02em;
+    color: var(--ink); line-height: 1.15;
+    margin-bottom: 24px;
+  }
+  h2.section-title span { color: var(--cyan); }
+  h3.sub-title {
+    font-family: var(--serif); font-size: 19px; font-weight: 600;
+    color: var(--ink); margin: 40px 0 14px; letter-spacing: -.01em;
+  }
+  h4.mini-title {
+    font-family: var(--mono); font-size: 10px; font-weight: 400;
+    letter-spacing: .1em; text-transform: uppercase; color: var(--soft);
+    margin: 28px 0 12px;
+  }
+  p { color: var(--mid); margin-bottom: 14px; line-height: 1.7; }
+  p:last-child { margin-bottom: 0; }
+
+  /* ── CALLOUT ──────────────────────────────────────── */
+  .callout {
+    border-left: 2px solid var(--cyan);
+    background: var(--cyan-bg);
+    padding: 16px 20px; margin: 22px 0;
+    border-radius: 0 var(--r) var(--r) 0;
+  }
+  .callout.amber { border-color: var(--amber); background: var(--amber-bg); }
+  .callout.red   { border-color: var(--red);   background: var(--red-bg);   }
+  .callout.cons  { border-color: var(--cons);  background: var(--cons-bg);  }
+  .callout.blue  { border-color: var(--blue);  background: var(--blue-bg);  }
+  .callout-title { font-family: var(--mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 8px; color: var(--cyan); }
+  .callout.amber .callout-title { color: var(--amber); }
+  .callout.red   .callout-title { color: var(--red); }
+  .callout.cons  .callout-title { color: var(--cons); }
+  .callout.blue  .callout-title { color: var(--blue); }
+  .callout p { font-size: 13.5px; color: var(--mid); margin-bottom: 4px; }
+
+  /* ── SCORECARD ────────────────────────────────────── */
+  .scorecard { margin: 24px 0; }
+  .score-row {
+    display: grid; grid-template-columns: 1fr 64px 1fr;
+    gap: 14px; align-items: start;
+    padding: 14px 0; border-bottom: 1px solid var(--rule);
+  }
+  .score-row:last-child { border-bottom: none; }
+  .score-dim { font-size: 13.5px; font-weight: 500; color: var(--ink); }
+  .score-badge {
+    font-family: var(--mono); font-size: 14px; text-align: center;
+    padding: 3px 0; border-radius: var(--r);
+  }
+  .score-badge.red   { background: var(--red-bg); color: var(--red); }
+  .score-badge.amber { background: var(--amber-bg); color: var(--amber); }
+  .score-badge.green { background: var(--green-bg); color: var(--green); }
+  .score-badge.cyan  { background: var(--cyan-bg); color: var(--cyan); }
+  .score-note { font-size: 13px; color: var(--soft); line-height: 1.5; }
+
+  /* ── CHANNEL BLOCKS ───────────────────────────────── */
+  .channel-block { border: 1px solid var(--rule2); border-radius: var(--r); overflow: hidden; margin: 24px 0; }
+  .channel-header { padding: 18px 22px; }
+  .channel-header h3 { font-family: var(--serif); font-size: 17px; font-weight: 600; color: var(--ink); margin-bottom: 3px; }
+  .channel-header .ch-sub { font-family: var(--mono); font-size: 11px; color: var(--soft); letter-spacing: .04em; }
+  .channel-body { padding: 20px 22px; border-top: 1px solid var(--rule); }
+
+  /* ── PILLARS ──────────────────────────────────────── */
+  .pillars { display: flex; flex-direction: column; gap: 2px; margin: 12px 0; }
+  .pillar {
+    display: grid; grid-template-columns: 20px 1fr 1fr;
+    gap: 14px; align-items: start;
+    background: var(--surface); padding: 11px 14px;
+    border: 1px solid var(--rule2); border-radius: var(--r);
+    font-size: 13px;
+  }
+  .pillar-num { font-family: var(--mono); font-size: 13px; color: var(--soft); }
+  .pillar-name { font-weight: 500; color: var(--ink); }
+  .pillar-obj { color: var(--soft); font-size: 12.5px; }
+
+  /* ── CARDS ────────────────────────────────────────── */
+  .aud-cards { display: flex; flex-direction: column; gap: 6px; margin: 14px 0; }
+  .aud-card { display: grid; grid-template-columns: 100px 1fr; gap: 16px; padding: 12px 14px; background: var(--surface); border: 1px solid var(--rule2); border-radius: var(--r); align-items: start; }
+  .aud-type { font-family: var(--mono); font-size: 10px; font-weight: 400; letter-spacing: .06em; text-transform: uppercase; color: var(--cyan); padding-top: 2px; }
+  .aud-card.red   .aud-type { color: var(--red); }
+  .aud-card.amber .aud-type { color: var(--amber); }
+  .aud-card.cons  .aud-type { color: var(--cons); }
+  .aud-desc { font-size: 13px; color: var(--mid); line-height: 1.5; }
+  .aud-desc strong { color: var(--ink); font-weight: 500; }
+
+  /* ── KEYWORDS ─────────────────────────────────────── */
+  .kw-tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0; }
+  .kw { font-family: var(--mono); font-size: 11px; padding: 4px 10px; border-radius: 3px; border: 1px solid var(--rule2); background: var(--surface); color: var(--mid); }
+  .kw.high   { border-color: rgba(239,68,68,.3); color: var(--red); background: var(--red-bg); }
+  .kw.medium { border-color: rgba(245,158,11,.3); color: var(--amber); background: var(--amber-bg); }
+  .kw.long   { border-color: rgba(52,211,153,.3); color: var(--green); background: var(--green-bg); }
+
+  /* ── PHASE BANNER ─────────────────────────────────── */
+  .phase-section { margin: 0 0 60px; }
+  .phase-banner {
+    padding: 22px 24px; border-radius: var(--r); margin-bottom: 28px;
+    display: flex; align-items: flex-start; gap: 16px;
+    border: 1px solid;
+  }
+  .phase-banner.p1 { background: rgba(59,130,246,.1); border-color: rgba(59,130,246,.25); }
+  .phase-banner.p2 { background: rgba(0,200,168,.1); border-color: rgba(0,200,168,.25); }
+  .phase-banner.p3 { background: rgba(167,139,250,.1); border-color: rgba(167,139,250,.25); }
+  .phase-banner-text { flex: 1; }
+  .phase-banner h3 { font-family: var(--serif); font-size: 19px; font-weight: 600; color: var(--ink); margin-bottom: 4px; }
+  .phase-banner p { font-size: 13px; color: var(--mid); margin: 0; }
+  .phase-prog-mini { text-align: right; min-width: 64px; }
+  .phase-prog-num { font-family: var(--serif); font-size: 28px; font-weight: 700; line-height: 1; }
+  .phase-prog-lbl { font-family: var(--mono); font-size: 10px; color: var(--soft); letter-spacing: .06em; }
+
+  /* ── SESSIONS ─────────────────────────────────────── */
+  .sessions { display: flex; flex-direction: column; gap: 8px; margin: 18px 0; }
+  .session-card {
+    display: grid; grid-template-columns: 110px 1fr;
+    border: 1px solid rgba(167,139,250,.25);
+    border-radius: var(--r); overflow: hidden;
+    background: var(--cons-bg);
+  }
+  .session-left {
+    background: rgba(167,139,250,.15); border-right: 1px solid rgba(167,139,250,.2);
+    padding: 14px 16px;
+    display: flex; flex-direction: column; align-items: flex-start; justify-content: center; gap: 2px;
+  }
+  .session-left .s-type { font-family: var(--mono); font-size: 9px; letter-spacing: .1em; text-transform: uppercase; color: var(--cons); opacity: .7; }
+  .session-left .s-hours { font-family: var(--serif); font-size: 20px; font-weight: 700; color: var(--cons); }
+  .session-left .s-price { font-family: var(--mono); font-size: 12px; color: var(--cons); opacity: .9; }
+  .session-right { padding: 14px 18px; }
+  .session-right strong { font-size: 13px; font-weight: 600; color: var(--cons); display: block; margin-bottom: 3px; }
+  .session-right p { font-size: 12.5px; color: var(--soft); margin: 0; line-height: 1.5; }
+
+  /* ── TASKS ────────────────────────────────────────── */
+  .task-table { margin: 18px 0; }
+  .task-row {
+    display: grid; grid-template-columns: 28px 1fr 90px 56px;
+    gap: 10px; align-items: start;
+    padding: 11px 0; border-bottom: 1px solid var(--rule);
+  }
+  .task-row:last-child { border-bottom: none; }
+  .task-row.cons-row { background: var(--cons-bg); margin: 0 -8px; padding: 11px 8px; border-radius: var(--r); border-bottom: none; margin-bottom: 2px; }
+  .task-row.cons-row:hover { background: rgba(167,139,250,.15); }
+  .task-check {
+    width: 18px; height: 18px; border-radius: 50%;
+    border: 1.5px solid var(--rule2);
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; margin-top: 1px; transition: all .15s; background: transparent;
+  }
+  .task-check:hover { border-color: var(--cyan); }
+  .task-check.done { background: var(--cyan); border-color: var(--cyan); }
+  .task-check.done::after { content: ''; width: 4px; height: 7px; border: 1.5px solid #0D0F14; border-top: none; border-left: none; transform: rotate(45deg) translateY(-1px); display: block; }
+  .task-check.cons-check { border-color: rgba(167,139,250,.4); }
+  .task-check.cons-check:hover { border-color: var(--cons); }
+  .task-check.done.cons-check { background: var(--cons); border-color: var(--cons); }
+  .task-content { min-width: 0; }
+  .task-title { font-size: 13.5px; font-weight: 500; color: var(--ink); line-height: 1.4; transition: color .15s; }
+  .task-row.task-done .task-title { color: var(--soft); text-decoration: line-through; }
+  .task-desc { font-size: 12px; color: var(--soft); margin-top: 2px; line-height: 1.4; }
+  .task-resp {
+    font-family: var(--mono); font-size: 10px; color: var(--soft);
+    background: var(--surface); border: 1px solid var(--rule2);
+    padding: 2px 7px; border-radius: 20px; white-space: nowrap;
+    height: fit-content; margin-top: 2px;
+  }
+  .task-row.cons-row .task-resp { background: rgba(167,139,250,.15); border-color: rgba(167,139,250,.25); color: var(--cons); }
+  .task-week { font-family: var(--mono); font-size: 11px; color: var(--soft); text-align: right; margin-top: 2px; }
+  .task-row.cons-row .task-week { color: var(--cons); }
+
+  /* ── BUDGET ───────────────────────────────────────── */
+  .budget-table { margin: 18px 0; }
+  .bgt-row { display: grid; grid-template-columns: 1fr 130px; gap: 12px; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--rule); }
+  .bgt-row:last-child { border-bottom: none; }
+  .bgt-row.cons { background: var(--cons-bg); margin: 0 -8px; padding: 10px 8px; border-radius: var(--r); }
+  .bgt-label { font-size: 13px; color: var(--mid); }
+  .bgt-row.cons .bgt-label { color: var(--cons); font-weight: 500; }
+  .bgt-label small { display: block; font-family: var(--mono); font-size: 10px; color: var(--soft); margin-top: 1px; }
+  .bgt-amount { font-family: var(--mono); font-size: 14px; text-align: right; color: var(--ink); }
+  .bgt-row.cons .bgt-amount { color: var(--cons); }
+  .bgt-row.total .bgt-label { font-weight: 600; font-size: 14px; color: var(--ink); }
+  .bgt-row.total .bgt-amount { font-family: var(--serif); font-size: 20px; font-weight: 700; color: var(--cyan); }
+  .budget-divider { border: none; border-top: 1px dashed var(--rule2); margin: 6px 0; }
+
+  /* ── SUMMARY ──────────────────────────────────────── */
+  .totals-bar { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--rule); border: 1px solid var(--rule); border-radius: var(--r); overflow: hidden; margin: 28px 0; }
+  .total-card { background: var(--bg2); padding: 20px 22px; }
+  .total-label { font-family: var(--mono); font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: var(--soft); margin-bottom: 8px; }
+  .total-number { font-family: var(--serif); font-size: 26px; font-weight: 700; color: var(--ink); line-height: 1; margin-bottom: 4px; }
+  .total-sub { font-family: var(--mono); font-size: 11px; color: var(--soft); }
+
+  .summary-grid { display: flex; flex-direction: column; gap: 1px; background: var(--rule); border: 1px solid var(--rule); border-radius: var(--r); overflow: hidden; }
+  .summary-row { display: grid; grid-template-columns: 64px 80px 1fr 110px 96px 100px; gap: 1px; background: var(--rule); }
+  .summary-cell { background: var(--bg2); padding: 13px 14px; font-size: 12.5px; color: var(--mid); }
+  .summary-row.header .summary-cell { background: var(--surface); color: var(--soft); font-family: var(--mono); font-size: 9px; letter-spacing: .08em; text-transform: uppercase; }
+  .phase-tag { display: inline-block; padding: 2px 8px; border-radius: 3px; font-family: var(--mono); font-size: 10px; font-weight: 400; letter-spacing: .05em; text-transform: uppercase; }
+  .cons-tag { background: rgba(167,139,250,.2); color: var(--cons); font-family: var(--mono); font-size: 11px; padding: 2px 8px; border-radius: 3px; border: 1px solid rgba(167,139,250,.25); }
+  .leads-num { font-family: var(--serif); font-size: 15px; color: var(--cyan); font-weight: 700; }
+
+  /* ── KPI CARDS ────────────────────────────────────── */
+  .kpi-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin: 18px 0; }
+  .kpi-card { background: var(--surface); border: 1px solid var(--rule2); border-radius: var(--r); padding: 16px 18px; }
+  .kpi-name { font-family: var(--mono); font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: var(--soft); margin-bottom: 12px; }
+  .kpi-values { display: flex; gap: 20px; }
+  .kpi-val { display: flex; flex-direction: column; gap: 2px; }
+  .kpi-period { font-family: var(--mono); font-size: 10px; color: var(--soft); }
+  .kpi-num { font-family: var(--serif); font-size: 20px; font-weight: 700; color: var(--ink); }
+  .kpi-num.target { color: var(--cyan); }
+  .kpi-tool { font-family: var(--mono); font-size: 10px; color: var(--soft); margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--rule); }
+
+  /* ── ERRORS ───────────────────────────────────────── */
+  .error-list { display: flex; flex-direction: column; gap: 8px; margin: 18px 0; }
+  .error-item { display: grid; grid-template-columns: 24px 1fr; gap: 12px; padding: 14px 16px; background: var(--red-bg); border: 1px solid rgba(239,68,68,.2); border-radius: var(--r); }
+  .error-icon { font-size: 15px; line-height: 1.5; }
+  .error-title { font-size: 13.5px; font-weight: 600; color: var(--red); margin-bottom: 3px; }
+  .error-desc { font-size: 13px; color: var(--soft); line-height: 1.5; }
+
+  /* ── ASSETS ───────────────────────────────────────── */
+  .assets { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin: 14px 0; }
+  .asset-card { background: var(--surface); border: 1px solid var(--rule2); border-radius: var(--r); padding: 14px 16px; }
+  .asset-type { font-family: var(--mono); font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: var(--soft); margin-bottom: 6px; }
+  .asset-qty { font-family: var(--serif); font-size: 22px; font-weight: 700; color: var(--ink); margin-bottom: 2px; }
+  .asset-dest { font-size: 12px; color: var(--soft); line-height: 1.4; }
+
+  /* ── FOOTER ───────────────────────────────────────── */
+  #footer { padding: 60px 0; text-align: center; border-top: 1px solid var(--rule); }
+  .footer-quote { font-family: var(--serif); font-size: clamp(17px, 2.8vw, 24px); font-weight: 400; color: var(--ink); max-width: 560px; margin: 0 auto 14px; line-height: 1.4; }
+  .footer-quote span { color: var(--cyan); }
+  .footer-meta { font-family: var(--mono); font-size: 11px; color: var(--soft); margin-top: 8px; }
+
+  /* ── TOAST ────────────────────────────────────────── */
+  #toast {
+    position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(60px);
+    background: var(--surface); color: var(--cyan); font-family: var(--mono); font-size: 12px;
+    padding: 10px 20px; border-radius: 4px; border: 1px solid var(--rule2);
+    transition: transform .25s ease; pointer-events: none; z-index: 200;
+  }
+  #toast.show { transform: translateX(-50%) translateY(0); }
+
+  /* ── DIAGNOSTIC TAG ───────────────────────────────── */
+  .diag-tag {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: var(--mono); font-size: 11px; padding: 4px 10px;
+    border-radius: 3px; border: 1px solid;
+    white-space: nowrap;
+  }
+  .diag-tag.positive { border-color: rgba(52,211,153,.3); background: var(--green-bg); color: var(--green); }
+  .diag-tag.warning  { border-color: rgba(245,158,11,.3); background: var(--amber-bg); color: var(--amber); }
+  .diag-tag.critical { border-color: rgba(239,68,68,.3); background: var(--red-bg); color: var(--red); }
+  .diag-row { display: flex; align-items: flex-start; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--rule); }
+  .diag-row:last-child { border-bottom: none; }
+  .diag-text { flex: 1; font-size: 13px; color: var(--mid); line-height: 1.5; }
+  .diag-text strong { color: var(--ink); font-weight: 500; }
+
+  /* ── RESPONSIVE ───────────────────────────────────── */
+  @media (max-width: 640px) {
+    .progress-grid { grid-template-columns: 1fr; }
+    .kpi-grid { grid-template-columns: 1fr; }
+    .assets { grid-template-columns: 1fr; }
+    .summary-row { grid-template-columns: 1fr 1fr; }
+    .summary-cell:nth-child(n+3) { display: none; }
+    .task-row { grid-template-columns: 28px 1fr; }
+    .task-resp, .task-week { display: none; }
+    .session-card { grid-template-columns: 1fr; }
+    .topbar-right { display: none; }
+    .pillar { grid-template-columns: 20px 1fr; }
+    .pillar-obj { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav id="topbar">
+  <div class="topbar-left">
+    <span class="topbar-logo">VILLELABS</span>
+    <span>/ plan-marketing-2026</span>
+  </div>
+  <div class="topbar-right">
+    <a href="#fase1" class="phase-dot" style="color:var(--phase1)"><span class="dot"></span>Fase 1</a>
+    <a href="#fase2" class="phase-dot" style="color:var(--phase2)"><span class="dot"></span>Fase 2</a>
+    <a href="#fase3" class="phase-dot" style="color:var(--phase3)"><span class="dot"></span>Fase 3</a>
+  </div>
+</nav>
+
+<!-- COVER -->
+<div id="cover">
+  <div class="wrap">
+    <div class="cover-label">Plan de Marketing Digital · 2026</div>
+    <h1 class="cover-title">Villelabs<br><span>necesita venderse</span><br>como vende a sus clientes.</h1>
+    <p class="cover-sub">La agencia que convierte el sitio web de otros en sistemas de venta no tiene un sistema de adquisición propio. LinkedIn + Contenido B2B + Directorios + Case Studies. Seis meses para cerrar la brecha.</p>
+    <div class="cover-meta">
+      <div class="meta-item"><span class="meta-label">Cliente</span><span class="meta-value">Villelabs</span></div>
+      <div class="meta-item"><span class="meta-label">Inicio</span><span class="meta-value">Marzo 2026</span></div>
+      <div class="meta-item"><span class="meta-label">Duración</span><span class="meta-value">6 meses</span></div>
+      <div class="meta-item"><span class="meta-label">Estado</span><span class="meta-value live" id="status-label">— Sin iniciar</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- PROGRESS -->
+<div id="progress-overview">
+  <div class="wrap">
+    <div class="progress-grid">
+      <div class="prog-card">
+        <div class="prog-card-header">
+          <span class="prog-phase-label" style="color:var(--phase1)">Fase 1 · Mes 1</span>
+          <span class="prog-pct" style="color:var(--phase1)" id="pct1">0%</span>
+        </div>
+        <div class="prog-bar-bg"><div class="prog-bar-fill" id="bar1" style="background:var(--phase1);width:0%"></div></div>
+        <div class="prog-details" id="detail1">0 de 14 tareas completadas</div>
+      </div>
+      <div class="prog-card">
+        <div class="prog-card-header">
+          <span class="prog-phase-label" style="color:var(--phase2)">Fase 2 · Mes 2–3</span>
+          <span class="prog-pct" style="color:var(--phase2)" id="pct2">0%</span>
+        </div>
+        <div class="prog-bar-bg"><div class="prog-bar-fill" id="bar2" style="background:var(--phase2);width:0%"></div></div>
+        <div class="prog-details" id="detail2">0 de 11 tareas completadas</div>
+      </div>
+      <div class="prog-card">
+        <div class="prog-card-header">
+          <span class="prog-phase-label" style="color:var(--phase3)">Fase 3 · Mes 4–6</span>
+          <span class="prog-pct" style="color:var(--phase3)" id="pct3">0%</span>
+        </div>
+        <div class="prog-bar-bg"><div class="prog-bar-fill" id="bar3" style="background:var(--phase3);width:0%"></div></div>
+        <div class="prog-details" id="detail3">0 de 10 tareas completadas</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 1: DIAGNÓSTICO -->
+<section class="section" id="diagnostico">
+  <div class="wrap">
+    <span class="section-number">01 — Diagnóstico</span>
+    <h2 class="section-title">El sitio es bueno.<br><span>El sistema de adquisición, no existe.</span></h2>
+    <p>Villelabs tiene lo que la mayoría de sus clientes no tiene: un sitio bien estructurado, precios transparentes, social proof con métricas reales y una metodología diferenciadora (Shape Up). Ese es el problema. El zapato del zapatero está bastante bien hecho. Pero el canal de adquisición que convierte a extraños en clientes es casi inexistente.</p>
+    <p>Con tickets de $380–$8.000 USD, el volumen no importa — importa la calidad. Los founders, CTOs y CMOs que son el cliente ideal de Villelabs no entran por Meta Ads: entran por referidos, por contenido de autoridad y por presencia en los lugares donde buscan partners de tecnología. Ninguno de esos canales está activo hoy.</p>
+
+    <div class="callout amber">
+      <div class="callout-title">La brecha principal</div>
+      <p>Álvaro Villena es Top 3% de Toptal, tiene 15 años de experiencia y un portfolio de proyectos reales con métricas impresionantes. Nada de eso trabaja activamente para generar leads mientras duerme. El contenido es el vendedor más barato que existe.</p>
+    </div>
+
+    <h3 class="sub-title">Diagnóstico por dimensión</h3>
+    <div class="scorecard">
+      <div class="score-row">
+        <div class="score-dim">Sitio web / UX</div>
+        <div class="score-badge cyan">8/10</div>
+        <div class="score-note">Estructura de conversión excelente. Precios visibles, social proof con métricas, metodología Shape Up bien comunicada. El mejor de su clase.</div>
+      </div>
+      <div class="score-row">
+        <div class="score-dim">Propuesta de valor</div>
+        <div class="score-badge green">7/10</div>
+        <div class="score-note">"Marketing y Desarrollo que escala" funciona. El filtro "no es para todos" es brillante. Podría ser más específico sobre el perfil de cliente ideal.</div>
+      </div>
+      <div class="score-row">
+        <div class="score-dim">Arquitectura de marca</div>
+        <div class="score-badge amber">4/10</div>
+        <div class="score-note">alvarovillena.cl y villelabs.cl coexisten sin jerarquía clara. El mismo portfolio, los mismos clientes, sin saber cuál es la puerta principal. Esto diluye ambas marcas.</div>
+      </div>
+      <div class="score-row">
+        <div class="score-dim">Contenido / SEO</div>
+        <div class="score-badge red">2/10</div>
+        <div class="score-note">Una agencia tech sin blog es la ironía del sector. No hay artículos, no hay SEO de contenido, no hay activos orgánicos que trabajen 24/7.</div>
+      </div>
+      <div class="score-row">
+        <div class="score-dim">LinkedIn Thought Leadership</div>
+        <div class="score-badge red">3/10</div>
+        <div class="score-note">Álvaro tiene un perfil. No hay sistema de publicación. El target ideal (founders, CTOs, directores) vive exactamente ahí. El canal más infraexplotado del plan.</div>
+      </div>
+      <div class="score-row">
+        <div class="score-dim">Directorios B2B (Clutch, Goodfirms)</div>
+        <div class="score-badge red">2/10</div>
+        <div class="score-note">Ausente en los principales directorios donde empresas buscan agencias con reseñas verificadas. Clutch tiene +500 visitas/mes de empresas con presupuesto.</div>
+      </div>
+      <div class="score-row">
+        <div class="score-dim">Case Studies profundos</div>
+        <div class="score-badge amber">5/10</div>
+        <div class="score-note">Las métricas están ("+120% leads", "-80% soporte") pero como bullets en el sitio. Sin caso de negocio completo (problema → solución → resultado → quote del cliente).</div>
+      </div>
+      <div class="score-row">
+        <div class="score-dim">Video / YouTube</div>
+        <div class="score-badge red">1/10</div>
+        <div class="score-note">Para una agencia que vende transformación digital, el video mostrando el proceso es el argumento más poderoso. Inexistente hoy.</div>
+      </div>
+    </div>
+
+    <h3 class="sub-title">Activos estratégicos sin explotar</h3>
+    <div style="margin-top:16px">
+      <div class="diag-row">
+        <div class="diag-tag positive">⭐ Principal</div>
+        <div class="diag-text"><strong>Top 3% Toptal + 15 años + 120 proyectos</strong> — La credencial más fuerte del mercado chileno de agencias. Apenas visible en villelabs.cl, casi invisible como contenido activo.</div>
+      </div>
+      <div class="diag-row">
+        <div class="diag-tag positive">Portfolio</div>
+        <div class="diag-text"><strong>Casos con métricas reales</strong> — Puchacay +120% leads, Fidelidapp -80% soporte, Ewaffle +40% conversión. Son los mejores argumentos de venta B2B existentes. Hoy son bullets en el sitio.</div>
+      </div>
+      <div class="diag-row">
+        <div class="diag-tag warning">Oportunidad</div>
+        <div class="diag-text"><strong>Stack de IA y automatizaciones en auge</strong> — Chatbots IA, automatización de procesos, plataformas con IA. El mercado está buscando esto activamente en 2026. Villelabs ya lo construye, no lo comunica.</div>
+      </div>
+      <div class="diag-row">
+        <div class="diag-tag warning">Oportunidad</div>
+        <div class="diag-text"><strong>Metodología Shape Up</strong> — Usada por Basecamp, diferenciadora en Chile. Un artículo explicando "por qué trabajamos en ciclos de 2–4 semanas y no en proyectos abiertos" sería viral entre founders.</div>
+      </div>
+      <div class="diag-row">
+        <div class="diag-tag critical">Riesgo</div>
+        <div class="diag-text"><strong>Doble marca sin arquitectura</strong> — Sin definir cuál es la puerta de entrada (¿Álvaro o Villelabs?) los esfuerzos de contenido y SEO se dividen a la mitad o se cannibalizan.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 2: ESTRATEGIA -->
+<section class="section" id="canales">
+  <div class="wrap">
+    <span class="section-number">02 — Estrategia de Canales</span>
+    <h2 class="section-title">B2B de alto ticket.<br><span>Playbook completamente distinto.</span></h2>
+    <p>Los clientes de Villelabs no entran por Meta Ads. No buscan "agencia digital barata Santiago". Buscan un partner que entienda su problema de negocio y que tenga evidencia de haberlo resuelto antes. El canal es LinkedIn. El argumento es el caso de éxito. La puerta es Álvaro.</p>
+
+    <div class="callout blue">
+      <div class="callout-title">Decisión estratégica prioritaria</div>
+      <p><strong>Álvaro es la marca, Villelabs es la agencia.</strong> El plan de contenido se construye alrededor de Álvaro en LinkedIn (autoridad personal), que deriva hacia Villelabs (la instancia comercial). Esta jerarquía elimina la confusión y concentra la autoridad donde tiene más tracción.</p>
+    </div>
+
+    <!-- LinkedIn -->
+    <div class="channel-block">
+      <div class="channel-header" style="border-bottom:1px solid var(--rule)">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px">
+          <div style="width:8px;height:8px;background:var(--blue);border-radius:50%"></div>
+          <h3>LinkedIn — Canal Principal · Autoridad B2B</h3>
+        </div>
+        <div class="ch-sub">3 posts/semana de Álvaro · Fuad amplifica · LinkedIn Ads mes 4+</div>
+      </div>
+      <div class="channel-body">
+        <h4 class="mini-title">¿Por qué LinkedIn y no Meta para Villelabs?</h4>
+        <div class="aud-cards">
+          <div class="aud-card"><div class="aud-type">Target</div><div class="aud-desc">Founders, CTOs, CMOs y gerentes de operaciones que toman decisiones de $1.000–$8.000 USD. Están en LinkedIn, no en Instagram.</div></div>
+          <div class="aud-card"><div class="aud-type">Ciclo de venta</div><div class="aud-desc">Un proyecto de $5.000 USD no se cierra en 24h. El contenido educa, genera confianza y mantiene a Villelabs en el top-of-mind hasta que el lead tiene el presupuesto.</div></div>
+          <div class="aud-card"><div class="aud-type">Top 3% Toptal</div><div class="aud-desc">La credencial más fuerte del mercado. Un post "Qué aprendí siendo Top 3% de Toptal después de 15 años" tiene potencial viral en el ecosistema tech/founder de Chile y Latam.</div></div>
+        </div>
+        <h4 class="mini-title">6 pilares de contenido · Álvaro publica, Villelabs amplifica</h4>
+        <div class="pillars">
+          <div class="pillar"><span class="pillar-num">1</span><span class="pillar-name">Casos de éxito desglosados</span><span class="pillar-obj">Prueba social de alto impacto</span></div>
+          <div class="pillar"><span class="pillar-num">2</span><span class="pillar-name">Errores de founders en digital</span><span class="pillar-obj">Empatía + autoridad simultánea</span></div>
+          <div class="pillar"><span class="pillar-num">3</span><span class="pillar-name">Metodología Shape Up aplicada</span><span class="pillar-obj">Diferenciador único en el mercado</span></div>
+          <div class="pillar"><span class="pillar-num">4</span><span class="pillar-name">IA y automatización práctica</span><span class="pillar-obj">Surfear la ola de demanda 2026</span></div>
+          <div class="pillar"><span class="pillar-num">5</span><span class="pillar-name">Lecciones de 15 años de proyectos</span><span class="pillar-obj">Autoridad por trayectoria</span></div>
+          <div class="pillar"><span class="pillar-num">6</span><span class="pillar-name">CTA suave hacia llamada exploratoria</span><span class="pillar-obj">1 de cada 5 posts — conversión directa</span></div>
+        </div>
+        <h4 class="mini-title">Audiencias para LinkedIn Ads (activar mes 4)</h4>
+        <div class="aud-cards">
+          <div class="aud-card"><div class="aud-type">Founders B2B</div><div class="aud-desc">CEO/Founder · Chile + Latam · Empresas 10–200 empleados · Sectores: SaaS, retail, servicios profesionales</div></div>
+          <div class="aud-card"><div class="aud-type">Decisores tech</div><div class="aud-desc">CTO, Head of Product, VP Engineering · Empresas en crecimiento · Intereses: automatización, Node.js, React</div></div>
+          <div class="aud-card"><div class="aud-type">Retargeting</div><div class="aud-desc">Visitantes del sitio en 30 días + engagers del perfil de Álvaro en LinkedIn</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Content SEO -->
+    <div class="channel-block">
+      <div class="channel-header">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px">
+          <div style="width:8px;height:8px;background:var(--cyan);border-radius:50%"></div>
+          <h3>Blog + SEO — Activos que trabajan 24/7</h3>
+        </div>
+        <div class="ch-sub">2 artículos/mes · Long-tail B2B · Álvaro como autor</div>
+      </div>
+      <div class="channel-body">
+        <h4 class="mini-title">Keywords prioritarias para agencia tech B2B</h4>
+        <div class="kw-tags">
+          <span class="kw high">agencia chatbot IA Chile</span>
+          <span class="kw high">automatización de procesos empresa Chile</span>
+          <span class="kw high">desarrollo plataforma SaaS Santiago</span>
+          <span class="kw medium">agencia landing page conversión Chile</span>
+          <span class="kw medium">funnel de ventas Chile</span>
+          <span class="kw medium">Shape Up metodología agencia</span>
+          <span class="kw long">cuánto cuesta chatbot IA para empresa</span>
+          <span class="kw long">MVP startup Chile cuánto cuesta</span>
+          <span class="kw long">automatizar atención al cliente WhatsApp</span>
+        </div>
+        <h4 class="mini-title">Primeros 4 artículos recomendados</h4>
+        <div class="aud-cards">
+          <div class="aud-card"><div class="aud-type">Mes 2</div><div class="aud-desc"><strong>"Por qué tu landing page no convierte (y cómo saberlo en 5 minutos)"</strong> — Target: founders con tráfico que no convierte. Alta intención de búsqueda.</div></div>
+          <div class="aud-card"><div class="aud-type">Mes 2</div><div class="aud-desc"><strong>"Shape Up: por qué trabajamos en ciclos de 2 semanas y nunca en proyectos abiertos"</strong> — Diferenciador único. Potencial viral en el ecosistema tech.</div></div>
+          <div class="aud-card"><div class="aud-type">Mes 3</div><div class="aud-desc"><strong>"Cuánto cuesta un chatbot con IA en Chile en 2026 (guía honesta)"</strong> — Alta intención de compra. Keyword de alta conversión.</div></div>
+          <div class="aud-card"><div class="aud-type">Mes 3</div><div class="aud-desc"><strong>"Cómo Cervecería Puchacay duplicó ventas online cambiando su web (caso completo)"</strong> — Case study profundo. Prueba social B2B definitiva.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Directorios B2B -->
+    <div class="channel-block">
+      <div class="channel-header">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px">
+          <div style="width:8px;height:8px;background:var(--amber);border-radius:50%"></div>
+          <h3>Directorios B2B — El Canal Olvidado</h3>
+        </div>
+        <div class="ch-sub">Clutch · Goodfirms · Sortlist · DesignRush</div>
+      </div>
+      <div class="channel-body">
+        <p style="font-size:13px;color:var(--mid);margin-bottom:14px">Clutch.co tiene más de 500.000 visitas mensuales de empresas buscando agencias con presupuesto definido. Es el G2 del sector de agencias. Villelabs no aparece en ninguno.</p>
+        <div class="aud-cards">
+          <div class="aud-card red"><div class="aud-type">Clutch.co</div><div class="aud-desc"><strong>Prioridad máxima</strong> — Mayor directorio B2B de agencias del mundo. Perfiles verificados con reseñas de clientes reales. Genera leads de alta intención de compra.</div></div>
+          <div class="aud-card amber"><div class="aud-type">Goodfirms</div><div class="aud-desc">Directorio especializado en tech agencies. Alta visibilidad en búsquedas tipo "top development agencies Chile".</div></div>
+          <div class="aud-card amber"><div class="aud-type">Sortlist.com</div><div class="aud-desc">Plataforma que conecta empresas con agencias en Chile y Latam. Ya aparecen los competidores directos.</div></div>
+          <div class="aud-card"><div class="aud-type">DesignRush</div><div class="aud-desc">Directorio con strong SEO en "best web design agencies". Complementario a los anteriores.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Google Ads -->
+    <div class="channel-block">
+      <div class="channel-header">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px">
+          <div style="width:8px;height:8px;background:var(--cons);border-radius:50%"></div>
+          <h3>Google Ads — Intención directa de alto ticket</h3>
+        </div>
+        <div class="ch-sub">Solo long-tail · Activar en mes 3 · Presupuesto acotado</div>
+      </div>
+      <div class="channel-body">
+        <p style="font-size:13px;color:var(--mid);margin-bottom:14px">Google Ads para B2B tech tiene sentido únicamente con keywords de alta intención y ticket. No buscar volumen — buscar calidad.</p>
+        <div class="kw-tags">
+          <span class="kw high">agencia chatbot IA empresa</span>
+          <span class="kw high">desarrollar plataforma web Santiago</span>
+          <span class="kw medium">automatización procesos empresa Santiago</span>
+          <span class="kw medium">agencia landing page conversión</span>
+          <span class="kw long">cuánto cuesta MVP startup Chile</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 3: CASE STUDIES -->
+<section class="section" id="casestudies">
+  <div class="wrap">
+    <span class="section-number">03 — Case Studies + Banco de Contenido</span>
+    <h2 class="section-title">Las métricas ya existen.<br><span>Solo necesitan forma.</span></h2>
+    <p>Villelabs tiene los mejores argumentos de venta B2B del mercado chileno: +120% leads, -80% soporte, +35% ventas, +40% conversión. Todos son bullets en el sitio. Ninguno es un caso de negocio completo que un founder pueda leer en 5 minutos y decir "esto es exactamente lo que necesito".</p>
+
+    <div class="callout">
+      <div class="callout-title">Principio rector para contenido B2B</div>
+      <p>Un case study bien escrito es el mejor vendedor. No necesita pedir permiso para hablar. Trabaja solo. Y cuando un decision maker lo lee, ya llegó a la llamada con el 70% de la decisión tomada.</p>
+    </div>
+
+    <h3 class="sub-title">5 case studies a producir</h3>
+    <div class="aud-cards">
+      <div class="aud-card"><div class="aud-type">⭐ Prioridad 1</div><div class="aud-desc"><strong>Cervecería Puchacay</strong> — E-commerce: web espectacular que no vendía → sistema de conversión → +120% leads, +35% ventas. El caso más replicable y viral para founders de retail/ecommerce.</div></div>
+      <div class="aud-card"><div class="aud-type">Prioridad 2</div><div class="aud-desc"><strong>Fidelidapp</strong> — SaaS: chatbot que reemplazó el soporte manual → -80% carga de soporte, +25% retención. Ideal para founders de SaaS o empresas con alto volumen de consultas.</div></div>
+      <div class="aud-card"><div class="aud-type">Prioridad 3</div><div class="aud-desc"><strong>Ewaffle</strong> — Landing + funnel: +40% conversión en 3 meses. Caso para directores de marketing y CMOs que tienen tráfico pero no convierten.</div></div>
+      <div class="aud-card"><div class="aud-type">Prioridad 4</div><div class="aud-desc"><strong>Sistema de Ingresos con IA (aerolíneas)</strong> — El caso más técnico y diferenciador. Posiciona Villelabs en el segmento enterprise y de alto ticket.</div></div>
+      <div class="aud-card"><div class="aud-type">Prioridad 5</div><div class="aud-desc"><strong>Defensa Total</strong> — Captación de leads para sector legal. Muy replicable para servicios profesionales (médicos, abogados, consultores).</div></div>
+    </div>
+
+    <h3 class="sub-title">Banco de contenido visual a producir</h3>
+    <p style="font-size:13px">Una sesión de medio día (Álvaro + equipo + pantallas del trabajo) genera el material para todos los canales por 3–4 meses.</p>
+    <div class="assets">
+      <div class="asset-card"><div class="asset-type">Fotos de equipo</div><div class="asset-qty">10–15</div><div class="asset-dest">LinkedIn, sitio /about, Clutch profile</div></div>
+      <div class="asset-card"><div class="asset-type">Videos Álvaro a cámara</div><div class="asset-qty">5</div><div class="asset-dest">LinkedIn video, YouTube Shorts, Google Ads</div></div>
+      <div class="asset-card"><div class="asset-type">Screen recordings</div><div class="asset-qty">8–10</div><div class="asset-dest">Mostrar el trabajo en proceso — LinkedIn carousels</div></div>
+      <div class="asset-card"><div class="asset-type">Case study PDFs</div><div class="asset-qty">5</div><div class="asset-dest">Lead magnet para newsletter + LinkedIn + Clutch</div></div>
+      <div class="asset-card"><div class="asset-type">Carousels LinkedIn</div><div class="asset-qty">6–8</div><div class="asset-dest">Formato de más alcance en LinkedIn para B2B</div></div>
+      <div class="asset-card" style="border-color:rgba(0,200,168,.25);background:var(--cyan-bg)"><div class="asset-type" style="color:var(--cyan)">Total ~ 3–4 meses</div><div class="asset-qty" style="color:var(--cyan)">30–40</div><div class="asset-dest">piezas reutilizables en todos los canales B2B</div></div>
+    </div>
+
+    <h3 class="sub-title">5 guiones de video — Álvaro a cámara</h3>
+    <div style="display:flex;flex-direction:column;gap:8px;margin-top:14px">
+      <div class="callout" style="margin:0">
+        <div class="callout-title">Video 1 · Presentación Álvaro + Villelabs · 60–90 seg · Hero del sitio, LinkedIn, Google Ads</div>
+        <p style="font-family:var(--mono);font-style:italic;font-size:13px;line-height:1.7">"Hola, soy Álvaro Villena. Llevo 15 años construyendo sistemas digitales que generan ingresos. No diseño websites bonitos. Construyo máquinas de conversión. Si tu web, tu plataforma o tus procesos no están generando lo que deberían, eso tiene solución. Yo sé exactamente cómo arreglarlo."</p>
+      </div>
+      <div class="callout blue" style="margin:0">
+        <div class="callout-title">Video 2 · Por qué trabajamos en ciclos de 2 semanas · 60 seg · LinkedIn, YouTube Shorts</div>
+        <p style="font-family:var(--mono);font-style:italic;font-size:13px;line-height:1.7">"La mayoría de los proyectos digitales fallan no por falta de talento. Fallan por falta de foco. Nosotros usamos Shape Up, la metodología de Basecamp. Ciclos de 2 a 4 semanas, entregables reales, sin proyectos abiertos que se arrastran meses. En 15 años, es lo único que funciona consistentemente."</p>
+      </div>
+      <div class="callout amber" style="margin:0">
+        <div class="callout-title">Video 3 · Cómo saber si tu web está perdiendo plata · 45 seg · Meta Ads, LinkedIn Ads</div>
+        <p style="font-family:var(--mono);font-style:italic;font-size:13px;line-height:1.7">"Hacemos una pregunta simple: ¿cuánto te cuesta conseguir un cliente desde tu web? Si hay silencio, hay un problema. La web no es una vitrina. Es un sistema de ventas. O debería serlo."</p>
+      </div>
+      <div class="callout cons" style="margin:0">
+        <div class="callout-title">Video 4 · IA y automatizaciones · 30 seg · LinkedIn, YouTube Shorts</div>
+        <p style="font-family:var(--mono);font-style:italic;font-size:13px;line-height:1.7">"Hay dos tipos de empresas en 2026: las que automatizan los procesos que consumen tiempo, y las que siguen haciéndolos a mano. Nosotros construimos los sistemas que le devuelven tiempo a tu equipo."</p>
+      </div>
+      <div class="callout" style="margin:0;border-color:var(--green);background:var(--green-bg)">
+        <div class="callout-title" style="color:var(--green)">Video 5 · Top 3% Toptal · 60 seg · LinkedIn, Google Ads diferenciador</div>
+        <p style="font-family:var(--mono);font-style:italic;font-size:13px;line-height:1.7">"De cada 100 personas que postulan a Toptal, 3 quedan. Yo soy uno de esos 3. No lo digo para impresionar. Lo digo porque cuando eliges un partner digital, el estándar importa. Y en Chile puedes trabajar con ese estándar sin pagar precios internacionales."</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 4: FASES -->
+<section class="section" id="fases">
+  <div class="wrap">
+    <span class="section-number">04 — Plan de Trabajo</span>
+    <h2 class="section-title">Arquitectura primero.<br><span>Canales después.</span></h2>
+    <p>El orden importa. Antes de activar cualquier canal de pago, la arquitectura de marca debe estar resuelta y el banco de contenido debe existir. Un founder que llega desde un LinkedIn Ad y encuentra el sitio sin case studies ni blog vuelve a googlear.</p>
+
+    <div class="callout cons">
+      <div class="callout-title">Sesiones de consultoría incluidas · $48.000 CLP/hora · Taller $120.000 CLP</div>
+      <p>Las filas en morado son sesiones de trabajo con el consultor. Cada sesión tiene un entregable concreto: no son reuniones de status, son sesiones de diseño y toma de decisiones.</p>
+    </div>
+
+    <!-- FASE 1 -->
+    <div class="phase-section" id="fase1">
+      <div class="phase-banner p1">
+        <div class="phase-banner-text">
+          <h3>Fase 1 · Mes 1</h3>
+          <p>Arquitectura de marca, banco de contenido, directorios B2B y LinkedIn. Sin esto, ningún canal funciona bien.</p>
+        </div>
+        <div class="phase-prog-mini">
+          <div class="phase-prog-num" style="color:var(--phase1)" id="pct1b">0%</div>
+          <div class="phase-prog-lbl">completado</div>
+        </div>
+      </div>
+
+      <h4 class="mini-title">Sesiones de consultoría · Fase 1</h4>
+      <div class="sessions">
+        <div class="session-card"><div class="session-left"><span class="s-type">Taller 1</span><span class="s-hours">3h</span><span class="s-price">$120.000</span></div><div class="session-right"><strong>Arquitectura de marca y definición de ICP</strong><p>Resolver la jerarquía alvarovillena.cl vs villelabs.cl. Definir el perfil de cliente ideal exacto (industria, tamaño, dolor, ticket). Brief de contenido para los 5 case studies y los 5 videos.</p></div></div>
+        <div class="session-card"><div class="session-left"><span class="s-type">Sesión 2</span><span class="s-hours">2h</span><span class="s-price">$96.000</span></div><div class="session-right"><strong>Voz LinkedIn de Álvaro + guiones de video</strong><p>Trabajar el tono, los 6 pilares de contenido y los guiones de los 5 videos. Álvaro habla como Álvaro — no como agencia corporativa.</p></div></div>
+        <div class="session-card"><div class="session-left"><span class="s-type">Sesión 3</span><span class="s-hours">1h</span><span class="s-price">$48.000</span></div><div class="session-right"><strong>Brief sesión de fotos y videos</strong><p>Checklist de producción: outfits, ángulos, pantallas a capturar, secuencia del día. Coordinación técnica con el equipo.</p></div></div>
+      </div>
+
+      <h4 class="mini-title">Tareas operacionales</h4>
+      <div class="task-table">
+        <div class="task-row cons-row" data-phase="1" data-id="1_0"><div class="task-check cons-check" onclick="toggleTask(this)"></div><div class="task-content"><div class="task-title">TALLER 1 — Arquitectura de marca y definición ICP</div><div class="task-desc">Resolver jerarquía alvarovillena.cl / villelabs.cl. Definir perfil de cliente ideal. Brief de case studies y videos.</div></div><div class="task-resp">Consultor</div><div class="task-week">S1</div></div>
+        <div class="task-row" data-phase="1" data-id="1_1"><div class="task-check" onclick="toggleTask(this)"></div><div class="task-content"><div class="task-title">Definir y documentar arquitectura de marca</div><div class="task-desc">Álvaro = autor/experto. Villelabs = agencia/producto. Jerarquía clara en ambos sitios con links estratégicos entre ellos.</div></div><div class="task-resp">Ag. + Álvaro</div><div class="task-week">S1</div></div>
+        <div class="task-row" data-phase="1" data-id="1_2"><div class="task-check" onclick="toggleTask(this)"></div><div class="task-content"><div class="task-title">Registrar Villelabs en Clutch.co</div><div class="task-desc">Perfil completo: servicios, portfolio, áreas geográficas. Solicitar reseñas a Puchacay, Fidelidapp, Ewaffle. Meta: 3 reseñas verificadas en mes 1.</div></div><div class="task-resp">Agencia</div><div class="task-week">S1</div></div>
+        <div class="task-row" data-phase="1" data-id="1_3"><div class="task-check" onclick="toggleTask(this)"></div><div class="task-content"><div class="task-title">Registrar en Goodfirms + Sortlist + DesignRush</div><div class="task-desc">4 directorios B2B de alta autoridad. Cada perfil enlaza al sitio y aumenta el DA del dominio.</div></div><div class="task-resp">Agencia</div><div class="task-week">S1</div></div>
+        <div class="task-row cons-row" data-phase="1" data-id="1_4"><div class="task-check cons-check" onclick="toggleTask(this)"></div><div class="task-content"><div class="task-title">SESIÓN 2 — Voz LinkedIn + guiones de video</div><div class="task-desc">Definir tono, pilares de contenido y guionar los 5 videos con Álvaro.</div></div><div class="task-resp">Consultor + Álvaro</div><div class="task-week">S1</div></div>
+        <div class="task-row" data-phase="1" data-id="1_5"><div class="task-check" onclick="toggleTask(this)"></div><div class="task-content"><div class="task-title">Optimizar LinkedIn de Álvaro como autor</div><div class="task-desc">Headline con keywords B2B, banner de marca Villelabs, featured section con case studies, URL personalizada.</div></div><div class="task-resp">Ag. + Álvaro</div><div class="task-week">S1</div></div>
+        <div class="task-row" data-phase="1" data-id="1_6"><div class="task-check" onclick="toggleTask(this)"></div><div class="task-content"><div class="task-title">Crear/optimizar página empresa Villelabs en LinkedIn</div><div class="task-desc">Logo, banner, descripción con keywords, CTA a llamada exploratoria. Perfil de Bruno y Fuad completos.</div></div><div class="task-resp">Agencia</div><div class="task-week">S1–S2</div></div>
+        <div class="task-row" data-phase="1" data-id="1_7"><div class="task-check" onclick="toggleTask(this)"></div><div class="task-content"><div class="task-title">Instalar pixel Meta + GA4 + LinkedIn Insight Tag</div><div class="task-desc">Configurar los tres. Sin estos datos no hay retargeting posible en mes 3+.</div></div><div class="task-resp">Álvaro / Bruno</div><div class="task-week">S2</div></div>
+        <div class="task-row cons-row" data-phase="1" data-id="1_8"><div class="task-check cons-check" onclick="toggleTask(this)"></div><div class="task-content"><div class="task-title">SESIÓN 3 — Brief sesión de fotos y videos</div><div class="task-desc">Checklist de producción completo. Coordinación técnica del día.</div></div><div class="task-resp">Consultor + Equipo</div><div class="task-week">S2</div></div>
+        <div class="task-row" data-phase="1" data-id="1_9"><div class="task-check" onclick="toggleTask(this)"></div><div class="task-content"><div class="task-title">📸 SESIÓN DE FOTOS, VIDEOS Y PANTALLAS</div><div class="task-desc">Ejecutar el plan de producción: fotos de equipo, 5 videos a cámara de Álvaro, screen recordings del trabajo.</div></div><div class="task-resp">Ag. + Equipo</div><div class="task-week">S2</div></div>
+        <div class="task-row" data-phase="1" data-id="1_10"><div class="task-check" onclick="toggleTask(this)"></div><div class="task-content"><div class="task-title">Edición de fotos, videos y carousels</div><div class="task-desc">Entregar 5 reels/videos editados + fotos + 3 carousels LinkedIn sobre metodología Shape Up y casos de éxito.</div></div><div class="task-resp">Agencia</div><div class="task-week">S3</div></div>
+        <div class="task-row" data-phase="1" data-id="1_11"><div class="task-check" onclick="toggleTask(this)"></div><div class="task-content"><div class="task-title">Escribir y publicar case study 1 (Puchacay)</div><div class="task-desc">Formato: problema → proceso Shape Up → solución → métricas → quote del cliente. PDF descargable + artículo web.</div></div><div class="task-resp">Ag. + Álvaro</div><div class="task-week">S3</div></div>
+        <div class="task-row" data-phase="1" data-id="1_12"><div class="task-check" onclick="toggleTask(this)"></div><div class="task-content"><div class="task-title">Instalar blog y lanzar primeros 2 artículos SEO</div><div class="task-desc">"Por qué tu landing no convierte" + "Shape Up: ciclos de 2 semanas". Álvaro como autor en ambos.</div></div><div class="task-resp">Ag. + Álvaro</div><div class="task-week">S3–S4</div></div>
+        <div class="task-row" data-phase="1" data-id="1_13"><div class="task-check" onclick="toggleTask(this)"></div><div class="task-content"><div class="task-title">Iniciar ritmo LinkedIn: 3 posts/semana de Álvaro</div><div class="task-desc">Primeros 3 posts: presentación personal como autor + caso Puchacay + pilar de metodología Shape Up.</div></div><div class="task-resp">Álvaro + Ag.</div><div class="task-week">S4</div></div>
+      </div>
+
+      <h4 class="mini-title">Presupuesto Fase 1 · en CLP</h4>
+      <div class="budget-table">
+        <div class="bgt-row"><div class="bgt-label">Fotografía, videografía y edición (sesión completa)</div><div class="bgt-amount">$220.000–$300.000</div></div>
+        <div class="bgt-row"><div class="bgt-label">Producción 5 case studies (redacción + diseño PDF)<small>Puchacay, Fidelidapp, Ewaffle, Defensa Total, IA</small></div><div class="bgt-amount">$180.000–$240.000</div></div>
+        <div class="bgt-row"><div class="bgt-label">Setup blog + 2 artículos SEO iniciales</div><div class="bgt-amount">$80.000</div></div>
+        <div class="bgt-row"><div class="bgt-label">Registro y optimización 4 directorios B2B<small>Clutch, Goodfirms, Sortlist, DesignRush</small></div><div class="bgt-amount">$60.000</div></div>
+        <div class="bgt-row"><div class="bgt-label">Setup técnico (pixels, LinkedIn Insight Tag, GA4)</div><div class="bgt-amount">$40.000</div></div>
+        <div class="bgt-row"><div class="bgt-label">Optimización LinkedIn Álvaro + página empresa + equipo</div><div class="bgt-amount">$50.000</div></div>
+        <div class="bgt-row"><div class="bgt-label">Herramientas (Canva Pro + Buffer + herramientas SEO)</div><div class="bgt-amount">$45.000</div></div>
+        <hr class="budget-divider">
+        <div class="bgt-row cons"><div class="bgt-label">Taller 1 · Arquitectura de marca y ICP<small>3 horas · $48.000/h</small></div><div class="bgt-amount">$120.000</div></div>
+        <div class="bgt-row cons"><div class="bgt-label">Sesión 2 · Voz LinkedIn + guiones<small>2 horas · $48.000/h</small></div><div class="bgt-amount">$96.000</div></div>
+        <div class="bgt-row cons"><div class="bgt-label">Sesión 3 · Brief producción<small>1 hora · $48.000/h</small></div><div class="bgt-amount">$48.000</div></div>
+        <hr class="budget-divider">
+        <div class="bgt-row total"><div class="bgt-label">Total Fase 1</div><div class="bgt-amount">~$939K–$1.079K</div></div>
+      </div>
+    </div>
+
+    <!-- FASE 2 -->
+    <div class="phase-section" id="fase2">
+      <div class="phase-banner p2">
+        <div class="phase-banner-text">
+          <h3>Fase 2 · Meses 2–3</h3>
+          <p>Activar LinkedIn como canal de adquisición, ritmo de contenido sostenible, Google Ads long-tail y primeros leads orgánicos del blog.</p>
+        </div>
+        <div class="phase-prog-mini">
+          <div class="phase-prog-num" style="color:var(--phase2)" id="pct2b">0%</div>
+          <div class="phase-prog-lbl">completado</div>
+        </div>
+      </div>
+
+      <h4 class="mini-title">Sesiones de consultoría · Fase 2</h4>
+      <div class="sessions">
+        <div class="session-card"><div class="session-left"><span class="s-type">Sesión 4</span><span class="s-hours">2h</span><span class="s-price">$96.000</span></div><div class="session-right"><strong>Revisión mes 2: qué está traccionando</strong><p>Analizar qué posts de LinkedIn generaron más engagement e inbound. Revisar qué keywords del blog ya empiezan a indexar. Ajustar el editorial plan para el mes 3.</p></div></div>
+        <div class="session-card"><div class="session-left"><span class="s-type">Sesión 5</span><span class="s-hours">2h</span><span class="s-price">$96.000</span></div><div class="session-right"><strong>Coaching LinkedIn para Álvaro</strong><p>Retroalimentar los primeros 12 posts. Cómo responder comentarios para maximizar el algoritmo. Álvaro aprende a publicar de forma autónoma con sistema.</p></div></div>
+        <div class="session-card"><div class="session-left"><span class="s-type">Taller 2</span><span class="s-hours">3h</span><span class="s-price">$120.000</span></div><div class="session-right"><strong>Mid-check estratégico mes 3</strong><p>Revisar el funnel completo: tráfico orgánico, leads de LinkedIn, conversiones de Clutch. ¿Valen la pena los Google Ads ya? Decisión: ¿activar LinkedIn Ads en mes 4?</p></div></div>
+      </div>
+
+      <h4 class="mini-title">Tareas operacionales</h4>
+      <div class="task-table">
+        <div class="task-row" data-phase="2" data-id="2_0"><div class="task-check" onclick="toggleTask(this)"></div><div class="task-content"><div class="task-title">Lanzar Google Ads search (long-tail B2B)</div><div class="task-desc">5 keywords de alta intención. Anuncio con credencial Top 3% Toptal + CTA a llamada exploratoria. Presupuesto acotado, alta intención.</div></div><div class="task-resp">Agencia</div><div class="task-week">Mes 2</div></div>
+        <div class="task-row" data-phase="2" data-id="2_1"><div class="task-check" onclick="toggleTask(this)"></div><div class="task-content"><div class="task-title">LinkedIn: ritmo 3 posts/semana de Álvaro</div><div class="task-desc">Rotar 6 pilares. Responder comentarios dentro de 1 hora. Fuad amplifica desde la página empresa.</div></div><div class="task-resp">Álvaro + Fuad</div><div class="task-week">Mes 2–3</div></div>
+        <div class="task-row cons-row" data-phase="2" data-id="2_2"><div class="task-check cons-check" onclick="toggleTask(this)"></div><div class="task-content"><div class="task-title">SESIÓN 4 — Revisión resultados mes 2</div><div class="task-desc">Analizar engagement LinkedIn, indexación blog, clicks Clutch. Ajustar editorial plan.</div></div><div class="task-resp">Consultor</div><div class="task-week">Mes 2</div></div>
+        <div class="task-row" data-phase="2" data-id="2_3"><div class="task-check" onclick="toggleTask(this)"></div><div class="task-content"><div class="task-title">Publicar case studies 2 y 3 (Fidelidapp + Ewaffle)</div><div class="task-desc">Mismo formato: problema → proceso → solución → métricas → quote. Artículo web + PDF descargable.</div></div><div class="task-resp">Ag. + Álvaro</div><div class="task-week">Mes 2</div></div>
+        <div class="task-row cons-row" data-phase="2" data-id="2_4"><div class="task-check cons-check" onclick="toggleTask(this)"></div><div class="task-content"><div class="task-title">SESIÓN 5 — Coaching LinkedIn de Álvaro</div><div class="task-desc">Retroalimentar los primeros posts. Álvaro aprende el sistema de publicación autónomo.</div></div><div class="task-resp">Consultor + Álvaro</div><div class="task-week">Mes 2</div></div>
+        <div class="task-row" data-phase="2" data-id="2_5"><div class="task-check" onclick="toggleTask(this)"></div><div class="task-content"><div class="task-title">Solicitar reseñas verificadas en Clutch</div><div class="task-desc">Clutch entrevista a los clientes directamente (proceso verificado). Meta: 5 reseñas en 60 días. Prioridad: Puchacay, Fidelidapp, Ewaffle.</div></div><div class="task-resp">Álvaro / Fuad</div><div class="task-week">Mes 2</div></div>
+        <div class="task-row" data-phase="2" data-id="2_6"><div class="task-check" onclick="toggleTask(this)"></div><div class="task-content"><div class="task-title">Publicar artículos blog 3 y 4 (SEO)</div><div class="task-desc">"Cuánto cuesta un chatbot IA en Chile (guía honesta)" + "Caso completo Puchacay: cómo duplicaron sus ventas".</div></div><div class="task-resp">Ag. + Álvaro</div><div class="task-week">Mes 3</div></div>
+        <div class="task-row" data-phase="2" data-id="2_7"><div class="task-check" onclick="toggleTask(this)"></div><div class="task-content"><div class="task-title">Lanzar newsletter mensual de valor</div><div class="task-desc">"El sistema de Álvaro" — 1 insight accionable por mes sobre digital, IA y sistemas de venta. Lead magnet: PDF case study.</div></div><div class="task-resp">Ag. + Álvaro</div><div class="task-week">Mes 2</div></div>
+        <div class="task-row" data-phase="2" data-id="2_8"><div class="task-check" onclick="toggleTask(this)"></div><div class="task-content"><div class="task-title">Activar retargeting Google Ads</div><div class="task-desc">Visitantes que vieron /servicios o /portafolio sin agendar. Anuncio con case study + CTA llamada.</div></div><div class="task-resp">Agencia</div><div class="task-week">Mes 3</div></div>
+        <div class="task-row cons-row" data-phase="2" data-id="2_9"><div class="task-check cons-check" onclick="toggleTask(this)"></div><div class="task-content"><div class="task-title">TALLER 2 — Mid-check estratégico mes 3</div><div class="task-desc">Revisar funnel completo, decidir si activar LinkedIn Ads mes 4, definir estrategia Fase 3.</div></div><div class="task-resp">Consultor</div><div class="task-week">Mes 3</div></div>
+        <div class="task-row" data-phase="2" data-id="2_10"><div class="task-check" onclick="toggleTask(this)"></div><div class="task-content"><div class="task-title">Publicar case studies 4 y 5</div><div class="task-desc">IA Aerolíneas + Defensa Total. Con estos 5 cases, Villelabs cubre todos los segmentos de su ICP.</div></div><div class="task-resp">Ag. + Álvaro</div><div class="task-week">Mes 3</div></div>
+      </div>
+
+      <h4 class="mini-title">Presupuesto Fase 2 · mensual en CLP</h4>
+      <div class="budget-table">
+        <div class="bgt-row"><div class="bgt-label">Google Ads search B2B (long-tail, alta intención)</div><div class="bgt-amount">$120.000</div></div>
+        <div class="bgt-row"><div class="bgt-label">Gestión y optimización Google Ads</div><div class="bgt-amount">$60.000</div></div>
+        <div class="bgt-row"><div class="bgt-label">Gestión LinkedIn (contenido + amplificación página empresa)</div><div class="bgt-amount">$100.000</div></div>
+        <div class="bgt-row"><div class="bgt-label">Blog SEO (2 artículos/mes + case study)</div><div class="bgt-amount">$90.000</div></div>
+        <div class="bgt-row"><div class="bgt-label">Newsletter mensual (diseño + envío)</div><div class="bgt-amount">$40.000</div></div>
+        <div class="bgt-row"><div class="bgt-label">Herramientas (SEMrush/Ahrefs básico + Brevo + Buffer)</div><div class="bgt-amount">$60.000</div></div>
+        <hr class="budget-divider">
+        <div class="bgt-row cons"><div class="bgt-label">Sesión 4 · Revisión resultados mes 2<small>2 horas · única</small></div><div class="bgt-amount">$96.000</div></div>
+        <div class="bgt-row cons"><div class="bgt-label">Sesión 5 · Coaching LinkedIn Álvaro<small>2 horas · única</small></div><div class="bgt-amount">$96.000</div></div>
+        <div class="bgt-row cons"><div class="bgt-label">Taller 2 · Mid-check estratégico<small>3 horas · mes 3 · única</small></div><div class="bgt-amount">$120.000</div></div>
+        <hr class="budget-divider">
+        <div class="bgt-row total"><div class="bgt-label">Total Fase 2 (2 meses + consultoría)</div><div class="bgt-amount">~$1.544K</div></div>
+      </div>
+    </div>
+
+    <!-- FASE 3 -->
+    <div class="phase-section" id="fase3">
+      <div class="phase-banner p3">
+        <div class="phase-banner-text">
+          <h3>Fase 3 · Meses 4–6</h3>
+          <p>LinkedIn Ads para B2B, YouTube Shorts, escala del contenido orgánico y posicionamiento en directorios internacionales.</p>
+        </div>
+        <div class="phase-prog-mini">
+          <div class="phase-prog-num" style="color:var(--phase3)" id="pct3b">0%</div>
+          <div class="phase-prog-lbl">completado</div>
+        </div>
+      </div>
+
+      <h4 class="mini-title">Sesiones de consultoría · Fase 3</h4>
+      <div class="sessions">
+        <div class="session-card"><div class="session-left"><span class="s-type">Sesión 6</span><span class="s-hours">2h</span><span class="s-price">$96.000</span></div><div class="session-right"><strong>Revisión mes 4 y calibración LinkedIn Ads</strong><p>Analizar primeras 4 semanas de LinkedIn Ads. CPL real vs estimado. Ajustar audiencias y creativos. Definir pauta mes 5.</p></div></div>
+        <div class="session-card"><div class="session-left"><span class="s-type">Sesión 7</span><span class="s-hours">1h</span><span class="s-price">$48.000</span></div><div class="session-right"><strong>Check-in SEO y blog mes 5</strong><p>¿Qué artículos traccionan? ¿Qué keywords están en posición 5–15 (oportunidad de escalar)? Micro-ajustes del plan editorial.</p></div></div>
+        <div class="session-card"><div class="session-left"><span class="s-type">Taller 3</span><span class="s-hours">3h</span><span class="s-price">$120.000</span></div><div class="session-right"><strong>Revisión trimestral y próximos 6 meses</strong><p>Presentación formal de resultados: leads generados, fuentes de conversión, CAC por canal. Recomendaciones para el siguiente ciclo. Handover estratégico al equipo.</p></div></div>
+      </div>
+
+      <h4 class="mini-title">Tareas operacionales</h4>
+      <div class="task-table">
+        <div class="task-row" data-phase="3" data-id="3_0"><div class="task-check" onclick="toggleTask(this)"></div><div class="task-content"><div class="task-title">Lanzar LinkedIn Ads (Lead Gen B2B)</div><div class="task-desc">Audiencia: founders y CTOs de empresas 10–200 empleados en Chile y Latam. Creativo: video de Álvaro + case study como lead magnet.</div></div><div class="task-resp">Agencia</div><div class="task-week">Mes 4</div></div>
+        <div class="task-row" data-phase="3" data-id="3_1"><div class="task-check" onclick="toggleTask(this)"></div><div class="task-content"><div class="task-title">Lanzar YouTube Shorts (5 videos ya editados)</div><div class="task-desc">Subir los 5 videos de Álvaro como YouTube Shorts. SEO en títulos y descripciones. Canal adicional de búsqueda.</div></div><div class="task-resp">Agencia</div><div class="task-week">Mes 4</div></div>
+        <div class="task-row cons-row" data-phase="3" data-id="3_2"><div class="task-check cons-check" onclick="toggleTask(this)"></div><div class="task-content"><div class="task-title">SESIÓN 6 — Calibración LinkedIn Ads</div><div class="task-desc">Analizar CPL real vs estimado, ajustar audiencias y creativos.</div></div><div class="task-resp">Consultor</div><div class="task-week">Mes 4</div></div>
+        <div class="task-row" data-phase="3" data-id="3_3"><div class="task-check" onclick="toggleTask(this)"></div><div class="task-content"><div class="task-title">Publicar artículos blog 5 y 6 (SEO)</div><div class="task-desc">"MVP startup: cuánto cuesta y cuándo tiene sentido" + "Automatización con IA en 2026: qué es posible y qué no".</div></div><div class="task-resp">Ag. + Álvaro</div><div class="task-week">Mes 4–5</div></div>
+        <div class="task-row" data-phase="3" data-id="3_4"><div class="task-check" onclick="toggleTask(this)"></div><div class="task-content"><div class="task-title">Escalar Clutch: objetivo 10 reseñas verificadas</div><div class="task-desc">Con 10 reseñas verificadas, Villelabs puede aspirar a aparecer en los Top Rankings de Clutch Chile.</div></div><div class="task-resp">Álvaro / Fuad</div><div class="task-week">Mes 4–5</div></div>
+        <div class="task-row cons-row" data-phase="3" data-id="3_5"><div class="task-check cons-check" onclick="toggleTask(this)"></div><div class="task-content"><div class="task-title">SESIÓN 7 — Check-in SEO + blog</div><div class="task-desc">Identificar artículos en posición 5–15 para escalar. Micro-ajustes editoriales.</div></div><div class="task-resp">Consultor</div><div class="task-week">Mes 5</div></div>
+        <div class="task-row" data-phase="3" data-id="3_6"><div class="task-check" onclick="toggleTask(this)"></div><div class="task-content"><div class="task-title">Publicar artículos blog 7 y 8</div><div class="task-desc">Contenido de autoridad técnica: "Cómo diseñamos plataformas con Shape Up" + un caso técnico profundo.</div></div><div class="task-resp">Ag. + Álvaro</div><div class="task-week">Mes 5–6</div></div>
+        <div class="task-row" data-phase="3" data-id="3_7"><div class="task-check" onclick="toggleTask(this)"></div><div class="task-content"><div class="task-title">Activar Lookalike en LinkedIn Ads (2%)</div><div class="task-desc">Similar a quienes ya pidieron la llamada exploratoria. Con datos de mes 4–5, el Lookalike empieza a ser preciso.</div></div><div class="task-resp">Agencia</div><div class="task-week">Mes 5–6</div></div>
+        <div class="task-row" data-phase="3" data-id="3_8"><div class="task-check" onclick="toggleTask(this)"></div><div class="task-content"><div class="task-title">Segunda sesión de contenido (nuevos videos)</div><div class="task-desc">Con los aprendizajes de los primeros 5 videos, producir 5 nuevos que respondan las objeciones más frecuentes del proceso de venta.</div></div><div class="task-resp">Ag. + Equipo</div><div class="task-week">Mes 5</div></div>
+        <div class="task-row cons-row" data-phase="3" data-id="3_9"><div class="task-check cons-check" onclick="toggleTask(this)"></div><div class="task-content"><div class="task-title">TALLER 3 — Revisión trimestral completa</div><div class="task-desc">Presentación formal de resultados: leads, fuentes, CAC por canal, ROAS. Handover estratégico al equipo. Recomendaciones para el ciclo 2.</div></div><div class="task-resp">Consultor</div><div class="task-week">Mes 6</div></div>
+      </div>
+
+      <h4 class="mini-title">Presupuesto Fase 3 · mensual en CLP</h4>
+      <div class="budget-table">
+        <div class="bgt-row"><div class="bgt-label">LinkedIn Ads (Lead Gen founders + CTOs)</div><div class="bgt-amount">$200.000</div></div>
+        <div class="bgt-row"><div class="bgt-label">Google Ads (mantener)</div><div class="bgt-amount">$120.000</div></div>
+        <div class="bgt-row"><div class="bgt-label">Gestión LinkedIn Ads + Google Ads</div><div class="bgt-amount">$100.000</div></div>
+        <div class="bgt-row"><div class="bgt-label">Contenido LinkedIn + YouTube + newsletter</div><div class="bgt-amount">$100.000</div></div>
+        <div class="bgt-row"><div class="bgt-label">Blog SEO (2 artículos/mes)</div><div class="bgt-amount">$80.000</div></div>
+        <div class="bgt-row"><div class="bgt-label">Segunda sesión de producción (mes 5)</div><div class="bgt-amount">$150.000</div></div>
+        <div class="bgt-row"><div class="bgt-label">Herramientas + SEMrush</div><div class="bgt-amount">$60.000</div></div>
+        <hr class="budget-divider">
+        <div class="bgt-row cons"><div class="bgt-label">Sesión 6 · Calibración LinkedIn Ads<small>2h · única</small></div><div class="bgt-amount">$96.000</div></div>
+        <div class="bgt-row cons"><div class="bgt-label">Sesión 7 · Check-in SEO<small>1h · única</small></div><div class="bgt-amount">$48.000</div></div>
+        <div class="bgt-row cons"><div class="bgt-label">Taller 3 · Revisión trimestral<small>3h · única</small></div><div class="bgt-amount">$120.000</div></div>
+        <hr class="budget-divider">
+        <div class="bgt-row total"><div class="bgt-label">Total Fase 3 (3 meses + consultoría)</div><div class="bgt-amount">~$3.024K</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 5: RESUMEN -->
+<section class="section" id="resumen">
+  <div class="wrap">
+    <span class="section-number">05 — Resumen</span>
+    <h2 class="section-title">Seis meses para construir<br><span>el sistema de adquisición.</span></h2>
+
+    <div class="totals-bar">
+      <div class="total-card">
+        <div class="total-label">Inversión total programa</div>
+        <div class="total-number">~$5,6M</div>
+        <div class="total-sub">CLP · 6 meses completos</div>
+      </div>
+      <div class="total-card">
+        <div class="total-label">Consultoría incluida</div>
+        <div class="total-number" style="color:var(--cons)">$840.000</div>
+        <div class="total-sub">7 sesiones · 19 horas totales</div>
+      </div>
+      <div class="total-card">
+        <div class="total-label">Leads B2B esperados mes 6</div>
+        <div class="total-number" style="color:var(--cyan)">8–15</div>
+        <div class="total-sub">leads calificados/mes · alto ticket</div>
+      </div>
+    </div>
+
+    <div class="callout amber">
+      <div class="callout-title">Por qué 8–15 leads y no 30–60 como en PCC</div>
+      <p>El ticket promedio de Villelabs es 10–20× mayor que en psicología clínica. Con un proyecto de $3.000 USD promedio, <strong>3 nuevos clientes al mes</strong> representan ~$9.000 USD adicionales. El objetivo no es volumen — es calidad del lead y tasa de cierre del proceso de venta.</p>
+    </div>
+
+    <div class="summary-grid">
+      <div class="summary-row header">
+        <div class="summary-cell">Fase</div>
+        <div class="summary-cell">Período</div>
+        <div class="summary-cell">Foco principal</div>
+        <div class="summary-cell">Total CLP</div>
+        <div class="summary-cell">Consultoría</div>
+        <div class="summary-cell">Leads/mes</div>
+      </div>
+      <div class="summary-row">
+        <div class="summary-cell"><span class="phase-tag" style="background:rgba(59,130,246,.2);color:var(--phase1);border:1px solid rgba(59,130,246,.3)">F1</span></div>
+        <div class="summary-cell">Mes 1</div>
+        <div class="summary-cell">Arquitectura de marca + case studies + directorios + LinkedIn</div>
+        <div class="summary-cell" style="font-weight:600;color:var(--ink)">~$939K–$1.079K</div>
+        <div class="summary-cell"><span class="cons-tag">$264K</span></div>
+        <div class="summary-cell" style="color:var(--soft);font-size:12px;font-family:var(--mono)">Sin ads</div>
+      </div>
+      <div class="summary-row">
+        <div class="summary-cell"><span class="phase-tag" style="background:rgba(0,200,168,.15);color:var(--phase2);border:1px solid rgba(0,200,168,.25)">F2</span></div>
+        <div class="summary-cell">Meses 2–3</div>
+        <div class="summary-cell">Google Ads + LinkedIn orgánico + blog SEO + newsletter</div>
+        <div class="summary-cell" style="font-weight:600;color:var(--ink)">~$1.544K</div>
+        <div class="summary-cell"><span class="cons-tag">$312K</span></div>
+        <div class="summary-cell"><span class="leads-num">3–6</span></div>
+      </div>
+      <div class="summary-row">
+        <div class="summary-cell"><span class="phase-tag" style="background:rgba(167,139,250,.15);color:var(--phase3);border:1px solid rgba(167,139,250,.25)">F3</span></div>
+        <div class="summary-cell">Meses 4–6</div>
+        <div class="summary-cell">LinkedIn Ads + YouTube + escala SEO + Clutch Rankings</div>
+        <div class="summary-cell" style="font-weight:600;color:var(--ink)">~$3.024K</div>
+        <div class="summary-cell"><span class="cons-tag">$264K</span></div>
+        <div class="summary-cell"><span class="leads-num">8–15</span></div>
+      </div>
+    </div>
+
+    <h3 class="sub-title">KPIs de seguimiento</h3>
+    <div class="kpi-grid">
+      <div class="kpi-card"><div class="kpi-name">Impressiones LinkedIn (Álvaro)</div><div class="kpi-values"><div class="kpi-val"><span class="kpi-period">Mes 2</span><span class="kpi-num">&gt; 8K</span></div><div class="kpi-val"><span class="kpi-period">Mes 4+</span><span class="kpi-num target">&gt; 25K</span></div></div><div class="kpi-tool">LinkedIn Analytics</div></div>
+      <div class="kpi-card"><div class="kpi-name">Llamadas exploratorias</div><div class="kpi-values"><div class="kpi-val"><span class="kpi-period">Mes 2</span><span class="kpi-num">&gt; 3/mes</span></div><div class="kpi-val"><span class="kpi-period">Mes 4+</span><span class="kpi-num target">&gt; 8/mes</span></div></div><div class="kpi-tool">Calendly / CRM</div></div>
+      <div class="kpi-card"><div class="kpi-name">Reseñas Clutch verificadas</div><div class="kpi-values"><div class="kpi-val"><span class="kpi-period">Mes 2</span><span class="kpi-num">&gt; 3</span></div><div class="kpi-val"><span class="kpi-period">Mes 6</span><span class="kpi-num target">&gt; 10</span></div></div><div class="kpi-tool">Clutch.co Dashboard</div></div>
+      <div class="kpi-card"><div class="kpi-name">Tráfico orgánico blog</div><div class="kpi-values"><div class="kpi-val"><span class="kpi-period">Mes 2</span><span class="kpi-num">&gt; 150</span></div><div class="kpi-val"><span class="kpi-period">Mes 6</span><span class="kpi-num target">&gt; 800</span></div></div><div class="kpi-tool">GA4 + Search Console</div></div>
+      <div class="kpi-card"><div class="kpi-name">CPL · LinkedIn Ads B2B</div><div class="kpi-values"><div class="kpi-val"><span class="kpi-period">Mes 4</span><span class="kpi-num">&lt; $60K</span></div><div class="kpi-val"><span class="kpi-period">Mes 6</span><span class="kpi-num target">&lt; $40K</span></div></div><div class="kpi-tool">LinkedIn Campaign Mgr</div></div>
+      <div class="kpi-card"><div class="kpi-name">Suscriptores newsletter</div><div class="kpi-values"><div class="kpi-val"><span class="kpi-period">Mes 3</span><span class="kpi-num">&gt; 100</span></div><div class="kpi-val"><span class="kpi-period">Mes 6</span><span class="kpi-num target">&gt; 300</span></div></div><div class="kpi-tool">Brevo</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 6: ERRORES -->
+<section class="section" id="errores">
+  <div class="wrap">
+    <span class="section-number">06 — Errores a evitar</span>
+    <h2 class="section-title">Los errores específicos<br><span>de agencias que escalan.</span></h2>
+    <div class="error-list">
+      <div class="error-item"><div class="error-icon">🚫</div><div><div class="error-title">No resolver la arquitectura de marca antes de publicar</div><div class="error-desc">Si alvarovillena.cl y villelabs.cl no tienen una jerarquía clara, cada post de LinkedIn divide la autoridad a la mitad. El contenido que construye Álvaro debe alimentar Villelabs, no competir con ella.</div></div></div>
+      <div class="error-item"><div class="error-icon">🚫</div><div><div class="error-title">Usar Meta Ads para tickets de $3.000 USD</div><div class="error-desc">El CAC en Meta para B2B de alto ticket en Chile es prohibitivo. El presupuesto que se gastaría en Meta Ads alcanza para 6 meses de contenido LinkedIn que construye autoridad permanente.</div></div></div>
+      <div class="error-item"><div class="error-icon">🚫</div><div><div class="error-title">Publicar en LinkedIn como agencia, no como Álvaro</div><div class="error-desc">"Villelabs ayuda a founders a escalar" no genera engagement. "Cometí este error en 120 proyectos y aquí está la lección" sí lo genera. La voz debe ser personal, no institucional.</div></div></div>
+      <div class="error-item"><div class="error-icon">🚫</div><div><div class="error-title">Esperar que el blog posicione rápido</div><div class="error-desc">Un dominio nuevo en SEO tarda 4–6 meses en ver resultados. El blog se inicia en mes 1 precisamente por eso. Los artículos del mes 1 generan tráfico orgánico en el mes 5–6.</div></div></div>
+      <div class="error-item"><div class="error-icon">🚫</div><div><div class="error-title">No responder a comentarios de LinkedIn dentro de 1 hora</div><div class="error-desc">El algoritmo de LinkedIn premia el engagement temprano. Un post sin respuestas en las primeras 2 horas muere. La interacción también es donde se convierten los leads más calificados.</div></div></div>
+      <div class="error-item"><div class="error-icon">🚫</div><div><div class="error-title">Lanzar LinkedIn Ads antes de tener 3 meses de contenido</div><div class="error-desc">Un prospect que ve el ad de Álvaro va directo a su perfil de LinkedIn. Si el perfil tiene 2 posts, el ad pierde credibilidad. Los 3 meses de contenido son el "social proof" del perfil.</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="footer">
+  <div class="wrap">
+    <p class="footer-quote">Villelabs construye sistemas de venta para otros. <span>El suyo propio está pendiente.</span></p>
+    <p style="color:var(--soft);max-width:460px;margin:0 auto 14px;font-size:14px;line-height:1.6">Este plan cierra esa brecha con el mismo rigor y la misma metodología que Villelabs aplica a sus clientes.</p>
+    <p class="footer-meta">Consultoría de Growth Marketing · Propuesta confidencial · Marzo 2026</p>
+  </div>
+</footer>
+
+<div id="toast">✓ tarea actualizada</div>
+
+<script>
+  const TASKS = { 1: 14, 2: 11, 3: 10 };
+  let state = {};
+
+  function loadState() {
+    try { state = JSON.parse(localStorage.getItem('vl_tasks') || '{}'); }
+    catch(e) { state = {}; }
+  }
+  function saveState() {
+    try { localStorage.setItem('vl_tasks', JSON.stringify(state)); }
+    catch(e) {}
+  }
+
+  function toggleTask(checkEl) {
+    const row = checkEl.closest('.task-row');
+    const id  = row.dataset.id;
+    const ph  = parseInt(row.dataset.phase);
+    state[id] = !state[id];
+    saveState();
+    applyTask(checkEl, row, state[id]);
+    updateProgress(ph);
+    showToast(state[id] ? '✓ completado' : '○ pendiente');
+  }
+
+  function applyTask(checkEl, row, done) {
+    if (done) { checkEl.classList.add('done'); row.classList.add('task-done'); }
+    else { checkEl.classList.remove('done'); row.classList.remove('task-done'); }
+  }
+
+  function updateProgress(ph) {
+    const total = TASKS[ph];
+    let done = 0;
+    document.querySelectorAll(`.task-row[data-phase="${ph}"]`).forEach(r => {
+      if (state[r.dataset.id]) done++;
+    });
+    const pct  = total > 0 ? Math.round((done / total) * 100) : 0;
+    const pcts = pct + '%';
+    document.getElementById(`pct${ph}`).textContent = pcts;
+    document.getElementById(`pct${ph}b`).textContent = pcts;
+    document.getElementById(`bar${ph}`).style.width = pcts;
+    document.getElementById(`detail${ph}`).textContent = `${done} de ${total} tareas completadas`;
+    updateStatusLabel();
+  }
+
+  function updateStatusLabel() {
+    let total = 0, done = 0;
+    [1,2,3].forEach(ph => {
+      document.querySelectorAll(`.task-row[data-phase="${ph}"]`).forEach(r => {
+        total++; if (state[r.dataset.id]) done++;
+      });
+    });
+    const pct = total > 0 ? Math.round((done/total)*100) : 0;
+    const lbl = document.getElementById('status-label');
+    if (pct === 0) { lbl.textContent = '— Sin iniciar'; lbl.style.color = 'var(--soft)'; }
+    else if (pct < 100) { lbl.textContent = `● En progreso · ${pct}%`; lbl.style.color = 'var(--cyan)'; }
+    else { lbl.textContent = `✓ Completado · 100%`; lbl.style.color = 'var(--green)'; }
+  }
+
+  let toastTimer;
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => t.classList.remove('show'), 1800);
+  }
+
+  window.addEventListener('scroll', () => {
+    document.getElementById('topbar').classList.toggle('scrolled', window.scrollY > 20);
+  }, { passive: true });
+
+  loadState();
+  document.querySelectorAll('.task-row[data-id]').forEach(row => {
+    if (state[row.dataset.id]) applyTask(row.querySelector('.task-check'), row, true);
+  });
+  [1,2,3].forEach(updateProgress);
+</script>
+</body>
+</html>

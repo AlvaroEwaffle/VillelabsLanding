@@ -1,0 +1,1607 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>[Centro de Psicologia Clinica] — Psicoterapia basada en evidencia | Santiago, Chile</title>
+  <meta name="description" content="Centro de psicologia clinica en Nunoa, Santiago. Terapia individual, de pareja y sexual con mas de 20 anos de experiencia. Atencion presencial y online.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --slate-900: #1a2332;
+      --slate-800: #243044;
+      --slate-700: #334155;
+      --slate-600: #475569;
+      --slate-500: #64748b;
+      --slate-400: #94a3b8;
+      --slate-300: #cbd5e1;
+      --slate-200: #e2e8f0;
+      --slate-100: #f1f5f9;
+      --slate-50: #f8fafc;
+
+      --teal-700: #0f766e;
+      --teal-600: #0d9488;
+      --teal-500: #14b8a6;
+      --teal-100: #ccfbf1;
+      --teal-50: #f0fdfa;
+
+      --white: #ffffff;
+      --warm-white: #fafbfc;
+      --bg-light: #f7f8fa;
+
+      --radius: 10px;
+      --radius-lg: 14px;
+      --radius-xl: 20px;
+      --shadow-sm: 0 1px 3px rgba(26,35,50,0.06);
+      --shadow-md: 0 4px 16px rgba(26,35,50,0.08);
+      --shadow-lg: 0 8px 32px rgba(26,35,50,0.1);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      color: var(--slate-700);
+      background: var(--white);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* ===== NAVIGATION ===== */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--slate-100);
+      transition: box-shadow 0.3s;
+    }
+    .nav.scrolled {
+      box-shadow: var(--shadow-sm);
+    }
+    .nav-inner {
+      max-width: 1140px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 72px;
+      padding: 0 24px;
+    }
+    .nav-brand {
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.2;
+    }
+    .nav-brand-name {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--slate-900);
+      letter-spacing: -0.01em;
+    }
+    .nav-brand-sub {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--teal-600);
+      letter-spacing: 0.04em;
+    }
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      align-items: center;
+    }
+    .nav-links a {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--slate-500);
+      text-decoration: none;
+      transition: color 0.2s;
+      letter-spacing: 0.01em;
+    }
+    .nav-links a:hover {
+      color: var(--slate-900);
+    }
+    .nav-cta {
+      background: var(--teal-600) !important;
+      color: var(--white) !important;
+      padding: 10px 22px !important;
+      border-radius: 8px !important;
+      font-weight: 600 !important;
+      transition: background 0.2s, transform 0.2s !important;
+    }
+    .nav-cta:hover {
+      background: var(--teal-700) !important;
+      transform: translateY(-1px);
+    }
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+    }
+    .nav-hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--slate-700);
+      border-radius: 2px;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 72px;
+      left: 0;
+      right: 0;
+      background: var(--white);
+      border-bottom: 1px solid var(--slate-100);
+      padding: 16px 24px 24px;
+      z-index: 99;
+      box-shadow: var(--shadow-md);
+    }
+    .mobile-menu.open { display: block; }
+    .mobile-menu a {
+      display: block;
+      padding: 12px 0;
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--slate-600);
+      text-decoration: none;
+      border-bottom: 1px solid var(--slate-100);
+    }
+    .mobile-menu a:last-child { border-bottom: none; }
+    .mobile-menu a:hover { color: var(--teal-600); }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      position: relative;
+      min-height: 92vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      padding: 120px 24px 80px;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+    .hero-bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        180deg,
+        rgba(26,35,50,0.72) 0%,
+        rgba(26,35,50,0.65) 40%,
+        rgba(26,35,50,0.8) 100%
+      );
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 780px;
+      text-align: center;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.12);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: rgba(255,255,255,0.9);
+      padding: 8px 18px;
+      border-radius: 100px;
+      font-size: 13px;
+      font-weight: 500;
+      margin-bottom: 28px;
+      letter-spacing: 0.02em;
+    }
+    .hero-badge .dot {
+      width: 7px;
+      height: 7px;
+      background: var(--teal-500);
+      border-radius: 50%;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+    .hero h1 {
+      font-size: clamp(34px, 5.5vw, 54px);
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.15;
+      margin-bottom: 20px;
+      letter-spacing: -0.02em;
+    }
+    .hero-subtitle {
+      font-size: clamp(16px, 2vw, 19px);
+      color: rgba(255,255,255,0.75);
+      max-width: 600px;
+      margin: 0 auto 36px;
+      line-height: 1.7;
+      font-weight: 400;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* ===== BUTTONS ===== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      border-radius: 9px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: all 0.25s;
+      line-height: 1;
+    }
+    .btn-primary {
+      background: var(--teal-600);
+      color: var(--white);
+    }
+    .btn-primary:hover {
+      background: var(--teal-700);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 14px rgba(13,148,136,0.3);
+    }
+    .btn-secondary {
+      background: rgba(255,255,255,0.12);
+      color: var(--white);
+      border: 1.5px solid rgba(255,255,255,0.25);
+      backdrop-filter: blur(4px);
+    }
+    .btn-secondary:hover {
+      background: rgba(255,255,255,0.2);
+      border-color: rgba(255,255,255,0.4);
+    }
+    .btn-outline {
+      background: var(--white);
+      color: var(--slate-700);
+      border: 1.5px solid var(--slate-200);
+    }
+    .btn-outline:hover {
+      border-color: var(--slate-400);
+      background: var(--slate-50);
+    }
+    .btn-whatsapp {
+      background: #25D366;
+      color: var(--white);
+    }
+    .btn-whatsapp:hover {
+      background: #1fb855;
+    }
+
+    /* ===== SECTIONS ===== */
+    .section {
+      padding: 96px 24px;
+    }
+    .section-inner {
+      max-width: 1140px;
+      margin: 0 auto;
+    }
+    .section-header {
+      text-align: center;
+      margin-bottom: 56px;
+    }
+    .section-eyebrow {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--teal-600);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+    .section-title {
+      font-size: clamp(26px, 3.5vw, 38px);
+      font-weight: 700;
+      color: var(--slate-900);
+      line-height: 1.2;
+      letter-spacing: -0.015em;
+    }
+    .section-desc {
+      font-size: 16px;
+      color: var(--slate-500);
+      margin-top: 14px;
+      max-width: 580px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.7;
+    }
+
+    /* ===== EL CENTRO ===== */
+    .centro-section {
+      background: var(--bg-light);
+    }
+    .centro-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+    .centro-image {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      box-shadow: var(--shadow-lg);
+    }
+    .centro-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .centro-content .section-eyebrow {
+      text-align: left;
+    }
+    .centro-content h2 {
+      font-size: clamp(26px, 3vw, 34px);
+      font-weight: 700;
+      color: var(--slate-900);
+      line-height: 1.2;
+      margin-bottom: 20px;
+      letter-spacing: -0.015em;
+    }
+    .centro-content p {
+      font-size: 16px;
+      color: var(--slate-600);
+      line-height: 1.8;
+      margin-bottom: 16px;
+    }
+    .centro-values {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 28px;
+    }
+    .centro-value {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    .centro-value-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: var(--teal-50);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .centro-value-icon svg {
+      width: 18px;
+      height: 18px;
+      stroke: var(--teal-600);
+    }
+    .centro-value-text {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--slate-700);
+      line-height: 1.4;
+    }
+
+    @media (max-width: 768px) {
+      .centro-grid { grid-template-columns: 1fr; gap: 36px; }
+      .centro-values { grid-template-columns: 1fr; }
+    }
+
+    /* ===== SERVICES ===== */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .service-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 36px 28px;
+      border: 1px solid var(--slate-100);
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--teal-600);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .service-card:hover {
+      border-color: var(--teal-100);
+      box-shadow: var(--shadow-md);
+      transform: translateY(-3px);
+    }
+    .service-card:hover::before {
+      opacity: 1;
+    }
+    .service-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 12px;
+      background: var(--teal-50);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    .service-icon svg {
+      width: 24px;
+      height: 24px;
+      stroke: var(--teal-600);
+      fill: none;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .service-card h3 {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--slate-900);
+      margin-bottom: 10px;
+    }
+    .service-card p {
+      font-size: 15px;
+      color: var(--slate-500);
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+    .service-topics {
+      list-style: none;
+      margin-bottom: 20px;
+    }
+    .service-topics li {
+      font-size: 14px;
+      color: var(--slate-600);
+      padding: 5px 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .service-topics li::before {
+      content: '';
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--teal-500);
+      flex-shrink: 0;
+    }
+    .service-price {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--teal-700);
+      background: var(--teal-50);
+      display: inline-block;
+      padding: 7px 14px;
+      border-radius: 8px;
+    }
+
+    @media (max-width: 768px) {
+      .services-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ===== EQUIPO ===== */
+    .equipo-section {
+      background: var(--bg-light);
+    }
+    .equipo-grid {
+      display: grid;
+      grid-template-columns: 380px 1fr;
+      gap: 56px;
+      align-items: start;
+    }
+    .equipo-photo {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      aspect-ratio: 3/4;
+      box-shadow: var(--shadow-lg);
+      position: relative;
+    }
+    .equipo-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .equipo-photo-badge {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      right: 20px;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(8px);
+      padding: 14px 18px;
+      border-radius: 10px;
+      box-shadow: var(--shadow-sm);
+    }
+    .equipo-photo-badge-name {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--slate-900);
+    }
+    .equipo-photo-badge-role {
+      font-size: 13px;
+      color: var(--teal-600);
+      font-weight: 500;
+    }
+    .equipo-info h2 {
+      font-size: clamp(26px, 3vw, 34px);
+      font-weight: 700;
+      color: var(--slate-900);
+      line-height: 1.2;
+      margin-bottom: 16px;
+      letter-spacing: -0.015em;
+    }
+    .equipo-info .bio {
+      font-size: 16px;
+      color: var(--slate-600);
+      line-height: 1.8;
+      margin-bottom: 28px;
+    }
+    .credentials-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 32px;
+    }
+    .credential-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 16px;
+      background: var(--white);
+      border-radius: var(--radius);
+      border: 1px solid var(--slate-100);
+    }
+    .credential-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 9px;
+      background: var(--teal-50);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .credential-icon svg {
+      width: 18px;
+      height: 18px;
+      stroke: var(--teal-600);
+      fill: none;
+      stroke-width: 1.8;
+    }
+    .credential-text {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--slate-700);
+      line-height: 1.35;
+    }
+    .equipo-more {
+      margin-top: 12px;
+      padding: 20px 24px;
+      background: var(--white);
+      border-radius: var(--radius);
+      border: 1px dashed var(--slate-200);
+      text-align: center;
+    }
+    .equipo-more p {
+      font-size: 14px;
+      color: var(--slate-400);
+      font-style: italic;
+    }
+
+    @media (max-width: 768px) {
+      .equipo-grid { grid-template-columns: 1fr; gap: 36px; }
+      .equipo-photo { max-width: 320px; margin: 0 auto; }
+      .credentials-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ===== ENFOQUE ===== */
+    .enfoque-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+    .enfoque-content h2 {
+      font-size: clamp(26px, 3vw, 34px);
+      font-weight: 700;
+      color: var(--slate-900);
+      line-height: 1.2;
+      margin-bottom: 20px;
+      letter-spacing: -0.015em;
+    }
+    .enfoque-content p {
+      font-size: 16px;
+      color: var(--slate-600);
+      line-height: 1.8;
+      margin-bottom: 16px;
+    }
+    .enfoque-pillars {
+      margin-top: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .enfoque-pillar {
+      display: flex;
+      gap: 16px;
+      padding: 20px;
+      background: var(--bg-light);
+      border-radius: var(--radius);
+      border-left: 3px solid var(--teal-600);
+    }
+    .enfoque-pillar-num {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--teal-600);
+      line-height: 1;
+      flex-shrink: 0;
+      width: 32px;
+    }
+    .enfoque-pillar h4 {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--slate-800);
+      margin-bottom: 4px;
+    }
+    .enfoque-pillar p {
+      font-size: 14px;
+      color: var(--slate-500);
+      line-height: 1.6;
+      margin-bottom: 0;
+    }
+    .enfoque-image {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      box-shadow: var(--shadow-lg);
+    }
+    .enfoque-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    @media (max-width: 768px) {
+      .enfoque-grid { grid-template-columns: 1fr; gap: 36px; }
+      .enfoque-image { order: -1; }
+    }
+
+    /* ===== TESTIMONIALS ===== */
+    .testimonials-section {
+      background: var(--bg-light);
+    }
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .testimonial-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 28px 24px;
+      border: 1px solid var(--slate-100);
+      display: flex;
+      flex-direction: column;
+    }
+    .testimonial-stars {
+      color: #f59e0b;
+      font-size: 15px;
+      margin-bottom: 14px;
+      letter-spacing: 2px;
+    }
+    .testimonial-text {
+      font-size: 15px;
+      color: var(--slate-600);
+      line-height: 1.7;
+      margin-bottom: 18px;
+      font-style: italic;
+      flex: 1;
+    }
+    .testimonial-footer {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .testimonial-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--teal-50);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--teal-600);
+      flex-shrink: 0;
+    }
+    .testimonial-author {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--slate-800);
+    }
+    .testimonial-role {
+      font-size: 13px;
+      color: var(--slate-400);
+    }
+
+    @media (max-width: 900px) {
+      .testimonials-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 600px) {
+      .testimonials-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ===== ISAPRES ===== */
+    .isapre-section {
+      border-top: 1px solid var(--slate-100);
+      border-bottom: 1px solid var(--slate-100);
+      padding: 56px 24px;
+    }
+    .isapre-inner {
+      max-width: 1140px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .isapre-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--slate-900);
+      margin-bottom: 8px;
+    }
+    .isapre-desc {
+      font-size: 15px;
+      color: var(--slate-500);
+      margin-bottom: 32px;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .isapre-logos {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 16px;
+    }
+    .isapre-logo {
+      width: 140px;
+      height: 56px;
+      border-radius: 10px;
+      background: var(--slate-50);
+      border: 1px solid var(--slate-100);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--slate-500);
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .isapre-logo:hover {
+      border-color: var(--slate-200);
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* ===== FAQ ===== */
+    .faq-list {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    .faq-item {
+      border-bottom: 1px solid var(--slate-100);
+    }
+    .faq-question {
+      width: 100%;
+      background: none;
+      border: none;
+      text-align: left;
+      padding: 24px 40px 24px 0;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--slate-800);
+      cursor: pointer;
+      position: relative;
+      line-height: 1.4;
+    }
+    .faq-question::after {
+      content: '+';
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 22px;
+      font-weight: 400;
+      color: var(--slate-400);
+      transition: transform 0.3s;
+    }
+    .faq-question.active::after {
+      content: '-';
+    }
+    .faq-answer {
+      font-size: 15px;
+      color: var(--slate-500);
+      line-height: 1.75;
+      padding: 0 0 24px;
+      display: none;
+    }
+    .faq-answer.open {
+      display: block;
+    }
+
+    /* ===== CTA SECTION ===== */
+    .cta-section {
+      background: var(--slate-900);
+      color: var(--white);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      top: -200px;
+      right: -200px;
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      background: var(--teal-600);
+      opacity: 0.06;
+    }
+    .cta-section::after {
+      content: '';
+      position: absolute;
+      bottom: -150px;
+      left: -100px;
+      width: 400px;
+      height: 400px;
+      border-radius: 50%;
+      background: var(--teal-500);
+      opacity: 0.04;
+    }
+    .cta-section .section-inner {
+      position: relative;
+      z-index: 2;
+    }
+    .cta-section .section-title {
+      color: var(--white);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .cta-section .section-desc {
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 40px;
+    }
+    .cta-buttons {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 48px;
+    }
+
+    /* ===== CONTACT FORM ===== */
+    .contact-form {
+      max-width: 480px;
+      margin: 0 auto;
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 36px 32px;
+      text-align: left;
+    }
+    .form-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--slate-900);
+      margin-bottom: 4px;
+    }
+    .form-subtitle {
+      font-size: 14px;
+      color: var(--slate-400);
+      margin-bottom: 24px;
+    }
+    .form-group {
+      margin-bottom: 16px;
+    }
+    .form-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--slate-700);
+      margin-bottom: 6px;
+    }
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1.5px solid var(--slate-200);
+      border-radius: 8px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      color: var(--slate-800);
+      background: var(--white);
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: var(--teal-600);
+      box-shadow: 0 0 0 3px rgba(13,148,136,0.12);
+    }
+    .form-group textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+    .form-submit {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 9px;
+      background: var(--teal-600);
+      color: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+      margin-top: 8px;
+    }
+    .form-submit:hover {
+      background: var(--teal-700);
+    }
+
+    /* ===== FOOTER ===== */
+    .footer {
+      background: var(--slate-900);
+      color: var(--slate-400);
+      padding: 48px 24px;
+    }
+    .footer-inner {
+      max-width: 1140px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .footer-brand {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--white);
+    }
+    .footer-brand-sub {
+      font-size: 13px;
+      color: var(--slate-400);
+      margin-top: 4px;
+    }
+    .footer-links {
+      display: flex;
+      gap: 24px;
+    }
+    .footer-links a {
+      font-size: 13px;
+      color: var(--slate-400);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover {
+      color: var(--white);
+    }
+
+    @media (max-width: 768px) {
+      .footer-inner { flex-direction: column; text-align: center; }
+      .footer-links { justify-content: center; }
+    }
+
+    /* ===== STICKY MOBILE CTA ===== */
+    .sticky-cta {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 90;
+      background: rgba(255,255,255,0.97);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-top: 1px solid var(--slate-100);
+      padding: 12px 16px;
+    }
+    .sticky-cta-inner {
+      display: flex;
+      gap: 10px;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+    .sticky-cta .btn {
+      flex: 1;
+      justify-content: center;
+      padding: 13px 16px;
+      font-size: 14px;
+    }
+
+    @media (max-width: 768px) {
+      .sticky-cta { display: block; }
+      .section { padding: 64px 20px; }
+      .hero { min-height: 85vh; padding: 100px 20px 60px; }
+      body { padding-bottom: 70px; }
+    }
+
+    /* ===== UTILITY ===== */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
+      white-space: nowrap;
+      border-width: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav class="nav" id="navbar">
+    <div class="nav-inner">
+      <a href="#" class="nav-brand">
+        <span class="nav-brand-name">[Centro de Psicologia Clinica]</span>
+        <span class="nav-brand-sub">Psicoterapia basada en evidencia</span>
+      </a>
+      <div class="nav-links">
+        <a href="#inicio">Inicio</a>
+        <a href="#centro">El Centro</a>
+        <a href="#servicios">Servicios</a>
+        <a href="#equipo">Equipo</a>
+        <a href="#testimonios">Testimonios</a>
+        <a href="#contacto" class="nav-cta">Agendar consulta</a>
+      </div>
+      <button class="nav-hamburger" onclick="toggleMenu()" aria-label="Menu de navegacion">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#inicio" onclick="closeMenu()">Inicio</a>
+    <a href="#centro" onclick="closeMenu()">El Centro</a>
+    <a href="#servicios" onclick="closeMenu()">Servicios</a>
+    <a href="#equipo" onclick="closeMenu()">Equipo</a>
+    <a href="#testimonios" onclick="closeMenu()">Testimonios</a>
+    <a href="#contacto" onclick="closeMenu()">Contacto</a>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero" id="inicio">
+    <div class="hero-bg">
+      <img src="../photos/waiting-room.png" alt="Sala de espera del centro de psicologia clinica">
+    </div>
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="dot"></span>
+        Atendiendo presencial y online
+      </div>
+      <h1>[Centro de Psicologia Clinica]</h1>
+      <p class="hero-subtitle">Un espacio profesional dedicado al bienestar emocional. Psicoterapia individual, de pareja y sexual con enfoque clinico basado en evidencia. Mas de 20 anos de experiencia al servicio de tu salud mental.</p>
+      <div class="hero-actions">
+        <a href="#contacto" class="btn btn-primary">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          Agendar primera consulta
+        </a>
+        <a href="https://wa.me/56920115198" class="btn btn-secondary" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Escribir por WhatsApp
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- EL CENTRO -->
+  <section class="section centro-section" id="centro">
+    <div class="section-inner">
+      <div class="centro-grid">
+        <div class="centro-image">
+          <img src="../photos/clinic-corridor.png" alt="Interior del centro de psicologia clinica">
+        </div>
+        <div class="centro-content">
+          <div class="section-eyebrow">Nuestro Centro</div>
+          <h2>Un espacio pensado para tu bienestar</h2>
+          <p>En [Centro de Psicologia Clinica] creemos que el cuidado de la salud mental merece un entorno profesional, acogedor y basado en la mejor evidencia cientifica disponible.</p>
+          <p>Nuestro centro nace de la conviccion de que la psicoterapia efectiva requiere no solo experiencia clinica, sino tambien un compromiso genuino con cada persona que cruza nuestra puerta.</p>
+          <div class="centro-values">
+            <div class="centro-value">
+              <div class="centro-value-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              </div>
+              <span class="centro-value-text">Confidencialidad<br>absoluta</span>
+            </div>
+            <div class="centro-value">
+              <div class="centro-value-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+              </div>
+              <span class="centro-value-text">Trato humano<br>y respetuoso</span>
+            </div>
+            <div class="centro-value">
+              <div class="centro-value-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+              </div>
+              <span class="centro-value-text">Enfoque basado<br>en evidencia</span>
+            </div>
+            <div class="centro-value">
+              <div class="centro-value-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              </div>
+              <span class="centro-value-text">Atencion presencial<br>y online</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICIOS -->
+  <section class="section" id="servicios">
+    <div class="section-inner">
+      <div class="section-header">
+        <div class="section-eyebrow">Servicios</div>
+        <h2 class="section-title">Atencion clinica especializada</h2>
+        <p class="section-desc">Tres areas de especializacion con un enfoque clinico riguroso y mas de dos decadas de practica profesional.</p>
+      </div>
+      <div class="services-grid">
+        <!-- Individual -->
+        <div class="service-card">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </div>
+          <h3>Terapia Individual</h3>
+          <p>Un espacio seguro para trabajar en lo que necesitas cambiar, con objetivos claros desde la primera sesion.</p>
+          <ul class="service-topics">
+            <li>Ansiedad y estres</li>
+            <li>Depresion y duelos</li>
+            <li>Autoestima</li>
+            <li>Desarrollo personal</li>
+          </ul>
+          <div class="service-price">$50.000 - $60.000 CLP / sesion</div>
+        </div>
+        <!-- Pareja -->
+        <div class="service-card">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <h3>Terapia de Pareja</h3>
+          <p>La terapia de pareja no es el ultimo recurso. Es una inversion en lo que mas importa. Herramientas concretas desde la primera sesion.</p>
+          <ul class="service-topics">
+            <li>Conflictos de comunicacion</li>
+            <li>Crisis de pareja</li>
+            <li>Infidelidad</li>
+            <li>Distancia emocional</li>
+          </ul>
+          <div class="service-price">$70.000 - $80.000 CLP / sesion</div>
+        </div>
+        <!-- Sexual -->
+        <div class="service-card">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          </div>
+          <h3>Terapia Sexual</h3>
+          <p>Un area que sigue siendo tabu, pero que tiene soluciones concretas y basadas en evidencia. Atencion profesional y sin prejuicios.</p>
+          <ul class="service-topics">
+            <li>Disfunciones sexuales</li>
+            <li>Deseo e intimidad</li>
+            <li>Identidad sexual</li>
+            <li>Salud sexual integral</li>
+          </ul>
+          <div class="service-price">$50.000 - $60.000 CLP / sesion</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EQUIPO CLINICO -->
+  <section class="section equipo-section" id="equipo">
+    <div class="section-inner">
+      <div class="section-header">
+        <div class="section-eyebrow">Equipo Clinico</div>
+        <h2 class="section-title">Profesionales dedicados a tu bienestar</h2>
+        <p class="section-desc">Nuestro equipo clinico combina experiencia, formacion academica de excelencia y un compromiso genuino con cada paciente.</p>
+      </div>
+      <div class="equipo-grid">
+        <div class="equipo-photo">
+          <img src="../photos/headshot-professional.png" alt="Dr. Daniel Reyes Pace — Director Clinico">
+          <div class="equipo-photo-badge">
+            <div class="equipo-photo-badge-name">Dr. Daniel Reyes Pace</div>
+            <div class="equipo-photo-badge-role">Director Clinico y Fundador</div>
+          </div>
+        </div>
+        <div class="equipo-info">
+          <h2>Dr. Daniel Reyes Pace</h2>
+          <p class="bio">Psicologo clinico con doctorado de la Universidad de Chile y mas de 20 anos de experiencia en psicoterapia. Consultor internacional con especializacion en terapia individual, de pareja y sexual. Fundador de [Centro de Psicologia Clinica], donde lidera un enfoque terapeutico riguroso, centrado en la evidencia y en el bienestar integral de cada paciente.</p>
+          <div class="credentials-grid">
+            <div class="credential-item">
+              <div class="credential-icon">
+                <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 1.657 2.686 3 6 3s6-1.343 6-3v-5"/></svg>
+              </div>
+              <span class="credential-text">Doctor en Psicologia, Universidad de Chile</span>
+            </div>
+            <div class="credential-item">
+              <div class="credential-icon">
+                <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              </div>
+              <span class="credential-text">Mas de 20 anos de experiencia clinica</span>
+            </div>
+            <div class="credential-item">
+              <div class="credential-icon">
+                <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+              </div>
+              <span class="credential-text">Consultor internacional</span>
+            </div>
+            <div class="credential-item">
+              <div class="credential-icon">
+                <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+              </div>
+              <span class="credential-text">Especialista en terapia individual, de pareja y sexual</span>
+            </div>
+            <div class="credential-item">
+              <div class="credential-icon">
+                <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              </div>
+              <span class="credential-text">Consultorio en Nunoa, Santiago</span>
+            </div>
+            <div class="credential-item">
+              <div class="credential-icon">
+                <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+              </div>
+              <span class="credential-text">Atencion online para todo Chile</span>
+            </div>
+          </div>
+          <div class="equipo-more">
+            <p>Nuestro centro esta en proceso de expansion. Pronto incorporaremos nuevos profesionales al equipo clinico.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ENFOQUE / METODOLOGIA -->
+  <section class="section" id="enfoque">
+    <div class="section-inner">
+      <div class="enfoque-grid">
+        <div class="enfoque-content">
+          <div class="section-eyebrow">Nuestro Enfoque</div>
+          <h2>Metodologia clinica basada en evidencia</h2>
+          <p>Trabajamos con un enfoque integrativo que prioriza las intervenciones con mayor respaldo cientifico, adaptandolas a la realidad y necesidades de cada paciente.</p>
+          <p>No creemos en recetas universales. Cada proceso es unico, pero siempre parte de una evaluacion rigurosa y objetivos claros.</p>
+          <div class="enfoque-pillars">
+            <div class="enfoque-pillar">
+              <span class="enfoque-pillar-num">1</span>
+              <div>
+                <h4>Evaluacion inicial rigurosa</h4>
+                <p>Primera sesion de diagnostico donde exploramos tu motivo de consulta, historia relevante y definimos objetivos terapeuticos.</p>
+              </div>
+            </div>
+            <div class="enfoque-pillar">
+              <span class="enfoque-pillar-num">2</span>
+              <div>
+                <h4>Plan de tratamiento personalizado</h4>
+                <p>Diseñamos un plan especifico con herramientas y tecnicas seleccionadas para tu caso particular.</p>
+              </div>
+            </div>
+            <div class="enfoque-pillar">
+              <span class="enfoque-pillar-num">3</span>
+              <div>
+                <h4>Seguimiento y resultados medibles</h4>
+                <p>Revisamos periodicamente el progreso y ajustamos el tratamiento. Sin procesos interminables.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="enfoque-image">
+          <img src="../photos/consultation-session.png" alt="Sesion de consulta en el centro de psicologia">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIOS -->
+  <section class="section testimonials-section" id="testimonios">
+    <div class="section-inner">
+      <div class="section-header">
+        <div class="section-eyebrow">Testimonios</div>
+        <h2 class="section-title">Lo que dicen quienes han pasado por nuestro centro</h2>
+      </div>
+      <div class="testimonials-grid">
+        <div class="testimonial-card">
+          <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="testimonial-text">"Llegue en un momento muy dificil y en el centro supieron acogerme con profesionalismo y calidez. Me ayudaron a entender patrones que repetia sin darme cuenta. Totalmente recomendado."</p>
+          <div class="testimonial-footer">
+            <div class="testimonial-avatar">C</div>
+            <div>
+              <div class="testimonial-author">Carolina M.</div>
+              <div class="testimonial-role">Terapia individual, 8 meses</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="testimonial-text">"La terapia de pareja fue un antes y un despues para nosotros. Nos dieron herramientas concretas desde la primera sesion. Hoy nos comunicamos mucho mejor."</p>
+          <div class="testimonial-footer">
+            <div class="testimonial-avatar">R</div>
+            <div>
+              <div class="testimonial-author">Rodrigo y Camila</div>
+              <div class="testimonial-role">Terapia de pareja, 6 meses</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="testimonial-text">"Busque un psicologo para tratar ansiedad y fue la mejor decision que pude tomar. El enfoque es directo, profesional y humano. Senti confianza desde el primer dia."</p>
+          <div class="testimonial-footer">
+            <div class="testimonial-avatar">F</div>
+            <div>
+              <div class="testimonial-author">Felipe A.</div>
+              <div class="testimonial-role">Terapia individual, 1 ano</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="testimonial-text">"Llevaba anos evitando el tema de la sexualidad en terapia. Aqui pude hablar abiertamente por primera vez. Son profesionales serios y muy preparados en el area."</p>
+          <div class="testimonial-footer">
+            <div class="testimonial-avatar">A</div>
+            <div>
+              <div class="testimonial-author">Andrea L.</div>
+              <div class="testimonial-role">Terapia sexual, 5 meses</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="testimonial-text">"Vivo en Temuco y tomo consulta online. Funciona igual de bien que presencial. Me siento escuchada en cada sesion y el proceso ha sido muy profesional."</p>
+          <div class="testimonial-footer">
+            <div class="testimonial-avatar">V</div>
+            <div>
+              <div class="testimonial-author">Valentina R.</div>
+              <div class="testimonial-role">Terapia online, 4 meses</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="testimonial-text">"Lo que mas valoro es la honestidad. No te dicen lo que quieres escuchar: te ayudan a ver lo que necesitas ver. Eso, con 20 anos de experiencia detras, hace la diferencia."</p>
+          <div class="testimonial-footer">
+            <div class="testimonial-avatar">M</div>
+            <div>
+              <div class="testimonial-author">Matias G.</div>
+              <div class="testimonial-role">Terapia individual, 10 meses</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ISAPRES -->
+  <section class="isapre-section" id="isapres">
+    <div class="isapre-inner">
+      <h3 class="isapre-title">Reembolso con tu Isapre</h3>
+      <p class="isapre-desc">Emitimos boleta para que puedas solicitar reembolso parcial en tu Isapre o Fonasa.</p>
+      <div class="isapre-logos">
+        <div class="isapre-logo">Banmedica</div>
+        <div class="isapre-logo">Colmena</div>
+        <div class="isapre-logo">Consalud</div>
+        <div class="isapre-logo">Fonasa</div>
+        <div class="isapre-logo">Cruz Blanca</div>
+        <div class="isapre-logo">Vida Tres</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section" id="faq">
+    <div class="section-inner">
+      <div class="section-header">
+        <div class="section-eyebrow">Preguntas Frecuentes</div>
+        <h2 class="section-title">Resolvemos tus dudas</h2>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">Como es la primera sesion?</button>
+          <div class="faq-answer">La primera sesion es una evaluacion donde conversamos sobre lo que te trae a consulta, tu historia relevante y definimos juntos los objetivos del proceso. Dura entre 50 y 60 minutos. No hay compromiso de continuar si no te sientes comodo o comoda.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">Cuanto dura un proceso terapeutico?</button>
+          <div class="faq-answer">Depende de cada caso. Hay procesos focalizados de 8 a 12 sesiones y otros mas extensos. Desde la primera sesion te damos una estimacion honesta del tiempo que podriamos necesitar.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">Atienden con Isapre?</button>
+          <div class="faq-answer">Emitimos boleta de honorarios para que puedas solicitar reembolso parcial en tu Isapre (Banmedica, Colmena, Consalud, Cruz Blanca, Vida Tres) o Fonasa. El porcentaje de reembolso depende de tu plan.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">La terapia online funciona igual que presencial?</button>
+          <div class="faq-answer">Si. La evidencia clinica muestra que la terapia por videollamada tiene la misma efectividad que la presencial para la mayoria de las condiciones. Atendemos pacientes online en todo Chile con excelentes resultados.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">Puedo agendar sin llamar por telefono?</button>
+          <div class="faq-answer">Si. Puedes agendar directamente desde esta pagina usando el boton de Calendly, completar el formulario de contacto, o escribirnos por WhatsApp. Respondemos en menos de 2 horas.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">Que pasa si necesito cancelar una sesion?</button>
+          <div class="faq-answer">Pedimos aviso con al menos 24 horas de anticipacion. Las cancelaciones con menos de 24 horas se cobran como sesion tomada, salvo emergencias justificadas.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA + CONTACT -->
+  <section class="section cta-section" id="contacto">
+    <div class="section-inner">
+      <div class="section-header">
+        <div class="section-eyebrow" style="color: var(--teal-500);">Contacto</div>
+        <h2 class="section-title" style="color: var(--white);">El primer paso es el mas dificil.<br>Pero no tienes que darlo solo.</h2>
+        <p class="section-desc" style="color: rgba(255,255,255,0.6);">Agenda tu primera consulta o dejanos tus datos. Te contactamos dentro de 2 horas en dia habil.</p>
+      </div>
+
+      <div class="cta-buttons">
+        <a href="#" class="btn" style="background: var(--white); color: var(--slate-800); font-weight: 700; padding: 16px 32px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          Agendar con Calendly
+        </a>
+        <a href="https://wa.me/56920115198" class="btn btn-whatsapp" style="padding: 16px 32px;" target="_blank" rel="noopener">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Escribir por WhatsApp
+        </a>
+      </div>
+
+      <div class="contact-form">
+        <div class="form-title">Formulario de contacto</div>
+        <div class="form-subtitle">Te respondemos dentro de 2 horas en dia habil.</div>
+        <form onsubmit="return false;">
+          <div class="form-group">
+            <label>Nombre completo</label>
+            <input type="text" placeholder="Tu nombre">
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" placeholder="tu@email.com">
+          </div>
+          <div class="form-group">
+            <label>Telefono (opcional)</label>
+            <input type="tel" placeholder="+56 9 1234 5678">
+          </div>
+          <div class="form-group">
+            <label>Tipo de consulta</label>
+            <select>
+              <option value="">Selecciona una opcion</option>
+              <option>Terapia individual</option>
+              <option>Terapia de pareja</option>
+              <option>Terapia sexual</option>
+              <option>No estoy seguro/a</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Mensaje (opcional)</label>
+            <textarea placeholder="Cuentanos brevemente que te motiva a buscar ayuda..."></textarea>
+          </div>
+          <button type="submit" class="form-submit">Enviar consulta</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div>
+        <div class="footer-brand">[Centro de Psicologia Clinica]</div>
+        <div class="footer-brand-sub">Nunoa, Santiago de Chile | Atencion online para todo Chile</div>
+      </div>
+      <div class="footer-links">
+        <a href="#">Privacidad</a>
+        <a href="#">Terminos y condiciones</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- STICKY MOBILE CTA -->
+  <div class="sticky-cta">
+    <div class="sticky-cta-inner">
+      <a href="#contacto" class="btn btn-primary">Agendar consulta</a>
+      <a href="https://wa.me/56920115198" class="btn btn-whatsapp" target="_blank" rel="noopener">WhatsApp</a>
+    </div>
+  </div>
+
+  <!-- JAVASCRIPT -->
+  <script>
+    // Navbar scroll effect
+    window.addEventListener('scroll', function() {
+      var navbar = document.getElementById('navbar');
+      if (window.scrollY > 10) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+
+    // Mobile menu toggle
+    function toggleMenu() {
+      var menu = document.getElementById('mobileMenu');
+      menu.classList.toggle('open');
+    }
+    function closeMenu() {
+      var menu = document.getElementById('mobileMenu');
+      menu.classList.remove('open');
+    }
+
+    // FAQ accordion
+    function toggleFaq(btn) {
+      var answer = btn.nextElementSibling;
+      var isOpen = answer.classList.contains('open');
+
+      // Close all other FAQs
+      document.querySelectorAll('.faq-answer').forEach(function(a) {
+        a.classList.remove('open');
+      });
+      document.querySelectorAll('.faq-question').forEach(function(q) {
+        q.classList.remove('active');
+      });
+
+      // Toggle the clicked one
+      if (!isOpen) {
+        answer.classList.add('open');
+        btn.classList.add('active');
+      }
+    }
+  </script>
+
+</body>
+</html>

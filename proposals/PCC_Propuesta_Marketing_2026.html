@@ -1,0 +1,1185 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plan de Marketing Digital 2026 — Psicología Clínica Chile</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,300;1,9..144,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+  /* ── RESET & VARIABLES ───────────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy:   #1B3A5C;
+    --blue:   #2A6099;
+    --teal:   #1E7D68;
+    --green:  #276645;
+    --amber:  #B5700F;
+    --red:    #B03A2E;
+    --cons:   #5B2C8A;
+    --cons-bg:#F0E8FA;
+    --ink:    #1A1A1A;
+    --mid:    #555;
+    --soft:   #888;
+    --rule:   #E5E5E5;
+    --bg:     #FAFAF8;
+    --white:  #FFFFFF;
+    --phase1: #1B3A5C;
+    --phase2: #1E7D68;
+    --phase3: #276645;
+    --serif: 'Fraunces', Georgia, serif;
+    --sans:  'DM Sans', system-ui, sans-serif;
+    --r: 3px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--ink);
+    font-size: 15px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── LAYOUT ──────────────────────────────────────── */
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 28px; }
+  .wrap-wide { max-width: 1020px; margin: 0 auto; padding: 0 28px; }
+
+  /* ── TOPBAR ──────────────────────────────────────── */
+  #topbar {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(250,250,248,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--rule);
+    padding: 0 28px;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 52px;
+    transition: box-shadow .2s;
+  }
+  #topbar.scrolled { box-shadow: 0 1px 16px rgba(0,0,0,.07); }
+  .topbar-left { font-size: 12px; font-weight: 500; color: var(--soft); letter-spacing: .06em; text-transform: uppercase; }
+  .topbar-right { display: flex; gap: 6px; }
+  .phase-dot {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 11px; font-weight: 500; color: var(--soft);
+    padding: 3px 10px; border-radius: 20px; border: 1px solid var(--rule);
+    cursor: pointer; transition: all .15s; text-decoration: none;
+  }
+  .phase-dot:hover { border-color: var(--navy); color: var(--navy); }
+  .phase-dot .dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+
+  /* ── COVER ───────────────────────────────────────── */
+  #cover {
+    padding: 120px 0 80px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .cover-label {
+    font-size: 11px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--teal); margin-bottom: 28px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .cover-label::after { content: ''; flex: 1; max-width: 40px; height: 1px; background: var(--teal); }
+  h1.cover-title {
+    font-family: var(--serif);
+    font-size: clamp(36px, 6vw, 58px);
+    font-weight: 300;
+    line-height: 1.1;
+    letter-spacing: -.02em;
+    color: var(--navy);
+    margin-bottom: 12px;
+  }
+  h1.cover-title em { font-style: italic; font-weight: 300; }
+  .cover-sub {
+    font-size: 17px; color: var(--mid); font-weight: 300;
+    margin-bottom: 48px; max-width: 520px; line-height: 1.6;
+  }
+  .cover-meta {
+    display: flex; gap: 32px; flex-wrap: wrap;
+  }
+  .meta-item { display: flex; flex-direction: column; gap: 2px; }
+  .meta-label { font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--soft); font-weight: 500; }
+  .meta-value { font-size: 14px; color: var(--ink); font-weight: 500; }
+
+  /* ── PROGRESS OVERVIEW ───────────────────────────── */
+  #progress-overview {
+    padding: 40px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .progress-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    border-radius: var(--r);
+    overflow: hidden;
+  }
+  .prog-card {
+    background: var(--white);
+    padding: 20px 22px;
+    display: flex; flex-direction: column; gap: 12px;
+  }
+  .prog-card-header { display: flex; align-items: center; justify-content: space-between; }
+  .prog-phase-label { font-size: 10px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; }
+  .prog-pct { font-family: var(--serif); font-size: 22px; font-weight: 400; }
+  .prog-bar-bg {
+    height: 3px; background: var(--rule); border-radius: 2px; overflow: hidden;
+  }
+  .prog-bar-fill {
+    height: 100%; border-radius: 2px; transition: width .5s ease;
+  }
+  .prog-details { font-size: 12px; color: var(--soft); }
+
+  /* ── SECTION HEADERS ─────────────────────────────── */
+  .section {
+    padding: 72px 0 48px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .section:last-child { border-bottom: none; }
+
+  .section-number {
+    font-size: 11px; font-weight: 500; letter-spacing: .1em;
+    text-transform: uppercase; color: var(--soft);
+    margin-bottom: 16px; display: block;
+  }
+  h2.section-title {
+    font-family: var(--serif);
+    font-size: clamp(24px, 4vw, 34px);
+    font-weight: 300; letter-spacing: -.015em;
+    color: var(--navy); line-height: 1.2;
+    margin-bottom: 24px;
+  }
+  h3.sub-title {
+    font-family: var(--serif);
+    font-size: 20px; font-weight: 400; color: var(--ink);
+    margin: 36px 0 14px;
+  }
+  h4.mini-title {
+    font-size: 11px; font-weight: 600; letter-spacing: .08em;
+    text-transform: uppercase; color: var(--mid);
+    margin: 28px 0 10px;
+  }
+  p { color: var(--mid); margin-bottom: 14px; line-height: 1.7; }
+  p:last-child { margin-bottom: 0; }
+
+  /* ── CALLOUT ─────────────────────────────────────── */
+  .callout {
+    border-left: 3px solid var(--navy);
+    background: var(--white);
+    padding: 18px 22px;
+    margin: 24px 0;
+    border-radius: 0 var(--r) var(--r) 0;
+  }
+  .callout.teal  { border-color: var(--teal);  }
+  .callout.amber { border-color: var(--amber); }
+  .callout.cons  { border-color: var(--cons); background: var(--cons-bg); }
+  .callout-title { font-size: 12px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; margin-bottom: 8px; }
+  .callout.teal  .callout-title { color: var(--teal); }
+  .callout.amber .callout-title { color: var(--amber); }
+  .callout.cons  .callout-title { color: var(--cons); }
+  .callout p, .callout li { font-size: 13.5px; color: var(--mid); margin-bottom: 4px; }
+
+  /* ── SCORECARD ───────────────────────────────────── */
+  .scorecard { margin: 24px 0; }
+  .score-row {
+    display: grid; grid-template-columns: 1fr 56px 1fr;
+    gap: 12px; align-items: start;
+    padding: 14px 0; border-bottom: 1px solid var(--rule);
+  }
+  .score-row:last-child { border-bottom: none; }
+  .score-dim { font-size: 13.5px; font-weight: 500; color: var(--ink); }
+  .score-badge {
+    font-family: var(--serif);
+    font-size: 16px; font-weight: 400;
+    text-align: center; padding: 2px 0;
+    border-radius: 3px;
+  }
+  .score-badge.red  { background: #FFE8E5; color: var(--red); }
+  .score-badge.amber { background: #FFF3CD; color: var(--amber); }
+  .score-badge.green { background: #E0F0E8; color: var(--green); }
+  .score-note { font-size: 13px; color: var(--soft); line-height: 1.5; }
+
+  /* ── CHANNEL BLOCKS ──────────────────────────────── */
+  .channel-block {
+    border: 1px solid var(--rule);
+    border-radius: var(--r);
+    overflow: hidden;
+    margin: 28px 0;
+  }
+  .channel-header {
+    padding: 16px 22px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .channel-header h3 {
+    font-family: var(--serif); font-size: 18px; font-weight: 400;
+    color: var(--white);
+  }
+  .channel-header .channel-sub {
+    font-size: 11px; color: rgba(255,255,255,.7); margin-top: 2px;
+  }
+  .channel-body { padding: 22px; }
+
+  /* ── CONTENT PILLARS ─────────────────────────────── */
+  .pillars { display: flex; flex-direction: column; gap: 2px; margin: 14px 0; }
+  .pillar {
+    display: grid; grid-template-columns: 22px 1fr 1fr;
+    gap: 12px; align-items: start;
+    background: var(--white); padding: 12px 14px;
+    border: 1px solid var(--rule); border-radius: var(--r);
+    font-size: 13px;
+  }
+  .pillar-num { font-family: var(--serif); font-size: 15px; color: var(--soft); }
+  .pillar-name { font-weight: 500; color: var(--ink); }
+  .pillar-obj { color: var(--soft); }
+
+  /* ── SCRIPT BOXES ────────────────────────────────── */
+  .script-box {
+    background: var(--white); border: 1px solid var(--rule);
+    border-top: 3px solid var(--teal);
+    border-radius: var(--r);
+    padding: 20px 22px; margin: 14px 0;
+  }
+  .script-box .script-label { font-size: 10px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--teal); margin-bottom: 10px; }
+  .script-box blockquote { font-family: var(--serif); font-size: 15px; color: var(--ink); font-style: italic; line-height: 1.7; }
+
+  /* ── PHASE SECTION ───────────────────────────────── */
+  .phase-section {
+    margin: 0 0 60px;
+  }
+  .phase-banner {
+    padding: 22px 24px;
+    border-radius: var(--r);
+    margin-bottom: 28px;
+    display: flex; align-items: flex-start; gap: 16px;
+  }
+  .phase-banner-text { flex: 1; }
+  .phase-banner h3 {
+    font-family: var(--serif); font-size: 20px; font-weight: 400;
+    color: var(--white); line-height: 1.2; margin-bottom: 4px;
+  }
+  .phase-banner p { font-size: 13px; color: rgba(255,255,255,.75); margin: 0; line-height: 1.5; }
+  .phase-prog-mini { text-align: right; min-width: 64px; }
+  .phase-prog-num { font-family: var(--serif); font-size: 28px; color: var(--white); line-height: 1; }
+  .phase-prog-lbl { font-size: 10px; color: rgba(255,255,255,.6); letter-spacing: .06em; text-transform: uppercase; }
+
+  /* ── SESSION CARDS ───────────────────────────────── */
+  .sessions { display: flex; flex-direction: column; gap: 8px; margin: 18px 0; }
+  .session-card {
+    display: grid; grid-template-columns: 120px 1fr;
+    border: 1px solid #d4c0ef; border-radius: var(--r);
+    overflow: hidden; background: var(--cons-bg);
+  }
+  .session-left {
+    background: var(--cons);
+    padding: 14px 16px;
+    display: flex; flex-direction: column; align-items: flex-start; justify-content: center; gap: 2px;
+  }
+  .session-left .s-type { font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.7); font-weight: 600; }
+  .session-left .s-hours { font-family: var(--serif); font-size: 22px; color: var(--white); }
+  .session-left .s-price { font-size: 13px; font-weight: 600; color: rgba(255,255,255,.9); }
+  .session-right { padding: 14px 18px; }
+  .session-right strong { font-size: 13px; font-weight: 600; color: var(--cons); display: block; margin-bottom: 3px; }
+  .session-right p { font-size: 12.5px; color: #7a5ca0; margin: 0; line-height: 1.5; }
+
+  /* ── TASK TABLE ──────────────────────────────────── */
+  .task-table { margin: 18px 0; }
+  .task-row {
+    display: grid; grid-template-columns: 28px 1fr 90px 56px;
+    gap: 10px; align-items: start;
+    padding: 11px 0; border-bottom: 1px solid var(--rule);
+    transition: background .1s;
+  }
+  .task-row:last-child { border-bottom: none; }
+  .task-row.cons-row { background: var(--cons-bg); margin: 0 -6px; padding: 11px 6px; border-radius: var(--r); }
+  .task-row.cons-row:hover { background: #e8d8f8; }
+
+  .task-check {
+    width: 18px; height: 18px; border-radius: 50%;
+    border: 1.5px solid var(--rule);
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; margin-top: 1px;
+    transition: all .15s; background: var(--white);
+  }
+  .task-check:hover { border-color: var(--teal); }
+  .task-check.done { background: var(--teal); border-color: var(--teal); }
+  .task-check.done::after { content: ''; width: 4px; height: 7px; border: 1.5px solid white; border-top: none; border-left: none; transform: rotate(45deg) translateY(-1px); display: block; }
+  .task-check.cons-check { border-color: #c4a0e8; }
+  .task-check.cons-check:hover { border-color: var(--cons); }
+  .task-check.done.cons-check { background: var(--cons); border-color: var(--cons); }
+
+  .task-content { min-width: 0; }
+  .task-title { font-size: 13.5px; font-weight: 500; color: var(--ink); line-height: 1.4; transition: color .15s; }
+  .task-row.task-done .task-title { color: var(--soft); text-decoration: line-through; }
+  .task-desc { font-size: 12px; color: var(--soft); margin-top: 2px; line-height: 1.4; }
+
+  .task-resp {
+    font-size: 10.5px; color: var(--soft); font-weight: 500;
+    background: var(--bg); border: 1px solid var(--rule);
+    padding: 2px 7px; border-radius: 20px; white-space: nowrap;
+    height: fit-content; margin-top: 2px;
+  }
+  .task-row.cons-row .task-resp { background: #e0c8f5; border-color: #c4a0e8; color: var(--cons); }
+
+  .task-week { font-size: 11px; color: var(--soft); font-family: var(--serif); text-align: right; margin-top: 2px; }
+  .task-row.cons-row .task-week { color: var(--cons); }
+
+  /* ── BUDGET TABLE ────────────────────────────────── */
+  .budget-table { margin: 18px 0; }
+  .bgt-row {
+    display: grid; grid-template-columns: 1fr 130px;
+    gap: 12px; align-items: center;
+    padding: 10px 0; border-bottom: 1px solid var(--rule);
+  }
+  .bgt-row:last-child { border-bottom: none; }
+  .bgt-row.cons { background: var(--cons-bg); margin: 0 -8px; padding: 10px 8px; border-radius: var(--r); }
+  .bgt-row.sep { padding: 4px 0; border-bottom: none; }
+  .bgt-row.total { padding-top: 14px; }
+  .bgt-label { font-size: 13px; color: var(--ink); }
+  .bgt-row.cons .bgt-label { color: var(--cons); font-weight: 500; }
+  .bgt-label small { display: block; font-size: 11px; color: var(--soft); margin-top: 1px; }
+  .bgt-amount { font-family: var(--serif); font-size: 16px; text-align: right; color: var(--ink); }
+  .bgt-row.cons .bgt-amount { color: var(--cons); font-weight: 600; }
+  .bgt-row.total .bgt-label { font-weight: 600; font-size: 14px; color: var(--navy); }
+  .bgt-row.total .bgt-amount { font-size: 20px; font-weight: 600; color: var(--navy); }
+
+  .budget-divider { border: none; border-top: 1px dashed var(--rule); margin: 6px 0; }
+
+  /* ── SUMMARY TABLE ───────────────────────────────── */
+  .summary-grid {
+    display: flex; flex-direction: column; gap: 2px;
+    border: 1px solid var(--rule); border-radius: var(--r); overflow: hidden;
+    background: var(--rule);
+  }
+  .summary-row {
+    display: grid; grid-template-columns: 72px 80px 1fr 110px 96px 100px;
+    gap: 1px; background: var(--rule);
+  }
+  .summary-row.header { background: var(--navy); }
+  .summary-cell {
+    background: var(--white);
+    padding: 13px 14px;
+    font-size: 12.5px; color: var(--ink);
+  }
+  .summary-row.header .summary-cell {
+    background: var(--navy); color: rgba(255,255,255,.8);
+    font-size: 10px; font-weight: 600; letter-spacing: .07em; text-transform: uppercase;
+  }
+  .phase-tag {
+    display: inline-block; padding: 3px 9px; border-radius: 2px;
+    font-size: 11px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase;
+    color: var(--white);
+  }
+  .cons-tag { background: var(--cons); color: white; font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 2px; }
+  .leads-num { font-family: var(--serif); font-size: 15px; color: var(--teal); font-weight: 400; }
+
+  /* ── KPI TABLE ───────────────────────────────────── */
+  .kpi-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin: 18px 0; }
+  .kpi-card {
+    background: var(--white); border: 1px solid var(--rule);
+    border-radius: var(--r); padding: 16px 18px;
+  }
+  .kpi-name { font-size: 11px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--soft); margin-bottom: 10px; }
+  .kpi-values { display: flex; gap: 20px; }
+  .kpi-val { display: flex; flex-direction: column; gap: 2px; }
+  .kpi-period { font-size: 10px; color: var(--soft); }
+  .kpi-num { font-family: var(--serif); font-size: 20px; color: var(--ink); }
+  .kpi-num.target { color: var(--green); }
+  .kpi-tool { font-size: 11px; color: var(--soft); margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--rule); }
+
+  /* ── ERRORS ──────────────────────────────────────── */
+  .error-list { display: flex; flex-direction: column; gap: 8px; margin: 18px 0; }
+  .error-item {
+    display: grid; grid-template-columns: 24px 1fr;
+    gap: 12px; padding: 14px 16px;
+    border: 1px solid #f5c6c3;
+    background: #FFF5F4;
+    border-radius: var(--r);
+  }
+  .error-icon { font-size: 16px; line-height: 1.4; }
+  .error-title { font-size: 13.5px; font-weight: 600; color: var(--red); margin-bottom: 3px; }
+  .error-desc { font-size: 13px; color: #9a5a5a; line-height: 1.5; }
+
+  /* ── FOOTER ──────────────────────────────────────── */
+  #footer {
+    padding: 60px 0;
+    text-align: center;
+    border-top: 1px solid var(--rule);
+  }
+  .footer-quote {
+    font-family: var(--serif); font-size: clamp(18px, 3vw, 26px);
+    font-weight: 300; font-style: italic;
+    color: var(--navy); max-width: 560px; margin: 0 auto 14px; line-height: 1.4;
+  }
+  .footer-meta { font-size: 12px; color: var(--soft); }
+
+  /* ── KEYWORD TAGS ────────────────────────────────── */
+  .kw-tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 12px 0; }
+  .kw { font-size: 12px; padding: 4px 10px; border-radius: 20px; border: 1px solid var(--rule); background: var(--white); color: var(--mid); }
+  .kw.high   { border-color: #fca5a5; background: #FFF5F4; color: var(--red); }
+  .kw.medium { border-color: #fcd34d; background: #FFFBEB; color: var(--amber); }
+  .kw.long   { border-color: #86efac; background: #F0FDF4; color: var(--green); }
+
+  /* ── AUDIENCE CARDS ──────────────────────────────── */
+  .aud-cards { display: flex; flex-direction: column; gap: 6px; margin: 14px 0; }
+  .aud-card { display: grid; grid-template-columns: 100px 1fr; gap: 14px; padding: 12px 14px; background: var(--white); border: 1px solid var(--rule); border-radius: var(--r); align-items: start; }
+  .aud-type { font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--teal); }
+  .aud-desc { font-size: 13px; color: var(--mid); line-height: 1.4; }
+
+  /* ── ASSETS TABLE ────────────────────────────────── */
+  .assets { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin: 14px 0; }
+  .asset-card { background: var(--white); border: 1px solid var(--rule); border-radius: var(--r); padding: 14px 16px; }
+  .asset-type { font-size: 11px; font-weight: 600; letter-spacing: .07em; text-transform: uppercase; color: var(--soft); margin-bottom: 6px; }
+  .asset-qty { font-family: var(--serif); font-size: 22px; color: var(--navy); margin-bottom: 2px; }
+  .asset-dest { font-size: 12px; color: var(--soft); line-height: 1.4; }
+
+  /* ── TOTALS BAR ──────────────────────────────────── */
+  .totals-bar {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 2px; margin: 28px 0;
+    background: var(--rule); border: 1px solid var(--rule); border-radius: var(--r); overflow: hidden;
+  }
+  .total-card { background: var(--white); padding: 20px 22px; }
+  .total-label { font-size: 10px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--soft); margin-bottom: 8px; }
+  .total-number { font-family: var(--serif); font-size: 26px; color: var(--navy); line-height: 1; margin-bottom: 4px; }
+  .total-sub { font-size: 12px; color: var(--soft); }
+
+  /* ── NOTIFICATION TOAST ──────────────────────────── */
+  #toast {
+    position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(60px);
+    background: var(--navy); color: white; font-size: 13px;
+    padding: 10px 20px; border-radius: 4px;
+    transition: transform .25s ease;
+    pointer-events: none; z-index: 200;
+  }
+  #toast.show { transform: translateX(-50%) translateY(0); }
+
+  /* ── RESPONSIVE ──────────────────────────────────── */
+  @media (max-width: 640px) {
+    .progress-grid { grid-template-columns: 1fr; }
+    .kpi-grid { grid-template-columns: 1fr; }
+    .assets { grid-template-columns: 1fr; }
+    .summary-row { grid-template-columns: 1fr 1fr; }
+    .summary-cell:nth-child(n+3) { display: none; }
+    .task-row { grid-template-columns: 28px 1fr; }
+    .task-resp, .task-week { display: none; }
+    .session-card { grid-template-columns: 1fr; }
+    .topbar-right { display: none; }
+    .pillar { grid-template-columns: 22px 1fr; }
+    .pillar-obj { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<nav id="topbar">
+  <span class="topbar-left">PCC · Plan Marketing 2026</span>
+  <div class="topbar-right">
+    <a href="#fase1" class="phase-dot" style="color:#1B3A5C"><span class="dot"></span>Fase 1</a>
+    <a href="#fase2" class="phase-dot" style="color:#1E7D68"><span class="dot"></span>Fase 2</a>
+    <a href="#fase3" class="phase-dot" style="color:#276645"><span class="dot"></span>Fase 3</a>
+  </div>
+</nav>
+
+<!-- COVER -->
+<div id="cover">
+  <div class="wrap">
+    <div class="cover-label">Plan de Marketing Digital</div>
+    <h1 class="cover-title">Psicología Clínica Chile<br><em>2026</em></h1>
+    <p class="cover-sub">LinkedIn + Meta Ads + Sesión de Contenido + Consultoría de Implementación. Tres fases, seis meses, un objetivo: construir el canal digital que el Dr. Daniel Reyes merece.</p>
+    <div class="cover-meta">
+      <div class="meta-item"><span class="meta-label">Cliente</span><span class="meta-value">Psicología Clínica Chile</span></div>
+      <div class="meta-item"><span class="meta-label">Inicio</span><span class="meta-value">Marzo 2026</span></div>
+      <div class="meta-item"><span class="meta-label">Duración</span><span class="meta-value">6 meses</span></div>
+      <div class="meta-item"><span class="meta-label">Estado</span><span class="meta-value" id="status-label">— Sin iniciar</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- PROGRESS OVERVIEW -->
+<div id="progress-overview">
+  <div class="wrap">
+    <div class="progress-grid">
+      <div class="prog-card">
+        <div class="prog-card-header">
+          <span class="prog-phase-label" style="color:var(--phase1)">Fase 1 · Mes 1</span>
+          <span class="prog-pct" style="color:var(--phase1)" id="pct1">0%</span>
+        </div>
+        <div class="prog-bar-bg"><div class="prog-bar-fill" id="bar1" style="background:var(--phase1);width:0%"></div></div>
+        <div class="prog-details" id="detail1">0 de 15 tareas completadas</div>
+      </div>
+      <div class="prog-card">
+        <div class="prog-card-header">
+          <span class="prog-phase-label" style="color:var(--phase2)">Fase 2 · Mes 2–3</span>
+          <span class="prog-pct" style="color:var(--phase2)" id="pct2">0%</span>
+        </div>
+        <div class="prog-bar-bg"><div class="prog-bar-fill" id="bar2" style="background:var(--phase2);width:0%"></div></div>
+        <div class="prog-details" id="detail2">0 de 12 tareas completadas</div>
+      </div>
+      <div class="prog-card">
+        <div class="prog-card-header">
+          <span class="prog-phase-label" style="color:var(--phase3)">Fase 3 · Mes 4–6</span>
+          <span class="prog-pct" style="color:var(--phase3)" id="pct3">0%</span>
+        </div>
+        <div class="prog-bar-bg"><div class="prog-bar-fill" id="bar3" style="background:var(--phase3);width:0%"></div></div>
+        <div class="prog-details" id="detail3">0 de 10 tareas completadas</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 1: DIAGNÓSTICO -->
+<section class="section" id="diagnostico">
+  <div class="wrap">
+    <span class="section-number">01 — Diagnóstico</span>
+    <h2 class="section-title">El sitio no está roto.<br>Simplemente no trabaja.</h2>
+    <p>El Dr. Daniel Reyes tiene las credenciales más fuertes del mercado: PhD Universidad de Chile, 20 años de experiencia, consultor internacional. Nada de eso aparece en el primer scroll. En cambio, el hero dice "Excelencia clínica en psicoterapia" — una frase que podría usar cualquier centro del país sin cambiar una letra.</p>
+
+    <div class="callout amber">
+      <div class="callout-title">Diagnóstico inicial · Puntaje 4/10</div>
+      <p>El activo más valioso está escondido a dos clics. Sin precios, sin agendamiento online, sin Google Business Profile. El sitio tiene los ingredientes para funcionar bien, pero los usa pésimamente.</p>
+    </div>
+
+    <h3 class="sub-title">Scorecard de 8 dimensiones</h3>
+    <div class="scorecard">
+      <div class="score-row">
+        <div class="score-dim">Propuesta de valor</div>
+        <div class="score-badge red">3/10</div>
+        <div class="score-note">"Excelencia clínica" no diferencia nada. Las credenciales del Dr. Reyes son el activo real y están ocultas.</div>
+      </div>
+      <div class="score-row">
+        <div class="score-dim">CTA / Conversión</div>
+        <div class="score-badge red">3/10</div>
+        <div class="score-note">Solo WhatsApp. Sin calendario, sin urgencia, sin incentivo. Máxima fricción para el paso más difícil.</div>
+      </div>
+      <div class="score-row">
+        <div class="score-dim">Diferenciación</div>
+        <div class="score-badge red">2/10</div>
+        <div class="score-note">PhD UChile + 20 años no aparecen en el primer scroll. El único diferenciador real está invisible.</div>
+      </div>
+      <div class="score-row">
+        <div class="score-dim">Precio / Acceso</div>
+        <div class="score-badge red">1/10</div>
+        <div class="score-note">Cero información de tarifas. "¿Cuánto cuesta un psicólogo Santiago?" es la búsqueda más frecuente.</div>
+      </div>
+      <div class="score-row">
+        <div class="score-dim">Credibilidad / Confianza</div>
+        <div class="score-badge amber">5/10</div>
+        <div class="score-note">17 testimonios son el punto más fuerte. Sin fotos reales, sin Google Reviews, sin precios.</div>
+      </div>
+      <div class="score-row">
+        <div class="score-dim">SEO / Contenido</div>
+        <div class="score-badge amber">5/10</div>
+        <div class="score-note">Dominio joven (2025) = autoridad mínima. Las FAQ ayudan. Sin blog ni backlinks. Invisible en búsquedas clave.</div>
+      </div>
+      <div class="score-row">
+        <div class="score-dim">Diseño / UX</div>
+        <div class="score-badge green">6/10</div>
+        <div class="score-note">Limpio y legible. Sin jerarquía visual para conversión. Mejorable sin rediseño completo.</div>
+      </div>
+      <div class="score-row">
+        <div class="score-dim">Mobile / Velocidad</div>
+        <div class="score-badge green">6/10</div>
+        <div class="score-note">WordPress responsivo funcional. Sin optimización activa de Core Web Vitals.</div>
+      </div>
+    </div>
+
+    <h3 class="sub-title">Activos sin explotar</h3>
+    <div class="aud-cards">
+      <div class="aud-card"><div class="aud-type" style="color:var(--teal)">⭐ Principal</div><div class="aud-desc"><strong>Dr. Daniel Reyes Pace</strong> — PhD UChile, 20 años, consultor internacional. LinkedIn thought leadership + cara de todos los videos + hero del nuevo sitio.</div></div>
+      <div class="aud-card"><div class="aud-type">17 testimonios</div><div class="aud-desc">Video-testimonials para Instagram Reels + carrusel en Meta Ads + landing page.</div></div>
+      <div class="aud-card"><div class="aud-type">6 Isapres</div><div class="aud-desc">Página /tarifas dedicada + keywords: 'psicólogo Banmédica', 'Colmena', 'Consalud', etc.</div></div>
+      <div class="aud-card"><div class="aud-type">Terapia Sexual</div><div class="aud-desc">Diferenciador único del mercado. Contenido educativo en LinkedIn + campaña Meta específica.</div></div>
+      <div class="aud-card"><div class="aud-type">Dual presencia</div><div class="aud-desc">Presencial Ñuñoa + Online nacional. Google Ads local + Meta Ads segmentado por zona.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 2: CANALES -->
+<section class="section" id="canales">
+  <div class="wrap">
+    <span class="section-number">02 — Estrategia de Canales</span>
+    <h2 class="section-title">Dos velocidades.<br>Un solo banco de contenido.</h2>
+    <p>LinkedIn construye autoridad y genera referidos a largo plazo. Meta Ads genera leads directos desde la semana 2. Ambos se nutren del mismo banco de contenido producido en la sesión fotográfica del mes 1.</p>
+
+    <!-- LinkedIn -->
+    <div class="channel-block">
+      <div class="channel-header" style="background:var(--blue)">
+        <div>
+          <h3>LinkedIn — Autoridad y Referidos</h3>
+          <div class="channel-sub">Posicionamiento del Dr. Daniel Reyes como referente nacional en salud mental</div>
+        </div>
+      </div>
+      <div class="channel-body">
+        <h4 class="mini-title">Perfiles a optimizar</h4>
+        <div class="aud-cards">
+          <div class="aud-card"><div class="aud-type" style="color:var(--red)">Crítico</div><div class="aud-desc"><strong>Dr. Daniel Reyes</strong> — Headline con keywords, 'Acerca de' optimizado, foto profesional, banner de marca. El activo principal.</div></div>
+          <div class="aud-card"><div class="aud-type" style="color:var(--amber)">Alta</div><div class="aud-desc"><strong>Fernando</strong> — Arreglar enlace roto. Completar experiencia y foto actualizada.</div></div>
+          <div class="aud-card"><div class="aud-type" style="color:var(--amber)">Media</div><div class="aud-desc"><strong>Allison + Página empresa</strong> — Crear o completar perfiles. Logo, banner, descripción con keywords.</div></div>
+        </div>
+        <h4 class="mini-title">6 pilares de contenido · 3 posts semanales</h4>
+        <div class="pillars">
+          <div class="pillar"><span class="pillar-num">1</span><span class="pillar-name">Educación clínica</span><span class="pillar-obj">Posicionar como experto</span></div>
+          <div class="pillar"><span class="pillar-num">2</span><span class="pillar-name">Autoridad académica</span><span class="pillar-obj">Diferenciación por trayectoria</span></div>
+          <div class="pillar"><span class="pillar-num">3</span><span class="pillar-name">Salud mental laboral</span><span class="pillar-obj">Atraer corporativos</span></div>
+          <div class="pillar"><span class="pillar-num">4</span><span class="pillar-name">Desmitificación</span><span class="pillar-obj">Reducir barrera de entrada</span></div>
+          <div class="pillar"><span class="pillar-num">5</span><span class="pillar-name">Detrás del consultorio</span><span class="pillar-obj">Humanizar y generar curiosidad</span></div>
+          <div class="pillar"><span class="pillar-num">6</span><span class="pillar-name">CTA suave (1 de 5 posts)</span><span class="pillar-obj">Conversión directa</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Meta Ads -->
+    <div class="channel-block">
+      <div class="channel-header" style="background:var(--teal)">
+        <div>
+          <h3>Meta Ads — Motor de Leads</h3>
+          <div class="channel-sub">Instagram + Facebook · Segmentación por problema, edad y zona</div>
+        </div>
+      </div>
+      <div class="channel-body">
+        <h4 class="mini-title">5 audiencias</h4>
+        <div class="aud-cards">
+          <div class="aud-card"><div class="aud-type">Principal</div><div class="aud-desc">M+H 28–45 · Santiago RM · Intereses: psicología, bienestar mental, ansiedad, desarrollo personal</div></div>
+          <div class="aud-card"><div class="aud-type">Pareja</div><div class="aud-desc">Parejas 30–50 · Santiago + online Chile · Intereses: relaciones de pareja, matrimonio</div></div>
+          <div class="aud-card"><div class="aud-type">Profesionales</div><div class="aud-desc">Profesionales 25–45 · Todo Chile · Comportamiento: ejecutivos, viajeros frecuentes</div></div>
+          <div class="aud-card"><div class="aud-type">Retargeting</div><div class="aud-desc">Visitantes sitio 30 días + engagers IG que no agendaron</div></div>
+          <div class="aud-card"><div class="aud-type">Lookalike 2%</div><div class="aud-desc">Similar a quienes completaron formulario (activar mes 2–3)</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Google Ads -->
+    <div class="channel-block">
+      <div class="channel-header" style="background:var(--navy)">
+        <div>
+          <h3>Google Ads — Captura de Intención</h3>
+          <div class="channel-sub">Long-tail estratégico para maximizar retorno con presupuesto acotado</div>
+        </div>
+      </div>
+      <div class="channel-body">
+        <h4 class="mini-title">Keywords prioritarias</h4>
+        <div class="kw-tags">
+          <span class="kw high">psicólogo online Chile</span>
+          <span class="kw high">psicólogo Ñuñoa</span>
+          <span class="kw high">terapia de pareja Santiago</span>
+          <span class="kw medium">psicólogo ansiedad Santiago</span>
+          <span class="kw medium">terapia sexual Santiago</span>
+          <span class="kw medium">psicólogo Banmédica</span>
+          <span class="kw medium">psicólogo Colmena / Consalud</span>
+          <span class="kw long">psicólogo PhD Santiago</span>
+          <span class="kw long">Dr. en psicología Santiago</span>
+        </div>
+        <p style="font-size:12px; margin-top:8px;"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#fca5a5;margin-right:4px;"></span>Alta prioridad &nbsp;&nbsp;<span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#fcd34d;margin-right:4px;"></span>Media &nbsp;&nbsp;<span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#86efac;margin-right:4px;"></span>Long-tail</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 3: SESIÓN DE CONTENIDO -->
+<section class="section" id="sesion">
+  <div class="wrap">
+    <span class="section-number">03 — Sesión de Contenido</span>
+    <h2 class="section-title">Medio día.<br>Cuatro meses de material.</h2>
+    <p>La sesión de contenido es la inversión de mayor apalancamiento del plan. Sin fotos y videos reales de Daniel y el equipo, ninguna campaña funciona bien en salud mental. En psicología, el paciente elige a su terapeuta antes de conocerlo — lo hace con el instinto.</p>
+
+    <div class="callout teal">
+      <div class="callout-title">Principio rector</div>
+      <p>Autenticidad sobre producción. Naturalidad sobre perfección. Calidez sobre corporativismo. Un video de Daniel hablando directo a cámara convierte más que cualquier rediseño gráfico.</p>
+    </div>
+
+    <h3 class="sub-title">5 guiones de video</h3>
+
+    <div class="script-box">
+      <div class="script-label">Video 1 · Presentación · 60–90 seg · Hero del sitio, LinkedIn, Meta Ads</div>
+      <blockquote>"Hola, soy Daniel Reyes. Soy Doctor en Psicología de la Universidad de Chile y llevo más de 20 años acompañando a personas que quieren entender lo que les pasa y cambiar lo que no les funciona.<br><br>El primer paso siempre es el más difícil. Si estás listo, agenda tu primera consulta abajo."</blockquote>
+    </div>
+
+    <div class="script-box" style="border-top-color:var(--navy)">
+      <div class="script-label" style="color:var(--navy)">Video 2 · ¿Cuándo buscar ayuda? · 60 seg · Instagram Reels, Meta Ads awareness</div>
+      <blockquote>"Hay una pregunta que me hacen mucho: ¿cómo sé si lo que siento necesita ayuda profesional? Mi respuesta es directa: si lo estás preguntando, probablemente ya lo sabes."</blockquote>
+    </div>
+
+    <div class="script-box" style="border-top-color:var(--blue)">
+      <div class="script-label" style="color:var(--blue)">Video 3 · Terapia de pareja · 45–60 seg · Meta Ads campaña pareja</div>
+      <blockquote>"Las parejas que llegan a terapia no llegan rotas. Llegan antes de romperse. La terapia de pareja no es el último recurso. Es una inversión en lo que más importa."</blockquote>
+    </div>
+
+    <div class="script-box" style="border-top-color:var(--amber)">
+      <div class="script-label" style="color:var(--amber)">Video 4 · Online para todo Chile · 30 seg · Meta Ads, Stories</div>
+      <blockquote>"Si no estás en Santiago, no es excusa para no tener acceso a psicoterapia de calidad. Trabajo online con personas en todo Chile: desde Arica a Punta Arenas."</blockquote>
+    </div>
+
+    <div class="script-box" style="border-top-color:var(--green)">
+      <div class="script-label" style="color:var(--green)">Video 5 · Terapia sexual · 60 seg · LinkedIn, Instagram educativo</div>
+      <blockquote>"La terapia sexológica sigue siendo uno de los grandes tabúes en salud mental. Y eso tiene un costo enorme: personas que sufren en silencio durante años por problemas que tienen solución concreta."</blockquote>
+    </div>
+
+    <h3 class="sub-title">Banco de contenido a producir</h3>
+    <div class="assets">
+      <div class="asset-card"><div class="asset-type">Fotos Daniel</div><div class="asset-qty">5–8</div><div class="asset-dest">LinkedIn, web, Meta Ads, tarjeta digital</div></div>
+      <div class="asset-card"><div class="asset-type">Fotos Equipo</div><div class="asset-qty">4–6</div><div class="asset-dest">Web /equipo, LinkedIn Fernando y Allison</div></div>
+      <div class="asset-card"><div class="asset-type">Fotos Consultorio</div><div class="asset-qty">5–8</div><div class="asset-dest">Google Business Profile, web, Instagram</div></div>
+      <div class="asset-card"><div class="asset-type">Reels editados</div><div class="asset-qty">5</div><div class="asset-dest">Instagram, LinkedIn video, Meta Ads, hero sitio</div></div>
+      <div class="asset-card"><div class="asset-type">B-roll / Stories</div><div class="asset-qty">8–10</div><div class="asset-dest">Stories, Reels de apoyo con texto superpuesto</div></div>
+      <div class="asset-card" style="background:var(--tealBg);border-color:#9fd6c8"><div class="asset-type" style="color:var(--teal)">Total ~ 3–4 meses</div><div class="asset-qty" style="color:var(--teal)">30–40</div><div class="asset-dest">piezas editadas listas para todos los canales</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 4: FASES -->
+<section class="section" id="fases">
+  <div class="wrap">
+    <span class="section-number">04 — Plan de Trabajo</span>
+    <h2 class="section-title">Tres fases.<br>Cada tarea tiene un dueño.</h2>
+    <p>Haz clic en el círculo de cada tarea para marcarla como completada. El progreso se guarda en tu navegador.</p>
+
+    <div class="callout cons">
+      <div class="callout-title">Sesiones de consultoría · $48.000 CLP/hora · Taller $120.000 CLP</div>
+      <p>Las filas en morado son sesiones de trabajo con el consultor. Su función es diseñar, alinear, retroalimentar y ajustar el plan en tiempo real. Sin estas instancias, el programa pierde ritmo y coherencia estratégica.</p>
+    </div>
+
+    <!-- ── FASE 1 ── -->
+    <div class="phase-section" id="fase1">
+      <div class="phase-banner" style="background:var(--phase1)">
+        <div class="phase-banner-text">
+          <h3>Fase 1 · Mes 1</h3>
+          <p>Bases, producción de contenido y relanzamiento. Sin esta infraestructura, ningún presupuesto en ads genera retorno real.</p>
+        </div>
+        <div class="phase-prog-mini">
+          <div class="phase-prog-num" id="pct1b">0%</div>
+          <div class="phase-prog-lbl">completado</div>
+        </div>
+      </div>
+
+      <h4 class="mini-title">Sesiones de consultoría incluidas</h4>
+      <div class="sessions">
+        <div class="session-card">
+          <div class="session-left"><span class="s-type">Taller 1</span><span class="s-hours">3 horas</span><span class="s-price">$120.000</span></div>
+          <div class="session-right"><strong>Kickoff estratégico y posicionamiento</strong><p>Definir propuesta de valor diferenciada, mensajes clave para el nuevo sitio, brief creativo para la sesión de fotos/videos y definición del dominio óptimo.</p></div>
+        </div>
+        <div class="session-card">
+          <div class="session-left"><span class="s-type">Sesión 2</span><span class="s-hours">2 horas</span><span class="s-price">$96.000</span></div>
+          <div class="session-right"><strong>Voz digital y guiones de video</strong><p>Trabajar con Daniel su voz en LinkedIn, preparar los 5 guiones. Daniel no necesita guiones memorizados — necesita claridad del mensaje.</p></div>
+        </div>
+        <div class="session-card">
+          <div class="session-left"><span class="s-type">Sesión 3</span><span class="s-hours">1 hora</span><span class="s-price">$48.000</span></div>
+          <div class="session-right"><strong>Brief final sesión de fotos</strong><p>Checklist completo: outfits, ángulos, secuencia de bloques, logística del día. Coordinación con el fotógrafo/videógrafo.</p></div>
+        </div>
+      </div>
+
+      <h4 class="mini-title">Tareas operacionales</h4>
+      <div class="task-table" id="tasks1">
+        <div class="task-row cons-row" data-phase="1" data-id="1_0">
+          <div class="task-check cons-check" onclick="toggleTask(this)"></div>
+          <div class="task-content"><div class="task-title">TALLER 1 — Kickoff estratégico</div><div class="task-desc">Definir propuesta, precios, mensajes clave y brief para sitio y sesión de contenido</div></div>
+          <div class="task-resp">Consultor</div><div class="task-week">S1</div>
+        </div>
+        <div class="task-row" data-phase="1" data-id="1_1">
+          <div class="task-check" onclick="toggleTask(this)"></div>
+          <div class="task-content"><div class="task-title">Relanzamiento landing page + nuevo dominio</div><div class="task-desc">Nuevo dominio (más corto/recordable). Landing con hero, precios, Calendly, testimonios. Sin menú distractor.</div></div>
+          <div class="task-resp">Agencia</div><div class="task-week">S1–S3</div>
+        </div>
+        <div class="task-row" data-phase="1" data-id="1_2">
+          <div class="task-check" onclick="toggleTask(this)"></div>
+          <div class="task-content"><div class="task-title">Crear Google Business Profile</div><div class="task-desc">Dirección exacta, fotos, horarios, descripción con keywords, isapres. Solicitar primeras reseñas.</div></div>
+          <div class="task-resp">Agencia</div><div class="task-week">S1</div>
+        </div>
+        <div class="task-row" data-phase="1" data-id="1_3">
+          <div class="task-check" onclick="toggleTask(this)"></div>
+          <div class="task-content"><div class="task-title">Poner precios visibles en el sitio</div><div class="task-desc">Crear /tarifas + rango visible en homepage. "Desde $XX.000 CLP. Isapres: Banmédica, Colmena…"</div></div>
+          <div class="task-resp">Cliente + Ag.</div><div class="task-week">S1</div>
+        </div>
+        <div class="task-row cons-row" data-phase="1" data-id="1_4">
+          <div class="task-check cons-check" onclick="toggleTask(this)"></div>
+          <div class="task-content"><div class="task-title">SESIÓN 2 — Voz digital + guiones de video</div><div class="task-desc">Trabajo directo con Daniel: voz LinkedIn, preparar los 5 guiones</div></div>
+          <div class="task-resp">Consultor + Daniel</div><div class="task-week">S1</div>
+        </div>
+        <div class="task-row" data-phase="1" data-id="1_5">
+          <div class="task-check" onclick="toggleTask(this)"></div>
+          <div class="task-content"><div class="task-title">Instalar pixel Meta + Google Tag Manager</div><div class="task-desc">Configurar conversiones: vista /tarifas, clic agendar, formulario enviado.</div></div>
+          <div class="task-resp">Agencia</div><div class="task-week">S1</div>
+        </div>
+        <div class="task-row" data-phase="1" data-id="1_6">
+          <div class="task-check" onclick="toggleTask(this)"></div>
+          <div class="task-content"><div class="task-title">Instalar Calendly / agendamiento online</div><div class="task-desc">Embeber en landing page. Eliminar dependencia total del WhatsApp.</div></div>
+          <div class="task-resp">Agencia</div><div class="task-week">S2</div>
+        </div>
+        <div class="task-row" data-phase="1" data-id="1_7">
+          <div class="task-check" onclick="toggleTask(this)"></div>
+          <div class="task-content"><div class="task-title">Optimizar LinkedIn Dr. Daniel + equipo</div><div class="task-desc">Headline con keywords, foto, banner de marca. Arreglar Fernando, completar Allison. Crear página empresa.</div></div>
+          <div class="task-resp">Ag. + Equipo</div><div class="task-week">S2</div>
+        </div>
+        <div class="task-row" data-phase="1" data-id="1_8">
+          <div class="task-check" onclick="toggleTask(this)"></div>
+          <div class="task-content"><div class="task-title">Registros en directorios de autoridad</div><div class="task-desc">PsicologosOnline.cl + PsychologyToday Chile + Mindy.cl — los 3 psicólogos con enlace al sitio.</div></div>
+          <div class="task-resp">Agencia</div><div class="task-week">S2</div>
+        </div>
+        <div class="task-row cons-row" data-phase="1" data-id="1_9">
+          <div class="task-check cons-check" onclick="toggleTask(this)"></div>
+          <div class="task-content"><div class="task-title">SESIÓN 3 — Brief sesión de fotos</div><div class="task-desc">Checklist de outfits, ángulos, secuencia de bloques. Coordinación con fotógrafo.</div></div>
+          <div class="task-resp">Consultor + Equipo</div><div class="task-week">S2</div>
+        </div>
+        <div class="task-row" data-phase="1" data-id="1_10">
+          <div class="task-check" onclick="toggleTask(this)"></div>
+          <div class="task-content"><div class="task-title">📸 SESIÓN DE FOTOS Y VIDEOS</div><div class="task-desc">Ejecutar plan completo sección 03. Medio día en el consultorio de Alonso de Ercilla.</div></div>
+          <div class="task-resp">Ag. + Equipo</div><div class="task-week">S2</div>
+        </div>
+        <div class="task-row" data-phase="1" data-id="1_11">
+          <div class="task-check" onclick="toggleTask(this)"></div>
+          <div class="task-content"><div class="task-title">Edición fotos y videos</div><div class="task-desc">Entregar 5 reels editados + 15–20 fotos seleccionadas + material de historias.</div></div>
+          <div class="task-resp">Agencia</div><div class="task-week">S3</div>
+        </div>
+        <div class="task-row" data-phase="1" data-id="1_12">
+          <div class="task-check" onclick="toggleTask(this)"></div>
+          <div class="task-content"><div class="task-title">Optimizar meta titles y SEO on-page</div><div class="task-desc">Instalar Rank Math. Optimizar 5 páginas principales con keywords clave.</div></div>
+          <div class="task-resp">Agencia</div><div class="task-week">S3</div>
+        </div>
+        <div class="task-row" data-phase="1" data-id="1_13">
+          <div class="task-check" onclick="toggleTask(this)"></div>
+          <div class="task-content"><div class="task-title">Configurar email marketing (Brevo)</div><div class="task-desc">Lista inicial, plantilla de bienvenida, secuencia nurturing de 5 emails post-lead.</div></div>
+          <div class="task-resp">Agencia</div><div class="task-week">S3</div>
+        </div>
+        <div class="task-row" data-phase="1" data-id="1_14">
+          <div class="task-check" onclick="toggleTask(this)"></div>
+          <div class="task-content"><div class="task-title">Iniciar contenido orgánico Instagram + LinkedIn</div><div class="task-desc">Primeros 4 posts IG + primeros 3 posts LinkedIn de Daniel con material de la sesión.</div></div>
+          <div class="task-resp">Ag. + Daniel</div><div class="task-week">S4</div>
+        </div>
+      </div>
+
+      <h4 class="mini-title">Presupuesto Fase 1 · en CLP</h4>
+      <div class="budget-table">
+        <div class="bgt-row"><div class="bgt-label">Fotografía y videografía profesional (sesión)</div><div class="bgt-amount">$175.000–$220.000</div></div>
+        <div class="bgt-row"><div class="bgt-label">Edición de fotos y videos (15–20 piezas)<small>Reels editados + fotos retocadas + stories</small></div><div class="bgt-amount">$100.000–$150.000</div></div>
+        <div class="bgt-row"><div class="bgt-label" style="color:var(--red);font-weight:600">Relanzamiento landing page + nuevo dominio<small>Diseño + desarrollo + dominio anual</small></div><div class="bgt-amount" style="font-weight:600">$200.000–$280.000</div></div>
+        <div class="bgt-row"><div class="bgt-label">Setup técnico (pixel, GTM, Calendly, SEO on-page)</div><div class="bgt-amount">$80.000</div></div>
+        <div class="bgt-row"><div class="bgt-label">Contenido orgánico + gestión LinkedIn mes 1</div><div class="bgt-amount">$80.000</div></div>
+        <div class="bgt-row"><div class="bgt-label">Herramientas (Canva Pro + Buffer + Brevo)</div><div class="bgt-amount">$40.000</div></div>
+        <hr class="budget-divider">
+        <div class="bgt-row cons"><div class="bgt-label">Taller 1 · Kickoff estratégico<small>3 horas · $48.000/h</small></div><div class="bgt-amount">$120.000</div></div>
+        <div class="bgt-row cons"><div class="bgt-label">Sesión 2 · Voz digital + guiones<small>2 horas · $48.000/h</small></div><div class="bgt-amount">$96.000</div></div>
+        <div class="bgt-row cons"><div class="bgt-label">Sesión 3 · Brief sesión de fotos<small>1 hora · $48.000/h</small></div><div class="bgt-amount">$48.000</div></div>
+        <hr class="budget-divider">
+        <div class="bgt-row total"><div class="bgt-label">Total Fase 1</div><div class="bgt-amount">~$939.000–$1.114.000</div></div>
+      </div>
+    </div>
+
+    <!-- ── FASE 2 ── -->
+    <div class="phase-section" id="fase2">
+      <div class="phase-banner" style="background:var(--phase2)">
+        <div class="phase-banner-text">
+          <h3>Fase 2 · Meses 2–3</h3>
+          <p>Activación y primeros leads. Lanzar canales pagados, medir CAC, optimizar creativos, establecer ritmo de contenido sostenible.</p>
+        </div>
+        <div class="phase-prog-mini">
+          <div class="phase-prog-num" id="pct2b">0%</div>
+          <div class="phase-prog-lbl">completado</div>
+        </div>
+      </div>
+
+      <h4 class="mini-title">Sesiones de consultoría incluidas</h4>
+      <div class="sessions">
+        <div class="session-card">
+          <div class="session-left"><span class="s-type">Sesión 4</span><span class="s-hours">2 horas</span><span class="s-price">$96.000</span></div>
+          <div class="session-right"><strong>Revisión semana 3: primeros resultados</strong><p>Analizar las primeras 3 semanas de Meta Ads y Google Ads. Identificar el ad set con menor CPL. Ajustar targeting, creativos y copy.</p></div>
+        </div>
+        <div class="session-card">
+          <div class="session-left"><span class="s-type">Sesión 5</span><span class="s-hours">2 horas</span><span class="s-price">$96.000</span></div>
+          <div class="session-right"><strong>Coaching contenido LinkedIn con Daniel</strong><p>Retroalimentar los primeros posts. Cómo responder comentarios para maximizar el alcance orgánico. Daniel aprende a publicar por su cuenta.</p></div>
+        </div>
+        <div class="session-card">
+          <div class="session-left"><span class="s-type">Taller 2</span><span class="s-hours">3 horas</span><span class="s-price">$120.000</span></div>
+          <div class="session-right"><strong>Mid-check estratégico mes 3</strong><p>Revisar el funnel completo (tráfico → lead → paciente). Ajustar landing basado en datos reales. Decisión: ¿LinkedIn Ads ya vale la pena?</p></div>
+        </div>
+      </div>
+
+      <h4 class="mini-title">Tareas operacionales</h4>
+      <div class="task-table" id="tasks2">
+        <div class="task-row" data-phase="2" data-id="2_0"><div class="task-check" onclick="toggleTask(this)"></div><div class="task-content"><div class="task-title">Lanzar campaña Meta Lead Gen</div><div class="task-desc">3 ad sets: Individual, Pareja, Profesionales. 2 creativos mínimo por ad set.</div></div><div class="task-resp">Agencia</div><div class="task-week">Mes 2</div></div>
+        <div class="task-row" data-phase="2" data-id="2_1"><div class="task-check" onclick="toggleTask(this)"></div><div class="task-content"><div class="task-title">Lanzar Google Ads search (long-tail)</div><div class="task-desc">8–10 keywords prioritarias. Anuncio con credenciales + CTA agendar.</div></div><div class="task-resp">Agencia</div><div class="task-week">Mes 2</div></div>
+        <div class="task-row" data-phase="2" data-id="2_2"><div class="task-check" onclick="toggleTask(this)"></div><div class="task-content"><div class="task-title">Activar retargeting Meta</div><div class="task-desc">Visitantes sitio 30 días + engagers IG. Creativo con urgencia leve.</div></div><div class="task-resp">Agencia</div><div class="task-week">Mes 2</div></div>
+        <div class="task-row cons-row" data-phase="2" data-id="2_3"><div class="task-check cons-check" onclick="toggleTask(this)"></div><div class="task-content"><div class="task-title">SESIÓN 4 — Revisión primeros resultados</div><div class="task-desc">Semana 3 del mes 2. Analizar CPL, CTR, creativos ganadores.</div></div><div class="task-resp">Consultor</div><div class="task-week">Mes 2</div></div>
+        <div class="task-row" data-phase="2" data-id="2_4"><div class="task-check" onclick="toggleTask(this)"></div><div class="task-content"><div class="task-title">LinkedIn: ritmo 3 posts/semana Dr. Daniel</div><div class="task-desc">Rotar 6 pilares. Responder todos los comentarios dentro de 1 hora.</div></div><div class="task-resp">Ag. + Daniel</div><div class="task-week">Mes 2–3</div></div>
+        <div class="task-row cons-row" data-phase="2" data-id="2_5"><div class="task-check cons-check" onclick="toggleTask(this)"></div><div class="task-content"><div class="task-title">SESIÓN 5 — Coaching LinkedIn Daniel</div><div class="task-desc">Retroalimentar primeros posts. Daniel aprende la mecánica de publicación autónoma.</div></div><div class="task-resp">Consultor + Daniel</div><div class="task-week">Mes 2</div></div>
+        <div class="task-row" data-phase="2" data-id="2_6"><div class="task-check" onclick="toggleTask(this)"></div><div class="task-content"><div class="task-title">Solicitar reseñas Google activamente</div><div class="task-desc">Link directo a GBP por WhatsApp a pacientes satisfechos. Meta: 10 reseñas en 60 días.</div></div><div class="task-resp">Cliente</div><div class="task-week">Mes 2</div></div>
+        <div class="task-row" data-phase="2" data-id="2_7"><div class="task-check" onclick="toggleTask(this)"></div><div class="task-content"><div class="task-title">A/B test creativo semanal en Meta</div><div class="task-desc">2 variantes de copy. Pausar el ad set con CPL más alto. Escalar el que convierte.</div></div><div class="task-resp">Agencia</div><div class="task-week">Mes 2–3</div></div>
+        <div class="task-row" data-phase="2" data-id="2_8"><div class="task-check" onclick="toggleTask(this)"></div><div class="task-content"><div class="task-title">Publicar artículo 1 en blog</div><div class="task-desc">"¿Cómo saber si necesito ir al psicólogo?" — 1.000 palabras. Autor: Dr. Daniel Reyes.</div></div><div class="task-resp">Ag. + Daniel</div><div class="task-week">Mes 2</div></div>
+        <div class="task-row" data-phase="2" data-id="2_9"><div class="task-check" onclick="toggleTask(this)"></div><div class="task-content"><div class="task-title">Implementar secuencia email nurturing</div><div class="task-desc">5 emails: Bienvenida → Qué esperar → FAQ → Testimonio → CTA agendar.</div></div><div class="task-resp">Agencia</div><div class="task-week">Mes 2</div></div>
+        <div class="task-row cons-row" data-phase="2" data-id="2_10"><div class="task-check cons-check" onclick="toggleTask(this)"></div><div class="task-content"><div class="task-title">TALLER 2 — Mid-check estratégico</div><div class="task-desc">Revisar funnel completo, ajustar landing, definir estrategia mes 3 y Fase 3.</div></div><div class="task-resp">Consultor</div><div class="task-week">Mes 3</div></div>
+        <div class="task-row" data-phase="2" data-id="2_11"><div class="task-check" onclick="toggleTask(this)"></div><div class="task-content"><div class="task-title">Publicar artículo 2 en blog</div><div class="task-desc">"Terapia de pareja: ¿cuándo es el momento correcto?" — 1.000 palabras con keywords.</div></div><div class="task-resp">Ag. + Daniel</div><div class="task-week">Mes 3</div></div>
+      </div>
+
+      <h4 class="mini-title">Presupuesto Fase 2 · mensual en CLP</h4>
+      <div class="budget-table">
+        <div class="bgt-row"><div class="bgt-label">Meta Ads (Lead Gen + Retargeting)<small>Motor principal, 70% frío + 30% retargeting</small></div><div class="bgt-amount">$300.000</div></div>
+        <div class="bgt-row"><div class="bgt-label">Google Ads (Search, long-tail)</div><div class="bgt-amount">$150.000</div></div>
+        <div class="bgt-row"><div class="bgt-label">Gestión y optimización de campañas</div><div class="bgt-amount">$100.000</div></div>
+        <div class="bgt-row"><div class="bgt-label">Contenido LinkedIn + Instagram</div><div class="bgt-amount">$80.000</div></div>
+        <div class="bgt-row"><div class="bgt-label">Blog SEO (1 artículo/mes)</div><div class="bgt-amount">$50.000</div></div>
+        <div class="bgt-row"><div class="bgt-label">Herramientas operacionales</div><div class="bgt-amount">$40.000</div></div>
+        <hr class="budget-divider">
+        <div class="bgt-row cons"><div class="bgt-label">Sesión 4 + Sesión 5 · 4 horas totales</div><div class="bgt-amount">$192.000</div></div>
+        <div class="bgt-row cons"><div class="bgt-label">Taller 2 · Mid-check · 3 horas</div><div class="bgt-amount">$120.000</div></div>
+        <hr class="budget-divider">
+        <div class="bgt-row total"><div class="bgt-label">Total Fase 2 (2 meses + consultoría)</div><div class="bgt-amount">~$1.752.000</div></div>
+      </div>
+    </div>
+
+    <!-- ── FASE 3 ── -->
+    <div class="phase-section" id="fase3">
+      <div class="phase-banner" style="background:var(--phase3)">
+        <div class="phase-banner-text">
+          <h3>Fase 3 · Meses 4–6</h3>
+          <p>Escala y posicionamiento. Escalar lo que funciona, consolidar SEO, activar LinkedIn Ads corporativo.</p>
+        </div>
+        <div class="phase-prog-mini">
+          <div class="phase-prog-num" id="pct3b">0%</div>
+          <div class="phase-prog-lbl">completado</div>
+        </div>
+      </div>
+
+      <h4 class="mini-title">Sesiones de consultoría incluidas</h4>
+      <div class="sessions">
+        <div class="session-card">
+          <div class="session-left"><span class="s-type">Sesión 6</span><span class="s-hours">2 horas</span><span class="s-price">$96.000</span></div>
+          <div class="session-right"><strong>Revisión mes 4 y ajuste de escala</strong><p>Validar datos del Lookalike. Revisar desempeño del ad set escalado. Definir pauta para mes 5.</p></div>
+        </div>
+        <div class="session-card">
+          <div class="session-left"><span class="s-type">Sesión 7</span><span class="s-hours">1 hora</span><span class="s-price">$48.000</span></div>
+          <div class="session-right"><strong>Check-in express SEO y blog</strong><p>¿Qué artículos están traccionando? ¿Qué keywords suben posición? Micro-ajustes de rumbo.</p></div>
+        </div>
+        <div class="session-card">
+          <div class="session-left"><span class="s-type">Taller 3</span><span class="s-hours">3 horas</span><span class="s-price">$120.000</span></div>
+          <div class="session-right"><strong>Revisión trimestral completa</strong><p>Presentación formal de resultados: CAC, ROAS, leads, pacientes captados. Recomendaciones para el siguiente ciclo. Handover estratégico al equipo.</p></div>
+        </div>
+      </div>
+
+      <h4 class="mini-title">Tareas operacionales</h4>
+      <div class="task-table" id="tasks3">
+        <div class="task-row" data-phase="3" data-id="3_0"><div class="task-check" onclick="toggleTask(this)"></div><div class="task-content"><div class="task-title">Escalar Meta Ads en ad set ganador</div><div class="task-desc">Aumentar presupuesto 20–30%. Activar Lookalike 2%.</div></div><div class="task-resp">Agencia</div><div class="task-week">Mes 4</div></div>
+        <div class="task-row" data-phase="3" data-id="3_1"><div class="task-check" onclick="toggleTask(this)"></div><div class="task-content"><div class="task-title">Activar campaña LinkedIn Ads (corporativo)</div><div class="task-desc">Lead Gen para RRHH y bienestar organizacional. Presupuesto: $100.000/mes.</div></div><div class="task-resp">Agencia</div><div class="task-week">Mes 4–5</div></div>
+        <div class="task-row" data-phase="3" data-id="3_2"><div class="task-check" onclick="toggleTask(this)"></div><div class="task-content"><div class="task-title">Publicar artículos blog 3 y 4</div><div class="task-desc">"Terapia sexual: qué es y qué no es" + "Ansiedad vs estrés: diferencias clave"</div></div><div class="task-resp">Ag. + Daniel</div><div class="task-week">Mes 4–5</div></div>
+        <div class="task-row cons-row" data-phase="3" data-id="3_3"><div class="task-check cons-check" onclick="toggleTask(this)"></div><div class="task-content"><div class="task-title">SESIÓN 6 — Revisión de escala</div><div class="task-desc">Validar Lookalike, revisar ad set escalado, definir pauta mes 5.</div></div><div class="task-resp">Consultor</div><div class="task-week">Mes 4</div></div>
+        <div class="task-row" data-phase="3" data-id="3_4"><div class="task-check" onclick="toggleTask(this)"></div><div class="task-content"><div class="task-title">Campaña de reseñas Google sistemática</div><div class="task-desc">Protocolo post-sesión: link + mensaje personalizado. Meta: 25 reseñas 5 estrellas.</div></div><div class="task-resp">Cliente + Ag.</div><div class="task-week">Mes 4</div></div>
+        <div class="task-row" data-phase="3" data-id="3_5"><div class="task-check" onclick="toggleTask(this)"></div><div class="task-content"><div class="task-title">Rediseño parcial hero del nuevo sitio</div><div class="task-desc">Incorporar fotos reales de Daniel + video de presentación embebido + copy definitivo.</div></div><div class="task-resp">Agencia</div><div class="task-week">Mes 4</div></div>
+        <div class="task-row cons-row" data-phase="3" data-id="3_6"><div class="task-check cons-check" onclick="toggleTask(this)"></div><div class="task-content"><div class="task-title">SESIÓN 7 — Check-in SEO + blog</div><div class="task-desc">¿Qué artículos trafican? ¿Qué keywords suben posición? Micro-ajustes.</div></div><div class="task-resp">Consultor</div><div class="task-week">Mes 5</div></div>
+        <div class="task-row" data-phase="3" data-id="3_7"><div class="task-check" onclick="toggleTask(this)"></div><div class="task-content"><div class="task-title">Test micro-influencer salud mental</div><div class="task-desc">1–2 colaboraciones con cuentas wellness de 10k–50k seguidores.</div></div><div class="task-resp">Agencia</div><div class="task-week">Mes 5</div></div>
+        <div class="task-row" data-phase="3" data-id="3_8"><div class="task-check" onclick="toggleTask(this)"></div><div class="task-content"><div class="task-title">Publicar artículos blog 5 y 6</div><div class="task-desc">Isapres + psicología, y diferenciador sexológico del centro.</div></div><div class="task-resp">Ag. + Daniel</div><div class="task-week">Mes 5–6</div></div>
+        <div class="task-row cons-row" data-phase="3" data-id="3_9"><div class="task-check cons-check" onclick="toggleTask(this)"></div><div class="task-content"><div class="task-title">TALLER 3 — Revisión trimestral completa</div><div class="task-desc">Presentación de resultados: CAC, ROAS, leads, pacientes captados. Handover estratégico.</div></div><div class="task-resp">Consultor</div><div class="task-week">Mes 6</div></div>
+      </div>
+
+      <h4 class="mini-title">Presupuesto Fase 3 · mensual en CLP</h4>
+      <div class="budget-table">
+        <div class="bgt-row"><div class="bgt-label">Meta Ads escalado + Lookalike</div><div class="bgt-amount">$370.000</div></div>
+        <div class="bgt-row"><div class="bgt-label">Google Ads (mantener)</div><div class="bgt-amount">$150.000</div></div>
+        <div class="bgt-row"><div class="bgt-label">LinkedIn Ads (test corporativo)</div><div class="bgt-amount">$100.000</div></div>
+        <div class="bgt-row"><div class="bgt-label">Gestión, contenido y optimización completa</div><div class="bgt-amount">$180.000</div></div>
+        <div class="bgt-row"><div class="bgt-label">Blog SEO (2 artículos/mes)</div><div class="bgt-amount">$80.000</div></div>
+        <div class="bgt-row"><div class="bgt-label">Micro-influencer experimental</div><div class="bgt-amount">$50.000</div></div>
+        <div class="bgt-row"><div class="bgt-label">Herramientas</div><div class="bgt-amount">$40.000</div></div>
+        <hr class="budget-divider">
+        <div class="bgt-row cons"><div class="bgt-label">Sesión 6 · 2h + Sesión 7 · 1h</div><div class="bgt-amount">$144.000</div></div>
+        <div class="bgt-row cons"><div class="bgt-label">Taller 3 · Revisión trimestral · 3h</div><div class="bgt-amount">$120.000</div></div>
+        <hr class="budget-divider">
+        <div class="bgt-row total"><div class="bgt-label">Total Fase 3 (3 meses + consultoría)</div><div class="bgt-amount">~$3.174.000</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 5: RESUMEN -->
+<section class="section" id="resumen">
+  <div class="wrap">
+    <span class="section-number">05 — Resumen</span>
+    <h2 class="section-title">Seis meses.<br>Un canal digital que trabaja solo.</h2>
+
+    <div class="totals-bar">
+      <div class="total-card">
+        <div class="total-label">Inversión total programa</div>
+        <div class="total-number">~$5,9M</div>
+        <div class="total-sub">CLP · 6 meses completos</div>
+      </div>
+      <div class="total-card" style="border-left: 2px solid var(--cons-bg)">
+        <div class="total-label">Consultoría incluida</div>
+        <div class="total-number" style="color:var(--cons)">$840.000</div>
+        <div class="total-sub">7 sesiones · 19 horas totales</div>
+      </div>
+      <div class="total-card">
+        <div class="total-label">Leads esperados mes 6</div>
+        <div class="total-number" style="color:var(--teal)">45–90</div>
+        <div class="total-sub">consultas/mes con funnel activo</div>
+      </div>
+    </div>
+
+    <div class="summary-grid">
+      <div class="summary-row header">
+        <div class="summary-cell">Fase</div>
+        <div class="summary-cell">Período</div>
+        <div class="summary-cell">Foco principal</div>
+        <div class="summary-cell">Total CLP</div>
+        <div class="summary-cell">Consultoría</div>
+        <div class="summary-cell">Leads/mes</div>
+      </div>
+      <div class="summary-row">
+        <div class="summary-cell"><span class="phase-tag" style="background:var(--phase1)">F1</span></div>
+        <div class="summary-cell">Mes 1</div>
+        <div class="summary-cell">Bases digitales + nuevo dominio/landing + sesión de contenido</div>
+        <div class="summary-cell" style="font-weight:600">~$939K–$1.114K</div>
+        <div class="summary-cell"><span class="cons-tag">$264K</span></div>
+        <div class="summary-cell" style="color:var(--soft);font-size:12px">Sin ads activos</div>
+      </div>
+      <div class="summary-row" style="background:var(--bg)">
+        <div class="summary-cell"><span class="phase-tag" style="background:var(--phase2)">F2</span></div>
+        <div class="summary-cell">Meses 2–3</div>
+        <div class="summary-cell">Activación Meta + Google + LinkedIn + email</div>
+        <div class="summary-cell" style="font-weight:600">~$1.752K</div>
+        <div class="summary-cell"><span class="cons-tag">$312K</span></div>
+        <div class="summary-cell"><span class="leads-num">15–30</span></div>
+      </div>
+      <div class="summary-row">
+        <div class="summary-cell"><span class="phase-tag" style="background:var(--phase3)">F3</span></div>
+        <div class="summary-cell">Meses 4–6</div>
+        <div class="summary-cell">Escala + LinkedIn Ads corporativo + SEO orgánico</div>
+        <div class="summary-cell" style="font-weight:600">~$3.174K</div>
+        <div class="summary-cell"><span class="cons-tag">$264K</span></div>
+        <div class="summary-cell"><span class="leads-num">30–60</span></div>
+      </div>
+    </div>
+
+    <h3 class="sub-title">KPIs de seguimiento mensual</h3>
+    <div class="kpi-grid">
+      <div class="kpi-card"><div class="kpi-name">CPL · Costo por Lead</div><div class="kpi-values"><div class="kpi-val"><span class="kpi-period">Mes 2</span><span class="kpi-num">&lt; $12K</span></div><div class="kpi-val"><span class="kpi-period">Mes 4+</span><span class="kpi-num target">&lt; $8K</span></div></div><div class="kpi-tool">Meta Ads Manager</div></div>
+      <div class="kpi-card"><div class="kpi-name">Conv. Lead → Paciente</div><div class="kpi-values"><div class="kpi-val"><span class="kpi-period">Mes 2</span><span class="kpi-num">&gt; 15%</span></div><div class="kpi-val"><span class="kpi-period">Mes 4+</span><span class="kpi-num target">&gt; 25%</span></div></div><div class="kpi-tool">Registro manual / CRM</div></div>
+      <div class="kpi-card"><div class="kpi-name">Conv. Rate Landing</div><div class="kpi-values"><div class="kpi-val"><span class="kpi-period">Mes 2</span><span class="kpi-num">&gt; 2%</span></div><div class="kpi-val"><span class="kpi-period">Mes 4+</span><span class="kpi-num target">&gt; 4%</span></div></div><div class="kpi-tool">Google Analytics 4</div></div>
+      <div class="kpi-card"><div class="kpi-name">Impresiones LinkedIn</div><div class="kpi-values"><div class="kpi-val"><span class="kpi-period">Mes 2</span><span class="kpi-num">&gt; 5K</span></div><div class="kpi-val"><span class="kpi-period">Mes 4+</span><span class="kpi-num target">&gt; 15K</span></div></div><div class="kpi-tool">LinkedIn Analytics</div></div>
+      <div class="kpi-card"><div class="kpi-name">Reseñas Google</div><div class="kpi-values"><div class="kpi-val"><span class="kpi-period">Mes 2</span><span class="kpi-num">&gt; 10</span></div><div class="kpi-val"><span class="kpi-period">Mes 6</span><span class="kpi-num target">&gt; 25</span></div></div><div class="kpi-tool">Google Business Profile</div></div>
+      <div class="kpi-card"><div class="kpi-name">Tráfico orgánico/mes</div><div class="kpi-values"><div class="kpi-val"><span class="kpi-period">Mes 2</span><span class="kpi-num">&gt; 200</span></div><div class="kpi-val"><span class="kpi-period">Mes 4+</span><span class="kpi-num target">&gt; 600</span></div></div><div class="kpi-tool">GA4 + Search Console</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 6: ERRORES -->
+<section class="section" id="errores">
+  <div class="wrap">
+    <span class="section-number">06 — Errores a evitar</span>
+    <h2 class="section-title">Lo que puede arruinar<br>cualquier presupuesto.</h2>
+    <div class="error-list">
+      <div class="error-item"><div class="error-icon">🚫</div><div><div class="error-title">Lanzar Meta Ads sin landing page dedicada</div><div class="error-desc">El sitio actual tiene WhatsApp como único CTA. Mandar tráfico pagado sin conversión es quemar presupuesto.</div></div></div>
+      <div class="error-item"><div class="error-icon">🚫</div><div><div class="error-title">No responder leads en menos de 1 hora</div><div class="error-desc">En salud mental la ventana de decisión es corta. Un lead sin respuesta en el día ya contactó a la competencia.</div></div></div>
+      <div class="error-item"><div class="error-icon">🚫</div><div><div class="error-title">Publicar en LinkedIn en tono corporativo</div><div class="error-desc">Daniel debe hablar como Daniel, no como institución. El contenido de PR frío no funciona aquí. La autenticidad es el activo.</div></div></div>
+      <div class="error-item"><div class="error-icon">🚫</div><div><div class="error-title">Invertir en ads sin Google Business Profile activo</div><div class="error-desc">El 60% de los usuarios busca reseñas en Google antes de contactar a un psicólogo. Sin ficha, los ads trabajan a medias.</div></div></div>
+      <div class="error-item"><div class="error-icon">🚫</div><div><div class="error-title">Usar fotos de stock en el nuevo sitio</div><div class="error-desc">La sesión del mes 1 existe precisamente para esto. Las fotos de stock se identifican a distancia y erosionan la confianza.</div></div></div>
+      <div class="error-item"><div class="error-icon">🚫</div><div><div class="error-title">Saltar la Fase 1 para "ahorrar tiempo"</div><div class="error-desc">El nuevo dominio, la landing, el pixel y el banco de contenido son la base de todo. Sin ellos, la Fase 2 nace coja.</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="footer">
+  <div class="wrap">
+    <p class="footer-quote">"El mayor activo de Psicología Clínica Chile aún no tiene voz digital. Un Doctor en Psicología con 20 años de trayectoria que el mercado no conoce todavía."</p>
+    <p class="footer-meta">Consultoría de Growth Marketing · Propuesta confidencial · Marzo 2026</p>
+  </div>
+</footer>
+
+<div id="toast">✓ Tarea actualizada</div>
+
+<script>
+// ── STATE ─────────────────────────────────────────────────
+const TASKS = { 1: 15, 2: 12, 3: 10 };
+let state = {};
+
+function loadState() {
+  try { state = JSON.parse(localStorage.getItem('pcc_tasks') || '{}'); }
+  catch(e) { state = {}; }
+}
+function saveState() {
+  try { localStorage.setItem('pcc_tasks', JSON.stringify(state)); }
+  catch(e) {}
+}
+
+// ── TOGGLE TASK ───────────────────────────────────────────
+function toggleTask(checkEl) {
+  const row = checkEl.closest('.task-row');
+  const id  = row.dataset.id;
+  const ph  = parseInt(row.dataset.phase);
+  state[id] = !state[id];
+  saveState();
+  applyTask(checkEl, row, state[id]);
+  updateProgress(ph);
+  showToast(state[id] ? '✓ Tarea completada' : '○ Tarea pendiente');
+}
+
+function applyTask(checkEl, row, done) {
+  if (done) {
+    checkEl.classList.add('done');
+    row.classList.add('task-done');
+  } else {
+    checkEl.classList.remove('done');
+    row.classList.remove('task-done');
+  }
+}
+
+// ── UPDATE PROGRESS ───────────────────────────────────────
+function updateProgress(ph) {
+  const total = TASKS[ph];
+  let done = 0;
+  document.querySelectorAll(`.task-row[data-phase="${ph}"]`).forEach(r => {
+    if (state[r.dataset.id]) done++;
+  });
+  const pct = total > 0 ? Math.round((done / total) * 100) : 0;
+  const pcts = pct + '%';
+
+  document.getElementById(`pct${ph}`).textContent = pcts;
+  document.getElementById(`pct${ph}b`).textContent = pcts;
+  document.getElementById(`bar${ph}`).style.width = pcts;
+  document.getElementById(`detail${ph}`).textContent = `${done} de ${total} tareas completadas`;
+
+  updateStatusLabel();
+}
+
+function updateStatusLabel() {
+  let total = 0, done = 0;
+  [1,2,3].forEach(ph => {
+    document.querySelectorAll(`.task-row[data-phase="${ph}"]`).forEach(r => {
+      total++;
+      if (state[r.dataset.id]) done++;
+    });
+  });
+  const pct = total > 0 ? Math.round((done/total)*100) : 0;
+  const lbl = document.getElementById('status-label');
+  if (pct === 0) lbl.textContent = '— Sin iniciar';
+  else if (pct < 30) lbl.textContent = `● En progreso · ${pct}%`;
+  else if (pct < 70) lbl.textContent = `● Avanzando · ${pct}%`;
+  else if (pct < 100) lbl.textContent = `● Casi listo · ${pct}%`;
+  else lbl.textContent = `✓ Completado · 100%`;
+  lbl.style.color = pct > 0 ? 'var(--teal)' : 'var(--soft)';
+}
+
+// ── TOAST ─────────────────────────────────────────────────
+let toastTimer;
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 1800);
+}
+
+// ── TOPBAR SCROLL ─────────────────────────────────────────
+window.addEventListener('scroll', () => {
+  document.getElementById('topbar').classList.toggle('scrolled', window.scrollY > 20);
+}, { passive: true });
+
+// ── INIT ──────────────────────────────────────────────────
+loadState();
+document.querySelectorAll('.task-row[data-id]').forEach(row => {
+  const id  = row.dataset.id;
+  const chk = row.querySelector('.task-check');
+  if (state[id]) applyTask(chk, row, true);
+});
+[1,2,3].forEach(updateProgress);
+</script>
+</body>
+</html>
