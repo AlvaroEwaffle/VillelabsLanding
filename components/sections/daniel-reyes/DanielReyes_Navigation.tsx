@@ -31,11 +31,11 @@ export default function DanielReyes_Navigation() {
         <div className="max-w-[1140px] mx-auto flex items-center justify-between h-[72px] px-6">
           {/* Brand */}
           <a href="#inicio" className="flex flex-col leading-tight no-underline">
-            <span className="text-base font-bold text-slate-900 tracking-tight" style={{ fontFamily: "'Courier Prime', Courier, monospace" }}>
+            <span className="text-[15px] font-bold text-slate-900 tracking-tight" style={{ fontFamily: "'Courier Prime', Courier, monospace" }}>
               SUBJETIVIDADES
             </span>
-            <span className="text-[11px] font-medium text-teal-600 tracking-wider">
-              Psicoterapia basada en evidencia
+            <span className="text-[10px] font-medium text-teal-600 tracking-wider uppercase">
+              Centro Psicología Clínica
             </span>
           </a>
 

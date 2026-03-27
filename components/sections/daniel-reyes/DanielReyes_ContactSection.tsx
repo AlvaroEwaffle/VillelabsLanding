@@ -31,8 +31,8 @@ export default function DanielReyes_ContactSection() {
     e.preventDefault();
     setIsSubmitting(true);
     try {
-      // POST to backend — placeholder endpoint
-      await fetch('http://localhost:3010/api/contact/daniel-reyes', {
+      // POST to Fidelidapp contact API
+      await fetch('https://fidelidapp.cl/auth/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),

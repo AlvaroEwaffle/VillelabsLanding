@@ -1,29 +1,123 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { GraduationCap, Clock, Globe, Heart, MapPin, Monitor } from 'lucide-react';
+import { GraduationCap, Heart, Users, Brain } from 'lucide-react';
 import Image from 'next/image';
 
-const credentials = [
-  { icon: GraduationCap, text: 'Doctor en Psicología, Universidad de Chile' },
-  { icon: Clock, text: 'Más de 20 años de experiencia clínica' },
-  { icon: Globe, text: 'Consultor internacional' },
-  { icon: Heart, text: 'Especialista en terapia individual, de pareja y sexual' },
-  { icon: MapPin, text: 'Consultorio en Ñuñoa, Santiago' },
-  { icon: Monitor, text: 'Atención online para todo Chile' },
+interface TeamMember {
+  name: string;
+  role: string;
+  photo: string | null;
+  specialties: string[];
+  bio: string;
+}
+
+const team: TeamMember[] = [
+  {
+    name: 'Dr. Daniel Reyes Pace',
+    role: 'Director Clínico y Fundador',
+    photo: '/clients/daniel-reyes/photos/headshot-professional.png',
+    specialties: ['Terapia individual', 'Terapia de pareja', 'Terapia sexual'],
+    bio: 'Psicólogo clínico con doctorado de la Universidad de Chile y más de 20 años de experiencia. Consultor internacional especializado en psicoterapia basada en evidencia.',
+  },
+  {
+    name: 'Allison Díaz',
+    role: 'Psicóloga Clínica',
+    photo: null,
+    specialties: ['Terapia individual', 'Ansiedad y estrés', 'Autoestima'],
+    bio: 'Profesional dedicada al acompañamiento terapéutico con enfoque integrativo. Comprometida con el bienestar emocional de cada paciente.',
+  },
+  {
+    name: 'Próximo profesional',
+    role: 'En proceso de incorporación',
+    photo: null,
+    specialties: ['Por confirmar'],
+    bio: 'Nuestro centro está en expansión. Pronto incorporaremos un nuevo profesional al equipo clínico.',
+  },
 ];
 
 const containerVariants = {
   hidden: {},
   visible: {
-    transition: { staggerChildren: 0.08 },
+    transition: { staggerChildren: 0.15 },
   },
 };
 
-const itemVariants = {
-  hidden: { opacity: 0, y: 16 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.4 } },
+const cardVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
 };
+
+function AvatarPlaceholder({ name }: { name: string }) {
+  const initials = name
+    .split(' ')
+    .map((w) => w[0])
+    .slice(0, 2)
+    .join('')
+    .toUpperCase();
+
+  return (
+    <div className="w-full h-full bg-gradient-to-br from-teal-50 to-teal-100 flex items-center justify-center">
+      <span className="text-4xl font-bold text-teal-600/60">{initials}</span>
+    </div>
+  );
+}
+
+function TeamCard({ member }: { member: TeamMember }) {
+  const iconMap: Record<string, typeof Heart> = {
+    'Terapia individual': Users,
+    'Terapia de pareja': Heart,
+    'Terapia sexual': Heart,
+    'Ansiedad y estrés': Brain,
+    'Autoestima': Brain,
+    'Por confirmar': GraduationCap,
+  };
+
+  return (
+    <motion.div
+      variants={cardVariants}
+      className="group bg-white rounded-[14px] border border-slate-100 overflow-hidden transition-all hover:shadow-[0_4px_16px_rgba(26,35,50,0.08)] hover:-translate-y-[3px]"
+    >
+      {/* Photo */}
+      <div className="aspect-[3/4] overflow-hidden relative">
+        {member.photo ? (
+          <Image
+            src={member.photo}
+            alt={member.name}
+            width={380}
+            height={507}
+            className="w-full h-full object-cover transition-transform group-hover:scale-[1.02]"
+          />
+        ) : (
+          <AvatarPlaceholder name={member.name} />
+        )}
+      </div>
+
+      {/* Info */}
+      <div className="p-6">
+        <h3 className="text-lg font-bold text-slate-900 mb-0.5">{member.name}</h3>
+        <p className="text-[13px] font-medium text-teal-600 mb-3">{member.role}</p>
+        <p className="text-sm text-slate-500 leading-relaxed mb-4">{member.bio}</p>
+
+        {/* Specialties */}
+        <div className="flex flex-wrap gap-2">
+          {member.specialties.map((specialty) => {
+            const Icon = iconMap[specialty] || GraduationCap;
+            return (
+              <span
+                key={specialty}
+                className="inline-flex items-center gap-1.5 text-xs font-medium text-teal-700 bg-teal-50 px-2.5 py-1 rounded-md"
+              >
+                <Icon className="w-3 h-3" />
+                {specialty}
+              </span>
+            );
+          })}
+        </div>
+      </div>
+    </motion.div>
+  );
+}
 
 export default function DanielReyes_TeamSection() {
   return (
@@ -41,70 +135,17 @@ export default function DanielReyes_TeamSection() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-[380px_1fr] gap-9 md:gap-14 items-start">
-          {/* Photo */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="rounded-[14px] overflow-hidden aspect-[3/4] shadow-lg relative max-w-[320px] md:max-w-none mx-auto"
-          >
-            <Image
-              src="/clients/daniel-reyes/photos/headshot-professional.png"
-              alt="Dr. Daniel Reyes Pace — Director Clínico"
-              width={380}
-              height={507}
-              className="w-full h-full object-cover"
-            />
-            <div className="absolute bottom-5 left-5 right-5 bg-white/95 backdrop-blur-lg p-3.5 rounded-[10px] shadow-sm">
-              <div className="text-base font-bold text-slate-900">Dr. Daniel Reyes Pace</div>
-              <div className="text-[13px] font-medium text-teal-600">Director Clínico y Fundador</div>
-            </div>
-          </motion.div>
-
-          {/* Info */}
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-          >
-            <motion.h2 variants={itemVariants} className="text-[clamp(26px,3vw,34px)] font-bold text-slate-900 leading-tight mb-4 tracking-tight">
-              Dr. Daniel Reyes Pace
-            </motion.h2>
-            <motion.p variants={itemVariants} className="text-base text-slate-600 leading-relaxed mb-7">
-              Psicólogo clínico con doctorado de la Universidad de Chile y más de 20 años de experiencia en psicoterapia. Consultor internacional con especialización en terapia individual, de pareja y sexual. Fundador de SUBJETIVIDADES, donde lidera un enfoque terapéutico riguroso, centrado en la evidencia y en el bienestar integral de cada paciente.
-            </motion.p>
-
-            <motion.div
-              variants={containerVariants}
-              className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 mb-8"
-            >
-              {credentials.map(({ icon: Icon, text }) => (
-                <motion.div
-                  key={text}
-                  variants={itemVariants}
-                  className="flex items-center gap-3 p-3.5 bg-white rounded-[10px] border border-slate-100"
-                >
-                  <div className="w-[38px] h-[38px] rounded-[9px] bg-teal-50 flex items-center justify-center shrink-0">
-                    <Icon className="w-[18px] h-[18px] text-teal-600" />
-                  </div>
-                  <span className="text-sm font-medium text-slate-700 leading-snug">{text}</span>
-                </motion.div>
-              ))}
-            </motion.div>
-
-            <motion.div
-              variants={itemVariants}
-              className="mt-3 p-5 bg-white rounded-[10px] border border-dashed border-slate-200 text-center"
-            >
-              <p className="text-sm text-slate-400 italic">
-                Nuestro centro está en proceso de expansión. Pronto incorporaremos nuevos profesionales al equipo clínico.
-              </p>
-            </motion.div>
-          </motion.div>
-        </div>
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+        >
+          {team.map((member) => (
+            <TeamCard key={member.name} member={member} />
+          ))}
+        </motion.div>
       </div>
     </section>
   );

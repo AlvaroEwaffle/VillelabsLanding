@@ -10,6 +10,9 @@ interface Testimonial {
   role: string;
 }
 
+// PLACEHOLDER TESTIMONIALS — BLOCKER: Must be replaced with real testimonials
+// from https://psicologiaclinicachile.cl/ or provided by Daniel Reyes.
+// These are illustrative only and MUST NOT go to production as-is.
 const testimonials: Testimonial[] = [
   {
     text: '"Llegué en un momento muy difícil y en el centro supieron acogerme con profesionalismo y calidez. Me ayudaron a entender patrones que repetía sin darme cuenta. Totalmente recomendado."',

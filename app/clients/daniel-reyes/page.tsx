@@ -28,11 +28,11 @@ export default function DanielReyesPage() {
       <main>
         <DanielReyes_HeroSection />
         <DanielReyes_CentroSection />
+        <DanielReyes_IsapreGallery />
         <DanielReyes_ServicesSection />
         <DanielReyes_TeamSection />
         <DanielReyes_EnfoqueSection />
         <DanielReyes_TestimonialsSection />
-        <DanielReyes_IsapreGallery />
         <DanielReyes_FAQSection />
         <DanielReyes_ContactSection />
       </main>
