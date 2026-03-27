@@ -1,0 +1,13 @@
+export { default as DanielReyes_Navigation } from './DanielReyes_Navigation';
+export { default as DanielReyes_HeroSection } from './DanielReyes_HeroSection';
+export { default as DanielReyes_CentroSection } from './DanielReyes_CentroSection';
+export { default as DanielReyes_ServicesSection } from './DanielReyes_ServicesSection';
+export { default as DanielReyes_TeamSection } from './DanielReyes_TeamSection';
+export { default as DanielReyes_EnfoqueSection } from './DanielReyes_EnfoqueSection';
+export { default as DanielReyes_TestimonialsSection } from './DanielReyes_TestimonialsSection';
+export { default as DanielReyes_IsapreGallery } from './DanielReyes_IsapreGallery';
+export { default as DanielReyes_FAQSection } from './DanielReyes_FAQSection';
+export { default as DanielReyes_ContactSection } from './DanielReyes_ContactSection';
+export { default as DanielReyes_Footer } from './DanielReyes_Footer';
+export { default as DanielReyes_WhatsAppFloat } from './DanielReyes_WhatsAppFloat';
+export { default as DanielReyes_StickyMobileCTA } from './DanielReyes_StickyMobileCTA';
