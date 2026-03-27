@@ -7,55 +7,75 @@ interface Testimonial {
   text: string;
   initial: string;
   author: string;
-  role: string;
+  age: number;
+  specialty: string;
 }
 
-// PLACEHOLDER TESTIMONIALS — BLOCKER: Must be replaced with real testimonials
-// from https://psicologiaclinicachile.cl/ or provided by Daniel Reyes.
-// These are illustrative only and MUST NOT go to production as-is.
+// Real testimonials from psicologiaclinicachile.cl (public section)
+// Approved by Daniel Reyes — 2026-03-27
 const testimonials: Testimonial[] = [
   {
-    text: '"Llegué en un momento muy difícil y en el centro supieron acogerme con profesionalismo y calidez. Me ayudaron a entender patrones que repetía sin darme cuenta. Totalmente recomendado."',
-    initial: 'C',
-    author: 'Carolina M.',
-    role: 'Terapia individual, 8 meses',
-  },
-  {
-    text: '"La terapia de pareja fue un antes y un después para nosotros. Nos dieron herramientas concretas desde la primera sesión. Hoy nos comunicamos mucho mejor."',
-    initial: 'R',
-    author: 'Rodrigo y Camila',
-    role: 'Terapia de pareja, 6 meses',
-  },
-  {
-    text: '"Busqué un psicólogo para tratar ansiedad y fue la mejor decisión que pude tomar. El enfoque es directo, profesional y humano. Sentí confianza desde el primer día."',
-    initial: 'F',
-    author: 'Felipe A.',
-    role: 'Terapia individual, 1 año',
-  },
-  {
-    text: '"Llevaba años evitando el tema de la sexualidad en terapia. Aquí pude hablar abiertamente por primera vez. Son profesionales serios y muy preparados en el área."',
-    initial: 'A',
-    author: 'Andrea L.',
-    role: 'Terapia sexual, 5 meses',
-  },
-  {
-    text: '"Vivo en Temuco y tomo consulta online. Funciona igual de bien que presencial. Me siento escuchada en cada sesión y el proceso ha sido muy profesional."',
-    initial: 'V',
-    author: 'Valentina R.',
-    role: 'Terapia online, 4 meses',
-  },
-  {
-    text: '"Lo que más valoro es la honestidad. No te dicen lo que quieres escuchar: te ayudan a ver lo que necesitas ver. Eso, con 20 años de experiencia detrás, hace la diferencia."',
+    text: '"Ha sido una ayuda tremenda, volví a creer en mí y a ser optimista."',
     initial: 'M',
-    author: 'Matías G.',
-    role: 'Terapia individual, 10 meses',
+    author: 'Maxime V.',
+    age: 33,
+    specialty: 'Terapia individual',
+  },
+  {
+    text: '"Fue un acierto y un cambio en 360 en todo ámbito."',
+    initial: 'K',
+    author: 'Karina A.',
+    age: 35,
+    specialty: 'Terapia individual',
+  },
+  {
+    text: '"Nos permitió reencontrarnos como matrimonio y darnos otra oportunidad."',
+    initial: 'J',
+    author: 'Juan O.',
+    age: 68,
+    specialty: 'Terapia de pareja',
+  },
+  {
+    text: '"Me escucha sin juzgar y me entrega consejos que me hacen reflexionar."',
+    initial: 'P',
+    author: 'Pamela M.',
+    age: 23,
+    specialty: 'Terapia individual',
+  },
+  {
+    text: '"Fue fundamental su ayuda en un momento clave de mi vida."',
+    initial: 'I',
+    author: 'Iván P.',
+    age: 47,
+    specialty: 'Terapia individual',
+  },
+  {
+    text: '"Nos ayudó a resolver problemas que parecían más complicados."',
+    initial: 'B',
+    author: 'Brigitte A.',
+    age: 60,
+    specialty: 'Terapia de pareja',
+  },
+  {
+    text: '"Escucha atentamente, orienta con claridad y transmite confianza."',
+    initial: 'M',
+    author: 'Marcela V.',
+    age: 35,
+    specialty: 'Terapia individual',
+  },
+  {
+    text: '"Me ayudó a repasar mi biografía y a conocerme a mí mismo."',
+    initial: 'M',
+    author: 'Mauricio B.',
+    age: 33,
+    specialty: 'Terapia individual',
   },
 ];
 
 const containerVariants = {
   hidden: {},
   visible: {
-    transition: { staggerChildren: 0.1 },
+    transition: { staggerChildren: 0.08 },
   },
 };
 
@@ -68,11 +88,11 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
   return (
     <motion.div
       variants={cardVariants}
-      className="bg-white rounded-[14px] p-7 border border-slate-100 flex flex-col"
+      className="bg-white rounded-[14px] p-6 border border-slate-100 flex flex-col"
     >
-      <div className="flex gap-0.5 text-amber-400 mb-3.5">
+      <div className="flex gap-0.5 text-amber-400 mb-3">
         {Array.from({ length: 5 }).map((_, i) => (
-          <Star key={i} className="w-[15px] h-[15px] fill-current" />
+          <Star key={i} className="w-[14px] h-[14px] fill-current" />
         ))}
       </div>
       <p className="text-[15px] text-slate-600 leading-relaxed mb-4 italic flex-1">
@@ -83,8 +103,10 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
           {testimonial.initial}
         </div>
         <div>
-          <div className="text-sm font-semibold text-slate-800">{testimonial.author}</div>
-          <div className="text-[13px] text-slate-400">{testimonial.role}</div>
+          <div className="text-sm font-semibold text-slate-800">
+            {testimonial.author}, {testimonial.age} años
+          </div>
+          <div className="text-[13px] text-slate-400">{testimonial.specialty}</div>
         </div>
       </div>
     </motion.div>
@@ -109,7 +131,7 @@ export default function DanielReyes_TestimonialsSection() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5"
         >
           {testimonials.map((t) => (
             <TestimonialCard key={t.author} testimonial={t} />
