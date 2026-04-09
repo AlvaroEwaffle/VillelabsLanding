@@ -6,6 +6,7 @@ export const en: TranslationDictionary = {
     work: 'Work',
     about: 'About',
     blog: 'Blog',
+    workshops: 'Workshops',
     contact: 'Contact',
     bookACall: 'Book a Call',
     menu: 'Menu',
@@ -38,7 +39,7 @@ export const en: TranslationDictionary = {
   whatsapp: {
     ariaLabel: 'Chat with us on WhatsApp',
     chatWithUs: 'Chat with us',
-    prefillMessage: "Hi, I'd like to know more about your services. I found you at villelab.com",
+    prefillMessage: "Hi, I'd like to know more about your services. I found you at villelabs.cl",
   },
   exitPopup: {
     title: 'Before you go...',
@@ -238,36 +239,37 @@ export const en: TranslationDictionary = {
         {
           title: 'Conversion Landing Pages',
           description: 'High-converting pages engineered to turn visitors into leads and customers. Designed with strategic copy, optimized forms, and clear calls to action.',
-          pricing: 'Investment varies by scope',
+          pricing: 'From $800 USD',
         },
         {
           title: 'Revenue Website System',
           description: 'Full business websites designed around your revenue goals. Includes strategic architecture, conversion optimization, email integration, analytics setup, and a 30-day optimization window.',
-          pricing: 'Custom proposal after diagnostic',
+          pricing: 'From $3,500 USD',
         },
         {
           title: 'Sales Funnels',
           description: 'End-to-end funnels with lead magnets, email sequences, nurture automation, and conversion tracking. Every touchpoint designed to move prospects closer to action.',
-          pricing: 'Scope defined after strategic assessment',
+          pricing: 'From $1,500 USD',
         },
       ],
       developmentServices: [
         {
           title: 'Process Automation',
           description: 'Eliminate manual work with custom workflows and integrations. Connect your tools, automate repetitive tasks, and reclaim hours every week.',
-          pricing: 'Investment varies by complexity',
+          pricing: 'From $2,000 USD',
         },
         {
           title: 'Custom Platforms',
           description: 'SaaS products, dashboards, admin panels, and internal tools built for your specific needs. Full-stack development with modern technologies.',
-          pricing: 'Scope defined after strategic assessment',
+          pricing: 'From $5,000 USD',
         },
         {
           title: 'AI Chatbots',
           description: 'Intelligent conversational agents for WhatsApp, Instagram DM, and your website. Qualify leads, answer questions, and hand off to your team at the right moment.',
-          pricing: 'Custom proposal after discovery call',
+          pricing: 'From $300 USD/mo',
         },
       ],
+      pricingNote: 'Prices vary by scope and complexity. Book a call for a personalized quote.',
     },
     about: {
       label: 'About Us',
@@ -279,7 +281,7 @@ export const en: TranslationDictionary = {
       methodologyHeading: 'Our methodology',
       trustedBy: 'Trusted by 50+ businesses',
       ctaHeading: 'Ready to work with us?',
-      ctaDescription: "We only take on projects where we know we can deliver real results. Let\u2019s find out if we are the right fit. Find Álvaro's personal site at alvarovillena.cl",
+      ctaDescription: "We only take on projects where we know we can deliver real results. Let\u2019s find out if we are the right fit.",
       ctaButton: 'Get in Touch',
       team: [
         {
@@ -331,6 +333,8 @@ export const en: TranslationDictionary = {
       diagnosticHeading: 'Digital Diagnostic Checklist',
       diagnosticDescription: '27 critical points your website needs to convert visitors into clients. Get your free checklist and find out where you stand.',
       diagnosticComingSoon: 'Coming soon. Book a call to get your personalized diagnostic today.',
+      formHeading: 'Send us a message directly',
+      formDescription: 'Fill out the form and we will get back to you within 24 business hours.',
     },
     consulting: {
       badge: 'Toptal Top 3% Verified',

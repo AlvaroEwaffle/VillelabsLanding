@@ -5,7 +5,7 @@
 
 'use client';
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://villelab.com';
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://villelabs.cl';
 
 export default function SEOHead() {
   const organizationSchema = {

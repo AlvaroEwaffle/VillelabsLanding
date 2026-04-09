@@ -160,6 +160,22 @@ export default function ServicesContent() {
         </div>
       </motion.section>
 
+      {/* Pricing Note */}
+      <motion.div
+        className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mb-20 text-center"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        variants={containerVariants}
+      >
+        <motion.p
+          variants={itemVariants}
+          className="text-sm text-white/30 font-light italic"
+        >
+          {t.pages.services.pricingNote}
+        </motion.p>
+      </motion.div>
+
       {/* CTA */}
       <motion.div
         className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center"

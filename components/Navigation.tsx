@@ -20,6 +20,7 @@ export default function Navigation() {
     { href: '/work', label: t.nav.work },
     { href: '/about', label: t.nav.about },
     { href: '/blog', label: t.nav.blog },
+    { href: '/workshops', label: t.nav.workshops },
     { href: '/contact', label: t.nav.contact },
   ];
 

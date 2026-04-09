@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { getCaseStudy } from '@/lib/case-studies';
 import CaseStudyPage from '@/components/CaseStudyPage';
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://villelab.com';
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://villelabs.cl';
 const caseStudy = getCaseStudy('revenue-ai-system')!;
 
 export const metadata: Metadata = {

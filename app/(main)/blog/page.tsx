@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import BlogContent from './BlogContent';
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://villelab.com';
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://villelabs.cl';
 
 export const metadata: Metadata = {
   title: 'Blog | Insights on Web Design, Strategy & Growth',

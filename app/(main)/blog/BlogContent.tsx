@@ -52,7 +52,7 @@ function NewsletterCTA() {
             updateEnabled: true,
             attributes: {
               SOURCE: 'blog_newsletter',
-              SITE: 'villelab.com',
+              SITE: 'villelabs.cl',
             },
           }),
         });

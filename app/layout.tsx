@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://villelab.com";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://villelabs.cl";
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -70,7 +70,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
-    locale: "en_US",
+    locale: "es_CL",
     url: siteUrl,
     siteName: "Villelabs",
     title: "Villelabs | Revenue Systems, Not Just Websites",
@@ -121,12 +121,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="es">
       <head>
         {/* Language detection — runs before React hydration to minimize FOUC */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{var l=localStorage.getItem('villelabs_lang');if(l==='es'||l==='en'){document.documentElement.lang=l}else if(navigator.language&&navigator.language.toLowerCase().startsWith('es')){document.documentElement.lang='es'}}catch(e){}})();`,
+            __html: `(function(){try{var l=localStorage.getItem('villelabs_lang');if(l==='es'||l==='en'){document.documentElement.lang=l}else if(navigator.language&&navigator.language.toLowerCase().startsWith('en')){document.documentElement.lang='en'}}catch(e){}})();`,
           }}
         />
         {/* Google Tag Manager */}

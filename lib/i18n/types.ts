@@ -8,6 +8,7 @@ export interface TranslationDictionary {
     consulting?: string;
     about: string;
     blog: string;
+    workshops: string;
     contact: string;
     bookACall: string;
     menu: string;
@@ -177,6 +178,7 @@ export interface TranslationDictionary {
         description: string;
         pricing: string;
       }[];
+      pricingNote: string;
     };
     about: {
       label: string;
@@ -216,6 +218,8 @@ export interface TranslationDictionary {
       diagnosticHeading: string;
       diagnosticDescription: string;
       diagnosticComingSoon: string;
+      formHeading: string;
+      formDescription: string;
     };
     consulting: {
       badge: string;

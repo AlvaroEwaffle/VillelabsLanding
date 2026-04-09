@@ -6,6 +6,7 @@ export const es: TranslationDictionary = {
     work: 'Trabajo',
     about: 'Nosotros',
     blog: 'Blog',
+    workshops: 'Workshops',
     contact: 'Contacto',
     bookACall: 'Agenda una Llamada',
     menu: 'Menú',
@@ -38,7 +39,7 @@ export const es: TranslationDictionary = {
   whatsapp: {
     ariaLabel: 'Chatea con nosotros por WhatsApp',
     chatWithUs: 'Escríbenos',
-    prefillMessage: 'Hola, me gustaría saber más sobre sus servicios. Los encontré en villelab.com',
+    prefillMessage: 'Hola, me gustaría saber más sobre sus servicios. Los encontré en villelabs.cl',
   },
   exitPopup: {
     title: 'Antes de irte...',
@@ -238,36 +239,37 @@ export const es: TranslationDictionary = {
         {
           title: 'Landing Pages de Conversión',
           description: 'Páginas de alta conversión diseñadas para transformar visitantes en leads y clientes. Con copy estratégico, formularios optimizados y llamados a la acción claros.',
-          pricing: 'La inversión varía según el alcance',
+          pricing: 'Desde $800 USD',
         },
         {
           title: 'Sistema Web de Ingresos',
           description: 'Sitios web completos diseñados en torno a tus objetivos de ingresos. Incluye arquitectura estratégica, optimización de conversiones, integración de email, configuración de analytics y una ventana de optimización de 30 días.',
-          pricing: 'Propuesta personalizada después del diagnóstico',
+          pricing: 'Desde $3.500 USD',
         },
         {
           title: 'Embudos de Venta',
           description: 'Embudos completos con lead magnets, secuencias de email, automatización de nurturing y tracking de conversiones. Cada punto de contacto diseñado para mover prospectos hacia la acción.',
-          pricing: 'Alcance definido después de evaluación estratégica',
+          pricing: 'Desde $1.500 USD',
         },
       ],
       developmentServices: [
         {
           title: 'Automatización de Procesos',
           description: 'Elimina el trabajo manual con workflows e integraciones personalizadas. Conecta tus herramientas, automatiza tareas repetitivas y recupera horas cada semana.',
-          pricing: 'La inversión varía según la complejidad',
+          pricing: 'Desde $2.000 USD',
         },
         {
           title: 'Plataformas a Medida',
           description: 'Productos SaaS, dashboards, paneles de administración y herramientas internas construidas para tus necesidades específicas. Desarrollo full-stack con tecnologías modernas.',
-          pricing: 'Alcance definido después de evaluación estratégica',
+          pricing: 'Desde $5.000 USD',
         },
         {
           title: 'Chatbots con IA',
           description: 'Agentes conversacionales inteligentes para WhatsApp, Instagram DM y tu sitio web. Califican leads, responden preguntas y derivan a tu equipo en el momento justo.',
-          pricing: 'Propuesta personalizada después de llamada de descubrimiento',
+          pricing: 'Desde $300 USD/mes',
         },
       ],
+      pricingNote: 'Los precios varian segun alcance y complejidad. Agenda una llamada para una cotizacion personalizada.',
     },
     about: {
       label: 'Nosotros',
@@ -279,7 +281,7 @@ export const es: TranslationDictionary = {
       methodologyHeading: 'Nuestra metodología',
       trustedBy: 'Más de 50 empresas confían en nosotros',
       ctaHeading: '¿Listo para trabajar con nosotros?',
-      ctaDescription: 'Solo tomamos proyectos donde sabemos que podemos entregar resultados reales. Descubramos si somos el fit correcto. Conoce el sitio personal de Álvaro en alvarovillena.cl',
+      ctaDescription: 'Solo tomamos proyectos donde sabemos que podemos entregar resultados reales. Descubramos si somos el fit correcto.',
       ctaButton: 'Contáctanos',
       team: [
         {
@@ -331,6 +333,8 @@ export const es: TranslationDictionary = {
       diagnosticHeading: 'Checklist de Diagnóstico Digital',
       diagnosticDescription: '27 puntos críticos que tu sitio web necesita para convertir visitantes en clientes. Obtén tu checklist gratis y descubre dónde estás parado.',
       diagnosticComingSoon: 'Próximamente. Agenda una llamada para obtener tu diagnóstico personalizado hoy.',
+      formHeading: 'Envíanos un mensaje directamente',
+      formDescription: 'Completa el formulario y te responderemos en menos de 24 horas hábiles.',
     },
     consulting: {
       badge: 'Toptal Top 3% Verificado',

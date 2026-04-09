@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://villelab.com';
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://villelabs.cl';
 
 export const metadata: Metadata = {
   title: 'Privacy Policy',
@@ -30,7 +30,7 @@ export default function PrivacyPage() {
           </p>
 
           <p>
-            Villelabs (&ldquo;we&rdquo;, &ldquo;us&rdquo;, or &ldquo;our&rdquo;) operates the website villelab.com.
+            Villelabs (&ldquo;we&rdquo;, &ldquo;us&rdquo;, or &ldquo;our&rdquo;) operates the website villelabs.cl.
             This page informs you of our policies regarding the collection, use, and disclosure
             of personal data when you use our website and services.
           </p>

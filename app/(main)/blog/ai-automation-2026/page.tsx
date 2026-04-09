@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { getBlogPost } from '@/lib/blog-posts';
 import BlogPostPage from '@/components/BlogPostPage';
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://villelab.com';
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://villelabs.cl';
 const post = getBlogPost('ai-automation-2026')!;
 
 export const metadata: Metadata = {

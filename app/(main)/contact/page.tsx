@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import ContactContent from './ContactContent';
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://villelab.com';
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://villelabs.cl';
 
 export const metadata: Metadata = {
   title: 'Contact | Start with a Diagnosis',
