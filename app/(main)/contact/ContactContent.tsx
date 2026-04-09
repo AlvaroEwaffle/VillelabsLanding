@@ -7,6 +7,7 @@ import { useTranslation, getWhatsAppUrl } from '@/lib/i18n';
 import ContactForm from '@/components/ContactForm';
 
 const EASE_SMOOTH = [0.6, -0.05, 0.01, 0.99] as const;
+const BOOKING_URL = 'https://capu.villelab.com/schedule/reunion-descubrimiento-con-alvaro/';
 const VILO_DIAGNOSIS_URL = '/diagnostic';
 
 const itemVariants = {
@@ -121,16 +122,18 @@ export default function ContactContent() {
               <div className="w-12 h-12 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center mx-auto mb-5">
                 <Calendar className="w-5 h-5 text-accent" />
               </div>
-              <h2 className="text-white text-lg font-medium mb-2">{t.pages.contact.calendlyHeading}</h2>
+              <h2 className="text-white text-lg font-medium mb-2">{t.pages.contact.bookCallHeading}</h2>
               <p className="text-white/40 text-sm font-light leading-relaxed mb-6">
-                {t.pages.contact.calendlyDescription}
+                {t.pages.contact.bookCallDescription}
               </p>
               <a
-                href={VILO_DIAGNOSIS_URL}
+                href={BOOKING_URL}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-accent text-white font-medium text-sm hover:bg-accent/90 transition-all duration-300 shadow-accent-lg"
               >
                 <Calendar className="w-4 h-4" />
-                {t.pages.contact.calendlyButton}
+                {t.pages.contact.bookCallButton}
               </a>
             </motion.div>
 
@@ -210,7 +213,7 @@ export default function ContactContent() {
             href={VILO_DIAGNOSIS_URL}
             className="inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-6 py-3 text-sm font-medium text-white hover:bg-accent/20 transition-all duration-300"
           >
-            {t.pages.contact.calendlyButton}
+            {t.pages.contact.diagnosticLabel}
           </a>
         </motion.div>
       </motion.div>

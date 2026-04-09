@@ -6,7 +6,7 @@ import { Calendar, MessageCircle } from 'lucide-react';
 
 const WHATSAPP_NUMBER = '56920115198';
 const WHATSAPP_MSG = 'Hola, me gustaría agendar una consulta en el centro de psicología clínica.';
-const CALENDLY_URL = '#'; // Placeholder — replace with actual Calendly link
+const BOOKING_URL = '#'; // Placeholder — replace with actual booking link
 
 interface FormData {
   name: string;
@@ -74,13 +74,13 @@ export default function DanielReyes_ContactSection() {
           className="flex gap-4 justify-center flex-wrap mb-12"
         >
           <a
-            href={CALENDLY_URL}
+            href={BOOKING_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-8 py-4 bg-white text-slate-800 rounded-[9px] font-bold transition-all hover:-translate-y-px hover:shadow-lg"
           >
             <Calendar className="w-5 h-5" />
-            Agendar con Calendly
+            Agendar una consulta
           </a>
           <a
             href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHATSAPP_MSG)}`}

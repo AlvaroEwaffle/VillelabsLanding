@@ -2,27 +2,25 @@
 
 import { useState, useMemo, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import Link from 'next/link';
 import {
-  Globe,
-  Smartphone,
-  MousePointerClick,
+  Briefcase,
+  Building2,
   Users,
-  BarChart3,
-  Zap,
-  FileText,
-  Star,
-  Mail,
-  Search,
-  ArrowLeft,
-  ArrowRight,
-  Calendar,
-  Download,
-  Send,
-  CheckCircle,
-  AlertTriangle,
-  TrendingUp,
+  Globe,
+  Wrench,
+  MessageSquare,
+  Bot,
+  DollarSign,
+  Clock,
   Target,
+  ArrowLeft,
+  Calendar,
+  MessageCircle,
+  Sparkles,
+  Lightbulb,
+  Heart,
+  Monitor,
+  BarChart3,
 } from 'lucide-react';
 import { useTranslation } from '@/lib/i18n';
 
@@ -30,31 +28,7 @@ import { useTranslation } from '@/lib/i18n';
 /*  Types                                                              */
 /* ------------------------------------------------------------------ */
 
-interface Answer {
-  label: string;
-  points: number;
-}
-
-interface Question {
-  id: number;
-  text: string;
-  icon: React.ElementType;
-  answers: Answer[];
-  recommendation: {
-    icon: React.ElementType;
-    title: string;
-    action: string;
-  };
-}
-
-interface ScoreTier {
-  label: string;
-  message: string;
-  colorClass: string;
-  borderClass: string;
-  bgClass: string;
-  ringClass: string;
-}
+type Category = 'ai_agents' | 'custom_software' | 'loyalty_program' | 'website' | 'consulting';
 
 /* ------------------------------------------------------------------ */
 /*  Constants                                                          */
@@ -62,32 +36,102 @@ interface ScoreTier {
 
 const EASE_SMOOTH = [0.6, -0.05, 0.01, 0.99] as const;
 
-const MAX_SCORE = 30;
-
 const QUESTION_ICONS = [
-  Globe,
-  Smartphone,
-  MousePointerClick,
-  Users,
-  BarChart3,
-  Zap,
-  FileText,
-  Star,
-  Mail,
-  Search,
+  Briefcase,     // Q1: mayor dolor
+  Building2,     // Q2: tipo de negocio
+  Users,         // Q3: equipo
+  Globe,         // Q4: sitio web
+  Wrench,        // Q5: herramientas
+  MessageSquare, // Q6: comunicación
+  Bot,           // Q7: automatización/IA
+  DollarSign,    // Q8: presupuesto
+  Clock,         // Q9: urgencia
+  Target,        // Q10: resultado esperado
 ];
 
-const QUESTION_POINTS = [
-  [3, 1, 0],
-  [3, 1, 0],
-  [3, 1, 0],
-  [2, 2, 1, 0],
-  [3, 1, 0],
-  [3, 2, 0, 0],
-  [3, 1, 0],
-  [3, 1, 0],
-  [3, 1, 0],
-  [3, 2, 2, 1, 0],
+const CATEGORY_ICONS: Record<Category, React.ElementType> = {
+  ai_agents: Sparkles,
+  custom_software: Wrench,
+  loyalty_program: Heart,
+  website: Monitor,
+  consulting: Lightbulb,
+};
+
+/**
+ * Scoring matrix: each question maps to an array of category weights per answer option.
+ * Format: SCORING_MAP[questionIndex][answerIndex] = { category: weight }
+ */
+const SCORING_MAP: Record<Category, number>[][] = [
+  // Q1: Mayor dolor
+  [
+    { ai_agents: 1, website: 2, consulting: 1, custom_software: 0, loyalty_program: 0 },   // No llegan clientes
+    { loyalty_program: 3, ai_agents: 1, website: 0, consulting: 0, custom_software: 0 },    // Pierdo clientes
+    { ai_agents: 2, custom_software: 2, consulting: 0, website: 0, loyalty_program: 0 },    // Tareas manuales
+    { consulting: 2, custom_software: 1, ai_agents: 0, website: 0, loyalty_program: 0 },    // Sin métricas
+  ],
+  // Q2: Tipo de negocio
+  [
+    { loyalty_program: 2, website: 1, ai_agents: 0, custom_software: 0, consulting: 0 },    // Comercio/Retail
+    { website: 1, consulting: 1, ai_agents: 0, custom_software: 0, loyalty_program: 0 },    // Servicios profesionales
+    { custom_software: 2, consulting: 1, ai_agents: 0, website: 0, loyalty_program: 0 },    // B2B
+    { website: 2, ai_agents: 1, custom_software: 0, loyalty_program: 0, consulting: 0 },    // Startup
+  ],
+  // Q3: Tamaño equipo
+  [
+    { website: 2, consulting: 1, ai_agents: 0, custom_software: 0, loyalty_program: 0 },    // Solo yo
+    { ai_agents: 1, website: 1, custom_software: 0, loyalty_program: 0, consulting: 0 },    // 2-5
+    { custom_software: 2, ai_agents: 1, website: 0, loyalty_program: 0, consulting: 0 },    // 6-20
+    { custom_software: 3, consulting: 1, ai_agents: 0, website: 0, loyalty_program: 0 },    // >20
+  ],
+  // Q4: Sitio web
+  [
+    { website: 3, consulting: 1, ai_agents: 0, custom_software: 0, loyalty_program: 0 },    // Sí pero no genera
+    { ai_agents: 1, consulting: 1, website: 0, custom_software: 0, loyalty_program: 0 },    // Sí y funciona
+    { website: 3, consulting: 0, ai_agents: 0, custom_software: 0, loyalty_program: 0 },    // No tengo
+    { website: 3, consulting: 0, ai_agents: 0, custom_software: 0, loyalty_program: 0 },    // Desactualizado
+  ],
+  // Q5: Herramientas
+  [
+    { custom_software: 3, consulting: 1, ai_agents: 0, website: 0, loyalty_program: 0 },    // Excel
+    { ai_agents: 1, consulting: 1, custom_software: 0, website: 0, loyalty_program: 0 },    // CRM
+    { ai_agents: 1, consulting: 0, custom_software: 0, website: 0, loyalty_program: 0 },    // Software a medida
+    { custom_software: 2, website: 1, ai_agents: 0, loyalty_program: 0, consulting: 0 },    // Casi nada
+  ],
+  // Q6: Comunicación con clientes
+  [
+    { ai_agents: 2, loyalty_program: 1, custom_software: 0, website: 0, consulting: 0 },    // WhatsApp personal
+    { ai_agents: 1, custom_software: 1, website: 0, loyalty_program: 0, consulting: 0 },    // Email/teléfono
+    { ai_agents: 2, website: 1, custom_software: 0, loyalty_program: 0, consulting: 0 },    // Redes sociales
+    { consulting: 1, ai_agents: 0, custom_software: 0, website: 0, loyalty_program: 0 },    // Tickets/chat
+  ],
+  // Q7: Automatización/IA
+  [
+    { ai_agents: 3, consulting: 1, custom_software: 0, website: 0, loyalty_program: 0 },    // Nunca
+    { ai_agents: 2, consulting: 2, custom_software: 0, website: 0, loyalty_program: 0 },    // Sí pero no funcionó
+    { ai_agents: 2, consulting: 1, custom_software: 0, website: 0, loyalty_program: 0 },    // Evaluando
+    { consulting: 1, ai_agents: 1, custom_software: 0, website: 0, loyalty_program: 0 },    // Ya usan algo
+  ],
+  // Q8: Presupuesto
+  [
+    { website: 1, ai_agents: 0, custom_software: 0, loyalty_program: 0, consulting: 0 },    // <$100
+    { ai_agents: 1, loyalty_program: 1, website: 0, custom_software: 0, consulting: 0 },    // $100-500
+    { consulting: 2, custom_software: 1, ai_agents: 0, website: 0, loyalty_program: 0 },    // $500-2000
+    { consulting: 3, custom_software: 2, ai_agents: 0, website: 0, loyalty_program: 0 },    // >$2000
+  ],
+  // Q9: Urgencia
+  [
+    { ai_agents: 1, website: 1, custom_software: 0, loyalty_program: 0, consulting: 0 },    // Crítico
+    { consulting: 1, ai_agents: 0, custom_software: 0, website: 0, loyalty_program: 0 },    // Importante
+    { consulting: 1, ai_agents: 0, custom_software: 0, website: 0, loyalty_program: 0 },    // Explorando
+    { consulting: 1, ai_agents: 0, custom_software: 0, website: 0, loyalty_program: 0 },    // Informarme
+  ],
+  // Q10: Resultado esperado
+  [
+    { website: 2, ai_agents: 1, custom_software: 0, loyalty_program: 0, consulting: 0 },    // Más clientes/ventas
+    { ai_agents: 2, custom_software: 2, website: 0, loyalty_program: 0, consulting: 0 },    // Menos trabajo manual
+    { loyalty_program: 3, ai_agents: 1, website: 0, custom_software: 0, consulting: 0 },    // Mejor retención
+    { consulting: 2, custom_software: 1, ai_agents: 0, website: 0, loyalty_program: 0 },    // Datos claros
+  ],
 ];
 
 /* ------------------------------------------------------------------ */
@@ -124,176 +168,74 @@ const slideVariants = {
 };
 
 /* ------------------------------------------------------------------ */
-/*  Circular progress SVG                                              */
-/* ------------------------------------------------------------------ */
-
-function ScoreRing({
-  score,
-  tier,
-}: {
-  score: number;
-  tier: ScoreTier;
-}) {
-  const radius = 80;
-  const circumference = 2 * Math.PI * radius;
-  const progress = (score / MAX_SCORE) * circumference;
-
-  return (
-    <div className="relative w-52 h-52 mx-auto">
-      <svg className="w-full h-full -rotate-90" viewBox="0 0 200 200">
-        {/* Background ring */}
-        <circle
-          cx="100"
-          cy="100"
-          r={radius}
-          fill="none"
-          className="stroke-white/[0.06]"
-          strokeWidth="8"
-        />
-        {/* Progress ring */}
-        <motion.circle
-          cx="100"
-          cy="100"
-          r={radius}
-          fill="none"
-          className={tier.ringClass}
-          strokeWidth="8"
-          strokeLinecap="round"
-          strokeDasharray={circumference}
-          initial={{ strokeDashoffset: circumference }}
-          animate={{ strokeDashoffset: circumference - progress }}
-          transition={{ duration: 1.2, ease: EASE_SMOOTH, delay: 0.3 }}
-        />
-      </svg>
-      {/* Score display */}
-      <div className="absolute inset-0 flex flex-col items-center justify-center">
-        <motion.span
-          className={`text-5xl font-light ${tier.colorClass}`}
-          initial={{ opacity: 0, scale: 0.5 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.6, delay: 0.5, ease: EASE_SMOOTH }}
-        >
-          {score}
-        </motion.span>
-        <span className="text-white/30 text-sm font-light">/ {MAX_SCORE}</span>
-      </div>
-    </div>
-  );
-}
-
-/* ------------------------------------------------------------------ */
 /*  Main component                                                     */
 /* ------------------------------------------------------------------ */
 
 export default function DiagnosticContent() {
   const { t } = useTranslation();
 
-  /* ---- Build questions from translations ---- */
-
-  const questions: Question[] = useMemo(
+  const questions = useMemo(
     () =>
       t.pages.diagnostic.questions.map((q, i) => ({
         id: i + 1,
         text: q.text,
         icon: QUESTION_ICONS[i],
-        answers: q.answers.map((label, j) => ({
-          label,
-          points: QUESTION_POINTS[i][j],
-        })),
-        recommendation: {
-          icon: QUESTION_ICONS[i],
-          title: q.recommendation.title,
-          action: q.recommendation.action,
-        },
+        answers: q.answers,
       })),
-    [t],
-  );
-
-  /* ---- Score tier function using translations ---- */
-
-  const getScoreTier = useCallback(
-    (score: number): ScoreTier => {
-      const tiers = t.pages.diagnostic.scoreTiers;
-      if (score <= 8) {
-        return {
-          label: tiers.critical.label,
-          message: tiers.critical.message,
-          colorClass: 'text-red-500',
-          borderClass: 'border-red-500/30',
-          bgClass: 'bg-red-500/10',
-          ringClass: 'stroke-red-500',
-        };
-      }
-      if (score <= 15) {
-        return {
-          label: tiers.developing.label,
-          message: tiers.developing.message,
-          colorClass: 'text-orange-500',
-          borderClass: 'border-orange-500/30',
-          bgClass: 'bg-orange-500/10',
-          ringClass: 'stroke-orange-500',
-        };
-      }
-      if (score <= 22) {
-        return {
-          label: tiers.solid.label,
-          message: tiers.solid.message,
-          colorClass: 'text-accent',
-          borderClass: 'border-accent/30',
-          bgClass: 'bg-accent/10',
-          ringClass: 'stroke-accent',
-        };
-      }
-      return {
-        label: tiers.optimized.label,
-        message: tiers.optimized.message,
-        colorClass: 'text-emerald-500',
-        borderClass: 'border-emerald-500/30',
-        bgClass: 'bg-emerald-500/10',
-        ringClass: 'stroke-emerald-500',
-      };
-    },
     [t],
   );
 
   /* ---- State ---- */
 
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [answers, setAnswers] = useState<(number | null)[]>(
-    () => new Array(questions.length).fill(null)
+  const [selectedAnswers, setSelectedAnswers] = useState<(number | null)[]>(
+    () => new Array(questions.length).fill(null),
   );
   const [showResults, setShowResults] = useState(false);
   const [direction, setDirection] = useState(1);
-  const [email, setEmail] = useState('');
-  const [emailSubmitted, setEmailSubmitted] = useState(false);
-  const [emailSubmitting, setEmailSubmitting] = useState(false);
 
-  /* ---- Derived state ---- */
+  /* ---- Compute category scores ---- */
 
-  const totalScore = useMemo(
-    () => answers.reduce<number>((sum, pts) => sum + (pts ?? 0), 0),
-    [answers],
-  );
+  const categoryScores = useMemo(() => {
+    const scores: Record<Category, number> = {
+      ai_agents: 0,
+      custom_software: 0,
+      loyalty_program: 0,
+      website: 0,
+      consulting: 0,
+    };
 
-  const tier = useMemo(() => getScoreTier(totalScore), [totalScore, getScoreTier]);
+    selectedAnswers.forEach((answerIdx, questionIdx) => {
+      if (answerIdx === null) return;
+      const weights = SCORING_MAP[questionIdx]?.[answerIdx];
+      if (!weights) return;
+      for (const [cat, weight] of Object.entries(weights)) {
+        scores[cat as Category] += weight;
+      }
+    });
 
-  const topRecommendations = useMemo(() => {
-    const indexed = answers.map((pts, i) => ({ pts: pts ?? 0, index: i }));
-    indexed.sort((a, b) => a.pts - b.pts);
-    return indexed.slice(0, 3).map((item) => questions[item.index].recommendation);
-  }, [answers, questions]);
+    return scores;
+  }, [selectedAnswers]);
+
+  const topCategories = useMemo(() => {
+    const entries = Object.entries(categoryScores) as [Category, number][];
+    entries.sort((a, b) => b[1] - a[1]);
+    // Return top 2 categories (or 1 if scores are very lopsided)
+    const top = entries.filter((e) => e[1] > 0).slice(0, 2);
+    return top.map((e) => e[0]);
+  }, [categoryScores]);
 
   /* ---- Handlers ---- */
 
   const selectAnswer = useCallback(
-    (points: number) => {
-      setAnswers((prev) => {
+    (answerIndex: number) => {
+      setSelectedAnswers((prev) => {
         const next = [...prev];
-        next[currentIndex] = points;
+        next[currentIndex] = answerIndex;
         return next;
       });
 
-      // Auto-advance after brief delay
+      // Auto-advance after brief highlight delay
       setTimeout(() => {
         if (currentIndex < questions.length - 1) {
           setDirection(1);
@@ -317,53 +259,17 @@ export default function DiagnosticContent() {
     }
   }, [currentIndex, showResults]);
 
-  const handleEmailSubmit = useCallback(
-    async (e: React.FormEvent) => {
-      e.preventDefault();
-      if (!email.trim()) return;
-      setEmailSubmitting(true);
-
-      const fidelidappUrl = process.env.NEXT_PUBLIC_FIDELIDAPP_URL;
-      const fidelidappAccountId = process.env.NEXT_PUBLIC_FIDELIDAPP_ACCOUNT_ID;
-
-      if (fidelidappUrl && fidelidappAccountId) {
-        try {
-          await fetch(`${fidelidappUrl}/api/landing/register`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              name: '',
-              email: email.trim(),
-              phone: '',
-              accountId: fidelidappAccountId,
-              tags: 'diagnostico-quiz',
-            }),
-          });
-        } catch {
-          // Non-blocking
-        }
-      }
-
-      setEmailSubmitting(false);
-      setEmailSubmitted(true);
-    },
-    [email, totalScore, answers, tier.label, topRecommendations],
-  );
-
   const resetQuiz = useCallback(() => {
     setCurrentIndex(0);
-    setAnswers(new Array(questions.length).fill(null));
+    setSelectedAnswers(new Array(questions.length).fill(null));
     setShowResults(false);
     setDirection(1);
-    setEmail('');
-    setEmailSubmitted(false);
-    setEmailSubmitting(false);
   }, [questions.length]);
 
   /* ---- Current question data ---- */
 
   const question = questions[currentIndex];
-  const currentAnswer = answers[currentIndex];
+  const currentAnswer = selectedAnswers[currentIndex];
   const progressPercent = showResults
     ? 100
     : ((currentIndex + (currentAnswer !== null ? 1 : 0)) / questions.length) * 100;
@@ -456,23 +362,23 @@ export default function DiagnosticContent() {
 
                 {/* Answers */}
                 <div className="space-y-3">
-                  {question.answers.map((answer) => {
-                    const isSelected = currentAnswer === answer.points;
+                  {question.answers.map((answer, idx) => {
+                    const isSelected = currentAnswer === idx;
                     return (
                       <button
-                        key={answer.label}
-                        onClick={() => selectAnswer(answer.points)}
+                        key={answer}
+                        onClick={() => selectAnswer(idx)}
                         className={`
                           w-full text-left px-5 py-4 rounded-lg border transition-all duration-200
                           cursor-pointer
                           ${
                             isSelected
                               ? 'border-accent/40 bg-accent/10 text-white'
-                              : 'border-white/[0.06] bg-white/[0.02] text-white/70 hover:border-white/[0.12] hover:bg-white/[0.04] hover:text-white'
+                              : 'border-white/[0.06] bg-white/[0.02] text-white/70 hover:border-accent/20 hover:bg-white/[0.04] hover:text-white'
                           }
                         `}
                       >
-                        <span className="text-base font-light">{answer.label}</span>
+                        <span className="text-base font-light">{answer}</span>
                       </button>
                     );
                   })}
@@ -506,60 +412,54 @@ export default function DiagnosticContent() {
                 animate="visible"
                 variants={containerVariants}
               >
-                {/* Score card */}
+                {/* Result heading */}
                 <motion.div
                   variants={itemVariants}
-                  className={`rounded-xl border ${tier.borderClass} ${tier.bgClass} p-8 md:p-10 text-center mb-8`}
+                  className="text-center mb-8"
                 >
-                  <ScoreRing score={totalScore} tier={tier} />
-
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.8, duration: 0.5, ease: EASE_SMOOTH }}
-                  >
-                    <span
-                      className={`inline-block mt-4 px-4 py-1.5 rounded-full text-sm font-medium ${tier.colorClass} ${tier.bgClass} border ${tier.borderClass}`}
-                    >
-                      {tier.label}
-                    </span>
-                    <p className="text-white/60 text-base font-light mt-4 max-w-md mx-auto leading-relaxed">
-                      {tier.message}
-                    </p>
-                  </motion.div>
+                  <div className="w-16 h-16 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center mx-auto mb-6">
+                    <BarChart3 className="w-8 h-8 text-accent" />
+                  </div>
+                  <h2 className="text-2xl md:text-3xl font-light text-white mb-3">
+                    {t.pages.diagnostic.resultHeading}
+                  </h2>
+                  <p className="text-white/40 text-base font-light max-w-md mx-auto">
+                    {t.pages.diagnostic.resultIntro}
+                  </p>
                 </motion.div>
 
-                {/* Recommendations */}
-                <motion.div variants={itemVariants} className="mb-8">
-                  <h3 className="text-white text-lg font-medium mb-4 flex items-center gap-2">
-                    <Target className="w-5 h-5 text-accent" />
-                    {t.pages.diagnostic.yourTopPriorities}
-                  </h3>
-                  <div className="space-y-3">
-                    {topRecommendations.map((rec, idx) => {
-                      const RecIcon = rec.icon;
-                      return (
-                        <motion.div
-                          key={rec.title}
-                          variants={itemVariants}
-                          className="flex gap-4 p-4 rounded-lg border border-white/[0.06] bg-white/[0.02]"
-                        >
-                          <div className="w-9 h-9 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center shrink-0 mt-0.5">
-                            <RecIcon className="w-4 h-4 text-accent" />
+                {/* Recommended categories */}
+                <motion.div variants={itemVariants} className="space-y-4 mb-10">
+                  {topCategories.map((cat, idx) => {
+                    const catData = t.pages.diagnostic.categories[cat];
+                    const CatIcon = CATEGORY_ICONS[cat];
+                    return (
+                      <motion.div
+                        key={cat}
+                        variants={itemVariants}
+                        className="rounded-xl border border-accent/20 bg-accent/5 p-6 md:p-8"
+                      >
+                        <div className="flex items-start gap-4">
+                          <div className="w-11 h-11 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center shrink-0 mt-0.5">
+                            <CatIcon className="w-5 h-5 text-accent" />
                           </div>
                           <div>
-                            <div className="flex items-center gap-2 mb-1">
-                              <span className="text-accent text-xs font-medium">#{idx + 1}</span>
-                              <h4 className="text-white text-base font-medium">{rec.title}</h4>
+                            <div className="flex items-center gap-2 mb-2">
+                              <span className="text-accent text-xs font-medium uppercase tracking-wider">
+                                #{idx + 1}
+                              </span>
+                              <h3 className="text-white text-lg font-medium">
+                                {catData.title}
+                              </h3>
                             </div>
-                            <p className="text-white/40 text-sm font-light leading-relaxed">
-                              {rec.action}
+                            <p className="text-white/50 text-base font-light leading-relaxed">
+                              {catData.description}
                             </p>
                           </div>
-                        </motion.div>
-                      );
-                    })}
-                  </div>
+                        </div>
+                      </motion.div>
+                    );
+                  })}
                 </motion.div>
 
                 {/* CTAs */}
@@ -568,81 +468,30 @@ export default function DiagnosticContent() {
                   className="flex flex-col sm:flex-row gap-3 mb-10"
                 >
                   <a
-                    href="https://capu.villelab.com/schedule/reunion-descubrimiento-con-alvaro"
+                    href="https://capu.villelab.com/schedule/reunion-descubrimiento-con-alvaro/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex-1 inline-flex items-center justify-center gap-2 px-6 py-4 rounded-full bg-accent text-white font-medium text-base hover:bg-accent/90 transition-all duration-300 shadow-accent-lg"
                   >
                     <Calendar className="w-4 h-4" />
-                    {t.pages.diagnostic.bookFreeCall}
+                    {t.pages.diagnostic.bookDiscoveryCall}
                   </a>
-                  <Link
-                    href="/contact#diagnostic"
+                  <a
+                    href="https://wa.me/56920115198?text=Hola%2C%20acabo%20de%20hacer%20el%20diagn%C3%B3stico%20en%20villelab.com%20y%20me%20gustar%C3%ADa%20conversar."
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="flex-1 inline-flex items-center justify-center gap-2 px-6 py-4 rounded-full border border-accent/30 bg-accent/10 text-accent font-medium text-base hover:bg-accent/20 transition-all duration-300"
                   >
-                    <Download className="w-4 h-4" />
-                    {t.pages.diagnostic.getGuide}
-                  </Link>
+                    <MessageCircle className="w-4 h-4" />
+                    {t.pages.diagnostic.talkOnWhatsApp}
+                  </a>
                 </motion.div>
 
-                {/* Email capture */}
+                {/* Retake */}
                 <motion.div
                   variants={itemVariants}
-                  className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-6 md:p-8 mb-6"
+                  className="flex items-center justify-center text-sm"
                 >
-                  {!emailSubmitted ? (
-                    <>
-                      <div className="flex items-center gap-2 mb-3">
-                        <Mail className="w-5 h-5 text-accent" />
-                        <h3 className="text-white text-base font-medium">
-                          {t.pages.diagnostic.emailReportHeading}
-                        </h3>
-                      </div>
-                      <p className="text-white/40 text-sm font-light mb-4">
-                        {t.pages.diagnostic.emailReportDescription}
-                      </p>
-                      <form
-                        onSubmit={handleEmailSubmit}
-                        className="flex flex-col sm:flex-row gap-3"
-                      >
-                        <input
-                          type="email"
-                          value={email}
-                          onChange={(e) => setEmail(e.target.value)}
-                          placeholder={t.pages.diagnostic.emailPlaceholder}
-                          required
-                          className="flex-1 px-4 py-3 rounded-lg bg-white/[0.04] border border-white/[0.08] text-white placeholder-white/20 text-sm font-light focus:outline-none focus:border-accent/40 focus:bg-white/[0.06] transition-all"
-                        />
-                        <button
-                          type="submit"
-                          disabled={emailSubmitting}
-                          className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-accent text-white font-medium text-sm hover:bg-accent/90 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer shrink-0"
-                        >
-                          {emailSubmitting ? (
-                            <span className="inline-block w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                          ) : (
-                            <Send className="w-4 h-4" />
-                          )}
-                          {t.pages.diagnostic.sendReport}
-                        </button>
-                      </form>
-                    </>
-                  ) : (
-                    <div className="flex items-center gap-3 text-emerald-400">
-                      <CheckCircle className="w-5 h-5 shrink-0" />
-                      <p className="text-sm font-light">
-                        {t.pages.diagnostic.reportSent}
-                      </p>
-                    </div>
-                  )}
-                </motion.div>
-
-                {/* Share + retake */}
-                <motion.div
-                  variants={itemVariants}
-                  className="flex items-center justify-between text-sm"
-                >
-                  <p className="text-white/20 font-light">{t.pages.diagnostic.shareResults}</p>
                   <button
                     onClick={resetQuiz}
                     className="text-accent/70 hover:text-accent font-light transition-colors cursor-pointer"

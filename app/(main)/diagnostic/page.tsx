@@ -4,9 +4,9 @@ import DiagnosticContent from './DiagnosticContent';
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://villelabs.cl';
 
 export const metadata: Metadata = {
-  title: 'Diagnostic',
+  title: 'Descubre cómo te podemos ayudar | Diagnostic',
   description:
-    'Free digital diagnostic. Discover where your website stands and what it needs to convert visitors into clients.',
+    'Responde 10 preguntas y recibe un diagnóstico personalizado con recomendaciones concretas para tu negocio. Discover how we can help you.',
   alternates: { canonical: `${siteUrl}/diagnostic` },
   robots: { index: true, follow: true },
 };

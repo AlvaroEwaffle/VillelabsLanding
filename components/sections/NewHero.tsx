@@ -79,7 +79,7 @@ export default function NewHero() {
               <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
             </Link>
             <Link
-              href="/contact#diagnostic"
+              href="/diagnostic"
               className="inline-flex items-center gap-2 px-8 py-4 rounded-full border border-white/15 bg-white/[0.03] text-white/80 font-medium text-base hover:border-accent/30 hover:text-white backdrop-blur-sm transition-all duration-300"
             >
               {t.hero.ctaSecondary}

@@ -51,7 +51,7 @@ export default function PrivacyPage() {
 
           <h2 className="text-xl font-medium text-white/80 pt-4">Third-Party Services</h2>
           <p>
-            We use third-party services such as Google Analytics, Google Tag Manager, Calendly,
+            We use third-party services such as Google Analytics, Google Tag Manager,
             and WhatsApp Business to improve our website and facilitate communication. These
             services may collect data according to their own privacy policies.
           </p>

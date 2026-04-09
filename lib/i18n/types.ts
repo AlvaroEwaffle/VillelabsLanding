@@ -207,9 +207,9 @@ export interface TranslationDictionary {
       label: string;
       heading: string;
       description: string;
-      calendlyHeading: string;
-      calendlyDescription: string;
-      calendlyButton: string;
+      bookCallHeading: string;
+      bookCallDescription: string;
+      bookCallButton: string;
       whatsappHeading: string;
       whatsappDescription: string;
       whatsappButton: string;
@@ -263,29 +263,21 @@ export interface TranslationDictionary {
       complete: string;
       questionOf: string;
       previousQuestion: string;
-      yourTopPriorities: string;
-      bookFreeCall: string;
-      getGuide: string;
-      emailReportHeading: string;
-      emailReportDescription: string;
-      emailPlaceholder: string;
-      sendReport: string;
-      reportSent: string;
-      shareResults: string;
+      resultHeading: string;
+      bookDiscoveryCall: string;
+      talkOnWhatsApp: string;
       retakeDiagnostic: string;
-      scoreTiers: {
-        critical: { label: string; message: string };
-        developing: { label: string; message: string };
-        solid: { label: string; message: string };
-        optimized: { label: string; message: string };
+      resultIntro: string;
+      categories: {
+        ai_agents: { title: string; description: string };
+        custom_software: { title: string; description: string };
+        loyalty_program: { title: string; description: string };
+        website: { title: string; description: string };
+        consulting: { title: string; description: string };
       };
       questions: {
         text: string;
         answers: string[];
-        recommendation: {
-          title: string;
-          action: string;
-        };
       }[];
     };
     blog: {
