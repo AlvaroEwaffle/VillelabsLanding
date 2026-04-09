@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo, useCallback } from 'react';
+import { useState, useMemo, useCallback, useEffect, useRef, type FormEvent } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Briefcase,
@@ -21,6 +21,9 @@ import {
   Heart,
   Monitor,
   BarChart3,
+  Mail,
+  User,
+  Phone,
 } from 'lucide-react';
 import { useTranslation } from '@/lib/i18n';
 
@@ -192,7 +195,15 @@ export default function DiagnosticContent() {
     () => new Array(questions.length).fill(null),
   );
   const [showResults, setShowResults] = useState(false);
+  const [showLeadModal, setShowLeadModal] = useState(false);
   const [direction, setDirection] = useState(1);
+
+  /* ---- Lead form state ---- */
+  const [leadName, setLeadName] = useState('');
+  const [leadEmail, setLeadEmail] = useState('');
+  const [leadPhone, setLeadPhone] = useState('');
+  const [leadFormTouched, setLeadFormTouched] = useState(false);
+  const leadNameRef = useRef<HTMLInputElement>(null);
 
   /* ---- Compute category scores ---- */
 
@@ -241,7 +252,7 @@ export default function DiagnosticContent() {
           setDirection(1);
           setCurrentIndex((i) => i + 1);
         } else {
-          setShowResults(true);
+          setShowLeadModal(true);
         }
       }, 300);
     },
@@ -263,8 +274,69 @@ export default function DiagnosticContent() {
     setCurrentIndex(0);
     setSelectedAnswers(new Array(questions.length).fill(null));
     setShowResults(false);
+    setShowLeadModal(false);
     setDirection(1);
+    setLeadName('');
+    setLeadEmail('');
+    setLeadPhone('');
+    setLeadFormTouched(false);
   }, [questions.length]);
+
+  /* ---- Lead modal handlers ---- */
+
+  const isEmailValid = (email: string) => email.includes('@') && email.includes('.');
+
+  const isLeadFormValid =
+    leadName.trim().length > 0 &&
+    leadEmail.trim().length > 0 &&
+    isEmailValid(leadEmail.trim()) &&
+    leadPhone.trim().length > 0;
+
+  const handleLeadSubmit = useCallback(
+    (e: FormEvent) => {
+      e.preventDefault();
+      setLeadFormTouched(true);
+
+      if (!isLeadFormValid) return;
+
+      // Push GTM dataLayer event
+      const w = window as typeof window & { dataLayer?: Record<string, unknown>[] };
+      w.dataLayer = w.dataLayer || [];
+      w.dataLayer.push({
+        event: 'diagnostic_lead_capture',
+        lead_name: leadName.trim(),
+        lead_email: leadEmail.trim(),
+        lead_phone: leadPhone.trim(),
+        diagnostic_top_categories: topCategories.join(','),
+      });
+
+      setShowLeadModal(false);
+      setShowResults(true);
+    },
+    [leadName, leadEmail, leadPhone, topCategories, isLeadFormValid],
+  );
+
+  const handleLeadSkip = useCallback(() => {
+    setShowLeadModal(false);
+    setShowResults(true);
+  }, []);
+
+  // Close modal on Escape key
+  useEffect(() => {
+    if (!showLeadModal) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') handleLeadSkip();
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [showLeadModal, handleLeadSkip]);
+
+  // Focus first input when modal opens
+  useEffect(() => {
+    if (showLeadModal) {
+      setTimeout(() => leadNameRef.current?.focus(), 100);
+    }
+  }, [showLeadModal]);
 
   /* ---- Current question data ---- */
 
@@ -504,6 +576,151 @@ export default function DiagnosticContent() {
           )}
         </AnimatePresence>
       </div>
+
+      {/* ---- Lead Capture Modal ---- */}
+      <AnimatePresence>
+        {showLeadModal && !showResults && (
+          <motion.div
+            key="lead-modal-overlay"
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm px-4"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+            onClick={handleLeadSkip}
+          >
+            <motion.div
+              className="relative w-full max-w-md rounded-2xl border border-white/[0.08] bg-slate-900 p-8"
+              initial={{ opacity: 0, scale: 0.92, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.92, y: 20 }}
+              transition={{ duration: 0.3, ease: EASE_SMOOTH }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Icon */}
+              <div className="flex justify-center mb-5">
+                <div className="w-14 h-14 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center">
+                  <Sparkles className="w-7 h-7 text-accent" />
+                </div>
+              </div>
+
+              {/* Heading */}
+              <h2 className="text-2xl font-light text-white text-center mb-2">
+                Tu diagnóstico está listo
+              </h2>
+              <p className="text-white/40 text-sm font-light text-center mb-6 leading-relaxed">
+                Déjanos tus datos para enviarte el resultado detallado y recomendaciones personalizadas.
+              </p>
+
+              {/* Form */}
+              <form onSubmit={handleLeadSubmit} noValidate className="space-y-4">
+                {/* Nombre */}
+                <div>
+                  <label htmlFor="lead-name" className="sr-only">Nombre</label>
+                  <div className="relative">
+                    <User className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-white/30 pointer-events-none" />
+                    <input
+                      ref={leadNameRef}
+                      id="lead-name"
+                      type="text"
+                      placeholder="Nombre"
+                      value={leadName}
+                      onChange={(e) => setLeadName(e.target.value)}
+                      className={`
+                        w-full pl-10 pr-4 py-3 rounded-lg bg-white/[0.04] border text-white text-sm font-light
+                        placeholder:text-white/30 outline-none transition-colors
+                        focus:border-accent/40 focus:bg-white/[0.06]
+                        ${leadFormTouched && !leadName.trim() ? 'border-red-500/50' : 'border-white/[0.08]'}
+                      `}
+                    />
+                  </div>
+                  {leadFormTouched && !leadName.trim() && (
+                    <p className="text-red-400/80 text-xs mt-1 ml-1">Ingresa tu nombre</p>
+                  )}
+                </div>
+
+                {/* Email */}
+                <div>
+                  <label htmlFor="lead-email" className="sr-only">Email</label>
+                  <div className="relative">
+                    <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-white/30 pointer-events-none" />
+                    <input
+                      id="lead-email"
+                      type="email"
+                      placeholder="Email"
+                      value={leadEmail}
+                      onChange={(e) => setLeadEmail(e.target.value)}
+                      className={`
+                        w-full pl-10 pr-4 py-3 rounded-lg bg-white/[0.04] border text-white text-sm font-light
+                        placeholder:text-white/30 outline-none transition-colors
+                        focus:border-accent/40 focus:bg-white/[0.06]
+                        ${leadFormTouched && (!leadEmail.trim() || !isEmailValid(leadEmail.trim())) ? 'border-red-500/50' : 'border-white/[0.08]'}
+                      `}
+                    />
+                  </div>
+                  {leadFormTouched && !leadEmail.trim() && (
+                    <p className="text-red-400/80 text-xs mt-1 ml-1">Ingresa tu email</p>
+                  )}
+                  {leadFormTouched && leadEmail.trim() && !isEmailValid(leadEmail.trim()) && (
+                    <p className="text-red-400/80 text-xs mt-1 ml-1">Ingresa un email válido</p>
+                  )}
+                </div>
+
+                {/* Phone */}
+                <div>
+                  <label htmlFor="lead-phone" className="sr-only">Teléfono / WhatsApp</label>
+                  <div className="relative">
+                    <Phone className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-white/30 pointer-events-none" />
+                    <input
+                      id="lead-phone"
+                      type="tel"
+                      placeholder="Teléfono / WhatsApp"
+                      value={leadPhone}
+                      onChange={(e) => setLeadPhone(e.target.value)}
+                      className={`
+                        w-full pl-10 pr-4 py-3 rounded-lg bg-white/[0.04] border text-white text-sm font-light
+                        placeholder:text-white/30 outline-none transition-colors
+                        focus:border-accent/40 focus:bg-white/[0.06]
+                        ${leadFormTouched && !leadPhone.trim() ? 'border-red-500/50' : 'border-white/[0.08]'}
+                      `}
+                    />
+                  </div>
+                  {leadFormTouched && !leadPhone.trim() && (
+                    <p className="text-red-400/80 text-xs mt-1 ml-1">Ingresa tu teléfono</p>
+                  )}
+                </div>
+
+                {/* Submit */}
+                <button
+                  type="submit"
+                  disabled={leadFormTouched && !isLeadFormValid}
+                  className={`
+                    w-full py-3.5 rounded-full text-white font-medium text-sm transition-all duration-300
+                    ${
+                      leadFormTouched && !isLeadFormValid
+                        ? 'bg-accent/40 cursor-not-allowed'
+                        : 'bg-accent hover:bg-accent/90 cursor-pointer shadow-accent-lg'
+                    }
+                  `}
+                >
+                  Ver mi diagnóstico
+                </button>
+              </form>
+
+              {/* Skip link */}
+              <div className="text-center mt-4">
+                <button
+                  type="button"
+                  onClick={handleLeadSkip}
+                  className="text-white/30 text-xs font-light hover:text-white/50 hover:underline transition-colors cursor-pointer"
+                >
+                  Ver resultados sin registrarme
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </main>
   );
 }
