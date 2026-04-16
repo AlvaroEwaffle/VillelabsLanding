@@ -13,6 +13,7 @@ import {
   Sparkles,
 } from 'lucide-react';
 import { useTranslation } from '@/lib/i18n';
+import type { ServiceDetailTranslation } from '@/lib/i18n/types';
 
 const EASE_SMOOTH = [0.6, -0.05, 0.01, 0.99] as const;
 
@@ -37,26 +38,36 @@ function ServiceDetailCard({
   title,
   description,
   pricing,
+  slug,
+  learnMore,
 }: {
   icon: typeof Layout;
   title: string;
   description: string;
   pricing: string;
+  slug: string;
+  learnMore: string;
 }) {
   return (
-    <motion.div
-      variants={itemVariants}
-      className="group p-8 rounded-xl border border-white/[0.06] bg-white/[0.02] hover:border-accent/20 hover:bg-white/[0.04] transition-all duration-300"
-    >
-      <div className="w-12 h-12 rounded-lg bg-accent/10 border border-accent/20 flex items-center justify-center mb-6 group-hover:bg-accent/15 transition-colors">
-        <Icon className="w-6 h-6 text-accent" />
-      </div>
-      <h3 className="text-white text-xl font-medium mb-3">{title}</h3>
-      <p className="text-white/50 text-sm font-light leading-relaxed mb-6">{description}</p>
-      <div className="flex items-center gap-2 text-accent/70 text-sm">
-        <Sparkles className="w-3.5 h-3.5" />
-        <span className="font-light italic">{pricing}</span>
-      </div>
+    <motion.div variants={itemVariants}>
+      <Link
+        href={`/services/${slug}`}
+        className="group block p-8 rounded-xl border border-white/[0.06] bg-white/[0.02] hover:border-accent/20 hover:bg-white/[0.04] transition-all duration-300 h-full"
+      >
+        <div className="w-12 h-12 rounded-lg bg-accent/10 border border-accent/20 flex items-center justify-center mb-6 group-hover:bg-accent/15 transition-colors">
+          <Icon className="w-6 h-6 text-accent" />
+        </div>
+        <h3 className="text-white text-xl font-medium mb-3">{title}</h3>
+        <p className="text-white/50 text-sm font-light leading-relaxed mb-4">{description}</p>
+        <div className="flex items-center gap-2 text-accent/70 text-sm mb-4">
+          <Sparkles className="w-3.5 h-3.5" />
+          <span className="font-light italic">{pricing}</span>
+        </div>
+        <span className="inline-flex items-center gap-2 text-accent text-sm font-medium group-hover:gap-3 transition-all">
+          {learnMore}
+          <ArrowRight className="w-3.5 h-3.5" />
+        </span>
+      </Link>
     </motion.div>
   );
 }
@@ -67,13 +78,17 @@ export default function ServicesContent() {
   const marketingIcons = [Layout, Globe, TrendingUp];
   const developmentIcons = [Cog, Code2, MessageSquare];
 
+  const learnMore = t.pages.services.learnMore;
+
   const marketingServices = t.pages.services.marketingServices.map((service, i) => ({
     icon: marketingIcons[i],
+    learnMore,
     ...service,
   }));
 
   const developmentServices = t.pages.services.developmentServices.map((service, i) => ({
     icon: developmentIcons[i],
+    learnMore,
     ...service,
   }));
 

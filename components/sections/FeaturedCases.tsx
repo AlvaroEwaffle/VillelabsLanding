@@ -4,24 +4,12 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { ArrowRight, TrendingUp } from 'lucide-react';
 import { useTranslation } from '@/lib/i18n';
+import { caseStudyMeta } from '@/lib/case-studies';
 
 const EASE_SMOOTH = [0.6, -0.05, 0.01, 0.99] as const;
 
-const caseImages = [
-  'https://cerveceriapuchacay.cl/assets/HeroBg.D9CN-gY4_Tqj8v.webp',
-  'https://ewaffle.cl/assets/CoverEwaffle.png',
-  'https://res.cloudinary.com/di92lsbym/image/upload/v1739838001/photo-1553877522-43269d4ea984_k7fgug_1_anllid.webp',
-  'https://res.cloudinary.com/di92lsbym/image/upload/v1739838001/photo-1553877522-43269d4ea984_k7fgug_1_anllid.webp',
-  'https://res.cloudinary.com/di92lsbym/image/upload/v1739838001/photo-1553877522-43269d4ea984_k7fgug_1_anllid.webp',
-];
-
-const caseSlugs = [
-  '/work/puchacay',
-  '/work/ewaffle',
-  '/work/fidelidapp',
-  '/work/defensa-total',
-  '/work/revenue-ai-system',
-];
+const caseSlugs = caseStudyMeta.map((cs) => `/work/${cs.slug}`);
+const caseImages = caseStudyMeta.map((cs) => cs.heroImage);
 
 const containerVariants = {
   hidden: {},
@@ -65,7 +53,7 @@ export default function FeaturedCases() {
         {/* Cards */}
         <motion.div
           variants={containerVariants}
-          className="grid md:grid-cols-3 lg:grid-cols-5 gap-6"
+          className="grid md:grid-cols-2 lg:grid-cols-4 gap-6"
         >
           {t.featuredCases.cases.map((caseItem, i) => (
             <motion.div

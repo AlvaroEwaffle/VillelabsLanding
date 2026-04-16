@@ -2,6 +2,7 @@
 
 import NewHero from '@/components/sections/NewHero';
 import ServiceTracks from '@/components/sections/ServiceTracks';
+import ProductsPreview from '@/components/sections/ProductsPreview';
 import FeaturedCases from '@/components/sections/FeaturedCases';
 import TrustSection from '@/components/sections/TrustSection';
 import HowWeWork from '@/components/sections/HowWeWork';
@@ -13,6 +14,7 @@ export default function HomeContent() {
     <main className="relative w-full" id="home" aria-label="Main content">
       <NewHero />
       <ServiceTracks />
+      <ProductsPreview />
       <FeaturedCases />
       <TrustSection />
       <HowWeWork />

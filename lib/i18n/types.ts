@@ -1,8 +1,47 @@
 export type Language = 'en' | 'es';
 
+export interface ProductTranslation {
+  slug: string;
+  name: string;
+  tagline: string;
+  description: string;
+  badge: string;
+  problemHeading: string;
+  problemDescription: string;
+  featuresHeading: string;
+  features: { title: string; description: string }[];
+  howItWorksHeading: string;
+  howItWorks: { title: string; description: string }[];
+  differentiatorsHeading: string;
+  differentiators: { title: string; description: string }[];
+  pricing: {
+    plan: string;
+    price: string;
+    period: string;
+    features: string[];
+    cta: string;
+    highlighted: boolean;
+  }[];
+  ctaHeading: string;
+  ctaDescription: string;
+  ctaButton: string;
+}
+
+export interface ServiceDetailTranslation {
+  title: string;
+  description: string;
+  pricing: string;
+  slug: string;
+  longDescription: string;
+  included: string[];
+  processSteps: { title: string; description: string }[];
+  relatedCases: string[];
+}
+
 export interface TranslationDictionary {
   nav: {
     services: string;
+    products: string;
     work: string;
     portfolio?: string;
     consulting?: string;
@@ -19,6 +58,7 @@ export interface TranslationDictionary {
     brandDescription: string;
     company: string;
     services: string;
+    products: string;
     resources: string;
     connect: string;
     aboutLink: string;
@@ -28,6 +68,10 @@ export interface TranslationDictionary {
     marketingLink: string;
     developmentLink: string;
     consultingLink?: string;
+    productsLink: string;
+    mocaLink: string;
+    capuLink: string;
+    lateLink: string;
     blogLink: string;
     diagnosticLink: string;
     caseStudiesLink: string;
@@ -168,17 +212,26 @@ export interface TranslationDictionary {
       ctaHeading: string;
       ctaDescription: string;
       ctaButton: string;
-      marketingServices: {
-        title: string;
-        description: string;
-        pricing: string;
-      }[];
-      developmentServices: {
-        title: string;
-        description: string;
-        pricing: string;
-      }[];
+      marketingServices: ServiceDetailTranslation[];
+      developmentServices: ServiceDetailTranslation[];
       pricingNote: string;
+      learnMore: string;
+      whatsIncluded: string;
+      process: string;
+      relatedCasesHeading: string;
+      backToServices: string;
+    };
+    products: {
+      label: string;
+      heading: string;
+      headingHighlight: string;
+      description: string;
+      ctaHeading: string;
+      ctaDescription: string;
+      ctaButton: string;
+      viewProduct: string;
+      backToProducts: string;
+      items: ProductTranslation[];
     };
     about: {
       label: string;

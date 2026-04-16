@@ -95,7 +95,7 @@ export default function AboutContent() {
           <h2 className="text-2xl md:text-3xl font-light text-white">{t.pages.about.meetTheTeam}</h2>
         </motion.div>
 
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {team.map((member) => (
             <motion.div
               key={member.name}

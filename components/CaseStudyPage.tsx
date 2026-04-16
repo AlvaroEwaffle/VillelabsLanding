@@ -10,7 +10,7 @@ import {
   Calendar,
 } from 'lucide-react';
 import type { CaseStudy } from '@/lib/case-studies';
-import { caseStudies } from '@/lib/case-studies';
+import { getCaseStudies, getCaseStudyMeta } from '@/lib/case-studies';
 import { useTranslation, getWhatsAppUrl } from '@/lib/i18n';
 
 const EASE_SMOOTH = [0.6, -0.05, 0.01, 0.99] as const;
@@ -35,9 +35,15 @@ interface CaseStudyPageProps {
   caseStudy: CaseStudy;
 }
 
-export default function CaseStudyPage({ caseStudy }: CaseStudyPageProps) {
+export default function CaseStudyPage({ caseStudy: fallback }: CaseStudyPageProps) {
   const { t, language } = useTranslation();
-  const otherCases = caseStudies.filter((cs) => cs.slug !== caseStudy.slug);
+  const allCases = getCaseStudies(language).map((cs) => ({
+    ...cs,
+    heroImage: getCaseStudyMeta(cs.slug)?.heroImage ?? '',
+  }));
+  // Use language-aware version if available, otherwise fallback to prop
+  const caseStudy = allCases.find((cs) => cs.slug === fallback.slug) ?? fallback;
+  const otherCases = allCases.filter((cs) => cs.slug !== caseStudy.slug);
 
   return (
     <main className="pt-20 md:pt-24 pb-16 md:pb-24">

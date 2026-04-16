@@ -24,6 +24,14 @@ export default function Footer() {
       ],
     },
     {
+      title: t.footer.products,
+      links: [
+        { label: t.footer.mocaLink, href: '/products/moca' },
+        { label: t.footer.capuLink, href: '/products/capu' },
+        { label: t.footer.lateLink, href: '/products/late' },
+      ],
+    },
+    {
       title: t.footer.resources,
       links: [
         { label: t.footer.blogLink, href: '/blog' },
@@ -45,7 +53,7 @@ export default function Footer() {
     <footer className="relative bg-slate-950 border-t border-white/5">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20">
         {/* Top: Logo + columns */}
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-8 md:gap-12">
+        <div className="grid grid-cols-2 md:grid-cols-6 gap-8 md:gap-10">
           {/* Brand column */}
           <div className="col-span-2 md:col-span-1 mb-4 md:mb-0">
             <Link href="/" className="flex items-center gap-3 mb-4">

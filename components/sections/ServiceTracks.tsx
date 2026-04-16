@@ -12,11 +12,15 @@ import {
   ArrowRight,
 } from 'lucide-react';
 import { useTranslation } from '@/lib/i18n';
+import { services } from '@/lib/services';
 
 const EASE_SMOOTH = [0.6, -0.05, 0.01, 0.99] as const;
 
 const marketingIcons = [Layout, Globe, TrendingUp];
 const developmentIcons = [Cog, Code2, MessageSquare];
+
+const marketingSlugs = services.filter((s) => s.track === 'marketing').map((s) => s.slug);
+const developmentSlugs = services.filter((s) => s.track === 'development').map((s) => s.slug);
 
 const containerVariants = {
   hidden: {},
@@ -40,21 +44,25 @@ function ServiceCard({
   icon: Icon,
   title,
   description,
+  slug,
 }: {
   icon: typeof Layout;
   title: string;
   description: string;
+  slug: string;
 }) {
   return (
-    <motion.div
-      variants={itemVariants}
-      className="group p-6 rounded-xl border border-white/[0.06] bg-white/[0.02] hover:border-accent/20 hover:bg-white/[0.04] transition-all duration-300"
-    >
-      <div className="w-10 h-10 rounded-lg bg-accent/10 border border-accent/20 flex items-center justify-center mb-4 group-hover:bg-accent/15 transition-colors">
-        <Icon className="w-5 h-5 text-accent" />
-      </div>
-      <h4 className="text-white font-medium text-base mb-2">{title}</h4>
-      <p className="text-white/40 text-sm font-light leading-relaxed">{description}</p>
+    <motion.div variants={itemVariants}>
+      <Link
+        href={`/services/${slug}`}
+        className="group block p-6 rounded-xl border border-white/[0.06] bg-white/[0.02] hover:border-accent/20 hover:bg-white/[0.04] transition-all duration-300"
+      >
+        <div className="w-10 h-10 rounded-lg bg-accent/10 border border-accent/20 flex items-center justify-center mb-4 group-hover:bg-accent/15 transition-colors">
+          <Icon className="w-5 h-5 text-accent" />
+        </div>
+        <h4 className="text-white font-medium text-base mb-2 group-hover:text-accent transition-colors">{title}</h4>
+        <p className="text-white/40 text-sm font-light leading-relaxed">{description}</p>
+      </Link>
     </motion.div>
   );
 }
@@ -97,7 +105,7 @@ export default function ServiceTracks() {
             </motion.h3>
             <div className="space-y-4">
               {t.serviceTracks.marketingServices.map((service, i) => (
-                <ServiceCard key={service.title} icon={marketingIcons[i]} {...service} />
+                <ServiceCard key={service.title} icon={marketingIcons[i]} slug={marketingSlugs[i]} {...service} />
               ))}
             </div>
           </motion.div>
@@ -113,7 +121,7 @@ export default function ServiceTracks() {
             </motion.h3>
             <div className="space-y-4">
               {t.serviceTracks.developmentServices.map((service, i) => (
-                <ServiceCard key={service.title} icon={developmentIcons[i]} {...service} />
+                <ServiceCard key={service.title} icon={developmentIcons[i]} slug={developmentSlugs[i]} {...service} />
               ))}
             </div>
           </motion.div>
