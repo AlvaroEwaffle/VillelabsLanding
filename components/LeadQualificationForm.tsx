@@ -36,7 +36,7 @@ async function sendLeadToFidelidapp(
     email,
     phone,
     accountId: FIDELIDAPP_ACCOUNT_ID,
-    tags: ['lead-qualification'],
+    tags: 'lead-qualification',
   });
 }
 

@@ -173,7 +173,7 @@ export default function ContactForm({
             email,
             phone,
             accountId: FIDELIDAPP_ACCOUNT_ID,
-            tags: [`service:${serviceType}`, `form:${formName}`],
+            tags: `${formName}:${serviceType}`,
           });
         }
       }

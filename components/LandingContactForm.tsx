@@ -105,7 +105,7 @@ export default function LandingContactForm({
           email,
           phone: telefono,
           accountId: FIDELIDAPP_ACCOUNT_ID,
-          tags: [`source:${source}`, 'channel:paid_landing'],
+          tags: `paid_landing:${source}`,
         });
       }
 

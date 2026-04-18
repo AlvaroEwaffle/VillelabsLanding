@@ -69,7 +69,7 @@ export async function registerClient(data: {
   email: string;
   phone?: string;
   accountId: string;
-  tags?: string[];
+  tags?: string;
   birthDate?: string;
 }): Promise<{ message: string }> {
   const url = `${FIDELIDAPP_API_URL}/api/landing/register`;
