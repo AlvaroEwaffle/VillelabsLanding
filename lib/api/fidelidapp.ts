@@ -29,7 +29,7 @@ export interface FidelidappError {
 }
 
 const FIDELIDAPP_API_URL =
-  process.env.NEXT_PUBLIC_FIDELIDAPP_API_URL ?? 'https://fidelidapp.cl';
+  process.env.NEXT_PUBLIC_FIDELIDAPP_API_URL ?? 'https://api.fidelidapp.cl';
 
 /**
  * Submit a contact form to Fidelidapp's /auth/contact endpoint.
