@@ -29,6 +29,7 @@ export default function Footer() {
         { label: t.footer.mocaLink, href: '/products/moca' },
         { label: t.footer.capuLink, href: '/products/capu' },
         { label: t.footer.lateLink, href: '/products/late' },
+        { label: t.footer.fidelidappLink, href: '/products/fidelidapp' },
       ],
     },
     {

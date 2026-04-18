@@ -21,7 +21,7 @@ export default function SEOHead() {
       height: 512,
     },
     description:
-      'We build digital systems that convert visitors into clients. Landing pages, strategic websites, and custom platforms for businesses ready to grow.',
+      'Construimos sistemas digitales que convierten visitantes en clientes: paginas de conversion, sitios web estrategicos y plataformas a medida para empresas listas para crecer.',
     founder: { '@type': 'Person', name: 'Alvaro Villena' },
     address: {
       '@type': 'PostalAddress',
@@ -33,7 +33,7 @@ export default function SEOHead() {
       '@type': 'ContactPoint',
       contactType: 'customer service',
       email: 'alvaro.villena@gmail.com',
-      availableLanguage: ['English', 'Spanish'],
+      availableLanguage: ['Spanish', 'English'],
     },
     sameAs: ['https://www.linkedin.com/in/alvarovillena'],
   };
@@ -42,11 +42,11 @@ export default function SEOHead() {
     '@context': 'https://schema.org',
     '@type': 'Service',
     '@id': `${SITE_URL}/#service-revenue-systems`,
-    name: 'Revenue Systems - Web Design & Development',
+    name: 'Sistemas de ingresos - Diseno web y desarrollo',
     description:
-      'Landing pages, strategic websites, custom platforms, and AI-powered tools designed to generate measurable revenue for your business.',
+      'Paginas de conversion, sitios web estrategicos, plataformas a medida y herramientas con IA disenadas para generar ingresos medibles.',
     provider: { '@id': `${SITE_URL}/#organization` },
-    serviceType: 'Web Design & Development',
+    serviceType: 'Diseno web y desarrollo',
     areaServed: { '@type': 'Place', name: 'Global' },
   };
 
@@ -54,10 +54,10 @@ export default function SEOHead() {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
     '@id': `${SITE_URL}/#website`,
-    name: 'Villelabs - Revenue Systems, Not Just Websites',
+    name: 'Villelabs - Sistemas de ingresos, no solo sitios web',
     url: SITE_URL,
     description:
-      'We build digital systems that convert visitors into clients.',
+      'Construimos sistemas digitales que convierten visitantes en clientes.',
     publisher: { '@id': `${SITE_URL}/#organization` },
     potentialAction: {
       '@type': 'ReadAction',
@@ -73,7 +73,7 @@ export default function SEOHead() {
     url: SITE_URL,
     logo: `${SITE_URL}/icono.png`,
     description:
-      'Web design agency specializing in revenue-generating digital systems. Landing pages, strategic websites, custom platforms, and AI-powered tools.',
+      'Agencia de diseno web especializada en sistemas digitales que generan ingresos: paginas de conversion, sitios web estrategicos, plataformas a medida y herramientas con IA.',
     address: {
       '@type': 'PostalAddress',
       addressLocality: 'Santiago',

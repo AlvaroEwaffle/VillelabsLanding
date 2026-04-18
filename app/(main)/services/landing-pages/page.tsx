@@ -6,8 +6,8 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://villelabs.cl';
 const service = getService('landing-pages')!;
 
 export const metadata: Metadata = {
-  title: 'Landing Pages de Conversión | Villelabs',
-  description: 'Páginas de alta conversión optimizadas para generar leads. Diseño responsive, copy estratégico, formularios optimizados y analytics. Desde $800 USD.',
+  title: 'Páginas de Conversión | Villelabs',
+  description: 'Páginas de alta conversión optimizadas para generar leads. Diseño responsive, redacción estratégica, formularios optimizados y medición. Desde $800 USD.',
   alternates: { canonical: `${siteUrl}/services/landing-pages` },
 };
 

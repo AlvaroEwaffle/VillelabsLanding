@@ -10,9 +10,15 @@
  */
 
 import { useState, FormEvent } from 'react';
+import { registerClient } from '@/lib/api/fidelidapp';
+import {
+  trackFormSubmit,
+  trackFormSuccess,
+  trackLeadGeneration,
+  trackWhatsAppClick,
+} from '@/lib/ga4';
 
 /* ─── Fidelidapp API ─── */
-const FIDELIDAPP_URL = process.env.NEXT_PUBLIC_FIDELIDAPP_URL ?? '';
 const FIDELIDAPP_ACCOUNT_ID = process.env.NEXT_PUBLIC_FIDELIDAPP_ACCOUNT_ID ?? '';
 
 async function sendLeadToFidelidapp(
@@ -20,25 +26,19 @@ async function sendLeadToFidelidapp(
   name: string,
   phone: string,
 ) {
-  if (!FIDELIDAPP_URL || !FIDELIDAPP_ACCOUNT_ID) return;
-  try {
-    await fetch(`${FIDELIDAPP_URL}/api/landing/register`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        name,
-        email,
-        phone,
-        accountId: FIDELIDAPP_ACCOUNT_ID,
-        tags: 'lead-qualification',
-      }),
-    });
-  } catch {
-    // Non-blocking
+  if (!FIDELIDAPP_ACCOUNT_ID) {
+    console.warn('Fidelidapp account ID missing, skipping lead registration');
+    return;
   }
-}
 
-const SCHEDULING_URL = 'https://capu.villelab.com/schedule/reunion-descubrimiento-con-alvaro/';
+  await registerClient({
+    name,
+    email,
+    phone,
+    accountId: FIDELIDAPP_ACCOUNT_ID,
+    tags: ['lead-qualification'],
+  });
+}
 
 interface LeadQualificationFormProps {
   serviceName: string;
@@ -70,8 +70,16 @@ export default function LeadQualificationForm({
     const phone = formData.get('phone') as string;
     const business = formData.get('business') as string;
 
-    // Send lead to Fidelidapp (non-blocking)
-    sendLeadToFidelidapp(email, name, phone);
+    trackFormSubmit('lead_qualification_form', serviceName);
+
+    try {
+      await sendLeadToFidelidapp(email, name, phone);
+    } catch (err) {
+      console.warn('Lead registration failed', err);
+    }
+
+    trackFormSuccess('lead_qualification_form');
+    trackLeadGeneration('lead_qualification_form', serviceName);
 
     // Pequeño delay para mostrar el estado de carga antes de redirigir
     await new Promise(resolve => setTimeout(resolve, 900));
@@ -90,6 +98,7 @@ export default function LeadQualificationForm({
     ];
 
     const whatsappUrl = buildWhatsAppUrl(phoneNumber, messageLines.join('\n'));
+    trackWhatsAppClick('lead_qualification_form');
     window.location.href = whatsappUrl;
   };
 

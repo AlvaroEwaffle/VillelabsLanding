@@ -6,6 +6,7 @@ import {
   useState,
   useEffect,
   useCallback,
+  useRef,
   type ReactNode,
 } from 'react';
 import { createElement } from 'react';
@@ -24,38 +25,43 @@ interface LanguageContextValue {
 }
 
 const LanguageContext = createContext<LanguageContextValue>({
-  language: 'en',
+  language: 'es',
   setLanguage: () => {},
-  t: en,
+  t: es,
 });
 
 function detectLanguage(): Language {
-  // 1. Check localStorage
   if (typeof window !== 'undefined') {
     try {
+      const urlLang = new URLSearchParams(window.location.search).get('lang');
+      if (urlLang === 'en' || urlLang === 'es') {
+        localStorage.setItem(STORAGE_KEY, urlLang);
+        return urlLang;
+      }
+
       const stored = localStorage.getItem(STORAGE_KEY);
       if (stored === 'en' || stored === 'es') return stored;
     } catch {
       // localStorage unavailable
     }
-
-    // 2. Check browser language
-    const browserLang = navigator.language?.toLowerCase() ?? '';
-    if (browserLang.startsWith('es')) return 'es';
   }
 
-  // 3. Default to English
-  return 'en';
+  return 'es';
 }
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [language, setLanguageState] = useState<Language>('en');
-  const [mounted, setMounted] = useState(false);
+  const [language, setLanguageState] = useState<Language>('es');
+  const didDetectLanguage = useRef(false);
 
   useEffect(() => {
-    setLanguageState(detectLanguage());
-    setMounted(true);
-  }, []);
+    if (didDetectLanguage.current) return;
+
+    didDetectLanguage.current = true;
+    const detectedLanguage = detectLanguage();
+    if (detectedLanguage !== language) {
+      window.setTimeout(() => setLanguageState(detectedLanguage), 0);
+    }
+  }, [language]);
 
   const setLanguage = useCallback((lang: Language) => {
     setLanguageState(lang);
@@ -67,12 +73,9 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     document.documentElement.lang = lang;
   }, []);
 
-  // Set initial lang attribute
   useEffect(() => {
-    if (mounted) {
-      document.documentElement.lang = language;
-    }
-  }, [language, mounted]);
+    document.documentElement.lang = language;
+  }, [language]);
 
   const value: LanguageContextValue = {
     language,

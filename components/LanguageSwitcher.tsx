@@ -23,7 +23,9 @@ export default function LanguageSwitcher() {
               ? 'bg-accent text-white'
               : 'text-white/50 hover:text-white/80'
           }`}
-          aria-label={`Switch to ${opt.label}`}
+          aria-label={
+            language === 'es' ? `Cambiar a ${opt.label}` : `Switch to ${opt.label}`
+          }
         >
           {opt.label}
         </button>

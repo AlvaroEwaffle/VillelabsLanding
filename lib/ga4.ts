@@ -64,6 +64,10 @@ export function trackWhatsAppClick(location: string) {
   pushEvent('whatsapp_click', { click_location: location });
 }
 
+export function trackBookingClick(location: string) {
+  pushEvent('booking_click', { click_location: location });
+}
+
 export function trackPhoneClick(location: string) {
   pushEvent('phone_click', { click_location: location });
 }

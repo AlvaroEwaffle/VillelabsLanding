@@ -4,13 +4,13 @@ import ServicesContent from './ServicesContent';
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://villelabs.cl';
 
 export const metadata: Metadata = {
-  title: 'Services | Web Design, Development & Digital Strategy',
+  title: 'Servicios | Diseño web, desarrollo y estrategia digital',
   description:
-    'Conversion landing pages, strategic websites, sales funnels, custom platforms, process automation, and AI chatbots. Two tracks, one goal: revenue.',
+    'Paginas de conversion, sitios web estrategicos, embudos de venta, plataformas a medida, automatizacion de procesos y chatbots con IA. Dos areas, un objetivo: ingresos.',
   alternates: { canonical: `${siteUrl}/services` },
   openGraph: {
-    title: 'Services | Villelabs',
-    description: 'Two service tracks designed to grow your business: Marketing and Development.',
+    title: 'Servicios | Villelabs',
+    description: 'Dos areas de servicio diseñadas para hacer crecer tu negocio: marketing y desarrollo.',
     url: `${siteUrl}/services`,
   },
 };

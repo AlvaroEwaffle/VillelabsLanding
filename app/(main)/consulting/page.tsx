@@ -4,13 +4,13 @@ import ConsultingContent from './ConsultingContent';
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://villelabs.cl';
 
 export const metadata: Metadata = {
-  title: 'Consulting | Agile & Product Leadership Powered by AI',
+  title: 'Consultoría | Liderazgo ágil y de producto con IA',
   description:
-    'Fractional Product Leadership, Scrum as a Service, and Innovation Cycles. Toptal Top 3% talent helping tech companies ship 50% faster.',
+    'Liderazgo de producto fraccional, Scrum como servicio y ciclos de innovación. Talento Toptal Top 3% ayudando a empresas tech a entregar más rápido.',
   alternates: { canonical: `${siteUrl}/consulting` },
   openGraph: {
-    title: 'Consulting | Villelabs',
-    description: 'Agile leadership and AI program management for enterprise teams.',
+    title: 'Consultoría | Villelabs',
+    description: 'Liderazgo ágil y gestión de programas de IA para equipos empresariales.',
     url: `${siteUrl}/consulting`,
   },
 };

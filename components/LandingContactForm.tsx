@@ -3,15 +3,26 @@
 /**
  * LandingContactForm — Lightweight contact form for Google Ads landing pages.
  *
- * No backend required. Captures data via:
- * 1. GTM dataLayer event (lead_form_submission) for conversion tracking
- * 2. WhatsApp redirect with pre-filled message for instant conversation
+ * Captures data via:
+ * 1. Fidelidapp landing registration for lead persistence
+ * 2. GTM dataLayer events for conversion tracking
+ * 3. WhatsApp redirect with pre-filled message for instant conversation
  */
 
 import { useState, useRef, type FormEvent } from 'react';
 import { Send, CheckCircle, MessageCircle } from 'lucide-react';
+import { registerClient } from '@/lib/api/fidelidapp';
+import {
+  trackFormError,
+  trackFormSubmit,
+  trackFormSuccess,
+  trackLeadGeneration,
+  trackWhatsAppClick,
+} from '@/lib/ga4';
 
 const WHATSAPP_NUMBER = '56920115198';
+const FIDELIDAPP_ACCOUNT_ID =
+  process.env.NEXT_PUBLIC_FIDELIDAPP_ACCOUNT_ID ?? '';
 
 interface LandingContactFormProps {
   /** Identifies which landing page this form lives on */
@@ -42,7 +53,7 @@ export default function LandingContactForm({
   const [error, setError] = useState<string | null>(null);
   const formRef = useRef<HTMLFormElement>(null);
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError(null);
     setIsSubmitting(true);
@@ -58,6 +69,7 @@ export default function LandingContactForm({
     if (!nombre || !email || !telefono) {
       setError('Por favor completa los campos obligatorios.');
       setIsSubmitting(false);
+      trackFormError(source, 'missing_required_fields');
       return;
     }
 
@@ -65,18 +77,9 @@ export default function LandingContactForm({
     if (!emailRegex.test(email)) {
       setError('Por favor ingresa un email valido.');
       setIsSubmitting(false);
+      trackFormError(source, 'invalid_email');
       return;
     }
-
-    // Push GTM dataLayer event
-    window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({
-      event: 'lead_form_submission',
-      form_source: source,
-      lead_email: email,
-    });
-
-    setIsSuccess(true);
 
     // Build WhatsApp message
     const lines = [
@@ -91,12 +94,50 @@ export default function LandingContactForm({
 
     const whatsappUrl = buildWhatsAppUrl(WHATSAPP_NUMBER, lines.join('\n'));
 
-    // Slight delay so user sees the success state before redirect
-    setTimeout(() => {
-      window.open(whatsappUrl, '_blank');
-    }, 800);
+    try {
+      trackFormSubmit(source, 'paid_landing');
 
-    setIsSubmitting(false);
+      if (!FIDELIDAPP_ACCOUNT_ID) {
+        console.warn('Fidelidapp account ID missing, skipping lead registration');
+      } else {
+        await registerClient({
+          name: nombre,
+          email,
+          phone: telefono,
+          accountId: FIDELIDAPP_ACCOUNT_ID,
+          tags: [`source:${source}`, 'channel:paid_landing'],
+        });
+      }
+
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        event: 'lead_form_submission',
+        event_category: 'conversion',
+        form_source: source,
+        lead_source: source,
+      });
+
+      trackFormSuccess(source);
+      trackLeadGeneration(source, 'paid_landing');
+      setIsSuccess(true);
+
+      if (formRef.current) {
+        formRef.current.reset();
+      }
+
+      // Slight delay so user sees the success state before redirect
+      setTimeout(() => {
+        trackWhatsAppClick(`${source}_form_success`);
+        window.open(whatsappUrl, '_blank');
+      }, 800);
+    } catch (err) {
+      const errorMessage =
+        err instanceof Error ? err.message : 'Error al registrar el lead.';
+      setError(errorMessage);
+      trackFormError(source, errorMessage);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   if (isSuccess) {

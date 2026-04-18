@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { MessageCircle, Calendar, MapPin, Clock, Mail } from 'lucide-react';
 import { useTranslation, getWhatsAppUrl } from '@/lib/i18n';
 import ContactForm from '@/components/ContactForm';
+import { trackCTAClick } from '@/lib/ga4';
 
 const EASE_SMOOTH = [0.6, -0.05, 0.01, 0.99] as const;
 const BOOKING_URL = 'https://capu.villelab.com/schedule/reunion-descubrimiento-con-alvaro/';
@@ -211,6 +212,7 @@ export default function ContactContent() {
           </p>
           <a
             href={VILO_DIAGNOSIS_URL}
+            onClick={() => trackCTAClick('contact_diagnostic', 'contact_page')}
             className="inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-6 py-3 text-sm font-medium text-white hover:bg-accent/20 transition-all duration-300"
           >
             {t.pages.contact.diagnosticLabel}

@@ -7,7 +7,7 @@ const service = getService('automatizacion')!;
 
 export const metadata: Metadata = {
   title: 'Automatización de Procesos | Villelabs',
-  description: 'Workflows e integraciones custom que eliminan trabajo manual. Auditoría de procesos, automatización y dashboard de monitoreo. Desde $2.000 USD.',
+  description: 'Flujos e integraciones a medida que eliminan trabajo manual. Auditoria de procesos, automatizacion y panel de monitoreo. Desde $2.000 USD.',
   alternates: { canonical: `${siteUrl}/services/automatizacion` },
 };
 

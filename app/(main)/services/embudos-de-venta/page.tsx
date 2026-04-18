@@ -7,7 +7,7 @@ const service = getService('embudos-de-venta')!;
 
 export const metadata: Metadata = {
   title: 'Embudos de Venta | Villelabs',
-  description: 'Funnels completos con email sequences, lead magnets y nurture automation. Cada punto de contacto diseñado para convertir. Desde $1.500 USD.',
+  description: 'Embudos completos con secuencias de email, recursos de captura y automatizacion de seguimiento. Cada punto de contacto esta diseñado para convertir. Desde $1.500 USD.',
   alternates: { canonical: `${siteUrl}/services/embudos-de-venta` },
 };
 

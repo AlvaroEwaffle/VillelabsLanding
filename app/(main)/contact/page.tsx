@@ -4,13 +4,13 @@ import ContactContent from './ContactContent';
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://villelabs.cl';
 
 export const metadata: Metadata = {
-  title: 'Contact | Start with a Diagnosis',
+  title: 'Contacto | Empieza con un diagnostico',
   description:
-    'Start with the diagnosis flow, then open a strategy call only if there is real fit. Based in Santiago, Chile, serving businesses globally.',
+    'Empieza con un diagnostico y agenda una llamada estrategica solo si existe un encaje real. Basados en Santiago, Chile, atendiendo empresas globalmente.',
   alternates: { canonical: `${siteUrl}/contact` },
   openGraph: {
-    title: 'Contact | Villelabs',
-    description: 'Start with the diagnosis flow, then open a strategy call only if there is fit.',
+    title: 'Contacto | Villelabs',
+    description: 'Empieza con un diagnostico y agenda una llamada estrategica solo si existe encaje.',
     url: `${siteUrl}/contact`,
   },
 };

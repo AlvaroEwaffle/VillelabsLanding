@@ -2,8 +2,9 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { ArrowRight, MessageSquare, Mail, BarChart3 } from 'lucide-react';
+import { ArrowRight, MessageSquare, Mail, BarChart3, Gift } from 'lucide-react';
 import { useTranslation } from '@/lib/i18n';
+import { products } from '@/lib/products';
 
 const EASE_SMOOTH = [0.6, -0.05, 0.01, 0.99] as const;
 
@@ -23,7 +24,12 @@ const containerVariants = {
   },
 };
 
-const productIcons = [MessageSquare, Mail, BarChart3];
+const productIcons: Record<string, typeof MessageSquare> = {
+  MessageSquare,
+  Mail,
+  BarChart3,
+  Gift,
+};
 
 export default function ProductsContent() {
   const { t } = useTranslation();
@@ -66,9 +72,10 @@ export default function ProductsContent() {
         viewport={{ once: true, amount: 0.1 }}
         variants={containerVariants}
       >
-        <div className="grid md:grid-cols-3 gap-8">
-          {t.pages.products.items.map((product, i) => {
-            const Icon = productIcons[i];
+        <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-8">
+          {t.pages.products.items.map((product) => {
+            const productConfig = products.find((item) => item.slug === product.slug);
+            const Icon = productConfig ? productIcons[productConfig.icon] ?? MessageSquare : MessageSquare;
             return (
               <motion.div key={product.slug} variants={itemVariants}>
                 <Link

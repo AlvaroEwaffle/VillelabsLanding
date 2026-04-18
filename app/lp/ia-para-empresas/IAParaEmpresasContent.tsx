@@ -14,7 +14,6 @@ import {
   ChevronDown,
   Bot,
   Zap,
-  ShieldCheck,
 } from 'lucide-react';
 import LandingContactForm from '@/components/LandingContactForm';
 
@@ -104,9 +103,9 @@ const faqs = [
       'Si. Nos integramos con las herramientas que ya usas: Instagram, WhatsApp, Gmail, CRMs, ERPs y mas.',
   },
   {
-    question: 'Que pasa si no me gusta?',
+    question: 'Que puedo esperar en 30 dias?',
     answer:
-      'Todos nuestros servicios incluyen un periodo de prueba. Si no ves resultados en 30 dias, no pagas.',
+      'En 30 dias debes tener un entregable funcionando o una version validable: agente configurado, flujo automatizado, demo operativa o diagnostico tecnico con plan de implementacion. No prometemos resultados comerciales magicos; prometemos avance concreto, usable y medible.',
   },
 ];
 
@@ -170,7 +169,7 @@ export default function IAParaEmpresasContent() {
             variants={itemVariants}
             className="text-lg md:text-xl text-white/50 font-light max-w-2xl mx-auto leading-relaxed mb-10"
           >
-            Automatiza ventas, atencion al cliente y operaciones con IA. Implementacion en 2 semanas, resultados desde el dia 1.
+            Automatiza ventas, atencion al cliente y operaciones con IA. Primer entregable en semanas, con avance concreto desde el inicio.
           </motion.p>
 
           <motion.div variants={itemVariants} className="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -236,7 +235,7 @@ export default function IAParaEmpresasContent() {
               Nuestros servicios
             </p>
             <h2 className="text-2xl md:text-3xl font-light">
-              Soluciones que funcionan <span className="text-accent">desde el dia 1</span>
+              Soluciones con entregables <span className="text-accent">desde el primer ciclo</span>
             </h2>
           </motion.div>
           <div className="grid md:grid-cols-3 gap-6">

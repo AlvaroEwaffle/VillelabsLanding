@@ -9,6 +9,7 @@ import {
   MessageSquare,
   Mail,
   BarChart3,
+  Gift,
 } from 'lucide-react';
 import type { Product } from '@/lib/products';
 import { useTranslation } from '@/lib/i18n';
@@ -35,6 +36,7 @@ const iconMap: Record<string, typeof MessageSquare> = {
   MessageSquare,
   Mail,
   BarChart3,
+  Gift,
 };
 
 interface ProductPageProps {

@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
+import ConversionClickTracker from "@/components/ConversionClickTracker";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -24,11 +25,11 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Villelabs | Revenue Systems, Not Just Websites",
+    default: "Villelabs | Sistemas de ingresos, no solo sitios web",
     template: "%s | Villelabs",
   },
   description:
-    "We build digital systems that convert visitors into clients. Landing pages, strategic websites, and custom platforms for businesses ready to grow.",
+    "Construimos sistemas digitales que convierten visitantes en clientes: paginas de conversion, sitios web estrategicos y plataformas a medida para empresas listas para crecer.",
   keywords: [
     "web design agency",
     "revenue systems",
@@ -73,24 +74,24 @@ export const metadata: Metadata = {
     locale: "es_CL",
     url: siteUrl,
     siteName: "Villelabs",
-    title: "Villelabs | Revenue Systems, Not Just Websites",
+    title: "Villelabs | Sistemas de ingresos, no solo sitios web",
     description:
-      "We build digital systems that convert visitors into clients. Landing pages, strategic websites, and custom platforms for businesses ready to grow.",
+      "Construimos sistemas digitales que convierten visitantes en clientes: paginas de conversion, sitios web estrategicos y plataformas a medida para empresas listas para crecer.",
     images: [
       {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Villelabs - Revenue Systems, Not Just Websites",
+        alt: "Villelabs - Sistemas de ingresos, no solo sitios web",
       },
       { url: "/icono.png", width: 512, height: 512, alt: "Villelabs" },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Villelabs | Revenue Systems, Not Just Websites",
+    title: "Villelabs | Sistemas de ingresos, no solo sitios web",
     description:
-      "We build digital systems that convert visitors into clients. Custom platforms, strategic websites, and landing pages.",
+      "Construimos sistemas digitales que convierten visitantes en clientes: plataformas a medida, sitios web estrategicos y paginas de conversion.",
     creator: "@alvarovillena",
     images: ["/og-image.jpg"],
   },
@@ -126,7 +127,7 @@ export default function RootLayout({
         {/* Language detection — runs before React hydration to minimize FOUC */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{var l=localStorage.getItem('villelabs_lang');if(l==='es'||l==='en'){document.documentElement.lang=l}else if(navigator.language&&navigator.language.toLowerCase().startsWith('en')){document.documentElement.lang='en'}}catch(e){}})();`,
+            __html: `(function(){try{var p=new URLSearchParams(window.location.search);var q=p.get('lang');if(q==='es'||q==='en'){localStorage.setItem('villelabs_lang',q);document.documentElement.lang=q;return}var l=localStorage.getItem('villelabs_lang');document.documentElement.lang=(l==='es'||l==='en')?l:'es'}catch(e){document.documentElement.lang='es'}})();`,
           }}
         />
         {/* Google Tag Manager */}
@@ -156,6 +157,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           />
         </noscript>
         {/* End Google Tag Manager (noscript) */}
+        <ConversionClickTracker />
         {children}
       </body>
     </html>

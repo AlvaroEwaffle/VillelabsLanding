@@ -29,7 +29,7 @@ export const caseStudyMeta: CaseStudyMeta[] = [
   },
   {
     slug: 'fidelidapp',
-    heroImage: 'https://fidelizarte.cl/og-image.png',
+    heroImage: 'https://res.cloudinary.com/di92lsbym/image/upload/q_auto/f_webp/v1733268677/FidelidApp/Assets/Cover3_sybmbq.jpg',
   },
   {
     slug: 'defensa-total',

@@ -4,14 +4,14 @@ import PortfolioContent from '../portfolio/PortfolioContent';
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://villelabs.cl';
 
 export const metadata: Metadata = {
-  title: 'Work | Villelabs',
+  title: 'Proyectos | Villelabs',
   description:
-    'Selected case studies and digital systems built by Villelabs for businesses that needed clearer execution and measurable results.',
+    'Casos de exito y sistemas digitales construidos por Villelabs para empresas que necesitaban ejecucion clara y resultados medibles.',
   alternates: { canonical: `${siteUrl}/work` },
   openGraph: {
-    title: 'Work | Villelabs',
+    title: 'Proyectos | Villelabs',
     description:
-      'Selected case studies and digital systems built by Villelabs for businesses that needed clearer execution and measurable results.',
+      'Casos de exito y sistemas digitales construidos por Villelabs para empresas que necesitaban ejecucion clara y resultados medibles.',
     url: `${siteUrl}/work`,
   },
 };

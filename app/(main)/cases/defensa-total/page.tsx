@@ -6,11 +6,11 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://villelabs.cl';
 const caseStudy = getCaseStudy('defensa-total')!;
 
 export const metadata: Metadata = {
-  title: `${caseStudy.client} — ${caseStudy.category} Case Study`,
-  description: `${caseStudy.title}. ${caseStudy.result}. See how we helped ${caseStudy.client} transform their business with a custom digital solution.`,
+  title: `${caseStudy.client} — Caso de Exito | Villelabs`,
+  description: `${caseStudy.title}. ${caseStudy.result}.`,
   alternates: { canonical: `${siteUrl}/cases/defensa-total` },
   openGraph: {
-    title: `${caseStudy.client} Case Study | Villelabs`,
+    title: `${caseStudy.client} | Villelabs`,
     description: `${caseStudy.title}. ${caseStudy.result}.`,
     url: `${siteUrl}/cases/defensa-total`,
     images: [{ url: caseStudy.heroImage, alt: caseStudy.client }],

@@ -72,6 +72,7 @@ export interface TranslationDictionary {
     mocaLink: string;
     capuLink: string;
     lateLink: string;
+    fidelidappLink: string;
     blogLink: string;
     diagnosticLink: string;
     caseStudiesLink: string;

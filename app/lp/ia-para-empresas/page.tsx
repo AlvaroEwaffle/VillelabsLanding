@@ -4,7 +4,7 @@ import IAParaEmpresasContent from './IAParaEmpresasContent';
 export const metadata: Metadata = {
   title: 'Agentes de IA para Empresas Chilenas | Villelabs',
   description:
-    'Automatiza ventas, atencion al cliente y operaciones con inteligencia artificial. Implementacion en 2 semanas, resultados desde el dia 1.',
+    'Automatiza ventas, atencion al cliente y operaciones con inteligencia artificial. Primer entregable en semanas, con avance concreto desde el inicio.',
   robots: { index: false, follow: false },
 };
 

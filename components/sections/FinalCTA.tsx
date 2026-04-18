@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { ArrowRight, MessageCircle, Clock } from 'lucide-react';
 import { useTranslation, getWhatsAppUrl } from '@/lib/i18n';
+import { trackCTAClick } from '@/lib/ga4';
 
 const EASE_SMOOTH = [0.6, -0.05, 0.01, 0.99] as const;
 
@@ -66,6 +67,7 @@ export default function FinalCTA() {
           >
             <Link
               href="/contact"
+              onClick={() => trackCTAClick('final_cta_contact', 'final_cta')}
               className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-accent text-white font-medium text-base hover:bg-accent/90 transition-all duration-300 shadow-accent-lg group"
             >
               {t.finalCTA.ctaPrimary}
