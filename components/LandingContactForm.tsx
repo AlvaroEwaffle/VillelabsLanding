@@ -12,6 +12,7 @@
 import { useState, useRef, type FormEvent } from 'react';
 import { Send, CheckCircle, MessageCircle } from 'lucide-react';
 import { registerClient } from '@/lib/api/fidelidapp';
+import { getAllClickIds } from '@/lib/gclid';
 import {
   trackFormError,
   trackFormSubmit,
@@ -81,6 +82,9 @@ export default function LandingContactForm({
       return;
     }
 
+    // Read Google Ads click ids so the sales rep can trace the conversion
+    const { gclid, gbraid, wbraid } = getAllClickIds();
+
     // Build WhatsApp message
     const lines = [
       `Hola, vengo de ${source}. Quiero saber mas sobre sus servicios.`,
@@ -91,11 +95,25 @@ export default function LandingContactForm({
     ];
     if (empresa) lines.push(`Empresa: ${empresa}`);
     if (proyecto) lines.push(``, `Proyecto: ${proyecto}`);
+    // Include an attribution code so the sales rep can record the click id when closing
+    const clickId = gclid ?? gbraid ?? wbraid;
+    if (clickId) {
+      lines.push(``, `Ref: ${clickId.slice(0, 12)}`);
+    }
 
     const whatsappUrl = buildWhatsAppUrl(WHATSAPP_NUMBER, lines.join('\n'));
 
     try {
       trackFormSubmit(source, 'paid_landing');
+
+      const attributionTags = [
+        `paid_landing:${source}`,
+        gclid ? `gclid:${gclid}` : null,
+        gbraid ? `gbraid:${gbraid}` : null,
+        wbraid ? `wbraid:${wbraid}` : null,
+      ]
+        .filter(Boolean)
+        .join(',');
 
       if (!FIDELIDAPP_ACCOUNT_ID) {
         console.warn('Fidelidapp account ID missing, skipping lead registration');
@@ -105,7 +123,7 @@ export default function LandingContactForm({
           email,
           phone: telefono,
           accountId: FIDELIDAPP_ACCOUNT_ID,
-          tags: `paid_landing:${source}`,
+          tags: attributionTags,
         });
       }
 
@@ -115,6 +133,9 @@ export default function LandingContactForm({
         event_category: 'conversion',
         form_source: source,
         lead_source: source,
+        gclid: gclid ?? undefined,
+        gbraid: gbraid ?? undefined,
+        wbraid: wbraid ?? undefined,
       });
 
       trackFormSuccess(source);

@@ -130,6 +130,12 @@ export default function RootLayout({
             __html: `(function(){try{var p=new URLSearchParams(window.location.search);var q=p.get('lang');if(q==='es'||q==='en'){localStorage.setItem('villelabs_lang',q);document.documentElement.lang=q;return}var l=localStorage.getItem('villelabs_lang');document.documentElement.lang=(l==='es'||l==='en')?l:'es'}catch(e){document.documentElement.lang='es'}})();`,
           }}
         />
+        {/* Capture Google Ads click id (gclid) for conversion attribution — 90 day window */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var p=new URLSearchParams(window.location.search);var g=p.get('gclid');var gb=p.get('gbraid');var wb=p.get('wbraid');if(g){localStorage.setItem('gclid',g);localStorage.setItem('gclid_ts',String(Date.now()));document.cookie='gclid='+g+'; max-age=7776000; path=/; SameSite=Lax'}if(gb){localStorage.setItem('gbraid',gb);document.cookie='gbraid='+gb+'; max-age=7776000; path=/; SameSite=Lax'}if(wb){localStorage.setItem('wbraid',wb);document.cookie='wbraid='+wb+'; max-age=7776000; path=/; SameSite=Lax'}}catch(e){}})();`,
+          }}
+        />
         {/* Google Tag Manager */}
         <Script
           id="gtm-script"
