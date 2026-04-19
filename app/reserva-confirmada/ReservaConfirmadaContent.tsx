@@ -10,12 +10,32 @@ import { trackLeadGeneration } from '@/lib/ga4';
 
 const WHATSAPP_NUMBER = '56920115198';
 
+function shouldFireBookingConversion(source: string, bookingId?: string): boolean {
+  if (typeof window === 'undefined') return false;
+
+  const key = bookingId
+    ? `villelabs:booking_confirmed:${bookingId}`
+    : `villelabs:booking_confirmed_session:${source}`;
+
+  try {
+    const storage = bookingId ? window.localStorage : window.sessionStorage;
+    if (storage.getItem(key)) return false;
+
+    storage.setItem(key, String(Date.now()));
+    return true;
+  } catch {
+    return true;
+  }
+}
+
 function ReservaConfirmadaInner() {
   const searchParams = useSearchParams();
   const source = searchParams.get('source') ?? 'booking';
   const bookingId = searchParams.get('booking_id') ?? undefined;
 
   useEffect(() => {
+    if (!shouldFireBookingConversion(source, bookingId)) return;
+
     // Fire Google Ads conversion (value from the plan: $80.000 CLP)
     fireAdsConversion({
       name: 'booking_confirmed',

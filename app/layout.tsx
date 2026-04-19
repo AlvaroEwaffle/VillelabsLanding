@@ -133,7 +133,7 @@ export default function RootLayout({
         {/* Capture Google Ads click id (gclid) for conversion attribution — 90 day window */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{var p=new URLSearchParams(window.location.search);var g=p.get('gclid');var gb=p.get('gbraid');var wb=p.get('wbraid');if(g){localStorage.setItem('gclid',g);localStorage.setItem('gclid_ts',String(Date.now()));document.cookie='gclid='+g+'; max-age=7776000; path=/; SameSite=Lax'}if(gb){localStorage.setItem('gbraid',gb);document.cookie='gbraid='+gb+'; max-age=7776000; path=/; SameSite=Lax'}if(wb){localStorage.setItem('wbraid',wb);document.cookie='wbraid='+wb+'; max-age=7776000; path=/; SameSite=Lax'}}catch(e){}})();`,
+            __html: `(function(){try{var p=new URLSearchParams(window.location.search);var maxAge=7776000;function s(k,v){if(!v)return;localStorage.setItem(k,v);localStorage.setItem(k+'_ts',String(Date.now()));document.cookie=k+'='+encodeURIComponent(v)+'; max-age='+maxAge+'; path=/; SameSite=Lax'}s('gclid',p.get('gclid'));s('gbraid',p.get('gbraid'));s('wbraid',p.get('wbraid'))}catch(e){}})();`,
           }}
         />
         {/* Google Tag Manager */}

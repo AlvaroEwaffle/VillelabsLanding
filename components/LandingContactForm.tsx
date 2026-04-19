@@ -25,6 +25,16 @@ const WHATSAPP_NUMBER = '56920115198';
 const FIDELIDAPP_ACCOUNT_ID =
   process.env.NEXT_PUBLIC_FIDELIDAPP_ACCOUNT_ID ?? '';
 
+function buildLeadId(source: string): string {
+  const normalizedSource = source.replace(/[^a-z0-9]+/gi, '-').toLowerCase();
+  const randomPart =
+    typeof crypto !== 'undefined' && 'randomUUID' in crypto
+      ? crypto.randomUUID().slice(0, 8)
+      : Math.random().toString(36).slice(2, 10);
+
+  return `vl-${normalizedSource}-${Date.now().toString(36)}-${randomPart}`;
+}
+
 interface LandingContactFormProps {
   /** Identifies which landing page this form lives on */
   source: string;
@@ -82,8 +92,9 @@ export default function LandingContactForm({
       return;
     }
 
-    // Read Google Ads click ids so the sales rep can trace the conversion
+    // Keep full Google Ads click ids in dataLayer only; sales sees the lead ref.
     const { gclid, gbraid, wbraid } = getAllClickIds();
+    const leadId = buildLeadId(source);
 
     // Build WhatsApp message
     const lines = [
@@ -95,25 +106,12 @@ export default function LandingContactForm({
     ];
     if (empresa) lines.push(`Empresa: ${empresa}`);
     if (proyecto) lines.push(``, `Proyecto: ${proyecto}`);
-    // Include an attribution code so the sales rep can record the click id when closing
-    const clickId = gclid ?? gbraid ?? wbraid;
-    if (clickId) {
-      lines.push(``, `Ref: ${clickId.slice(0, 12)}`);
-    }
+    lines.push(``, `Ref: ${leadId}`);
 
     const whatsappUrl = buildWhatsAppUrl(WHATSAPP_NUMBER, lines.join('\n'));
 
     try {
       trackFormSubmit(source, 'paid_landing');
-
-      const attributionTags = [
-        `paid_landing:${source}`,
-        gclid ? `gclid:${gclid}` : null,
-        gbraid ? `gbraid:${gbraid}` : null,
-        wbraid ? `wbraid:${wbraid}` : null,
-      ]
-        .filter(Boolean)
-        .join(',');
 
       if (!FIDELIDAPP_ACCOUNT_ID) {
         console.warn('Fidelidapp account ID missing, skipping lead registration');
@@ -123,7 +121,7 @@ export default function LandingContactForm({
           email,
           phone: telefono,
           accountId: FIDELIDAPP_ACCOUNT_ID,
-          tags: attributionTags,
+          tags: `paid_landing:${source}`,
         });
       }
 
@@ -133,6 +131,8 @@ export default function LandingContactForm({
         event_category: 'conversion',
         form_source: source,
         lead_source: source,
+        lead_id: leadId,
+        has_click_id: Boolean(gclid || gbraid || wbraid),
         gclid: gclid ?? undefined,
         gbraid: gbraid ?? undefined,
         wbraid: wbraid ?? undefined,
