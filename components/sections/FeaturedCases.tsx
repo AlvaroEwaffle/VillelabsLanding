@@ -50,6 +50,16 @@ export default function FeaturedCases() {
           </h2>
         </motion.div>
 
+        {/* Premium Mockup Visual */}
+        <motion.div variants={itemVariants} className="mb-20 relative aspect-video w-full max-w-5xl mx-auto rounded-2xl overflow-hidden border border-white/10 shadow-[0_0_80px_rgba(33,117,161,0.15)] ring-1 ring-white/5">
+          <img 
+            src="/assets/generated/landing_premium_mockup.png" 
+            alt="Diseño web premium y conversiones" 
+            className="w-full h-full object-cover" 
+            loading="lazy"
+          />
+        </motion.div>
+
         {/* Cards */}
         <motion.div
           variants={containerVariants}

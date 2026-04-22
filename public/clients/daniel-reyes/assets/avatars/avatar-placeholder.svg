@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <!-- Generic professional avatar placeholder
+       For team section until real photos arrive
+       Style: Clean, minimal silhouette on teal/slate circle -->
+
+  <!-- Background circle -->
+  <circle cx="60" cy="60" r="60" fill="#f1f5f9"/>
+  <circle cx="60" cy="60" r="58" stroke="#e2e8f0" stroke-width="1" fill="none"/>
+
+  <!-- Head -->
+  <circle cx="60" cy="44" r="18" fill="#cbd5e1"/>
+
+  <!-- Shoulders / body -->
+  <path d="M28 105 C28 82 42 72 60 72 C78 72 92 82 92 105" fill="#cbd5e1"/>
+
+  <!-- Subtle inner circle for depth -->
+  <circle cx="60" cy="60" r="56" stroke="#94a3b8" stroke-width="0.5" fill="none" opacity="0.2"/>
+</svg>

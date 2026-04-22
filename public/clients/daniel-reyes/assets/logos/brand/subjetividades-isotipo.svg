@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <!-- SUBJETIVIDADES - Isotipo (icon only)
+       Concept: Overlapping profile silhouettes forming an "S" shape
+       Represents: subjective perspectives, clinical psychology, human connection
+       Palette: Teal-600 (#0d9488) primary, Slate-800 (#243044) accent -->
+
+  <!-- Background circle -->
+  <circle cx="32" cy="32" r="30" fill="#0d9488"/>
+
+  <!-- Abstract "S" formed by two overlapping head profiles -->
+  <!-- Upper profile facing right -->
+  <path d="M22 14 C22 14 28 12 32 14 C38 17 40 22 38 28 C37 31 34 33 30 33 C26 33 24 31 22 28"
+        stroke="#ffffff" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+
+  <!-- Lower profile facing left (mirrored) -->
+  <path d="M42 50 C42 50 36 52 32 50 C26 47 24 42 26 36 C27 33 30 31 34 31 C38 31 40 33 42 36"
+        stroke="#ffffff" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+
+  <!-- Connecting flow between profiles -->
+  <path d="M30 33 C28 34 28 36 30 37 M34 31 C36 30 36 28 34 27"
+        stroke="#ffffff" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.7"/>
+
+  <!-- Inner dot (focal point / mind) -->
+  <circle cx="32" cy="32" r="3" fill="#ffffff" opacity="0.9"/>
+
+  <!-- Subtle orbit rings -->
+  <circle cx="32" cy="32" r="10" stroke="#ffffff" stroke-width="0.75" fill="none" opacity="0.25"/>
+  <circle cx="32" cy="32" r="18" stroke="#ffffff" stroke-width="0.5" fill="none" opacity="0.15"/>
+</svg>

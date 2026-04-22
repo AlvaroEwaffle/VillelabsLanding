@@ -124,6 +124,17 @@ export default function ServiceTracks() {
                 <ServiceCard key={service.title} icon={developmentIcons[i]} slug={developmentSlugs[i]} {...service} />
               ))}
             </div>
+
+            {/* Automation Platform Visual */}
+            <motion.div variants={itemVariants} className="mt-8 relative aspect-[16/10] w-full rounded-xl overflow-hidden border border-white/10 shadow-[0_0_60px_rgba(33,117,161,0.1)] ring-1 ring-white/5 grayscale-[0.2] hover:grayscale-0 transition-all duration-500">
+              <img 
+                src="/assets/generated/sistema_automatizado.png" 
+                alt="Arquitectura de sistema automatizado" 
+                className="w-full h-full object-cover" 
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent pointer-events-none" />
+            </motion.div>
           </motion.div>
         </div>
 

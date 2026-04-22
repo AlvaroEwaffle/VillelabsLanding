@@ -1,0 +1,42 @@
+# VilleLab — Revenue Systems for Growing Companies
+
+> Digital product studio specializing in revenue-generating web systems for tech startups and SMEs in Chile and LATAM. We build conversion infrastructure, not just websites.
+
+VilleLab is a digital consulting studio led by Álvaro Villena (Top 3% Toptal PM). We design and build web systems that directly drive revenue — from high-converting landing pages to full growth platforms with integrated analytics and automation.
+
+**Site:** https://villelab.com
+**WhatsApp:** +56 9 2011 5198
+**Location:** Santiago, Chile (remote-first, serves LATAM + US)
+
+## Services
+
+- [Conversion Landing Pages](/#servicios): Single-purpose pages engineered to convert. From $780 USD. Delivered in 2-3 weeks.
+- [Revenue Website Systems](/#servicios): Full website + funnel + CRM integration. From $3,500 USD. For companies that need their site to sell.
+- [Growth Platforms](/#servicios): End-to-end digital infrastructure — product, marketing, analytics. From $5,000 USD.
+- [Growth Retainers](/#servicios): Monthly engagement for continuous iteration and optimization. From $800/month.
+- [Agile Consulting](/#servicios): Fractional PM and product leadership for scaling teams.
+
+## Process
+
+1. Strategic diagnostic (free, 45 min)
+2. Proposal + fixed scope in 48 hours
+3. Build in 2-4 week cycles
+4. Launch + measure + iterate
+
+## Case Studies
+
+- **Ewaffle** — E-learning platform (B2B SaaS)
+- **Fidelidapp** — Loyalty SaaS for restaurants and retail
+- **Puchacay** — Tourism booking system
+
+## For Whom
+
+- Tech startups that need a web presence that converts, not just looks good
+- SMEs scaling past their first revenue milestone
+- Founders who want a senior PM + dev partner, not a vendor
+
+## Optional
+
+- [Diagnostic Quiz](/#diagnostico): 7-question self-assessment to identify your growth bottleneck.
+- [Blog](/#blog): Articles on product strategy, conversion optimization, and AI tools for business.
+- [Sitemap](/sitemap.xml): Full site map.

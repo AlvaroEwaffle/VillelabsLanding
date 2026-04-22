@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 56" fill="none">
+  <rect width="140" height="56" rx="10" fill="#f8fafc"/>
+  <rect x="0.5" y="0.5" width="139" height="55" rx="9.5" stroke="#e2e8f0"/>
+  <!-- Consalud: heart + pulse line -->
+  <g transform="translate(22, 12)">
+    <path d="M16 28 C16 28 2 20 2 12 C2 6 8 2 14 6 L16 8 L18 6 C24 2 30 6 30 12 C30 20 16 28 16 28Z" fill="#E53935" opacity="0.75"/>
+    <polyline points="0 18 8 18 12 10 16 24 20 14 24 18 32 18" stroke="#ffffff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <text x="92" y="32" font-family="DM Sans, sans-serif" font-size="12" font-weight="600" fill="#334155" text-anchor="middle">Consalud</text>
+</svg>

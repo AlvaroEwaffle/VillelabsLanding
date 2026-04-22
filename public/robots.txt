@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+
+# Block internal paths
+Disallow: /_next/
+
+# Sitemap
+Sitemap: https://villelab.com/sitemap.xml
+
+# LLM / AI guidance
+# Structured overview for AI: https://villelab.com/llms.txt

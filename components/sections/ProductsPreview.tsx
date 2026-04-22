@@ -53,6 +53,16 @@ export default function ProductsPreview() {
           </h2>
         </motion.div>
 
+        <motion.div variants={itemVariants} className="mb-20 relative aspect-video w-full max-w-4xl mx-auto rounded-2xl overflow-hidden border border-white/10 shadow-[0_0_80px_rgba(33,117,161,0.15)] ring-1 ring-white/5">
+          <img 
+            src="/assets/generated/dashboard_conversion.png" 
+            alt="Plataforma de conversión y analítica" 
+            className="w-full h-full object-cover" 
+            loading="lazy"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent pointer-events-none" />
+        </motion.div>
+
         {/* Cards */}
         <motion.div variants={containerVariants} className="grid md:grid-cols-2 xl:grid-cols-4 gap-6">
           {t.pages.products.items.map((product) => {

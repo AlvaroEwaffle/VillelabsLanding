@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 56" fill="none">
+  <rect width="140" height="56" rx="10" fill="#f8fafc"/>
+  <rect x="0.5" y="0.5" width="139" height="55" rx="9.5" stroke="#e2e8f0"/>
+  <!-- Cruz Blanca: white cross on blue circle -->
+  <g transform="translate(18, 8)">
+    <circle cx="18" cy="20" r="18" fill="#0D47A1" opacity="0.8"/>
+    <rect x="14" y="8" width="8" height="24" rx="2" fill="#ffffff"/>
+    <rect x="6" y="16" width="24" height="8" rx="2" fill="#ffffff"/>
+  </g>
+  <text x="96" y="32" font-family="DM Sans, sans-serif" font-size="11" font-weight="600" fill="#334155" text-anchor="middle">Cruz Blanca</text>
+</svg>
