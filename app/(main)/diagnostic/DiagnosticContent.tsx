@@ -26,6 +26,7 @@ import {
   Phone,
 } from 'lucide-react';
 import { useTranslation } from '@/lib/i18n';
+import { DISCOVERY_CALL_URL } from '@/lib/scheduling';
 
 /* ------------------------------------------------------------------ */
 /*  Types                                                              */
@@ -540,7 +541,7 @@ export default function DiagnosticContent() {
                   className="flex flex-col sm:flex-row gap-3 mb-10"
                 >
                   <a
-                    href="https://capu.villelab.com/schedule/reunion-descubrimiento-con-alvaro/"
+                    href={DISCOVERY_CALL_URL}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex-1 inline-flex items-center justify-center gap-2 px-6 py-4 rounded-full bg-accent text-white font-medium text-base hover:bg-accent/90 transition-all duration-300 shadow-accent-lg"

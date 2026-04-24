@@ -4,11 +4,12 @@ import { useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { MessageCircle, Calendar, MapPin, Clock, Mail } from 'lucide-react';
 import { useTranslation, getWhatsAppUrl } from '@/lib/i18n';
+import { DISCOVERY_CALL_URL } from '@/lib/scheduling';
 import ContactForm from '@/components/ContactForm';
 import { trackCTAClick } from '@/lib/ga4';
 
 const EASE_SMOOTH = [0.6, -0.05, 0.01, 0.99] as const;
-const BOOKING_URL = 'https://capu.villelab.com/schedule/reunion-descubrimiento-con-alvaro/';
+const BOOKING_URL = DISCOVERY_CALL_URL;
 const VILO_DIAGNOSIS_URL = '/diagnostic';
 
 const itemVariants = {

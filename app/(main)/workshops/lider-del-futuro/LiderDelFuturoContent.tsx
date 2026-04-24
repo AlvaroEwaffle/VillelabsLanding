@@ -16,9 +16,9 @@ import {
   Users,
   Workflow,
 } from 'lucide-react';
+import { DISCOVERY_CALL_URL } from '@/lib/scheduling';
 
-const DISCOVERY_URL =
-  'https://capu.villelab.com/schedule/reunion-descubrimiento-con-alvaro/';
+const DISCOVERY_URL = DISCOVERY_CALL_URL;
 const WHATSAPP_URL =
   'https://wa.me/56920115198?text=Hola%20Alvaro%2C%20vi%20Lider%20del%20Futuro%20en%20villelabs.cl%20y%20quiero%20saber%20si%20calza%20conmigo.';
 
