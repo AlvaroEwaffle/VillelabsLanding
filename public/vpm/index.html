@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Virtual Program Manager con IA | VilleLabs — Piloto disponible</title>
+  <meta name="description" content="Tu Virtual Program Manager con inteligencia artificial: monitorea operación, pipeline y finanzas — activo desde el día 1. Sesión de implementación de 2 horas. Cupos de piloto limitados." />
+  <meta name="keywords" content="virtual program manager, VPM, inteligencia artificial, agentes IA, Chile, gestión proyectos IA, automatización operaciones, dashboard ejecutivo, VilleLabs" />
+  <meta name="author" content="Álvaro Villena — VilleLabs" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://villelabs.cl/vpm" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://villelabs.cl/vpm" />
+  <meta property="og:title" content="Virtual Program Manager con IA | VilleLabs" />
+  <meta property="og:description" content="Un PM senior con IA que monitorea tu operación, pipeline y finanzas — y te trae cada mañana lo que importa. Activo desde el día 1." />
+  <meta property="og:image" content="https://villelabs.cl/assets/vpm-og.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:locale" content="es_CL" />
+  <meta property="og:site_name" content="VilleLabs" />
+
+  <!-- Twitter / X -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@villelabs" />
+  <meta name="twitter:title" content="Virtual Program Manager con IA | VilleLabs" />
+  <meta name="twitter:description" content="Tu PM senior con IA activo desde el día 1. Monitoreo continuo, brief diario, pipeline y finanzas. Piloto disponible." />
+  <meta name="twitter:image" content="https://villelabs.cl/assets/vpm-og.png" />
+
+  <!-- Schema.org -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Virtual Program Manager con IA",
+    "provider": {
+      "@type": "Organization",
+      "name": "VilleLabs",
+      "url": "https://villelabs.cl",
+      "logo": "https://villelabs.cl/icono.png"
+    },
+    "description": "Servicio de Virtual Program Manager impulsado por inteligencia artificial. Monitoreo continuo de operación, pipeline comercial y finanzas. Brief ejecutivo diario. Implementación en 2 horas.",
+    "areaServed": "CL",
+    "serviceType": "Virtual Program Management",
+    "offers": {
+      "@type": "Offer",
+      "price": "400",
+      "priceCurrency": "USD",
+      "description": "Operación mensual post kick-off"
+    },
+    "url": "https://villelabs.cl/vpm"
+  }
+  </script>
+  <style>
+    :root {
+      --black: #0a0a0a;
+      --dark: #111318;
+      --card: #16191f;
+      --border: #252932;
+      --accent: #4f8ef7;
+      --accent2: #7c5cf7;
+      --green: #22c55e;
+      --text: #e8eaf0;
+      --muted: #7a8094;
+      --white: #ffffff;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--black);
+      color: var(--text);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ANNOUNCEMENT BANNER */
+    .announcement-bar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 101;
+      background: linear-gradient(90deg, #3a6fd8 0%, #5b3fd4 50%, #3a6fd8 100%);
+      background-size: 200% 100%;
+      animation: bannerShimmer 4s linear infinite;
+      text-align: center; padding: 0.45rem 1rem;
+      font-size: 0.78rem; font-weight: 600; letter-spacing: 0.02em;
+      color: #fff;
+    }
+    .announcement-bar a { color: #fff; text-decoration: underline; text-underline-offset: 2px; }
+    .announcement-bar a:hover { opacity: 0.85; }
+    .announcement-bar .bar-pill {
+      display: inline-block; background: rgba(255,255,255,0.2);
+      border-radius: 999px; padding: 0.1rem 0.55rem; margin-right: 0.5rem;
+      font-size: 0.72rem; letter-spacing: 0.04em;
+    }
+    @keyframes bannerShimmer {
+      0% { background-position: 0% 0%; }
+      100% { background-position: 200% 0%; }
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 30px; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 2rem;
+      background: rgba(10,10,10,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo { font-weight: 700; font-size: 1.1rem; letter-spacing: -0.02em; }
+    .nav-logo span { color: var(--accent); }
+    .nav-cta {
+      background: var(--accent); color: #fff; border: none;
+      padding: 0.5rem 1.25rem; border-radius: 8px; font-size: 0.85rem;
+      font-weight: 600; cursor: pointer; text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    .nav-cta:hover { opacity: 0.85; }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; padding: 7.5rem 2rem 4rem;
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(79,142,247,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: rgba(79,142,247,0.1); border: 1px solid rgba(79,142,247,0.3);
+      color: var(--accent); border-radius: 100px; padding: 0.35rem 1rem;
+      font-size: 0.8rem; font-weight: 600; letter-spacing: 0.05em;
+      text-transform: uppercase; margin-bottom: 1.5rem;
+    }
+    .hero-badge::before { content: '●'; font-size: 0.5rem; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+    h1 {
+      font-size: clamp(2.4rem, 6vw, 4.5rem);
+      font-weight: 800; letter-spacing: -0.04em; line-height: 1.05;
+      max-width: 820px; margin-bottom: 1.5rem;
+    }
+    h1 .gradient {
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .hero-sub {
+      color: var(--muted); font-size: 1.15rem; max-width: 560px;
+      margin: 0 auto 2.5rem; line-height: 1.7;
+    }
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+    .btn-primary {
+      background: var(--accent); color: #fff; padding: 0.85rem 2rem;
+      border-radius: 10px; font-weight: 700; font-size: 1rem;
+      text-decoration: none; transition: all 0.2s;
+      box-shadow: 0 4px 24px rgba(79,142,247,0.3);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(79,142,247,0.4); }
+    .btn-ghost {
+      border: 1px solid var(--border); color: var(--text); padding: 0.85rem 2rem;
+      border-radius: 10px; font-weight: 600; font-size: 1rem;
+      text-decoration: none; transition: all 0.2s;
+    }
+    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+    .hero-proof {
+      margin-top: 4rem; display: flex; gap: 3rem; flex-wrap: wrap; justify-content: center;
+    }
+    .proof-item { text-align: center; }
+    .proof-number { font-size: 2rem; font-weight: 800; letter-spacing: -0.04em; }
+    .proof-label { font-size: 0.8rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
+
+    /* SECTIONS */
+    section { padding: 5rem 2rem; }
+    .container { max-width: 1100px; margin: 0 auto; }
+    .section-label {
+      text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.75rem;
+      font-weight: 600; color: var(--accent); margin-bottom: 0.75rem;
+    }
+    h2 {
+      font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 800;
+      letter-spacing: -0.03em; line-height: 1.15; margin-bottom: 1rem;
+    }
+    .section-sub { color: var(--muted); font-size: 1.05rem; max-width: 560px; line-height: 1.7; }
+
+    /* PROBLEM */
+    .problem { background: var(--dark); }
+    .problems-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem; margin-top: 3rem;
+    }
+    .problem-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 14px; padding: 1.75rem;
+    }
+    .problem-icon { font-size: 1.5rem; margin-bottom: 1rem; }
+    .problem-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .problem-card p { color: var(--muted); font-size: 0.9rem; line-height: 1.6; }
+
+    /* HOW IT WORKS */
+    .steps { display: flex; flex-direction: column; gap: 0; margin-top: 3.5rem; position: relative; }
+    .steps::before {
+      content: ''; position: absolute; left: 2.25rem; top: 0; bottom: 0;
+      width: 2px; background: linear-gradient(to bottom, var(--accent), var(--accent2), transparent);
+    }
+    .step {
+      display: flex; gap: 2rem; align-items: flex-start;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 14px; padding: 2rem; margin-bottom: 1.25rem;
+      position: relative;
+    }
+    .step-num {
+      min-width: 2.5rem; height: 2.5rem;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 0.9rem; position: relative; z-index: 1;
+      box-shadow: 0 0 0 4px var(--card), 0 0 0 5px var(--border);
+    }
+    .step-content h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.4rem; }
+    .step-content p { color: var(--muted); font-size: 0.9rem; line-height: 1.6; }
+    .step-tag {
+      display: inline-block; background: rgba(79,142,247,0.1);
+      color: var(--accent); border-radius: 6px; padding: 0.2rem 0.6rem;
+      font-size: 0.75rem; font-weight: 600; margin-top: 0.6rem;
+    }
+
+    /* AGENTS */
+    .agents-section { background: var(--dark); }
+    .agents-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.25rem; margin-top: 3rem;
+    }
+    .agent-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 14px; padding: 1.75rem; position: relative; overflow: hidden;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .agent-card:hover { transform: translateY(-3px); border-color: var(--accent); }
+    .agent-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    }
+    .agent-card.finance::before { background: linear-gradient(90deg, #22c55e, #16a34a); }
+    .agent-card.ops::before { background: linear-gradient(90deg, #4f8ef7, #2563eb); }
+    .agent-card.growth::before { background: linear-gradient(90deg, #f59e0b, #d97706); }
+    .agent-card.innovation::before { background: linear-gradient(90deg, #a855f7, #7c3aed); }
+    .agent-emoji { font-size: 1.75rem; margin-bottom: 0.75rem; }
+    .agent-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .agent-card p { color: var(--muted); font-size: 0.85rem; line-height: 1.6; }
+    .agent-tasks { margin-top: 1rem; display: flex; flex-direction: column; gap: 0.35rem; }
+    .agent-task {
+      font-size: 0.8rem; color: var(--muted); padding-left: 1rem; position: relative;
+    }
+    .agent-task::before { content: '→'; position: absolute; left: 0; color: var(--accent); }
+
+    /* WHAT YOU GET */
+    .features-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem; margin-top: 3rem;
+    }
+    .feature-item {
+      display: flex; gap: 1.25rem; align-items: flex-start;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 14px; padding: 1.5rem;
+    }
+    .feature-icon {
+      min-width: 2.5rem; height: 2.5rem; background: rgba(79,142,247,0.1);
+      border-radius: 10px; display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+    }
+    .feature-item h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.3rem; }
+    .feature-item p { color: var(--muted); font-size: 0.85rem; line-height: 1.6; }
+
+    /* PRICING */
+    .pricing-section { background: var(--dark); }
+    .pricing-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem; margin-top: 3rem; align-items: start;
+    }
+    .price-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 16px; padding: 2rem; position: relative; overflow: hidden;
+    }
+    .price-card.featured {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px var(--accent), 0 8px 40px rgba(79,142,247,0.15);
+    }
+    .featured-badge {
+      position: absolute; top: 1.25rem; right: 1.25rem;
+      background: var(--accent); color: #fff; font-size: 0.7rem;
+      font-weight: 700; padding: 0.25rem 0.65rem; border-radius: 100px;
+      text-transform: uppercase; letter-spacing: 0.05em;
+    }
+    .price-label { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 0.5rem; }
+    .price-card h3 { font-size: 1.25rem; font-weight: 800; margin-bottom: 0.25rem; }
+    .price-amount {
+      font-size: 2.5rem; font-weight: 800; letter-spacing: -0.04em; margin: 1rem 0 0.25rem;
+    }
+    .price-amount span { font-size: 1rem; color: var(--muted); font-weight: 400; }
+    .price-desc { color: var(--muted); font-size: 0.9rem; margin-bottom: 1.5rem; }
+    .price-features { list-style: none; display: flex; flex-direction: column; gap: 0.65rem; }
+    .price-features li { font-size: 0.875rem; display: flex; gap: 0.6rem; align-items: flex-start; }
+    .price-features li::before { content: '✓'; color: var(--green); font-weight: 700; min-width: 1rem; }
+    .price-divider { height: 1px; background: var(--border); margin: 1.5rem 0; }
+
+    /* PILOT */
+    .pilot-section {
+      background: linear-gradient(135deg, rgba(79,142,247,0.08) 0%, rgba(124,92,247,0.08) 100%);
+      border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+    }
+    .pilot-inner {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+    }
+    .pilot-timeline { display: flex; flex-direction: column; gap: 1rem; margin-top: 2rem; }
+    .timeline-item {
+      display: flex; gap: 1rem; align-items: flex-start;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1.25rem;
+    }
+    .timeline-dot {
+      min-width: 2rem; height: 2rem; background: var(--accent);
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-size: 0.75rem; font-weight: 800;
+    }
+    .timeline-item h4 { font-size: 0.9rem; font-weight: 700; margin-bottom: 0.2rem; }
+    .timeline-item p { font-size: 0.82rem; color: var(--muted); }
+    @media (max-width: 768px) { .pilot-inner { grid-template-columns: 1fr; gap: 2rem; } }
+
+    /* CTA */
+    .cta-section { text-align: center; padding: 6rem 2rem; }
+    .cta-box {
+      max-width: 680px; margin: 0 auto;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 20px; padding: 3.5rem 3rem;
+      position: relative; overflow: hidden;
+    }
+    .cta-box::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0;
+      height: 4px; background: linear-gradient(90deg, var(--accent), var(--accent2));
+    }
+    .cta-box h2 { font-size: 2rem; margin-bottom: 0.75rem; }
+    .cta-box p { color: var(--muted); margin-bottom: 2rem; }
+
+    /* METRICS */
+    .metrics-section { background: var(--black); }
+    .metrics-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1px; background: var(--border); border: 1px solid var(--border);
+      border-radius: 16px; overflow: hidden; margin-top: 3rem;
+    }
+    .metric-item {
+      background: var(--card); padding: 2rem 1.5rem; text-align: center;
+    }
+    .metric-number {
+      font-size: 2.8rem; font-weight: 800; letter-spacing: -0.05em; line-height: 1;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .metric-label { font-size: 0.8rem; color: var(--muted); margin-top: 0.5rem; line-height: 1.4; }
+    .metric-sub { font-size: 0.72rem; color: var(--accent); margin-top: 0.25rem; font-weight: 600; }
+    .metrics-note {
+      text-align: center; color: var(--muted); font-size: 0.8rem; margin-top: 1rem;
+    }
+
+    /* SESSION */
+    .session-section { background: var(--dark); }
+    .session-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 3rem;
+      margin-top: 3rem; align-items: start;
+    }
+    @media (max-width: 768px) { .session-grid { grid-template-columns: 1fr; gap: 2rem; } }
+    .session-agenda { display: flex; flex-direction: column; gap: 0.75rem; }
+    .agenda-block {
+      display: flex; gap: 1rem;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1.25rem; align-items: flex-start;
+    }
+    .agenda-time {
+      min-width: 3.5rem; background: rgba(79,142,247,0.1);
+      border: 1px solid rgba(79,142,247,0.2); color: var(--accent);
+      border-radius: 8px; padding: 0.3rem 0.5rem; font-size: 0.72rem;
+      font-weight: 700; text-align: center; line-height: 1.3;
+    }
+    .agenda-block h4 { font-size: 0.9rem; font-weight: 700; margin-bottom: 0.25rem; }
+    .agenda-block p { font-size: 0.82rem; color: var(--muted); line-height: 1.5; }
+    .session-outcomes h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 1.25rem; }
+    .outcome-item {
+      display: flex; gap: 0.75rem; align-items: flex-start;
+      padding: 0.75rem 0; border-bottom: 1px solid var(--border);
+    }
+    .outcome-item:last-child { border-bottom: none; }
+    .outcome-check { color: var(--green); font-size: 1rem; min-width: 1.2rem; font-weight: 700; }
+    .outcome-item p { font-size: 0.875rem; line-height: 1.5; }
+    .outcome-item strong { color: var(--text); }
+    .prep-box {
+      background: rgba(79,142,247,0.05); border: 1px solid rgba(79,142,247,0.2);
+      border-radius: 12px; padding: 1.25rem; margin-top: 1.5rem;
+    }
+    .prep-box h4 { font-size: 0.85rem; font-weight: 700; color: var(--accent); margin-bottom: 0.75rem; }
+    .prep-box ul { list-style: none; }
+    .prep-box li { font-size: 0.82rem; color: var(--muted); padding: 0.25rem 0; padding-left: 1rem; position: relative; }
+    .prep-box li::before { content: '→'; position: absolute; left: 0; color: var(--accent); }
+
+    /* STRUCTURE */
+    .structure-section { background: var(--black); }
+    .structure-intro { color: var(--muted); font-size: 0.95rem; max-width: 640px; margin-top: 1rem; line-height: 1.7; }
+    .arch-diagram {
+      margin-top: 3rem; background: var(--card); border: 1px solid var(--border);
+      border-radius: 16px; padding: 2.5rem; overflow: hidden;
+    }
+    .arch-top {
+      text-align: center; margin-bottom: 2rem;
+    }
+    .arch-chief {
+      display: inline-block; background: linear-gradient(135deg, rgba(124,92,247,0.15), rgba(79,142,247,0.15));
+      border: 1px solid rgba(124,92,247,0.4); border-radius: 12px; padding: 1.25rem 2.5rem;
+      position: relative;
+    }
+    .arch-chief::after {
+      content: ''; position: absolute; left: 50%; bottom: -1.5rem;
+      transform: translateX(-50%); width: 2px; height: 1.5rem;
+      background: var(--border);
+    }
+    .arch-chief-label { font-size: 0.7rem; color: var(--accent2); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 700; }
+    .arch-chief-name { font-size: 1.1rem; font-weight: 800; margin-top: 0.2rem; }
+    .arch-chief-sub { font-size: 0.78rem; color: var(--muted); margin-top: 0.2rem; }
+    .arch-row-label {
+      font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em;
+      color: var(--muted); font-weight: 600; text-align: center; margin-bottom: 1rem;
+    }
+    .arch-roles {
+      display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.75rem;
+      margin-bottom: 2rem;
+    }
+    @media (max-width: 768px) { .arch-roles { grid-template-columns: repeat(2, 1fr); } }
+    .arch-role-card {
+      background: var(--dark); border: 1px solid var(--border);
+      border-radius: 10px; padding: 1rem; text-align: center;
+      position: relative;
+    }
+    .arch-role-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      border-radius: 10px 10px 0 0;
+    }
+    .arch-role-card.r-mkt::before { background: #f59e0b; }
+    .arch-role-card.r-prop::before { background: var(--accent); }
+    .arch-role-card.r-impl::before { background: #22c55e; }
+    .arch-role-card.r-cs::before { background: #f43f5e; }
+    .arch-role-card.r-fin::before { background: #a855f7; }
+    .arch-role-icon { font-size: 1.25rem; margin-bottom: 0.4rem; }
+    .arch-role-name { font-size: 0.78rem; font-weight: 700; }
+    .arch-role-sub { font-size: 0.68rem; color: var(--muted); margin-top: 0.15rem; }
+    .arch-connector {
+      display: flex; align-items: center; justify-content: center;
+      color: var(--muted); font-size: 0.75rem; margin: 0.75rem 0;
+      gap: 1rem;
+    }
+    .arch-connector::before, .arch-connector::after {
+      content: ''; flex: 1; height: 1px; background: var(--border);
+    }
+    .arch-bu-row {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.75rem;
+    }
+    @media (max-width: 768px) { .arch-bu-row { grid-template-columns: repeat(2, 1fr); } }
+    .arch-bu-card {
+      background: var(--dark); border: 1px solid var(--border);
+      border-radius: 10px; padding: 1rem; text-align: center;
+    }
+    .arch-bu-name { font-size: 0.85rem; font-weight: 700; }
+    .arch-bu-agents { font-size: 0.7rem; color: var(--muted); margin-top: 0.25rem; line-height: 1.5; }
+    .arch-bu-rag {
+      display: inline-block; border-radius: 100px; padding: 0.15rem 0.6rem;
+      font-size: 0.65rem; font-weight: 700; margin-top: 0.5rem;
+    }
+    .rag-green { background: rgba(34,197,94,0.15); color: #22c55e; }
+    .rag-yellow { background: rgba(245,158,11,0.15); color: #f59e0b; }
+    .rag-red { background: rgba(239,68,68,0.15); color: #ef4444; }
+    .matrix-note {
+      text-align: center; font-size: 0.78rem; color: var(--muted);
+      margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border);
+    }
+    .deliverables-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1rem; margin-top: 2rem;
+    }
+    .deliverable-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1.25rem;
+    }
+    .deliverable-card h4 { font-size: 0.9rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .deliverable-card ul { list-style: none; }
+    .deliverable-card li {
+      font-size: 0.78rem; color: var(--muted); padding: 0.2rem 0;
+      padding-left: 1rem; position: relative;
+    }
+    .deliverable-card li::before { content: '·'; position: absolute; left: 0; color: var(--accent); }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border); padding: 2rem;
+      text-align: center; color: var(--muted); font-size: 0.85rem;
+    }
+    footer strong { color: var(--text); }
+  </style>
+</head>
+<body>
+
+<!-- ANNOUNCEMENT BANNER -->
+<div class="announcement-bar">
+  <span class="bar-pill">NUEVO</span>
+  ✦ Virtual Program Manager con IA — Piloto disponible para primeros clientes.
+  <a href="#cta">Reservar cupo →</a>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Ville<span>Labs</span> · VPM</div>
+  <a href="#cta" class="nav-cta">Agendar sesión piloto</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">Piloto · Cupos Limitados</div>
+  <h1>Tu <span class="gradient">Virtual Program Manager</span> con IA, activo desde el día 1</h1>
+  <p class="hero-sub">
+    Un PM senior con IA que monitorea tu operación, pipeline y finanzas — y te trae cada mañana lo que importa, sin que tengas que pedirlo.
+  </p>
+  <div class="hero-actions">
+    <a href="#piloto" class="btn-primary">Ver cómo funciona el piloto →</a>
+    <a href="#agentes" class="btn-ghost">¿Qué hace exactamente?</a>
+  </div>
+  <div class="hero-proof">
+    <div class="proof-item">
+      <div class="proof-number" style="color: var(--accent)">2h</div>
+      <div class="proof-label">Sesión de implementación</div>
+    </div>
+    <div class="proof-item">
+      <div class="proof-number" style="color: var(--accent2)">4</div>
+      <div class="proof-label">Agentes especializados</div>
+    </div>
+    <div class="proof-item">
+      <div class="proof-number" style="color: var(--green)">24/7</div>
+      <div class="proof-label">Monitoreo continuo</div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="problem">
+  <div class="container">
+    <div class="section-label">El problema</div>
+    <h2>Tu operación genera datos todo el día.<br>Nadie los está leyendo.</h2>
+    <p class="section-sub">
+      Los ejecutivos y líderes de programa pierden horas consolidando información que ya existe — solo que en diez lugares distintos.
+    </p>
+    <div class="problems-grid">
+      <div class="problem-card">
+        <div class="problem-icon">📥</div>
+        <h3>Emails sin leer acumulados</h3>
+        <p>Leads, clientes y proveedores escriben. La respuesta llega tarde o no llega. El pipeline se enfría.</p>
+      </div>
+      <div class="problem-card">
+        <div class="problem-icon">📊</div>
+        <h3>Métricas que nadie revisa</h3>
+        <p>Los dashboards existen pero requieren que alguien los abra. Nadie lo hace hasta que hay una crisis.</p>
+      </div>
+      <div class="problem-card">
+        <div class="problem-icon">🔄</div>
+        <h3>El PM que más sabe, el más ocupado</h3>
+        <p>El líder termina siendo el cuello de botella: aprobaciones, actualizaciones, seguimientos — todo pasa por él.</p>
+      </div>
+      <div class="problem-card">
+        <div class="problem-icon">📅</div>
+        <h3>Reuniones de status innecesarias</h3>
+        <p>Tiempo que se gasta reportando lo que un agente podría consolidar solo, con más precisión y sin el sesgo.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section>
+  <div class="container">
+    <div class="section-label">Cómo funciona</div>
+    <h2>De datos dispersos a<br>decisiones claras en 2 horas</h2>
+    <p class="section-sub">El proceso de implementación está diseñado para que en una sola sesión tu VPM ya esté operando.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <h3>Sesión de implementación (2 horas)</h3>
+          <p>Mapeamos tu operación: qué datos existen, qué decisiones se toman cada semana, qué se te escapa. Conectamos las fuentes de datos relevantes (email, pipeline, Sheets, redes sociales). Al final de la sesión, tu VPM ya está generando su primer brief.</p>
+          <span class="step-tag">👤 Presencial o videollamada</span>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <h3>Configuración de agentes especializados</h3>
+          <p>Activamos los 4 agentes según tu contexto: Finanzas, Operación, Growth e Innovación. Cada uno tiene acceso a sus fuentes de datos y sabe qué alerta escalar y qué resolver solo.</p>
+          <span class="step-tag">🤖 IA + supervisión humana</span>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <h3>Brief diario automático</h3>
+          <p>Cada mañana recibes un resumen ejecutivo con semáforos por área: qué está rojo, qué avanzó, qué necesita tu decisión hoy. No más abrir 10 tabs.</p>
+          <span class="step-tag">📲 Slack / WhatsApp / Email</span>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <h3>Soporte continuo y mejora mensual</h3>
+          <p>El VPM aprende con tu operación. Cada mes revisamos los agentes, ajustamos umbrales, añadimos nuevas fuentes de datos y medimos el impacto. Tú decides cuánta autonomía darle al sistema.</p>
+          <span class="step-tag">📈 Mejora incremental</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AGENTS -->
+<section class="agents-section" id="agentes">
+  <div class="container">
+    <div class="section-label">Los 4 agentes</div>
+    <h2>Cada área de tu operación<br>tiene un experto dedicado</h2>
+    <p class="section-sub">No es un chatbot genérico. Cada agente está entrenado en su dominio y tiene contexto de tu negocio.</p>
+    <div class="agents-grid">
+      <div class="agent-card finance">
+        <div class="agent-emoji">💰</div>
+        <h3>Agente Finanzas</h3>
+        <p>Monitorea ingresos, gastos, cobros pendientes y alertas de flujo de caja.</p>
+        <div class="agent-tasks">
+          <div class="agent-task">Alertas de pagos vencidos</div>
+          <div class="agent-task">MRR y proyección mensual</div>
+          <div class="agent-task">Discrepancias contables</div>
+          <div class="agent-task">Estado de facturas</div>
+        </div>
+      </div>
+      <div class="agent-card ops">
+        <div class="agent-emoji">⚙️</div>
+        <h3>Agente Operación</h3>
+        <p>Supervisa la entrega de proyectos, tickets de soporte y SLAs con clientes.</p>
+        <div class="agent-tasks">
+          <div class="agent-task">Entregas en riesgo</div>
+          <div class="agent-task">Capacidad del equipo</div>
+          <div class="agent-task">Incidentes de producción</div>
+          <div class="agent-task">Estado de implementaciones</div>
+        </div>
+      </div>
+      <div class="agent-card growth">
+        <div class="agent-emoji">📈</div>
+        <h3>Agente Growth</h3>
+        <p>Lee tu pipeline, emails de prospectos y señales de redes sociales para que no pierdas oportunidades.</p>
+        <div class="agent-tasks">
+          <div class="agent-task">Leads sin responder</div>
+          <div class="agent-task">Propuestas enviadas vs. cerradas</div>
+          <div class="agent-task">Follow-ups vencidos</div>
+          <div class="agent-task">Señales de redes sociales</div>
+        </div>
+      </div>
+      <div class="agent-card innovation">
+        <div class="agent-emoji">🚀</div>
+        <h3>Agente Innovación</h3>
+        <p>Detecta oportunidades de fondos, licitaciones y nuevas líneas de negocio alineadas con tu estrategia.</p>
+        <div class="agent-tasks">
+          <div class="agent-task">Fondos CORFO / sectoriales</div>
+          <div class="agent-task">Licitaciones públicas relevantes</div>
+          <div class="agent-task">Ideas con tracción en mercado</div>
+          <div class="agent-task">Benchmarking competitivo</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT YOU GET -->
+<section>
+  <div class="container">
+    <div class="section-label">Lo que recibes</div>
+    <h2>No un dashboard más.<br>Un PM que actúa.</h2>
+    <p class="section-sub">La diferencia clave: el VPM no solo muestra datos — propone acciones y las ejecuta con tu aprobación.</p>
+    <div class="features-grid">
+      <div class="feature-item">
+        <div class="feature-icon">🌅</div>
+        <div>
+          <h3>Brief ejecutivo diario</h3>
+          <p>Semáforos por área, top 3 decisiones del día, alertas abiertas — todo en un mensaje de 2 minutos antes de tu primera reunión.</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">🔔</div>
+        <div>
+          <h3>Alertas en tiempo real</h3>
+          <p>Si un cliente no recibió respuesta en 48h, si un pago venció o si hay una entrega en riesgo, te llega una notificación antes de que sea un problema.</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">📝</div>
+        <div>
+          <h3>Borradores listos para aprobar</h3>
+          <p>Emails de seguimiento, propuestas de agenda, reportes de estado — el VPM los prepara, tú decides si enviar con un clic.</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">🧠</div>
+        <div>
+          <h3>Memoria institucional</h3>
+          <p>El VPM recuerda el contexto de cada cliente, proyecto y decisión. Sin depender de que alguien más tenga la historia en la cabeza.</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">🔗</div>
+        <div>
+          <h3>Integración con tus herramientas</h3>
+          <p>Gmail, Outlook, Google Sheets, Slack, Instagram, plataformas propias — el VPM lee donde viven tus datos, sin forzarte a cambiar de stack.</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">👤</div>
+        <div>
+          <h3>Supervisión humana incluida</h3>
+          <p>Detrás del sistema hay un PM senior (Álvaro Villena, Top 3% Toptal) que revisa la configuración y garantiza que los agentes estén calibrados a tu operación.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PILOT JOURNEY -->
+<section class="pilot-section" id="piloto">
+  <div class="container">
+    <div class="pilot-inner">
+      <div>
+        <div class="section-label">El piloto</div>
+        <h2>Activo en 2 horas.<br>Valor visible en la primera semana.</h2>
+        <p class="section-sub" style="margin-top:1rem">
+          El piloto está diseñado para que veas resultados concretos antes de comprometerte a largo plazo. Sin integraciones complejas ni meses de configuración.
+        </p>
+        <div style="margin-top:2rem">
+          <div style="display:flex;gap:0.75rem;align-items:center;margin-bottom:0.75rem">
+            <span style="color:var(--green);font-size:1.2rem">✓</span>
+            <span>Implementación en una sola sesión de trabajo</span>
+          </div>
+          <div style="display:flex;gap:0.75rem;align-items:center;margin-bottom:0.75rem">
+            <span style="color:var(--green);font-size:1.2rem">✓</span>
+            <span>Primer brief el día siguiente a la sesión</span>
+          </div>
+          <div style="display:flex;gap:0.75rem;align-items:center;margin-bottom:0.75rem">
+            <span style="color:var(--green);font-size:1.2rem">✓</span>
+            <span>Revisión de ajuste al final del primer mes</span>
+          </div>
+          <div style="display:flex;gap:0.75rem;align-items:center">
+            <span style="color:var(--green);font-size:1.2rem">✓</span>
+            <span>Sin contrato de largo plazo para empezar</span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="pilot-timeline">
+          <div class="timeline-item">
+            <div class="timeline-dot">D1</div>
+            <div>
+              <h4>Sesión de implementación (2h)</h4>
+              <p>Mapeo de operación, conexión de fuentes, activación de agentes. Al final de la sesión, el VPM ya tiene contexto de tu negocio.</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot">D2</div>
+            <div>
+              <h4>Primer brief ejecutivo</h4>
+              <p>Recibes tu primer resumen diario con el estado de cada área. Revisamos juntos si las alertas tienen sentido.</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot" style="background:var(--accent2)">S2</div>
+            <div>
+              <h4>Primera semana de operación</h4>
+              <p>El VPM monitorea en tiempo real, propone borradores y detecta las primeras señales de valor (leads perdidos, pagos vencidos, entregas en riesgo).</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot" style="background:var(--green)">M1</div>
+            <div>
+              <h4>Revisión de calibración</h4>
+              <p>Revisamos los agentes con datos reales. Ajustamos umbrales, añadimos fuentes, medimos el impacto. Decides si continuar y con qué alcance.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing-section">
+  <div class="container">
+    <div class="section-label">Inversión</div>
+    <h2>Precio de un junior PM.<br>Capacidad de un equipo senior.</h2>
+    <p class="section-sub">Un PM senior en Chile cuesta entre $2.5M–$4M CLP/mes. El VPM entrega el nivel de visibilidad de un equipo completo a una fracción del costo.</p>
+    <div class="pricing-grid">
+      <div class="price-card">
+        <div class="price-label">Implementación</div>
+        <h3>Kick-off VPM</h3>
+        <div class="price-amount">USD 2.000 <span>único</span></div>
+        <div class="price-desc">Sesión de implementación + configuración de agentes + primer mes incluido.</div>
+        <ul class="price-features">
+          <li>Sesión de implementación 2h</li>
+          <li>Mapeo y conexión de fuentes de datos</li>
+          <li>Configuración de 4 agentes especializados</li>
+          <li>Brief diario durante 30 días</li>
+          <li>Revisión de calibración al mes 1</li>
+          <li>Soporte directo con Álvaro</li>
+        </ul>
+      </div>
+      <div class="price-card featured">
+        <div class="featured-badge">Recomendado</div>
+        <div class="price-label">Operación continua</div>
+        <h3>VPM Mensual</h3>
+        <div class="price-amount">USD 400 <span>/mes</span></div>
+        <div class="price-desc">Después del kick-off, operación y mejora continua del sistema.</div>
+        <ul class="price-features">
+          <li>Brief diario automatizado</li>
+          <li>Alertas en tiempo real (Slack / Email)</li>
+          <li>Borradores de seguimiento y propuestas</li>
+          <li>Memoria institucional activa</li>
+          <li>Revisión mensual de agentes</li>
+          <li>Incorporación de nuevas fuentes de datos</li>
+          <li>Soporte PM senior incluido</li>
+        </ul>
+        <div class="price-divider"></div>
+        <p style="font-size:0.82rem;color:var(--muted)">
+          💡 <strong style="color:var(--text)">ROI típico:</strong> Si el VPM evita una sola oportunidad perdida o un pago vencido al mes, el servicio se paga solo.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- METRICS -->
+<section class="metrics-section">
+  <div class="container">
+    <div class="section-label">Métricas reales del sistema</div>
+    <h2>No es un prototipo.<br>Está operando hoy.</h2>
+    <p class="section-sub">Estos son los números del VPM que corre en producción para el portfolio de VilleLabs — el mismo sistema que implementamos para ti.</p>
+    <div class="metrics-grid">
+      <div class="metric-item">
+        <div class="metric-number">21</div>
+        <div class="metric-label">Propuestas comerciales gestionadas</div>
+        <div class="metric-sub">en 3 unidades de negocio</div>
+      </div>
+      <div class="metric-item">
+        <div class="metric-number">7</div>
+        <div class="metric-label">Agentes especializados activos</div>
+        <div class="metric-sub">4 verticales + 3 cross-BU</div>
+      </div>
+      <div class="metric-item">
+        <div class="metric-number">4</div>
+        <div class="metric-label">Unidades de negocio monitoreadas</div>
+        <div class="metric-sub">Ewaffle, Fidelidapp, Villelabs, Affogato</div>
+      </div>
+      <div class="metric-item">
+        <div class="metric-number">20</div>
+        <div class="metric-label">Celdas en la matriz de salud</div>
+        <div class="metric-sub">4 BUs × 5 roles (BU × role health matrix)</div>
+      </div>
+      <div class="metric-item">
+        <div class="metric-number">8+</div>
+        <div class="metric-label">Proyectos activos en seguimiento</div>
+        <div class="metric-sub">con alertas y milestones</div>
+      </div>
+      <div class="metric-item">
+        <div class="metric-number">∞</div>
+        <div class="metric-label">Emails procesados por Capu</div>
+        <div class="metric-sub">inbox conectado + clasificación diaria</div>
+      </div>
+    </div>
+    <p class="metrics-note">Sistema en producción desde abril 2026 · Brief diario activo · State files actualizados 29/05/2026</p>
+  </div>
+</section>
+
+<!-- SESSION AGENDA -->
+<section class="session-section">
+  <div class="container">
+    <div class="section-label">La sesión de implementación</div>
+    <h2>Dos horas para dejar<br>tu VPM operando.</h2>
+    <p class="section-sub">Cada bloque tiene un output concreto. Al final de la sesión, tu VPM ya tiene contexto de tu negocio y está generando su primer brief.</p>
+    <div class="session-grid">
+      <div>
+        <div class="session-agenda">
+          <div class="agenda-block">
+            <div class="agenda-time">0–30<br>min</div>
+            <div>
+              <h4>Mapeo de tu operación</h4>
+              <p>¿Qué datos tienes? ¿Qué decisiones tomas cada semana? ¿Qué se te escapa? Identificamos los 3 dominios críticos que el VPM debe cubrir desde el día 1 (pipeline, operación, finanzas, u otros).</p>
+            </div>
+          </div>
+          <div class="agenda-block">
+            <div class="agenda-time">30–60<br>min</div>
+            <div>
+              <h4>Conexión de fuentes de datos</h4>
+              <p>Conectamos las fuentes donde viven tus datos: Gmail/Outlook, Google Sheets/Drive, CRM o pipeline, Instagram o WhatsApp. Sin migrar nada — el VPM lee donde ya están.</p>
+            </div>
+          </div>
+          <div class="agenda-block">
+            <div class="agenda-time">60–90<br>min</div>
+            <div>
+              <h4>Configuración de agentes y alertas</h4>
+              <p>Activamos los agentes relevantes para tu contexto. Definimos umbrales de alerta (ej: propuesta sin respuesta &gt;5 días = alerta amarilla), canales de entrega (Slack, email) y nivel de autonomía inicial.</p>
+            </div>
+          </div>
+          <div class="agenda-block">
+            <div class="agenda-time">90–120<br>min</div>
+            <div>
+              <h4>Primer brief en vivo</h4>
+              <p>Generamos tu primer brief ejecutivo en tiempo real. Lo revisamos juntos: ¿las alertas tienen sentido? ¿el tono es el correcto? ¿falta algún área? Calibramos en vivo antes de cerrar la sesión.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="session-outcomes">
+          <h3>Al salir de la sesión tienes:</h3>
+          <div class="outcome-item">
+            <span class="outcome-check">✓</span>
+            <p><strong>Mapa de tu operación documentado</strong> — qué cubre cada agente, qué fuentes están conectadas, qué queda fuera del primer alcance.</p>
+          </div>
+          <div class="outcome-item">
+            <span class="outcome-check">✓</span>
+            <p><strong>Agentes activos y calibrados</strong> — configurados con tu contexto real, no con datos de demo.</p>
+          </div>
+          <div class="outcome-item">
+            <span class="outcome-check">✓</span>
+            <p><strong>Primer brief validado</strong> — el formato, las alertas y el nivel de detalle ya fueron revisados contigo.</p>
+          </div>
+          <div class="outcome-item">
+            <span class="outcome-check">✓</span>
+            <p><strong>Protocolo de aprobación definido</strong> — qué hace el VPM solo, qué te escala, y por qué canal.</p>
+          </div>
+          <div class="outcome-item">
+            <span class="outcome-check">✓</span>
+            <p><strong>Agenda de revisión del mes 1</strong> — fecha y criterios para la calibración del primer mes.</p>
+          </div>
+        </div>
+        <div class="prep-box">
+          <h4>¿Qué necesitas preparar?</h4>
+          <ul>
+            <li>Acceso a tu email (Gmail u Outlook) — solo lectura</li>
+            <li>Link a tu pipeline o listado de clientes/proyectos (Sheets, Notion, o lo que uses)</li>
+            <li>30 minutos previos para pensar en las 3 decisiones que más te cuestan cada semana</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STRUCTURE -->
+<section class="structure-section" id="estructura">
+  <div class="container">
+    <div class="section-label">Estructura del sistema</div>
+    <h2>La arquitectura que corre<br>debajo del capó.</h2>
+    <p class="structure-intro">El VPM no es un agente único. Es una jerarquía de agentes especializados que opera en dos dimensiones: <strong>vertical por unidad de negocio</strong> (qué pasa en tu empresa) y <strong>horizontal por función</strong> (cómo se compara entre empresas del portfolio). En el tope está <strong>Brofi</strong>, el Chief of Staff que da coherencia a todo.</p>
+
+    <div class="arch-diagram">
+      <!-- Chief of Staff -->
+      <div class="arch-top">
+        <div class="arch-chief">
+          <div class="arch-chief-label">Chief of Staff · Meta-orquestador</div>
+          <div class="arch-chief-name">🧠 Brofi</div>
+          <div class="arch-chief-sub">Matriz 4×5 BU × rol · misión: "Turn the matrix all green"</div>
+        </div>
+      </div>
+
+      <!-- Cross-BU Role Agents -->
+      <div class="arch-row-label" style="margin-top: 2.5rem">Agentes de Rol Cross-BU (horizontal)</div>
+      <div class="arch-roles">
+        <div class="arch-role-card r-mkt">
+          <div class="arch-role-icon">📣</div>
+          <div class="arch-role-name">Marketing</div>
+          <div class="arch-role-sub">Ads, contenido, nurturing</div>
+        </div>
+        <div class="arch-role-card r-prop">
+          <div class="arch-role-icon">📋</div>
+          <div class="arch-role-name">Proposals</div>
+          <div class="arch-role-sub">Velocity, SLA, plantillas</div>
+        </div>
+        <div class="arch-role-card r-impl">
+          <div class="arch-role-icon">⚙️</div>
+          <div class="arch-role-name">Impl & Ops</div>
+          <div class="arch-role-sub">Proyectos, entrega, equipo</div>
+        </div>
+        <div class="arch-role-card r-cs">
+          <div class="arch-role-icon">🤝</div>
+          <div class="arch-role-name">Customer Success</div>
+          <div class="arch-role-sub">Retención, churn, NPS</div>
+        </div>
+        <div class="arch-role-card r-fin">
+          <div class="arch-role-icon">💰</div>
+          <div class="arch-role-name">Finance & Admin</div>
+          <div class="arch-role-sub">MRR, AR, flujo de caja</div>
+        </div>
+      </div>
+
+      <div class="arch-connector">Conectados a las BUs</div>
+
+      <!-- BUs -->
+      <div class="arch-row-label">Unidades de Negocio monitoreadas</div>
+      <div class="arch-bu-row">
+        <div class="arch-bu-card">
+          <div class="arch-bu-name">Ewaffle</div>
+          <div class="arch-bu-agents">Growth · Ops · Finanzas · Innovación</div>
+          <div class="arch-bu-rag rag-yellow">🟡 En seguimiento</div>
+        </div>
+        <div class="arch-bu-card">
+          <div class="arch-bu-name">Fidelidapp</div>
+          <div class="arch-bu-agents">Ops · Pipeline · Finanzas · CS</div>
+          <div class="arch-bu-rag rag-yellow">🟡 En seguimiento</div>
+        </div>
+        <div class="arch-bu-card">
+          <div class="arch-bu-name">Villelabs</div>
+          <div class="arch-bu-agents">Growth · Ops · Innovación</div>
+          <div class="arch-bu-rag rag-red">🔴 Alertas activas</div>
+        </div>
+        <div class="arch-bu-card">
+          <div class="arch-bu-name">Affogato</div>
+          <div class="arch-bu-agents">Ops · Workstreams</div>
+          <div class="arch-bu-rag rag-yellow">🟡 En seguimiento</div>
+        </div>
+      </div>
+
+      <div class="matrix-note">
+        Además: <strong>Innovation Portfolio VPM</strong> — aplica Shape Up (pitch/appetite/circuit-breaker) a las apuestas de innovación cross-BU · Estado de la matriz: 0/20 celdas verdes — objetivo: "all green"
+      </div>
+    </div>
+
+    <!-- Deliverables del sistema -->
+    <h3 style="margin-top: 3rem; font-size: 1.3rem; font-weight: 700;">Lo que genera el sistema semanalmente</h3>
+    <div class="deliverables-grid">
+      <div class="deliverable-card">
+        <h4>🌅 Brief ejecutivo diario</h4>
+        <ul>
+          <li>Semáforo por área (🔴🟡🟢)</li>
+          <li>Top 3 decisiones del día</li>
+          <li>Alertas abiertas con dueño</li>
+          <li>Entregado por Slack o email</li>
+        </ul>
+      </div>
+      <div class="deliverable-card">
+        <h4>📊 Tarjeta semanal Brofi</h4>
+        <ul>
+          <li>Estado de la matriz 4×5</li>
+          <li>Propuestas de estandarización convergentes (≥2 roles)</li>
+          <li>Carga concentrada en Álvaro/CEO</li>
+          <li>Top 3 decisiones cross-rol</li>
+        </ul>
+      </div>
+      <div class="deliverable-card">
+        <h4>📋 Pipeline snapshot</h4>
+        <ul>
+          <li>Estado de propuestas activas</li>
+          <li>SLA breach rate por BU</li>
+          <li>Follow-ups vencidos con draft listo</li>
+          <li>Velocidad armada → enviada → cerrada</li>
+        </ul>
+      </div>
+      <div class="deliverable-card">
+        <h4>🚀 Innovation pitches</h4>
+        <ul>
+          <li>Bets activos con appetite y circuit breaker</li>
+          <li>Fondos/licitaciones con deadline próximo</li>
+          <li>Candidato a shapear esta semana</li>
+          <li>Bets dormidos con señal de corte</li>
+        </ul>
+      </div>
+      <div class="deliverable-card">
+        <h4>💰 Finance digest</h4>
+        <ul>
+          <li>MRR estimado vs. target</li>
+          <li>Pagos vencidos por cobrar</li>
+          <li>Discrepancias contables detectadas</li>
+          <li>Proyección de flujo próximos 30 días</li>
+        </ul>
+      </div>
+      <div class="deliverable-card">
+        <h4>🤖 Borradores listos para aprobar</h4>
+        <ul>
+          <li>Emails de seguimiento a leads</li>
+          <li>Propuestas de agenda para reuniones</li>
+          <li>Actualizaciones de estado a clientes</li>
+          <li>Nunca se envía sin tu OK</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="cta">
+  <div class="cta-box">
+    <div class="section-label" style="text-align:center">Piloto disponible ahora</div>
+    <h2>¿Listo para ver cómo funciona<br>en tu operación?</h2>
+    <p>Agendamos una sesión exploratoria de 30 minutos para entender tu contexto y definir el alcance del piloto. Sin compromiso.</p>
+    <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
+      <a href="mailto:alvaro@villelabs.cl?subject=Quiero%20conocer%20el%20VPM&body=Hola%20%C3%81lvaro%2C%20me%20interesa%20conocer%20m%C3%A1s%20sobre%20el%20Virtual%20Program%20Manager%20de%20VilleLabs." class="btn-primary">
+        Agendar sesión exploratoria →
+      </a>
+    </div>
+    <p style="margin-top:1.5rem;font-size:0.82rem;color:var(--muted)">
+      Cupos limitados de piloto · Respuesta en menos de 24h
+    </p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p><strong>VilleLabs</strong> · Virtual Program Manager con IA · Desarrollado por Álvaro Villena · PM Top 3% Toptal</p>
+  <p style="margin-top:0.5rem">Operando con Claude (Anthropic) · Made in Chile 🇨🇱</p>
+</footer>
+
+</body>
+</html>
