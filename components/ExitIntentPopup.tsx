@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef, useCallback, FormEvent } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, CheckCircle, Mail } from 'lucide-react';
+import { usePathname } from 'next/navigation';
 import { useTranslation } from '@/lib/i18n';
 
 /* ─── Fidelidapp API ─── */
@@ -37,6 +38,8 @@ export default function ExitIntentPopup() {
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const previousFocusRef = useRef<HTMLElement | null>(null);
   const { t } = useTranslation();
+  const pathname = usePathname();
+  const isSuppressedRoute = pathname === '/asesoria';
 
   const alreadyShown = useCallback(() => {
     try {
@@ -64,11 +67,11 @@ export default function ExitIntentPopup() {
   }, []);
 
   const openPopup = useCallback(() => {
-    if (alreadyShown() || isTouchDevice()) return;
+    if (isSuppressedRoute || alreadyShown() || isTouchDevice()) return;
     previousFocusRef.current = document.activeElement as HTMLElement;
     setIsOpen(true);
     markAsShown();
-  }, [alreadyShown, isTouchDevice, markAsShown]);
+  }, [alreadyShown, isSuppressedRoute, isTouchDevice, markAsShown]);
 
   const closePopup = useCallback(() => {
     setIsOpen(false);
@@ -80,6 +83,7 @@ export default function ExitIntentPopup() {
   // Mouse leave detection (exit toward top of page)
   useEffect(() => {
     if (typeof window === 'undefined') return;
+    if (isSuppressedRoute) return;
     if (isTouchDevice()) return;
 
     const handleMouseLeave = (e: MouseEvent) => {
@@ -92,11 +96,12 @@ export default function ExitIntentPopup() {
     return () => {
       document.removeEventListener('mouseleave', handleMouseLeave);
     };
-  }, [openPopup, isTouchDevice]);
+  }, [openPopup, isSuppressedRoute, isTouchDevice]);
 
   // 45-second timer trigger
   useEffect(() => {
     if (typeof window === 'undefined') return;
+    if (isSuppressedRoute) return;
     if (isTouchDevice()) return;
     if (alreadyShown()) return;
 
@@ -105,7 +110,7 @@ export default function ExitIntentPopup() {
     }, 45000);
 
     return () => clearTimeout(timer);
-  }, [openPopup, isTouchDevice, alreadyShown]);
+  }, [openPopup, isSuppressedRoute, isTouchDevice, alreadyShown]);
 
   // Focus trap and Escape key
   useEffect(() => {
@@ -195,6 +200,8 @@ export default function ExitIntentPopup() {
     setIsSubmitting(false);
     setIsSubmitted(true);
   };
+
+  if (isSuppressedRoute) return null;
 
   return (
     <AnimatePresence>
