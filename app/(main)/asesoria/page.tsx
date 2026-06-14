@@ -1,17 +1,17 @@
 import type { Metadata } from 'next';
 import AsesoriaContent from './AsesoriaContent';
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://villelabs.cl';
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://villelab.com';
 
 export const metadata: Metadata = {
-  title: 'AI Product Advisory, Tech Programs y Shape Up',
+  title: 'Asesoría | Diagnóstico de Organización — Villelabs',
   description:
-    'Asesoria para convertir iniciativas de IA, plataformas y productos internos en ciclos Shape Up con SDLC, delivery y operacion responsable.',
+    'Diagnóstico de Organización: identificamos los cuellos de botella en tus procesos y los resolvemos con sistemas de IA y agentes inteligentes. Álvaro Villena — Toptal Top 3%, más de 10 años en operaciones y producto.',
   alternates: { canonical: `${siteUrl}/asesoria` },
   openGraph: {
-    title: 'AI Product Advisory | Villelabs',
+    title: 'Asesoría · Diagnóstico de Organización — Villelabs',
     description:
-      'Shape Up aplicado a tech products, AI programs, plataformas internas y agentes: apuestas acotadas, evidencia y operacion.',
+      'Consultora de diagnóstico organizacional. Identificamos cuellos de botella y los resolvemos desplegando agentes de IA que corren procesos reales.',
     url: `${siteUrl}/asesoria`,
   },
 };
