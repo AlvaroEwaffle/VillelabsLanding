@@ -1,5 +1,5 @@
 {
-  "generado": "2026-09-23T10:36:30.567Z",
+  "generado": "2026-09-23T11:13:45.086Z",
   "slug": "prtech",
   "nombre": "PR Tech",
   "repo": "AlvaroEwaffle/prtech-ai",
@@ -865,28 +865,6 @@
   ],
   "prs": [
     {
-      "numero": 63,
-      "titulo": "fix(radar): soporte para nombres que terminan en signo (closes #24)",
-      "url": "https://github.com/AlvaroEwaffle/prtech-ai/pull/63",
-      "autor": "Mel-Lopez21",
-      "borrador": false,
-      "aprobado": false,
-      "abierta": "2026-09-23T09:03:25Z",
-      "tocada": "2026-09-23T09:06:00Z",
-      "etiquetas": []
-    },
-    {
-      "numero": 62,
-      "titulo": "fix(submissions): cerrar la toma de control de salas por el endpoint público de correo (I-02)",
-      "url": "https://github.com/AlvaroEwaffle/prtech-ai/pull/62",
-      "autor": "AlvaroEwaffle",
-      "borrador": false,
-      "aprobado": false,
-      "abierta": "2026-09-23T02:22:57Z",
-      "tocada": "2026-09-23T02:22:57Z",
-      "etiquetas": []
-    },
-    {
       "numero": 60,
       "titulo": "feat(auth): cuentas con mail y contraseña para clientes, reemplaza el PIN (closes #21)",
       "url": "https://github.com/AlvaroEwaffle/prtech-ai/pull/60",
@@ -894,7 +872,18 @@
       "borrador": false,
       "aprobado": false,
       "abierta": "2026-09-22T14:25:20Z",
-      "tocada": "2026-09-22T19:30:06Z",
+      "tocada": "2026-09-23T11:13:14Z",
+      "etiquetas": []
+    },
+    {
+      "numero": 63,
+      "titulo": "fix(radar): soporte para nombres que terminan en signo (closes #24)",
+      "url": "https://github.com/AlvaroEwaffle/prtech-ai/pull/63",
+      "autor": "Mel-Lopez21",
+      "borrador": false,
+      "aprobado": false,
+      "abierta": "2026-09-23T09:03:25Z",
+      "tocada": "2026-09-23T11:12:37Z",
       "etiquetas": []
     },
     {
@@ -905,7 +894,7 @@
       "borrador": false,
       "aprobado": false,
       "abierta": "2026-09-22T12:56:59Z",
-      "tocada": "2026-09-22T12:56:59Z",
+      "tocada": "2026-09-23T10:40:02Z",
       "etiquetas": []
     }
   ]
