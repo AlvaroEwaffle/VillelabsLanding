@@ -1,9 +1,9 @@
 import type { Metadata } from 'next';
 import { LLAVES } from '@/lib/programa/config';
-import ProgramaApp from '../ProgramaApp';
+import Repositorio from '../Repositorio';
 
 /**
- * La herramienta vive detrás de una llave en la URL, no en /programa a secas.
+ * El repositorio vive detrás de una llave en la URL, no en /programa a secas.
  *
  * Esto es oscuridad, no autenticación: el sitio es un export estático servido
  * por Cloudflare Pages y no hay dónde validar una sesión. Lo que la llave
@@ -13,7 +13,7 @@ import ProgramaApp from '../ProgramaApp';
  */
 export const metadata: Metadata = {
   title: 'Programa | Villelabs',
-  description: 'Herramienta interna de gestión de programa conectada a GitHub.',
+  description: 'Repositorio vivo del programa, conectado a GitHub.',
   robots: { index: false, follow: false, nocache: true },
 };
 
@@ -21,6 +21,7 @@ export function generateStaticParams() {
   return LLAVES.map((llave) => ({ llave }));
 }
 
-export default function ProgramaPage() {
-  return <ProgramaApp />;
+export default async function Page({ params }: { params: Promise<{ llave: string }> }) {
+  const { llave } = await params;
+  return <Repositorio llave={llave} />;
 }

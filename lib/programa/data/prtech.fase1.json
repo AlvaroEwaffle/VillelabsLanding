@@ -1,0 +1,217 @@
+{
+ "_fuente": "PR-Tech-Fase-1-Kickoff-2026-09-22.html",
+ "_fecha": "2026-09-22",
+ "_nota": "Los criterios de aceptación y el storyboard vienen del documento: se escribieron una vez y no cambian solos. El estado de cada historia NO está acá a propósito — sale del snapshot de GitHub, que es el que dice la verdad hoy.",
+ "historias": [
+  {
+   "numero": 10,
+   "epica": "Espejo y registro",
+   "titulo": "Falsos positivos por subcadena",
+   "criterio": "«Migrante» ya no trae «inmigrante». 35 casos verdes"
+  },
+  {
+   "numero": 24,
+   "epica": "Espejo y registro",
+   "titulo": "Nombres que terminan en signo",
+   "criterio": "buscar «Yahoo!» devuelve sus menciones y el corpus sigue verde"
+  },
+  {
+   "numero": 48,
+   "epica": "Espejo y registro",
+   "titulo": "Ventana temporal honesta",
+   "criterio": "la UI no dice «30 días» salvo que el medio lo respalde"
+  },
+  {
+   "numero": 49,
+   "epica": "Cuestionario",
+   "titulo": "Novena pregunta: qué quiere comunicar",
+   "criterio": "el comunicado se arma sobre el hecho declarado y el guard sigue fail-closed"
+  },
+  {
+   "numero": 50,
+   "epica": "Cuestionario",
+   "titulo": "Subir material adicional",
+   "criterio": "el archivo queda asociado a la submission y visible en la cola"
+  },
+  {
+   "numero": 33,
+   "epica": "Pago y suscripción",
+   "titulo": "Precio y qué desbloquea",
+   "criterio": "planes, precio, qué es gratis y política de cobro fallido, por escrito"
+  },
+  {
+   "numero": 32,
+   "epica": "Pago y suscripción",
+   "titulo": "Pasarela en el flujo de entrada",
+   "criterio": "sin pago confirmado no se libera el kit; el estado vive en la cuenta"
+  },
+  {
+   "numero": 51,
+   "epica": "Pide más",
+   "titulo": "Medir el embudo",
+   "criterio": "una vista muestra espejo → cuestionario → kit → revisión"
+  },
+  {
+   "numero": 57,
+   "epica": "Datos personales · Ley 1581",
+   "titulo": "Procedencia contacto por contacto",
+   "criterio": "cada contacto declara si viene del corpus, de Sentidos o de alta manual"
+  },
+  {
+   "numero": 58,
+   "epica": "Datos personales · Ley 1581",
+   "titulo": "Política, legitimación y supresión",
+   "criterio": "política publicada, base registrada y supresión que de verdad borra"
+  },
+  {
+   "numero": 11,
+   "epica": "Espacio de trabajo",
+   "titulo": "Modelo de roles y permisos",
+   "criterio": "5 perfiles × 9 acciones, aplicado en servidor"
+  },
+  {
+   "numero": 16,
+   "epica": "Espacio de trabajo",
+   "titulo": "Alcance por cuenta en rutas de detalle",
+   "criterio": "ninguna ruta devuelve datos de una cuenta ajena"
+  },
+  {
+   "numero": 18,
+   "epica": "Espacio de trabajo",
+   "titulo": "Pruebas de aislamiento entre cuentas",
+   "criterio": "dos cuentas reales, ninguna ve la otra, y corre en CI"
+  },
+  {
+   "numero": 20,
+   "epica": "Espacio de trabajo",
+   "titulo": "Rol Admin Cliente",
+   "criterio": "ve su cuenta, administra solo a los suyos, no entra a la cola interna"
+  },
+  {
+   "numero": 19,
+   "epica": "Espacio de trabajo",
+   "titulo": "Renombrar roles y eliminar junior",
+   "criterio": "los 5 nombres del documento, migrados en base, nadie pierde acceso"
+  },
+  {
+   "numero": 21,
+   "epica": "Espacio de trabajo",
+   "titulo": "Cuenta de cliente en vez de PIN",
+   "criterio": "el registro crea cuenta real; las salas existentes migran sin romperse"
+  },
+  {
+   "numero": 22,
+   "epica": "Espacio de trabajo",
+   "titulo": "Cola multi-cuenta con datos reales",
+   "criterio": "verificada con al menos dos cuentas cargadas de verdad"
+  },
+  {
+   "numero": 23,
+   "epica": "Espacio de trabajo",
+   "titulo": "Portal del cliente",
+   "criterio": "el cliente ve su cobertura y su evolución, no solo el equipo"
+  },
+  {
+   "numero": 55,
+   "epica": "Difusión a medios",
+   "titulo": "Configurar el proveedor de correo",
+   "criterio": "un correo real sale y queda con el id del proveedor"
+  },
+  {
+   "numero": 52,
+   "epica": "Difusión a medios",
+   "titulo": "Afinidad por tema del comunicado",
+   "criterio": "el match usa el tema, no el sector declarado"
+  },
+  {
+   "numero": 56,
+   "epica": "Difusión a medios",
+   "titulo": "Bitácora de distribución",
+   "criterio": "por cuenta: quién recibió qué y cuándo"
+  },
+  {
+   "numero": 53,
+   "epica": "Reportes y datos del cliente",
+   "titulo": "Primera carga real de Sentidos",
+   "criterio": "un CSV suyo entra sin pérdida y las filas rechazadas se entienden"
+  },
+  {
+   "numero": 54,
+   "epica": "Reportes y datos del cliente",
+   "titulo": "Tipografía de marca en el PDF",
+   "criterio": "el PDF sale en Fraunces, no en Helvetica"
+  }
+ ],
+ "storyboard": [
+  {
+   "paso": "Paso 1",
+   "titulo": "Landing y espejo",
+   "nota": "Le mostramos lo que la prensa dice de él. Sin registro.",
+   "marco": "existe",
+   "svg": "<svg viewBox=\"0 0 200 104\" role=\"img\" aria-label=\"Landing con un campo de búsqueda y el botón de espejo de medios\">\n          <rect x=\"0\" y=\"0\" width=\"200\" height=\"104\" fill=\"#fff\"/>\n          <rect x=\"0\" y=\"0\" width=\"200\" height=\"11\" fill=\"#0f172a\"/>\n          <rect x=\"30\" y=\"26\" width=\"140\" height=\"7\" rx=\"1\" fill=\"#cbd5e1\"/>\n          <rect x=\"52\" y=\"38\" width=\"96\" height=\"5\" rx=\"1\" fill=\"#e2e8f0\"/>\n          <rect x=\"40\" y=\"55\" width=\"86\" height=\"15\" rx=\"2\" fill=\"#fff\" stroke=\"#94a3b8\"/>\n          <rect x=\"130\" y=\"55\" width=\"32\" height=\"15\" rx=\"2\" fill=\"#2175a1\"/>\n          <rect x=\"62\" y=\"80\" width=\"76\" height=\"4\" rx=\"1\" fill=\"#e2e8f0\"/>\n        </svg>"
+  },
+  {
+   "paso": "Paso 2",
+   "titulo": "Cuestionario",
+   "nota": "8 preguntas listas. Faltan la 9ª y adjuntar material.",
+   "marco": "esta semana",
+   "svg": "<svg viewBox=\"0 0 200 104\" role=\"img\" aria-label=\"Cuestionario de ocho campos con barra de progreso, más un campo nuevo pendiente\">\n          <rect x=\"0\" y=\"0\" width=\"200\" height=\"104\" fill=\"#fff\"/>\n          <rect x=\"0\" y=\"0\" width=\"200\" height=\"11\" fill=\"#0f172a\"/>\n          <rect x=\"18\" y=\"20\" width=\"164\" height=\"4\" rx=\"2\" fill=\"#e2e8f0\"/>\n          <rect x=\"18\" y=\"20\" width=\"110\" height=\"4\" rx=\"2\" fill=\"#2175a1\"/>\n          <rect x=\"18\" y=\"32\" width=\"164\" height=\"16\" rx=\"2\" fill=\"#fff\" stroke=\"#cbd5e1\"/>\n          <rect x=\"18\" y=\"52\" width=\"164\" height=\"16\" rx=\"2\" fill=\"#fff\" stroke=\"#cbd5e1\"/>\n          <rect x=\"18\" y=\"72\" width=\"164\" height=\"16\" rx=\"2\" fill=\"#fbeceb\" stroke=\"#c0392b\" stroke-dasharray=\"3 2\"/>\n          <text x=\"100\" y=\"83\" font-family=\"sans-serif\" font-size=\"8\" fill=\"#c0392b\" text-anchor=\"middle\">9ª pregunta · falta</text>\n        </svg>"
+  },
+  {
+   "paso": "Paso 3",
+   "titulo": "Press kit",
+   "nota": "Narrativa, mensajes y comunicado. No puede inventar cifras.",
+   "marco": "existe",
+   "svg": "<svg viewBox=\"0 0 200 104\" role=\"img\" aria-label=\"Press kit generado con narrativa, mensajes clave y el guard factual\">\n          <rect x=\"0\" y=\"0\" width=\"200\" height=\"104\" fill=\"#fff\"/>\n          <rect x=\"0\" y=\"0\" width=\"200\" height=\"11\" fill=\"#0f172a\"/>\n          <rect x=\"14\" y=\"20\" width=\"84\" height=\"6\" rx=\"1\" fill=\"#0f172a\"/>\n          <rect x=\"14\" y=\"31\" width=\"110\" height=\"3\" rx=\"1\" fill=\"#e2e8f0\"/>\n          <rect x=\"14\" y=\"38\" width=\"96\" height=\"3\" rx=\"1\" fill=\"#e2e8f0\"/>\n          <rect x=\"14\" y=\"45\" width=\"104\" height=\"3\" rx=\"1\" fill=\"#e2e8f0\"/>\n          <rect x=\"14\" y=\"56\" width=\"52\" height=\"13\" rx=\"2\" fill=\"#e8f1f6\" stroke=\"#2175a1\"/>\n          <rect x=\"70\" y=\"56\" width=\"52\" height=\"13\" rx=\"2\" fill=\"#e8f1f6\" stroke=\"#2175a1\"/>\n          <rect x=\"126\" y=\"56\" width=\"52\" height=\"13\" rx=\"2\" fill=\"#e8f1f6\" stroke=\"#2175a1\"/>\n          <rect x=\"14\" y=\"76\" width=\"164\" height=\"14\" rx=\"2\" fill=\"#eaf6ee\" stroke=\"#1f8b4c\"/>\n          <text x=\"96\" y=\"86\" font-family=\"sans-serif\" font-size=\"8\" fill=\"#1f8b4c\" text-anchor=\"middle\">guard factual · fail-closed</text>\n        </svg>"
+  },
+  {
+   "paso": "Paso 4",
+   "titulo": "Pago y suscripción",
+   "nota": "Nada construido. Primero se decide precio (#33).",
+   "marco": "falta",
+   "svg": "<svg viewBox=\"0 0 200 104\" role=\"img\" aria-label=\"Pantalla de pago inexistente: planes y pasarela por construir\">\n          <rect x=\"0\" y=\"0\" width=\"200\" height=\"104\" fill=\"#fff\"/>\n          <rect x=\"0\" y=\"0\" width=\"200\" height=\"11\" fill=\"#0f172a\"/>\n          <rect x=\"16\" y=\"24\" width=\"52\" height=\"50\" rx=\"2\" fill=\"#fbeceb\" stroke=\"#c0392b\" stroke-dasharray=\"3 2\"/>\n          <rect x=\"74\" y=\"24\" width=\"52\" height=\"50\" rx=\"2\" fill=\"#fbeceb\" stroke=\"#c0392b\" stroke-dasharray=\"3 2\"/>\n          <rect x=\"132\" y=\"24\" width=\"52\" height=\"50\" rx=\"2\" fill=\"#fbeceb\" stroke=\"#c0392b\" stroke-dasharray=\"3 2\"/>\n          <text x=\"100\" y=\"53\" font-family=\"sans-serif\" font-size=\"9\" fill=\"#c0392b\" text-anchor=\"middle\">planes · por definir</text>\n          <rect x=\"60\" y=\"82\" width=\"80\" height=\"13\" rx=\"2\" fill=\"#fff\" stroke=\"#c0392b\" stroke-dasharray=\"3 2\"/>\n          <text x=\"100\" y=\"91\" font-family=\"sans-serif\" font-size=\"8\" fill=\"#c0392b\" text-anchor=\"middle\">pasarela</text>\n        </svg>"
+  },
+  {
+   "paso": "Paso 5",
+   "titulo": "Cuenta del cliente",
+   "nota": "El PIN se jubila. Cuenta con identidad propia (#21, #20).",
+   "marco": "esta semana",
+   "svg": "<svg viewBox=\"0 0 200 104\" role=\"img\" aria-label=\"Entrada por PIN que se reemplaza por una cuenta real de cliente\">\n          <rect x=\"0\" y=\"0\" width=\"200\" height=\"104\" fill=\"#fff\"/>\n          <rect x=\"0\" y=\"0\" width=\"200\" height=\"11\" fill=\"#0f172a\"/>\n          <g opacity=\"0.4\">\n            <rect x=\"22\" y=\"30\" width=\"62\" height=\"40\" rx=\"2\" fill=\"#fff\" stroke=\"#94a3b8\"/>\n            <text x=\"53\" y=\"47\" font-family=\"sans-serif\" font-size=\"8\" fill=\"#64748b\" text-anchor=\"middle\">PIN 6 díg.</text>\n            <line x1=\"28\" y1=\"60\" x2=\"78\" y2=\"60\" stroke=\"#94a3b8\"/>\n          </g>\n          <line x1=\"88\" y1=\"50\" x2=\"108\" y2=\"50\" stroke=\"#c9860a\" stroke-width=\"2\"/>\n          <polygon points=\"108,46 116,50 108,54\" fill=\"#c9860a\"/>\n          <rect x=\"120\" y=\"30\" width=\"62\" height=\"40\" rx=\"2\" fill=\"#fdf4e3\" stroke=\"#c9860a\"/>\n          <circle cx=\"151\" cy=\"44\" r=\"6\" fill=\"#c9860a\" opacity=\".3\"/>\n          <rect x=\"132\" y=\"55\" width=\"38\" height=\"4\" rx=\"1\" fill=\"#c9860a\" opacity=\".4\"/>\n          <text x=\"100\" y=\"88\" font-family=\"sans-serif\" font-size=\"8\" fill=\"#c9860a\" text-anchor=\"middle\">cuenta real · Admin Cliente</text>\n        </svg>"
+  },
+  {
+   "paso": "Paso 6",
+   "titulo": "Su sala",
+   "nota": "Periodistas sugeridos, mensajes clave y comunicado.",
+   "marco": "existe",
+   "svg": "<svg viewBox=\"0 0 200 104\" role=\"img\" aria-label=\"Sala del cliente con periodistas sugeridos y mensajes clave\">\n          <rect x=\"0\" y=\"0\" width=\"200\" height=\"104\" fill=\"#fff\"/>\n          <rect x=\"0\" y=\"0\" width=\"200\" height=\"11\" fill=\"#0f172a\"/>\n          <rect x=\"14\" y=\"19\" width=\"70\" height=\"5\" rx=\"1\" fill=\"#0f172a\"/>\n          <rect x=\"14\" y=\"30\" width=\"172\" height=\"9\" fill=\"#e8f1f6\"/>\n          <rect x=\"14\" y=\"41\" width=\"172\" height=\"8\" fill=\"#f8fafc\"/>\n          <rect x=\"14\" y=\"51\" width=\"172\" height=\"8\" fill=\"#fff\"/>\n          <rect x=\"14\" y=\"61\" width=\"172\" height=\"8\" fill=\"#f8fafc\"/>\n          <line x1=\"58\" y1=\"30\" x2=\"58\" y2=\"69\" stroke=\"#e2e8f0\"/>\n          <line x1=\"104\" y1=\"30\" x2=\"104\" y2=\"69\" stroke=\"#e2e8f0\"/>\n          <line x1=\"146\" y1=\"30\" x2=\"146\" y2=\"69\" stroke=\"#e2e8f0\"/>\n          <rect x=\"14\" y=\"76\" width=\"54\" height=\"14\" rx=\"2\" fill=\"#e8f1f6\" stroke=\"#2175a1\"/>\n          <rect x=\"72\" y=\"76\" width=\"54\" height=\"14\" rx=\"2\" fill=\"#e8f1f6\" stroke=\"#2175a1\"/>\n          <rect x=\"130\" y=\"76\" width=\"54\" height=\"14\" rx=\"2\" fill=\"#e8f1f6\" stroke=\"#2175a1\"/>\n        </svg>"
+  },
+  {
+   "paso": "Paso 7",
+   "titulo": "Cola del equipo",
+   "nota": "Existe y filtra por cuenta. Falta probarla en serio (#22).",
+   "marco": "esta semana",
+   "svg": "<svg viewBox=\"0 0 200 104\" role=\"img\" aria-label=\"Cola interna de trabajo del equipo, pendiente de verificar con datos reales\">\n          <rect x=\"0\" y=\"0\" width=\"200\" height=\"104\" fill=\"#fff\"/>\n          <rect x=\"0\" y=\"0\" width=\"200\" height=\"11\" fill=\"#0f172a\"/>\n          <rect x=\"12\" y=\"19\" width=\"42\" height=\"5\" rx=\"1\" fill=\"#0f172a\"/>\n          <rect x=\"12\" y=\"29\" width=\"176\" height=\"13\" rx=\"2\" fill=\"#fdf4e3\" stroke=\"#c9860a\"/>\n          <rect x=\"12\" y=\"45\" width=\"176\" height=\"13\" rx=\"2\" fill=\"#f8fafc\" stroke=\"#e2e8f0\"/>\n          <rect x=\"12\" y=\"61\" width=\"176\" height=\"13\" rx=\"2\" fill=\"#f8fafc\" stroke=\"#e2e8f0\"/>\n          <circle cx=\"22\" cy=\"35\" r=\"3\" fill=\"#c9860a\"/>\n          <circle cx=\"22\" cy=\"51\" r=\"3\" fill=\"#cbd5e1\"/>\n          <circle cx=\"22\" cy=\"67\" r=\"3\" fill=\"#cbd5e1\"/>\n          <text x=\"100\" y=\"88\" font-family=\"sans-serif\" font-size=\"8\" fill=\"#c9860a\" text-anchor=\"middle\">sin verificar con data real</text>\n        </svg>"
+  },
+  {
+   "paso": "Paso 8",
+   "titulo": "Difusión",
+   "nota": "Todo construido. Falta la credencial del proveedor (#55).",
+   "marco": "esta semana",
+   "svg": "<svg viewBox=\"0 0 200 104\" role=\"img\" aria-label=\"Envío a periodistas con confirmación humana, bloqueado porque falta el proveedor de correo\">\n          <rect x=\"0\" y=\"0\" width=\"200\" height=\"104\" fill=\"#fff\"/>\n          <rect x=\"0\" y=\"0\" width=\"200\" height=\"11\" fill=\"#0f172a\"/>\n          <rect x=\"12\" y=\"20\" width=\"96\" height=\"48\" rx=\"2\" fill=\"#fff\" stroke=\"#cbd5e1\"/>\n          <rect x=\"18\" y=\"26\" width=\"60\" height=\"4\" rx=\"1\" fill=\"#e2e8f0\"/>\n          <rect x=\"18\" y=\"34\" width=\"84\" height=\"3\" rx=\"1\" fill=\"#eef2f6\"/>\n          <rect x=\"18\" y=\"41\" width=\"78\" height=\"3\" rx=\"1\" fill=\"#eef2f6\"/>\n          <rect x=\"18\" y=\"48\" width=\"84\" height=\"3\" rx=\"1\" fill=\"#eef2f6\"/>\n          <rect x=\"18\" y=\"57\" width=\"46\" height=\"8\" rx=\"2\" fill=\"#1f8b4c\"/>\n          <text x=\"41\" y=\"63\" font-family=\"sans-serif\" font-size=\"6\" fill=\"#fff\" text-anchor=\"middle\">confirm: SEND</text>\n          <line x1=\"112\" y1=\"44\" x2=\"132\" y2=\"44\" stroke=\"#c9860a\" stroke-width=\"2\" stroke-dasharray=\"3 2\"/>\n          <rect x=\"136\" y=\"26\" width=\"50\" height=\"36\" rx=\"2\" fill=\"#fdf4e3\" stroke=\"#c9860a\"/>\n          <text x=\"161\" y=\"47\" font-family=\"sans-serif\" font-size=\"8\" fill=\"#c9860a\" text-anchor=\"middle\">sin llave</text>\n          <text x=\"100\" y=\"88\" font-family=\"sans-serif\" font-size=\"8\" fill=\"#c9860a\" text-anchor=\"middle\">hoy no sale ni un correo</text>\n        </svg>"
+  },
+  {
+   "paso": "Paso 9",
+   "titulo": "Reportes",
+   "nota": "PDF y PPT generados. Nunca corrieron con datos reales.",
+   "marco": "existe",
+   "svg": "<svg viewBox=\"0 0 200 104\" role=\"img\" aria-label=\"Reportes descargables en PDF y PowerPoint con gráficos\">\n          <rect x=\"0\" y=\"0\" width=\"200\" height=\"104\" fill=\"#fff\"/>\n          <rect x=\"0\" y=\"0\" width=\"200\" height=\"11\" fill=\"#0f172a\"/>\n          <rect x=\"16\" y=\"20\" width=\"76\" height=\"70\" rx=\"2\" fill=\"#fff\" stroke=\"#cbd5e1\"/>\n          <rect x=\"22\" y=\"27\" width=\"40\" height=\"4\" rx=\"1\" fill=\"#0f172a\"/>\n          <rect x=\"22\" y=\"38\" width=\"28\" height=\"22\" fill=\"#e8f1f6\"/>\n          <rect x=\"54\" y=\"45\" width=\"28\" height=\"15\" fill=\"#2175a1\" opacity=\".55\"/>\n          <rect x=\"22\" y=\"66\" width=\"64\" height=\"3\" rx=\"1\" fill=\"#eef2f6\"/>\n          <rect x=\"22\" y=\"73\" width=\"54\" height=\"3\" rx=\"1\" fill=\"#eef2f6\"/>\n          <rect x=\"108\" y=\"20\" width=\"76\" height=\"70\" rx=\"2\" fill=\"#fff\" stroke=\"#cbd5e1\"/>\n          <rect x=\"114\" y=\"27\" width=\"46\" height=\"4\" rx=\"1\" fill=\"#0f172a\"/>\n          <circle cx=\"146\" cy=\"55\" r=\"18\" fill=\"#e8f1f6\"/>\n          <path d=\"M146 37 A18 18 0 0 1 162 63 L146 55 Z\" fill=\"#2175a1\" opacity=\".55\"/>\n          <text x=\"54\" y=\"99\" font-family=\"sans-serif\" font-size=\"8\" fill=\"#1f8b4c\" text-anchor=\"middle\">PDF</text>\n          <text x=\"146\" y=\"99\" font-family=\"sans-serif\" font-size=\"8\" fill=\"#1f8b4c\" text-anchor=\"middle\">PPT</text>\n        </svg>"
+  },
+  {
+   "paso": "Transversal",
+   "titulo": "Datos personales",
+   "nota": "Cero escrito. Es requisito para enviar en Colombia.",
+   "marco": "falta",
+   "svg": "<svg viewBox=\"0 0 200 104\" role=\"img\" aria-label=\"Módulo de datos personales inexistente: procedencia, política y supresión\">\n          <rect x=\"0\" y=\"0\" width=\"200\" height=\"104\" fill=\"#fff\"/>\n          <rect x=\"0\" y=\"0\" width=\"200\" height=\"11\" fill=\"#0f172a\"/>\n          <rect x=\"14\" y=\"22\" width=\"172\" height=\"17\" rx=\"2\" fill=\"#fbeceb\" stroke=\"#c0392b\" stroke-dasharray=\"3 2\"/>\n          <text x=\"100\" y=\"34\" font-family=\"sans-serif\" font-size=\"8\" fill=\"#c0392b\" text-anchor=\"middle\">procedencia por contacto</text>\n          <rect x=\"14\" y=\"43\" width=\"172\" height=\"17\" rx=\"2\" fill=\"#fbeceb\" stroke=\"#c0392b\" stroke-dasharray=\"3 2\"/>\n          <text x=\"100\" y=\"55\" font-family=\"sans-serif\" font-size=\"8\" fill=\"#c0392b\" text-anchor=\"middle\">política y legitimación</text>\n          <rect x=\"14\" y=\"64\" width=\"172\" height=\"17\" rx=\"2\" fill=\"#fbeceb\" stroke=\"#c0392b\" stroke-dasharray=\"3 2\"/>\n          <text x=\"100\" y=\"76\" font-family=\"sans-serif\" font-size=\"8\" fill=\"#c0392b\" text-anchor=\"middle\">supresión del titular</text>\n          <text x=\"100\" y=\"95\" font-family=\"sans-serif\" font-size=\"8\" fill=\"#c0392b\" text-anchor=\"middle\">Ley 1581 · requisito legal</text>\n        </svg>"
+  }
+ ]
+}

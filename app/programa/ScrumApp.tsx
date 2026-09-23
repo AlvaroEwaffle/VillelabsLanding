@@ -18,6 +18,7 @@ import {
 import type { Overlay, Snapshot } from '@/lib/programa/tipos';
 import { Grafico } from './Grafico';
 import { Historias } from './Historias';
+import { Marco } from './Marco';
 import { Producto } from './Producto';
 import { Raid } from './Raid';
 
@@ -25,7 +26,7 @@ const SNAPSHOT = snapshotPrtech as unknown as Snapshot;
 const SEMILLA = semillaPrtech as unknown as Pick<Overlay, 'raid' | 'nota_general'>;
 const SLUG = 'prtech';
 
-export default function ProgramaApp() {
+export default function ScrumApp({ llave }: { llave: string }) {
   const cfg = CONFIGS[SLUG];
   const {
     overlay,
@@ -70,57 +71,8 @@ export default function ProgramaApp() {
   const c = COLOR_RAG[lectura.estado];
 
   return (
-    <main className="min-h-dvh bg-main text-white">
-      <div className="mx-auto max-w-5xl space-y-10 px-4 py-8 sm:px-6 sm:py-12">
-        {/* ── Cabecera ────────────────────────────────────────────────── */}
-        <header className="space-y-4">
-          <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-            <span className="text-xs uppercase tracking-[0.2em] text-white/35">Villelabs · Programa</span>
-            <h1 className="font-serif text-3xl text-white sm:text-4xl">{SNAPSHOT.nombre}</h1>
-            <a
-              href={`https://github.com/${SNAPSHOT.repo}`}
-              target="_blank"
-              rel="noreferrer"
-              className="text-xs text-white/35 underline-offset-2 hover:text-white/60 hover:underline"
-            >
-              {SNAPSHOT.repo} ↗
-            </a>
-          </div>
-
-          <div
-            className="rounded-2xl border p-5"
-            style={{ borderColor: `${c}55`, background: `${c}14` }}
-          >
-            <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-              <span className="inline-block h-3 w-3 rounded-full" style={{ background: c }} />
-              <h2 className="font-serif text-2xl" style={{ color: c }}>
-                {lectura.titulo}
-              </h2>
-              <span className="text-sm text-white/50">
-                {cfg.fase_foco} · {lectura.hechas} de {lectura.total} historias · {lectura.pct}%
-              </span>
-            </div>
-            <p className="mt-1.5 text-sm text-white/60">
-              <strong className="font-medium text-white/80">{sprint.nombre}</strong> · {sprint.meta}{' '}
-              <span className="text-white/40">
-                ({sprint.desde.slice(5)} → {sprint.hasta.slice(5)}, {lectura.transcurrido}% corrido)
-              </span>
-            </p>
-          </div>
-
-          <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-white/35">
-            <span>Datos de GitHub: {antiguedad(SNAPSHOT.generado)}</span>
-            <span>·</span>
-            <span>
-              {respaldo === 'firestore' ? 'Notas y estados sincronizados' : 'Notas guardadas solo en este navegador'}
-              {guardando && ' · guardando…'}
-            </span>
-            <span>·</span>
-            <code className="rounded bg-white/5 px-1.5 py-0.5 text-white/45">npm run programa:sync</code>
-            <span className="text-white/25">para refrescar GitHub</span>
-          </div>
-        </header>
-
+    <Marco llave={llave} activo="scrum">
+      <div className="space-y-10">
         {/* ── La lectura ──────────────────────────────────────────────── */}
         <section>
           <h2 className="mb-2 font-serif text-2xl text-white">La lectura</h2>
@@ -251,12 +203,7 @@ export default function ProgramaApp() {
         {/* ── RAID ────────────────────────────────────────────────────── */}
         <Raid entradas={overlay.raid} cargando={cargando} guardar={guardarRaid} borrar={borrarRaid} />
 
-        <footer className="border-t border-white/10 pt-5 text-xs leading-relaxed text-white/30">
-          Herramienta interna de Villelabs. Lo que viene de GitHub es de solo lectura y se refresca
-          con <code className="text-white/45">npm run programa:sync</code>; los estados, las notas y
-          el RAID se escriben acá y viven aparte, así un sync nunca pisa una nota.
-        </footer>
       </div>
-    </main>
+    </Marco>
   );
 }
