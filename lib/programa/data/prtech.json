@@ -1,5 +1,5 @@
 {
-  "generado": "2026-09-23T11:13:45.086Z",
+  "generado": "2026-09-23T11:17:00.574Z",
   "slug": "prtech",
   "nombre": "PR Tech",
   "repo": "AlvaroEwaffle/prtech-ai",
@@ -251,8 +251,8 @@
       "numero": 24,
       "titulo": "Espejo: nombres que terminan en signo no matchean (Yahoo!)",
       "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/24",
-      "estado_github": "OPEN",
-      "estado_board": "Sprint Backlog",
+      "estado_github": "CLOSED",
+      "estado_board": "Done",
       "sprint": "Sprint 2",
       "prioridad": null,
       "estimacion": null,
@@ -268,7 +268,7 @@
       ],
       "comentarios": 0,
       "creada": "2026-09-15T13:05:32Z",
-      "cerrada": null
+      "cerrada": "2026-09-23T11:16:38Z"
     },
     {
       "numero": 32,
@@ -873,17 +873,6 @@
       "aprobado": false,
       "abierta": "2026-09-22T14:25:20Z",
       "tocada": "2026-09-23T11:13:14Z",
-      "etiquetas": []
-    },
-    {
-      "numero": 63,
-      "titulo": "fix(radar): soporte para nombres que terminan en signo (closes #24)",
-      "url": "https://github.com/AlvaroEwaffle/prtech-ai/pull/63",
-      "autor": "Mel-Lopez21",
-      "borrador": false,
-      "aprobado": false,
-      "abierta": "2026-09-23T09:03:25Z",
-      "tocada": "2026-09-23T11:12:37Z",
       "etiquetas": []
     },
     {
