@@ -16,6 +16,7 @@ import {
   descripcionDe,
 } from '@/lib/programa/roadmap';
 import type { Historia, Overlay, Snapshot } from '@/lib/programa/tipos';
+import { Gantt } from './Gantt';
 import { Marco } from './Marco';
 
 const SNAP = snapshot as unknown as Snapshot;
@@ -78,6 +79,8 @@ export default function RoadmapApp({ llave }: { llave: string }) {
         </header>
 
 
+        <Gantt overlay={overlay} />
+
         {/* ── El recorrido del cliente ────────────────────────────────── */}
         <section>
           <h2 className="mb-1 font-serif text-2xl text-white">El recorrido del cliente</h2>
@@ -130,6 +133,34 @@ export default function RoadmapApp({ llave }: { llave: string }) {
                       {p.persona}
                     </p>
                   )}
+                  {hs.length > 0 && (
+                    <ul className="mt-1.5 space-y-0.5 border-t border-white/[0.07] pt-1.5">
+                      {hs.map((h) => (
+                        <li key={h.numero} className="flex items-baseline gap-1.5 text-xs">
+                          <a
+                            href={h.url}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="font-mono text-[10px] text-white/25 hover:text-[#7ec1e8]"
+                          >
+                            #{h.numero}
+                          </a>
+                          <span
+                            className={
+                              hecha(h, overlay) ? 'text-white/30 line-through' : 'text-white/70'
+                            }
+                          >
+                            {h.titulo}
+                          </span>
+                          {!hecha(h, overlay) && h.asignados[0] && (
+                            <span className="ml-auto shrink-0 text-[10px] text-white/30">
+                              {nombreDe(h.asignados[0], cfg)}
+                            </span>
+                          )}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
                   {p.nota && (
                     <p
                       className="mt-1 border-l-2 pl-2 text-xs leading-relaxed"
@@ -150,6 +181,7 @@ export default function RoadmapApp({ llave }: { llave: string }) {
           </ol>
         </section>
 
+        <div className="grid gap-6 lg:grid-cols-2 lg:items-start">
         {/* ── Las fases ───────────────────────────────────────────────── */}
         <section>
           <h2 className="mb-3 font-serif text-2xl text-white">Por fase</h2>
@@ -295,6 +327,8 @@ export default function RoadmapApp({ llave }: { llave: string }) {
             </p>
           )}
         </section>
+        </div>
+
         {/* ── Infra ───────────────────────────────────────────────────── */}
         <section>
           <h2 className="mb-1 font-serif text-2xl text-white">Lo que existe hoy</h2>
