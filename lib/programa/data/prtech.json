@@ -1,5 +1,5 @@
 {
-  "generado": "2026-09-23T11:17:00.574Z",
+  "generado": "2026-09-23T11:21:33.827Z",
   "slug": "prtech",
   "nombre": "PR Tech",
   "repo": "AlvaroEwaffle/prtech-ai",
@@ -186,7 +186,7 @@
       "titulo": "Cuenta de cliente en el flujo de entrada, en reemplazo del PIN",
       "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/21",
       "estado_github": "OPEN",
-      "estado_board": "Ready",
+      "estado_board": "In review",
       "sprint": "Sprint 2",
       "prioridad": "P2",
       "estimacion": null,
@@ -628,8 +628,8 @@
       "numero": 49,
       "titulo": "02.3 · Novena pregunta: qué quiere comunicar",
       "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/49",
-      "estado_github": "OPEN",
-      "estado_board": "In review",
+      "estado_github": "CLOSED",
+      "estado_board": "Done",
       "sprint": "Sprint 2",
       "prioridad": null,
       "estimacion": null,
@@ -644,7 +644,7 @@
       ],
       "comentarios": 0,
       "creada": "2026-09-21T22:23:55Z",
-      "cerrada": null
+      "cerrada": "2026-09-23T11:20:17Z"
     },
     {
       "numero": 50,
@@ -873,17 +873,6 @@
       "aprobado": false,
       "abierta": "2026-09-22T14:25:20Z",
       "tocada": "2026-09-23T11:13:14Z",
-      "etiquetas": []
-    },
-    {
-      "numero": 59,
-      "titulo": "feat: novena pregunta — el hecho que se anuncia (closes #49)",
-      "url": "https://github.com/AlvaroEwaffle/prtech-ai/pull/59",
-      "autor": "AlvaroEwaffle",
-      "borrador": false,
-      "aprobado": false,
-      "abierta": "2026-09-22T12:56:59Z",
-      "tocada": "2026-09-23T10:40:02Z",
       "etiquetas": []
     }
   ]
