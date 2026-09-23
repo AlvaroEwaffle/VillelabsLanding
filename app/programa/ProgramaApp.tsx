@@ -18,6 +18,7 @@ import {
 import type { Overlay, Snapshot } from '@/lib/programa/tipos';
 import { Grafico } from './Grafico';
 import { Historias } from './Historias';
+import { Producto } from './Producto';
 import { Raid } from './Raid';
 
 const SNAPSHOT = snapshotPrtech as unknown as Snapshot;
@@ -165,6 +166,9 @@ export default function ProgramaApp() {
             })}
           </div>
         </section>
+
+        {/* ── El producto ─────────────────────────────────────────────── */}
+        <Producto />
 
         {/* ── Avance ──────────────────────────────────────────────────── */}
         <section>

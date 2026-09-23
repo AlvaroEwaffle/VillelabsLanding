@@ -1,0 +1,39 @@
+{
+  "_nota": "Una entrada por medición. NO se inventan puntos: cada uno lleva fecha y de dónde salió. La página muestra la antigüedad del último dato. Para agregar uno nuevo hace falta medir de verdad — no interpolar.",
+  "unidades": {
+    "corpus_documentos": "artículos totales guardados, con duplicados",
+    "corpus_unicos": "artículos distintos tras deduplicar",
+    "corpus_mb_datos": "MB de datos en Mongo",
+    "corpus_mb_indices": "MB de índices en Mongo",
+    "cuota_mb": "tope del plan (M0 = 512 MB)",
+    "ingesta_diaria": "artículos brutos que entran por día, antes de deduplicar",
+    "medios_activos": "fuentes que trajeron algo reciente",
+    "medios_congelados": "fuentes configuradas que dejaron de traer",
+    "periodistas_reales": "fichas de periodista que pasan validación",
+    "periodistas_con_email": "de esas, cuántas tienen correo — el techo de la difusión"
+  },
+  "mediciones": [
+    {
+      "fecha": "2026-09-14",
+      "fuente": "Backlog PR-Tech-AI-Journey, medición manual",
+      "corpus_documentos": 83568,
+      "corpus_unicos": 44297,
+      "medios_activos": 23,
+      "periodistas_total": 621,
+      "periodistas_reales": 606,
+      "periodistas_con_email": 109
+    },
+    {
+      "fecha": "2026-09-18",
+      "fuente": "Spike #15 de Melanie, medido en vivo contra MONGODB_URI_RADAR",
+      "corpus_documentos": 91791,
+      "corpus_unicos": 47862,
+      "corpus_mb_datos": 334,
+      "corpus_mb_indices": 82,
+      "cuota_mb": 512,
+      "ingesta_diaria": 4800,
+      "medios_activos": 23,
+      "medios_congelados": 22
+    }
+  ]
+}
