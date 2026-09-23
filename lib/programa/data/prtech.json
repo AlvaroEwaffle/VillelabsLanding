@@ -1,5 +1,5 @@
 {
-  "generado": "2026-09-23T11:21:33.827Z",
+  "generado": "2026-09-23T19:45:50.944Z",
   "slug": "prtech",
   "nombre": "PR Tech",
   "repo": "AlvaroEwaffle/prtech-ai",
@@ -185,8 +185,8 @@
       "numero": 21,
       "titulo": "Cuenta de cliente en el flujo de entrada, en reemplazo del PIN",
       "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/21",
-      "estado_github": "OPEN",
-      "estado_board": "In review",
+      "estado_github": "CLOSED",
+      "estado_board": "Done",
       "sprint": "Sprint 2",
       "prioridad": "P2",
       "estimacion": null,
@@ -201,7 +201,7 @@
       ],
       "comentarios": 1,
       "creada": "2026-09-15T11:54:16Z",
-      "cerrada": null
+      "cerrada": "2026-09-23T19:23:11Z"
     },
     {
       "numero": 22,
@@ -584,7 +584,7 @@
       "titulo": "Separar radar_corpus de radar_tenant_matches",
       "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/47",
       "estado_github": "OPEN",
-      "estado_board": "Sprint Backlog",
+      "estado_board": "In progress",
       "sprint": "Sprint 2",
       "prioridad": null,
       "estimacion": null,
@@ -861,18 +861,39 @@
       "comentarios": 1,
       "creada": "2026-09-22T14:41:26Z",
       "cerrada": null
+    },
+    {
+      "numero": 64,
+      "titulo": "Seguridad · el rate limit del login se esquiva con X-Forwarded-For, y el 409 público enumera cuentas",
+      "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/64",
+      "estado_github": "OPEN",
+      "estado_board": "Backlog",
+      "sprint": null,
+      "prioridad": null,
+      "estimacion": null,
+      "fase": null,
+      "fase_vence": null,
+      "etiquetas": [
+        "bug"
+      ],
+      "asignados": [
+        "AlvaroEwaffle"
+      ],
+      "comentarios": 0,
+      "creada": "2026-09-23T11:12:56Z",
+      "cerrada": null
     }
   ],
   "prs": [
     {
-      "numero": 60,
-      "titulo": "feat(auth): cuentas con mail y contraseña para clientes, reemplaza el PIN (closes #21)",
-      "url": "https://github.com/AlvaroEwaffle/prtech-ai/pull/60",
-      "autor": "jsstagno90",
+      "numero": 66,
+      "titulo": "Espejo: el índice que faltaba, y dejar de inventar cobertura",
+      "url": "https://github.com/AlvaroEwaffle/prtech-ai/pull/66",
+      "autor": "AlvaroEwaffle",
       "borrador": false,
       "aprobado": false,
-      "abierta": "2026-09-22T14:25:20Z",
-      "tocada": "2026-09-23T11:13:14Z",
+      "abierta": "2026-09-23T19:36:06Z",
+      "tocada": "2026-09-23T19:36:06Z",
       "etiquetas": []
     }
   ]
