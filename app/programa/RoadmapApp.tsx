@@ -5,6 +5,16 @@ import snapshot from '@/lib/programa/data/prtech.json';
 import { CONFIGS } from '@/lib/programa/config';
 import { useOverlay } from '@/lib/programa/useOverlay';
 import { COLOR_RAG, epicaDe, estadoEfectivo, hecha, nombreDe, rag } from '@/lib/programa/derivar';
+import {
+  FUENTE,
+  INFRA,
+  RECORRIDO,
+  SUBTITULO_ALCANCE,
+  SUBTITULO_RECORRIDO,
+  FASES_DOC,
+  SIN_DOC,
+  descripcionDe,
+} from '@/lib/programa/roadmap';
 import type { Historia, Overlay, Snapshot } from '@/lib/programa/tipos';
 import { Marco } from './Marco';
 
@@ -67,6 +77,79 @@ export default function RoadmapApp({ llave }: { llave: string }) {
           </p>
         </header>
 
+
+        {/* ── El recorrido del cliente ────────────────────────────────── */}
+        <section>
+          <h2 className="mb-1 font-serif text-2xl text-white">El recorrido del cliente</h2>
+          <p className="mb-3 text-xs leading-relaxed text-white/40">
+            {SUBTITULO_RECORRIDO}{' '}
+            <span className="text-white/30">
+              El relato es del documento del {FUENTE.fecha} y no cambia solo. El avance de al lado
+              sale de GitHub: el estado que traía el documento se descarta a propósito, porque
+              tenía razón ese día y hoy no.
+            </span>
+          </p>
+          <ol className="space-y-1.5">
+            {RECORRIDO.map((p) => {
+              const hs = p.etiquetas.length
+                ? SNAP.historias.filter((h) => h.etiquetas.some((e) => p.etiquetas.includes(e)))
+                : [];
+              const a = avance(hs, overlay);
+              const c = hs.length ? COLOR_RAG[rag(a.pct, 90, 40)] : 'rgba(255,255,255,.18)';
+              return (
+                <li
+                  key={p.paso}
+                  className="rounded-xl border border-white/10 bg-white/[0.03] px-3 py-2.5"
+                  style={{ borderLeft: `3px solid ${c}` }}
+                >
+                  <div className="flex flex-wrap items-baseline gap-x-2.5 gap-y-1">
+                    <span className="font-mono text-xs text-white/30">{p.paso}</span>
+                    <h3 className="text-sm font-medium text-white/90">{p.titulo}</h3>
+                    {hs.length > 0 ? (
+                      <span className="ml-auto shrink-0 text-xs tabular-nums" style={{ color: c }}>
+                        {a.listas}/{a.total} · {a.pct}%
+                      </span>
+                    ) : (
+                      <span
+                        className="ml-auto shrink-0 cursor-help text-xs text-white/25"
+                        title="Ninguna etiqueta de épica cubre este paso todavía, así que no hay nada que medir."
+                      >
+                        sin medir
+                      </span>
+                    )}
+                  </div>
+                  {p.sistema && (
+                    <p className="mt-1 text-xs leading-relaxed text-white/55">
+                      <span className="text-white/30">El sistema: </span>
+                      {p.sistema}
+                    </p>
+                  )}
+                  {p.persona && (
+                    <p className="text-xs leading-relaxed text-white/55">
+                      <span className="text-white/30">Una persona: </span>
+                      {p.persona}
+                    </p>
+                  )}
+                  {p.nota && (
+                    <p
+                      className="mt-1 border-l-2 pl-2 text-xs leading-relaxed"
+                      style={{
+                        borderColor: p.nota_es_pedido_nuevo ? COLOR_RAG.a : 'rgba(255,255,255,.15)',
+                        color: p.nota_es_pedido_nuevo ? '#e0b055' : 'rgba(255,255,255,.45)',
+                      }}
+                    >
+                      {p.nota_es_pedido_nuevo && (
+                        <span className="mr-1 text-[10px] uppercase tracking-wide">pedido nuevo</span>
+                      )}
+                      {p.nota}
+                    </p>
+                  )}
+                </li>
+              );
+            })}
+          </ol>
+        </section>
+
         {/* ── Las fases ───────────────────────────────────────────────── */}
         <section>
           <h2 className="mb-3 font-serif text-2xl text-white">Por fase</h2>
@@ -102,6 +185,29 @@ export default function RoadmapApp({ llave }: { llave: string }) {
               );
             })}
           </div>
+          <details className="mt-3 rounded-xl border border-white/10 bg-white/[0.03]">
+            <summary className="cursor-pointer px-3 py-2.5 text-sm text-white/70">
+              Cómo se agrupan las épicas en las fases con que se vende el producto
+            </summary>
+            <div className="space-y-3 border-t border-white/10 px-3 py-3">
+              <p className="text-xs leading-relaxed text-white/45">{SUBTITULO_ALCANCE}</p>
+              {FASES_DOC.map((f) => (
+                <div key={f.fase}>
+                  <h4 className="text-sm font-medium text-white/85">
+                    <span className="font-mono text-xs text-white/35">{f.fase}</span>{' '}
+                    {f.que_comprende}
+                  </h4>
+                  <ul className="mt-1 space-y-0.5">
+                    {f.epicas.map((e) => (
+                      <li key={e} className="text-xs leading-relaxed text-white/50">
+                        · {e}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </details>
         </section>
 
         {/* ── Las épicas ──────────────────────────────────────────────── */}
@@ -133,6 +239,24 @@ export default function RoadmapApp({ llave }: { llave: string }) {
                       </span>
                     </div>
                   </summary>
+                  {(() => {
+                    const d = descripcionDe(epica);
+                    if (d) {
+                      return (
+                        <p className="border-t border-white/10 px-3 pt-2 text-xs leading-relaxed text-white/50">
+                          {d.descripcion}
+                        </p>
+                      );
+                    }
+                    if (SIN_DOC.has(epica)) {
+                      return (
+                        <p className="border-t border-white/10 px-3 pt-2 text-xs italic text-white/30">
+                          Nació después del documento del {FUENTE.fecha}: no tiene relato escrito.
+                        </p>
+                      );
+                    }
+                    return null;
+                  })()}
                   <ul className="space-y-1 border-t border-white/10 px-3 py-2">
                     {hs.map((h) => (
                       <li key={h.numero} className="flex flex-wrap items-baseline gap-x-2 text-xs">
@@ -170,6 +294,28 @@ export default function RoadmapApp({ llave }: { llave: string }) {
               {sinEpica.length} historias sin etiqueta de épica: {sinEpica.map((h) => `#${h.numero}`).join(' · ')}
             </p>
           )}
+        </section>
+        {/* ── Infra ───────────────────────────────────────────────────── */}
+        <section>
+          <h2 className="mb-1 font-serif text-2xl text-white">Lo que existe hoy</h2>
+          <p className="mb-3 text-xs text-white/40">
+            Las piezas de infraestructura, según el documento del {FUENTE.fecha}.
+          </p>
+          <ul className="grid gap-2 sm:grid-cols-2">
+            {INFRA.map((i) => {
+              const c = i.estado === 'hecho' ? COLOR_RAG.v : i.estado === 'parcial' ? COLOR_RAG.a : COLOR_RAG.r;
+              return (
+                <li
+                  key={i.pieza}
+                  className="rounded-xl border border-white/10 bg-white/[0.03] px-3 py-2.5"
+                  style={{ borderLeft: `3px solid ${c}` }}
+                >
+                  <h3 className="text-sm font-medium text-white/90">{i.pieza}</h3>
+                  <p className="mt-0.5 text-xs leading-relaxed text-white/45">{i.estado_etiqueta}</p>
+                </li>
+              );
+            })}
+          </ul>
         </section>
       </div>
     </Marco>

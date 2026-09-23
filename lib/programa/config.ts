@@ -52,3 +52,29 @@ export const PROGRAMAS = Object.keys(CONFIGS);
  * ruta vieja deja de existir en el build siguiente.
  */
 export const LLAVES = ['szkIoOQ40giu'] as const;
+
+/**
+ * Del código de épica del documento a las etiquetas que existen hoy en GitHub.
+ *
+ * Hace falta un mapa a mano porque el documento del 14-sep cita issues `[EPIC]`
+ * —#13, #3, #6…— que ya no existen: se borraron cuando las épicas pasaron de
+ * ser issues a ser etiquetas. Una épica no se cierra, se vacía, y una issue que
+ * nunca se cierra ensucia el backlog.
+ *
+ * Así que la unión es por etiqueta y está escrita, no adivinada. Si una etiqueta
+ * de acá no existe en el snapshot, la página lo dice en vez de mostrar cero.
+ */
+export const EPICA_A_ETIQUETAS: Record<string, string[]> = {
+  '01': ['epic: espejo-y-registro', 'epic: mirror-defectos'],
+  '02': ['epic: cuestionario'],
+  '03': ['epic: reportes-pdf-ppt'],
+  '04': ['epic: pago-suscripcion'],
+  '05': ['epic: estrategia-pr'],
+  '06': ['epic: pide-mas'],
+  '07': ['epic: portal-cuenta', 'epic: roles-permisos', 'epic: panel-multicuenta'],
+  '08': ['epic: envio-correos', 'epic: ingesta-csv', 'epic: datos-personales'],
+  '09': ['epic: pauta-medios'],
+};
+
+/** Épicas que viven solo en GitHub: nacieron después del documento. */
+export const ETIQUETAS_SIN_DOC = ['epic: radar', 'epic: operacion'];
