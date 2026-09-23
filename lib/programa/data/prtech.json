@@ -1,5 +1,5 @@
 {
-  "generado": "2026-09-23T02:35:09.492Z",
+  "generado": "2026-09-23T10:36:30.567Z",
   "slug": "prtech",
   "nombre": "PR Tech",
   "repo": "AlvaroEwaffle/prtech-ai",
@@ -864,6 +864,17 @@
     }
   ],
   "prs": [
+    {
+      "numero": 63,
+      "titulo": "fix(radar): soporte para nombres que terminan en signo (closes #24)",
+      "url": "https://github.com/AlvaroEwaffle/prtech-ai/pull/63",
+      "autor": "Mel-Lopez21",
+      "borrador": false,
+      "aprobado": false,
+      "abierta": "2026-09-23T09:03:25Z",
+      "tocada": "2026-09-23T09:06:00Z",
+      "etiquetas": []
+    },
     {
       "numero": 62,
       "titulo": "fix(submissions): cerrar la toma de control de salas por el endpoint público de correo (I-02)",
