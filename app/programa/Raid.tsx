@@ -31,10 +31,12 @@ function vacia(): EntradaRaid {
 
 export function Raid({
   entradas,
+  cargando,
   guardar,
   borrar,
 }: {
   entradas: EntradaRaid[];
+  cargando: boolean;
   guardar: (e: EntradaRaid) => void;
   borrar: (id: string) => void;
 }) {
@@ -116,8 +118,10 @@ export function Raid({
         })}
 
         {lista.length === 0 && (
+          // Mientras carga no se dice "no hay nada": el RAID llega de Firestore
+          // un instante después y afirmarlo antes sería decir algo falso.
           <p className="rounded-xl border border-dashed border-white/15 px-4 py-6 text-center text-sm text-white/40">
-            Nada registrado todavía.
+            {cargando ? 'Cargando…' : 'Nada registrado todavía.'}
           </p>
         )}
       </div>

@@ -245,7 +245,7 @@ export default function ProgramaApp() {
         <Historias historias={SNAPSHOT.historias} overlay={overlay} cfg={cfg} fijar={fijarHistoria} />
 
         {/* ── RAID ────────────────────────────────────────────────────── */}
-        <Raid entradas={overlay.raid} guardar={guardarRaid} borrar={borrarRaid} />
+        <Raid entradas={overlay.raid} cargando={cargando} guardar={guardarRaid} borrar={borrarRaid} />
 
         <footer className="border-t border-white/10 pt-5 text-xs leading-relaxed text-white/30">
           Herramienta interna de Villelabs. Lo que viene de GitHub es de solo lectura y se refresca
