@@ -1,5 +1,5 @@
 {
-  "generado": "2026-09-23T19:45:50.944Z",
+  "generado": "2026-09-24T02:04:19.400Z",
   "slug": "prtech",
   "nombre": "PR Tech",
   "repo": "AlvaroEwaffle/prtech-ai",
@@ -882,19 +882,66 @@
       "comentarios": 0,
       "creada": "2026-09-23T11:12:56Z",
       "cerrada": null
+    },
+    {
+      "numero": 65,
+      "titulo": "Espejo: el radar no aguanta consultas concurrentes y el fallback inventa cobertura",
+      "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/65",
+      "estado_github": "CLOSED",
+      "estado_board": "Done",
+      "sprint": null,
+      "prioridad": null,
+      "estimacion": null,
+      "fase": null,
+      "fase_vence": null,
+      "etiquetas": [
+        "bug"
+      ],
+      "asignados": [
+        "Mel-Lopez21"
+      ],
+      "comentarios": 2,
+      "creada": "2026-09-23T19:27:39Z",
+      "cerrada": "2026-09-23T20:26:52Z"
+    },
+    {
+      "numero": 67,
+      "titulo": "El repo no fija la versión de Node: Railway la elige y puede cambiarla en un redeploy",
+      "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/67",
+      "estado_github": "OPEN",
+      "estado_board": "Backlog",
+      "sprint": null,
+      "prioridad": null,
+      "estimacion": null,
+      "fase": null,
+      "fase_vence": null,
+      "etiquetas": [],
+      "asignados": [
+        "AlvaroEwaffle"
+      ],
+      "comentarios": 0,
+      "creada": "2026-09-23T20:19:14Z",
+      "cerrada": null
+    },
+    {
+      "numero": 68,
+      "titulo": "Quedan snapshots con menciones inventadas en la base, ligados a empresas reales",
+      "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/68",
+      "estado_github": "OPEN",
+      "estado_board": "Backlog",
+      "sprint": null,
+      "prioridad": null,
+      "estimacion": null,
+      "fase": null,
+      "fase_vence": null,
+      "etiquetas": [],
+      "asignados": [
+        "AlvaroEwaffle"
+      ],
+      "comentarios": 0,
+      "creada": "2026-09-23T20:22:28Z",
+      "cerrada": null
     }
   ],
-  "prs": [
-    {
-      "numero": 66,
-      "titulo": "Espejo: el índice que faltaba, y dejar de inventar cobertura",
-      "url": "https://github.com/AlvaroEwaffle/prtech-ai/pull/66",
-      "autor": "AlvaroEwaffle",
-      "borrador": false,
-      "aprobado": false,
-      "abierta": "2026-09-23T19:36:06Z",
-      "tocada": "2026-09-23T19:36:06Z",
-      "etiquetas": []
-    }
-  ]
+  "prs": []
 }
