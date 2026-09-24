@@ -1,0 +1,58 @@
+{
+  "_nota": "El único artefacto escrito a mano de punta a punta. Se actualiza cuando alguien decide algo, no cuando corre un sync. Al 23-sep es un borrador: está por revisar con Álvaro.",
+  "_revisado": "2026-09-23",
+  "una_linea": "Un dueño de negocio ve un reel o un anuncio y, en menos de cinco minutos, tiene su programa de fidelización activo o una conversación con nosotros.",
+  "secciones": [
+    {
+      "titulo": "Por qué existe",
+      "cuerpo": [
+        "Las campañas de Instagram se reactivaron el 23-sep y el embudo pierde a casi todos: de 26 sesiones del wizard en 14 días, 23 nunca enviaron el paso 1. Ese mismo día, un DM que llegó como respuesta a un anuncio preguntando el precio quedó sin contestar.",
+        "Los reels con un cliente real alcanzan alrededor de 7 veces más que los genéricos. Pero alcance sin un embudo que retenga no se convierte en cuentas: se gasta.",
+        "Este programa mira un solo recorrido: de que alguien ve @fidelidapp a que tiene su programa activo. Es el que hoy tiene la fuga, y por eso es el que se mira primero. Los otros workstreams — retención, cobro, soporte — esperan su turno."
+      ]
+    },
+    {
+      "titulo": "Quiénes",
+      "cuerpo": [
+        "**Álvaro** es el PO: decide alcance, precio y fecha. **Bruno** es el dueño del código. **Fuad** lleva comercial y finanzas. **Claude** mantiene el programa y el monitoreo.",
+        "El código no vive acá: `fidelidappapi` y `fidelidappclient` son repos de Bruno, y las herramientas de monitoreo están en `fidelidapp-tools`. Por eso todo el trabajo se rastrea en un solo tablero, con una etiqueta `repo:` que dice dónde va a caer el cambio, y no se abren issues en los repos de Bruno.",
+        "Eso tiene un costo que conviene decir en voz alta: una issue etiquetada `repo: api` no se cierra sola cuando Bruno despliega. Alguien la tiene que cerrar a mano."
+      ]
+    },
+    {
+      "titulo": "En qué está dividido",
+      "cuerpo": [
+        "**Fase 1 · Que nadie se pierda.** El bot contesta, el wizard pide dos datos y todo lead queda en seguimiento. Es la fase en foco: el semáforo del programa se calcula solo sobre ella.",
+        "**Fase 2 · Que convierta.** Activar con valores por defecto, retomar por WhatsApp a quien dejó su número, y un sitio con un solo precio.",
+        "**Fase 3 · Que escale.** Pauta sobre lo que ya funciona, y referidos.",
+        "Los milestones de GitHub **son** las fases. Las épicas son etiquetas, no issues: una épica no se cierra, se vacía. El Sprint 1 va del 24-sep al 7-oct."
+      ]
+    },
+    {
+      "titulo": "Cómo sabemos que va bien",
+      "cuerpo": [
+        "**Que ningún DM ni lead quede sin respuesta más de una hora en horario hábil.** El 23-sep uno que preguntó el precio quedó sin contestar. Eso es lo que no puede volver a pasar.",
+        "**Que las sesiones del wizard que envían el paso 1 pasen de 12% a 40% o más.** Hoy son 3 de 26 en 14 días.",
+        "**Activaciones por semana.** Hay 2 registradas, del 12 y el 16-sep, y todavía no está confirmado si fueron pruebas.",
+        "**Que todo lead capturado tenga un seguimiento agendado.** Capturar un número y no volver a llamarlo es la misma fuga, un paso más adelante."
+      ]
+    },
+    {
+      "titulo": "Cómo se decide",
+      "cuerpo": [
+        "Precio, alcance y fecha los decide Álvaro. Lo demás avanza sin pedir permiso.",
+        "Nada entra a `main` sin pruebas. Los cambios que van a producción en los repos de Bruno pasan por PRS-1.",
+        "Este tablero es el programa: si algo cambia y acá no se ve, el cambio no está hecho. El estado de cada historia sale de GitHub; las notas, los estados puestos a mano y el RAID se escriben en esta herramienta."
+      ]
+    },
+    {
+      "titulo": "Lo que todavía no está decidido",
+      "cuerpo": [
+        "**Cuánto invertir en pauta.** Las campañas están corriendo desde el 23-sep sin un presupuesto decidido, y todavía no sabemos qué cortó la distribución el 21-sep.",
+        "**Si el bot puede dar precio sin que la persona se identifique.** Hoy la respuesta que se preparó son los planes del price book; hasta dónde llega eso es decisión de Álvaro.",
+        "**Si Fidelizarte y Fidelidapp se separan.** El sitio hoy los mezcla, y también mezcla las cifras: dice \"+40k clientes\" con 88.935 registrados en la base.",
+        "**Quién atiende los leads fuera de horario.** Sin eso, la meta de una hora solo aplica en horario hábil y nadie definió qué pasa con el resto."
+      ]
+    }
+  ]
+}

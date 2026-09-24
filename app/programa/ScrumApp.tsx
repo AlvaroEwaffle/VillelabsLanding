@@ -1,9 +1,8 @@
 'use client';
 
 import { useEffect, useMemo, useRef } from 'react';
-import snapshotPrtech from '@/lib/programa/data/prtech.json';
-import semillaPrtech from '@/lib/programa/data/prtech.semilla.json';
-import { CONFIGS } from '@/lib/programa/config';
+import { CONFIGS, slugDe } from '@/lib/programa/config';
+import { datosDe } from '@/lib/programa/registro';
 import { useOverlay } from '@/lib/programa/useOverlay';
 import {
   COLOR_RAG,
@@ -15,18 +14,15 @@ import {
   serie,
   sprintVigente,
 } from '@/lib/programa/derivar';
-import type { Overlay, Snapshot } from '@/lib/programa/tipos';
 import { Grafico } from './Grafico';
 import { Historias } from './Historias';
 import { Marco } from './Marco';
 import { Producto } from './Producto';
 import { Raid } from './Raid';
 
-const SNAPSHOT = snapshotPrtech as unknown as Snapshot;
-const SEMILLA = semillaPrtech as unknown as Pick<Overlay, 'raid' | 'nota_general'>;
-const SLUG = 'prtech';
-
 export default function ScrumApp({ llave }: { llave: string }) {
+  const SLUG = slugDe(llave);
+  const { snapshot: SNAPSHOT, semilla: SEMILLA } = datosDe(SLUG);
   const cfg = CONFIGS[SLUG];
   const {
     overlay,
@@ -47,14 +43,14 @@ export default function ScrumApp({ llave }: { llave: string }) {
     if (cargando || sembrado.current) return;
     sembrado.current = true;
     sembrar(SEMILLA);
-  }, [cargando, sembrar]);
+  }, [cargando, sembrar, SEMILLA]);
 
-  const lectura = useMemo(() => leer(SNAPSHOT, overlay, cfg), [overlay, cfg]);
+  const lectura = useMemo(() => leer(SNAPSHOT, overlay, cfg), [SNAPSHOT, overlay, cfg]);
   const sprint = useMemo(() => sprintVigente(cfg), [cfg]);
 
   const deFase = useMemo(
     () => SNAPSHOT.historias.filter((h) => h.fase === cfg.fase_foco),
-    [cfg.fase_foco],
+    [SNAPSHOT, cfg.fase_foco],
   );
   const puntos = useMemo(() => serie(deFase, overlay, sprint), [deFase, overlay, sprint]);
   const hoyIdx = puntos.findIndex((p) => p.fecha === new Date().toISOString().slice(0, 10));
@@ -66,7 +62,7 @@ export default function ScrumApp({ llave }: { llave: string }) {
       return { login, nombre, total: suyas.length, abiertas: abiertas.length };
     });
     return filas.sort((a, b) => b.abiertas - a.abiertas);
-  }, [cfg.equipo, overlay]);
+  }, [SNAPSHOT, cfg.equipo, overlay]);
 
   const c = COLOR_RAG[lectura.estado];
 
@@ -119,8 +115,8 @@ export default function ScrumApp({ llave }: { llave: string }) {
           </div>
         </section>
 
-        {/* ── El producto ─────────────────────────────────────────────── */}
-        <Producto />
+        {/* ── El producto ─ solo PR Tech: sale de prtech.metricas.json ── */}
+        {SLUG === 'prtech' && <Producto />}
 
         {/* ── Avance ──────────────────────────────────────────────────── */}
         <section>

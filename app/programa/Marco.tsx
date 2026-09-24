@@ -1,11 +1,8 @@
 'use client';
 
-import snapshot from '@/lib/programa/data/prtech.json';
-import { ARTEFACTOS } from '@/lib/programa/artefactos';
+import { slugDe } from '@/lib/programa/config';
+import { artefactosDe, datosDe } from '@/lib/programa/registro';
 import { antiguedad } from '@/lib/programa/derivar';
-import type { Snapshot } from '@/lib/programa/tipos';
-
-const SNAP = snapshot as unknown as Snapshot;
 
 /**
  * El marco común de todos los artefactos: quién es, dónde estoy, y qué tan
@@ -26,6 +23,8 @@ export function Marco({
   children: React.ReactNode;
 }) {
   const base = `/programa/${llave}`;
+  const slug = slugDe(llave);
+  const SNAP = datosDe(slug).snapshot;
   return (
     <main className="min-h-dvh bg-main text-white">
       <div className="mx-auto max-w-5xl px-4 py-6 sm:px-6 sm:py-8">
@@ -46,7 +45,7 @@ export function Marco({
           </div>
 
           <nav className="mt-3 flex flex-wrap gap-1.5">
-            {ARTEFACTOS.map((a) => {
+            {artefactosDe(slug).map((a) => {
               const on = a.slug === activo;
               return (
                 <a

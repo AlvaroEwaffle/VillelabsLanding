@@ -43,18 +43,64 @@ export const CONFIGS: Record<string, ConfigPrograma> = {
       'Mel-Lopez21': 'Melanie',
     },
   },
+  fidelidapp: {
+    slug: 'fidelidapp',
+    fase_foco: 'Fase 1 · Que nadie se pierda',
+    sprints: [
+      {
+        nombre: 'Sprint 1',
+        desde: '2026-09-24',
+        hasta: '2026-10-07',
+        meta: 'Ningún lead nuevo se pierde: el bot responde, el wizard captura contacto y todo queda en seguimiento.',
+      },
+      {
+        nombre: 'Sprint 2',
+        desde: '2026-10-08',
+        hasta: '2026-10-21',
+        meta: 'Por definir en el planning.',
+      },
+    ],
+    equipo: {
+      AlvaroEwaffle: 'Álvaro',
+      BrunoSantimaria: 'Bruno',
+    },
+  },
 };
 
 export const PROGRAMAS = Object.keys(CONFIGS);
 
 /**
- * La llave de la URL. Rotarla es cambiar esta línea y volver a desplegar: la
- * ruta vieja deja de existir en el build siguiente.
+ * La llave de la URL → el programa que hay detrás. Una llave por programa, y
+ * cada una da acceso al suyo completo.
+ *
+ * Rotar una es cambiar esta línea y volver a desplegar: la ruta vieja deja de
+ * existir en el build siguiente. Y conviene repetirlo acá porque es donde se
+ * decide: esto es **oscuridad, no autenticación**. El sitio es un export
+ * estático y no hay dónde validar una sesión.
  */
-export const LLAVES = ['szkIoOQ40giu'] as const;
+export const LLAVE_A_SLUG: Record<string, string> = {
+  szkIoOQ40giu: 'prtech',
+  auU5762aKeXW: 'fidelidapp',
+};
+
+export const LLAVES = Object.keys(LLAVE_A_SLUG);
 
 /**
- * Del código de épica del documento a las etiquetas que existen hoy en GitHub.
+ * Las llaves que generan `roadmap` y `pipeline`. Esas dos páginas describen el
+ * recorrido de producto y el despliegue de PR Tech: son afirmaciones sobre un
+ * repo, no plantillas. `registro.ts` decide qué artefactos lista cada programa;
+ * esto decide qué rutas existen en el build.
+ */
+export const LLAVES_PRTECH = LLAVES.filter((l) => LLAVE_A_SLUG[l] === 'prtech');
+
+/** El slug del programa detrás de una llave. Una llave desconocida cae en PR Tech. */
+export function slugDe(llave: string): string {
+  return LLAVE_A_SLUG[llave] ?? 'prtech';
+}
+
+/**
+ * Solo PR Tech · del código de épica del documento a las etiquetas que existen
+ * hoy en GitHub.
  *
  * Hace falta un mapa a mano porque el documento del 14-sep cita issues `[EPIC]`
  * —#13, #3, #6…— que ya no existen: se borraron cuando las épicas pasaron de

@@ -1,9 +1,9 @@
 'use client';
 
 import { useMemo } from 'react';
-import snapshot from '@/lib/programa/data/prtech.json';
-import { ARTEFACTOS, FRESCURA } from '@/lib/programa/artefactos';
-import { CONFIGS } from '@/lib/programa/config';
+import { FRESCURA } from '@/lib/programa/artefactos';
+import { CONFIGS, slugDe } from '@/lib/programa/config';
+import { artefactosDe, datosDe } from '@/lib/programa/registro';
 import { useOverlay } from '@/lib/programa/useOverlay';
 import {
   COLOR_RAG,
@@ -17,11 +17,8 @@ import {
   type Rag,
 } from '@/lib/programa/derivar';
 import { producto } from '@/lib/programa/metricas';
-import type { Snapshot } from '@/lib/programa/tipos';
 import { Marco } from './Marco';
 
-const SNAP = snapshot as unknown as Snapshot;
-const SLUG = 'prtech';
 
 function Kpi({
   titulo,
@@ -53,18 +50,46 @@ function Kpi({
   );
 }
 
+/** Corpus, medios y saturación. Solo PR Tech mide esto. */
+function KpisCorpus({ base }: { base: string }) {
+  const prod = producto();
+  const unicos = prod.grupos[0].numeros.find((n) => n.clave === 'unicos');
+  const medios = prod.grupos[0].numeros.find((n) => n.clave === 'medios');
+  return (
+    <>
+      <Kpi titulo="Corpus" valor={unicos?.valor ?? '—'} pie="artículos únicos" estado="v" href={`${base}/scrum`} />
+      <Kpi
+        titulo="Medios activos"
+        valor={medios?.valor ?? '—'}
+        pie="fuentes que traen"
+        estado={medios?.estado ?? 'a'}
+        href={`${base}/scrum`}
+      />
+      <Kpi
+        titulo="Se llena el plan"
+        valor={prod.saturacion ? `${prod.saturacion.diasDesdeHoy} d` : '—'}
+        pie={prod.saturacion ? `${prod.saturacion.mbPorDia.toFixed(1)} MB/día` : 'sin medición'}
+        estado={prod.saturacion ? rag(prod.saturacion.diasDesdeHoy, 30, 14) : 'a'}
+        href={`${base}/scrum`}
+      />
+    </>
+  );
+}
+
 export default function Repositorio({ llave }: { llave: string }) {
+  const SLUG = slugDe(llave);
+  const SNAP = datosDe(SLUG).snapshot;
   const cfg = CONFIGS[SLUG];
   const { overlay, fijarNotaGeneral, cargando } = useOverlay(SLUG);
   const lectura = leer(SNAP, overlay, cfg);
   const sprint = sprintVigente(cfg);
-  const prod = producto();
+  const conCorpus = SLUG === 'prtech';
   const c = COLOR_RAG[lectura.estado];
   const base = `/programa/${llave}`;
 
   const foco = useMemo(
     () => SNAP.historias.filter((h) => h.fase === cfg.fase_foco),
-    [cfg.fase_foco],
+    [SNAP, cfg.fase_foco],
   );
 
   // Lo que necesita a alguien. Un board que solo muestra progreso no sirve
@@ -102,7 +127,7 @@ export default function Repositorio({ llave }: { llave: string }) {
       items.push({ clave: d.id, que: `${d.id} · ${d.titulo}`, detalle: d.detalle, estado: 'a' });
     }
     return items.sort((a, b) => (a.estado === 'r' ? -1 : 1) - (b.estado === 'r' ? -1 : 1));
-  }, [foco, overlay, cfg]);
+  }, [SNAP, foco, overlay, cfg]);
 
   const personas = useMemo(
     () =>
@@ -115,14 +140,16 @@ export default function Repositorio({ llave }: { llave: string }) {
           return { login, nombre, abiertas, enCurso: enCurso.length, prs: prs.length };
         })
         .sort((a, b) => b.abiertas.length - a.abiertas.length),
-    [cfg.equipo, overlay],
+    [SNAP, cfg.equipo, overlay],
   );
 
   return (
     <Marco llave={llave} activo={null}>
       <div className="space-y-6">
         {/* ── La fila de arriba ───────────────────────────────────────── */}
-        <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-6">
+        <div
+          className={`grid grid-cols-2 gap-2 sm:grid-cols-3 ${conCorpus ? 'lg:grid-cols-6' : 'lg:grid-cols-3'}`}
+        >
           <Kpi
             titulo="Fase 1"
             valor={`${lectura.pct}%`}
@@ -144,29 +171,7 @@ export default function Repositorio({ llave }: { llave: string }) {
             estado={rag(SNAP.prs.length, 1, 3, true)}
             href={`${base}/scrum`}
           />
-          <Kpi
-            titulo="Corpus"
-            valor={
-              prod.grupos[0].numeros.find((n) => n.clave === 'unicos')?.valor ?? '—'
-            }
-            pie="artículos únicos"
-            estado="v"
-            href={`${base}/scrum`}
-          />
-          <Kpi
-            titulo="Medios activos"
-            valor={prod.grupos[0].numeros.find((n) => n.clave === 'medios')?.valor ?? '—'}
-            pie="fuentes que traen"
-            estado={prod.grupos[0].numeros.find((n) => n.clave === 'medios')?.estado ?? 'a'}
-            href={`${base}/scrum`}
-          />
-          <Kpi
-            titulo="Se llena el plan"
-            valor={prod.saturacion ? `${prod.saturacion.diasDesdeHoy} d` : '—'}
-            pie={prod.saturacion ? `${prod.saturacion.mbPorDia.toFixed(1)} MB/día` : 'sin medición'}
-            estado={prod.saturacion ? rag(prod.saturacion.diasDesdeHoy, 30, 14) : 'a'}
-            href={`${base}/scrum`}
-          />
+          {conCorpus && <KpisCorpus base={base} />}
         </div>
 
         {/* ── El semáforo y la lectura ────────────────────────────────── */}
@@ -269,7 +274,7 @@ export default function Repositorio({ llave }: { llave: string }) {
                 desconfiar de lo que se lee.
               </p>
               <ul className="space-y-1.5">
-                {ARTEFACTOS.map((a) => (
+                {artefactosDe(SLUG).map((a) => (
                   <li key={a.slug}>
                     <a
                       href={`${base}/${a.slug}`}

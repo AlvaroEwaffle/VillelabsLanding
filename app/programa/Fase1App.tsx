@@ -1,23 +1,14 @@
 'use client';
 
 import { useMemo } from 'react';
-import snapshot from '@/lib/programa/data/prtech.json';
-import fase1 from '@/lib/programa/data/prtech.fase1.json';
-import { CONFIGS } from '@/lib/programa/config';
+import { CONFIGS, slugDe } from '@/lib/programa/config';
+import { datosDe, type Fase1 } from '@/lib/programa/registro';
 import { useOverlay } from '@/lib/programa/useOverlay';
 import { COLOR_RAG, estadoEfectivo, hecha, nombreDe } from '@/lib/programa/derivar';
 import type { Snapshot } from '@/lib/programa/tipos';
 import { Marco } from './Marco';
 
-const SNAP = snapshot as unknown as Snapshot;
-const SLUG = 'prtech';
-
-interface HistoriaDoc { numero: number; epica: string; titulo: string; criterio: string }
-interface Paso { paso: string; titulo: string; nota: string; marco: string; svg: string }
-const DOC = fase1 as unknown as {
-  _fuente: string; _fecha: string;
-  historias: HistoriaDoc[]; storyboard: Paso[];
-};
+type HistoriaDoc = Fase1['historias'][number];
 
 const MARCO: Record<string, { color: string; texto: string }> = {
   existe: { color: COLOR_RAG.v, texto: 'ya existe' },
@@ -26,6 +17,8 @@ const MARCO: Record<string, { color: string; texto: string }> = {
 };
 
 export default function Fase1App({ llave }: { llave: string }) {
+  const SLUG = slugDe(llave);
+  const { snapshot: SNAP, fase1: DOC } = datosDe(SLUG);
   const cfg = CONFIGS[SLUG];
   const { overlay } = useOverlay(SLUG);
 
@@ -41,7 +34,7 @@ export default function Fase1App({ llave }: { llave: string }) {
       mapa.set(h.epica, lista);
     }
     return [...mapa.entries()];
-  }, []);
+  }, [DOC, SNAP]);
 
   const conEstado = DOC.historias
     .map((h) => SNAP.historias.find((x) => x.numero === h.numero))
@@ -61,8 +54,8 @@ export default function Fase1App({ llave }: { llave: string }) {
             </strong>
           </p>
           <p className="mt-2 text-xs leading-relaxed text-white/40">
-            Los criterios vienen del kick-off del {DOC._fecha} y no cambian solos: se acordaron una
-            vez. El estado de cada historia sale de GitHub en cada sync. Esa junta es el punto —
+            Los criterios vienen del documento de alcance del {DOC._fecha} y no cambian solos: se
+            escribieron una vez. El estado de cada historia sale de GitHub en cada sync. Esa junta es el punto —
             el documento no envejece porque la mitad que envejece no está guardada en él.
           </p>
         </header>
@@ -133,6 +126,7 @@ export default function Fase1App({ llave }: { llave: string }) {
         </section>
 
         {/* ── Storyboard ──────────────────────────────────────────────── */}
+        {DOC.storyboard.length > 0 && (
         <section>
           <h2 className="mb-1 font-serif text-2xl text-white">El recorrido, pantalla por pantalla</h2>
           <p className="mb-3 text-xs leading-relaxed text-white/40">
@@ -166,6 +160,7 @@ export default function Fase1App({ llave }: { llave: string }) {
             })}
           </div>
         </section>
+        )}
       </div>
     </Marco>
   );

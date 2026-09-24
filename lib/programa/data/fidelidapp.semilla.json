@@ -1,0 +1,82 @@
+{
+  "nota_general": "",
+  "raid": [
+    {
+      "id": "R-01",
+      "tipo": "R",
+      "titulo": "Pauta corriendo sobre un embudo que pierde a casi todos",
+      "detalle": "De 26 sesiones del wizard en 14 días, 23 nunca enviaron el paso 1. Las campañas se reactivaron el 23-sep, así que cada peso de pauta entra a un embudo que no retiene.",
+      "impacto": "alto",
+      "dueno": "Álvaro",
+      "accion": "La Fase 1 completa: el bot contesta, el wizard pide dos datos y todo lead queda en seguimiento.",
+      "estado": "mitigando",
+      "creada": "2026-09-23T00:00:00.000Z"
+    },
+    {
+      "id": "R-02",
+      "tipo": "R",
+      "titulo": "El código es de Bruno y los cambios a producción dependen de su deploy",
+      "detalle": "La API y el cliente viven en repos de Bruno. Nosotros podemos preparar el parche, no desplegarlo.",
+      "impacto": "medio",
+      "dueno": "Álvaro",
+      "accion": "Todo lo que es código queda etiquetado `repo: api` o `repo: client` en este tablero y pasa por PRS-1 antes de producción.",
+      "estado": "abierto",
+      "creada": "2026-09-23T00:00:00.000Z"
+    },
+    {
+      "id": "I-01",
+      "tipo": "I",
+      "titulo": "El trabajo no tenía un lugar vivo",
+      "detalle": "Sin `BACKLOG_KEY` y sin tablero, el backlog vivía en un archivo con IDs provisionales. El tablero de GitHub Projects v2 ya existe y este programa lo lee. Lo que falta: Bruno no es colaborador del repo, así que sus issues quedan asignadas a Álvaro con el dueño escrito en el cuerpo.",
+      "impacto": "medio",
+      "dueno": "Claude",
+      "accion": "Invitar a Bruno al repo `fidelidapp-tools` para poder asignarle lo suyo. Decisión de Álvaro.",
+      "estado": "mitigando",
+      "creada": "2026-09-23T00:00:00.000Z"
+    },
+    {
+      "id": "I-02",
+      "tipo": "I",
+      "titulo": "Los crons de seguimientos y de renovación de token no corren en producción",
+      "detalle": "`server.js:98` y `utils/cronJobs.js` condicionan los dos crons a que la base sea localhost, así que en producción no arrancan. El token de Instagram de la Dra. Oyarzún vence el 10-nov-2026 y hoy nada lo va a renovar.",
+      "impacto": "alto",
+      "dueno": "Bruno",
+      "accion": "B3-NEW-16 — parche en rama propia y PRS-1 antes de producción.",
+      "estado": "abierto",
+      "creada": "2026-09-23T00:00:00.000Z"
+    },
+    {
+      "id": "I-03",
+      "tipo": "I",
+      "titulo": "La cuenta de la Dra. Oyarzún es premium con monthlyFee en cero",
+      "detalle": "Premium, sin fee y sin pagos registrados. Abierto desde mayo.",
+      "impacto": "medio",
+      "dueno": "Álvaro y Fuad",
+      "accion": "B3-NEW-18 — regularizar con Fuad, o dejar escrito por qué queda en cero.",
+      "estado": "abierto",
+      "creada": "2026-09-23T00:00:00.000Z"
+    },
+    {
+      "id": "A-01",
+      "tipo": "A",
+      "titulo": "Las 2 activaciones del wizard fueron pruebas",
+      "detalle": "Las del 12 y el 16-sep. Por confirmar: si fueron reales, el embudo convierte algo; si fueron pruebas, no hay una sola activación de verdad.",
+      "impacto": "medio",
+      "dueno": "Claude",
+      "accion": "B3-NEW-5 — medir 3 a 5 días con la telemetría nueva y confirmarlo por escrito.",
+      "estado": "abierto",
+      "creada": "2026-09-23T00:00:00.000Z"
+    },
+    {
+      "id": "D-01",
+      "tipo": "D",
+      "titulo": "Monitorear WhatsApp e Instagram ← autorización de lectura en producción",
+      "detalle": "El wizard ya se mide. Los otros dos canales no, y sin autorización para leerlos en producción no hay brief de los tres.",
+      "impacto": "alto",
+      "dueno": "Álvaro",
+      "accion": "",
+      "estado": "bloqueando",
+      "creada": "2026-09-23T00:00:00.000Z"
+    }
+  ]
+}

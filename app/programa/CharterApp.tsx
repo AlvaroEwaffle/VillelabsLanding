@@ -1,14 +1,8 @@
 'use client';
 
-import charter from '@/lib/programa/data/prtech.charter.json';
-import { ARTEFACTOS } from '@/lib/programa/artefactos';
+import { slugDe } from '@/lib/programa/config';
+import { artefactoDe, datosDe } from '@/lib/programa/registro';
 import { Marco } from './Marco';
-
-const DOC = charter as unknown as {
-  _revisado: string;
-  una_linea: string;
-  secciones: { titulo: string; cuerpo: string[] }[];
-};
 
 /** Negritas con **…** y `código`. Lo mínimo para que el texto respire. */
 function Parrafo({ texto }: { texto: string }) {
@@ -37,7 +31,9 @@ function Parrafo({ texto }: { texto: string }) {
 }
 
 export default function CharterApp({ llave }: { llave: string }) {
-  const meta = ARTEFACTOS.find((a) => a.slug === 'charter');
+  const slug = slugDe(llave);
+  const DOC = datosDe(slug).charter;
+  const meta = artefactoDe(slug, 'charter');
   return (
     <Marco llave={llave} activo="charter">
       <article className="max-w-2xl space-y-8">

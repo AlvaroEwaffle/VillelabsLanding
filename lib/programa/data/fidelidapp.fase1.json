@@ -1,0 +1,44 @@
+{
+ "_fuente": "ws1-adquisicion.md · borrador del programa, WS-1 Adquisición",
+ "_fecha": "2026-09-23",
+ "_nota": "Los criterios de aceptación vienen del borrador del 23-sep: se escribieron una vez y no cambian solos. El estado de cada historia NO está acá a propósito — sale del snapshot de GitHub, que es el que dice la verdad hoy. Las historias 4 y 5 son las dos mitades del item B3-NEW-3 del backlog, cada una con su propio criterio, y por eso son dos issues.",
+ "historias": [
+  {
+   "numero": 1,
+   "epica": "Bot de Instagram",
+   "titulo": "El bot responde los DM y las respuestas a anuncios",
+   "criterio": "«¿Cuánto cuesta?» recibe los planes del price book en menos de 1 minuto, sin doble respuesta y sin bucle con la respuesta automática de Meta"
+  },
+  {
+   "numero": 2,
+   "epica": "Seguimiento",
+   "titulo": "Todo lead entra a seguimiento",
+   "criterio": "un DM o un WhatsApp, respondido a mano o por el bot, queda con fecha de seguimiento visible"
+  },
+  {
+   "numero": 22,
+   "epica": "Wizard",
+   "titulo": "El wizard registra qué pasa",
+   "criterio": "cada paso visto y cada campo fallido quedan guardados en la sesión"
+  },
+  {
+   "numero": 3,
+   "epica": "Wizard",
+   "titulo": "Sin bienvenida y con dos datos",
+   "criterio": "un contacto queda guardado en el primer minuto, aunque la persona abandone después"
+  },
+  {
+   "numero": 4,
+   "epica": "Wizard",
+   "titulo": "El wizard no traga los errores",
+   "criterio": "un guardado fallido reintenta y queda registrado"
+  },
+  {
+   "numero": 5,
+   "epica": "Monitoreo",
+   "titulo": "Un brief diario de los tres canales",
+   "criterio": "wizard, WhatsApp e Instagram aparecen con sus pendientes en `ops-state` y en el brief diario"
+  }
+ ],
+ "storyboard": []
+}
