@@ -1,5 +1,5 @@
 {
-  "generado": "2026-09-24T02:38:17.235Z",
+  "generado": "2026-09-24T02:41:15.039Z",
   "slug": "fidelidapp",
   "nombre": "Fidelidapp",
   "repo": "AlvaroEwaffle/fidelidapp-tools",
@@ -546,6 +546,28 @@
       "comentarios": 0,
       "creada": "2026-09-24T02:28:04Z",
       "cerrada": "2026-09-24T02:30:53Z"
+    },
+    {
+      "numero": 26,
+      "titulo": "B3-NEW-21 · BirthdayRewardsConfig está en voseo argentino",
+      "url": "https://github.com/AlvaroEwaffle/fidelidapp-tools/issues/26",
+      "estado_github": "OPEN",
+      "estado_board": "Backlog",
+      "sprint": "Sprint 2",
+      "prioridad": "P2",
+      "estimacion": null,
+      "fase": "Fase 2 · Que convierta",
+      "fase_vence": null,
+      "etiquetas": [
+        "epic: sitio-y-marca",
+        "repo: client"
+      ],
+      "asignados": [
+        "AlvaroEwaffle"
+      ],
+      "comentarios": 0,
+      "creada": "2026-09-24T02:40:54Z",
+      "cerrada": null
     }
   ],
   "prs": []
