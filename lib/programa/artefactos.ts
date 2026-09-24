@@ -39,6 +39,15 @@ export const FRESCURA: Record<Frescura, { etiqueta: string; detalle: string }> =
 
 export const ARTEFACTOS: Artefacto[] = [
   {
+    slug: 'sesion',
+    titulo: 'Sesión de sprint',
+    bajada: 'Agenda, review, retro y pre-planning del cierre de sprint, en slides.',
+    pregunta: '¿Qué entregamos, qué aprendimos y a qué nos comprometemos?',
+    frescura: 'escrito',
+    fuente: 'Se arma antes de cada cierre, con los números del board',
+    icono: 'sesion',
+  },
+  {
     slug: 'scrum',
     titulo: 'Scrum Board',
     bajada: 'El producto en números, burndown, burnup, historias y RAID.',
