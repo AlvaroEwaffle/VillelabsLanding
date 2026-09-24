@@ -74,4 +74,13 @@ export const ARTEFACTOS: Artefacto[] = [
     fuente: 'Redactado por el PM, revisado con Álvaro',
     icono: 'carta',
   },
+  {
+    slug: 'pipeline',
+    titulo: 'Pipeline',
+    bajada: 'Rama, pruebas, build, PR, merge y despliegue en Railway — de punta a punta.',
+    pregunta: '¿Cómo llega un cambio de mi máquina a producción, y qué se rompe si me salto un paso?',
+    frescura: 'escrito',
+    fuente: 'Verificado contra el repo `prtech-ai` el 23-sep-2026',
+    icono: 'pipeline',
+  },
 ];
