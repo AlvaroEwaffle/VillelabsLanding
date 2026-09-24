@@ -1,7 +1,8 @@
 'use client';
 
 import { useMemo } from 'react';
-import snapshot from '@/lib/programa/data/prtech.json';
+import prtechSnapshot from '@/lib/programa/data/prtech.json';
+import fidelidappSnapshot from '@/lib/programa/data/fidelidapp.json';
 import { ARTEFACTOS, FRESCURA } from '@/lib/programa/artefactos';
 import { CONFIGS } from '@/lib/programa/config';
 import { useOverlay } from '@/lib/programa/useOverlay';
@@ -20,8 +21,19 @@ import { producto } from '@/lib/programa/metricas';
 import type { Snapshot } from '@/lib/programa/tipos';
 import { Marco } from './Marco';
 
-const SNAP = snapshot as unknown as Snapshot;
-const SLUG = 'prtech';
+// Un snapshot por programa — ver la nota en Marco.tsx sobre por qué es un
+// mapa estático y no un import dinámico.
+const SNAPSHOTS: Record<string, Snapshot> = {
+  prtech: prtechSnapshot as unknown as Snapshot,
+  fidelidapp: fidelidappSnapshot as unknown as Snapshot,
+};
+
+/**
+ * `producto()` (Corpus, Medios activos, Se llena el plan) y "Los artefactos"
+ * salen de `prtech.metricas.json` y de una lista de documentos escrita a
+ * mano para PR Tech — no existen para otro programa. Se ocultan en vez de
+ * mostrarse con números de otro proyecto disfrazados de Fidelidapp.
+ */
 
 function Kpi({
   titulo,
@@ -53,18 +65,20 @@ function Kpi({
   );
 }
 
-export default function Repositorio({ llave }: { llave: string }) {
-  const cfg = CONFIGS[SLUG];
-  const { overlay, fijarNotaGeneral, cargando } = useOverlay(SLUG);
+export default function Repositorio({ llave, slug = 'prtech' }: { llave: string; slug?: string }) {
+  const esPrtech = slug === 'prtech';
+  const SNAP = SNAPSHOTS[slug];
+  const cfg = CONFIGS[slug];
+  const { overlay, fijarNotaGeneral, cargando } = useOverlay(slug);
   const lectura = leer(SNAP, overlay, cfg);
   const sprint = sprintVigente(cfg);
-  const prod = producto();
+  const prod = esPrtech ? producto() : null;
   const c = COLOR_RAG[lectura.estado];
-  const base = `/programa/${llave}`;
+  const base = esPrtech ? `/programa/${llave}` : `/programa/${llave}/${slug}`;
 
   const foco = useMemo(
     () => SNAP.historias.filter((h) => h.fase === cfg.fase_foco),
-    [cfg.fase_foco],
+    [SNAP, cfg.fase_foco],
   );
 
   // Lo que necesita a alguien. Un board que solo muestra progreso no sirve
@@ -102,7 +116,7 @@ export default function Repositorio({ llave }: { llave: string }) {
       items.push({ clave: d.id, que: `${d.id} · ${d.titulo}`, detalle: d.detalle, estado: 'a' });
     }
     return items.sort((a, b) => (a.estado === 'r' ? -1 : 1) - (b.estado === 'r' ? -1 : 1));
-  }, [foco, overlay, cfg]);
+  }, [SNAP, foco, overlay, cfg]);
 
   const personas = useMemo(
     () =>
@@ -115,11 +129,11 @@ export default function Repositorio({ llave }: { llave: string }) {
           return { login, nombre, abiertas, enCurso: enCurso.length, prs: prs.length };
         })
         .sort((a, b) => b.abiertas.length - a.abiertas.length),
-    [cfg.equipo, overlay],
+    [SNAP, cfg.equipo, overlay],
   );
 
   return (
-    <Marco llave={llave} activo={null}>
+    <Marco llave={llave} slug={slug} activo={null}>
       <div className="space-y-6">
         {/* ── La fila de arriba ───────────────────────────────────────── */}
         <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-6">
@@ -128,45 +142,52 @@ export default function Repositorio({ llave }: { llave: string }) {
             valor={`${lectura.pct}%`}
             pie={`${lectura.hechas} de ${lectura.total} historias`}
             estado={rag(lectura.pct - lectura.transcurrido, -10, -25)}
-            href={`${base}/fase-1`}
+            href={esPrtech ? `${base}/fase-1` : undefined}
           />
           <Kpi
             titulo={sprint.nombre}
             valor={`${lectura.transcurrido}%`}
             pie="del sprint corrido"
             estado="a"
-            href={`${base}/scrum`}
+            href={esPrtech ? `${base}/scrum` : undefined}
           />
           <Kpi
             titulo="Esperando revisión"
             valor={String(SNAP.prs.length)}
             pie={SNAP.prs.length === 1 ? 'pull request' : 'pull requests'}
             estado={rag(SNAP.prs.length, 1, 3, true)}
-            href={`${base}/scrum`}
+            href={esPrtech ? `${base}/scrum` : undefined}
           />
-          <Kpi
-            titulo="Corpus"
-            valor={
-              prod.grupos[0].numeros.find((n) => n.clave === 'unicos')?.valor ?? '—'
-            }
-            pie="artículos únicos"
-            estado="v"
-            href={`${base}/scrum`}
-          />
-          <Kpi
-            titulo="Medios activos"
-            valor={prod.grupos[0].numeros.find((n) => n.clave === 'medios')?.valor ?? '—'}
-            pie="fuentes que traen"
-            estado={prod.grupos[0].numeros.find((n) => n.clave === 'medios')?.estado ?? 'a'}
-            href={`${base}/scrum`}
-          />
-          <Kpi
-            titulo="Se llena el plan"
-            valor={prod.saturacion ? `${prod.saturacion.diasDesdeHoy} d` : '—'}
-            pie={prod.saturacion ? `${prod.saturacion.mbPorDia.toFixed(1)} MB/día` : 'sin medición'}
-            estado={prod.saturacion ? rag(prod.saturacion.diasDesdeHoy, 30, 14) : 'a'}
-            href={`${base}/scrum`}
-          />
+          {/* Corpus / Medios activos / Se llena el plan: números de PR Tech
+              (prtech.metricas.json). Fidelidapp no tiene su equivalente todavía —
+              se ocultan en vez de mostrar el dato de otro programa. */}
+          {esPrtech && prod && (
+            <>
+              <Kpi
+                titulo="Corpus"
+                valor={prod.grupos[0].numeros.find((n) => n.clave === 'unicos')?.valor ?? '—'}
+                pie="artículos únicos"
+                estado="v"
+                href={`${base}/scrum`}
+              />
+              <Kpi
+                titulo="Medios activos"
+                valor={prod.grupos[0].numeros.find((n) => n.clave === 'medios')?.valor ?? '—'}
+                pie="fuentes que traen"
+                estado={prod.grupos[0].numeros.find((n) => n.clave === 'medios')?.estado ?? 'a'}
+                href={`${base}/scrum`}
+              />
+              <Kpi
+                titulo="Se llena el plan"
+                valor={prod.saturacion ? `${prod.saturacion.diasDesdeHoy} d` : '—'}
+                pie={
+                  prod.saturacion ? `${prod.saturacion.mbPorDia.toFixed(1)} MB/día` : 'sin medición'
+                }
+                estado={prod.saturacion ? rag(prod.saturacion.diasDesdeHoy, 30, 14) : 'a'}
+                href={`${base}/scrum`}
+              />
+            </>
+          )}
         </div>
 
         {/* ── El semáforo y la lectura ────────────────────────────────── */}
@@ -179,12 +200,14 @@ export default function Repositorio({ llave }: { llave: string }) {
             <h1 className="font-serif text-2xl sm:text-3xl" style={{ color: c }}>
               {lectura.titulo}
             </h1>
-            <a
-              href={`${base}/scrum`}
-              className="ml-auto text-xs text-white/40 underline-offset-2 hover:underline"
-            >
-              por qué ese color →
-            </a>
+            {esPrtech && (
+              <a
+                href={`${base}/scrum`}
+                className="ml-auto text-xs text-white/40 underline-offset-2 hover:underline"
+              >
+                por qué ese color →
+              </a>
+            )}
           </div>
           <p className="mt-1.5 text-sm text-white/60">
             <strong className="font-medium text-white/80">{sprint.nombre}</strong> · {sprint.meta}
@@ -262,38 +285,42 @@ export default function Repositorio({ llave }: { llave: string }) {
             </section>
 
             {/* ── Los artefactos ──────────────────────────────────────── */}
-            <section>
-              <h2 className="mb-1 font-serif text-2xl text-white">Los artefactos</h2>
-              <p className="mb-2.5 text-xs leading-relaxed text-white/40">
-                La etiqueta dice de dónde sale cada uno. No es decoración: cambia cuánto hay que
-                desconfiar de lo que se lee.
-              </p>
-              <ul className="space-y-1.5">
-                {ARTEFACTOS.map((a) => (
-                  <li key={a.slug}>
-                    <a
-                      href={`${base}/${a.slug}`}
-                      className="group block rounded-xl border border-white/10 bg-white/[0.03] px-3 py-2.5 transition-colors hover:border-[#2175a1]/60"
-                    >
-                      <div className="flex items-baseline justify-between gap-2">
-                        <h3 className="font-serif text-base text-white group-hover:text-[#7ec1e8]">
-                          {a.titulo}
-                        </h3>
-                        <span
-                          className="shrink-0 cursor-help text-[10px] uppercase tracking-wide text-white/30"
-                          title={FRESCURA[a.frescura].detalle}
-                        >
-                          {FRESCURA[a.frescura].etiqueta}
-                        </span>
-                      </div>
-                      <p className="mt-0.5 text-xs italic leading-relaxed text-white/40">
-                        «{a.pregunta}»
-                      </p>
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </section>
+            {/* Roadmap/charter/pipeline/scrum son documentos de PR Tech escritos
+                a mano. Fidelidapp no tiene sus equivalentes todavía. */}
+            {esPrtech && (
+              <section>
+                <h2 className="mb-1 font-serif text-2xl text-white">Los artefactos</h2>
+                <p className="mb-2.5 text-xs leading-relaxed text-white/40">
+                  La etiqueta dice de dónde sale cada uno. No es decoración: cambia cuánto hay que
+                  desconfiar de lo que se lee.
+                </p>
+                <ul className="space-y-1.5">
+                  {ARTEFACTOS.map((a) => (
+                    <li key={a.slug}>
+                      <a
+                        href={`${base}/${a.slug}`}
+                        className="group block rounded-xl border border-white/10 bg-white/[0.03] px-3 py-2.5 transition-colors hover:border-[#2175a1]/60"
+                      >
+                        <div className="flex items-baseline justify-between gap-2">
+                          <h3 className="font-serif text-base text-white group-hover:text-[#7ec1e8]">
+                            {a.titulo}
+                          </h3>
+                          <span
+                            className="shrink-0 cursor-help text-[10px] uppercase tracking-wide text-white/30"
+                            title={FRESCURA[a.frescura].detalle}
+                          >
+                            {FRESCURA[a.frescura].etiqueta}
+                          </span>
+                        </div>
+                        <p className="mt-0.5 text-xs italic leading-relaxed text-white/40">
+                          «{a.pregunta}»
+                        </p>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            )}
           </div>
         </div>
       </div>

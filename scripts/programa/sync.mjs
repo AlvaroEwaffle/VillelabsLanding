@@ -24,6 +24,7 @@ const RAIZ = resolve(AQUI, '../..');
 
 const PROGRAMAS = {
   prtech: { owner: 'AlvaroEwaffle', repo: 'prtech-ai', proyecto: 1, nombre: 'PR Tech' },
+  fidelidapp: { owner: 'AlvaroEwaffle', repo: 'fidelidapp-tools', proyecto: 2, nombre: 'Fidelidapp' },
 };
 
 function gh(args, input) {

@@ -43,6 +43,33 @@ export const CONFIGS: Record<string, ConfigPrograma> = {
       'Mel-Lopez21': 'Melanie',
     },
   },
+  fidelidapp: {
+    slug: 'fidelidapp',
+    // La fase con más items abiertos (11 de 24) y la más urgente: el 88% de las
+    // sesiones del wizard no envía el primer formulario (VPM/Fidelidapp/wizard-auditoria-2026-09.md).
+    fase_foco: 'Fase 1 · Que nadie se pierda',
+    // TODO Álvaro: fechas y meta provisionales — el board (GitHub Projects #2)
+    // ya trae 17 issues en Sprint 1 y 6 en Sprint 2, pero sin fechas ni meta
+    // propias. Puestas a 2 semanas, mismo ritmo que PR Tech, para no dejar el
+    // semáforo sin calcular; corregir en el próximo planning.
+    sprints: [
+      {
+        nombre: 'Sprint 1',
+        desde: '2026-09-17',
+        hasta: '2026-09-30',
+        meta: 'Por definir en el planning.',
+      },
+      {
+        nombre: 'Sprint 2',
+        desde: '2026-10-01',
+        hasta: '2026-10-14',
+        meta: 'Por definir en el planning.',
+      },
+    ],
+    equipo: {
+      AlvaroEwaffle: 'Álvaro',
+    },
+  },
 };
 
 export const PROGRAMAS = Object.keys(CONFIGS);
