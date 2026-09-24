@@ -13,7 +13,7 @@
     {
       "titulo": "Rama y desarrollo local",
       "cuerpo": [
-        "Dos ramas según el runbook del equipo: `feature/*` → PR a `main` (hace de QA) → validación de Álvaro → promoción a `prod` (`docs/como-trabajamos.md`, sección \"Flujo del repo\"). Nunca push directo a `main` ni a `prod`; nadie promueve `main` → `prod` salvo Álvaro.",
+        "`feature/*` → PR a `main` → merge → **producción, sola, en minutos**. No hay paso intermedio: Railway despliega `main` directo a `https://prtech-production-ef4c.up.railway.app`. El QA pasa ANTES del merge, en la rama y en el PR; una vez mergeado ya lo está viendo quien entre al producto. `prod` es vestigial: quedó de cuando el despliegue se pensaba en dos etapas, no recibe merges y nadie la promueve. Nunca push directo a `main`. (`docs/como-trabajamos.md` decía lo contrario hasta el 23-sep; corregido en el PR #70.)",
         "`npm install` **nunca** se corre en `prtech-ai` — reportado por el equipo como la causa de haber borrado 102 archivos trackeados en un incidente pasado. No pude reproducir ni verificar el borrado en el historial de git (un `npm install` descarrilado no deja rastro si se revirtió), así que esto queda como advertencia reportada, no como hecho re-derivado del repo — pero el efecto (dependencias corruptas en un árbol con `node_modules` y `package-lock.json` propios, `package.json:1-38`) es consistente con lo que se ve hoy. Si hace falta una dependencia nueva, se habla con Álvaro.",
         "Local, según `README.md:14-22`: Node 20+ y Mongo en `127.0.0.1:27017`, `npm install` (nunca — ver arriba), `npm run seed` (`package.json:10`, siembra 15 periodistas LATAM + la demo Ewaffle e imprime el PIN de la sala demo una sola vez), `npm run dev` (`package.json:6`, puerto 3020). `.env.local` sale de `cp .env.example .env.local`; en producción el server rehúsa arrancar si faltan `MONGODB_URI`, `SESSION_SECRET` o `TEAM_ACCESS_KEY` (`README.md:18-20`, verificado en `lib/env.ts` vía `instrumentation.ts`)."
       ]
@@ -31,25 +31,85 @@
     {
       "titulo": "Scripts de prueba en prtech-ai (`npm run <script>`)",
       "nota": "Los cuatro primeros no tocan Mongo ni red — corren en milisegundos en cualquier lado. Los dos últimos sí, y `mirror:test` se salta solo (avisando) si `MONGODB_URI` no está definida.",
-      "columnas": ["Script", "Qué prueba", "¿Mongo?", "Fuente"],
+      "columnas": [
+        "Script",
+        "Qué prueba",
+        "¿Mongo?",
+        "Fuente"
+      ],
       "filas": [
-        ["`guard:test`", "El guard factual fail-closed en los dos sentidos: un kit limpio pasa, uno con violaciones se detecta clase por clase, y el flujo reintento→rechazo (`GuardViolationError`) funciona.", "No", "`scripts/guard-test.ts:1-9`"],
-        ["`ingest:test`", "Parser y normalizador de CSV — funciones puras.", "No", "`scripts/ingest-test.ts:1-3`"],
-        ["`roles:test`", "La matriz de permisos de `lib/roles.ts` contra lo realmente otorgado por rol, el roundtrip de un token de sesión de equipo (y que uno alterado se rechace), y que `requireAction` niegue 401/403 y deje pasar al rol correcto.", "No", "`scripts/roles-test.ts:1-11`"],
-        ["`claim:test`", "El portero de cuentas reclamadas (I-02) probando `assertClaimAccess` sola: embudo público intacto, cuenta con dueño rechaza al anónimo (401), actor de equipo necesita `manage_users` y alcance (403/404), la directora con alcance global siempre pasa.", "No", "`scripts/claim-test.ts:1-16`"],
-        ["`claim:e2e`", "Lo mismo que `claim:test` pero de punta a punta: llama al route handler real de `POST /api/submissions/:id/email` contra una base descartable, para confirmar que el bug de fondo (escribir antes de decidir) no puede pasar en la ruta real, no solo en la función que la protege.", "**Sí**", "`scripts/claim-e2e-test.ts:1-14`"],
-        ["`report:smoke [outdir]`", "Construye un PDF y un PPTX desde datos sintéticos y verifica que los buffers tengan el header correcto (`%PDF`, cabecera zip `PK`).", "No", "`scripts/report-smoke.ts:1-4`"],
-        ["`isolation:test`", "Aislamiento entre cuentas (#18): crea dos cuentas reales con datos propios y un `TeamUser` acotado a una sola por `companyIds`, después llama a los route handlers reales para probar que ese actor lee su cuenta y no la otra.", "**Sí**", "`scripts/isolation-test.ts:1-8`"],
-        ["`mirror:test`", "La promesa completa del PR #66: cuando el radar no contesta, la pantalla no recibe ni menciones ni cifras, y no se pisa el último snapshot bueno. Existe porque los tres bugs reales de esa revisión salieron de scripts sueltos con la suite en verde.", "Sí — **se salta solo y avisa si `MONGODB_URI` no está definida**", "`scripts/mirror-honesty-test.ts:1-15`"]
+        [
+          "`guard:test`",
+          "El guard factual fail-closed en los dos sentidos: un kit limpio pasa, uno con violaciones se detecta clase por clase, y el flujo reintento→rechazo (`GuardViolationError`) funciona.",
+          "No",
+          "`scripts/guard-test.ts:1-9`"
+        ],
+        [
+          "`ingest:test`",
+          "Parser y normalizador de CSV — funciones puras.",
+          "No",
+          "`scripts/ingest-test.ts:1-3`"
+        ],
+        [
+          "`roles:test`",
+          "La matriz de permisos de `lib/roles.ts` contra lo realmente otorgado por rol, el roundtrip de un token de sesión de equipo (y que uno alterado se rechace), y que `requireAction` niegue 401/403 y deje pasar al rol correcto.",
+          "No",
+          "`scripts/roles-test.ts:1-11`"
+        ],
+        [
+          "`claim:test`",
+          "El portero de cuentas reclamadas (I-02) probando `assertClaimAccess` sola: embudo público intacto, cuenta con dueño rechaza al anónimo (401), actor de equipo necesita `manage_users` y alcance (403/404), la directora con alcance global siempre pasa.",
+          "No",
+          "`scripts/claim-test.ts:1-16`"
+        ],
+        [
+          "`claim:e2e`",
+          "Lo mismo que `claim:test` pero de punta a punta: llama al route handler real de `POST /api/submissions/:id/email` contra una base descartable, para confirmar que el bug de fondo (escribir antes de decidir) no puede pasar en la ruta real, no solo en la función que la protege.",
+          "**Sí**",
+          "`scripts/claim-e2e-test.ts:1-14`"
+        ],
+        [
+          "`report:smoke [outdir]`",
+          "Construye un PDF y un PPTX desde datos sintéticos y verifica que los buffers tengan el header correcto (`%PDF`, cabecera zip `PK`).",
+          "No",
+          "`scripts/report-smoke.ts:1-4`"
+        ],
+        [
+          "`isolation:test`",
+          "Aislamiento entre cuentas (#18): crea dos cuentas reales con datos propios y un `TeamUser` acotado a una sola por `companyIds`, después llama a los route handlers reales para probar que ese actor lee su cuenta y no la otra.",
+          "**Sí**",
+          "`scripts/isolation-test.ts:1-8`"
+        ],
+        [
+          "`mirror:test`",
+          "La promesa completa del PR #66: cuando el radar no contesta, la pantalla no recibe ni menciones ni cifras, y no se pisa el último snapshot bueno. Existe porque los tres bugs reales de esa revisión salieron de scripts sueltos con la suite en verde.",
+          "Sí — **se salta solo y avisa si `MONGODB_URI` no está definida**",
+          "`scripts/mirror-honesty-test.ts:1-15`"
+        ]
       ]
     },
     {
       "titulo": "Scripts de prueba en radar-engine (`cd radar-engine && npm run <script>`)",
       "nota": "No son workspace del repo raíz — se instalan y se corren aparte, desde dentro de `radar-engine/`.",
-      "columnas": ["Script", "Qué prueba", "¿Mongo?", "Fuente"],
+      "columnas": [
+        "Script",
+        "Qué prueba",
+        "¿Mongo?",
+        "Fuente"
+      ],
       "filas": [
-        ["`mentions:test`", "El regex del espejo de medios (`buildMentionRegex`): reglas escritas a mano una por decisión del regex, más casos congelados del corpus real (la mitad, cosas que la regla vieja traía por error — #10). Función pura, sin base ni red.", "No", "`radar-engine/scripts/mentions-test.ts:1-11`"],
-        ["`mentions:fixtures`", "No es un test — regenera los fixtures que usa `mentions:test`, buscando cada nombre con la regla vieja y la nueva contra el corpus real y guardando extractos de ambos lados. Se corre a mano solo para refrescar o ampliar casos.", "**Sí** — exige `MONGODB_URI` explícito, tira si falta", "`radar-engine/scripts/build-mention-fixtures.ts:22,53-55`"]
+        [
+          "`mentions:test`",
+          "El regex del espejo de medios (`buildMentionRegex`): reglas escritas a mano una por decisión del regex, más casos congelados del corpus real (la mitad, cosas que la regla vieja traía por error — #10). Función pura, sin base ni red.",
+          "No",
+          "`radar-engine/scripts/mentions-test.ts:1-11`"
+        ],
+        [
+          "`mentions:fixtures`",
+          "No es un test — regenera los fixtures que usa `mentions:test`, buscando cada nombre con la regla vieja y la nueva contra el corpus real y guardando extractos de ambos lados. Se corre a mano solo para refrescar o ampliar casos.",
+          "**Sí** — exige `MONGODB_URI` explícito, tira si falta",
+          "`radar-engine/scripts/build-mention-fixtures.ts:22,53-55`"
+        ]
       ]
     }
   ],
@@ -91,7 +151,7 @@
     },
     {
       "titulo": "`radar-engine` no tiene `node_modules` en este clon",
-      "detalle": "Verificado hoy: `cd radar-engine && npx tsc --noEmit` tira puro `TS2307` (`Cannot find module 'express'`, `'axios'`, `'helmet'`, `'cors'`, `'fast-xml-parser'`...) — ruido de resolución de módulos, no errores del código. Hay que filtrar `TS2307` para ver los reales — y hoy, filtrados, quedan **tres de verdad**: `src/server.ts:43` (dos parámetros con `any` implícito), `src/services/radar/ingest.ts:159` (`any` implícito) y `src/services/radar/llm.ts:151` (`err` de tipo `unknown`). Ver \"Hallazgos\" — esto no estaba documentado en ningún lado."
+      "detalle": "`cd radar-engine && npx tsc --noEmit` en un clon sin `node_modules` produce ruido en **cascada**, y ahí está la trampa. Primero los `TS2307` obvios (`Cannot find module 'express'`, `'axios'`, `'helmet'`…). Pero filtrar `TS2307` NO alcanza: al faltar los tipos quedan errores **derivados** que parecen del código y no lo son. Hoy son tres, y los tres se caen solos cuando las dependencias están: `server.ts:43` (`(_req, res)` los tipa `express.get()`, de `@types/express`), `ingest.ts:159` (`(data)` lo tipa `AxiosResponseTransformer`, de axios) y `llm.ts:151` (`axios.isAxiosError()` es un type guard que acepta `unknown`). Las cuatro dependencias están declaradas en `radar-engine/package.json`, así que en el entorno instalado que usa Railway para construir no existen. La única forma de separar ruido de real es abrir cada sitio y ver de qué tipo depende — un conteo de errores no distingue."
     },
     {
       "titulo": "El repo no fija la versión de Node",
@@ -122,7 +182,7 @@
   ],
   "hallazgos": [
     "**Los docs internos del equipo contradicen lo que Railway hace de verdad.** `docs/como-trabajamos.md` (sección \"Flujo del repo\") dice que `main` \"todavía no tiene un deploy conectado — cuando lo tenga, un push acá levanta el ambiente de pruebas, no producción\". Eso es falso hoy: Railway despliega `main` directo a `https://prtech-production-ef4c.up.railway.app`, confirmado dos veces hoy (merges de los PR #66 y #69) y por `BACKLOG.md`, que registra el auto-deploy como resuelto desde el 14-sep. Quien lea solo `como-trabajamos.md` puede creer que mergear a `main` es seguro y no toca producción — no lo es.",
-      "`radar-engine` tiene **tres errores reales de TypeScript** hoy, además del ruido esperado de `TS2307` por no tener `node_modules`: `src/server.ts:43` y `src/services/radar/ingest.ts:159` (parámetros con `any` implícito) y `src/services/radar/llm.ts:151` (`err` sin tipar). No estaban documentados en ningún lado y no hay CI que los atrape — no existe `.github/` en el repo, así que no hay ningún workflow que corra `typecheck` automáticamente en cada PR; la única puerta hoy es que alguien lo corra a mano antes de abrir el PR, por acuerdo de equipo (`docs/como-trabajamos.md`), no por herramienta.",
+    "**No hay CI.** No existe `.github/` en el repo, así que ningún workflow corre `typecheck` ni los tests en un PR. La única puerta es que alguien lo corra a mano antes de abrir el PR, por acuerdo de equipo (`docs/como-trabajamos.md`), no por herramienta. Y como `main` despliega directo a producción, esa puerta manual es lo único que separa un typecheck roto del cliente.\n\nNota sobre un falso positivo que costó revisar: una primera pasada de esta documentación reportó \"tres errores reales de TypeScript\" en `radar-engine`. No lo son — son errores derivados de la falta de `node_modules`, y desaparecen con las dependencias instaladas. Queda anotado porque el error de método es fácil de repetir: filtrar `TS2307` y dar por real lo que sobra.",
     "Existen **dos generaciones de \"PR Tech\" corriendo en paralelo** sin que se haya decidido cuál apagar: la nueva (`prtech-ai` standalone, este documento) y la vieja (`platform/apps/prtech` dentro de `vilo-platform`, con su propio `Dockerfile.prtech` sirviendo `prtech.villelab.com` con una imagen congelada de antes del 1-sep). Ninguna decisión sobre esto vive en el repo `prtech-ai` — está en `BACKLOG.md`, marcada pendiente de Álvaro.",
     "No hay ningún workflow de GitHub Actions ni gate de CI en el repo (`.github/` no existe). Toda la \"definición de terminado\" — typecheck y build limpios, tests de la épica que se toca — depende de que la persona que abre el PR la corra a mano. No hay forma de confirmar desde el repo si además hay branch protection o revisión obligatoria configurada en GitHub (ver \"No verificable\")."
   ]
