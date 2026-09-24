@@ -24,6 +24,10 @@ const RAIZ = resolve(AQUI, '../..');
 
 const PROGRAMAS = {
   prtech: { owner: 'AlvaroEwaffle', repo: 'prtech-ai', proyecto: 1, nombre: 'PR Tech' },
+  // El código de Fidelidapp vive en repos de Bruno; acá se rastrea todo con una
+  // etiqueta `repo:` por issue. `repo` es de dónde salen los PRs que el board
+  // muestra — por eso apunta a fidelidapp-tools, que es donde están las issues.
+  fidelidapp: { owner: 'AlvaroEwaffle', repo: 'fidelidapp-tools', proyecto: 2, nombre: 'Fidelidapp' },
 };
 
 function gh(args, input) {
@@ -77,6 +81,45 @@ query($owner:String!, $numero:Int!, $cursor:String) {
   }
 }`;
 
+// El listado del board viene rezagado: una issue recién agregada puede tardar
+// minutos en aparecer en `projectV2.items`, aunque su `projectItems` ya la
+// muestre desde el lado de la issue y con sus campos puestos. Pasó con PR Tech
+// (#65, #67 y #68) y volvió a pasar con las 25 de Fidelidapp.
+//
+// Por eso se lee dos veces: el board manda, y esta consulta rellena lo que el
+// board todavía no confiesa. Sin esto, un sync corrido justo después de armar
+// un tablero escribe un snapshot vacío y la página muestra cero historias como
+// si fueran cero de verdad.
+const QUERY_ISSUES = `
+query($owner:String!, $repo:String!, $cursor:String) {
+  repository(owner:$owner, name:$repo) {
+    issues(first:50, after:$cursor, orderBy:{field:CREATED_AT, direction:ASC}) {
+      pageInfo { hasNextPage endCursor }
+      nodes {
+        number title url state createdAt closedAt
+        milestone { title dueOn state }
+        labels(first:20) { nodes { name color } }
+        assignees(first:10) { nodes { login } }
+        comments { totalCount }
+        projectItems(first:10) {
+          nodes {
+            project { number }
+            fieldValues(first:20) {
+              nodes {
+                __typename
+                ... on ProjectV2ItemFieldSingleSelectValue { name field { ... on ProjectV2SingleSelectField { name } } }
+                ... on ProjectV2ItemFieldTextValue        { text field { ... on ProjectV2FieldCommon { name } } }
+                ... on ProjectV2ItemFieldNumberValue      { number field { ... on ProjectV2FieldCommon { name } } }
+                ... on ProjectV2ItemFieldDateValue        { date field { ... on ProjectV2FieldCommon { name } } }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}`;
+
 // PRs abiertos: no están en el board, pero son la mitad de lo que uno mira en
 // una daily — qué está esperando revisión.
 const QUERY_PRS = `
@@ -120,6 +163,27 @@ function campos(nodos) {
   return out;
 }
 
+/** Una issue del snapshot, desde el crudo de GitHub y sus campos del board. */
+function aHistoria(c, f) {
+  return {
+    numero: c.number,
+    titulo: c.title,
+    url: c.url,
+    estado_github: c.state, // OPEN | CLOSED — el crudo, nunca se sobrescribe
+    estado_board: f.Status ?? null,
+    sprint: f.Sprint ?? null,
+    prioridad: f.Priority ?? null,
+    estimacion: f.Estimate ?? f['Story Points'] ?? null,
+    fase: c.milestone?.title ?? null,
+    fase_vence: c.milestone?.dueOn ?? null,
+    etiquetas: c.labels.nodes.map((l) => l.name),
+    asignados: c.assignees.nodes.map((a) => a.login),
+    comentarios: c.comments.totalCount,
+    creada: c.createdAt,
+    cerrada: c.closedAt,
+  };
+}
+
 function leerBoard(cfg) {
   const items = [];
   let cursor = null;
@@ -132,29 +196,30 @@ function leerBoard(cfg) {
     for (const nodo of p.items.nodes) {
       const c = nodo.content;
       if (!c || c.__typename !== 'Issue') continue; // los PRs van aparte
-      const f = campos(nodo.fieldValues.nodes);
-      items.push({
-        numero: c.number,
-        titulo: c.title,
-        url: c.url,
-        estado_github: c.state, // OPEN | CLOSED — el crudo, nunca se sobrescribe
-        estado_board: f.Status ?? null,
-        sprint: f.Sprint ?? null,
-        prioridad: f.Priority ?? null,
-        estimacion: f.Estimate ?? f['Story Points'] ?? null,
-        fase: c.milestone?.title ?? null,
-        fase_vence: c.milestone?.dueOn ?? null,
-        etiquetas: c.labels.nodes.map((l) => l.name),
-        asignados: c.assignees.nodes.map((a) => a.login),
-        comentarios: c.comments.totalCount,
-        creada: c.createdAt,
-        cerrada: c.closedAt,
-      });
+      items.push(aHistoria(c, campos(nodo.fieldValues.nodes)));
     }
     if (!p.items.pageInfo.hasNextPage) break;
     cursor = p.items.pageInfo.endCursor;
   }
   return { titulo, items };
+}
+
+/** Las issues del repo que están en este proyecto, leídas desde la issue. */
+function leerDesdeElRepo(cfg) {
+  const items = [];
+  let cursor = null;
+  for (;;) {
+    const d = graphql(QUERY_ISSUES, { owner: cfg.owner, repo: cfg.repo, cursor });
+    const issues = d.repository.issues;
+    for (const c of issues.nodes) {
+      const item = c.projectItems.nodes.find((i) => i.project?.number === cfg.proyecto);
+      if (!item) continue;
+      items.push(aHistoria(c, campos(item.fieldValues.nodes)));
+    }
+    if (!issues.pageInfo.hasNextPage) break;
+    cursor = issues.pageInfo.endCursor;
+  }
+  return items;
 }
 
 function leerPRs(cfg) {
@@ -178,9 +243,29 @@ function sincronizar(slug) {
 
   process.stderr.write(`  ${slug}: leyendo board… `);
   const { titulo, items } = leerBoard(cfg);
-  process.stderr.write(`${items.length} historias · PRs… `);
+  process.stderr.write(`${items.length} historias · repo… `);
+
+  // El board manda; el repo solo agrega lo que el board todavía no lista.
+  const vistas = new Set(items.map((h) => h.numero));
+  const rezagadas = leerDesdeElRepo(cfg).filter((h) => !vistas.has(h.numero));
+  if (rezagadas.length) {
+    items.push(...rezagadas);
+    process.stderr.write(`+${rezagadas.length} rezagadas · PRs… `);
+  } else {
+    process.stderr.write('al día · PRs… ');
+  }
+
   const prs = leerPRs(cfg);
   process.stderr.write(`${prs.length}\n`);
+
+  // Un snapshot vacío es indistinguible de «no hay trabajo» cuando se mira la
+  // página. Preferimos no escribir y fallar ruidoso antes que pisar uno bueno.
+  if (items.length === 0) {
+    throw new Error(
+      'el board y el repo devolvieron cero historias. No se escribe el snapshot: ' +
+        'revisa el número de proyecto y que las issues estén agregadas al tablero.',
+    );
+  }
 
   const snapshot = {
     // `generado` es lo que la página usa para decir qué tan viejo es el dato.
