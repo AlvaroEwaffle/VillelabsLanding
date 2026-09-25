@@ -1,0 +1,57 @@
+{
+  "_nota": "El único artefacto escrito a mano de punta a punta. Se actualiza cuando alguien decide algo, no cuando corre un sync.",
+  "_revisado": "2026-09-23",
+  "una_linea": "Una plataforma que le arma a una empresa su press kit y se lo hace llegar a los periodistas que sí cubren su tema.",
+  "secciones": [
+    {
+      "titulo": "Por qué existe",
+      "cuerpo": [
+        "Conseguir prensa es caro y opaco. Una pyme que quiere contar algo paga una agencia por meses, o escribe un comunicado que nadie abre porque lo mandó a una lista comprada.",
+        "PR Tech parte de un dato que ya tenemos: un radar que lee prensa todos los días y sabe qué medio cubre qué tema y quién firma esas notas. Sobre ese corpus, la plataforma arma el kit y decide a quién mandárselo.",
+        "La apuesta es que el match por tema le gana a la lista por sector. Eso todavía no está probado con un cliente real de punta a punta — es la primera cosa que el piloto tiene que contestar."
+      ]
+    },
+    {
+      "titulo": "Quiénes",
+      "cuerpo": [
+        "**Villelabs** construye la plataforma y pone el equipo. **Sentidos Comunicaciones** aporta el oficio de PR, la relación con los medios y el primer cliente.",
+        "**Álvaro** hace de PO y decide alcance, precio y qué entra en cada fase. **Juan** lleva la plataforma — cuentas, pagos, permisos. **Melanie** lleva el radar — corpus, medios, periodistas, match.",
+        "**Catalina**, en Sentidos, es la contraparte. Todo lo que esté en la plataforma PR Tech es de PR Tech: esa frase, que le dijimos por escrito, es la que define qué se construye adentro y qué queda afuera."
+      ]
+    },
+    {
+      "titulo": "En qué está dividido",
+      "cuerpo": [
+        "**Etapa 1 · El producto.** Fase 1 la plataforma (en curso), Fase 2 alianzas con medios, Fase 3 estrategia de medios.",
+        "**Etapa 2 · La escucha.** Reportes de cobertura y conversación. Ahí vive el piloto con un cliente real, y todavía no arrancó.",
+        "Los milestones de GitHub **son** las fases. Las épicas son etiquetas, no issues: una épica no se cierra, se vacía. Los sprints son de dos semanas y cada uno lleva su meta escrita."
+      ]
+    },
+    {
+      "titulo": "Cómo sabemos que va bien",
+      "cuerpo": [
+        "**Que el aislamiento entre cuentas aguante.** Es lo primero que rompe la confianza de un cliente y lo último que se perdona. Hoy hay 21 pruebas automáticas que lo vigilan.",
+        "**Que la plataforma pueda enviar un correo.** Suena bajo y es el rojo más grande de la Fase 1: el módulo de difusión está construido y probado, y no tiene credenciales.",
+        "**Que el kit no invente nada.** El guard es fail-closed: si el modelo mete una cifra que el cliente no escribió, no se publica. Un comunicado con un dato inventado se lo come el cliente, no nosotros.",
+        "**Que un cliente real lo use de punta a punta.** Lo único que de verdad valida la hipótesis. No pasó todavía."
+      ]
+    },
+    {
+      "titulo": "Cómo se decide",
+      "cuerpo": [
+        "Lo que toca alcance, precio o fecha de entrega lo decide Álvaro. Lo demás avanza sin pedir permiso.",
+        "Ningún cambio entra a `main` sin revisión y sin las suites en verde. Las pruebas de roles, aislamiento, guard, portero de cuentas y espejo de medios corren antes de cada merge.",
+        "Este repositorio es el sistema: si algo cambia y acá no se ve, el cambio no está hecho. El tablero refleja GitHub; las notas, los estados y el RAID se escriben acá."
+      ]
+    },
+    {
+      "titulo": "Lo que todavía no está decidido",
+      "cuerpo": [
+        "**La sociedad no está firmada.** PR Tech S.A.S. no está constituida y hay dos caminos sobre la mesa, sin resolver. Todo el trabajo previo a la firma corre por cuenta de Villelabs, aceptado explícitamente. Los términos no viven acá.",
+        "**Los precios y los planes.** Está confirmado que el uso es por suscripción; no cuánto, ni qué queda gratis, ni qué pasa con un cobro que falla. Bloquea la pasarela.",
+        "**Los criterios de aceptación no están acordados con Sentidos.** Los que están escritos en las historias son nuestros. Se cierran en el kick-off.",
+        "**La Ley 1581 no tiene una línea escrita.** Procedencia por contacto, política de tratamiento, base de legitimación y supresión. Es requisito legal para operar difusión en Colombia, no una mejora."
+      ]
+    }
+  ]
+}

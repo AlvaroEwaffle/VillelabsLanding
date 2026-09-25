@@ -1,0 +1,574 @@
+{
+  "generado": "2026-09-24T19:30:24.046Z",
+  "slug": "fidelidapp",
+  "nombre": "Fidelidapp",
+  "repo": "AlvaroEwaffle/fidelidapp-tools",
+  "board": "Fidelidapp",
+  "historias": [
+    {
+      "numero": 1,
+      "titulo": "B3-NEW-1 · El bot de Instagram responde los DM y las respuestas a anuncios",
+      "url": "https://github.com/AlvaroEwaffle/fidelidapp-tools/issues/1",
+      "estado_github": "OPEN",
+      "estado_board": "In review",
+      "sprint": "Sprint 1",
+      "prioridad": "P0",
+      "estimacion": null,
+      "fase": "Fase 1 · Que nadie se pierda",
+      "fase_vence": null,
+      "etiquetas": [
+        "epic: bot-instagram",
+        "repo: api"
+      ],
+      "asignados": [
+        "AlvaroEwaffle"
+      ],
+      "comentarios": 0,
+      "creada": "2026-09-24T02:26:53Z",
+      "cerrada": null
+    },
+    {
+      "numero": 2,
+      "titulo": "B3-NEW-2 · Todo lead de Instagram y WhatsApp entra al flujo de seguimiento",
+      "url": "https://github.com/AlvaroEwaffle/fidelidapp-tools/issues/2",
+      "estado_github": "OPEN",
+      "estado_board": "In review",
+      "sprint": "Sprint 1",
+      "prioridad": "P0",
+      "estimacion": null,
+      "fase": "Fase 1 · Que nadie se pierda",
+      "fase_vence": null,
+      "etiquetas": [
+        "epic: seguimiento",
+        "repo: api"
+      ],
+      "asignados": [
+        "AlvaroEwaffle"
+      ],
+      "comentarios": 0,
+      "creada": "2026-09-24T02:26:56Z",
+      "cerrada": null
+    },
+    {
+      "numero": 3,
+      "titulo": "B3-NEW-3 · Wizard: quitar la bienvenida y pedir solo nombre del negocio y WhatsApp",
+      "url": "https://github.com/AlvaroEwaffle/fidelidapp-tools/issues/3",
+      "estado_github": "OPEN",
+      "estado_board": "Ready",
+      "sprint": "Sprint 1",
+      "prioridad": "P0",
+      "estimacion": null,
+      "fase": "Fase 1 · Que nadie se pierda",
+      "fase_vence": null,
+      "etiquetas": [
+        "epic: wizard",
+        "repo: client"
+      ],
+      "asignados": [
+        "AlvaroEwaffle"
+      ],
+      "comentarios": 0,
+      "creada": "2026-09-24T02:27:00Z",
+      "cerrada": null
+    },
+    {
+      "numero": 4,
+      "titulo": "B3-NEW-3 · Wizard: no tragar los errores de guardado",
+      "url": "https://github.com/AlvaroEwaffle/fidelidapp-tools/issues/4",
+      "estado_github": "OPEN",
+      "estado_board": "Ready",
+      "sprint": "Sprint 1",
+      "prioridad": "P0",
+      "estimacion": null,
+      "fase": "Fase 1 · Que nadie se pierda",
+      "fase_vence": null,
+      "etiquetas": [
+        "epic: wizard",
+        "repo: client"
+      ],
+      "asignados": [
+        "AlvaroEwaffle"
+      ],
+      "comentarios": 0,
+      "creada": "2026-09-24T02:27:03Z",
+      "cerrada": null
+    },
+    {
+      "numero": 5,
+      "titulo": "B3-NEW-4 · Un brief diario con los tres canales: wizard, WhatsApp e Instagram",
+      "url": "https://github.com/AlvaroEwaffle/fidelidapp-tools/issues/5",
+      "estado_github": "OPEN",
+      "estado_board": "In progress",
+      "sprint": "Sprint 1",
+      "prioridad": "P1",
+      "estimacion": null,
+      "fase": "Fase 1 · Que nadie se pierda",
+      "fase_vence": null,
+      "etiquetas": [
+        "epic: monitoreo",
+        "repo: tools"
+      ],
+      "asignados": [
+        "AlvaroEwaffle"
+      ],
+      "comentarios": 0,
+      "creada": "2026-09-24T02:27:06Z",
+      "cerrada": null
+    },
+    {
+      "numero": 6,
+      "titulo": "B3-NEW-5 · Medir el wizard 3 a 5 días con la telemetría nueva",
+      "url": "https://github.com/AlvaroEwaffle/fidelidapp-tools/issues/6",
+      "estado_github": "OPEN",
+      "estado_board": "Ready",
+      "sprint": "Sprint 1",
+      "prioridad": "P1",
+      "estimacion": null,
+      "fase": "Fase 1 · Que nadie se pierda",
+      "fase_vence": null,
+      "etiquetas": [
+        "epic: monitoreo",
+        "repo: client"
+      ],
+      "asignados": [
+        "AlvaroEwaffle"
+      ],
+      "comentarios": 0,
+      "creada": "2026-09-24T02:27:09Z",
+      "cerrada": null
+    },
+    {
+      "numero": 7,
+      "titulo": "B3-NEW-6 · Fundir el paso 2 del wizard en el paso 1 y activar con valores por defecto",
+      "url": "https://github.com/AlvaroEwaffle/fidelidapp-tools/issues/7",
+      "estado_github": "OPEN",
+      "estado_board": "Backlog",
+      "sprint": "Sprint 2",
+      "prioridad": "P1",
+      "estimacion": null,
+      "fase": "Fase 2 · Que convierta",
+      "fase_vence": null,
+      "etiquetas": [
+        "epic: wizard",
+        "repo: client"
+      ],
+      "asignados": [
+        "AlvaroEwaffle"
+      ],
+      "comentarios": 0,
+      "creada": "2026-09-24T02:27:12Z",
+      "cerrada": null
+    },
+    {
+      "numero": 8,
+      "titulo": "B3-NEW-7 · Retomar por WhatsApp a quien dejó su número y no activó en una hora",
+      "url": "https://github.com/AlvaroEwaffle/fidelidapp-tools/issues/8",
+      "estado_github": "OPEN",
+      "estado_board": "Backlog",
+      "sprint": "Sprint 2",
+      "prioridad": "P1",
+      "estimacion": null,
+      "fase": "Fase 2 · Que convierta",
+      "fase_vence": null,
+      "etiquetas": [
+        "epic: seguimiento",
+        "repo: tools"
+      ],
+      "asignados": [
+        "AlvaroEwaffle"
+      ],
+      "comentarios": 0,
+      "creada": "2026-09-24T02:27:15Z",
+      "cerrada": null
+    },
+    {
+      "numero": 9,
+      "titulo": "B3-NEW-8 · Diagnosticar en Meta Ads Manager el corte de distribución del 21-sep",
+      "url": "https://github.com/AlvaroEwaffle/fidelidapp-tools/issues/9",
+      "estado_github": "OPEN",
+      "estado_board": "Ready",
+      "sprint": "Sprint 1",
+      "prioridad": "P1",
+      "estimacion": null,
+      "fase": "Fase 3 · Que escale",
+      "fase_vence": null,
+      "etiquetas": [
+        "epic: contenido-y-pauta"
+      ],
+      "asignados": [
+        "AlvaroEwaffle"
+      ],
+      "comentarios": 0,
+      "creada": "2026-09-24T02:27:18Z",
+      "cerrada": null
+    },
+    {
+      "numero": 10,
+      "titulo": "B3-NEW-9 · Pedir por WhatsApp a 5 clientes el permiso para usar su material",
+      "url": "https://github.com/AlvaroEwaffle/fidelidapp-tools/issues/10",
+      "estado_github": "OPEN",
+      "estado_board": "Ready",
+      "sprint": "Sprint 1",
+      "prioridad": "P1",
+      "estimacion": null,
+      "fase": "Fase 3 · Que escale",
+      "fase_vence": null,
+      "etiquetas": [
+        "epic: contenido-y-pauta"
+      ],
+      "asignados": [
+        "AlvaroEwaffle"
+      ],
+      "comentarios": 0,
+      "creada": "2026-09-24T02:27:20Z",
+      "cerrada": null
+    },
+    {
+      "numero": 11,
+      "titulo": "B3-NEW-10 · Publicar el reel VUELVEN de La Cafetería Talca",
+      "url": "https://github.com/AlvaroEwaffle/fidelidapp-tools/issues/11",
+      "estado_github": "OPEN",
+      "estado_board": "In review",
+      "sprint": "Sprint 1",
+      "prioridad": "P1",
+      "estimacion": null,
+      "fase": "Fase 3 · Que escale",
+      "fase_vence": null,
+      "etiquetas": [
+        "epic: contenido-y-pauta"
+      ],
+      "asignados": [
+        "AlvaroEwaffle"
+      ],
+      "comentarios": 0,
+      "creada": "2026-09-24T02:27:24Z",
+      "cerrada": null
+    },
+    {
+      "numero": 12,
+      "titulo": "B3-NEW-11 · Probar una intro de 8 segundos con Veo en el reel de Talca",
+      "url": "https://github.com/AlvaroEwaffle/fidelidapp-tools/issues/12",
+      "estado_github": "OPEN",
+      "estado_board": "Backlog",
+      "sprint": null,
+      "prioridad": "P2",
+      "estimacion": null,
+      "fase": "Fase 3 · Que escale",
+      "fase_vence": null,
+      "etiquetas": [
+        "epic: contenido-y-pauta"
+      ],
+      "asignados": [
+        "AlvaroEwaffle"
+      ],
+      "comentarios": 0,
+      "creada": "2026-09-24T02:27:27Z",
+      "cerrada": null
+    },
+    {
+      "numero": 13,
+      "titulo": "B3-NEW-12 · Sitio: un solo precio, tuteo y prueba social coherente",
+      "url": "https://github.com/AlvaroEwaffle/fidelidapp-tools/issues/13",
+      "estado_github": "OPEN",
+      "estado_board": "Backlog",
+      "sprint": "Sprint 2",
+      "prioridad": "P2",
+      "estimacion": null,
+      "fase": "Fase 2 · Que convierta",
+      "fase_vence": null,
+      "etiquetas": [
+        "epic: sitio-y-marca",
+        "repo: client"
+      ],
+      "asignados": [
+        "AlvaroEwaffle"
+      ],
+      "comentarios": 0,
+      "creada": "2026-09-24T02:27:29Z",
+      "cerrada": null
+    },
+    {
+      "numero": 14,
+      "titulo": "B3-NEW-13 · DM por regla en vez de una sola regla por cuenta",
+      "url": "https://github.com/AlvaroEwaffle/fidelidapp-tools/issues/14",
+      "estado_github": "OPEN",
+      "estado_board": "Backlog",
+      "sprint": "Sprint 2",
+      "prioridad": "P2",
+      "estimacion": null,
+      "fase": "Fase 2 · Que convierta",
+      "fase_vence": null,
+      "etiquetas": [
+        "epic: bot-instagram",
+        "repo: api"
+      ],
+      "asignados": [
+        "AlvaroEwaffle"
+      ],
+      "comentarios": 0,
+      "creada": "2026-09-24T02:27:32Z",
+      "cerrada": null
+    },
+    {
+      "numero": 15,
+      "titulo": "B3-NEW-14 · Borrar el código muerto del wizard",
+      "url": "https://github.com/AlvaroEwaffle/fidelidapp-tools/issues/15",
+      "estado_github": "OPEN",
+      "estado_board": "Backlog",
+      "sprint": null,
+      "prioridad": "P2",
+      "estimacion": null,
+      "fase": "Fase 2 · Que convierta",
+      "fase_vence": null,
+      "etiquetas": [
+        "epic: wizard",
+        "repo: client"
+      ],
+      "asignados": [
+        "AlvaroEwaffle"
+      ],
+      "comentarios": 0,
+      "creada": "2026-09-24T02:27:35Z",
+      "cerrada": null
+    },
+    {
+      "numero": 16,
+      "titulo": "B3-NEW-15 · Decidir el ritmo de publicación y reactivar pauta sobre los reels VUELVEN",
+      "url": "https://github.com/AlvaroEwaffle/fidelidapp-tools/issues/16",
+      "estado_github": "OPEN",
+      "estado_board": "Backlog",
+      "sprint": null,
+      "prioridad": "P1",
+      "estimacion": null,
+      "fase": "Fase 3 · Que escale",
+      "fase_vence": null,
+      "etiquetas": [
+        "epic: contenido-y-pauta"
+      ],
+      "asignados": [
+        "AlvaroEwaffle"
+      ],
+      "comentarios": 0,
+      "creada": "2026-09-24T02:27:39Z",
+      "cerrada": null
+    },
+    {
+      "numero": 17,
+      "titulo": "B3-NEW-16 · Los crons de seguimientos y de renovación de token solo corren con Mongo en localhost",
+      "url": "https://github.com/AlvaroEwaffle/fidelidapp-tools/issues/17",
+      "estado_github": "OPEN",
+      "estado_board": "Ready",
+      "sprint": "Sprint 1",
+      "prioridad": "P0",
+      "estimacion": null,
+      "fase": "Fase 1 · Que nadie se pierda",
+      "fase_vence": null,
+      "etiquetas": [
+        "epic: seguimiento",
+        "repo: api"
+      ],
+      "asignados": [
+        "AlvaroEwaffle"
+      ],
+      "comentarios": 0,
+      "creada": "2026-09-24T02:27:42Z",
+      "cerrada": null
+    },
+    {
+      "numero": 18,
+      "titulo": "B3-NEW-17 · Dra. Oyarzún: suscribir message_echoes y decidir el motor de respuesta",
+      "url": "https://github.com/AlvaroEwaffle/fidelidapp-tools/issues/18",
+      "estado_github": "OPEN",
+      "estado_board": "Ready",
+      "sprint": "Sprint 1",
+      "prioridad": "P0",
+      "estimacion": null,
+      "fase": "Fase 1 · Que nadie se pierda",
+      "fase_vence": null,
+      "etiquetas": [
+        "epic: bot-instagram",
+        "repo: api"
+      ],
+      "asignados": [
+        "AlvaroEwaffle"
+      ],
+      "comentarios": 0,
+      "creada": "2026-09-24T02:27:45Z",
+      "cerrada": null
+    },
+    {
+      "numero": 19,
+      "titulo": "B3-NEW-18 · Regularizar el cobro de la Dra. Oyarzún",
+      "url": "https://github.com/AlvaroEwaffle/fidelidapp-tools/issues/19",
+      "estado_github": "OPEN",
+      "estado_board": "Ready",
+      "sprint": "Sprint 1",
+      "prioridad": "P0",
+      "estimacion": null,
+      "fase": "Fase 2 · Que convierta",
+      "fase_vence": null,
+      "etiquetas": [
+        "epic: cuentas-y-cobro"
+      ],
+      "asignados": [
+        "AlvaroEwaffle"
+      ],
+      "comentarios": 0,
+      "creada": "2026-09-24T02:27:48Z",
+      "cerrada": null
+    },
+    {
+      "numero": 20,
+      "titulo": "B3-NEW-19 · lastOutboundAt no se actualiza cuando responde crearMessageSender",
+      "url": "https://github.com/AlvaroEwaffle/fidelidapp-tools/issues/20",
+      "estado_github": "OPEN",
+      "estado_board": "Ready",
+      "sprint": "Sprint 1",
+      "prioridad": "P1",
+      "estimacion": null,
+      "fase": "Fase 1 · Que nadie se pierda",
+      "fase_vence": null,
+      "etiquetas": [
+        "epic: monitoreo",
+        "repo: api"
+      ],
+      "asignados": [
+        "AlvaroEwaffle"
+      ],
+      "comentarios": 0,
+      "creada": "2026-09-24T02:27:51Z",
+      "cerrada": null
+    },
+    {
+      "numero": 21,
+      "titulo": "B3-NEW-20 · Puntos earned sin actividad desde el 17-sep y promotionregistrations en cero",
+      "url": "https://github.com/AlvaroEwaffle/fidelidapp-tools/issues/21",
+      "estado_github": "OPEN",
+      "estado_board": "Ready",
+      "sprint": "Sprint 2",
+      "prioridad": "P1",
+      "estimacion": null,
+      "fase": "Fase 2 · Que convierta",
+      "fase_vence": null,
+      "etiquetas": [
+        "epic: cuentas-y-cobro",
+        "repo: api"
+      ],
+      "asignados": [
+        "AlvaroEwaffle"
+      ],
+      "comentarios": 0,
+      "creada": "2026-09-24T02:27:54Z",
+      "cerrada": null
+    },
+    {
+      "numero": 22,
+      "titulo": "Telemetría del wizard: cada paso visto y cada campo fallido quedan en la sesión",
+      "url": "https://github.com/AlvaroEwaffle/fidelidapp-tools/issues/22",
+      "estado_github": "CLOSED",
+      "estado_board": "Done",
+      "sprint": "Sprint 1",
+      "prioridad": "P0",
+      "estimacion": null,
+      "fase": "Fase 1 · Que nadie se pierda",
+      "fase_vence": null,
+      "etiquetas": [
+        "epic: wizard",
+        "repo: client"
+      ],
+      "asignados": [
+        "AlvaroEwaffle"
+      ],
+      "comentarios": 0,
+      "creada": "2026-09-24T02:27:56Z",
+      "cerrada": "2026-09-24T02:30:48Z"
+    },
+    {
+      "numero": 23,
+      "titulo": "Script del embudo del wizard (wizard-embudo.cjs)",
+      "url": "https://github.com/AlvaroEwaffle/fidelidapp-tools/issues/23",
+      "estado_github": "CLOSED",
+      "estado_board": "Done",
+      "sprint": "Sprint 1",
+      "prioridad": "P1",
+      "estimacion": null,
+      "fase": "Fase 1 · Que nadie se pierda",
+      "fase_vence": null,
+      "etiquetas": [
+        "epic: monitoreo",
+        "repo: tools"
+      ],
+      "asignados": [
+        "AlvaroEwaffle"
+      ],
+      "comentarios": 0,
+      "creada": "2026-09-24T02:27:59Z",
+      "cerrada": "2026-09-24T02:30:50Z"
+    },
+    {
+      "numero": 24,
+      "titulo": "Backlog de trabajo B3 escrito (23-sep)",
+      "url": "https://github.com/AlvaroEwaffle/fidelidapp-tools/issues/24",
+      "estado_github": "CLOSED",
+      "estado_board": "Done",
+      "sprint": "Sprint 1",
+      "prioridad": "P1",
+      "estimacion": null,
+      "fase": null,
+      "fase_vence": null,
+      "etiquetas": [
+        "epic: programa"
+      ],
+      "asignados": [
+        "AlvaroEwaffle"
+      ],
+      "comentarios": 0,
+      "creada": "2026-09-24T02:28:02Z",
+      "cerrada": "2026-09-24T02:30:51Z"
+    },
+    {
+      "numero": 25,
+      "titulo": "Borrador del programa · WS-1 Adquisición",
+      "url": "https://github.com/AlvaroEwaffle/fidelidapp-tools/issues/25",
+      "estado_github": "CLOSED",
+      "estado_board": "Done",
+      "sprint": "Sprint 1",
+      "prioridad": "P1",
+      "estimacion": null,
+      "fase": null,
+      "fase_vence": null,
+      "etiquetas": [
+        "epic: programa"
+      ],
+      "asignados": [
+        "AlvaroEwaffle"
+      ],
+      "comentarios": 0,
+      "creada": "2026-09-24T02:28:04Z",
+      "cerrada": "2026-09-24T02:30:53Z"
+    },
+    {
+      "numero": 26,
+      "titulo": "B3-NEW-21 · BirthdayRewardsConfig está en voseo argentino",
+      "url": "https://github.com/AlvaroEwaffle/fidelidapp-tools/issues/26",
+      "estado_github": "OPEN",
+      "estado_board": "Backlog",
+      "sprint": "Sprint 2",
+      "prioridad": "P2",
+      "estimacion": null,
+      "fase": "Fase 2 · Que convierta",
+      "fase_vence": null,
+      "etiquetas": [
+        "epic: sitio-y-marca",
+        "repo: client"
+      ],
+      "asignados": [
+        "AlvaroEwaffle"
+      ],
+      "comentarios": 0,
+      "creada": "2026-09-24T02:40:54Z",
+      "cerrada": null
+    }
+  ],
+  "prs": []
+}

@@ -1,0 +1,170 @@
+{
+  "nota_general": "",
+  "raid": [
+    {
+      "id": "R-01",
+      "tipo": "R",
+      "titulo": "La plataforma todavía no encontró su product-market fit",
+      "detalle": "El producto se está construyendo contra la hipótesis de Sentidos, sin un cliente usándolo de punta a punta. El piloto es de Etapa 2 y no arrancó.",
+      "impacto": "alto",
+      "dueno": "Álvaro",
+      "accion": "Trabajo muy colaborativo entre socios; el piloto con un cliente real es la primera prueba de realidad.",
+      "estado": "abierto",
+      "creada": "2026-09-22T00:00:00.000Z"
+    },
+    {
+      "id": "R-02",
+      "tipo": "R",
+      "titulo": "Ley 1581 sin una sola línea escrita",
+      "detalle": "Procedencia por contacto, política de tratamiento, base de legitimación y supresión. Comprometido a Sentidos el 21-sep y es requisito legal para operar difusión en Colombia, no una mejora.",
+      "impacto": "alto",
+      "dueno": "Álvaro",
+      "accion": "#57 y #58. Definir el marco legal antes de codear.",
+      "estado": "abierto",
+      "creada": "2026-09-22T00:00:00.000Z"
+    },
+    {
+      "id": "R-03",
+      "tipo": "R",
+      "titulo": "El corpus del radar crece más rápido que el clúster",
+      "detalle": "~4.800 artículos diarios sobre un M0 de 512 MB, con factor de duplicación 1,92x medido. Se satura en menos de un mes aun deduplicando.",
+      "impacto": "alto",
+      "dueno": "Melanie",
+      "accion": "#47 baja el peso 48% sin borrar nada. Decidido no purgar: el histórico se conserva (#46).",
+      "estado": "mitigando",
+      "creada": "2026-09-22T00:00:00.000Z"
+    },
+    {
+      "id": "R-04",
+      "tipo": "R",
+      "titulo": "El acuerdo societario no está firmado",
+      "detalle": "PR Tech S.A.S. aún no constituida. Todo el trabajo previo a la firma corre por cuenta de Villelabs, aceptado explícitamente.",
+      "impacto": "alto",
+      "dueno": "Álvaro",
+      "accion": "Kick-off con Sentidos para cerrar alcance y criterios de aceptación.",
+      "estado": "abierto",
+      "creada": "2026-09-22T00:00:00.000Z"
+    },
+    {
+      "id": "A-01",
+      "tipo": "A",
+      "titulo": "El uso es por suscripción",
+      "detalle": "Confirmado por Sentidos. Pero los planes, el precio, qué queda gratis y la gestión de cobros fallidos siguen sin definir.",
+      "impacto": "medio",
+      "dueno": "Álvaro",
+      "accion": "#33 — bloquea el desarrollo de la pasarela.",
+      "estado": "abierto",
+      "creada": "2026-09-22T00:00:00.000Z"
+    },
+    {
+      "id": "A-02",
+      "tipo": "A",
+      "titulo": "Los criterios de aceptación se cierran en el kick-off",
+      "detalle": "Los que están escritos en las historias son nuestros, no acordados con Sentidos todavía.",
+      "impacto": "medio",
+      "dueno": "Álvaro",
+      "accion": "Agendar el kick-off.",
+      "estado": "abierto",
+      "creada": "2026-09-22T00:00:00.000Z"
+    },
+    {
+      "id": "I-01",
+      "tipo": "I",
+      "titulo": "La plataforma no puede enviar un solo correo",
+      "detalle": "El módulo de difusión está construido y probado, pero Resend no tiene credenciales. Verificado en base: hay un envío en `failed` con «No email provider configured».",
+      "impacto": "alto",
+      "dueno": "Álvaro",
+      "accion": "#55 — es configuración, no código. Es el rojo más grande de la Fase 1.",
+      "estado": "abierto",
+      "creada": "2026-09-22T00:00:00.000Z"
+    },
+    {
+      "id": "I-02",
+      "tipo": "I",
+      "titulo": "PR #60 deja que un anónimo degrade la cuenta de un cliente",
+      "detalle": "`POST /api/submissions/:id/email` es público y suma empresas a una cuenta existente, rompiendo la igualdad exacta de `sameCompanyScope`. Probado contra Mongo local: la víctima pierde la administración de su equipo.",
+      "impacto": "alto",
+      "dueno": "Juan",
+      "accion": "Extender el 409 a cualquier cuenta preexistente; y pasar `sameCompanyScope` de igualdad exacta a subconjunto.",
+      "estado": "abierto",
+      "creada": "2026-09-22T00:00:00.000Z"
+    },
+    {
+      "id": "I-03",
+      "tipo": "I",
+      "titulo": "El parser de CSV nunca vio un archivo real",
+      "detalle": "Las colecciones de cobertura y cargas están en cero. No sabemos si el mapeo de columnas aguanta el formato de Sentidos.",
+      "impacto": "medio",
+      "dueno": "Melanie",
+      "accion": "#53 — depende de que Sentidos entregue su base.",
+      "estado": "abierto",
+      "creada": "2026-09-22T00:00:00.000Z"
+    },
+    {
+      "id": "D-01",
+      "tipo": "D",
+      "titulo": "#32 pasarela ← #33 precio",
+      "detalle": "No se escribe código de pago hasta que haya planes y precio definidos.",
+      "impacto": "medio",
+      "dueno": "Álvaro",
+      "accion": "",
+      "estado": "bloqueando",
+      "creada": "2026-09-22T00:00:00.000Z"
+    },
+    {
+      "id": "D-02",
+      "tipo": "D",
+      "titulo": "#52 afinidad por tema ← #49 novena pregunta",
+      "detalle": "Sin la pregunta no hay tema del comunicado sobre el que afinar el match. PR #59 abierto.",
+      "impacto": "medio",
+      "dueno": "Melanie",
+      "accion": "",
+      "estado": "en revisión",
+      "creada": "2026-09-22T00:00:00.000Z"
+    },
+    {
+      "id": "D-03",
+      "tipo": "D",
+      "titulo": "#53 carga real ← Sentidos entrega su base de medios",
+      "detalle": "Al 22-sep no se ha recibido ni cargado. Confirmado por escrito a Catalina.",
+      "impacto": "medio",
+      "dueno": "Álvaro",
+      "accion": "",
+      "estado": "bloqueando",
+      "creada": "2026-09-22T00:00:00.000Z"
+    },
+    {
+      "id": "D-04",
+      "tipo": "D",
+      "titulo": "#61 pantalla de admin ← #21 cuenta de cliente",
+      "detalle": "Sin cuenta con identidad propia no hay dónde colgar la pantalla. PR #60 abierto.",
+      "impacto": "medio",
+      "dueno": "Juan",
+      "accion": "",
+      "estado": "en revisión",
+      "creada": "2026-09-22T00:00:00.000Z"
+    },
+    {
+      "id": "D-05",
+      "tipo": "D",
+      "titulo": "#40 ampliar cobertura ← #47 separar corpus",
+      "detalle": "Abrir la llave de cobertura sobre el esquema actual multiplica el problema de peso.",
+      "impacto": "medio",
+      "dueno": "Melanie",
+      "accion": "",
+      "estado": "bloqueando",
+      "creada": "2026-09-22T00:00:00.000Z"
+    },
+    {
+      "id": "A-PL-14",
+      "tipo": "A",
+      "titulo": "Cuenta de Gmail propia de PR Tech para envíos vía Capu",
+      "detalle": "Alternativa a Resend para la #55: sale hoy sin necesidad de dominio verificado y reusa el mecanismo ya probado. Queda por decidir cuenta propia de PR Tech contra handler del Gmail interno — la cuenta propia mantiene separada la reputación de envío y no deja un activo de Villelabs operando dentro del producto.",
+      "impacto": "medio",
+      "dueno": "Álvaro",
+      "accion": "Parking lot — decidir.",
+      "estado": "abierto",
+      "creada": "2026-09-22T00:00:00.000Z"
+    }
+  ]
+}

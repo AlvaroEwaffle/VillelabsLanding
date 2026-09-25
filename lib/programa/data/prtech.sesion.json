@@ -1,0 +1,187 @@
+{
+  "_revisado": "2026-09-24",
+  "sesion": "Cierre de Sprint 1",
+  "fecha": "Jueves 25 de septiembre de 2026",
+  "sprint_cierra": "Sprint 1 · 10 al 24 de septiembre",
+  "sprint_abre": "Sprint 2 · 25 de septiembre al 8 de octubre",
+  "slides": [
+    {
+      "tipo": "agenda",
+      "titulo": "Agenda",
+      "bajada": "Tres momentos, y uno solo produce compromisos.",
+      "puntos": [
+        {
+          "que": "Review",
+          "minutos": 20,
+          "detalle": "Qué se entregó, a nivel de producto y de historias. Demo de lo que está en producción.",
+          "sale": "Un estado compartido de dónde está el producto."
+        },
+        {
+          "que": "Retro",
+          "minutos": 15,
+          "detalle": "Tres preguntas. Sobre el sistema de trabajo, no sobre las personas.",
+          "sale": "Un cambio concreto para el Sprint 2, con dueño."
+        },
+        {
+          "que": "Pre-planning",
+          "minutos": 25,
+          "detalle": "Shape de la próxima semana: el goal primero, las historias después.",
+          "sale": "Un goal escrito y las historias que lo sostienen."
+        }
+      ],
+      "nota": "El pre-planning es el único que compromete. Review y retro informan; no se cierra alcance ahí."
+    },
+    {
+      "tipo": "review",
+      "titulo": "Review · lo que se hizo",
+      "bajada": "Sprint 1 · meta: «v0.1 en producción con aislamiento real entre cuentas».",
+      "veredicto": {
+        "estado": "cumplida con una salvedad grande",
+        "texto": "La v0.1 está en producción y el aislamiento entre cuentas tiene pruebas automáticas. Pero ningún cliente puede completar el recorrido de punta a punta: la cuenta se crea y no hay forma de entrar a la sala."
+      },
+      "producto": [
+        {
+          "que": "Cuenta de cliente con correo y contraseña",
+          "detalle": "Reemplaza el PIN compartido. El rol admin_cliente tiene alcance por cuenta.",
+          "ref": "#21 · #20 · PR #60, #28"
+        },
+        {
+          "que": "Aislamiento entre cuentas, con pruebas",
+          "detalle": "Se cerró una toma de control de salas por el endpoint público de correo, y quedó suite de regresión.",
+          "ref": "#18 · #16 · PR #62, #27, #26"
+        },
+        {
+          "que": "El espejo dejó de inventar cobertura",
+          "detalle": "Faltaba un índice y el fallback fabricaba menciones. Ahora, si no pudo mirar, lo dice.",
+          "ref": "#65 · PR #66, #25"
+        },
+        {
+          "que": "Novena pregunta del cuestionario",
+          "detalle": "Qué hecho se anuncia. El comunicado se construye alrededor de esa respuesta.",
+          "ref": "#49 · PR #59"
+        },
+        {
+          "que": "Producción caída y recuperada el mismo día",
+          "detalle": "El clúster M0 llegó a 512/512 MB y bloqueó TODAS las escrituras. El sitio devolvía 200 mientras el cuestionario perdía cada lead.",
+          "ref": "#74 · PR #72"
+        }
+      ],
+      "historias": {
+        "cerradas": ["#74", "#65", "#49", "#24", "#21", "#20", "#18", "#16", "#15"],
+        "prs_mergeadas": 12,
+        "prs_abiertas_sin_revisar": 4,
+        "nota": "Las 4 abiertas se revisaron ayer: una lista para mergear, una con cambios menores, dos bloqueadas."
+      },
+      "validacion": {
+        "titulo": "Banco de validación · 906 startups latinoamericanas",
+        "texto": "Construimos un catálogo de 906 empresas reales con su ambigüedad declarada, y medimos el espejo contra él. Deja de ser «probamos con Ewaffle y anduvo».",
+        "metricas": [
+          { "etiqueta": "Empresas en el catálogo", "valor": "906" },
+          { "etiqueta": "Cobertura del corpus", "valor": "21%", "pie": "medido sobre 140" },
+          { "etiqueta": "Cobertura en vivo", "valor": "51%", "pie": "medido sobre las 906" },
+          { "etiqueta": "Nombres ambiguos", "valor": "62%", "pie": "31% alta, 30% media" }
+        ],
+        "hallazgo": "El 62% de ambigüedad es el techo real de la idea de «te mencionaron XX veces». El caso peligroso no es el nombre genérico: es la colisión con una empresa más grande —Kapital contra Kapital Bank de Azerbaiyán, Flink contra Apache Flink— donde el número no queda vacío, queda inflado y plausible."
+      },
+      "spike": {
+        "titulo": "Spike · lectura en vivo (ao vivo)",
+        "pregunta": "¿Puede el espejo mirar la web en el momento, en vez de depender solo del corpus?",
+        "respuesta": "Sí. Y cubre más que el corpus.",
+        "metricas": [
+          { "etiqueta": "Corpus solo", "valor": "21%" },
+          { "etiqueta": "Los dos carriles", "valor": "51%" },
+          { "etiqueta": "Empresas que solo ve el vivo", "valor": "42" },
+          { "etiqueta": "Fallos del carril en vivo", "valor": "0" }
+        ],
+        "estado": "Rama lista, pruebas en verde, typecheck limpio. Sin mergear.",
+        "nota": "No compite con el corpus: cubre lo que el corpus no ve. Y no toca Mongo, así que sobrevive a una caída de la base — que es exactamente lo que pasó ayer."
+      }
+    },
+    {
+      "tipo": "retro",
+      "titulo": "Retro",
+      "bajada": "Sobre el sistema de trabajo, no sobre las personas. Quince minutos.",
+      "preguntas": [
+        {
+          "n": 1,
+          "pregunta": "¿Qué nos hizo llegar?",
+          "para_pensar": "La v0.1 está en producción y el aislamiento tiene pruebas de verdad. ¿Qué lo hizo posible y cómo lo repetimos?"
+        },
+        {
+          "n": 2,
+          "pregunta": "¿Qué nos frenó o nos costó caro?",
+          "para_pensar": "Producción estuvo caída horas y nadie se enteró: el sitio respondía 200 mientras el cuestionario perdía leads. Y hay 4 PR esperando revisión, una hace más de un día."
+        },
+        {
+          "n": 3,
+          "pregunta": "¿Qué cambiamos el Sprint 2?",
+          "para_pensar": "Un cambio, con dueño y con forma de saber si se hizo. No una lista de buenas intenciones."
+        }
+      ],
+      "nota": "Candidatos que ya se ven, para no arrancar de cero: un health check que pruebe una escritura y no solo un 200 · un acuerdo de cuánto puede esperar un PR sin revisar."
+    },
+    {
+      "tipo": "preplanning",
+      "titulo": "Pre-planning · Sprint 2",
+      "bajada": "El goal primero. Las historias solo valen si lo sostienen.",
+      "goal_anterior": "La cuenta de cliente reemplaza al PIN y el portal muestra cobertura real.",
+      "goal_propuesto": "Un cliente entra solo, de punta a punta, y lo que ve es cierto.",
+      "porque": "El PIN ya se reemplazó, así que la mitad del goal anterior está cumplida. Lo que falta es más básico de lo que creíamos: hoy un cliente completa las nueve preguntas, genera su press kit, y queda afuera de su propia sala para siempre.",
+      "recorrido": {
+        "titulo": "El recorrido del cliente, probado ayer",
+        "pasos": [
+          { "n": 1, "que": "Entra y pone el nombre de su empresa", "estado": "ok" },
+          { "n": 2, "que": "Se crea la empresa y la postulación", "estado": "ok" },
+          { "n": 3, "que": "Responde las 9 preguntas", "estado": "riesgo", "nota": "puede perder todo en silencio" },
+          { "n": 4, "que": "Deja su correo y reclama la sala", "estado": "ok" },
+          { "n": 5, "que": "Se genera el press kit", "estado": "ok" },
+          { "n": 6, "que": "Llega a su sala", "estado": "ok" },
+          { "n": 7, "que": "Entra a su sala", "estado": "roto", "nota": "no hay forma de tener contraseña" }
+        ]
+      },
+      "historias": [
+        {
+          "ref": "#55",
+          "que": "Configurar el proveedor de correo",
+          "porque": "Sin esto ningún cliente entra nunca. Es el paso 7 y es configuración, no código.",
+          "tamano": "XS",
+          "prioridad": 1
+        },
+        {
+          "ref": "#76",
+          "que": "El autoguardado no puede perder el cuestionario en silencio",
+          "porque": "Si un id muere, el cliente escribe tres páginas contra la nada y se entera al final. Es pérdida de leads en vivo.",
+          "tamano": "S",
+          "prioridad": 2
+        },
+        {
+          "ref": "PR pendiente",
+          "que": "Mergear la lectura en vivo",
+          "porque": "El corpus quedó en el 2% tras la caída. Hoy el espejo se sostiene en el carril en vivo, que cubre el 51%.",
+          "tamano": "S",
+          "prioridad": 3
+        },
+        {
+          "ref": "#47 · PR #71",
+          "que": "Separar corpus de matches",
+          "porque": "Sin esto la caída se repite en ~3 semanas: la ingesta real es de 17,6 MB/día. Migrar ahora cuesta nada porque el corpus está casi vacío.",
+          "tamano": "M",
+          "prioridad": 4
+        },
+        {
+          "ref": "#75",
+          "que": "CI, health check de escritura y smoke post-deploy",
+          "porque": "Es lo que evita que la próxima caída dure horas sin que nadie se entere.",
+          "tamano": "M",
+          "prioridad": 5
+        }
+      ],
+      "decisiones": [
+        "¿Precio y planes (#33)? Bloquea la pasarela desde el arranque del programa.",
+        "¿Cuándo llega la base de medios de Sentidos (#53)? El parser de CSV nunca vio un archivo real.",
+        "¿Quién y cuándo para la Ley 1581 (#57, #58)? Comprometida el 21-sep, cero líneas escritas."
+      ],
+      "fuera": "No entra la pasarela de pago, no entra la pauta con medios, no entra ampliar cobertura de medios. Nada de eso sirve si el cliente no puede entrar."
+    }
+  ]
+}

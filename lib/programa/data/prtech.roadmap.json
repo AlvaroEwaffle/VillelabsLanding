@@ -1,0 +1,2445 @@
+{
+  "_fuente": {
+    "archivo": "PR-Tech-AI-Journey-Backlog-2026-09-14 (1).html",
+    "fecha": "2026-09-14",
+    "titulo": "PR Tech AI — Recorrido y Backlog · 14-sep-2026",
+    "extraido": "2026-09-23",
+    "nota": "Extracción literal del HTML. Sin resumir, sin editar. Las pills del HTML (ok|no|partial|new|stage|deprecated) quedan en estado_raw; estado es su traducción; estado_etiqueta es el texto visible del pill, que no siempre coincide con la clase."
+  },
+  "documento": {
+    "titulo_html": "PR Tech AI — Recorrido y Backlog · 14-sep-2026",
+    "wordmark": "PR Tech AI",
+    "tagline": "Recorrido del servicio · épicas · backlog",
+    "eyebrow": "Villelabs · Sentidos Comunicaciones",
+    "titular": "El recorrido completo, y lo que falta para que exista de verdad.",
+    "bajada": "Los 8 pasos del documento enviado el 18-ago, cruzados contra lo que corre hoy en producción, los ajustes que pidió Carolina, y lo que queda por construir.",
+    "meta": [
+      {
+        "etiqueta": "Corte",
+        "valor": "14-sep-2026"
+      },
+      {
+        "etiqueta": "Semana",
+        "valor": "2 de 8 · Etapa 1"
+      },
+      {
+        "etiqueta": "Fuente",
+        "valor": "propuesta enviada + ajustes recibidos + producción real"
+      }
+    ],
+    "pie": "Villelabs · PR Tech AI — documento interno, 14-sep-2026"
+  },
+  "roadmap_feature_map": {
+    "titulo": "Roadmap — feature map",
+    "subtitulo": "Por épica, no por release. Vista rápida de dónde está cada una en el tiempo, antes de entrar al detalle de recorrido y backlog.",
+    "leyenda": [
+      {
+        "estado": "hecho",
+        "estado_raw": "ok",
+        "estado_etiqueta": "completa"
+      },
+      {
+        "estado": "parcial",
+        "estado_raw": "partial",
+        "estado_etiqueta": "avanzada / en curso"
+      },
+      {
+        "estado": "falta",
+        "estado_raw": "no",
+        "estado_etiqueta": "no empezada"
+      }
+    ],
+    "periodos": [
+      {
+        "nombre": "Septiembre",
+        "columna_inicio": 2,
+        "columna_fin": 6
+      },
+      {
+        "nombre": "Octubre",
+        "columna_inicio": 6,
+        "columna_fin": 10
+      },
+      {
+        "nombre": "Noviembre",
+        "columna_inicio": 10,
+        "columna_fin": 14
+      },
+      {
+        "nombre": "Diciembre",
+        "columna_inicio": 14,
+        "columna_fin": 18
+      }
+    ],
+    "hoy": "Hoy · 14-sep",
+    "lineas": [
+      {
+        "grupo": "Etapa 1 · La plataforma — Fases 1, 2 y 3",
+        "codigo": "01",
+        "numero": null,
+        "etiqueta": "01 · Descubre y se registra",
+        "nombre": "Descubre y se registra",
+        "nuevo": false,
+        "tag": null,
+        "estado": "parcial",
+        "estado_raw": "partial",
+        "barra": {
+          "columna_inicio": 2,
+          "columna_fin": 3,
+          "mes_inicio": "Septiembre",
+          "mes_fin": "Septiembre"
+        }
+      },
+      {
+        "grupo": "Etapa 1 · La plataforma — Fases 1, 2 y 3",
+        "codigo": "02",
+        "numero": null,
+        "etiqueta": "02 · Responde las 8 preguntas",
+        "nombre": "Responde las 8 preguntas",
+        "nuevo": false,
+        "tag": null,
+        "estado": "parcial",
+        "estado_raw": "partial",
+        "barra": {
+          "columna_inicio": 2,
+          "columna_fin": 4,
+          "mes_inicio": "Septiembre",
+          "mes_fin": "Septiembre"
+        }
+      },
+      {
+        "grupo": "Etapa 1 · La plataforma — Fases 1, 2 y 3",
+        "codigo": "03",
+        "numero": null,
+        "etiqueta": "03 · Recibe su borrador",
+        "nombre": "Recibe su borrador",
+        "nuevo": false,
+        "tag": null,
+        "estado": "hecho",
+        "estado_raw": "ok",
+        "barra": {
+          "columna_inicio": 3,
+          "columna_fin": 5,
+          "mes_inicio": "Septiembre",
+          "mes_fin": "Septiembre"
+        }
+      },
+      {
+        "grupo": "Etapa 1 · La plataforma — Fases 1, 2 y 3",
+        "codigo": "04",
+        "numero": null,
+        "etiqueta": "04 · Realiza el pago 🆕",
+        "nombre": "Realiza el pago",
+        "nuevo": true,
+        "tag": null,
+        "estado": "falta",
+        "estado_raw": "no",
+        "barra": {
+          "columna_inicio": 4,
+          "columna_fin": 6,
+          "mes_inicio": "Septiembre",
+          "mes_fin": "Septiembre"
+        }
+      },
+      {
+        "grupo": "Etapa 1 · La plataforma — Fases 1, 2 y 3",
+        "codigo": "05",
+        "numero": null,
+        "etiqueta": "05 · Estrategia de PR 🆕 Fase 3",
+        "nombre": "Estrategia de PR",
+        "nuevo": true,
+        "tag": "Fase 3",
+        "estado": "falta",
+        "estado_raw": "no",
+        "barra": {
+          "columna_inicio": 5,
+          "columna_fin": 7,
+          "mes_inicio": "Septiembre",
+          "mes_fin": "Octubre"
+        }
+      },
+      {
+        "grupo": "Etapa 1 · La plataforma — Fases 1, 2 y 3",
+        "codigo": "06",
+        "numero": null,
+        "etiqueta": "06 · Pide más",
+        "nombre": "Pide más",
+        "nuevo": false,
+        "tag": null,
+        "estado": "parcial",
+        "estado_raw": "partial",
+        "barra": {
+          "columna_inicio": 4,
+          "columna_fin": 6,
+          "mes_inicio": "Septiembre",
+          "mes_fin": "Septiembre"
+        }
+      },
+      {
+        "grupo": "Etapa 1 · La plataforma — Fases 1, 2 y 3",
+        "codigo": "07",
+        "numero": null,
+        "etiqueta": "07 · Su espacio de trabajo",
+        "nombre": "Su espacio de trabajo",
+        "nuevo": false,
+        "tag": null,
+        "estado": "parcial",
+        "estado_raw": "partial",
+        "barra": {
+          "columna_inicio": 4,
+          "columna_fin": 9,
+          "mes_inicio": "Septiembre",
+          "mes_fin": "Octubre"
+        }
+      },
+      {
+        "grupo": "Etapa 1 · La plataforma — Fases 1, 2 y 3",
+        "codigo": "08",
+        "numero": null,
+        "etiqueta": "08 · Difusión a medios",
+        "nombre": "Difusión a medios",
+        "nuevo": false,
+        "tag": null,
+        "estado": "parcial",
+        "estado_raw": "partial",
+        "barra": {
+          "columna_inicio": 7,
+          "columna_fin": 10,
+          "mes_inicio": "Octubre",
+          "mes_fin": "Octubre"
+        }
+      },
+      {
+        "grupo": "Etapa 1 · La plataforma — Fases 1, 2 y 3",
+        "codigo": "09",
+        "numero": null,
+        "etiqueta": "09 · Pauta con medios 🆕 Fase 2",
+        "nombre": "Pauta con medios",
+        "nuevo": true,
+        "tag": "Fase 2",
+        "estado": "falta",
+        "estado_raw": "no",
+        "barra": {
+          "columna_inicio": 10,
+          "columna_fin": 13,
+          "mes_inicio": "Noviembre",
+          "mes_fin": "Noviembre"
+        }
+      },
+      {
+        "grupo": "Etapa 2 · La escucha y el reporte",
+        "codigo": "R1",
+        "numero": null,
+        "etiqueta": "R1 · La escucha",
+        "nombre": "La escucha",
+        "nuevo": false,
+        "tag": null,
+        "estado": "parcial",
+        "estado_raw": "partial",
+        "barra": {
+          "columna_inicio": 3,
+          "columna_fin": 13,
+          "mes_inicio": "Septiembre",
+          "mes_fin": "Noviembre"
+        }
+      },
+      {
+        "grupo": "Etapa 2 · La escucha y el reporte",
+        "codigo": "R2",
+        "numero": null,
+        "etiqueta": "R2 · Redes, foros y reportes",
+        "nombre": "Redes, foros y reportes",
+        "nuevo": false,
+        "tag": null,
+        "estado": "falta",
+        "estado_raw": "no",
+        "barra": {
+          "columna_inicio": 12,
+          "columna_fin": 15,
+          "mes_inicio": "Noviembre",
+          "mes_fin": "Diciembre"
+        }
+      },
+      {
+        "grupo": "Etapa 2 · La escucha y el reporte",
+        "codigo": "R3",
+        "numero": null,
+        "etiqueta": "R3 · El piloto",
+        "nombre": "El piloto",
+        "nuevo": false,
+        "tag": null,
+        "estado": "falta",
+        "estado_raw": "no",
+        "barra": {
+          "columna_inicio": 14,
+          "columna_fin": 18,
+          "mes_inicio": "Diciembre",
+          "mes_fin": "Diciembre"
+        }
+      }
+    ],
+    "nota": "↔ Desplázate de lado si no entra en pantalla. Ancho de barra = semanas del release, no compromiso de fecha exacta."
+  },
+  "recorrido": {
+    "titulo": "El recorrido, paso a paso",
+    "subtitulo": "Lo que vive el usuario de punta a punta — tal como se lo describimos a Sentidos. Debajo de cada paso, el estado real hoy y, donde aplica, el ajuste que pidió Carolina sobre ese paso.",
+    "leyenda": [
+      {
+        "estado": "hecho",
+        "estado_raw": "ok",
+        "estado_etiqueta": "completa"
+      },
+      {
+        "estado": "parcial",
+        "estado_raw": "partial",
+        "estado_etiqueta": "avanzada / en curso"
+      },
+      {
+        "estado": "falta",
+        "estado_raw": "no",
+        "estado_etiqueta": "no empezada"
+      },
+      {
+        "estado": "nuevo",
+        "estado_raw": "new",
+        "estado_etiqueta": "pedido nuevo, sin incorporar"
+      }
+    ],
+    "pasos": [
+      {
+        "paso": "01",
+        "numero": null,
+        "titulo": "Descubre y se registra",
+        "tarjeta_destacada": false,
+        "estado": "parcial",
+        "estado_raw": "partial",
+        "estado_etiqueta": "avanzada",
+        "sistema": "Landing pública, 100% autoservicio.",
+        "persona": "Nadie — sin registro.",
+        "nota": null,
+        "nota_es_pedido_nuevo": false,
+        "referencias_github": [],
+        "issues_mencionados": []
+      },
+      {
+        "paso": "02",
+        "numero": null,
+        "titulo": "Responde las 8 preguntas",
+        "tarjeta_destacada": false,
+        "estado": "parcial",
+        "estado_raw": "partial",
+        "estado_etiqueta": "avanzada",
+        "sistema": "Cuestionario guiado, 3 páginas, autoguardado.",
+        "persona": "Responde sola — hace de consultor senior.",
+        "nota": "🆕 Pedido: 9na pregunta (\"qué quiere comunicar\") + subir material adicional. No construido.",
+        "nota_es_pedido_nuevo": true,
+        "referencias_github": [],
+        "issues_mencionados": []
+      },
+      {
+        "paso": "03",
+        "numero": null,
+        "titulo": "Recibe su borrador",
+        "tarjeta_destacada": false,
+        "estado": "hecho",
+        "estado_raw": "ok",
+        "estado_etiqueta": "completo",
+        "sistema": "Narrativa + mensajes + comunicado. Motor real (Anthropic), guard factual.",
+        "persona": "Nadie en la generación.",
+        "nota": null,
+        "nota_es_pedido_nuevo": false,
+        "referencias_github": [],
+        "issues_mencionados": []
+      },
+      {
+        "paso": "04",
+        "numero": null,
+        "titulo": "Realiza el pago",
+        "tarjeta_destacada": true,
+        "estado": "nuevo",
+        "estado_raw": "new",
+        "estado_etiqueta": "no construido",
+        "sistema": "Botón de pago para desbloquear el resto del servicio.",
+        "persona": "Nadie — checkout automático.",
+        "nota": "🆕 Paso nuevo pedido por Carolina.",
+        "nota_es_pedido_nuevo": true,
+        "referencias_github": [],
+        "issues_mencionados": []
+      },
+      {
+        "paso": "05",
+        "numero": null,
+        "titulo": "Estrategia de PR",
+        "tarjeta_destacada": true,
+        "estado": "nuevo",
+        "estado_raw": "new",
+        "estado_etiqueta": "no construido",
+        "sistema": "Documento de estrategia generado solo con lo respondido en el paso 2.",
+        "persona": "—",
+        "nota": "🆕 Pedido de Carolina. No existe en el mapa conceptual original — es un módulo nuevo, no una variación de uno existente. Va en la Etapa 1 · Fase 3.",
+        "nota_es_pedido_nuevo": true,
+        "referencias_github": [],
+        "issues_mencionados": []
+      },
+      {
+        "paso": "06",
+        "numero": null,
+        "titulo": "Pide más",
+        "tarjeta_destacada": false,
+        "estado": "hecho",
+        "estado_raw": "ok",
+        "estado_etiqueta": "construido",
+        "sistema": "Botón \"quiero ayuda profesional\" → notifica a ventas.",
+        "persona": "Sale a ventas — decisión conjunta de quién atiende.",
+        "nota": null,
+        "nota_es_pedido_nuevo": false,
+        "referencias_github": [],
+        "issues_mencionados": []
+      },
+      {
+        "paso": "07",
+        "numero": null,
+        "titulo": "Su espacio de trabajo",
+        "tarjeta_destacada": false,
+        "estado": "parcial",
+        "estado_raw": "partial",
+        "estado_etiqueta": "construido, sin probar a fondo",
+        "sistema": "Cuentas, roles (5 perfiles), panel interno, portal cliente.",
+        "persona": "Equipo interno acompaña desde el panel.",
+        "nota": "Scoping por cuenta incompleto en rutas de detalle — issue #16. 🆕 El acceso por PIN pasa a por deprecar: el flujo de entrada va a crear una cuenta real (admin) en vez de repartir un PIN compartido.",
+        "nota_es_pedido_nuevo": true,
+        "referencias_github": [],
+        "issues_mencionados": [
+          16
+        ]
+      },
+      {
+        "paso": "08",
+        "numero": null,
+        "titulo": "Difusión a medios",
+        "tarjeta_destacada": false,
+        "estado": "parcial",
+        "estado_raw": "partial",
+        "estado_etiqueta": "construido, sin probar a fondo",
+        "sistema": "Periodistas sugeridos + envío + registro de qué salió.",
+        "persona": "Aprobación humana antes de cada envío.",
+        "nota": "🆕 Pedido: matching \"afines a la temática\" (hoy es por territorio/sector).",
+        "nota_es_pedido_nuevo": true,
+        "referencias_github": [],
+        "issues_mencionados": []
+      },
+      {
+        "paso": "09",
+        "numero": null,
+        "titulo": "Contrata pauta en medios",
+        "tarjeta_destacada": false,
+        "estado": "nuevo",
+        "estado_raw": "new",
+        "estado_etiqueta": "no construido",
+        "sistema": "Catálogo de paquetes de pauta negociados con medios aliados; el cliente elige y compra.",
+        "persona": "PR Tech negocia los paquetes con los medios por anticipado y gestiona la orden.",
+        "nota": "🆕 Etapa 1 · Fase 2. Módulo nuevo: no existe nada en el código.",
+        "nota_es_pedido_nuevo": true,
+        "referencias_github": [],
+        "issues_mencionados": []
+      },
+      {
+        "paso": "10",
+        "numero": null,
+        "titulo": "Escucha",
+        "tarjeta_destacada": false,
+        "estado": "parcial",
+        "estado_raw": "partial",
+        "estado_etiqueta": "construido, sin verificar",
+        "sistema": "Monitoreo de prensa, redes y foros B2B, clasificado y trazable.",
+        "persona": "Analista valida lo dudoso.",
+        "nota": "radar-engine propio ya corriendo — pero sin clasificación activa ni verificación funcional todavía.",
+        "nota_es_pedido_nuevo": false,
+        "referencias_github": [],
+        "issues_mencionados": []
+      },
+      {
+        "paso": "11",
+        "numero": null,
+        "titulo": "Reporte",
+        "tarjeta_destacada": false,
+        "estado": "falta",
+        "estado_raw": "no",
+        "estado_etiqueta": "no empezado",
+        "sistema": "Reporte automático de cobertura y conversaciones, listo para directorio.",
+        "persona": "Revisión final humana opcional.",
+        "nota": null,
+        "nota_es_pedido_nuevo": false,
+        "referencias_github": [],
+        "issues_mencionados": []
+      }
+    ],
+    "nota": "↔ El recorrido es más ancho que la pantalla — desplázate de lado."
+  },
+  "alcance_por_fase": {
+    "titulo": "Alcance por fase",
+    "subtitulo": "Cómo se agrupan las épicas en las fases con que se vende el producto. Todo lo listado queda dentro del alcance de desarrollo — incluidos el pago en línea y la suscripción, la pauta con medios, la estrategia y los foros B2B. Cada fase se construye como módulo independiente para poder venderla por paquete.",
+    "fases": [
+      {
+        "fase": "E1 · F1",
+        "numero": null,
+        "que_comprende": "La plataforma",
+        "epicas": [
+          "01 Descubre y se registra",
+          "02 Responde las preguntas",
+          "03 Recibe su borrador",
+          "04 Realiza el pago (pago en línea y suscripción)",
+          "06 Pide más",
+          "07 Su espacio de trabajo",
+          "08 Difusión a medios, con la lista cargada en la plataforma y el tratamiento de datos personales (Ley 1581)"
+        ],
+        "paquetes": [
+          1,
+          2,
+          3,
+          5,
+          6
+        ]
+      },
+      {
+        "fase": "E1 · F2",
+        "numero": null,
+        "que_comprende": "Alianzas con medios",
+        "epicas": [
+          "09 Pauta con medios — paquetes negociados por anticipado y ofrecidos a los afiliados"
+        ],
+        "paquetes": [
+          2,
+          3,
+          6
+        ]
+      },
+      {
+        "fase": "E1 · F3",
+        "numero": null,
+        "que_comprende": "Estrategia de medios",
+        "epicas": [
+          "05 Estrategia de PR — documento listo para ejecutar"
+        ],
+        "paquetes": [
+          3,
+          6
+        ]
+      },
+      {
+        "fase": "E2",
+        "numero": null,
+        "que_comprende": "Escucha y reporte",
+        "epicas": [
+          "R1 La escucha de prensa",
+          "R2 Redes, foros B2B y reportes de cobertura y conversaciones",
+          "R3 El piloto — épicas E2.1 a E2.8"
+        ],
+        "paquetes": [
+          4,
+          5,
+          6
+        ]
+      }
+    ],
+    "paquetes": [
+      {
+        "paquete": 1,
+        "numero": 1,
+        "que_incluye": "Etapa 1 · Fase 1"
+      },
+      {
+        "paquete": 2,
+        "numero": 2,
+        "que_incluye": "Etapa 1 · Fases 1 y 2"
+      },
+      {
+        "paquete": 3,
+        "numero": 3,
+        "que_incluye": "Etapa 1 completa · Fases 1, 2 y 3"
+      },
+      {
+        "paquete": 4,
+        "numero": 4,
+        "que_incluye": "Etapa 2, como servicio independiente"
+      },
+      {
+        "paquete": 5,
+        "numero": 5,
+        "que_incluye": "Etapa 1 · Fase 1 más Etapa 2"
+      },
+      {
+        "paquete": 6,
+        "numero": 6,
+        "que_incluye": "Etapa 1 completa más Etapa 2"
+      }
+    ]
+  },
+  "epicas_y_backlog": {
+    "titulo": "Épicas y backlog",
+    "subtitulo": "Una épica por paso del recorrido. Cada historia dice qué existe hoy en el código — con rutas, campos y reglas reales — y qué falta construir. Verificado contra el repo AlvaroEwaffle/prtech-ai y contra producción.",
+    "glosario_estados": {
+      "titulo": "Qué significa cada estado",
+      "estados": [
+        {
+          "estado": "hecho",
+          "estado_raw": "ok",
+          "estado_etiqueta": "construido",
+          "significado": "Está en el código, funciona y se probó. Se puede demostrar."
+        },
+        {
+          "estado": "parcial",
+          "estado_raw": "partial",
+          "estado_etiqueta": "construido, sin probar a fondo",
+          "significado": "El código existe y responde, pero nadie verificó que lo que devuelve sea correcto. Puede tener bugs que no hemos visto."
+        },
+        {
+          "estado": "parcial",
+          "estado_raw": "partial",
+          "estado_etiqueta": "construido, sin uso real",
+          "significado": "Completo y con pruebas unitarias, pero nunca se ejecutó con datos de verdad de un cliente."
+        },
+        {
+          "estado": "falta",
+          "estado_raw": "no",
+          "estado_etiqueta": "no empezado",
+          "significado": "No existe nada. Hay que construirlo desde cero."
+        },
+        {
+          "estado": "nuevo",
+          "estado_raw": "new",
+          "estado_etiqueta": "no construido",
+          "significado": "Pedido nuevo que no estaba en el alcance original."
+        },
+        {
+          "estado": "falta",
+          "estado_raw": "no",
+          "estado_etiqueta": "bloqueante",
+          "significado": "Impide avanzar en otra cosa hasta resolverse."
+        },
+        {
+          "estado": "deprecado",
+          "estado_raw": "deprecated",
+          "estado_etiqueta": "por deprecar",
+          "significado": "Funciona hoy, pero lo vamos a reemplazar."
+        }
+      ],
+      "nota_nivel_epica": "A nivel de épica: completa no queda nada pendiente · avanzada lo grueso está hecho, quedan puntas · en curso hay tanto construido como pendiente · no empezada arranca de cero.",
+      "nota_nivel_epica_estados": [
+        {
+          "estado": "hecho",
+          "estado_raw": "ok",
+          "estado_etiqueta": "completa"
+        },
+        {
+          "estado": "parcial",
+          "estado_raw": "partial",
+          "estado_etiqueta": "avanzada"
+        },
+        {
+          "estado": "parcial",
+          "estado_raw": "partial",
+          "estado_etiqueta": "en curso"
+        },
+        {
+          "estado": "falta",
+          "estado_raw": "no",
+          "estado_etiqueta": "no empezada"
+        }
+      ]
+    },
+    "epicas": [
+      {
+        "codigo": "01",
+        "numero": null,
+        "titulo": "Descubre y se registra",
+        "nuevo": false,
+        "tag": null,
+        "estado": "parcial",
+        "estado_raw": "partial",
+        "estado_etiqueta": "avanzada",
+        "meta": "épica GitHub #13 · #3",
+        "etapa_fase": null,
+        "issues_github": [
+          {
+            "numero": 13,
+            "tipo": "issue",
+            "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/13",
+            "etiqueta": "#13"
+          },
+          {
+            "numero": 3,
+            "tipo": "issue",
+            "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/3",
+            "etiqueta": "#3"
+          }
+        ],
+        "descripcion": "El gancho invertido: en vez de pedirle datos al prospecto, le mostramos lo que la prensa latinoamericana ya dice (o no dice) de él. Es la feature wow del producto y la única pantalla que ve alguien que no nos conoce.",
+        "historias": [
+          {
+            "id": "01.1",
+            "numero": null,
+            "historia": "Landing con gancho invertido",
+            "detalle": "Hoy: /. Un solo campo (nombre de empresa, máx 80 car., mínimo 2 para habilitar el CTA) y el botón \"See what's being said →\". Titular: \"Your company has a story. Latin American media doesn't know it yet.\" Bajo el CTA: \"Free. No signup.\" Franja de 4 pasos: ① You tell us → ② We draft it → ③ An expert reviews ✋ → ④ It reaches media. No llama a ninguna API: empuja el nombre directo a la URL del mirror.",
+            "hoy": "/. Un solo campo (nombre de empresa, máx 80 car., mínimo 2 para habilitar el CTA) y el botón \"See what's being said →\". Titular: \"Your company has a story. Latin American media doesn't know it yet.\" Bajo el CTA: \"Free. No signup.\" Franja de 4 pasos: ① You tell us → ② We draft it → ③ An expert reviews ✋ → ④ It reaches media. No llama a ninguna API: empuja el nombre directo a la URL del mirror.",
+            "falta": null,
+            "falta_origen": null,
+            "estado": "hecho",
+            "estado_raw": "ok",
+            "estado_etiqueta": "construido",
+            "referencias_github": []
+          },
+          {
+            "id": "01.2",
+            "numero": null,
+            "historia": "Espejo de medios contra corpus real",
+            "detalle": "Hoy: /mirror/[company] → POST /api/mirror → consulta GET /api/radar/mentions?q=&limit=8&days=30 del radar-engine con header X-Radar-Key (timeout 5s). Devuelve medio, país, fecha, extracto, tono, título y link. Rate limit 30 req/min por IP. Cada búsqueda re-escanea (no cachea: el corpus crece cada 30 min).",
+            "hoy": "/mirror/[company] → POST /api/mirror → consulta GET /api/radar/mentions?q=&limit=8&days=30 del radar-engine con header X-Radar-Key (timeout 5s). Devuelve medio, país, fecha, extracto, tono, título y link. Rate limit 30 req/min por IP. Cada búsqueda re-escanea (no cachea: el corpus crece cada 30 min).",
+            "falta": null,
+            "falta_origen": null,
+            "estado": "hecho",
+            "estado_raw": "ok",
+            "estado_etiqueta": "construido",
+            "referencias_github": []
+          },
+          {
+            "id": "01.3",
+            "numero": null,
+            "historia": "Fallback simulado, siempre etiquetado",
+            "detalle": "Hoy: si el radar no responde, lib/mirror.ts genera menciones determinísticas por hash del slug. Se distingue visualmente sin ambigüedad: tag verde REAL COVERAGE · last 30 days vs. tag ámbar SIMULATED DATA — the radar was unreachable. Cada MirrorSnapshot persiste el flag mocked.",
+            "hoy": "si el radar no responde, lib/mirror.ts genera menciones determinísticas por hash del slug. Se distingue visualmente sin ambigüedad: tag verde REAL COVERAGE · last 30 days vs. tag ámbar SIMULATED DATA — the radar was unreachable. Cada MirrorSnapshot persiste el flag mocked.",
+            "falta": null,
+            "falta_origen": null,
+            "estado": "hecho",
+            "estado_raw": "ok",
+            "estado_etiqueta": "construido",
+            "referencias_github": []
+          },
+          {
+            "id": "01.4",
+            "numero": null,
+            "historia": "El vacío también vende",
+            "detalle": "Hoy: cuando el escaneo es real y da cero, el copy lo convierte en argumento: \"Not one mention of {empresa} in 30 days. That's the opportunity. We read 23 LATAM business outlets every 30 minutes. Your name did not come up once.\"",
+            "hoy": "cuando el escaneo es real y da cero, el copy lo convierte en argumento: \"Not one mention of {empresa} in 30 days. That's the opportunity. We read 23 LATAM business outlets every 30 minutes. Your name did not come up once.\"",
+            "falta": null,
+            "falta_origen": null,
+            "estado": "hecho",
+            "estado_raw": "ok",
+            "estado_etiqueta": "construido",
+            "referencias_github": []
+          },
+          {
+            "id": "01.5",
+            "numero": null,
+            "historia": "Búsqueda por límites de palabra",
+            "detalle": "Falta: la búsqueda hace substring sin respetar límites de palabra — \"Migrante\" devuelve 206 menciones, casi todas de inmigrante. Es el único defecto que puede mostrarle datos falsos a un cliente en pantalla. PR #17 abierto; corrige el substring pero rompe mayúsculas/minúsculas — pendiente de ajuste antes de mergear.",
+            "hoy": null,
+            "falta": "la búsqueda hace substring sin respetar límites de palabra — \"Migrante\" devuelve 206 menciones, casi todas de inmigrante. Es el único defecto que puede mostrarle datos falsos a un cliente en pantalla. PR #17 abierto; corrige el substring pero rompe mayúsculas/minúsculas — pendiente de ajuste antes de mergear.",
+            "falta_origen": null,
+            "estado": "falta",
+            "estado_raw": "no",
+            "estado_etiqueta": "en revisión",
+            "referencias_github": [
+              {
+                "numero": 17,
+                "tipo": "pr",
+                "url": "https://github.com/AlvaroEwaffle/prtech-ai/pull/17",
+                "etiqueta": "#17"
+              }
+            ]
+          },
+          {
+            "id": "01.6",
+            "numero": null,
+            "historia": "Ventana temporal honesta",
+            "detalle": "Falta: la UI declara \"últimos 30 días\" pero la profundidad real depende del medio (DF: 3 días · Ex-Ante: 5 · La Tercera: 464). O se corrige la ventana, o se declara por medio.",
+            "hoy": null,
+            "falta": "la UI declara \"últimos 30 días\" pero la profundidad real depende del medio (DF: 3 días · Ex-Ante: 5 · La Tercera: 464). O se corrige la ventana, o se declara por medio.",
+            "falta_origen": null,
+            "estado": "falta",
+            "estado_raw": "no",
+            "estado_etiqueta": "no empezado",
+            "referencias_github": []
+          }
+        ]
+      },
+      {
+        "codigo": "02",
+        "numero": null,
+        "titulo": "Responde las preguntas",
+        "nuevo": false,
+        "tag": null,
+        "estado": "parcial",
+        "estado_raw": "partial",
+        "estado_etiqueta": "avanzada",
+        "meta": "épica GitHub #13",
+        "etapa_fase": null,
+        "issues_github": [
+          {
+            "numero": 13,
+            "tipo": "issue",
+            "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/13",
+            "etiqueta": "#13"
+          }
+        ],
+        "descripcion": "Ocho preguntas en tres pantallas que reemplazan al brief de un consultor senior. Todo texto libre, con ejemplo y guía bajo cada campo — el prospecto nunca se queda mirando un campo vacío sin saber qué poner.",
+        "historias": [
+          {
+            "id": "02.1",
+            "numero": null,
+            "historia": "Cuestionario de 8 preguntas en 3 páginas",
+            "detalle": "Hoy: /start. Barra de progreso X of 8 answered siempre visible. Todos los campos son texto libre (1 input + 7 textareas), todos obligatorios: el botón Continue → se habilita solo con la página completa. Límites: 200 car. el nombre, 2.000 cada textarea. El nombre viene pre-llenado desde la landing vía ?company=.",
+            "hoy": "/start. Barra de progreso X of 8 answered siempre visible. Todos los campos son texto libre (1 input + 7 textareas), todos obligatorios: el botón Continue → se habilita solo con la página completa. Límites: 200 car. el nombre, 2.000 cada textarea. El nombre viene pre-llenado desde la landing vía ?company=.",
+            "falta": null,
+            "falta_origen": null,
+            "estado": "hecho",
+            "estado_raw": "ok",
+            "estado_etiqueta": "construido",
+            "referencias_github": []
+          },
+          {
+            "id": "02.2",
+            "numero": null,
+            "historia": "Autoguardado y retomar sesión",
+            "detalle": "Hoy: PATCH /api/submissions/:id con debounce de 900 ms tras cada tecla. El submissionId queda en sessionStorage, así que cerrar la pestaña y volver no pierde nada. Se persiste también la página en curso (page 1–3).",
+            "hoy": "PATCH /api/submissions/:id con debounce de 900 ms tras cada tecla. El submissionId queda en sessionStorage, así que cerrar la pestaña y volver no pierde nada. Se persiste también la página en curso (page 1–3).",
+            "falta": null,
+            "falta_origen": null,
+            "estado": "hecho",
+            "estado_raw": "ok",
+            "estado_etiqueta": "construido",
+            "referencias_github": []
+          },
+          {
+            "id": "02.3",
+            "numero": null,
+            "historia": "9na pregunta: \"qué quiere comunicar\"",
+            "detalle": "Falta: pregunta nueva para que el motor arme el comunicado sobre un hecho puntual y no sobre la empresa en general. Pedido de Carolina. Implica tocar el tipo IAnswers (hoy q1..q8 fijo), el prompt del motor y el guard factual — no es solo un campo de UI.",
+            "hoy": null,
+            "falta": "pregunta nueva para que el motor arme el comunicado sobre un hecho puntual y no sobre la empresa en general. Pedido de Carolina. Implica tocar el tipo IAnswers (hoy q1..q8 fijo), el prompt del motor y el guard factual — no es solo un campo de UI.",
+            "falta_origen": null,
+            "estado": "nuevo",
+            "estado_raw": "new",
+            "estado_etiqueta": "no construido",
+            "referencias_github": []
+          },
+          {
+            "id": "02.4",
+            "numero": null,
+            "historia": "Subir material adicional",
+            "detalle": "Falta: permitir adjuntar documentos en el cuestionario para dar más contexto que las preguntas cerradas. Pedido de Carolina. Requiere almacenamiento de archivos (hoy no existe ninguno en el flujo público) y decidir si el motor los lee o solo quedan para el equipo.",
+            "hoy": null,
+            "falta": "permitir adjuntar documentos en el cuestionario para dar más contexto que las preguntas cerradas. Pedido de Carolina. Requiere almacenamiento de archivos (hoy no existe ninguno en el flujo público) y decidir si el motor los lee o solo quedan para el equipo.",
+            "falta_origen": null,
+            "estado": "nuevo",
+            "estado_raw": "new",
+            "estado_etiqueta": "no construido",
+            "referencias_github": []
+          }
+        ],
+        "anexo_preguntas": {
+          "titulo": "Las 8 preguntas, textuales",
+          "paginas": [
+            {
+              "pagina": "Página 1 · Your company",
+              "subtitulo": "Who you are and where you're going.",
+              "preguntas": [
+                {
+                  "numero_pregunta": 1,
+                  "pregunta": "Company name",
+                  "guia": "The name media will print. Exactly as you want it written."
+                },
+                {
+                  "numero_pregunta": 2,
+                  "pregunta": "Available spokespeople (max 5)",
+                  "guia": "One per line: Name — Role. These are the people journalists can quote or interview."
+                },
+                {
+                  "numero_pregunta": 3,
+                  "pregunta": "Target territories",
+                  "guia": "All of LATAM, a subregion, or specific countries."
+                }
+              ]
+            },
+            {
+              "pagina": "Página 2 · Your value",
+              "subtitulo": "The story underneath the product.",
+              "preguntas": [
+                {
+                  "numero_pregunta": 4,
+                  "pregunta": "What problem do you solve?",
+                  "guia": "Concrete and measurable beats abstract."
+                },
+                {
+                  "numero_pregunta": 5,
+                  "pregunta": "What makes you different from your competition?",
+                  "guia": "The one claim only you can make."
+                },
+                {
+                  "numero_pregunta": 6,
+                  "pregunta": "Why are you relevant in that specific market right now?",
+                  "guia": "Regulation, market shifts, timing."
+                }
+              ]
+            },
+            {
+              "pagina": "Página 3 · Your momentum",
+              "subtitulo": "What's coming and what you can prove.",
+              "preguntas": [
+                {
+                  "numero_pregunta": 7,
+                  "pregunta": "Short and long term plans",
+                  "guia": "Corto y largo plazo, con fechas si las hay."
+                },
+                {
+                  "numero_pregunta": 8,
+                  "pregunta": "Proprietary data worth highlighting",
+                  "guia": "Numbers only you have."
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "codigo": "03",
+        "numero": null,
+        "titulo": "Recibe su borrador",
+        "nuevo": false,
+        "tag": null,
+        "estado": "hecho",
+        "estado_raw": "ok",
+        "estado_etiqueta": "completa",
+        "meta": "épica GitHub #13",
+        "etapa_fase": null,
+        "issues_github": [
+          {
+            "numero": 13,
+            "tipo": "issue",
+            "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/13",
+            "etiqueta": "#13"
+          }
+        ],
+        "descripcion": "El motor convierte 8 respuestas en un press kit: narrativa, mensajes clave, comunicado y —lo que de verdad compran— la lista de periodistas a los que les sirve esa historia. Con un guard mecánico que impide que el modelo invente cifras.",
+        "historias": [
+          {
+            "id": "03.1",
+            "numero": null,
+            "historia": "Motor de narrativa real",
+            "detalle": "Hoy: lib/engine/, tres implementaciones tras una interfaz (mock / openai / llm). En producción corre llm con Anthropic claude-haiku-4-5 (verificado en vivo: /api/health reporta engine: \"llm\"). Genera keyMessages[3] + pressRelease{headline, subhead, body, quote, boilerplate} + suggestedMedia[8]. Timeout 90s, hasta 2 reintentos con backoff.",
+            "hoy": "lib/engine/, tres implementaciones tras una interfaz (mock / openai / llm). En producción corre llm con Anthropic claude-haiku-4-5 (verificado en vivo: /api/health reporta engine: \"llm\"). Genera keyMessages[3] + pressRelease{headline, subhead, body, quote, boilerplate} + suggestedMedia[8]. Timeout 90s, hasta 2 reintentos con backoff.",
+            "falta": null,
+            "falta_origen": null,
+            "estado": "hecho",
+            "estado_raw": "ok",
+            "estado_etiqueta": "construido",
+            "referencias_github": []
+          },
+          {
+            "id": "03.2",
+            "numero": null,
+            "historia": "Guard factual fail-closed",
+            "detalle": "Hoy: lib/engine/guard.ts audita mecánicamente cada generación — no es una regla en el prompt. Cuatro clases de violación: number (cifra inventada), magnitude (\"doubled\", \"dozens\"), exclusivity (\"the only\", \"world's first\") y dateline (ciudad/país que el cliente nunca mencionó). Un reintento correctivo citándole al modelo sus propias violaciones; si insiste, GuardViolationError y el borrador no se guarda. Probado en scripts/guard-test.ts.",
+            "hoy": "lib/engine/guard.ts audita mecánicamente cada generación — no es una regla en el prompt. Cuatro clases de violación: number (cifra inventada), magnitude (\"doubled\", \"dozens\"), exclusivity (\"the only\", \"world's first\") y dateline (ciudad/país que el cliente nunca mencionó). Un reintento correctivo citándole al modelo sus propias violaciones; si insiste, GuardViolationError y el borrador no se guarda. Probado en scripts/guard-test.ts.",
+            "falta": null,
+            "falta_origen": null,
+            "estado": "hecho",
+            "estado_raw": "ok",
+            "estado_etiqueta": "construido",
+            "referencias_github": []
+          },
+          {
+            "id": "03.3",
+            "numero": null,
+            "historia": "Tope de gasto diario",
+            "detalle": "Hoy: lib/genQuota.ts, 150 generaciones/día respaldadas en Mongo (GenUsage), incrementadas atómicamente antes de llamar al modelo — las fallidas también cuentan, porque igual cuestan. Excedido devuelve 429. Acota el peor caso incluso contra rotación de IP.",
+            "hoy": "lib/genQuota.ts, 150 generaciones/día respaldadas en Mongo (GenUsage), incrementadas atómicamente antes de llamar al modelo — las fallidas también cuentan, porque igual cuestan. Excedido devuelve 429. Acota el peor caso incluso contra rotación de IP.",
+            "falta": null,
+            "falta_origen": null,
+            "estado": "hecho",
+            "estado_raw": "ok",
+            "estado_etiqueta": "construido",
+            "referencias_github": []
+          },
+          {
+            "id": "03.4",
+            "numero": null,
+            "historia": "Entrega: link + PIN mostrado una sola vez",
+            "detalle": "Hoy: /start/email → POST /api/submissions/:id/email. PIN de 6 dígitos con crypto.randomInt, guardado con bcrypt (10 rounds) y devuelto una única vez en esa respuesta. Pantalla \"Save this. It's the only way back in.\" con botones de copiar. Sin recuperación: el PIN nunca vuelve a viajar en claro. Rate limit 10/min por IP. Avisa a Slack como lead.",
+            "hoy": "/start/email → POST /api/submissions/:id/email. PIN de 6 dígitos con crypto.randomInt, guardado con bcrypt (10 rounds) y devuelto una única vez en esa respuesta. Pantalla \"Save this. It's the only way back in.\" con botones de copiar. Sin recuperación: el PIN nunca vuelve a viajar en claro. Rate limit 10/min por IP. Avisa a Slack como lead.",
+            "falta": null,
+            "falta_origen": null,
+            "estado": "hecho",
+            "estado_raw": "ok",
+            "estado_etiqueta": "construido",
+            "referencias_github": []
+          },
+          {
+            "id": "03.5",
+            "numero": null,
+            "historia": "La sala del cliente",
+            "detalle": "Hoy: /room/[slug], abierta por PIN. Orden: cobertura histórica (si la hay) → Suggested Media como héroe (tabla journalist · outlet · country · beat · fit · last coverage) → 3 mensajes clave, cada uno con su ángulo (categoría, diferenciación, timing) → comunicado completo copiable → estado del kit.",
+            "hoy": "/room/[slug], abierta por PIN. Orden: cobertura histórica (si la hay) → Suggested Media como héroe (tabla journalist · outlet · country · beat · fit · last coverage) → 3 mensajes clave, cada uno con su ángulo (categoría, diferenciación, timing) → comunicado completo copiable → estado del kit.",
+            "falta": null,
+            "falta_origen": null,
+            "estado": "hecho",
+            "estado_raw": "ok",
+            "estado_etiqueta": "construido",
+            "referencias_github": []
+          }
+        ]
+      },
+      {
+        "codigo": "04",
+        "numero": null,
+        "titulo": "Realiza el pago",
+        "nuevo": true,
+        "tag": "nuevo",
+        "estado": "falta",
+        "estado_raw": "no",
+        "estado_etiqueta": "no empezada",
+        "meta": "Etapa 1 · Fase 1",
+        "etapa_fase": "Etapa 1 · Fase 1",
+        "issues_github": [],
+        "descripcion": "Paso nuevo pedido por Carolina: cobrar antes de entregar el resto del servicio. No hay ninguna pieza previa sobre la cual construir — se arranca de cero.",
+        "historias": [
+          {
+            "id": "04.1",
+            "numero": null,
+            "historia": "Pasarela de pago en el flujo de entrada",
+            "detalle": "Hoy: nada — no hay pagos en ninguna parte del sistema, ni modelo de datos, ni proveedor integrado. Falta: elegir pasarela (Stripe / Mercado Pago / Flow según el mercado), definir qué se cobra y cuándo, modelo Payment o equivalente, y el gate que bloquea el avance hasta que el pago confirme.",
+            "hoy": "nada — no hay pagos en ninguna parte del sistema, ni modelo de datos, ni proveedor integrado.",
+            "falta": "elegir pasarela (Stripe / Mercado Pago / Flow según el mercado), definir qué se cobra y cuándo, modelo Payment o equivalente, y el gate que bloquea el avance hasta que el pago confirme.",
+            "falta_origen": null,
+            "estado": "nuevo",
+            "estado_raw": "new",
+            "estado_etiqueta": "no construido",
+            "referencias_github": []
+          },
+          {
+            "id": "04.2",
+            "numero": null,
+            "historia": "Definición de precio y qué desbloquea",
+            "detalle": "Falta: el uso es por suscripción (confirmado por Sentidos). Queda por definir los planes, su precio, qué queda gratis antes de pagar y la gestión de cobros fallidos.",
+            "hoy": null,
+            "falta": "el uso es por suscripción (confirmado por Sentidos). Queda por definir los planes, su precio, qué queda gratis antes de pagar y la gestión de cobros fallidos.",
+            "falta_origen": null,
+            "estado": "nuevo",
+            "estado_raw": "new",
+            "estado_etiqueta": "a definir",
+            "referencias_github": []
+          }
+        ]
+      },
+      {
+        "codigo": "05",
+        "numero": null,
+        "titulo": "Estrategia de PR",
+        "nuevo": true,
+        "tag": "nuevo",
+        "estado": "falta",
+        "estado_raw": "no",
+        "estado_etiqueta": "no empezada",
+        "meta": "Etapa 1 · Fase 3",
+        "etapa_fase": "Etapa 1 · Fase 3",
+        "issues_github": [],
+        "descripcion": "Entregable nuevo pedido por Carolina: un documento de estrategia generado solo con lo que el cliente respondió. No es una variación del comunicado — es un artefacto distinto, con otra estructura y otro propósito.",
+        "historias": [
+          {
+            "id": "05.1",
+            "numero": null,
+            "historia": "Generación del documento de estrategia",
+            "detalle": "Hoy: el motor produce narrativa + mensajes + comunicado; no hay ningún artefacto de estrategia. Falta: definir su estructura (¿objetivos, audiencias, calendario, ángulos por trimestre?), extender EngineOutput con la sección nueva, y decidir si pasa por el mismo guard factual — casi seguro sí, porque una estrategia con cifras inventadas es peor que un comunicado con cifras inventadas.",
+            "hoy": "el motor produce narrativa + mensajes + comunicado; no hay ningún artefacto de estrategia.",
+            "falta": "definir su estructura (¿objetivos, audiencias, calendario, ángulos por trimestre?), extender EngineOutput con la sección nueva, y decidir si pasa por el mismo guard factual — casi seguro sí, porque una estrategia con cifras inventadas es peor que un comunicado con cifras inventadas.",
+            "falta_origen": null,
+            "estado": "nuevo",
+            "estado_raw": "new",
+            "estado_etiqueta": "no construido",
+            "referencias_github": []
+          },
+          {
+            "id": "05.2",
+            "numero": null,
+            "historia": "Estrategia visible en la sala",
+            "detalle": "Falta: sección propia en /room/[slug], y decidir si entra al reporte PDF/PPT que ya se genera.",
+            "hoy": null,
+            "falta": "sección propia en /room/[slug], y decidir si entra al reporte PDF/PPT que ya se genera.",
+            "falta_origen": null,
+            "estado": "nuevo",
+            "estado_raw": "new",
+            "estado_etiqueta": "no construido",
+            "referencias_github": []
+          }
+        ]
+      },
+      {
+        "codigo": "06",
+        "numero": null,
+        "titulo": "Pide más",
+        "nuevo": false,
+        "tag": null,
+        "estado": "parcial",
+        "estado_raw": "partial",
+        "estado_etiqueta": "avanzada",
+        "meta": "épica GitHub #13",
+        "etapa_fase": null,
+        "issues_github": [
+          {
+            "numero": 13,
+            "tipo": "issue",
+            "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/13",
+            "etiqueta": "#13"
+          }
+        ],
+        "descripcion": "El puente entre el autoservicio y el trabajo humano. Es el único evento del producto que el código trata explícitamente como señal comercial.",
+        "historias": [
+          {
+            "id": "06.1",
+            "numero": null,
+            "historia": "Pedir revisión de un experto",
+            "detalle": "Hoy: botón \"Request expert review →\" en la sala → POST /api/room/[slug]/review. Cambia draft.status y company.status a in_review y dispara aviso a Slack: 🔴 {empresa} pidió revisión experta con link directo a la sala. Desde ahí el trabajo humano ocurre en /inbox.",
+            "hoy": "botón \"Request expert review →\" en la sala → POST /api/room/[slug]/review. Cambia draft.status y company.status a in_review y dispara aviso a Slack: 🔴 {empresa} pidió revisión experta con link directo a la sala. Desde ahí el trabajo humano ocurre en /inbox.",
+            "falta": null,
+            "falta_origen": null,
+            "estado": "hecho",
+            "estado_raw": "ok",
+            "estado_etiqueta": "construido",
+            "referencias_github": []
+          },
+          {
+            "id": "06.2",
+            "numero": null,
+            "historia": "Medir el embudo",
+            "detalle": "Falta: medir el embudo. Hoy cada etapa deja rastro en Mongo (MirrorSnapshot → Submission → Draft → status) pero no hay ninguna vista ni métrica que muestre conversión entre pasos.",
+            "hoy": null,
+            "falta": "medir el embudo. Hoy cada etapa deja rastro en Mongo (MirrorSnapshot → Submission → Draft → status) pero no hay ninguna vista ni métrica que muestre conversión entre pasos.",
+            "falta_origen": null,
+            "estado": "falta",
+            "estado_raw": "no",
+            "estado_etiqueta": "no empezado",
+            "referencias_github": []
+          }
+        ]
+      },
+      {
+        "codigo": "07",
+        "numero": null,
+        "titulo": "Su espacio de trabajo",
+        "nuevo": false,
+        "tag": null,
+        "estado": "parcial",
+        "estado_raw": "partial",
+        "estado_etiqueta": "en curso",
+        "meta": "épicas GitHub #4 · #6 · #7",
+        "etapa_fase": null,
+        "issues_github": [
+          {
+            "numero": 4,
+            "tipo": "issue",
+            "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/4",
+            "etiqueta": "#4"
+          },
+          {
+            "numero": 6,
+            "tipo": "issue",
+            "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/6",
+            "etiqueta": "#6"
+          },
+          {
+            "numero": 7,
+            "tipo": "issue",
+            "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/7",
+            "etiqueta": "#7"
+          }
+        ],
+        "descripcion": "Donde el equipo trabaja y donde el cliente ve su avance. Es la épica más grande del proyecto: concentra el sistema de identidad, la cola de trabajo interna y el portal por cuenta.",
+        "historias": [
+          {
+            "id": "07.1",
+            "numero": null,
+            "historia": "Acceso del cliente por PIN",
+            "detalle": "Hoy: sesión HMAC-SHA256 con alcance a un solo slug, cookie propia por sala (prtech_room_{slug}), TTL 2 h. El token de la sala A es rechazado por la sala B — verificado en las tres rutas que leen datos de sala. Se deprecia en favor de la historia 07.2.",
+            "hoy": "sesión HMAC-SHA256 con alcance a un solo slug, cookie propia por sala (prtech_room_{slug}), TTL 2 h. El token de la sala A es rechazado por la sala B — verificado en las tres rutas que leen datos de sala. Se deprecia en favor de la historia 07.2.",
+            "falta": null,
+            "falta_origen": null,
+            "estado": "deprecado",
+            "estado_raw": "deprecated",
+            "estado_etiqueta": "por deprecar",
+            "referencias_github": []
+          },
+          {
+            "id": "07.2",
+            "numero": null,
+            "historia": "Cuenta real en el flujo de entrada, con rol Admin Cliente",
+            "detalle": "Falta: reemplazar el PIN compartido por una cuenta con identidad propia, creada en el registro, que queda como Admin Cliente de su empresa. Implica: modelo de usuario del lado cliente (hoy TeamUser es solo interno), login sin PIN, y migración de las salas que ya existen.",
+            "hoy": null,
+            "falta": "reemplazar el PIN compartido por una cuenta con identidad propia, creada en el registro, que queda como Admin Cliente de su empresa. Implica: modelo de usuario del lado cliente (hoy TeamUser es solo interno), login sin PIN, y migración de las salas que ya existen.",
+            "falta_origen": null,
+            "estado": "nuevo",
+            "estado_raw": "new",
+            "estado_etiqueta": "no construido",
+            "referencias_github": []
+          },
+          {
+            "id": "07.3",
+            "numero": null,
+            "historia": "Cuentas individuales del equipo",
+            "detalle": "Hoy: modelo TeamUser con name, email único, role, keyHash (bcrypt, select:false), active y companyIds[]. Alta solo por alguien con manage_users vía POST /api/team/users: genera una clave aleatoria de 12 bytes, la devuelve una sola vez y guarda el hash. Se puede rotar. No hay auto-registro. Sesión: cookie prtech_team, 8 h.",
+            "hoy": "modelo TeamUser con name, email único, role, keyHash (bcrypt, select:false), active y companyIds[]. Alta solo por alguien con manage_users vía POST /api/team/users: genera una clave aleatoria de 12 bytes, la devuelve una sola vez y guarda el hash. Se puede rotar. No hay auto-registro. Sesión: cookie prtech_team, 8 h.",
+            "falta": null,
+            "falta_origen": null,
+            "estado": "hecho",
+            "estado_raw": "ok",
+            "estado_etiqueta": "construido",
+            "referencias_github": []
+          },
+          {
+            "id": "07.4",
+            "numero": null,
+            "historia": "Motor de permisos",
+            "detalle": "Hoy: 5 roles × 8 acciones, aplicados en servidor con requireAction() — 401 sin sesión, 403 sin permiso. La UI se dibuja desde GET /api/team/me, pero el servidor revalida: aprobar no es un gate de interfaz. 47 aserciones verdes en scripts/roles-test.ts (40 de la matriz + 7 de integridad de token y middleware). El mecanismo sirve tal cual para el modelo nuevo — lo que cambia son los nombres y quién tiene qué, no la maquinaria.",
+            "hoy": "5 roles × 8 acciones, aplicados en servidor con requireAction() — 401 sin sesión, 403 sin permiso. La UI se dibuja desde GET /api/team/me, pero el servidor revalida: aprobar no es un gate de interfaz. 47 aserciones verdes en scripts/roles-test.ts (40 de la matriz + 7 de integridad de token y middleware). El mecanismo sirve tal cual para el modelo nuevo — lo que cambia son los nombres y quién tiene qué, no la maquinaria.",
+            "falta": null,
+            "falta_origen": null,
+            "estado": "hecho",
+            "estado_raw": "ok",
+            "estado_etiqueta": "construido",
+            "referencias_github": []
+          },
+          {
+            "id": "07.5",
+            "numero": null,
+            "historia": "Alcance por cuenta en rutas de detalle",
+            "detalle": "Hoy: companyIds viaja en el token, pero solo dos rutas lo aplican: GET /api/inbox y GET /api/team/accounts. Falta: aplicarlo en PATCH /api/inbox/[id], /api/accounts/[slug]/overview, /report, /uploads (GET y POST), /api/emails y /api/emails/[id]/send. Un junior con alcance a la empresa A puede hoy leer, exportar y cargar datos de la empresa B adivinando el slug. Issue #16 — bloqueante antes de dar de alta al primer usuario que no sea directora.",
+            "hoy": "companyIds viaja en el token, pero solo dos rutas lo aplican: GET /api/inbox y GET /api/team/accounts.",
+            "falta": "aplicarlo en PATCH /api/inbox/[id], /api/accounts/[slug]/overview, /report, /uploads (GET y POST), /api/emails y /api/emails/[id]/send. Un junior con alcance a la empresa A puede hoy leer, exportar y cargar datos de la empresa B adivinando el slug. Issue #16 — bloqueante antes de dar de alta al primer usuario que no sea directora.",
+            "falta_origen": null,
+            "estado": "falta",
+            "estado_raw": "no",
+            "estado_etiqueta": "bloqueante",
+            "referencias_github": [
+              {
+                "numero": 16,
+                "tipo": "issue",
+                "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/16",
+                "etiqueta": "Issue #16"
+              }
+            ]
+          },
+          {
+            "id": "07.6",
+            "numero": null,
+            "historia": "Pruebas de aislamiento entre cuentas",
+            "detalle": "Falta: pruebas automáticas que verifiquen el aislamiento entre cuentas. Los 47 tests actuales prueban la matriz de permisos y la integridad del token — ninguno crea dos cuentas y verifica que una no vea los datos de la otra. Sin esto, 07.5 se puede volver a romper sin que nadie se entere.",
+            "hoy": null,
+            "falta": "pruebas automáticas que verifiquen el aislamiento entre cuentas. Los 47 tests actuales prueban la matriz de permisos y la integridad del token — ninguno crea dos cuentas y verifica que una no vea los datos de la otra. Sin esto, 07.5 se puede volver a romper sin que nadie se entere.",
+            "falta_origen": null,
+            "estado": "falta",
+            "estado_raw": "no",
+            "estado_etiqueta": "no empezado",
+            "referencias_github": []
+          },
+          {
+            "id": "07.7",
+            "numero": null,
+            "historia": "Cola de trabajo multi-cuenta",
+            "detalle": "Hoy: /inbox con dos bloques (Pending review / Approved), filtros por cuenta y por estado, y tabla de cuentas con kits por estado, cobertura y última carga. El detalle muestra las 8 respuestas del cliente y deja editar mensajes clave y comunicado, más una nota de revisor visible al cliente tras aprobar. Estados: draft → in_review → approved.",
+            "hoy": "/inbox con dos bloques (Pending review / Approved), filtros por cuenta y por estado, y tabla de cuentas con kits por estado, cobertura y última carga. El detalle muestra las 8 respuestas del cliente y deja editar mensajes clave y comunicado, más una nota de revisor visible al cliente tras aprobar. Estados: draft → in_review → approved.",
+            "falta": null,
+            "falta_origen": null,
+            "estado": "parcial",
+            "estado_raw": "partial",
+            "estado_etiqueta": "sin verificar con data real",
+            "referencias_github": []
+          },
+          {
+            "id": "07.8",
+            "numero": null,
+            "historia": "Portal por cuenta",
+            "detalle": "Hoy: /team/accounts/[slug] — una sola página que junta identidad, KPIs de cobertura (total de menciones, ventana cubierta, medio top, % positivo), gráfico por mes, medios top, menciones recientes, historial de kits y de cargas. Falta: según la épica #7, que el cliente vea su cobertura histórica y métricas en el tiempo — hoy esta vista es del equipo, no del cliente.",
+            "hoy": "/team/accounts/[slug] — una sola página que junta identidad, KPIs de cobertura (total de menciones, ventana cubierta, medio top, % positivo), gráfico por mes, medios top, menciones recientes, historial de kits y de cargas.",
+            "falta": "según la épica #7, que el cliente vea su cobertura histórica y métricas en el tiempo — hoy esta vista es del equipo, no del cliente.",
+            "falta_origen": null,
+            "estado": "parcial",
+            "estado_raw": "partial",
+            "estado_etiqueta": "parcial",
+            "referencias_github": [
+              {
+                "numero": 7,
+                "tipo": "issue",
+                "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/7",
+                "etiqueta": "#7"
+              }
+            ]
+          },
+          {
+            "id": "07.9",
+            "numero": null,
+            "historia": "Renombrar roles y eliminar junior",
+            "detalle": "Falta: directora → Admin del sistema, ejecutivo → Ejecutivo PR Tech, y eliminar junior (sus permisos se reparten entre Ejecutivo y Lectura). Toca lib/roles.ts, las etiquetas de la interfaz, los tests y los usuarios ya creados en base — hay que migrar el campo role, no solo cambiar el texto en pantalla.",
+            "hoy": null,
+            "falta": "directora → Admin del sistema, ejecutivo → Ejecutivo PR Tech, y eliminar junior (sus permisos se reparten entre Ejecutivo y Lectura). Toca lib/roles.ts, las etiquetas de la interfaz, los tests y los usuarios ya creados en base — hay que migrar el campo role, no solo cambiar el texto en pantalla.",
+            "falta_origen": null,
+            "estado": "nuevo",
+            "estado_raw": "new",
+            "estado_etiqueta": "no construido",
+            "referencias_github": []
+          },
+          {
+            "id": "07.10",
+            "numero": null,
+            "historia": "Crear el rol Admin Cliente",
+            "detalle": "Falta: rol nuevo para el lado del cliente, con alcance a una sola empresa: ve su cuenta, descarga sus reportes y administra a los usuarios de su propia empresa — pero no entra a la cola de trabajo interna, no aprueba borradores ni envía correos. Requiere una acción nueva (view_account) y que manage_users deje de ser global para poder acotarse a la empresa propia. Depende de 07.2 y de que 07.5 esté cerrada: sin alcance por cuenta en las rutas de detalle, este rol podría leer datos de otros clientes.",
+            "hoy": null,
+            "falta": "rol nuevo para el lado del cliente, con alcance a una sola empresa: ve su cuenta, descarga sus reportes y administra a los usuarios de su propia empresa — pero no entra a la cola de trabajo interna, no aprueba borradores ni envía correos. Requiere una acción nueva (view_account) y que manage_users deje de ser global para poder acotarse a la empresa propia. Depende de 07.2 y de que 07.5 esté cerrada: sin alcance por cuenta en las rutas de detalle, este rol podría leer datos de otros clientes.",
+            "falta_origen": null,
+            "estado": "nuevo",
+            "estado_raw": "new",
+            "estado_etiqueta": "no construido",
+            "referencias_github": []
+          }
+        ],
+        "anexo_matriz_roles": {
+          "titulo": "Matriz de roles — modelo objetivo, 5 perfiles × 8 acciones",
+          "perfiles": [
+            {
+              "nombre": "Admin",
+              "calificador": "del sistema",
+              "clave": "Admin · del sistema"
+            },
+            {
+              "nombre": "Ejecutivo",
+              "calificador": "PR Tech",
+              "clave": "Ejecutivo · PR Tech"
+            },
+            {
+              "nombre": "Developer",
+              "calificador": null,
+              "clave": "Developer"
+            },
+            {
+              "nombre": "Admin",
+              "calificador": "Cliente",
+              "clave": "Admin · Cliente"
+            },
+            {
+              "nombre": "Lectura",
+              "calificador": null,
+              "clave": "Lectura"
+            }
+          ],
+          "acciones": [
+            {
+              "accion": "ver la cola de trabajo",
+              "permiso": "view_inbox",
+              "numero": null,
+              "por_perfil": {
+                "Admin · del sistema": {
+                  "permitido": true,
+                  "salvedad": null
+                },
+                "Ejecutivo · PR Tech": {
+                  "permitido": true,
+                  "salvedad": null
+                },
+                "Developer": {
+                  "permitido": true,
+                  "salvedad": null
+                },
+                "Admin · Cliente": {
+                  "permitido": false,
+                  "salvedad": null
+                },
+                "Lectura": {
+                  "permitido": true,
+                  "salvedad": null
+                }
+              }
+            },
+            {
+              "accion": "ver su propia cuenta",
+              "permiso": "view_account",
+              "numero": null,
+              "por_perfil": {
+                "Admin · del sistema": {
+                  "permitido": true,
+                  "salvedad": null
+                },
+                "Ejecutivo · PR Tech": {
+                  "permitido": true,
+                  "salvedad": null
+                },
+                "Developer": {
+                  "permitido": true,
+                  "salvedad": null
+                },
+                "Admin · Cliente": {
+                  "permitido": true,
+                  "salvedad": null
+                },
+                "Lectura": {
+                  "permitido": true,
+                  "salvedad": null
+                }
+              }
+            },
+            {
+              "accion": "editar borradores",
+              "permiso": "edit_draft",
+              "numero": null,
+              "por_perfil": {
+                "Admin · del sistema": {
+                  "permitido": true,
+                  "salvedad": null
+                },
+                "Ejecutivo · PR Tech": {
+                  "permitido": true,
+                  "salvedad": null
+                },
+                "Developer": {
+                  "permitido": true,
+                  "salvedad": null
+                },
+                "Admin · Cliente": {
+                  "permitido": false,
+                  "salvedad": null
+                },
+                "Lectura": {
+                  "permitido": false,
+                  "salvedad": null
+                }
+              }
+            },
+            {
+              "accion": "aprobar y liberar",
+              "permiso": "approve_draft",
+              "numero": null,
+              "por_perfil": {
+                "Admin · del sistema": {
+                  "permitido": true,
+                  "salvedad": null
+                },
+                "Ejecutivo · PR Tech": {
+                  "permitido": true,
+                  "salvedad": null
+                },
+                "Developer": {
+                  "permitido": true,
+                  "salvedad": null
+                },
+                "Admin · Cliente": {
+                  "permitido": false,
+                  "salvedad": null
+                },
+                "Lectura": {
+                  "permitido": false,
+                  "salvedad": null
+                }
+              }
+            },
+            {
+              "accion": "cargar datos",
+              "permiso": "upload_data",
+              "numero": null,
+              "por_perfil": {
+                "Admin · del sistema": {
+                  "permitido": true,
+                  "salvedad": null
+                },
+                "Ejecutivo · PR Tech": {
+                  "permitido": true,
+                  "salvedad": null
+                },
+                "Developer": {
+                  "permitido": true,
+                  "salvedad": null
+                },
+                "Admin · Cliente": {
+                  "permitido": false,
+                  "salvedad": null
+                },
+                "Lectura": {
+                  "permitido": false,
+                  "salvedad": null
+                }
+              }
+            },
+            {
+              "accion": "exportar reportes",
+              "permiso": "export_report",
+              "numero": null,
+              "por_perfil": {
+                "Admin · del sistema": {
+                  "permitido": true,
+                  "salvedad": null
+                },
+                "Ejecutivo · PR Tech": {
+                  "permitido": true,
+                  "salvedad": null
+                },
+                "Developer": {
+                  "permitido": true,
+                  "salvedad": null
+                },
+                "Admin · Cliente": {
+                  "permitido": true,
+                  "salvedad": null
+                },
+                "Lectura": {
+                  "permitido": true,
+                  "salvedad": null
+                }
+              }
+            },
+            {
+              "accion": "redactar correos",
+              "permiso": "create_email",
+              "numero": null,
+              "por_perfil": {
+                "Admin · del sistema": {
+                  "permitido": true,
+                  "salvedad": null
+                },
+                "Ejecutivo · PR Tech": {
+                  "permitido": true,
+                  "salvedad": null
+                },
+                "Developer": {
+                  "permitido": true,
+                  "salvedad": null
+                },
+                "Admin · Cliente": {
+                  "permitido": false,
+                  "salvedad": null
+                },
+                "Lectura": {
+                  "permitido": false,
+                  "salvedad": null
+                }
+              }
+            },
+            {
+              "accion": "enviar correos",
+              "permiso": "send_email",
+              "numero": null,
+              "por_perfil": {
+                "Admin · del sistema": {
+                  "permitido": true,
+                  "salvedad": null
+                },
+                "Ejecutivo · PR Tech": {
+                  "permitido": true,
+                  "salvedad": null
+                },
+                "Developer": {
+                  "permitido": false,
+                  "salvedad": null
+                },
+                "Admin · Cliente": {
+                  "permitido": false,
+                  "salvedad": null
+                },
+                "Lectura": {
+                  "permitido": false,
+                  "salvedad": null
+                }
+              }
+            },
+            {
+              "accion": "gestionar usuarios",
+              "permiso": "manage_users",
+              "numero": null,
+              "por_perfil": {
+                "Admin · del sistema": {
+                  "permitido": true,
+                  "salvedad": null
+                },
+                "Ejecutivo · PR Tech": {
+                  "permitido": false,
+                  "salvedad": null
+                },
+                "Developer": {
+                  "permitido": false,
+                  "salvedad": null
+                },
+                "Admin · Cliente": {
+                  "permitido": true,
+                  "salvedad": "solo los suyos"
+                },
+                "Lectura": {
+                  "permitido": false,
+                  "salvedad": null
+                }
+              }
+            }
+          ],
+          "nota": "Esto es el destino, no lo que hay hoy. El código tiene directora, ejecutivo, junior, lectura y developer. El cambio implica tres cosas distintas: renombrar directora→Admin y ejecutivo→Ejecutivo PR Tech, eliminar junior, y crear Admin Cliente — que hoy no existe como rol porque el cliente entra por PIN. Ver historias 07.2, 07.9 y 07.10."
+        }
+      },
+      {
+        "codigo": "08",
+        "numero": null,
+        "titulo": "Difusión a medios",
+        "nuevo": false,
+        "tag": null,
+        "estado": "parcial",
+        "estado_raw": "partial",
+        "estado_etiqueta": "en curso",
+        "meta": "épicas GitHub #5 · #8 · #9",
+        "etapa_fase": null,
+        "issues_github": [
+          {
+            "numero": 5,
+            "tipo": "issue",
+            "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/5",
+            "etiqueta": "#5"
+          },
+          {
+            "numero": 8,
+            "tipo": "issue",
+            "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/8",
+            "etiqueta": "#8"
+          },
+          {
+            "numero": 9,
+            "tipo": "issue",
+            "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/9",
+            "etiqueta": "#9"
+          }
+        ],
+        "descripcion": "Los datos históricos del cliente, los reportes que se le entregan, y el envío real a periodistas. Es donde el producto deja de ser una demo y toca el mundo.",
+        "historias": [
+          {
+            "id": "08.1",
+            "numero": null,
+            "historia": "Sugerencia de periodistas por afinidad",
+            "detalle": "Hoy: lib/engine/match.ts — recuperación determinística, sin modelo. Puntaje desde 30, tope 98: país +25 si es el primer mercado nombrado / +15 si es secundario; especialidad +20 si es uno de sus dos beats principales / +12 si es menor; tier 1 +5; actividad real hasta +8 según artículos firmados; recencia +6 si publicó hace menos de 7 días. Devuelve los 8 mejores con la razón del match escrita.",
+            "hoy": "lib/engine/match.ts — recuperación determinística, sin modelo. Puntaje desde 30, tope 98: país +25 si es el primer mercado nombrado / +15 si es secundario; especialidad +20 si es uno de sus dos beats principales / +12 si es menor; tier 1 +5; actividad real hasta +8 según artículos firmados; recencia +6 si publicó hace menos de 7 días. Devuelve los 8 mejores con la razón del match escrita.",
+            "falta": null,
+            "falta_origen": null,
+            "estado": "hecho",
+            "estado_raw": "ok",
+            "estado_etiqueta": "construido",
+            "referencias_github": []
+          },
+          {
+            "id": "08.2",
+            "numero": null,
+            "historia": "Afinidad por tema, no solo por territorio",
+            "detalle": "Hoy: el sector se infiere por palabras clave sobre las respuestas 4, 5, 6 y 8, con 6 categorías (fintech, edtech, IA, comercio, software empresarial, venture). Falta (pedido de Carolina): afinar el match al tema del comunicado, no al sector declarado de la empresa — depende de la historia 02.3, porque hoy el sistema no pregunta cuál es el tema.",
+            "hoy": "el sector se infiere por palabras clave sobre las respuestas 4, 5, 6 y 8, con 6 categorías (fintech, edtech, IA, comercio, software empresarial, venture).",
+            "falta": "afinar el match al tema del comunicado, no al sector declarado de la empresa — depende de la historia 02.3, porque hoy el sistema no pregunta cuál es el tema.",
+            "falta_origen": "pedido de Carolina",
+            "estado": "parcial",
+            "estado_raw": "partial",
+            "estado_etiqueta": "parcial",
+            "referencias_github": []
+          },
+          {
+            "id": "08.3",
+            "numero": null,
+            "historia": "Carga de cobertura histórica por CSV",
+            "detalle": "Hoy: POST /api/accounts/[slug]/uploads, completo y probado. Parser propio sin dependencias: detecta solo el separador (, ; o tab, por los export de Excel latinos), acepta comillas y saltos de línea dentro de campo. Mapea cabeceras en español e inglés (fecha/date, medio/outlet, titular/title, enlace/url, país, extracto, tono, alcance). Fechas en formato latino día-primero. Exige fecha y medio; máx 5.000 filas. Deduplica dentro del archivo y contra lo ya cargado por hash de URL. Cada carga deja registro de quién subió qué, cuándo, cuántas filas entraron, cuántas eran duplicadas y qué falló por fila.",
+            "hoy": "POST /api/accounts/[slug]/uploads, completo y probado. Parser propio sin dependencias: detecta solo el separador (, ; o tab, por los export de Excel latinos), acepta comillas y saltos de línea dentro de campo. Mapea cabeceras en español e inglés (fecha/date, medio/outlet, titular/title, enlace/url, país, extracto, tono, alcance). Fechas en formato latino día-primero. Exige fecha y medio; máx 5.000 filas. Deduplica dentro del archivo y contra lo ya cargado por hash de URL. Cada carga deja registro de quién subió qué, cuándo, cuántas filas entraron, cuántas eran duplicadas y qué falló por fila.",
+            "falta": null,
+            "falta_origen": null,
+            "estado": "parcial",
+            "estado_raw": "partial",
+            "estado_etiqueta": "construido, sin uso real",
+            "referencias_github": []
+          },
+          {
+            "id": "08.4",
+            "numero": null,
+            "historia": "Primera carga real de Sentidos",
+            "detalle": "Falta: las colecciones de cobertura y de cargas están en cero — el endpoint nunca se ejecutó con un archivo real. Hasta que no pase un CSV de Sentidos por ahí, no sabemos si el mapeo de columnas aguanta su formato.",
+            "hoy": null,
+            "falta": "las colecciones de cobertura y de cargas están en cero — el endpoint nunca se ejecutó con un archivo real. Hasta que no pase un CSV de Sentidos por ahí, no sabemos si el mapeo de columnas aguanta su formato.",
+            "falta_origen": null,
+            "estado": "falta",
+            "estado_raw": "no",
+            "estado_etiqueta": "no empezado",
+            "referencias_github": []
+          },
+          {
+            "id": "08.5",
+            "numero": null,
+            "historia": "Reportes descargables PDF y PPT",
+            "detalle": "Hoy: GET /api/accounts/[slug]/report?format=pdf|pptx. PDF de 4 páginas (portada, \"The numbers\" con 4 indicadores y dos gráficos, cobertura reciente, press kit vigente). PPT de 6 láminas 16:9 con gráficos y tabla nativos. Ambos leen la misma función de estadísticas que el portal — no hay una versión de la verdad por audiencia.",
+            "hoy": "GET /api/accounts/[slug]/report?format=pdf|pptx. PDF de 4 páginas (portada, \"The numbers\" con 4 indicadores y dos gráficos, cobertura reciente, press kit vigente). PPT de 6 láminas 16:9 con gráficos y tabla nativos. Ambos leen la misma función de estadísticas que el portal — no hay una versión de la verdad por audiencia.",
+            "falta": null,
+            "falta_origen": null,
+            "estado": "parcial",
+            "estado_raw": "partial",
+            "estado_etiqueta": "construido, sin abrir con data real",
+            "referencias_github": []
+          },
+          {
+            "id": "08.6",
+            "numero": null,
+            "historia": "Tipografía de marca en el PDF",
+            "detalle": "Falta: el PDF usa Helvetica, no Fraunces — la fuente de marca necesita que el archivo TTF viaje en la imagen de despliegue. Está documentado como decisión consciente, no como olvido, pero sigue siendo deuda visible en un entregable que ve el cliente.",
+            "hoy": null,
+            "falta": "el PDF usa Helvetica, no Fraunces — la fuente de marca necesita que el archivo TTF viaje en la imagen de despliegue. Está documentado como decisión consciente, no como olvido, pero sigue siendo deuda visible en un entregable que ve el cliente.",
+            "falta_origen": null,
+            "estado": "falta",
+            "estado_raw": "no",
+            "estado_etiqueta": "deuda conocida",
+            "referencias_github": []
+          },
+          {
+            "id": "08.7",
+            "numero": null,
+            "historia": "Envío real con confirmación humana",
+            "detalle": "Hoy: redactar un correo nunca pide permiso; enviarlo sí. POST /api/emails/[id]/send exige que el llamado incluya literalmente {\"confirm\":\"SEND\"} — sin eso responde 428 y no toca nada. El paso de borrador a enviando es atómico, así que dos clics simultáneos no mandan dos veces. Solo directora y ejecutivo pueden enviar. Estados: draft → sending → sent / failed.",
+            "hoy": "redactar un correo nunca pide permiso; enviarlo sí. POST /api/emails/[id]/send exige que el llamado incluya literalmente {\"confirm\":\"SEND\"} — sin eso responde 428 y no toca nada. El paso de borrador a enviando es atómico, así que dos clics simultáneos no mandan dos veces. Solo directora y ejecutivo pueden enviar. Estados: draft → sending → sent / failed.",
+            "falta": null,
+            "falta_origen": null,
+            "estado": "hecho",
+            "estado_raw": "ok",
+            "estado_etiqueta": "construido",
+            "referencias_github": []
+          },
+          {
+            "id": "08.8",
+            "numero": null,
+            "historia": "Conectar el proveedor de correo",
+            "detalle": "Hoy: integración con Resend escrita y cerrada por diseño: sin credenciales configuradas no sale nada. Verificado en la base — hay un envío de prueba en estado failed con el mensaje \"No email provider configured. The draft is kept; nothing was sent.\" Falta: configurar las credenciales para que el envío real funcione.",
+            "hoy": "integración con Resend escrita y cerrada por diseño: sin credenciales configuradas no sale nada. Verificado en la base — hay un envío de prueba en estado failed con el mensaje \"No email provider configured. The draft is kept; nothing was sent.\"",
+            "falta": "configurar las credenciales para que el envío real funcione.",
+            "falta_origen": null,
+            "estado": "falta",
+            "estado_raw": "no",
+            "estado_etiqueta": "no configurado",
+            "referencias_github": []
+          },
+          {
+            "id": "08.9",
+            "numero": null,
+            "historia": "Registro de a quién se le mandó qué",
+            "detalle": "Hoy: cada envío guarda destinatario, asunto, cuerpo, quién lo redactó, quién lo confirmó, cuándo salió, el identificador del proveedor y el error si falló. Falta (pedido de Carolina): la vista que muestre eso como bitácora de distribución por cuenta — el dato está, la pantalla no.",
+            "hoy": "cada envío guarda destinatario, asunto, cuerpo, quién lo redactó, quién lo confirmó, cuándo salió, el identificador del proveedor y el error si falló.",
+            "falta": "la vista que muestre eso como bitácora de distribución por cuenta — el dato está, la pantalla no.",
+            "falta_origen": "pedido de Carolina",
+            "estado": "parcial",
+            "estado_raw": "partial",
+            "estado_etiqueta": "falta la vista",
+            "referencias_github": []
+          }
+        ],
+        "anexo_base_periodistas": {
+          "titulo": "La base de periodistas hoy — 621 registros en producción",
+          "cifras": [
+            {
+              "valor": 606,
+              "etiqueta": "reales, derivados de firmas del corpus"
+            },
+            {
+              "valor": 15,
+              "etiqueta": "ficticios (demo, medios reales)"
+            },
+            {
+              "valor": 109,
+              "etiqueta": "con email publicado por el medio"
+            }
+          ],
+          "nota": "Reparto por país de los 606 reales: México 213 · Chile 129 · Colombia 96 · Perú 59 · Panamá 42 · Regional 39 · Brasil 28. Una lista sugerida nunca mezcla personas reales con nombres inventados: si hay corpus, se usa solo corpus. Los emails se guardan solo cuando el medio los publicó y el usuario local del correo coincide con la firma — nunca direcciones adivinadas ni compradas."
+        }
+      },
+      {
+        "codigo": "09",
+        "numero": null,
+        "titulo": "Pauta con medios",
+        "nuevo": true,
+        "tag": "nuevo",
+        "estado": "falta",
+        "estado_raw": "no",
+        "estado_etiqueta": "no empezada",
+        "meta": "Etapa 1 · Fase 2",
+        "etapa_fase": "Etapa 1 · Fase 2",
+        "issues_github": [],
+        "descripcion": "Alianzas con medios: PR Tech negocia paquetes de pauta pagada con medios específicos por anticipado y los ofrece a sus afiliados dentro de la plataforma. Es un módulo nuevo — no hay ninguna pieza previa sobre la cual construir.",
+        "historias": [
+          {
+            "id": "09.1",
+            "numero": null,
+            "historia": "Catálogo de paquetes de pauta",
+            "detalle": "Hoy: nada. Falta: modelo de medio aliado y de paquete (medio, formato, alcance, precio, vigencia, cupos) y una vista donde el afiliado los explora filtrando por país y sector.",
+            "hoy": "nada.",
+            "falta": "modelo de medio aliado y de paquete (medio, formato, alcance, precio, vigencia, cupos) y una vista donde el afiliado los explora filtrando por país y sector.",
+            "falta_origen": null,
+            "estado": "nuevo",
+            "estado_raw": "new",
+            "estado_etiqueta": "no construido",
+            "referencias_github": []
+          },
+          {
+            "id": "09.2",
+            "numero": null,
+            "historia": "Compra del paquete en la plataforma",
+            "detalle": "Falta: el cliente elige un paquete y lo paga reutilizando la pasarela de la épica 04. La compra queda registrada en su cuenta.",
+            "hoy": null,
+            "falta": "el cliente elige un paquete y lo paga reutilizando la pasarela de la épica 04. La compra queda registrada en su cuenta.",
+            "falta_origen": null,
+            "estado": "nuevo",
+            "estado_raw": "new",
+            "estado_etiqueta": "no construido",
+            "referencias_github": []
+          },
+          {
+            "id": "09.3",
+            "numero": null,
+            "historia": "Gestión de la orden con el medio",
+            "detalle": "Falta: estado de cada orden (solicitada → confirmada por el medio → publicada), material del cliente adjunto y aviso al equipo PR Tech para coordinar con el medio.",
+            "hoy": null,
+            "falta": "estado de cada orden (solicitada → confirmada por el medio → publicada), material del cliente adjunto y aviso al equipo PR Tech para coordinar con el medio.",
+            "falta_origen": null,
+            "estado": "nuevo",
+            "estado_raw": "new",
+            "estado_etiqueta": "no construido",
+            "referencias_github": []
+          },
+          {
+            "id": "09.4",
+            "numero": null,
+            "historia": "Administración de medios aliados",
+            "detalle": "Falta: en el panel interno, alta y edición de medios aliados y sus paquetes, con cupos disponibles. La negociación con los medios es trabajo de PR Tech, fuera del software.",
+            "hoy": null,
+            "falta": "en el panel interno, alta y edición de medios aliados y sus paquetes, con cupos disponibles. La negociación con los medios es trabajo de PR Tech, fuera del software.",
+            "falta_origen": null,
+            "estado": "parcial",
+            "estado_raw": "partial",
+            "estado_etiqueta": "a definir",
+            "referencias_github": []
+          }
+        ]
+      }
+    ]
+  },
+  "etapa_2_la_escucha": {
+    "titulo": "Etapa 2 · La escucha",
+    "periodo": "27-oct → 19-dic",
+    "subtitulo": "8 semanas, 3 releases. El R1 ya arrancó.",
+    "releases": [
+      {
+        "release": "R1 · La escucha de prensa",
+        "numero": null,
+        "promesa_del_documento": "Qué se publicó, clasificado y trazable — lo dudoso se marca para revisión humana.",
+        "estado": "parcial",
+        "estado_raw": "partial",
+        "estado_etiqueta": "avanzada"
+      },
+      {
+        "release": "R2 · Las redes y los reportes",
+        "numero": null,
+        "promesa_del_documento": "Proveedor de monitoreo conectado y reportes automáticos descargables.",
+        "estado": "falta",
+        "estado_raw": "no",
+        "estado_etiqueta": "no empezada"
+      },
+      {
+        "release": "R3 · El piloto",
+        "numero": null,
+        "promesa_del_documento": "Un cliente real usando el producto completo, de punta a punta.",
+        "estado": "falta",
+        "estado_raw": "no",
+        "estado_etiqueta": "depende de R1+R2"
+      }
+    ],
+    "clasificacion_del_radar": {
+      "titulo": "Cómo clasifica el radar cuando se enciende — hoy apagado a propósito",
+      "nota": "El motor de clasificación está escrito y probado; lo que está apagado es el gasto, no la capacidad. Cada nota que pasa recibe una de dos etiquetas y tres atributos:",
+      "dimensiones": [
+        {
+          "dimension": "Etiqueta",
+          "valores_texto": "demanda (alguien que podría comprar) o gancho (historia donde el cliente puede aparecer). Lo que \"demanda\" y \"gancho\" significan lo define cada cliente en su configuración, no está fijo en el código.",
+          "valores": null
+        },
+        {
+          "dimension": "Tipo de señal",
+          "valores_texto": "levantamiento de capital · expansión · fusión o adquisición · accidente o multa · cambio normativo · contratación masiva · cambio de gerente de RR.HH.",
+          "valores": [
+            "levantamiento de capital",
+            "expansión",
+            "fusión o adquisición",
+            "accidente o multa",
+            "cambio normativo",
+            "contratación masiva",
+            "cambio de gerente de RR.HH."
+          ]
+        },
+        {
+          "dimension": "Tipo de historia",
+          "valores_texto": "hecho noticioso · dato de tendencia · lectura dominante · norma regulatoria — define el formato con que se redacta después.",
+          "valores": [
+            "hecho noticioso",
+            "dato de tendencia",
+            "lectura dominante",
+            "norma regulatoria — define el formato con que se redacta después."
+          ]
+        },
+        {
+          "dimension": "Macro-tópico",
+          "valores_texto": "T1 a T5, configurables por cliente. Sirven de cuota: ningún tópico puede ocupar más de 3 de las 10 entradas de un resumen.",
+          "valores": null
+        },
+        {
+          "dimension": "Qué se genera",
+          "valores_texto": "Por cada señal seleccionada: comunicado, texto de LinkedIn, copy de Instagram con ideas visuales, periodista objetivo y el formato recomendado.",
+          "valores": null
+        },
+        {
+          "dimension": "Control de costo",
+          "valores_texto": "Solo la nota cabeza de cada grupo de duplicados pasa por el modelo — un mismo cable replicado en 30 portales se clasifica una sola vez. Tope de 120 notas por ciclo.",
+          "valores": null
+        }
+      ]
+    },
+    "que_estamos_leyendo_hoy": {
+      "titulo": "Qué estamos leyendo hoy",
+      "piezas": [
+        {
+          "pieza": "Servicio",
+          "detalle": "radar-engine — Express propio, ya no depende de vilo-platform. Corre en Railway, Mongo propio."
+        },
+        {
+          "pieza": "Fuentes activas",
+          "detalle": "23 medios LATAM vía RSS/sitemap, sin API paga de por medio todavía (tabla completa abajo)."
+        },
+        {
+          "pieza": "Corpus",
+          "detalle": "44.297 artículos únicos — 34.811 de los 23 medios activos, 9.560 de 22 medios que quedaron congelados el 28-ago. En disco son 83.568 documentos porque cada artículo se guarda una vez por cliente."
+        },
+        {
+          "pieza": "Cadencia",
+          "detalle": "Ingesta automática cada 30 min — dedupe + persistencia. Sin costo de modelo."
+        },
+        {
+          "pieza": "Clasificación",
+          "detalle": "Apagada a propósito (RADAR_AUTO_CLASSIFY) hasta que haya un cliente configurado — hoy solo se lee y guarda, no se etiqueta."
+        },
+        {
+          "pieza": "Profundidad real",
+          "detalle": "Despareja por medio: RPP llega a 2009 y La Tercera a 2020, pero 13 de los 23 no tienen nada anterior a julio de este año."
+        },
+        {
+          "pieza": "Periodistas",
+          "detalle": "606 derivados de firmas públicas del corpus — no es la base que aporta Sentidos; son dos activos distintos, sin reconciliar todavía."
+        }
+      ]
+    },
+    "medios_activos": {
+      "titulo": "Los 23 medios activos, uno por uno",
+      "nota_metodo": "Conteo real del corpus al 15-sep, deduplicado por URL. Lane digest = elegible para clasificación paga cuando haya cliente; lane corpus = solo ingesta gratis, nunca se clasifica, pero suma al espejo de medios. La columna desde es la fecha del artículo más antiguo que tenemos de ese medio — la ingesta continua arrancó el 28-ago para todos.",
+      "medios": [
+        {
+          "medio": "El Economista",
+          "numero": null,
+          "pais": "México",
+          "lane": "digest",
+          "estado": "nuevo",
+          "estado_raw": "new",
+          "estado_etiqueta": "digest",
+          "formato": "Sitemap",
+          "formato_salvedad": null,
+          "articulos": 4824,
+          "desde": "may 2026",
+          "desde_destacado": false
+        },
+        {
+          "medio": "La República",
+          "numero": null,
+          "pais": "Colombia",
+          "lane": "digest",
+          "estado": "nuevo",
+          "estado_raw": "new",
+          "estado_etiqueta": "digest",
+          "formato": "RSS",
+          "formato_salvedad": "sin cuerpo",
+          "articulos": 3806,
+          "desde": "jul 2026",
+          "desde_destacado": false
+        },
+        {
+          "medio": "El Comercio",
+          "numero": null,
+          "pais": "Perú",
+          "lane": "digest",
+          "estado": "nuevo",
+          "estado_raw": "new",
+          "estado_etiqueta": "digest",
+          "formato": "RSS",
+          "formato_salvedad": null,
+          "articulos": 3568,
+          "desde": "sep 2024",
+          "desde_destacado": true
+        },
+        {
+          "medio": "La Tercera",
+          "numero": null,
+          "pais": "Chile",
+          "lane": "digest",
+          "estado": "nuevo",
+          "estado_raw": "new",
+          "estado_etiqueta": "digest",
+          "formato": "RSS",
+          "formato_salvedad": null,
+          "articulos": 3070,
+          "desde": "may 2020",
+          "desde_destacado": true
+        },
+        {
+          "medio": "Exame",
+          "numero": null,
+          "pais": "Brasil",
+          "lane": "corpus",
+          "estado": "etapa",
+          "estado_raw": "stage",
+          "estado_etiqueta": "corpus",
+          "formato": "RSS",
+          "formato_salvedad": null,
+          "articulos": 2214,
+          "desde": "ago 2026",
+          "desde_destacado": false
+        },
+        {
+          "medio": "Portafolio",
+          "numero": null,
+          "pais": "Colombia",
+          "lane": "digest",
+          "estado": "nuevo",
+          "estado_raw": "new",
+          "estado_etiqueta": "digest",
+          "formato": "RSS",
+          "formato_salvedad": "sin cuerpo",
+          "articulos": 2129,
+          "desde": "jul 2026",
+          "desde_destacado": false
+        },
+        {
+          "medio": "RPP",
+          "numero": null,
+          "pais": "Perú",
+          "lane": "corpus",
+          "estado": "etapa",
+          "estado_raw": "stage",
+          "estado_etiqueta": "corpus",
+          "formato": "RSS",
+          "formato_salvedad": null,
+          "articulos": 2067,
+          "desde": "ene 2009",
+          "desde_destacado": true
+        },
+        {
+          "medio": "Gestión",
+          "numero": null,
+          "pais": "Perú",
+          "lane": "digest",
+          "estado": "nuevo",
+          "estado_raw": "new",
+          "estado_etiqueta": "digest",
+          "formato": "RSS",
+          "formato_salvedad": null,
+          "articulos": 1936,
+          "desde": "may 2025",
+          "desde_destacado": true
+        },
+        {
+          "medio": "InfoMoney",
+          "numero": null,
+          "pais": "Brasil",
+          "lane": "corpus",
+          "estado": "etapa",
+          "estado_raw": "stage",
+          "estado_etiqueta": "corpus",
+          "formato": "RSS",
+          "formato_salvedad": null,
+          "articulos": 1862,
+          "desde": "ago 2026",
+          "desde_destacado": false
+        },
+        {
+          "medio": "Valora Analitik",
+          "numero": null,
+          "pais": "Colombia",
+          "lane": "digest",
+          "estado": "nuevo",
+          "estado_raw": "new",
+          "estado_etiqueta": "digest",
+          "formato": "RSS",
+          "formato_salvedad": null,
+          "articulos": 1786,
+          "desde": "jul 2026",
+          "desde_destacado": false
+        },
+        {
+          "medio": "El Financiero",
+          "numero": null,
+          "pais": "México",
+          "lane": "digest",
+          "estado": "nuevo",
+          "estado_raw": "new",
+          "estado_etiqueta": "digest",
+          "formato": "RSS",
+          "formato_salvedad": null,
+          "articulos": 1587,
+          "desde": "jul 2026",
+          "desde_destacado": false
+        },
+        {
+          "medio": "Money Times",
+          "numero": null,
+          "pais": "Brasil",
+          "lane": "corpus",
+          "estado": "etapa",
+          "estado_raw": "stage",
+          "estado_etiqueta": "corpus",
+          "formato": "RSS",
+          "formato_salvedad": null,
+          "articulos": 1172,
+          "desde": "ago 2026",
+          "desde_destacado": false
+        },
+        {
+          "medio": "La Estrella de Panamá",
+          "numero": null,
+          "pais": "Panamá",
+          "lane": "digest",
+          "estado": "nuevo",
+          "estado_raw": "new",
+          "estado_etiqueta": "digest",
+          "formato": "Sitemap",
+          "formato_salvedad": null,
+          "articulos": 1078,
+          "desde": "ago 2026",
+          "desde_destacado": false
+        },
+        {
+          "medio": "La Prensa",
+          "numero": null,
+          "pais": "Panamá",
+          "lane": "digest",
+          "estado": "nuevo",
+          "estado_raw": "new",
+          "estado_etiqueta": "digest",
+          "formato": "RSS",
+          "formato_salvedad": null,
+          "articulos": 920,
+          "desde": "nov 2013",
+          "desde_destacado": true
+        },
+        {
+          "medio": "Diario Financiero",
+          "numero": null,
+          "pais": "Chile",
+          "lane": "digest",
+          "estado": "nuevo",
+          "estado_raw": "new",
+          "estado_etiqueta": "digest",
+          "formato": "Sitemap",
+          "formato_salvedad": null,
+          "articulos": 836,
+          "desde": "jun 2026",
+          "desde_destacado": false
+        },
+        {
+          "medio": "Expansión",
+          "numero": null,
+          "pais": "México",
+          "lane": "digest",
+          "estado": "nuevo",
+          "estado_raw": "new",
+          "estado_etiqueta": "digest",
+          "formato": "RSS",
+          "formato_salvedad": null,
+          "articulos": 449,
+          "desde": "ago 2026",
+          "desde_destacado": false
+        },
+        {
+          "medio": "DPL News",
+          "numero": null,
+          "pais": "México",
+          "lane": "corpus",
+          "estado": "etapa",
+          "estado_raw": "stage",
+          "estado_etiqueta": "corpus",
+          "formato": "RSS",
+          "formato_salvedad": null,
+          "articulos": 421,
+          "desde": "ago 2026",
+          "desde_destacado": false
+        },
+        {
+          "medio": "FayerWayer",
+          "numero": null,
+          "pais": "Chile",
+          "lane": "corpus",
+          "estado": "etapa",
+          "estado_raw": "stage",
+          "estado_etiqueta": "corpus",
+          "formato": "RSS",
+          "formato_salvedad": null,
+          "articulos": 336,
+          "desde": "may 2025",
+          "desde_destacado": true
+        },
+        {
+          "medio": "Enter.co",
+          "numero": null,
+          "pais": "Colombia",
+          "lane": "corpus",
+          "estado": "etapa",
+          "estado_raw": "stage",
+          "estado_etiqueta": "corpus",
+          "formato": "RSS",
+          "formato_salvedad": null,
+          "articulos": 323,
+          "desde": "jul 2026",
+          "desde_destacado": false
+        },
+        {
+          "medio": "Ex-Ante",
+          "numero": null,
+          "pais": "Chile",
+          "lane": "digest",
+          "estado": "nuevo",
+          "estado_raw": "new",
+          "estado_etiqueta": "digest",
+          "formato": "RSS",
+          "formato_salvedad": null,
+          "articulos": 231,
+          "desde": "ago 2026",
+          "desde_destacado": false
+        },
+        {
+          "medio": "Startupi",
+          "numero": null,
+          "pais": "Brasil",
+          "lane": "corpus",
+          "estado": "etapa",
+          "estado_raw": "stage",
+          "estado_etiqueta": "corpus",
+          "formato": "RSS",
+          "formato_salvedad": null,
+          "articulos": 93,
+          "desde": "ago 2026",
+          "desde_destacado": false
+        },
+        {
+          "medio": "Canal TI",
+          "numero": null,
+          "pais": "Perú",
+          "lane": "corpus",
+          "estado": "etapa",
+          "estado_raw": "stage",
+          "estado_etiqueta": "corpus",
+          "formato": "RSS",
+          "formato_salvedad": "bajo volumen",
+          "articulos": 70,
+          "desde": "ago 2026",
+          "desde_destacado": false
+        },
+        {
+          "medio": "iupana",
+          "numero": null,
+          "pais": "Regional",
+          "lane": "corpus",
+          "estado": "etapa",
+          "estado_raw": "stage",
+          "estado_etiqueta": "corpus",
+          "formato": "RSS",
+          "formato_salvedad": null,
+          "articulos": 33,
+          "desde": "jul 2026",
+          "desde_destacado": false
+        }
+      ],
+      "total_articulos": 34811,
+      "dato_incomodo": "Dato incómodo: solo 5 medios tienen archivo anterior a 2026 — RPP (2009), La Prensa (2013), La Tercera (2020), El Comercio (2024), Gestión y FayerWayer (2025). Los otros 17 arrancan en junio-agosto de este año. Cuando la interfaz dice \"últimos 30 días\", en la mayoría de los medios eso es todo lo que hay.",
+      "medios_congelados": {
+        "titulo": "⚠️ 22 medios más en el corpus, congelados desde el 28-ago",
+        "parrafos": [
+          "El corpus tiene 9.560 artículos adicionales de medios que entraron por una carga histórica y dejaron de actualizarse el 28 de agosto — no están en la lista de fuentes activas, así que nadie los está leyendo hoy. Los más grandes: TVN Noticias (2.193), Forbes México (1.869), Xataka México (936), EL CEO (673), La Tercera Pulso (555), Forbes Colombia (544), El Tiempo (488), Emol (416).",
+          "Aparecen en las búsquedas del espejo de medios como si fueran cobertura vigente, pero su última nota es de hace tres semanas. Hay que decidir: reactivarlos como fuentes, marcarlos como archivo histórico en la interfaz, o sacarlos."
+        ]
+      }
+    },
+    "epicas": {
+      "titulo": "Las épicas de la Etapa 2",
+      "nota": "Lo que hay que construir para que la escucha pase de \"corpus que crece\" a producto que el cliente usa. Ordenadas por dependencia: la cobertura y el almacenamiento son la base, el análisis y los reportes vienen encima.",
+      "items": [
+        {
+          "id": "E2.1",
+          "numero": null,
+          "epica": "Ampliar la cobertura de medios",
+          "que_incluye": "Reactivar los 22 medios congelados o retirarlos. Cerrar los huecos conocidos de prensa chilena de negocios — Diario Financiero y Ex-Ante casi no tienen archivo accesible y Ex-Ante devuelve 403 de Cloudflare. Recuperar los medios probados que no engancharon: Emol (cuerpo renderizado en el navegador), Forbes México (RSS con token), El Mercurio, Contxto. Y sumar profundidad: 17 de 23 medios no tienen nada anterior a junio.",
+          "estado": "falta",
+          "estado_raw": "no",
+          "estado_etiqueta": "no empezada",
+          "referencias_github": []
+        },
+        {
+          "id": "E2.2",
+          "numero": null,
+          "epica": "Optimizar el almacenamiento",
+          "que_incluye": "Cada artículo se guarda una vez por cliente: 44.297 artículos únicos ocupan 83.568 documentos, y con tres clientes ya son 1,9 copias de cada nota. Además el índice de deduplicación pesa 65 MB por sí solo y no lo usa la búsqueda de menciones. Con ~4.800 artículos nuevos al día esto llenó un cluster de 512 MB en menos de un día. Incluye política de retención. Issue #15.",
+          "estado": "falta",
+          "estado_raw": "no",
+          "estado_etiqueta": "no empezada",
+          "referencias_github": [
+            {
+              "numero": 15,
+              "tipo": "issue",
+              "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/15",
+              "etiqueta": "Issue #15"
+            }
+          ]
+        },
+        {
+          "id": "E2.3",
+          "numero": null,
+          "epica": "Mejorar el análisis semanal",
+          "que_incluye": "El resumen semanal ya selecciona con filtro de mercado, cuota por tópico (máximo 3 de 10 por tema) y umbral de confianza, y midió 87% de acierto en demanda y 75% en gancho. Falta: evaluar el corte automático de calidad, afinar el 25% de error en ganchos, y decidir cada cuánto se entrega y a quién.",
+          "estado": "parcial",
+          "estado_raw": "partial",
+          "estado_etiqueta": "avanzada",
+          "referencias_github": []
+        },
+        {
+          "id": "E2.4",
+          "numero": null,
+          "epica": "Bajar el costo de clasificar",
+          "que_incluye": "Hoy cada cliente paga su propia pasada: el costo escala lineal con la cantidad de clientes (~US$13 al mes por cliente). Una sola llamada por artículo que sirva a todos los clientes a la vez ahorra entre 30% y 40%. Es la diferencia entre poder encender la clasificación para Sentidos o no.",
+          "estado": "falta",
+          "estado_raw": "no",
+          "estado_etiqueta": "no empezada",
+          "referencias_github": []
+        },
+        {
+          "id": "E2.5",
+          "numero": null,
+          "epica": "Escucha de redes sociales y foros B2B",
+          "que_incluye": "Es el R2 comprometido y lo único de la etapa que no tiene nada escrito. Incluye los foros del mercado B2B y que los reportes muestren tanto cobertura como conversaciones. El research de agosto recomendó un proveedor externo a US$200 al mes; sigue sin decisión. Hoy el radar solo lee prensa.",
+          "estado": "falta",
+          "estado_raw": "no",
+          "estado_etiqueta": "no empezada",
+          "referencias_github": []
+        },
+        {
+          "id": "E2.6",
+          "numero": null,
+          "epica": "Confiabilidad del espejo de medios",
+          "que_incluye": "Los tres defectos abiertos: búsqueda por subcadena que trae falsos positivos (PR #17 en revisión), la ventana de \"30 días\" que no es real, y la profundidad despareja. Es lo único de la etapa que hoy puede mostrarle datos equivocados a un cliente en pantalla.",
+          "estado": "parcial",
+          "estado_raw": "partial",
+          "estado_etiqueta": "en curso",
+          "referencias_github": [
+            {
+              "numero": 17,
+              "tipo": "pr",
+              "url": "https://github.com/AlvaroEwaffle/prtech-ai/pull/17",
+              "etiqueta": "#17"
+            }
+          ]
+        },
+        {
+          "id": "E2.7",
+          "numero": null,
+          "epica": "Alta de un cliente como tenant del radar",
+          "que_incluye": "Decisión abierta: ¿un cliente que se registra en PR Tech pasa a ser automáticamente tenant del radar? ¿Quién le define sus cinco macro-tópicos y qué significa \"demanda\" para él? Sin esto resuelto, la clasificación no se puede encender para nadie nuevo.",
+          "estado": "falta",
+          "estado_raw": "no",
+          "estado_etiqueta": "a definir",
+          "referencias_github": []
+        },
+        {
+          "id": "E2.8",
+          "numero": null,
+          "epica": "Reconciliar la base de periodistas",
+          "que_incluye": "Tenemos 606 periodistas derivados de firmas del corpus; Sentidos aporta la suya. Son dos activos distintos y nadie los ha cruzado. Hay que definir si se complementan, cuál manda ante conflicto, y quién es dueño del resultado.",
+          "estado": "falta",
+          "estado_raw": "no",
+          "estado_etiqueta": "a definir",
+          "referencias_github": []
+        }
+      ]
+    }
+  },
+  "defectos_espejo_medios": {
+    "titulo": "Defectos abiertos del espejo de medios",
+    "nota": "31-ago, sin re-verificar",
+    "defectos": [
+      {
+        "numero": 1,
+        "defecto": "Falsos positivos por substring — no respeta límites de palabra",
+        "evidencia": "«Migrante» devolvía 206 menciones falsas"
+      },
+      {
+        "numero": 2,
+        "defecto": "La ventana declarada («últimos 30 días») no es la real",
+        "evidencia": "DF: 3 días real · La Tercera: 464"
+      },
+      {
+        "numero": 3,
+        "defecto": "Profundidad insuficiente en prensa chilena de negocios",
+        "evidencia": "DF y Ex-Ante casi sin archivo accesible"
+      }
+    ]
+  },
+  "infra": {
+    "titulo": "Infra — lo que existe hoy",
+    "items": [
+      {
+        "pieza": "App Next.js (prtech)",
+        "numero": null,
+        "estado": "hecho",
+        "estado_raw": "ok",
+        "estado_etiqueta": "Railway, conectada a GitHub, auto-deploy en main"
+      },
+      {
+        "pieza": "radar-engine (Express)",
+        "numero": null,
+        "estado": "hecho",
+        "estado_raw": "ok",
+        "estado_etiqueta": "servicio propio en Railway, conectado a GitHub"
+      },
+      {
+        "pieza": "Base de datos",
+        "numero": null,
+        "estado": "hecho",
+        "estado_raw": "ok",
+        "estado_etiqueta": "Mongo Atlas propio, prtechai + prtech-qa"
+      },
+      {
+        "pieza": "Dominio activo hoy",
+        "numero": null,
+        "estado": "etapa",
+        "estado_raw": "stage",
+        "estado_etiqueta": "prtech-production-ef4c.up.railway.app"
+      },
+      {
+        "pieza": "Dominio real (pr-tech.ai)",
+        "numero": null,
+        "estado": "falta",
+        "estado_raw": "no",
+        "estado_etiqueta": "sin conectar a esta infra todavía"
+      },
+      {
+        "pieza": "Clasificación LLM automática del radar",
+        "numero": null,
+        "estado": "etapa",
+        "estado_raw": "stage",
+        "estado_etiqueta": "apagada — solo ingesta"
+      },
+      {
+        "pieza": "Servicio viejo en VilleLabs",
+        "numero": null,
+        "estado": "etapa",
+        "estado_raw": "stage",
+        "estado_etiqueta": "dado de baja"
+      }
+    ]
+  }
+}

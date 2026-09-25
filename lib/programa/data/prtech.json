@@ -1,0 +1,947 @@
+{
+  "generado": "2026-09-24T02:04:19.400Z",
+  "slug": "prtech",
+  "nombre": "PR Tech",
+  "repo": "AlvaroEwaffle/prtech-ai",
+  "board": "PR Tech",
+  "historias": [
+    {
+      "numero": 10,
+      "titulo": "Fix: falsos positivos por substring en /api/radar/mentions",
+      "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/10",
+      "estado_github": "CLOSED",
+      "estado_board": "Done",
+      "sprint": "Sprint 1",
+      "prioridad": null,
+      "estimacion": null,
+      "fase": "Fase 1 · La plataforma",
+      "fase_vence": null,
+      "etiquetas": [
+        "epic: mirror-defectos",
+        "fase: 1",
+        "epic: espejo-y-registro"
+      ],
+      "asignados": [
+        "Mel-Lopez21"
+      ],
+      "comentarios": 0,
+      "creada": "2026-09-10T22:33:30Z",
+      "cerrada": "2026-09-15T13:00:35Z"
+    },
+    {
+      "numero": 11,
+      "titulo": "Modelo de datos para roles y permisos (5 perfiles + developer)",
+      "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/11",
+      "estado_github": "CLOSED",
+      "estado_board": "Done",
+      "sprint": "Sprint 1",
+      "prioridad": null,
+      "estimacion": null,
+      "fase": "Fase 1 · La plataforma",
+      "fase_vence": null,
+      "etiquetas": [
+        "epic: roles-permisos",
+        "fase: 1"
+      ],
+      "asignados": [
+        "jsstagno90"
+      ],
+      "comentarios": 1,
+      "creada": "2026-09-10T22:33:32Z",
+      "cerrada": "2026-09-14T12:21:17Z"
+    },
+    {
+      "numero": 12,
+      "titulo": "Conectar prtech-ai a GitHub para auto-deploy en Railway",
+      "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/12",
+      "estado_github": "CLOSED",
+      "estado_board": "Done",
+      "sprint": "Sprint 1",
+      "prioridad": null,
+      "estimacion": null,
+      "fase": "Operación · transversal",
+      "fase_vence": null,
+      "etiquetas": [
+        "epic: operacion"
+      ],
+      "asignados": [
+        "AlvaroEwaffle"
+      ],
+      "comentarios": 0,
+      "creada": "2026-09-10T22:33:34Z",
+      "cerrada": "2026-09-15T11:25:17Z"
+    },
+    {
+      "numero": 15,
+      "titulo": "Spike: por qué pesa radararticles y qué se puede recortar",
+      "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/15",
+      "estado_github": "CLOSED",
+      "estado_board": "Done",
+      "sprint": "Sprint 2",
+      "prioridad": "P1",
+      "estimacion": null,
+      "fase": "Etapa 2 · Escucha y reporte",
+      "fase_vence": null,
+      "etiquetas": [
+        "epic: radar",
+        "etapa: 2"
+      ],
+      "asignados": [
+        "Mel-Lopez21"
+      ],
+      "comentarios": 2,
+      "creada": "2026-09-11T16:08:16Z",
+      "cerrada": "2026-09-22T11:35:32Z"
+    },
+    {
+      "numero": 16,
+      "titulo": "Account scoping incompleto: rutas de detalle no filtran por companyIds",
+      "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/16",
+      "estado_github": "CLOSED",
+      "estado_board": "Done",
+      "sprint": "Sprint 1",
+      "prioridad": "P0",
+      "estimacion": null,
+      "fase": "Fase 1 · La plataforma",
+      "fase_vence": null,
+      "etiquetas": [
+        "epic: roles-permisos",
+        "fase: 1"
+      ],
+      "asignados": [
+        "jsstagno90"
+      ],
+      "comentarios": 1,
+      "creada": "2026-09-14T12:21:32Z",
+      "cerrada": "2026-09-21T12:23:26Z"
+    },
+    {
+      "numero": 18,
+      "titulo": "Pruebas automáticas de aislamiento entre cuentas",
+      "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/18",
+      "estado_github": "CLOSED",
+      "estado_board": "Done",
+      "sprint": "Sprint 1",
+      "prioridad": "P0",
+      "estimacion": null,
+      "fase": "Fase 1 · La plataforma",
+      "fase_vence": null,
+      "etiquetas": [
+        "epic: roles-permisos",
+        "fase: 1"
+      ],
+      "asignados": [
+        "jsstagno90"
+      ],
+      "comentarios": 0,
+      "creada": "2026-09-15T11:53:33Z",
+      "cerrada": "2026-09-22T11:53:18Z"
+    },
+    {
+      "numero": 19,
+      "titulo": "Renombrar roles y eliminar el perfil junior",
+      "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/19",
+      "estado_github": "OPEN",
+      "estado_board": "Sprint Backlog",
+      "sprint": "Sprint 2",
+      "prioridad": "P1",
+      "estimacion": null,
+      "fase": "Fase 1 · La plataforma",
+      "fase_vence": null,
+      "etiquetas": [
+        "epic: roles-permisos",
+        "fase: 1"
+      ],
+      "asignados": [
+        "jsstagno90"
+      ],
+      "comentarios": 0,
+      "creada": "2026-09-15T11:53:36Z",
+      "cerrada": null
+    },
+    {
+      "numero": 20,
+      "titulo": "Crear el rol Admin Cliente",
+      "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/20",
+      "estado_github": "CLOSED",
+      "estado_board": "Done",
+      "sprint": "Sprint 1",
+      "prioridad": "P1",
+      "estimacion": null,
+      "fase": "Fase 1 · La plataforma",
+      "fase_vence": null,
+      "etiquetas": [
+        "epic: roles-permisos",
+        "fase: 1"
+      ],
+      "asignados": [
+        "jsstagno90"
+      ],
+      "comentarios": 1,
+      "creada": "2026-09-15T11:54:13Z",
+      "cerrada": "2026-09-22T11:53:35Z"
+    },
+    {
+      "numero": 21,
+      "titulo": "Cuenta de cliente en el flujo de entrada, en reemplazo del PIN",
+      "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/21",
+      "estado_github": "CLOSED",
+      "estado_board": "Done",
+      "sprint": "Sprint 2",
+      "prioridad": "P2",
+      "estimacion": null,
+      "fase": "Fase 1 · La plataforma",
+      "fase_vence": null,
+      "etiquetas": [
+        "epic: roles-permisos",
+        "fase: 1"
+      ],
+      "asignados": [
+        "jsstagno90"
+      ],
+      "comentarios": 1,
+      "creada": "2026-09-15T11:54:16Z",
+      "cerrada": "2026-09-23T19:23:11Z"
+    },
+    {
+      "numero": 22,
+      "titulo": "Verificar la cola multi-cuenta contra datos reales",
+      "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/22",
+      "estado_github": "OPEN",
+      "estado_board": "Ready",
+      "sprint": "Sprint 2",
+      "prioridad": "P2",
+      "estimacion": null,
+      "fase": "Fase 1 · La plataforma",
+      "fase_vence": null,
+      "etiquetas": [
+        "epic: panel-multicuenta",
+        "fase: 1"
+      ],
+      "asignados": [
+        "jsstagno90"
+      ],
+      "comentarios": 1,
+      "creada": "2026-09-15T11:54:19Z",
+      "cerrada": null
+    },
+    {
+      "numero": 23,
+      "titulo": "Portal del cliente con su cobertura histórica",
+      "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/23",
+      "estado_github": "OPEN",
+      "estado_board": "Sprint Backlog",
+      "sprint": "Sprint 2",
+      "prioridad": "P2",
+      "estimacion": null,
+      "fase": "Fase 1 · La plataforma",
+      "fase_vence": null,
+      "etiquetas": [
+        "epic: portal-cuenta",
+        "fase: 1"
+      ],
+      "asignados": [
+        "jsstagno90"
+      ],
+      "comentarios": 0,
+      "creada": "2026-09-15T11:54:21Z",
+      "cerrada": null
+    },
+    {
+      "numero": 24,
+      "titulo": "Espejo: nombres que terminan en signo no matchean (Yahoo!)",
+      "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/24",
+      "estado_github": "CLOSED",
+      "estado_board": "Done",
+      "sprint": "Sprint 2",
+      "prioridad": null,
+      "estimacion": null,
+      "fase": "Fase 1 · La plataforma",
+      "fase_vence": null,
+      "etiquetas": [
+        "epic: mirror-defectos",
+        "fase: 1",
+        "epic: espejo-y-registro"
+      ],
+      "asignados": [
+        "Mel-Lopez21"
+      ],
+      "comentarios": 0,
+      "creada": "2026-09-15T13:05:32Z",
+      "cerrada": "2026-09-23T11:16:38Z"
+    },
+    {
+      "numero": 32,
+      "titulo": "04.1 · Pasarela de pago en el flujo de entrada",
+      "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/32",
+      "estado_github": "OPEN",
+      "estado_board": "Backlog",
+      "sprint": null,
+      "prioridad": null,
+      "estimacion": null,
+      "fase": "Fase 1 · La plataforma",
+      "fase_vence": null,
+      "etiquetas": [
+        "fase: 1",
+        "epic: pago-suscripcion"
+      ],
+      "asignados": [
+        "jsstagno90"
+      ],
+      "comentarios": 0,
+      "creada": "2026-09-21T14:34:14Z",
+      "cerrada": null
+    },
+    {
+      "numero": 33,
+      "titulo": "04.2 · Definición de precio y qué desbloquea el pago",
+      "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/33",
+      "estado_github": "OPEN",
+      "estado_board": "Sprint Backlog",
+      "sprint": "Sprint 2",
+      "prioridad": null,
+      "estimacion": null,
+      "fase": "Fase 1 · La plataforma",
+      "fase_vence": null,
+      "etiquetas": [
+        "question",
+        "fase: 1",
+        "epic: pago-suscripcion"
+      ],
+      "asignados": [
+        "AlvaroEwaffle"
+      ],
+      "comentarios": 0,
+      "creada": "2026-09-21T14:34:17Z",
+      "cerrada": null
+    },
+    {
+      "numero": 34,
+      "titulo": "09.1 · Catálogo de paquetes de pauta",
+      "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/34",
+      "estado_github": "OPEN",
+      "estado_board": "Backlog",
+      "sprint": null,
+      "prioridad": null,
+      "estimacion": null,
+      "fase": "Fase 2 · Alianzas con medios",
+      "fase_vence": null,
+      "etiquetas": [
+        "fase: 2",
+        "epic: pauta-medios"
+      ],
+      "asignados": [],
+      "comentarios": 0,
+      "creada": "2026-09-21T14:34:18Z",
+      "cerrada": null
+    },
+    {
+      "numero": 35,
+      "titulo": "09.2 · Compra del paquete en la plataforma",
+      "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/35",
+      "estado_github": "OPEN",
+      "estado_board": "Backlog",
+      "sprint": null,
+      "prioridad": null,
+      "estimacion": null,
+      "fase": "Fase 2 · Alianzas con medios",
+      "fase_vence": null,
+      "etiquetas": [
+        "fase: 2",
+        "epic: pauta-medios"
+      ],
+      "asignados": [],
+      "comentarios": 0,
+      "creada": "2026-09-21T14:34:21Z",
+      "cerrada": null
+    },
+    {
+      "numero": 36,
+      "titulo": "09.3 · Gestión de la orden con el medio",
+      "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/36",
+      "estado_github": "OPEN",
+      "estado_board": "Backlog",
+      "sprint": null,
+      "prioridad": null,
+      "estimacion": null,
+      "fase": "Fase 2 · Alianzas con medios",
+      "fase_vence": null,
+      "etiquetas": [
+        "fase: 2",
+        "epic: pauta-medios"
+      ],
+      "asignados": [],
+      "comentarios": 0,
+      "creada": "2026-09-21T14:34:24Z",
+      "cerrada": null
+    },
+    {
+      "numero": 37,
+      "titulo": "09.4 · Administración de medios aliados",
+      "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/37",
+      "estado_github": "OPEN",
+      "estado_board": "Backlog",
+      "sprint": null,
+      "prioridad": null,
+      "estimacion": null,
+      "fase": "Fase 2 · Alianzas con medios",
+      "fase_vence": null,
+      "etiquetas": [
+        "fase: 2",
+        "epic: pauta-medios"
+      ],
+      "asignados": [],
+      "comentarios": 0,
+      "creada": "2026-09-21T14:34:26Z",
+      "cerrada": null
+    },
+    {
+      "numero": 38,
+      "titulo": "05.1 · Generación del documento de estrategia",
+      "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/38",
+      "estado_github": "OPEN",
+      "estado_board": "Backlog",
+      "sprint": null,
+      "prioridad": null,
+      "estimacion": null,
+      "fase": "Fase 3 · Estrategia de medios",
+      "fase_vence": null,
+      "etiquetas": [
+        "fase: 3",
+        "epic: estrategia-pr"
+      ],
+      "asignados": [],
+      "comentarios": 0,
+      "creada": "2026-09-21T14:34:28Z",
+      "cerrada": null
+    },
+    {
+      "numero": 39,
+      "titulo": "05.2 · Estrategia visible en la sala del cliente",
+      "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/39",
+      "estado_github": "OPEN",
+      "estado_board": "Backlog",
+      "sprint": null,
+      "prioridad": null,
+      "estimacion": null,
+      "fase": "Fase 3 · Estrategia de medios",
+      "fase_vence": null,
+      "etiquetas": [
+        "fase: 3",
+        "epic: estrategia-pr"
+      ],
+      "asignados": [],
+      "comentarios": 0,
+      "creada": "2026-09-21T14:34:30Z",
+      "cerrada": null
+    },
+    {
+      "numero": 40,
+      "titulo": "Ampliar la cobertura de medios del radar",
+      "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/40",
+      "estado_github": "OPEN",
+      "estado_board": "Sprint Backlog",
+      "sprint": "Sprint 2",
+      "prioridad": null,
+      "estimacion": null,
+      "fase": "Etapa 2 · Escucha y reporte",
+      "fase_vence": null,
+      "etiquetas": [
+        "epic: radar",
+        "etapa: 2"
+      ],
+      "asignados": [
+        "Mel-Lopez21"
+      ],
+      "comentarios": 1,
+      "creada": "2026-09-21T14:34:48Z",
+      "cerrada": null
+    },
+    {
+      "numero": 41,
+      "titulo": "E2.3 · Mejorar el análisis semanal",
+      "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/41",
+      "estado_github": "OPEN",
+      "estado_board": "Backlog",
+      "sprint": null,
+      "prioridad": null,
+      "estimacion": null,
+      "fase": "Etapa 2 · Escucha y reporte",
+      "fase_vence": null,
+      "etiquetas": [
+        "epic: radar",
+        "etapa: 2"
+      ],
+      "asignados": [],
+      "comentarios": 0,
+      "creada": "2026-09-21T14:34:50Z",
+      "cerrada": null
+    },
+    {
+      "numero": 42,
+      "titulo": "E2.4 · Bajar el costo de clasificar",
+      "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/42",
+      "estado_github": "OPEN",
+      "estado_board": "Backlog",
+      "sprint": null,
+      "prioridad": null,
+      "estimacion": null,
+      "fase": "Etapa 2 · Escucha y reporte",
+      "fase_vence": null,
+      "etiquetas": [
+        "epic: radar",
+        "etapa: 2"
+      ],
+      "asignados": [],
+      "comentarios": 0,
+      "creada": "2026-09-21T14:34:52Z",
+      "cerrada": null
+    },
+    {
+      "numero": 43,
+      "titulo": "E2.5 · Escucha de redes sociales y foros B2B",
+      "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/43",
+      "estado_github": "OPEN",
+      "estado_board": "Backlog",
+      "sprint": null,
+      "prioridad": null,
+      "estimacion": null,
+      "fase": "Etapa 2 · Escucha y reporte",
+      "fase_vence": null,
+      "etiquetas": [
+        "epic: radar",
+        "etapa: 2"
+      ],
+      "asignados": [],
+      "comentarios": 0,
+      "creada": "2026-09-21T14:34:54Z",
+      "cerrada": null
+    },
+    {
+      "numero": 44,
+      "titulo": "E2.7 · Alta de un cliente como tenant del radar",
+      "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/44",
+      "estado_github": "OPEN",
+      "estado_board": "Backlog",
+      "sprint": null,
+      "prioridad": null,
+      "estimacion": null,
+      "fase": "Etapa 2 · Escucha y reporte",
+      "fase_vence": null,
+      "etiquetas": [
+        "question",
+        "epic: radar",
+        "etapa: 2"
+      ],
+      "asignados": [],
+      "comentarios": 0,
+      "creada": "2026-09-21T14:34:56Z",
+      "cerrada": null
+    },
+    {
+      "numero": 45,
+      "titulo": "E2.8 · Reconciliar la base de periodistas",
+      "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/45",
+      "estado_github": "OPEN",
+      "estado_board": "Backlog",
+      "sprint": null,
+      "prioridad": null,
+      "estimacion": null,
+      "fase": "Etapa 2 · Escucha y reporte",
+      "fase_vence": null,
+      "etiquetas": [
+        "question",
+        "epic: radar",
+        "etapa: 2"
+      ],
+      "asignados": [],
+      "comentarios": 0,
+      "creada": "2026-09-21T14:34:58Z",
+      "cerrada": null
+    },
+    {
+      "numero": 46,
+      "titulo": "Archivo histórico del corpus fuera de la base",
+      "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/46",
+      "estado_github": "OPEN",
+      "estado_board": "Sprint Backlog",
+      "sprint": null,
+      "prioridad": null,
+      "estimacion": null,
+      "fase": "Etapa 2 · Escucha y reporte",
+      "fase_vence": null,
+      "etiquetas": [
+        "epic: radar",
+        "etapa: 2"
+      ],
+      "asignados": [],
+      "comentarios": 1,
+      "creada": "2026-09-21T22:18:50Z",
+      "cerrada": null
+    },
+    {
+      "numero": 47,
+      "titulo": "Separar radar_corpus de radar_tenant_matches",
+      "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/47",
+      "estado_github": "OPEN",
+      "estado_board": "In progress",
+      "sprint": "Sprint 2",
+      "prioridad": null,
+      "estimacion": null,
+      "fase": "Etapa 2 · Escucha y reporte",
+      "fase_vence": null,
+      "etiquetas": [
+        "epic: radar",
+        "etapa: 2"
+      ],
+      "asignados": [
+        "Mel-Lopez21"
+      ],
+      "comentarios": 0,
+      "creada": "2026-09-21T22:18:52Z",
+      "cerrada": null
+    },
+    {
+      "numero": 48,
+      "titulo": "01.6 · Ventana temporal honesta en el espejo",
+      "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/48",
+      "estado_github": "OPEN",
+      "estado_board": "Backlog",
+      "sprint": null,
+      "prioridad": null,
+      "estimacion": null,
+      "fase": "Fase 1 · La plataforma",
+      "fase_vence": null,
+      "etiquetas": [
+        "bug",
+        "fase: 1",
+        "epic: espejo-y-registro"
+      ],
+      "asignados": [
+        "Mel-Lopez21"
+      ],
+      "comentarios": 0,
+      "creada": "2026-09-21T22:23:53Z",
+      "cerrada": null
+    },
+    {
+      "numero": 49,
+      "titulo": "02.3 · Novena pregunta: qué quiere comunicar",
+      "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/49",
+      "estado_github": "CLOSED",
+      "estado_board": "Done",
+      "sprint": "Sprint 2",
+      "prioridad": null,
+      "estimacion": null,
+      "fase": "Fase 1 · La plataforma",
+      "fase_vence": null,
+      "etiquetas": [
+        "fase: 1",
+        "epic: cuestionario"
+      ],
+      "asignados": [
+        "AlvaroEwaffle"
+      ],
+      "comentarios": 0,
+      "creada": "2026-09-21T22:23:55Z",
+      "cerrada": "2026-09-23T11:20:17Z"
+    },
+    {
+      "numero": 50,
+      "titulo": "02.4 · Subir material adicional en el cuestionario",
+      "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/50",
+      "estado_github": "OPEN",
+      "estado_board": "Backlog",
+      "sprint": null,
+      "prioridad": null,
+      "estimacion": null,
+      "fase": "Fase 1 · La plataforma",
+      "fase_vence": null,
+      "etiquetas": [
+        "fase: 1",
+        "epic: cuestionario"
+      ],
+      "asignados": [
+        "AlvaroEwaffle"
+      ],
+      "comentarios": 0,
+      "creada": "2026-09-21T22:23:57Z",
+      "cerrada": null
+    },
+    {
+      "numero": 51,
+      "titulo": "06.2 · Medir el embudo",
+      "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/51",
+      "estado_github": "OPEN",
+      "estado_board": "Backlog",
+      "sprint": null,
+      "prioridad": null,
+      "estimacion": null,
+      "fase": "Fase 1 · La plataforma",
+      "fase_vence": null,
+      "etiquetas": [
+        "fase: 1",
+        "epic: pide-mas"
+      ],
+      "asignados": [
+        "AlvaroEwaffle"
+      ],
+      "comentarios": 0,
+      "creada": "2026-09-21T22:23:59Z",
+      "cerrada": null
+    },
+    {
+      "numero": 52,
+      "titulo": "08.2 · Afinidad por tema del comunicado, no por sector",
+      "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/52",
+      "estado_github": "OPEN",
+      "estado_board": "Backlog",
+      "sprint": null,
+      "prioridad": null,
+      "estimacion": null,
+      "fase": "Fase 1 · La plataforma",
+      "fase_vence": null,
+      "etiquetas": [
+        "epic: envio-correos",
+        "fase: 1"
+      ],
+      "asignados": [
+        "Mel-Lopez21"
+      ],
+      "comentarios": 1,
+      "creada": "2026-09-21T22:24:01Z",
+      "cerrada": null
+    },
+    {
+      "numero": 53,
+      "titulo": "08.4 · Primera carga real de la base de Sentidos",
+      "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/53",
+      "estado_github": "OPEN",
+      "estado_board": "Backlog",
+      "sprint": null,
+      "prioridad": null,
+      "estimacion": null,
+      "fase": "Fase 1 · La plataforma",
+      "fase_vence": null,
+      "etiquetas": [
+        "epic: ingesta-csv",
+        "fase: 1"
+      ],
+      "asignados": [
+        "Mel-Lopez21"
+      ],
+      "comentarios": 0,
+      "creada": "2026-09-21T22:24:03Z",
+      "cerrada": null
+    },
+    {
+      "numero": 54,
+      "titulo": "08.6 · Tipografía de marca en los reportes del cliente",
+      "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/54",
+      "estado_github": "OPEN",
+      "estado_board": "Backlog",
+      "sprint": null,
+      "prioridad": null,
+      "estimacion": null,
+      "fase": "Fase 1 · La plataforma",
+      "fase_vence": null,
+      "etiquetas": [
+        "epic: reportes-pdf-ppt",
+        "fase: 1"
+      ],
+      "asignados": [],
+      "comentarios": 0,
+      "creada": "2026-09-21T22:24:06Z",
+      "cerrada": null
+    },
+    {
+      "numero": 55,
+      "titulo": "08.8 · Configurar el proveedor de correo",
+      "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/55",
+      "estado_github": "OPEN",
+      "estado_board": "Sprint Backlog",
+      "sprint": "Sprint 2",
+      "prioridad": null,
+      "estimacion": null,
+      "fase": "Fase 1 · La plataforma",
+      "fase_vence": null,
+      "etiquetas": [
+        "bug",
+        "epic: envio-correos",
+        "fase: 1"
+      ],
+      "asignados": [
+        "AlvaroEwaffle"
+      ],
+      "comentarios": 0,
+      "creada": "2026-09-21T22:24:09Z",
+      "cerrada": null
+    },
+    {
+      "numero": 56,
+      "titulo": "08.9 · Bitácora de distribución por cuenta",
+      "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/56",
+      "estado_github": "OPEN",
+      "estado_board": "Backlog",
+      "sprint": null,
+      "prioridad": null,
+      "estimacion": null,
+      "fase": "Fase 1 · La plataforma",
+      "fase_vence": null,
+      "etiquetas": [
+        "epic: envio-correos",
+        "fase: 1"
+      ],
+      "asignados": [],
+      "comentarios": 0,
+      "creada": "2026-09-21T22:24:11Z",
+      "cerrada": null
+    },
+    {
+      "numero": 57,
+      "titulo": "10.1 · Procedencia del dato, contacto por contacto",
+      "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/57",
+      "estado_github": "OPEN",
+      "estado_board": "Backlog",
+      "sprint": null,
+      "prioridad": null,
+      "estimacion": null,
+      "fase": "Fase 1 · La plataforma",
+      "fase_vence": null,
+      "etiquetas": [
+        "fase: 1",
+        "epic: datos-personales"
+      ],
+      "asignados": [
+        "AlvaroEwaffle"
+      ],
+      "comentarios": 0,
+      "creada": "2026-09-21T22:24:13Z",
+      "cerrada": null
+    },
+    {
+      "numero": 58,
+      "titulo": "10.2 · Política de tratamiento, legitimación y supresión",
+      "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/58",
+      "estado_github": "OPEN",
+      "estado_board": "Backlog",
+      "sprint": null,
+      "prioridad": null,
+      "estimacion": null,
+      "fase": "Fase 1 · La plataforma",
+      "fase_vence": null,
+      "etiquetas": [
+        "fase: 1",
+        "epic: datos-personales"
+      ],
+      "asignados": [
+        "AlvaroEwaffle"
+      ],
+      "comentarios": 0,
+      "creada": "2026-09-21T22:24:15Z",
+      "cerrada": null
+    },
+    {
+      "numero": 61,
+      "titulo": "Pantalla de administración de usuarios para el Admin Cliente",
+      "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/61",
+      "estado_github": "OPEN",
+      "estado_board": "Backlog",
+      "sprint": null,
+      "prioridad": null,
+      "estimacion": null,
+      "fase": "Fase 1 · La plataforma",
+      "fase_vence": null,
+      "etiquetas": [
+        "epic: roles-permisos",
+        "epic: portal-cuenta",
+        "fase: 1"
+      ],
+      "asignados": [],
+      "comentarios": 1,
+      "creada": "2026-09-22T14:41:26Z",
+      "cerrada": null
+    },
+    {
+      "numero": 64,
+      "titulo": "Seguridad · el rate limit del login se esquiva con X-Forwarded-For, y el 409 público enumera cuentas",
+      "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/64",
+      "estado_github": "OPEN",
+      "estado_board": "Backlog",
+      "sprint": null,
+      "prioridad": null,
+      "estimacion": null,
+      "fase": null,
+      "fase_vence": null,
+      "etiquetas": [
+        "bug"
+      ],
+      "asignados": [
+        "AlvaroEwaffle"
+      ],
+      "comentarios": 0,
+      "creada": "2026-09-23T11:12:56Z",
+      "cerrada": null
+    },
+    {
+      "numero": 65,
+      "titulo": "Espejo: el radar no aguanta consultas concurrentes y el fallback inventa cobertura",
+      "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/65",
+      "estado_github": "CLOSED",
+      "estado_board": "Done",
+      "sprint": null,
+      "prioridad": null,
+      "estimacion": null,
+      "fase": null,
+      "fase_vence": null,
+      "etiquetas": [
+        "bug"
+      ],
+      "asignados": [
+        "Mel-Lopez21"
+      ],
+      "comentarios": 2,
+      "creada": "2026-09-23T19:27:39Z",
+      "cerrada": "2026-09-23T20:26:52Z"
+    },
+    {
+      "numero": 67,
+      "titulo": "El repo no fija la versión de Node: Railway la elige y puede cambiarla en un redeploy",
+      "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/67",
+      "estado_github": "OPEN",
+      "estado_board": "Backlog",
+      "sprint": null,
+      "prioridad": null,
+      "estimacion": null,
+      "fase": null,
+      "fase_vence": null,
+      "etiquetas": [],
+      "asignados": [
+        "AlvaroEwaffle"
+      ],
+      "comentarios": 0,
+      "creada": "2026-09-23T20:19:14Z",
+      "cerrada": null
+    },
+    {
+      "numero": 68,
+      "titulo": "Quedan snapshots con menciones inventadas en la base, ligados a empresas reales",
+      "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/68",
+      "estado_github": "OPEN",
+      "estado_board": "Backlog",
+      "sprint": null,
+      "prioridad": null,
+      "estimacion": null,
+      "fase": null,
+      "fase_vence": null,
+      "etiquetas": [],
+      "asignados": [
+        "AlvaroEwaffle"
+      ],
+      "comentarios": 0,
+      "creada": "2026-09-23T20:22:28Z",
+      "cerrada": null
+    }
+  ],
+  "prs": []
+}
