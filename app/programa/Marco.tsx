@@ -5,6 +5,7 @@ import fidelidappSnapshot from '@/lib/programa/data/fidelidapp.json';
 import { ARTEFACTOS } from '@/lib/programa/artefactos';
 import { antiguedad } from '@/lib/programa/derivar';
 import type { Snapshot } from '@/lib/programa/tipos';
+import { Copiloto } from './Copiloto';
 
 /**
  * Un snapshot por programa. Estático a propósito — el sitio es un export sin
@@ -97,6 +98,14 @@ export function Marco({
           y el RAID se escriben acá y viven aparte, así un sync nunca pisa una nota.
         </footer>
       </div>
+
+      {/* El copiloto va fuera del contenedor: es fijo a la ventana, no a la
+          columna de contenido. `donde` viaja con cada comentario para que un
+          «esto está mal» no obligue a adivinar de qué pantalla habla. */}
+      <Copiloto
+        slug={slug}
+        donde={ARTEFACTOS.find((a) => a.slug === activo)?.titulo ?? 'Repositorio'}
+      />
     </main>
   );
 }
