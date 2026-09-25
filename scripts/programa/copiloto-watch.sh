@@ -36,7 +36,11 @@ for v in vals:
     f = v.get("mapValue", {}).get("fields", {})
     g = lambda k: f.get(k, {}).get("stringValue", "")
     mid = g("id")
-    if not mid or mid in vistos or g("de") != "alvaro":
+    leido = f.get("leido", {}).get("booleanValue", False)
+    # `leido` lo escribe el responder en el propio documento, así que el estado
+    # sobrevive a reiniciar el monitor, cambiar de máquina o perder /tmp. El
+    # archivo local es solo un segundo cinturón para lo que aún no respondí.
+    if not mid or leido or mid in vistos or g("de") != "alvaro":
         continue
     nuevos.append(mid)
     donde = g("donde") or "—"
