@@ -18,12 +18,97 @@ import {
 
 /**
  * Constantes centralizadas del producto.
- * La app todavía no existe: cuando cambie el dominio, se cambia acá y en ningún otro lugar.
+ *
+ * CATA_JUEGA_APP_URL es el único lugar donde vive el dominio de la app.
+ *
+ * APP_DISPONIBLE dice si esa URL ya responde. Hoy no: el dominio todavía no está
+ * desplegado, así que el CTA primario pide aviso por WhatsApp en vez de mandar a
+ * la gente a un error. Cuando la app esté arriba, se pone en `true` y el botón
+ * «Jugar ahora» pasa a ser el CTA primario. Nada más hay que tocar.
  */
 export const CATA_JUEGA_APP_URL = 'https://cata.villelab.com';
+export const APP_DISPONIBLE: boolean = false;
+
 const WHATSAPP_NUMBER = '56920115198';
-const WHATSAPP_MESSAGE = 'Hola, vi Cata Juega en villelab.com y quiero probarlo con mi hija.';
-const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`;
+const WHATSAPP_MENSAJE_AVISO =
+  'Hola, vi la página de Cata Juega y quiero que me avisen cuando esté lista para jugar con mi hija.';
+const WHATSAPP_MENSAJE_CONSULTA = 'Hola, vi la página de Cata Juega y quiero preguntarles algo.';
+
+const whatsappUrl = (mensaje: string) =>
+  `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(mensaje)}`;
+
+const WHATSAPP_AVISO_URL = whatsappUrl(WHATSAPP_MENSAJE_AVISO);
+const WHATSAPP_CONSULTA_URL = whatsappUrl(WHATSAPP_MENSAJE_CONSULTA);
+
+const claseCtaPrimario =
+  'inline-flex min-h-[52px] items-center justify-center gap-2 rounded-md bg-[#f6c35f] px-7 py-3 text-base font-semibold text-[#17211d] transition hover:bg-[#f2b63f] focus:outline-none focus-visible:ring-4 focus-visible:ring-[#f6c35f]/40';
+const claseCtaSecundario =
+  'inline-flex min-h-[52px] items-center justify-center gap-2 rounded-md border border-white/25 px-7 py-3 text-base font-semibold text-white transition hover:border-[#69c28f] hover:bg-white/[0.06] focus:outline-none focus-visible:ring-4 focus-visible:ring-[#69c28f]/30';
+
+/** Par de botones del hero y del cierre. Cambia solo(a) según APP_DISPONIBLE. */
+function BotonesCta() {
+  if (APP_DISPONIBLE) {
+    return (
+      <>
+        <a href={CATA_JUEGA_APP_URL} className={claseCtaPrimario}>
+          Jugar ahora
+          <ArrowRight className="h-5 w-5" aria-hidden="true" />
+        </a>
+        <a
+          href={WHATSAPP_CONSULTA_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={claseCtaSecundario}
+        >
+          <MessageCircle className="h-5 w-5" aria-hidden="true" />
+          Preguntar por WhatsApp
+        </a>
+      </>
+    );
+  }
+
+  return (
+    <>
+      <a
+        href={WHATSAPP_AVISO_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={claseCtaPrimario}
+      >
+        <MessageCircle className="h-5 w-5" aria-hidden="true" />
+        Avísame cuando esté
+      </a>
+      <a
+        href={WHATSAPP_CONSULTA_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={claseCtaSecundario}
+      >
+        Preguntar por WhatsApp
+        <ArrowRight className="h-5 w-5" aria-hidden="true" />
+      </a>
+    </>
+  );
+}
+
+/** Enlace a una fuente. Bloque propio para que el objetivo táctil llegue a 44 px. */
+function EnlaceFuente({ href, oscuro = false }: { href: string; oscuro?: boolean }) {
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={`mt-2 inline-flex min-h-[44px] items-center gap-2 rounded-md px-3 py-2 text-sm font-semibold underline underline-offset-2 transition ${
+        oscuro
+          ? 'text-[#f6c35f] hover:bg-white/10 hover:text-[#fbd88f]'
+          : 'text-[#1d7b57] hover:bg-[#1d7b57]/10 hover:text-[#145c40]'
+      }`}
+    >
+      Ver la fuente
+      <ArrowRight className="h-4 w-4" aria-hidden="true" />
+    </a>
+  );
+}
 
 type Modulo = {
   id: string;
@@ -39,7 +124,7 @@ const modulos: Modulo[] = [
   {
     id: 'pintar',
     nombre: 'Pintar y dibujar',
-    color: '#d86144',
+    color: '#b4452c',
     textoTarjeta: '#fff8ec',
     icon: Brush,
     nina: 'Lienzo táctil, pinceles gruesos, una paleta corta y sellos. Todo lo que hace queda guardado en su galería.',
@@ -84,7 +169,7 @@ const modulos: Modulo[] = [
   {
     id: 'vida-practica',
     nombre: 'Vida práctica',
-    color: '#c9852f',
+    color: '#8a5a1a',
     textoTarjeta: '#fff8ec',
     icon: Sparkles,
     nina: 'Ordenar los pasos de una rutina real: lavarse los dientes, vestirse, poner la mesa.',
@@ -134,7 +219,7 @@ const evidencia: Evidencia[] = [
     titulo: 'Los materiales sirven; la evidencia del método completo es más floja de lo que se dice',
     detalle: 'Revisión de la evidencia sobre educación Montessori.',
     hallazgo:
-      'La revisión es directa: no hay ensayos controlados aleatorizados de buena calidad sobre Montessori como método completo. Al mismo tiempo concluye que hay amplia evidencia de que ciertos elementos funcionan, entre ellos enseñar la lectura temprana con un enfoque fónico dentro de un contexto rico en lenguaje, y dar una base sensorial a las matemáticas. Eso es lo que copiamos: los materiales, no la etiqueta.',
+      'La revisión es directa: no hay ensayos controlados aleatorizados de buena calidad sobre Montessori como método completo. Al mismo tiempo concluye que hay amplia evidencia, en la literatura educativa general y no en estudios sobre Montessori, de que ciertos elementos del método funcionan: enseñar la lectura temprana con un enfoque fónico dentro de un contexto rico en lenguaje, y dar una base sensorial a las matemáticas. Eso es lo que copiamos: los materiales, no la etiqueta.',
     cita: 'Marshall (2017). npj Science of Learning, 2, 11.',
     url: 'https://pmc.ncbi.nlm.nih.gov/articles/PMC6161506/',
   },
@@ -212,26 +297,12 @@ export default function CataJuegaContent() {
             </p>
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <a
-                href={CATA_JUEGA_APP_URL}
-                className="inline-flex min-h-[52px] items-center justify-center gap-2 rounded-md bg-[#f6c35f] px-7 py-3 text-base font-semibold text-[#17211d] transition hover:bg-[#f2b63f] focus:outline-none focus-visible:ring-4 focus-visible:ring-[#f6c35f]/40"
-              >
-                Jugar ahora
-                <ArrowRight className="h-5 w-5" aria-hidden="true" />
-              </a>
-              <a
-                href={WHATSAPP_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex min-h-[52px] items-center justify-center gap-2 rounded-md border border-white/25 px-7 py-3 text-base font-semibold text-white transition hover:border-[#69c28f] hover:bg-white/[0.06] focus:outline-none focus-visible:ring-4 focus-visible:ring-[#69c28f]/30"
-              >
-                <MessageCircle className="h-5 w-5" aria-hidden="true" />
-                Preguntar por WhatsApp
-              </a>
+              <BotonesCta />
             </div>
             <p className="mt-4 text-sm leading-6 text-white/70">
-              Se abre en el navegador de la tablet y se puede instalar como app. Horizontal, sin
-              descargas de tienda.
+              {APP_DISPONIBLE
+                ? 'Se abre en el navegador de la tablet y se puede instalar como app. Horizontal, sin descargas de tienda.'
+                : 'Todavía no está publicada. Se abrirá en el navegador de la tablet y se podrá instalar como app, horizontal y sin descargas de tienda. Te avisamos por WhatsApp el día que esté.'}
             </p>
           </div>
 
@@ -294,17 +365,10 @@ export default function CataJuegaContent() {
                 </h3>
                 <p className="mt-2 text-sm font-semibold text-[#b4452c]">{item.detalle}</p>
                 <p className="mt-4 flex-1 text-base leading-7 text-[#3d4843]">{item.hallazgo}</p>
-                <p className="mt-5 border-t border-[#17211d]/10 pt-4 text-sm leading-6 text-[#4f5a54]">
-                  {item.cita}{' '}
-                  <a
-                    href={item.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="font-semibold text-[#1d7b57] underline underline-offset-2 hover:text-[#145c40]"
-                  >
-                    Ver la fuente
-                  </a>
-                </p>
+                <div className="mt-5 border-t border-[#17211d]/10 pt-4">
+                  <p className="text-sm leading-6 text-[#4f5a54]">{item.cita}</p>
+                  <EnlaceFuente href={item.url} />
+                </div>
               </article>
             ))}
           </div>
@@ -320,19 +384,20 @@ export default function CataJuegaContent() {
               no la hay porque recién está naciendo.
             </p>
             <p className="mt-4 text-base leading-7 text-[#3d4843]">
+              Hay algo más, y es incómodo para nosotros: casi toda esta evidencia es de video y
+              televisión, no de tablets. En el meta-análisis, de los 17 estudios, 13 usaron video
+              pregrabado, 2 televisión, 1 videollamada y <strong>solo 1 usó apps de pantalla
+              táctil</strong>. Los propios autores piden que se investigue el uso conjunto con apps,
+              justamente porque casi no está estudiado. Cata Juega es una app: estamos aplicando a un
+              medio lo que se midió sobre todo en otro.
+            </p>
+            <p className="mt-4 text-base leading-7 text-[#3d4843]">
               La Academia Americana de Pediatría recomienda usar pantallas acompañado: un adulto al
               lado, haciendo preguntas o ayudando al niño a conectar lo que pasa en la pantalla con
               su vida diaria. Esa recomendación, en la página que citamos, está dirigida a niños de 1
-              a 3 años.{' '}
-              <a
-                href="https://www.aap.org/en/patient-care/media-and-children/center-of-excellence-on-social-media-and-youth-mental-health/qa-portal/qa-portal-library/qa-portal-library-questions/preferred-method-of-screen-time/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-semibold text-[#1d7b57] underline underline-offset-2 hover:text-[#145c40]"
-              >
-                Ver la fuente
-              </a>
+              a 3 años.
             </p>
+            <EnlaceFuente href="https://www.aap.org/en/patient-care/media-and-children/center-of-excellence-on-social-media-and-youth-mental-health/qa-portal/qa-portal-library/qa-portal-library-questions/preferred-method-of-screen-time/" />
           </div>
         </div>
       </section>
@@ -448,26 +513,36 @@ export default function CataJuegaContent() {
               </p>
             </div>
             <div className="rounded-xl border border-[#f6c35f]/40 bg-[#f6c35f]/10 p-6 lg:p-8">
-              <h3 className="text-xl font-semibold text-[#f6c35f]">Tocar no es aprender</h3>
+              <h3 className="text-xl font-semibold text-[#f6c35f]">
+                Interactuar no es automáticamente mejor
+              </h3>
               <p className="mt-4 text-base leading-7 text-white/85">
-                En un experimento con 170 niños de 2 a 4 años, tocar la pantalla para que algo se
-                mueva no mejoró el aprendizaje de palabras: los niños aprendieron significativamente
-                más en la condición de solo mirar que en la interactiva de arrastrar, y solo los de 4
-                años lograron llevar lo aprendido a los objetos reales. Por eso acá cada interacción
-                pide decidir, trazar, contar u ordenar. Nunca tocar para que pase algo.
+                Un experimento con 170 niños de 2 a 4 años comparó tres formas de usar una app para
+                aprender palabras nuevas: solo mirar, tocar el objeto o arrastrarlo. No hubo ningún
+                efecto general: ninguna de las tres ganó por sí sola. Lo que apareció fueron
+                diferencias por edad y por sexo. Arrastrar, que cuesta más, benefició a las niñas en
+                edad preescolar más que a los niños, sobre todo a las mayores de 2 años: las de 3
+                aprendieron significativamente más palabras arrastrando que solo mirando. Los
+                varones, en cambio, se beneficiaron más de mirar que de arrastrar. Y los niños de
+                familias de menor nivel socioeconómico aprendieron más arrastrando que tocando.
+              </p>
+              <p className="mt-4 text-base leading-7 text-white/85">
+                Los autores sugieren que tocar puede no ayudar porque es una respuesta automática que
+                no exige atención pensada, y piden a quienes hacen apps considerar la edad, el sexo y
+                el esfuerzo físico que pide cada interacción.
+              </p>
+              <p className="mt-4 rounded-lg border border-white/15 bg-white/[0.06] p-4 text-base leading-7 text-white/85">
+                <strong className="text-[#f6c35f]">Nuestra decisión de diseño, no un hallazgo del
+                estudio:</strong>{' '}
+                acá cada interacción pide decidir, trazar, contar u ordenar, nunca tocar para que
+                pase algo. Lo elegimos porque nos parece mejor para una niña de 6 años, no porque
+                este experimento lo demuestre.
               </p>
               <p className="mt-5 text-sm leading-6 text-white/70">
                 Russo-Johnson, Troseth, Duncan y Mesghina (2017). «All Tapped Out: Touchscreen
-                Interactivity and Young Children’s Word Learning». Frontiers in Psychology.{' '}
-                <a
-                  href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5388766/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="font-semibold text-[#f6c35f] underline underline-offset-2 hover:text-[#fbd88f]"
-                >
-                  Ver la fuente
-                </a>
+                Interactivity and Young Children’s Word Learning». Frontiers in Psychology.
               </p>
+              <EnlaceFuente href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5388766/" oscuro />
             </div>
           </div>
         </div>
@@ -522,43 +597,31 @@ export default function CataJuegaContent() {
       <section className="bg-[#14231f] text-white">
         <div className="mx-auto max-w-4xl px-4 py-16 text-center sm:px-6 lg:px-8 lg:py-24">
           <h2 className="text-3xl font-semibold leading-tight sm:text-4xl">
-            Ábrela en la tablet y juega veinte minutos con ella.
+            {APP_DISPONIBLE
+              ? 'Ábrela en la tablet y juega veinte minutos con ella.'
+              : 'Cuando esté lista, ábrela en la tablet y juega veinte minutos con ella.'}
           </h2>
           <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-white/80">
-            No hay que registrarse ni descargar nada de una tienda. Si después quieres contarnos cómo
-            les fue, escríbenos por WhatsApp: lo estamos construyendo con lo que nos cuentan.
+            {APP_DISPONIBLE
+              ? 'No hay que registrarse ni descargar nada de una tienda. Si después quieres contarnos cómo les fue, escríbenos por WhatsApp: la estamos construyendo con lo que nos cuentan.'
+              : 'No habrá que registrarse ni descargar nada de una tienda. Déjanos tu mensaje por WhatsApp y te avisamos el día que esté arriba: la estamos construyendo con lo que nos cuentan.'}
           </p>
 
           <div className="mt-9 flex flex-col justify-center gap-3 sm:flex-row">
-            <a
-              href={CATA_JUEGA_APP_URL}
-              className="inline-flex min-h-[52px] items-center justify-center gap-2 rounded-md bg-[#f6c35f] px-7 py-3 text-base font-semibold text-[#17211d] transition hover:bg-[#f2b63f] focus:outline-none focus-visible:ring-4 focus-visible:ring-[#f6c35f]/40"
-            >
-              Jugar ahora
-              <ArrowRight className="h-5 w-5" aria-hidden="true" />
-            </a>
-            <a
-              href={WHATSAPP_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex min-h-[52px] items-center justify-center gap-2 rounded-md border border-white/25 px-7 py-3 text-base font-semibold text-white transition hover:border-[#69c28f] hover:bg-white/[0.06] focus:outline-none focus-visible:ring-4 focus-visible:ring-[#69c28f]/30"
-            >
-              <MessageCircle className="h-5 w-5" aria-hidden="true" />
-              Preguntar por WhatsApp
-            </a>
+            <BotonesCta />
           </div>
 
           <div className="mx-auto mt-12 max-w-2xl rounded-xl border border-white/12 bg-white/[0.05] p-6">
             <p className="text-base leading-7 text-white/85">
-              Nació para Cata, 6 años, y su papá. Un producto de{' '}
-              <Link
-                href="/products"
-                className="font-semibold text-[#f6c35f] underline underline-offset-2 hover:text-[#fbd88f]"
-              >
-                Villelabs
-              </Link>
-              .
+              Nació para Cata, 6 años, y su papá. Un producto de Villelabs.
             </p>
+            <Link
+              href="/products"
+              className="mt-2 inline-flex min-h-[44px] items-center gap-2 rounded-md px-3 py-2 text-sm font-semibold text-[#f6c35f] underline underline-offset-2 transition hover:bg-white/10 hover:text-[#fbd88f]"
+            >
+              Ver los otros productos
+              <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            </Link>
           </div>
         </div>
       </section>

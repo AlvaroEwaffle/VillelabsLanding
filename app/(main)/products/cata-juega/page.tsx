@@ -4,7 +4,8 @@ import CataJuegaContent from './CataJuegaContent';
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://villelabs.cl';
 
 export const metadata: Metadata = {
-  title: 'Cata Juega — Juegos Montessori para tablet, para jugar acompañada | Villelabs',
+  // El layout raíz aplica la plantilla '%s | Villelabs', así que acá no se repite la marca.
+  title: 'Cata Juega — Juegos Montessori para tablet, para jugar acompañada',
   description:
     'Seis juegos de espíritu Montessori para niñas y niños de 4 a 7 años. Modo «juntos» que le da al adulto una pregunta o un turno. Sin cuentas, sin publicidad, sin red.',
   alternates: { canonical: `${siteUrl}/products/cata-juega` },
