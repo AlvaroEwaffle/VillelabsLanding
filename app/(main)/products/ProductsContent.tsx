@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { ArrowRight, MessageSquare, Mail, BarChart3, Gift } from 'lucide-react';
+import { ArrowRight, MessageSquare, Mail, BarChart3, Gift, Gamepad2 } from 'lucide-react';
 import { useTranslation } from '@/lib/i18n';
 import { products } from '@/lib/products';
 
@@ -29,6 +29,7 @@ const productIcons: Record<string, typeof MessageSquare> = {
   Mail,
   BarChart3,
   Gift,
+  Gamepad2,
 };
 
 export default function ProductsContent() {
