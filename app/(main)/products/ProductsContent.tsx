@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { ArrowRight, MessageSquare, Mail, BarChart3, Gift } from 'lucide-react';
+import { ArrowRight, MessageSquare, Mail, BarChart3, Gift, Gamepad2 } from 'lucide-react';
 import { useTranslation } from '@/lib/i18n';
 import { products } from '@/lib/products';
 
@@ -29,6 +29,7 @@ const productIcons: Record<string, typeof MessageSquare> = {
   Mail,
   BarChart3,
   Gift,
+  Gamepad2,
 };
 
 export default function ProductsContent() {
@@ -72,7 +73,7 @@ export default function ProductsContent() {
         viewport={{ once: true, amount: 0.1 }}
         variants={containerVariants}
       >
-        <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-8">
+        <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-8">
           {t.pages.products.items.map((product) => {
             const productConfig = products.find((item) => item.slug === product.slug);
             const Icon = productConfig ? productIcons[productConfig.icon] ?? MessageSquare : MessageSquare;
