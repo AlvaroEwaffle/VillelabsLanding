@@ -1,5 +1,5 @@
 {
-  "generado": "2026-09-28T18:37:15.567Z",
+  "generado": "2026-09-28T18:52:18.987Z",
   "slug": "prtech",
   "nombre": "PR Tech",
   "repo": "AlvaroEwaffle/prtech-ai",
@@ -874,7 +874,9 @@
       "fase": "Fase 1 · La plataforma",
       "fase_vence": null,
       "etiquetas": [
-        "bug"
+        "bug",
+        "fase: 1",
+        "epic: seguridad-deuda-tecnica"
       ],
       "asignados": [
         "jsstagno90"
@@ -915,7 +917,10 @@
       "estimacion": null,
       "fase": "Fase 1 · La plataforma",
       "fase_vence": null,
-      "etiquetas": [],
+      "etiquetas": [
+        "fase: 1",
+        "epic: seguridad-deuda-tecnica"
+      ],
       "asignados": [
         "AlvaroEwaffle"
       ],
@@ -934,7 +939,10 @@
       "estimacion": null,
       "fase": "Fase 1 · La plataforma",
       "fase_vence": null,
-      "etiquetas": [],
+      "etiquetas": [
+        "fase: 1",
+        "epic: seguridad-deuda-tecnica"
+      ],
       "asignados": [
         "AlvaroEwaffle"
       ],
@@ -991,7 +999,10 @@
       "estimacion": null,
       "fase": "Fase 1 · La plataforma",
       "fase_vence": null,
-      "etiquetas": [],
+      "etiquetas": [
+        "fase: 1",
+        "epic: seguridad-deuda-tecnica"
+      ],
       "asignados": [
         "AlvaroEwaffle"
       ],
@@ -1032,7 +1043,9 @@
       "fase": "Fase 1 · La plataforma",
       "fase_vence": null,
       "etiquetas": [
-        "bug"
+        "bug",
+        "fase: 1",
+        "epic: seguridad-deuda-tecnica"
       ],
       "asignados": [
         "Mel-Lopez21"
@@ -1071,7 +1084,10 @@
       "estimacion": null,
       "fase": "Fase 1 · La plataforma",
       "fase_vence": null,
-      "etiquetas": [],
+      "etiquetas": [
+        "fase: 1",
+        "epic: seguridad-deuda-tecnica"
+      ],
       "asignados": [
         "jsstagno90"
       ],
@@ -1090,7 +1106,10 @@
       "estimacion": null,
       "fase": "Fase 1 · La plataforma",
       "fase_vence": null,
-      "etiquetas": [],
+      "etiquetas": [
+        "fase: 1",
+        "epic: seguridad-deuda-tecnica"
+      ],
       "asignados": [
         "Mel-Lopez21"
       ],
@@ -1132,6 +1151,7 @@
       "fase": "Fase 1 · La plataforma",
       "fase_vence": null,
       "etiquetas": [
+        "fase: 1",
         "epic: espejo-y-registro"
       ],
       "asignados": [
