@@ -12,9 +12,9 @@
     },
     {
       "etiqueta": "PRs abiertas",
-      "valor": "8",
+      "valor": "3",
       "tono": "riesgo",
-      "pie": "El #91 y el #96 ya están en main (28-sep). De las 8 que quedan, 6 chocan con el main nuevo: hay que rebasar antes de mergear."
+      "pie": "El 28-sep entraron #91, #96, #87, #83, #90, #92 y #88. Quedan #86 (lo rebasamos nosotros, Juan revisa) y #71 (Melanie). #93 se cerró: el espejo se reescribió."
     },
     {
       "etiqueta": "Seguridad sin dueño",
@@ -56,8 +56,8 @@
     {
       "n": "02",
       "titulo": "El tren libre",
-      "cuando": "rebasar sobre main y entrar",
-      "bajada": "Eran cinco sin conflicto entre sí, pero el #91 reescribió las pantallas que tocan. Tras el merge del 28-sep: #92 y #88 entran limpias; #87, #83 y #90 chocan y un agente las está rebasando. Orden de entrada igual.",
+      "cuando": "entró el 28-sep",
+      "bajada": "Las cinco están en main, en este orden, rebasadas sobre el cockpit por un agente. #76 cerrado por #87. El #55 sigue abierto: el #90 hace honesto el 503, no configura el proveedor.",
       "pasos": [
         {
           "que": "#87 · el autoguardado deja de perder respuestas",
@@ -84,8 +84,8 @@
     {
       "n": "03",
       "titulo": "El tren grande",
-      "cuando": "el #91 ya entró",
-      "bajada": "El #91 se mergeó el 28-sep (7031692) y el #96 encima (26069e4). Lo que queda son las tres PRs del equipo, y las tres chocan con el main nuevo.",
+      "cuando": "quedan dos",
+      "bajada": "El #91 y el #96 entraron el 28-sep. Quedan el #86 de Juan, que rebasamos nosotros para que él solo revise, y el #71 de Melanie.",
       "items": [
         {
           "id": "#91",
@@ -99,17 +99,17 @@
           "id": "#86",
           "quien": "Juan",
           "tono": "roto",
-          "etiqueta": "1 bloqueante",
+          "etiqueta": "lo rebasamos",
           "que": "Owner lock, borrar usuarios, pestañas",
-          "detalle": "Choca con main. Ya existe la versión rebasada juan/86-sobre-cockpit: Juan apunta el PR a esa rama o abre uno nuevo, y cierra el bloqueante de la sesión que no se relee."
+          "detalle": "Decisión del 28-sep: un agente lo rebasa sobre main y cierra el bloqueante (la sesión no se relee tras borrar un usuario). Sale como PR nuevo desde juan/86-sobre-cockpit con Juan de revisor."
         },
         {
           "id": "#93",
           "quien": "Melanie",
-          "tono": "riesgo",
-          "etiqueta": "rehacer",
+          "tono": "ok",
+          "etiqueta": "cerrado",
           "que": "Ventana temporal honesta en el espejo (#48)",
-          "detalle": "Choca en mirror-client.tsx, que main reescribió entero: el copy hardcodeado en inglés va ahora a los diccionarios EN/ES. Rehacer sobre main, no rebasar."
+          "detalle": "Cerrado el 28-sep: main reescribió mirror-client.tsx entero; rebasar era rehacer. El issue #48 sigue abierto, re-alcanzado sobre el espejo web-first: la ventana afirmada debe salir de las fechas reales de las notas, no de una constante. Sigue con Melanie."
         },
         {
           "id": "#71",
@@ -275,12 +275,12 @@
   ],
   "decisiones": [
     {
-      "que": "¿El #93 de Melanie se rehace sobre main?",
-      "detalle": "Ya no hay opción de aplicarlo dentro del #91: entró. El archivo cambió entero y el copy va a los diccionarios; rebasar es rehacer. Recomendación: Melanie lo rehace sobre main, es un cambio chico."
+      "que": "Cerrado: el #93 se cierra y el #48 sigue con Melanie sobre el espejo nuevo.",
+      "detalle": "Decidido el 28-sep. Ojo: la apuesta no cubre del todo el #48, la cabecera sigue afirmando «últimos N días» con una constante; por eso el issue queda abierto y re-alcanzado."
     },
     {
       "que": "¿Se despliega producción ahora, con el motor caído?",
-      "detalle": "main tiene el cockpit y la apuesta, pero producción sigue con la versión vieja y sin clave válida. Desplegar sin clave muestra el 503 honesto del #92; no desplegar deja el espejo viejo. Recomendación: clave primero, deploy después, el mismo día."
+      "detalle": "main tiene el cockpit, la apuesta y los cinco fixes; producción sigue con la versión vieja y sin clave válida. Recomendación: clave primero, deploy después, el mismo día."
     },
     {
       "que": "¿Se aplica la migración del #71 en prtech-qa?",
