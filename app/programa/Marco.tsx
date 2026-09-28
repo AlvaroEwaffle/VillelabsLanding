@@ -12,10 +12,11 @@ import { Copiloto } from './Copiloto';
  * servidor, así que no hay dónde resolver un import dinámico por slug en
  * tiempo de build.
  *
- * `ARTEFACTOS` (roadmap, charter, pipeline, scrum) sigue siendo solo de
- * PR Tech: son documentos de planning escritos a mano, y Fidelidapp todavía
- * no tiene sus equivalentes. Por eso el nav de abajo se oculta en vez de
- * apuntar a páginas que no existen.
+ * `ARTEFACTOS` (roadmap, charter, pipeline) sigue siendo solo de PR Tech: son
+ * documentos de planning escritos a mano, y Fidelidapp todavía no tiene sus
+ * equivalentes. Por eso el nav de abajo se oculta en vez de apuntar a
+ * páginas que no existen. El Scrum Board no está en la lista — se fusionó
+ * con el home el 28-sep-2026, así que "activo" nunca vale 'scrum'.
  */
 const SNAPSHOTS: Record<string, Snapshot> = {
   prtech: prtechSnapshot as unknown as Snapshot,
@@ -64,8 +65,8 @@ export function Marco({
             </span>
           </div>
 
-          {/* Los sub-artefactos (roadmap, charter, pipeline, scrum) son documentos
-              de PR Tech escritos a mano. Fidelidapp hoy solo tiene el board vivo
+          {/* Los sub-artefactos (roadmap, charter, pipeline) son documentos de
+              PR Tech escritos a mano. Fidelidapp hoy solo tiene el board vivo
               de GitHub — mostrar este nav ahí llevaría a rutas inexistentes. */}
           {slug === 'prtech' && (
             <nav className="mt-3 flex flex-wrap gap-1.5">

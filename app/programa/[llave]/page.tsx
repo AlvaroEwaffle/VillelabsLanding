@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { LLAVES } from '@/lib/programa/config';
-import Repositorio from '../Repositorio';
+import ScrumHome from '../ScrumHome';
 
 /**
  * El repositorio vive detrás de una llave en la URL, no en /programa a secas.
@@ -23,5 +23,5 @@ export function generateStaticParams() {
 
 export default async function Page({ params }: { params: Promise<{ llave: string }> }) {
   const { llave } = await params;
-  return <Repositorio llave={llave} />;
+  return <ScrumHome llave={llave} />;
 }

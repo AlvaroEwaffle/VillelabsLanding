@@ -48,15 +48,6 @@ export const ARTEFACTOS: Artefacto[] = [
     icono: 'sesion',
   },
   {
-    slug: 'scrum',
-    titulo: 'Scrum Board',
-    bajada: 'El producto en números, burndown, burnup, historias y RAID.',
-    pregunta: '¿Cómo vamos esta semana, y qué nos está frenando?',
-    frescura: 'vivo',
-    fuente: 'GitHub Projects v2 + las notas que dejamos acá',
-    icono: 'tablero',
-  },
-  {
     slug: 'fase-1',
     titulo: 'Fase 1 · Alcance',
     bajada: 'Las 23 historias con su criterio de aceptación, y el recorrido pantalla por pantalla.',
