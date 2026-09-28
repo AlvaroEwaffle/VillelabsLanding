@@ -124,8 +124,8 @@
     {
       "n": "04",
       "titulo": "La apuesta",
-      "cuando": "espejo web-first · corta el 2-oct",
-      "bajada": "Ciclo de innovación registrado el 27-sep. En el board es el #94 (In progress). No aparece entre las PRs porque no se pushea hasta que pase la aceptación: vive en la rama feat/espejo-web-first, corre en local y en la copia de producción del túnel. Validada antes de construir: de 10 startups conocidas el corpus veía 5, la web 10.",
+      "cuando": "espejo web-first · PR #96 abierto",
+      "bajada": "Ciclo de innovación registrado el 27-sep. En el board es el #94. El PO la aceptó el 28-sep tras tres pasadas (cinco bloqueantes corregidos) y está como PR #96 sobre el #91: entra después de ese y GitHub la redirige a main.",
       "items": [
         {
           "id": "S1–S2",
@@ -154,10 +154,10 @@
         {
           "id": "PO",
           "quien": "Álvaro",
-          "tono": "riesgo",
-          "etiqueta": "decisión",
-          "que": "Aceptación A1–A12 y recién ahí push como PR sobre el #91",
-          "detalle": "Reescribe la misma ruta del espejo que tocan el #93 y el #71, así que entra después del #91 y esos dos se rebasan sobre ella. Sin push hasta PASS del PO y ok explícito."
+          "tono": "ok",
+          "etiqueta": "PASS · PR #96",
+          "que": "Aceptada por el PO en f9ff98f y pusheada como PR #96 sobre el #91",
+          "detalle": "Circuit breaker medido en 77 %, nocturno en 55 s idempotente, consola cuadrada con la base, 113 PASS en la QA de cierre. Entra después del #91; el #93 y el #71 se rebasan sobre ella."
         },
         {
           "id": "#95",

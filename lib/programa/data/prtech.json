@@ -1,5 +1,5 @@
 {
-  "generado": "2026-09-28T12:59:52.714Z",
+  "generado": "2026-09-28T13:18:28.434Z",
   "slug": "prtech",
   "nombre": "PR Tech",
   "repo": "AlvaroEwaffle/prtech-ai",
@@ -1103,7 +1103,7 @@
       "titulo": "Apuesta · espejo web-first: la web es la fuente de cobertura y el corpus corre al lado",
       "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/94",
       "estado_github": "OPEN",
-      "estado_board": "In progress",
+      "estado_board": "In review",
       "sprint": "Sprint 2",
       "prioridad": null,
       "estimacion": null,
@@ -1143,6 +1143,17 @@
     }
   ],
   "prs": [
+    {
+      "numero": 96,
+      "titulo": "Apuesta · espejo web-first: la web es la fuente de cobertura, el corpus corre al lado, los periodistas se derivan de las firmas (#94)",
+      "url": "https://github.com/AlvaroEwaffle/prtech-ai/pull/96",
+      "autor": "AlvaroEwaffle",
+      "borrador": false,
+      "aprobado": false,
+      "abierta": "2026-09-28T13:17:50Z",
+      "tocada": "2026-09-28T13:17:50Z",
+      "etiquetas": []
+    },
     {
       "numero": 93,
       "titulo": "fix(mirror): transparentar variabilidad de cobertura por medio en ventana temporal (#48)",
