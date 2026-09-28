@@ -1,5 +1,5 @@
 {
-  "_revisado": "28-sep-2026 · estado tomado del repositorio prtech-ai (10 PRs abiertas, 39 issues, mapa de colisiones sobre los archivos de cada rama) más la apuesta espejo web-first, que todavía no tiene PR. Dueños verificados contra GitHub el 28-sep.",
+  "_revisado": "28-sep-2026 · estado tomado del board de GitHub (53 historias, 10 PRs abiertas, mapa de colisiones sobre los archivos de cada rama). Sprint 2 en el board: los mismos items que este plan, verificado tras el sync.",
   "sprint": "Sprint 2",
   "semana": "28 de septiembre — 4 de octubre",
   "meta": "Un cliente entra solo, de punta a punta, y lo que ve es cierto.",
@@ -18,9 +18,9 @@
     },
     {
       "etiqueta": "Seguridad sin dueño",
-      "valor": "2",
-      "tono": "riesgo",
-      "pie": "#84 y #85 no tienen dueño. #64 y #77 son de Álvaro desde el 23 y el 24-sep. Baratos de arreglar, caros de explicar."
+      "valor": "0",
+      "tono": "ok",
+      "pie": "Los cuatro ya tienen dueño en el board: #84 y #64 Juan, #85 y #77 Melanie. Propuesta de hoy, reversible si Álvaro decide otra cosa."
     },
     {
       "etiqueta": "Caídas que detectó un test",
@@ -125,7 +125,7 @@
       "n": "04",
       "titulo": "La apuesta",
       "cuando": "espejo web-first · corta el 2-oct",
-      "bajada": "Ciclo de innovación registrado el 27-sep. No aparece entre las PRs porque no se pushea hasta que pase la aceptación: vive en la rama feat/espejo-web-first, corre en local y en la copia de producción del túnel. Validada antes de construir: de 10 startups conocidas el corpus veía 5, la web 10.",
+      "bajada": "Ciclo de innovación registrado el 27-sep. En el board es el #94 (In progress). No aparece entre las PRs porque no se pushea hasta que pase la aceptación: vive en la rama feat/espejo-web-first, corre en local y en la copia de producción del túnel. Validada antes de construir: de 10 startups conocidas el corpus veía 5, la web 10.",
       "items": [
         {
           "id": "S1–S2",
@@ -164,33 +164,33 @@
     {
       "n": "05",
       "titulo": "Seguridad",
-      "cuando": "dos sin dueño",
-      "bajada": "Baratos de arreglar, caros de explicar. #64 y #77 ya son de Álvaro; #84 y #85 no tienen a nadie.",
+      "cuando": "cuatro issues, dos por persona",
+      "bajada": "Baratos de arreglar, caros de explicar. Asignados hoy en el board: los dos rate limits a Juan, el upsert y el seed a Melanie.",
       "items": [
         {
           "id": "#84",
-          "quien": "—",
+          "quien": "Juan",
           "tono": "roto",
           "que": "El rate limit confía en X-Forwarded-For del cliente",
           "detalle": "El PIN de sala se puede probar por fuerza bruta cambiando una cabecera."
         },
         {
           "id": "#64",
-          "quien": "Álvaro",
+          "quien": "Juan",
           "tono": "roto",
           "que": "Lo mismo en el login",
           "detalle": "Mismo mecanismo, misma línea de arreglo. Conviene resolverlos juntos."
         },
         {
           "id": "#85",
-          "quien": "—",
+          "quien": "Melanie",
           "tono": "riesgo",
           "que": "POST /api/mirror hace upsert por slug sin filtrar companyId",
           "detalle": "Una cuenta puede pisar el snapshot de otra."
         },
         {
           "id": "#77",
-          "quien": "Álvaro",
+          "quien": "Melanie",
           "tono": "riesgo",
           "que": "El seed trae una contraseña fija, versionada en el repo",
           "detalle": "Está en el historial de git. Rotarla no basta: hay que sacarla del código."
@@ -205,7 +205,7 @@
       "items": [
         {
           "id": "#75",
-          "quien": "Álvaro",
+          "quien": "Vilo",
           "tono": "roto",
           "etiqueta": "raíz",
           "que": "CI y un health que pruebe una escritura, no un 200",
@@ -220,7 +220,7 @@
         },
         {
           "id": "#67",
-          "quien": "Álvaro",
+          "quien": "Vilo",
           "tono": "riesgo",
           "que": "El repo no fija la versión de Node",
           "detalle": "Railway la elige. Un cambio silencioso de versión es otra caída que nadie ve venir."
@@ -283,9 +283,34 @@
       "detalle": "Manda mensajes hacia afuera, así que no sale sin un sí."
     },
     {
-      "que": "#84 y #85 no tienen dueño. ¿Juan, Melanie o un agente?",
-      "detalle": "#64 y #77 ya son de Álvaro. Los cuatro juntos son un día de trabajo."
+      "que": "¿Confirmas el reparto de seguridad: #84 y #64 a Juan, #85 y #77 a Melanie?",
+      "detalle": "Ya está así en el board desde hoy para que cada uno vea su semana. Si prefieres otro reparto, se mueve en un minuto."
     }
   ],
-  "pie": "Las tres cosas que se arreglaron esta semana y no eran visibles sin ejecutar código: los links de contraseña contra un host muerto, la migración del radar sin índices, y la fuga del roster de usuarios internos."
+  "pie": "Las tres cosas que se arreglaron esta semana y no eran visibles sin ejecutar código: los links de contraseña contra un host muerto, la migración del radar sin índices, y la fuga del roster de usuarios internos.",
+  "personas": [
+    {
+      "quien": "Álvaro",
+      "login": "AlvaroEwaffle",
+      "agentes": [
+        75,
+        67,
+        94
+      ],
+      "meta": "El viernes un cliente genera su kit en producción y las cinco decisiones están cerradas.",
+      "aporte": "Sin motor no hay meta. Lo suyo es destrabar hoy, decidir el orden de entrada y mergear el tren libre y el #91. Los items marcados Vilo los ejecutan los agentes bajo su cuenta: la raíz de las dos caídas y la apuesta."
+    },
+    {
+      "quien": "Juan",
+      "login": "jsstagno90",
+      "meta": "El viernes el #86 entra después del #91 sin el bloqueante, y el PIN y el login ya no se fuerzan cambiando una cabecera.",
+      "aporte": "«Lo que ve es cierto» incluye que nadie vea lo que no le toca: el owner lock cierra la sala y los dos rate limits (#84 y #64) cierran la puerta de atrás. Como rebasó sobre el #91, es el segundo par de ojos natural para revisarlo."
+    },
+    {
+      "quien": "Melanie",
+      "login": "Mel-Lopez21",
+      "meta": "El viernes el espejo dice la verdad sobre su ventana temporal (#48) y el corpus separado de los matches (#47) está probado con datos reales.",
+      "aporte": "El espejo es lo primero que ve el cliente: la ventana honesta y el corpus separado son la mitad de «lo que ve es cierto». Los dos issues de seguridad que toma (#85 y #77) evitan que una cuenta pise a otra y que la contraseña del seed siga en el repo."
+    }
+  ]
 }

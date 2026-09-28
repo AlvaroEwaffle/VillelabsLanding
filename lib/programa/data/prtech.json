@@ -1,5 +1,5 @@
 {
-  "generado": "2026-09-28T11:37:42.459Z",
+  "generado": "2026-09-28T11:46:08.731Z",
   "slug": "prtech",
   "nombre": "PR Tech",
   "repo": "AlvaroEwaffle/prtech-ai",
@@ -606,8 +606,8 @@
       "titulo": "01.6 · Ventana temporal honesta en el espejo",
       "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/48",
       "estado_github": "OPEN",
-      "estado_board": "Sprint Backlog",
-      "sprint": null,
+      "estado_board": "In review",
+      "sprint": "Sprint 2",
       "prioridad": null,
       "estimacion": null,
       "fase": "Fase 1 · La plataforma",
@@ -759,7 +759,7 @@
       "titulo": "08.8 · Configurar el proveedor de correo",
       "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/55",
       "estado_github": "OPEN",
-      "estado_board": "Sprint Backlog",
+      "estado_board": "In review",
       "sprint": "Sprint 2",
       "prioridad": null,
       "estimacion": null,
@@ -867,8 +867,8 @@
       "titulo": "Seguridad · el rate limit del login se esquiva con X-Forwarded-For, y el 409 público enumera cuentas",
       "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/64",
       "estado_github": "OPEN",
-      "estado_board": "Backlog",
-      "sprint": null,
+      "estado_board": "Sprint Backlog",
+      "sprint": "Sprint 2",
       "prioridad": null,
       "estimacion": null,
       "fase": null,
@@ -877,7 +877,7 @@
         "bug"
       ],
       "asignados": [
-        "AlvaroEwaffle"
+        "jsstagno90"
       ],
       "comentarios": 0,
       "creada": "2026-09-23T11:12:56Z",
@@ -909,8 +909,8 @@
       "titulo": "El repo no fija la versión de Node: Railway la elige y puede cambiarla en un redeploy",
       "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/67",
       "estado_github": "OPEN",
-      "estado_board": "Backlog",
-      "sprint": null,
+      "estado_board": "Sprint Backlog",
+      "sprint": "Sprint 2",
       "prioridad": null,
       "estimacion": null,
       "fase": null,
@@ -985,8 +985,8 @@
       "titulo": "Ningún test atrapó 10 horas de caída: falta CI, health de escritura y smoke post-deploy",
       "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/75",
       "estado_github": "OPEN",
-      "estado_board": "Backlog",
-      "sprint": null,
+      "estado_board": "Sprint Backlog",
+      "sprint": "Sprint 2",
       "prioridad": null,
       "estimacion": null,
       "fase": null,
@@ -1004,8 +1004,8 @@
       "titulo": "El autoguardado entra en bucle de 404 y se pierde el cuestionario entero, sin un solo error en pantalla",
       "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/76",
       "estado_github": "OPEN",
-      "estado_board": "Backlog",
-      "sprint": null,
+      "estado_board": "In review",
+      "sprint": "Sprint 2",
       "prioridad": null,
       "estimacion": null,
       "fase": null,
@@ -1025,8 +1025,8 @@
       "titulo": "Seguridad · el seed trae una contraseña fija en el repo para una cuenta real de producción",
       "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/77",
       "estado_github": "OPEN",
-      "estado_board": "Backlog",
-      "sprint": null,
+      "estado_board": "Sprint Backlog",
+      "sprint": "Sprint 2",
       "prioridad": null,
       "estimacion": null,
       "fase": null,
@@ -1035,7 +1035,7 @@
         "bug"
       ],
       "asignados": [
-        "AlvaroEwaffle"
+        "Mel-Lopez21"
       ],
       "comentarios": 0,
       "creada": "2026-09-24T14:33:44Z",
@@ -1065,14 +1065,16 @@
       "titulo": "Rate limit confía en X-Forwarded-For del cliente: el PIN de sala es un oráculo sin tope",
       "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/84",
       "estado_github": "OPEN",
-      "estado_board": "Backlog",
-      "sprint": null,
+      "estado_board": "Sprint Backlog",
+      "sprint": "Sprint 2",
       "prioridad": null,
       "estimacion": null,
       "fase": null,
       "fase_vence": null,
       "etiquetas": [],
-      "asignados": [],
+      "asignados": [
+        "jsstagno90"
+      ],
       "comentarios": 0,
       "creada": "2026-09-25T01:40:06Z",
       "cerrada": null
@@ -1082,16 +1084,39 @@
       "titulo": "POST /api/mirror hace upsert por slug sin filtrar companyId: un anónimo sobrescribe el snapshot de una cuenta con dueño",
       "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/85",
       "estado_github": "OPEN",
-      "estado_board": "Backlog",
-      "sprint": null,
+      "estado_board": "Sprint Backlog",
+      "sprint": "Sprint 2",
       "prioridad": null,
       "estimacion": null,
       "fase": null,
       "fase_vence": null,
       "etiquetas": [],
-      "asignados": [],
+      "asignados": [
+        "Mel-Lopez21"
+      ],
       "comentarios": 0,
       "creada": "2026-09-25T01:40:07Z",
+      "cerrada": null
+    },
+    {
+      "numero": 94,
+      "titulo": "Apuesta · espejo web-first: la web es la fuente de cobertura y el corpus corre al lado",
+      "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/94",
+      "estado_github": "OPEN",
+      "estado_board": "In progress",
+      "sprint": "Sprint 2",
+      "prioridad": null,
+      "estimacion": null,
+      "fase": null,
+      "fase_vence": null,
+      "etiquetas": [
+        "epic: espejo-y-registro"
+      ],
+      "asignados": [
+        "AlvaroEwaffle"
+      ],
+      "comentarios": 0,
+      "creada": "2026-09-28T11:45:07Z",
       "cerrada": null
     }
   ],

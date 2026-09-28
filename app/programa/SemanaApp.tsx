@@ -1,6 +1,7 @@
 'use client';
 
 import semana from '@/lib/programa/data/prtech.semana.json';
+import snap from '@/lib/programa/data/prtech.json';
 import { Marco } from './Marco';
 
 /**
@@ -51,7 +52,53 @@ const DOC = semana as unknown as {
   lectura: string;
   bloques: Bloque[];
   decisiones: { que: string; detalle: string }[];
+  personas: Persona[];
   pie: string;
+};
+
+interface Persona {
+  quien: string;
+  login: string;
+  agentes?: number[];
+  meta: string;
+  aporte: string;
+}
+
+interface Historia {
+  numero: number;
+  titulo: string;
+  url: string;
+  estado_github: string;
+  estado_board: string | null;
+  sprint: string | null;
+  prioridad: string | null;
+  asignados: string[];
+}
+
+interface Pr {
+  numero: number;
+  titulo: string;
+  url: string;
+  autor: string;
+  borrador: boolean;
+}
+
+const SNAP = snap as unknown as { generado: string; historias: Historia[]; prs: Pr[] };
+
+/** Lo que el board dice que esta persona tiene en el sprint. Sale de GitHub, no se escribe acá. */
+function deLaPersona(p: Persona) {
+  const historias = SNAP.historias
+    .filter((h) => h.sprint === DOC.sprint && h.estado_github === 'OPEN' && h.asignados.includes(p.login))
+    .sort((a, b) => (a.prioridad ?? 'P9').localeCompare(b.prioridad ?? 'P9') || a.numero - b.numero);
+  const prs = SNAP.prs.filter((pr) => pr.autor === p.login).sort((a, b) => a.numero - b.numero);
+  return { historias, prs };
+}
+
+const ESTADO_BOARD: Record<string, string> = {
+  'Sprint Backlog': 'por tomar',
+  'In progress': 'en curso',
+  Ready: 'listo, falta probar',
+  'In review': 'en revisión',
 };
 
 const TONO: Record<Tono, string> = {
@@ -126,6 +173,64 @@ export default function SemanaApp({ llave }: { llave: string }) {
       <p className="mb-12 border-l-2 border-[#2175a1] pl-4 text-[14px] leading-relaxed text-white/55">
         {DOC.lectura}
       </p>
+
+      <section className="mb-12">
+        <h2 className="font-serif text-[21px] text-white">
+          <span className="mr-2.5 font-sans text-[14px] font-semibold tracking-wide text-[#4da3cc]">
+            00
+          </span>
+          Esta semana, por persona
+          <span className="ml-2 font-sans text-[13px] font-normal text-white/30">· lo que el board tiene en {DOC.sprint}</span>
+        </h2>
+        <p className="mb-4 mt-1.5 max-w-[74ch] text-[13.5px] leading-relaxed text-white/45">
+          Cada persona tiene una meta para el viernes y una razón de por qué su trabajo llega a la meta del
+          sprint. Las historias y PRs salen del board de GitHub, no de este documento: si algo no está acá, no
+          está en el sprint.
+        </p>
+        <div className="grid gap-3 lg:grid-cols-3">
+          {DOC.personas.map((p) => {
+            const { historias, prs } = deLaPersona(p);
+            return (
+              <div key={p.login} className="rounded-lg border border-white/10 bg-white/[0.028] p-5">
+                <p className="font-serif text-[19px] text-white">{p.quien}</p>
+                <p className="mt-1.5 text-[14px] leading-snug text-white/85">{p.meta}</p>
+                <p className="mt-2 text-[13px] leading-relaxed text-white/45">{p.aporte}</p>
+                <ul className="mt-4 border-t border-white/[0.07] pt-3">
+                  {historias.map((h) => (
+                    <li key={h.numero} className="flex gap-2.5 py-1.5 text-[13px]">
+                      <a href={h.url} className="shrink-0 font-semibold text-[#4da3cc]">
+                        #{h.numero}
+                      </a>
+                      <span className="min-w-0 flex-1 text-white/80">
+                        {h.titulo}
+                        <span className="ml-1.5 text-[11.5px] text-white/35">
+                          {ESTADO_BOARD[h.estado_board ?? ''] ?? h.estado_board}
+                          {p.agentes?.includes(h.numero) && ' · Vilo'}
+                          {h.prioridad && ` · ${h.prioridad}`}
+                        </span>
+                      </span>
+                    </li>
+                  ))}
+                  {prs.map((pr) => (
+                    <li key={pr.numero} className="flex gap-2.5 py-1.5 text-[13px]">
+                      <a href={pr.url} className="shrink-0 font-semibold text-white/50">
+                        PR #{pr.numero}
+                      </a>
+                      <span className="min-w-0 flex-1 text-white/65">
+                        {pr.titulo}
+                        {pr.borrador && <span className="ml-1.5 text-[11.5px] text-white/35">borrador</span>}
+                      </span>
+                    </li>
+                  ))}
+                  {historias.length + prs.length === 0 && (
+                    <li className="py-1.5 text-[13px] text-white/35">Nada asignado en el board para este sprint.</li>
+                  )}
+                </ul>
+              </div>
+            );
+          })}
+        </div>
+      </section>
 
       {DOC.bloques.map((b) => (
         <section key={b.n} className="mb-12">
