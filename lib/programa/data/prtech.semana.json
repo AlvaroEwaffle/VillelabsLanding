@@ -1,5 +1,5 @@
 {
-  "_revisado": "28-sep-2026 · estado tomado del board de GitHub (53 historias, 10 PRs abiertas, mapa de colisiones sobre los archivos de cada rama). Sprint 2 en el board: los mismos items que este plan, verificado tras el sync.",
+  "_revisado": "28-sep-2026, tarde · segunda pasada en vivo contra `gh` y producción, a pedido de Álvaro para chequear si seguridad y deuda técnica ya se habían trabajado. Encontrado: el #97 (rebase del #86) ya lo aprobó Juan, y apareció un PR nuevo de Juan — #98 — que corrige #64 y #84; lo corrí yo mismo en un worktree aparte y los 8 checks pasan. #77 y #85 siguen sin PR pese a tener dueño — verificado leyendo el código de main, no solo el issue.",
   "sprint": "Sprint 2",
   "semana": "28 de septiembre — 4 de octubre",
   "meta": "Un cliente entra solo, de punta a punta, y lo que ve es cierto.",
@@ -12,15 +12,15 @@
     },
     {
       "etiqueta": "PRs abiertas",
-      "valor": "3",
+      "valor": "4",
       "tono": "riesgo",
-      "pie": "El 28-sep entraron #91, #96, #87, #83, #90, #92 y #88. Quedan #86 (lo rebasamos nosotros, Juan revisa) y #71 (Melanie). #93 se cerró: el espejo se reescribió."
+      "pie": "El 28-sep entraron #91, #96, #87, #83, #90, #92 y #88. Quedan #97 (rebase del #86, ya aprobado por Juan — falta mergear), #98 (Juan, cierra #64 y #84, probado y verde — falta mergear), y #71 (Melanie, en conflicto con main). #93 y #89 se cerraron: el espejo se reescribió y las absorbió."
     },
     {
       "etiqueta": "Seguridad sin dueño",
       "valor": "0",
-      "tono": "ok",
-      "pie": "Los cuatro ya tienen dueño en el board: #84 y #64 Juan, #85 y #77 Melanie. Propuesta de hoy, reversible si Álvaro decide otra cosa."
+      "tono": "riesgo",
+      "pie": "Los cuatro tienen dueño: #84 y #64 Juan, #85 y #77 Melanie. El arreglo de #84 y #64 ya existe — PR #98, verificado — pero sigue explotable en prod hasta mergear. #85 y #77 no tienen PR todavía."
     },
     {
       "etiqueta": "Caídas que detectó un test",
@@ -29,7 +29,7 @@
       "pie": "Dos caídas esta semana. Las dos las encontró una persona mirando una pantalla."
     }
   ],
-  "lectura": "Lo que más pesaba de este sprint ya no es una funcionalidad: el motor de producción estuvo caído del 27 al 28 por una clave inválida, y el 25 el espejo estuvo 10 horas caído. Las dos veces nos enteramos por una persona mirando una pantalla. El motor ya está arriba; lo que sigue es que el sistema avise solo (#75) para que no se repita.",
+  "lectura": "Lo que más pesaba de este sprint ya no es una funcionalidad: el motor de producción estuvo caído del 27 al 28 por una clave inválida, y el 25 el espejo estuvo 10 horas caído. Las dos veces nos enteramos por una persona mirando una pantalla. El motor ya está arriba. En seguridad el patrón es distinto: los cuatro issues ya tienen dueño, y dos de los cuatro (#84, #64) ya tienen un arreglo escrito y probado — solo falta mergearlo. Los otros dos (#85, #77) siguen exactamente como estaban: sin PR, aunque asignados. «Asignado» no es «resuelto», y ese es justo el error que casi cometo hoy al leer el board sin leer el código.",
   "bloques": [
     {
       "n": "01",
@@ -99,9 +99,9 @@
           "id": "#86",
           "quien": "Juan",
           "tono": "ok",
-          "etiqueta": "PR #97 listo",
+          "etiqueta": "PR #97 aprobado",
           "que": "Owner lock, borrar usuarios, pestañas",
-          "detalle": "Rebasado sobre main como PR #97 (28-sep), con la autoría de Juan y el bloqueante cerrado: al borrar un usuario su cookie muere al instante. Además arregló un cruce de ramas: /api/team/fuentes respondía sin sesión. Falta la revisión de Juan y mergear."
+          "detalle": "Rebasado sobre main como PR #97 (28-sep), con la autoría de Juan y el bloqueante cerrado: al borrar un usuario su cookie muere al instante. Además arregló un cruce de ramas: /api/team/fuentes respondía sin sesión. Juan ya lo aprobó — solo falta mergear. Ojo con el orden contra el #98: los dos tocan package.json."
         },
         {
           "id": "#93",
@@ -179,15 +179,17 @@
           "id": "#84",
           "quien": "Juan",
           "tono": "roto",
+          "etiqueta": "arreglo listo",
           "que": "El rate limit confía en X-Forwarded-For del cliente",
-          "detalle": "El PIN de sala se puede probar por fuerza bruta cambiando una cabecera."
+          "detalle": "El PIN de sala se puede probar por fuerza bruta cambiando una cabecera. PR #98 (Juan) lo corrige: toma el último hop, el único que Railway agrega y el cliente no puede falsificar. Lo corrí en un worktree aparte — los 8 checks de scripts/ratelimit-test.ts pasan. Sigue explotable en prod hasta mergear."
         },
         {
           "id": "#64",
           "quien": "Juan",
           "tono": "roto",
-          "que": "Lo mismo en el login",
-          "detalle": "Mismo mecanismo, misma línea de arreglo. Conviene resolverlos juntos."
+          "etiqueta": "arreglo listo",
+          "que": "Lo mismo en el login, y el 409 de alta enumeraba cuentas",
+          "detalle": "Mismo mecanismo, mismo PR #98: además el 409 de /api/submissions/[id]/email dejó de decir explícitamente «ese correo ya tiene cuenta» — mismo patrón condicional que forgot-password. Verificado, falta mergear."
         },
         {
           "id": "#85",
@@ -275,24 +277,24 @@
   ],
   "decisiones": [
     {
-      "que": "Cerrado: el #93 se cierra y el #48 sigue con Melanie sobre el espejo nuevo.",
-      "detalle": "Decidido el 28-sep. Ojo: la apuesta no cubre del todo el #48, la cabecera sigue afirmando «últimos N días» con una constante; por eso el issue queda abierto y re-alcanzado."
+      "que": "¿Mergeamos #97 y #98 hoy, y en qué orden?",
+      "detalle": "Los dos están listos — #97 aprobado por Juan, #98 verificado por mí — pero chocan: ambos tocan package.json y app/api/submissions/[id]/email/route.ts. Recomendación: #97 primero (99 archivos, el pivote, ya revisado), #98 después con un rebase corto de 2 archivos. Ninguno se mergea solo: es la puerta de atrás de la sala y el login."
     },
     {
-      "que": "Cerrado: producción ya corre main con la clave buena.",
-      "detalle": "Railway despliega solo desde main (verificado: el merge del #88 salió a las 11:02). Con la clave nueva el motor genera kits. No hay deploy manual pendiente."
+      "que": "¿Quién toma #85 y #77 esta semana?",
+      "detalle": "Están asignados a Melanie desde el 28-sep pero sin PR todavía — verificado en el código de main, no en el issue. El seed sigue con `ewaffle-demo-2026` versionado y el upsert del espejo sigue filtrando solo por companySlug, sin companyId: cualquiera puede pisar el snapshot de una cuenta ajena."
     },
     {
       "que": "¿Se aplica la migración del #71 en prtech-qa?",
-      "detalle": "Aditivo y reversible. Medido: 37,9 MB de 512 usados, sumaría unos 37. Es base compartida con Juan y Melanie."
+      "detalle": "Aditivo y reversible. Medido: 37,9 MB de 512 usados, sumaría unos 37. Antes hay que resolver el conflicto con app/page.tsx (el cockpit lo reescribió) — es chico, no el volumen del PR."
     },
     {
       "que": "¿Se agrega la alerta del motor?",
       "detalle": "Manda mensajes hacia afuera, así que no sale sin un sí."
     },
     {
-      "que": "¿Confirmas el reparto de seguridad: #84 y #64 a Juan, #85 y #77 a Melanie?",
-      "detalle": "Ya está así en el board desde hoy para que cada uno vea su semana. Si prefieres otro reparto, se mueve en un minuto."
+      "que": "¿Quién resuelve #67 y #75 esta semana?",
+      "detalle": "Node sin fijar y health que no prueba una escritura — las dos causas raíz de las caídas del 25 y el 27. Nadie tiene un PR abierto para ninguna de las dos."
     }
   ],
   "pie": "Las tres cosas que se arreglaron esta semana y no eran visibles sin ejecutar código: los links de contraseña contra un host muerto, la migración del radar sin índices, y la fuga del roster de usuarios internos.",
