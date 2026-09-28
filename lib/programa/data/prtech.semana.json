@@ -158,6 +158,14 @@
           "etiqueta": "decisión",
           "que": "Aceptación A1–A12 y recién ahí push como PR sobre el #91",
           "detalle": "Reescribe la misma ruta del espejo que tocan el #93 y el #71, así que entra después del #91 y esos dos se rebasan sobre ella. Sin push hasta PASS del PO y ok explícito."
+        },
+        {
+          "id": "#95",
+          "quien": "Melanie",
+          "tono": "riesgo",
+          "etiqueta": "nuevo",
+          "que": "Nombres de empresa ambiguos: Clip, Clara, Pomelo traen notas de otra cosa",
+          "detalle": "La búsqueda web manda el nombre sin comillas ni contexto. Va sobre las fuentes de la apuesta: consulta con sector y país cuando el nombre es débil, aliases y dominio por cuenta, y «¿es esta tu empresa?» en vez de afirmar cobertura. Coordinar con la rama antes de tocar lib/fuentes."
         }
       ]
     },
@@ -309,8 +317,8 @@
     {
       "quien": "Melanie",
       "login": "Mel-Lopez21",
-      "meta": "El viernes el espejo dice la verdad sobre su ventana temporal (#48) y el corpus separado de los matches (#47) está probado con datos reales.",
-      "aporte": "El espejo es lo primero que ve el cliente: la ventana honesta y el corpus separado son la mitad de «lo que ve es cierto». Los dos issues de seguridad que toma (#85 y #77) evitan que una cuenta pise a otra y que la contraseña del seed siga en el repo."
+      "meta": "El viernes el espejo dice la verdad sobre su ventana temporal (#48), el corpus separado de los matches (#47) está probado con datos reales, y un nombre ambiguo (Clip, Clara, Pomelo) ya no trae notas de otra cosa (#95).",
+      "aporte": "El espejo es lo primero que ve el cliente: la ventana honesta, el corpus separado y la desambiguación de nombres son «lo que ve es cierto» en su forma más literal. Los dos issues de seguridad que toma (#85 y #77) evitan que una cuenta pise a otra y que la contraseña del seed siga en el repo."
     }
   ]
 }
