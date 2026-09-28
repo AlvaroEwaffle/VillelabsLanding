@@ -12,9 +12,9 @@
     },
     {
       "etiqueta": "PRs abiertas",
-      "valor": "10",
+      "valor": "8",
       "tono": "riesgo",
-      "pie": "Cinco pueden entrar hoy sin tocarse entre sí. Cuatro esperan a la misma rama."
+      "pie": "El #91 y el #96 ya están en main (28-sep). De las 8 que quedan, 6 chocan con el main nuevo: hay que rebasar antes de mergear."
     },
     {
       "etiqueta": "Seguridad sin dueño",
@@ -56,20 +56,20 @@
     {
       "n": "02",
       "titulo": "El tren libre",
-      "cuando": "cinco PRs sin conflicto entre sí",
-      "bajada": "Ninguna toca un archivo que toque otra. Pueden entrar hoy, en este orden, y sacan de la cola cinco cosas terminadas.",
+      "cuando": "rebasar sobre main y entrar",
+      "bajada": "Eran cinco sin conflicto entre sí, pero el #91 reescribió las pantallas que tocan. Tras el merge del 28-sep: #92 y #88 entran limpias; #87, #83 y #90 chocan y un agente las está rebasando. Orden de entrada igual.",
       "pasos": [
         {
           "que": "#87 · el autoguardado deja de perder respuestas",
-          "detalle": "Bug de pérdida de datos real: se perdieron tres páginas del cuestionario. Probado en navegador con Playwright, cuatro casos."
+          "detalle": "Bug de pérdida de datos real: se perdieron tres páginas del cuestionario. Probado en navegador con Playwright, cuatro casos. Choca con main tras el #91: en rebase."
         },
         {
           "que": "#83 · texto neutro en el alta",
-          "detalle": "Va después del #87 a propósito: hace fallar cerrado al autoguardado, y sin el #87 ese 404 se pierde en silencio."
+          "detalle": "Va después del #87 a propósito: hace fallar cerrado al autoguardado, y sin el #87 ese 404 se pierde en silencio. Choca con main: en rebase."
         },
         {
           "que": "#90 · forgot-password deja de prometer un correo que no sale",
-          "detalle": "Cierra el #55. Además: sin PRTECH_PUBLIC_URL, configurar Resend habría mandado todos los links a una app que no existe."
+          "detalle": "Cierra el #55. Además: sin PRTECH_PUBLIC_URL, configurar Resend habría mandado todos los links a una app que no existe. Choca con main: en rebase."
         },
         {
           "que": "#92 · un motor mal configurado deja de decir «Try again»",
@@ -84,16 +84,16 @@
     {
       "n": "03",
       "titulo": "El tren grande",
-      "cuando": "el #91 es el pivote",
-      "bajada": "El #91 toca 99 archivos y choca con cuatro PRs. El orden no es opinable: o entra primero y el resto rebasa, o se bloquea solo.",
+      "cuando": "el #91 ya entró",
+      "bajada": "El #91 se mergeó el 28-sep (7031692) y el #96 encima (26069e4). Lo que queda son las tres PRs del equipo, y las tres chocan con el main nuevo.",
       "items": [
         {
           "id": "#91",
           "quien": "Álvaro",
-          "tono": "riesgo",
-          "etiqueta": "pivote",
+          "tono": "ok",
+          "etiqueta": "mergeado",
           "que": "Cockpit, marca y consola",
-          "detalle": "99 archivos, integra el #89. Antes de mergear: alguien distinto de quien lo escribió tiene que revisarlo. Es mucho código para entrar sin segundo par de ojos."
+          "detalle": "En main desde el 28-sep, con merge commit. Revisado por Álvaro."
         },
         {
           "id": "#86",
@@ -101,30 +101,30 @@
           "tono": "roto",
           "etiqueta": "1 bloqueante",
           "que": "Owner lock, borrar usuarios, pestañas",
-          "detalle": "Ya rebasado como juan/86-sobre-cockpit. Falta: la sesión no se relee tras borrar a alguien, así que su cookie sirve 8 horas más y puede recrearse la cuenta. El isOwner reversible y la fuga del roster ya están resueltos."
+          "detalle": "Choca con main. Ya existe la versión rebasada juan/86-sobre-cockpit: Juan apunta el PR a esa rama o abre uno nuevo, y cierra el bloqueante de la sesión que no se relee."
         },
         {
           "id": "#93",
           "quien": "Melanie",
           "tono": "riesgo",
-          "etiqueta": "colisión",
+          "etiqueta": "rehacer",
           "que": "Ventana temporal honesta en el espejo (#48)",
-          "detalle": "Toca mirror-client.tsx, el archivo que el #91 reescribe entero. Decidir ya: se rebasa después o se aplica dentro. Rebasar un archivo reescrito es rehacerlo."
+          "detalle": "Choca en mirror-client.tsx, que main reescribió entero: el copy hardcodeado en inglés va ahora a los diccionarios EN/ES. Rehacer sobre main, no rebasar."
         },
         {
           "id": "#71",
           "quien": "Melanie",
           "tono": "riesgo",
-          "etiqueta": "falta probar",
+          "etiqueta": "conflicto",
           "que": "Separar corpus de matches (#47)",
-          "detalle": "Tres bugs de fondo ya corregidos: índices ausentes, la cola que no avanzaba y el $in con techo a los 133.000 artículos. Falta aplicar la migración en prtech-qa y verificar la inanición con datos reales."
+          "detalle": "Choca en app/page.tsx (main la reescribió) y build-journalists.ts ahora delega en lib/periodistas/derivar. Tras resolver: typecheck + periodistas:test. Sigue faltando probar la migración en prtech-qa."
         }
       ]
     },
     {
       "n": "04",
       "titulo": "La apuesta",
-      "cuando": "espejo web-first · PR #96 abierto",
+      "cuando": "en main desde el 28-sep",
       "bajada": "Ciclo de innovación registrado el 27-sep. En el board es el #94. El PO la aceptó el 28-sep tras tres pasadas (cinco bloqueantes corregidos) y está como PR #96 sobre el #91: entra después de ese y GitHub la redirige a main.",
       "items": [
         {
@@ -155,9 +155,9 @@
           "id": "PO",
           "quien": "Álvaro",
           "tono": "ok",
-          "etiqueta": "PASS · PR #96",
-          "que": "Aceptada por el PO en f9ff98f y pusheada como PR #96 sobre el #91",
-          "detalle": "Circuit breaker medido en 77 %, nocturno en 55 s idempotente, consola cuadrada con la base, 113 PASS en la QA de cierre. Entra después del #91; el #93 y el #71 se rebasan sobre ella."
+          "etiqueta": "mergeada",
+          "que": "Aceptada por el PO (f9ff98f) y mergeada en main como #96 (26069e4)",
+          "detalle": "Producción no se despliega desde GitHub: falta railway up, la clave de Anthropic, el cron del nocturno y el canal de Slack."
         },
         {
           "id": "#95",
@@ -275,12 +275,12 @@
   ],
   "decisiones": [
     {
-      "que": "¿El #93 de Melanie se rebasa después del #91, o se aplica dentro?",
-      "detalle": "Rebasar un archivo reescrito entero es rehacer el trabajo, y la apuesta web-first vuelve a reescribir esa ruta. Recomendación: aplicarlo dentro del #91 antes de mergear, y la apuesta rebasa sobre eso."
+      "que": "¿El #93 de Melanie se rehace sobre main?",
+      "detalle": "Ya no hay opción de aplicarlo dentro del #91: entró. El archivo cambió entero y el copy va a los diccionarios; rebasar es rehacer. Recomendación: Melanie lo rehace sobre main, es un cambio chico."
     },
     {
-      "que": "¿Quién revisa el #91?",
-      "detalle": "99 archivos a producción. La política pide QA de alguien distinto del que desarrolló."
+      "que": "¿Se despliega producción ahora, con el motor caído?",
+      "detalle": "main tiene el cockpit y la apuesta, pero producción sigue con la versión vieja y sin clave válida. Desplegar sin clave muestra el 503 honesto del #92; no desplegar deja el espejo viejo. Recomendación: clave primero, deploy después, el mismo día."
     },
     {
       "que": "¿Se aplica la migración del #71 en prtech-qa?",
