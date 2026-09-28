@@ -321,8 +321,8 @@
     {
       "quien": "Juan",
       "login": "jsstagno90",
-      "meta": "El viernes: #50 hecho, y #97/#98 mergeadas (owner lock + los dos rate limits).",
-      "aporte": "Prioridad fijada por Álvaro el 28-sep. #61 y #80 — las dos que pidió validar — ya estaban hechas: se cerraron hoy con evidencia, no le quedó trabajo ahí. Lo real que le queda es #50 (subir material en el cuestionario, recién asignado) y mergear lo que ya tiene listo: #97 (aprobado por él mismo) y #98 (su propia PR de seguridad, verificada)."
+      "meta": "El viernes: #50 y #56 hechos, y #97/#98 mergeadas (owner lock + los dos rate limits).",
+      "aporte": "Prioridad fijada por Álvaro el 28-sep. #61 y #80 — las dos que pidió validar — ya estaban hechas: se cerraron hoy con evidencia, no le quedó trabajo ahí. Con poco quedando, se sumó #56 (bitácora de distribución, pedido de Carolina): el dato ya existe, solo falta la pantalla, sin bloqueo. #32 (pasarela de pago) se evaluó y quedó fuera — bloqueada por #33, que Álvaro no ha decidido. Lo real que le queda: #50, #56, y mergear lo que ya tiene listo — #97 (aprobado por él mismo) y #98 (su propia PR de seguridad, verificada)."
     },
     {
       "quien": "Melanie",

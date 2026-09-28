@@ -1,5 +1,5 @@
 {
-  "generado": "2026-09-28T18:52:18.987Z",
+  "generado": "2026-09-28T19:37:46.042Z",
   "slug": "prtech",
   "nombre": "PR Tech",
   "repo": "AlvaroEwaffle/prtech-ai",
@@ -782,8 +782,8 @@
       "titulo": "08.9 · Bitácora de distribución por cuenta",
       "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/56",
       "estado_github": "OPEN",
-      "estado_board": "Backlog",
-      "sprint": "Sprint 3",
+      "estado_board": "Sprint Backlog",
+      "sprint": "Sprint 2",
       "prioridad": null,
       "estimacion": null,
       "fase": "Fase 1 · La plataforma",
@@ -792,7 +792,9 @@
         "epic: envio-correos",
         "fase: 1"
       ],
-      "asignados": [],
+      "asignados": [
+        "jsstagno90"
+      ],
       "comentarios": 0,
       "creada": "2026-09-21T22:24:11Z",
       "cerrada": null
