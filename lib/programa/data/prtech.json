@@ -1,5 +1,5 @@
 {
-  "generado": "2026-09-28T12:48:03.897Z",
+  "generado": "2026-09-28T12:49:06.699Z",
   "slug": "prtech",
   "nombre": "PR Tech",
   "repo": "AlvaroEwaffle/prtech-ai",
@@ -1118,6 +1118,25 @@
       ],
       "comentarios": 0,
       "creada": "2026-09-28T11:45:07Z",
+      "cerrada": null
+    },
+    {
+      "numero": 95,
+      "titulo": "Espejo: los nombres de empresa ambiguos traen notas de otra cosa (Clip, Clara, Pomelo, Habi, Alma, Nomad…)",
+      "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/95",
+      "estado_github": "OPEN",
+      "estado_board": "Backlog",
+      "sprint": null,
+      "prioridad": null,
+      "estimacion": null,
+      "fase": "Fase 1 · La plataforma",
+      "fase_vence": null,
+      "etiquetas": [
+        "epic: espejo-y-registro"
+      ],
+      "asignados": [],
+      "comentarios": 0,
+      "creada": "2026-09-28T12:48:00Z",
       "cerrada": null
     }
   ],
