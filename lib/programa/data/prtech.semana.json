@@ -98,10 +98,10 @@
         {
           "id": "#86",
           "quien": "Juan",
-          "tono": "roto",
-          "etiqueta": "lo rebasamos",
+          "tono": "ok",
+          "etiqueta": "PR #97 listo",
           "que": "Owner lock, borrar usuarios, pestañas",
-          "detalle": "Decisión del 28-sep: un agente lo rebasa sobre main y cierra el bloqueante (la sesión no se relee tras borrar un usuario). Sale como PR nuevo desde juan/86-sobre-cockpit con Juan de revisor."
+          "detalle": "Rebasado sobre main como PR #97 (28-sep), con la autoría de Juan y el bloqueante cerrado: al borrar un usuario su cookie muere al instante. Además arregló un cruce de ramas: /api/team/fuentes respondía sin sesión. Falta la revisión de Juan y mergear."
         },
         {
           "id": "#93",

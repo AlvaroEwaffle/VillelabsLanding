@@ -1,5 +1,5 @@
 {
-  "generado": "2026-09-28T14:04:13.951Z",
+  "generado": "2026-09-28T14:12:15.964Z",
   "slug": "prtech",
   "nombre": "PR Tech",
   "repo": "AlvaroEwaffle/prtech-ai",
@@ -1143,6 +1143,17 @@
     }
   ],
   "prs": [
+    {
+      "numero": 97,
+      "titulo": "Owner lock, borrar usuarios y pestañas de equipo — rebase sobre main (#86)",
+      "url": "https://github.com/AlvaroEwaffle/prtech-ai/pull/97",
+      "autor": "AlvaroEwaffle",
+      "borrador": false,
+      "aprobado": false,
+      "abierta": "2026-09-28T14:11:05Z",
+      "tocada": "2026-09-28T14:11:12Z",
+      "etiquetas": []
+    },
     {
       "numero": 71,
       "titulo": "feat(radar): decouple corpus storage and tenant matches (#47)",
