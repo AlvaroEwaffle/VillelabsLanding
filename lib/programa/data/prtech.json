@@ -1,5 +1,5 @@
 {
-  "generado": "2026-09-28T14:48:06.267Z",
+  "generado": "2026-09-28T16:53:33.997Z",
   "slug": "prtech",
   "nombre": "PR Tech",
   "repo": "AlvaroEwaffle/prtech-ai",
@@ -229,8 +229,8 @@
       "numero": 23,
       "titulo": "Portal del cliente con su cobertura histórica",
       "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/23",
-      "estado_github": "OPEN",
-      "estado_board": "Ready",
+      "estado_github": "CLOSED",
+      "estado_board": "Done",
       "sprint": "Sprint 2",
       "prioridad": "P2",
       "estimacion": null,
@@ -243,9 +243,9 @@
       "asignados": [
         "jsstagno90"
       ],
-      "comentarios": 0,
+      "comentarios": 1,
       "creada": "2026-09-15T11:54:21Z",
-      "cerrada": null
+      "cerrada": "2026-09-28T16:52:46Z"
     },
     {
       "numero": 24,
@@ -1144,6 +1144,17 @@
   ],
   "prs": [
     {
+      "numero": 97,
+      "titulo": "Owner lock, borrar usuarios y pestañas de equipo — rebase sobre main (#86)",
+      "url": "https://github.com/AlvaroEwaffle/prtech-ai/pull/97",
+      "autor": "AlvaroEwaffle",
+      "borrador": false,
+      "aprobado": true,
+      "abierta": "2026-09-28T14:11:05Z",
+      "tocada": "2026-09-28T14:54:36Z",
+      "etiquetas": []
+    },
+    {
       "numero": 98,
       "titulo": "fix(security): IP real detras de Railway en rate limit (#64, #84)",
       "url": "https://github.com/AlvaroEwaffle/prtech-ai/pull/98",
@@ -1152,17 +1163,6 @@
       "aprobado": false,
       "abierta": "2026-09-28T14:18:57Z",
       "tocada": "2026-09-28T14:42:50Z",
-      "etiquetas": []
-    },
-    {
-      "numero": 97,
-      "titulo": "Owner lock, borrar usuarios y pestañas de equipo — rebase sobre main (#86)",
-      "url": "https://github.com/AlvaroEwaffle/prtech-ai/pull/97",
-      "autor": "AlvaroEwaffle",
-      "borrador": false,
-      "aprobado": false,
-      "abierta": "2026-09-28T14:11:05Z",
-      "tocada": "2026-09-28T14:11:12Z",
       "etiquetas": []
     },
     {
