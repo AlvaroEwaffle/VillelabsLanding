@@ -1,5 +1,5 @@
 {
-  "generado": "2026-09-28T16:53:33.997Z",
+  "generado": "2026-09-28T16:59:36.406Z",
   "slug": "prtech",
   "nombre": "PR Tech",
   "repo": "AlvaroEwaffle/prtech-ai",
@@ -207,8 +207,8 @@
       "numero": 22,
       "titulo": "Verificar la cola multi-cuenta contra datos reales",
       "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/22",
-      "estado_github": "OPEN",
-      "estado_board": "Ready",
+      "estado_github": "CLOSED",
+      "estado_board": "Done",
       "sprint": "Sprint 2",
       "prioridad": "P2",
       "estimacion": null,
@@ -221,9 +221,9 @@
       "asignados": [
         "jsstagno90"
       ],
-      "comentarios": 1,
+      "comentarios": 2,
       "creada": "2026-09-15T11:54:19Z",
-      "cerrada": null
+      "cerrada": "2026-09-28T16:59:27Z"
     },
     {
       "numero": 23,

@@ -295,9 +295,13 @@
     {
       "que": "¿Quién resuelve #67 y #75 esta semana?",
       "detalle": "Node sin fijar y health que no prueba una escritura — las dos causas raíz de las caídas del 25 y el 27. Nadie tiene un PR abierto para ninguna de las dos."
+    },
+    {
+      "que": "#40 (cobertura de medios) — el diagnóstico ya está, falta ejecutarlo. ¿Melanie lo cierra esta semana?",
+      "detalle": "Auditó los 23 medios uno por uno (HTTP, XML, profundidad real medida en Mongo): 6 para reactivar, 17 para retirar con motivo técnico, y solo 6 de 23 superan los 90 días que pide Sentidos. Nada de eso tocó feeds.ts todavía — es la mitad barata (analizar) hecha, falta la mitad de escribir el código."
     }
   ],
-  "pie": "Las tres cosas que se arreglaron esta semana y no eran visibles sin ejecutar código: los links de contraseña contra un host muerto, la migración del radar sin índices, y la fuga del roster de usuarios internos.",
+  "pie": "Las tres cosas que se arreglaron esta semana y no eran visibles sin ejecutar código: los links de contraseña contra un host muerto, la migración del radar sin índices, y la fuga del roster de usuarios internos. Cerradas hoy, sin código nuevo, solo verificando: #23 (el portal del cliente ya existía) y #22 (Juan ya lo había probado el 22-sep y escrito «Cierra #22» — nadie ejecutó el cierre). 37 de 39 quedan abiertas.",
   "personas": [
     {
       "quien": "Álvaro",
