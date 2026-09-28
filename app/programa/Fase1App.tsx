@@ -76,7 +76,10 @@ function Fila({ h, doc, overlay, sprint }: { h: Historia | undefined; doc?: Hist
       ) : (
         h && (
           <p className="mt-1 text-xs leading-relaxed text-white/35">
-            Entró después del kick-off, el {h.creada.slice(0, 10)}. Sin criterio acordado: se cierra cuando la issue se cierra.
+            {h.creada.slice(0, 10) > DOC._fecha
+              ? `Entró después del kick-off, el ${h.creada.slice(0, 10)}.`
+              : `Abierta el ${h.creada.slice(0, 10)}, no estaba en el kick-off.`}{' '}
+            Sin criterio acordado: se cierra cuando la issue se cierra.
           </p>
         )
       )}

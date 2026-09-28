@@ -59,7 +59,7 @@ export function Marco({
             <span className="text-xs uppercase tracking-[0.2em] text-white/30">
               Villelabs · Programa
             </span>
-            <span className="ml-auto text-xs text-white/30">
+            <span className="ml-auto text-xs text-white/30" suppressHydrationWarning>
               GitHub: {antiguedad(SNAP.generado)}
             </span>
           </div>
