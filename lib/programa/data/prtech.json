@@ -1,5 +1,5 @@
 {
-  "generado": "2026-09-28T16:59:36.406Z",
+  "generado": "2026-09-28T17:54:31.581Z",
   "slug": "prtech",
   "nombre": "PR Tech",
   "repo": "AlvaroEwaffle/prtech-ai",
@@ -276,7 +276,7 @@
       "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/32",
       "estado_github": "OPEN",
       "estado_board": "Backlog",
-      "sprint": null,
+      "sprint": "Sprint 3",
       "prioridad": null,
       "estimacion": null,
       "fase": "Fase 1 · La plataforma",
@@ -298,7 +298,7 @@
       "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/33",
       "estado_github": "OPEN",
       "estado_board": "Sprint Backlog",
-      "sprint": "Sprint 2",
+      "sprint": "Sprint 3",
       "prioridad": null,
       "estimacion": null,
       "fase": "Fase 1 · La plataforma",
@@ -652,7 +652,7 @@
       "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/50",
       "estado_github": "OPEN",
       "estado_board": "Backlog",
-      "sprint": null,
+      "sprint": "Sprint 2",
       "prioridad": null,
       "estimacion": null,
       "fase": "Fase 1 · La plataforma",
@@ -662,7 +662,7 @@
         "epic: cuestionario"
       ],
       "asignados": [
-        "AlvaroEwaffle"
+        "jsstagno90"
       ],
       "comentarios": 0,
       "creada": "2026-09-21T22:23:57Z",
@@ -674,7 +674,7 @@
       "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/51",
       "estado_github": "OPEN",
       "estado_board": "Backlog",
-      "sprint": null,
+      "sprint": "Sprint 2",
       "prioridad": null,
       "estimacion": null,
       "fase": "Fase 1 · La plataforma",
@@ -696,7 +696,7 @@
       "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/52",
       "estado_github": "OPEN",
       "estado_board": "Backlog",
-      "sprint": null,
+      "sprint": "Sprint 2",
       "prioridad": null,
       "estimacion": null,
       "fase": "Fase 1 · La plataforma",
@@ -718,7 +718,7 @@
       "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/53",
       "estado_github": "OPEN",
       "estado_board": "Backlog",
-      "sprint": null,
+      "sprint": "Sprint 3",
       "prioridad": null,
       "estimacion": null,
       "fase": "Fase 1 · La plataforma",
@@ -740,7 +740,7 @@
       "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/54",
       "estado_github": "OPEN",
       "estado_board": "Backlog",
-      "sprint": null,
+      "sprint": "Sprint 3",
       "prioridad": null,
       "estimacion": null,
       "fase": "Fase 1 · La plataforma",
@@ -783,7 +783,7 @@
       "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/56",
       "estado_github": "OPEN",
       "estado_board": "Backlog",
-      "sprint": null,
+      "sprint": "Sprint 3",
       "prioridad": null,
       "estimacion": null,
       "fase": "Fase 1 · La plataforma",
@@ -803,7 +803,7 @@
       "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/57",
       "estado_github": "OPEN",
       "estado_board": "Backlog",
-      "sprint": null,
+      "sprint": "Sprint 3",
       "prioridad": null,
       "estimacion": null,
       "fase": "Fase 1 · La plataforma",
@@ -825,7 +825,7 @@
       "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/58",
       "estado_github": "OPEN",
       "estado_board": "Backlog",
-      "sprint": null,
+      "sprint": "Sprint 3",
       "prioridad": null,
       "estimacion": null,
       "fase": "Fase 1 · La plataforma",
@@ -845,8 +845,8 @@
       "numero": 61,
       "titulo": "Pantalla de administración de usuarios para el Admin Cliente",
       "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/61",
-      "estado_github": "OPEN",
-      "estado_board": "Backlog",
+      "estado_github": "CLOSED",
+      "estado_board": "Done",
       "sprint": null,
       "prioridad": null,
       "estimacion": null,
@@ -858,9 +858,9 @@
         "fase: 1"
       ],
       "asignados": [],
-      "comentarios": 1,
+      "comentarios": 2,
       "creada": "2026-09-22T14:41:26Z",
-      "cerrada": null
+      "cerrada": "2026-09-28T17:53:43Z"
     },
     {
       "numero": 64,
@@ -929,7 +929,7 @@
       "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/68",
       "estado_github": "OPEN",
       "estado_board": "Backlog",
-      "sprint": null,
+      "sprint": "Sprint 3",
       "prioridad": null,
       "estimacion": null,
       "fase": "Fase 1 · La plataforma",
@@ -946,8 +946,8 @@
       "numero": 73,
       "titulo": "La landing es un blueprint técnico, y encima dice que el espejo muestra datos simulados",
       "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/73",
-      "estado_github": "OPEN",
-      "estado_board": "Backlog",
+      "estado_github": "CLOSED",
+      "estado_board": "Done",
       "sprint": null,
       "prioridad": null,
       "estimacion": null,
@@ -957,9 +957,9 @@
       "asignados": [
         "AlvaroEwaffle"
       ],
-      "comentarios": 0,
+      "comentarios": 1,
       "creada": "2026-09-24T11:59:19Z",
-      "cerrada": null
+      "cerrada": "2026-09-28T17:53:49Z"
     },
     {
       "numero": 74,
@@ -1045,8 +1045,8 @@
       "numero": 80,
       "titulo": "La pregunta de territorios es texto libre y el motor adivina los países con regex — debería ser multiselect",
       "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/80",
-      "estado_github": "OPEN",
-      "estado_board": "Backlog",
+      "estado_github": "CLOSED",
+      "estado_board": "Done",
       "sprint": null,
       "prioridad": null,
       "estimacion": null,
@@ -1056,9 +1056,9 @@
       "asignados": [
         "AlvaroEwaffle"
       ],
-      "comentarios": 0,
+      "comentarios": 1,
       "creada": "2026-09-24T19:08:55Z",
-      "cerrada": null
+      "cerrada": "2026-09-28T17:53:46Z"
     },
     {
       "numero": 84,

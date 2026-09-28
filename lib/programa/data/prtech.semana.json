@@ -299,6 +299,10 @@
     {
       "que": "#40 (cobertura de medios) — el diagnóstico ya está, falta ejecutarlo. ¿Melanie lo cierra esta semana?",
       "detalle": "Auditó los 23 medios uno por uno (HTTP, XML, profundidad real medida en Mongo): 6 para reactivar, 17 para retirar con motivo técnico, y solo 6 de 23 superan los 90 días que pide Sentidos. Nada de eso tocó feeds.ts todavía — es la mitad barata (analizar) hecha, falta la mitad de escribir el código."
+    },
+    {
+      "que": "Cerrado: prioridades de Sprint 2 por dueño, fijadas por Álvaro el 28-sep.",
+      "detalle": "Juan #50 (recién reasignado, era de Álvaro) · Melanie #95 y #52 · Álvaro #51 y #55. De paso, al validar #61 y #80 (Juan) y #73 (Álvaro) resultó que las tres ya estaban hechas — cerradas con evidencia, no ocuparon un lugar en el sprint. Todo lo que quedaba sin sprint y sin nombrar se movió a Sprint 3: #32, #33 (bajó de Sprint 2 — es el mismo cierre que ya proponía esta página), #53, #54, #56, #57, #58, #68."
     }
   ],
   "pie": "Las tres cosas que se arreglaron esta semana y no eran visibles sin ejecutar código: los links de contraseña contra un host muerto, la migración del radar sin índices, y la fuga del roster de usuarios internos. Cerradas hoy, sin código nuevo, solo verificando: #23 (el portal del cliente ya existía) y #22 (Juan ya lo había probado el 22-sep y escrito «Cierra #22» — nadie ejecutó el cierre). 37 de 39 quedan abiertas.",
@@ -311,20 +315,20 @@
         67,
         94
       ],
-      "meta": "El viernes un cliente genera su kit en producción y las cinco decisiones están cerradas.",
-      "aporte": "Sin motor no hay meta. Lo suyo es destrabar hoy, decidir el orden de entrada y mergear el tren libre y el #91. Los items marcados Vilo los ejecutan los agentes bajo su cuenta: la raíz de las dos caídas y la apuesta."
+      "meta": "El viernes: #51 y #55 hechos, y #67/#75 (las dos causas raíz) con dueño real.",
+      "aporte": "Prioridad fijada por Álvaro el 28-sep. Sin motor no hay meta: destrabar, decidir el orden de entrada, mergear el tren libre y el #91 ya está hecho. Quedan #51 (medir el embudo) y #55 (proveedor de correo, sigue devolviendo 503 en prod). Los items marcados Vilo los ejecutan los agentes bajo su cuenta: #67 y #75 son las dos causas raíz, sin PR todavía."
     },
     {
       "quien": "Juan",
       "login": "jsstagno90",
-      "meta": "El viernes el #86 entra después del #91 sin el bloqueante, y el PIN y el login ya no se fuerzan cambiando una cabecera.",
-      "aporte": "«Lo que ve es cierto» incluye que nadie vea lo que no le toca: el owner lock cierra la sala y los dos rate limits (#84 y #64) cierran la puerta de atrás. Como rebasó sobre el #91, es el segundo par de ojos natural para revisarlo."
+      "meta": "El viernes: #50 hecho, y #97/#98 mergeadas (owner lock + los dos rate limits).",
+      "aporte": "Prioridad fijada por Álvaro el 28-sep. #61 y #80 — las dos que pidió validar — ya estaban hechas: se cerraron hoy con evidencia, no le quedó trabajo ahí. Lo real que le queda es #50 (subir material en el cuestionario, recién asignado) y mergear lo que ya tiene listo: #97 (aprobado por él mismo) y #98 (su propia PR de seguridad, verificada)."
     },
     {
       "quien": "Melanie",
       "login": "Mel-Lopez21",
-      "meta": "El viernes el espejo dice la verdad sobre su ventana temporal (#48), el corpus separado de los matches (#47) está probado con datos reales, y un nombre ambiguo (Clip, Clara, Pomelo) ya no trae notas de otra cosa (#95).",
-      "aporte": "El espejo es lo primero que ve el cliente: la ventana honesta, el corpus separado y la desambiguación de nombres son «lo que ve es cierto» en su forma más literal. Los dos issues de seguridad que toma (#85 y #77) evitan que una cuenta pise a otra y que la contraseña del seed siga en el repo."
+      "meta": "El viernes: #95 y #52 hechos, #48 dice la verdad sobre su ventana, y #71 rebasado y probado en prtech-qa.",
+      "aporte": "Prioridad fijada por Álvaro el 28-sep: #95 (nombres ambiguos) y #52 (afinidad por tema, no por sector) entran a Sprint 2. Más lo que ya tenía: #48 (ventana honesta), #71 (corpus/matches, en conflicto), y los dos huecos de seguridad sin PR todavía — #85 y #77."
     }
   ]
 }
