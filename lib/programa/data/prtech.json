@@ -1,5 +1,5 @@
 {
-  "generado": "2026-09-28T14:30:19.715Z",
+  "generado": "2026-09-28T14:48:06.267Z",
   "slug": "prtech",
   "nombre": "PR Tech",
   "repo": "AlvaroEwaffle/prtech-ai",
@@ -606,7 +606,7 @@
       "titulo": "01.6 · Ventana temporal honesta en el espejo",
       "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/48",
       "estado_github": "OPEN",
-      "estado_board": "In review",
+      "estado_board": "Sprint Backlog",
       "sprint": "Sprint 2",
       "prioridad": null,
       "estimacion": null,
@@ -1151,7 +1151,7 @@
       "borrador": false,
       "aprobado": false,
       "abierta": "2026-09-28T14:18:57Z",
-      "tocada": "2026-09-28T14:18:57Z",
+      "tocada": "2026-09-28T14:42:50Z",
       "etiquetas": []
     },
     {
