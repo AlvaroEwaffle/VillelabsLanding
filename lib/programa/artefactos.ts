@@ -39,6 +39,15 @@ export const FRESCURA: Record<Frescura, { etiqueta: string; detalle: string }> =
 
 export const ARTEFACTOS: Artefacto[] = [
   {
+    slug: 'semana',
+    titulo: 'Plan de la semana',
+    bajada: 'Qué entra, en qué orden y quién lo toma. El orden sale del mapa de colisiones entre ramas.',
+    pregunta: '¿Qué tomo ahora, y qué tiene que pasar antes?',
+    frescura: 'mixto',
+    fuente: 'Estado del repo `prtech-ai` · se reescribe cada lunes',
+    icono: 'semana',
+  },
+  {
     slug: 'sesion',
     titulo: 'Sesión de sprint',
     bajada: 'Agenda, review, retro y pre-planning del cierre de sprint, en slides.',

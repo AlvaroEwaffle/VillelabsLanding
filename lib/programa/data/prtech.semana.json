@@ -1,0 +1,251 @@
+{
+  "_revisado": "28-sep-2026 · estado tomado del repositorio prtech-ai: 10 PRs abiertas, 39 issues, mapa de colisiones calculado sobre los archivos de cada rama",
+  "sprint": "Sprint 2",
+  "semana": "28 de septiembre — 4 de octubre",
+  "meta": "Un cliente entra solo, de punta a punta, y lo que ve es cierto.",
+  "estado": [
+    {
+      "etiqueta": "El motor de producción",
+      "valor": "Caído",
+      "tono": "roto",
+      "pie": "POST /api/generate devuelve 401 de Anthropic. Sin kit no hay producto, y sin producto la meta del sprint es inalcanzable."
+    },
+    {
+      "etiqueta": "PRs abiertas",
+      "valor": "10",
+      "tono": "riesgo",
+      "pie": "Cinco pueden entrar hoy sin tocarse entre sí. Cuatro esperan a la misma rama."
+    },
+    {
+      "etiqueta": "Seguridad sin dueño",
+      "valor": "4",
+      "tono": "riesgo",
+      "pie": "#64, #77, #84 y #85. Baratos de arreglar, caros de explicar."
+    },
+    {
+      "etiqueta": "Caídas que detectó un test",
+      "valor": "0 de 2",
+      "tono": "roto",
+      "pie": "Dos caídas esta semana. Las dos las encontró una persona mirando una pantalla."
+    }
+  ],
+  "lectura": "Lo que más pesa de este sprint no es una funcionalidad. El 25 el espejo estuvo 10 horas caído y nos enteramos por una pantalla en blanco. El 27 el motor lleva horas devolviendo 502 y nos enteramos porque alguien lo probó a mano. Dos veces el mismo patrón: el sistema falla y no lo dice. La meta del sprint —lo que ve es cierto— empieza por que nosotros sepamos cuándo deja de serlo.",
+  "bloques": [
+    {
+      "n": "01",
+      "titulo": "Destrabar",
+      "cuando": "hoy, antes que nada",
+      "bajada": "Nada de lo demás importa mientras un cliente no pueda generar su kit. Las dos son de Álvaro y suman quince minutos.",
+      "items": [
+        {
+          "id": "P0",
+          "quien": "Álvaro",
+          "tono": "roto",
+          "que": "Clave válida de Anthropic en Railway",
+          "detalle": "Dos de las claves guardadas en el repo devuelven 401 «API key is invalid». Si Railway tiene una de ésas, es la causa. Hasta que no haya clave válida, el flujo de punta a punta no existe."
+        },
+        {
+          "id": "P0",
+          "quien": "Álvaro",
+          "tono": "roto",
+          "que": "railway login · el CLI expiró en las dos sesiones",
+          "detalle": "Sin esto nadie puede leer logs ni confirmar la causa. Es interactivo: no lo puede hacer un agente."
+        }
+      ]
+    },
+    {
+      "n": "02",
+      "titulo": "El tren libre",
+      "cuando": "cinco PRs sin conflicto entre sí",
+      "bajada": "Ninguna toca un archivo que toque otra. Pueden entrar hoy, en este orden, y sacan de la cola cinco cosas terminadas.",
+      "pasos": [
+        {
+          "que": "#87 · el autoguardado deja de perder respuestas",
+          "detalle": "Bug de pérdida de datos real: se perdieron tres páginas del cuestionario. Probado en navegador con Playwright, cuatro casos."
+        },
+        {
+          "que": "#83 · texto neutro en el alta",
+          "detalle": "Va después del #87 a propósito: hace fallar cerrado al autoguardado, y sin el #87 ese 404 se pierde en silencio."
+        },
+        {
+          "que": "#90 · forgot-password deja de prometer un correo que no sale",
+          "detalle": "Cierra el #55. Además: sin PRTECH_PUBLIC_URL, configurar Resend habría mandado todos los links a una app que no existe."
+        },
+        {
+          "que": "#92 · un motor mal configurado deja de decir «Try again»",
+          "detalle": "No arregla la caída: la vuelve visible. Agrega engineKey a /api/health."
+        },
+        {
+          "que": "#88 · catálogo de 906 startups + la medición",
+          "detalle": "Solo datos, nada lo importa. Es el conjunto de validaciones del deck."
+        }
+      ]
+    },
+    {
+      "n": "03",
+      "titulo": "El tren grande",
+      "cuando": "el #91 es el pivote",
+      "bajada": "El #91 toca 99 archivos y choca con cuatro PRs. El orden no es opinable: o entra primero y el resto rebasa, o se bloquea solo.",
+      "items": [
+        {
+          "id": "#91",
+          "quien": "Álvaro",
+          "tono": "riesgo",
+          "etiqueta": "pivote",
+          "que": "Cockpit, marca y consola",
+          "detalle": "99 archivos, integra el #89. Antes de mergear: alguien distinto de quien lo escribió tiene que revisarlo. Es mucho código para entrar sin segundo par de ojos."
+        },
+        {
+          "id": "#86",
+          "quien": "Juan",
+          "tono": "roto",
+          "etiqueta": "1 bloqueante",
+          "que": "Owner lock, borrar usuarios, pestañas",
+          "detalle": "Ya rebasado como juan/86-sobre-cockpit. Falta: la sesión no se relee tras borrar a alguien, así que su cookie sirve 8 horas más y puede recrearse la cuenta. El isOwner reversible y la fuga del roster ya están resueltos."
+        },
+        {
+          "id": "#93",
+          "quien": "Melanie",
+          "tono": "riesgo",
+          "etiqueta": "colisión",
+          "que": "Ventana temporal honesta en el espejo (#48)",
+          "detalle": "Toca mirror-client.tsx, el archivo que el #91 reescribe entero. Decidir ya: se rebasa después o se aplica dentro. Rebasar un archivo reescrito es rehacerlo."
+        },
+        {
+          "id": "#71",
+          "quien": "Melanie",
+          "tono": "riesgo",
+          "etiqueta": "falta probar",
+          "que": "Separar corpus de matches (#47)",
+          "detalle": "Tres bugs de fondo ya corregidos: índices ausentes, la cola que no avanzaba y el $in con techo a los 133.000 artículos. Falta aplicar la migración en prtech-qa y verificar la inanición con datos reales."
+        }
+      ]
+    },
+    {
+      "n": "04",
+      "titulo": "Seguridad",
+      "cuando": "cuatro issues sin dueño",
+      "bajada": "Baratos de arreglar, caros de explicar. Ninguno tiene asignado.",
+      "items": [
+        {
+          "id": "#84",
+          "quien": "—",
+          "tono": "roto",
+          "que": "El rate limit confía en X-Forwarded-For del cliente",
+          "detalle": "El PIN de sala se puede probar por fuerza bruta cambiando una cabecera."
+        },
+        {
+          "id": "#64",
+          "quien": "—",
+          "tono": "roto",
+          "que": "Lo mismo en el login",
+          "detalle": "Mismo mecanismo, misma línea de arreglo. Conviene resolverlos juntos."
+        },
+        {
+          "id": "#85",
+          "quien": "—",
+          "tono": "riesgo",
+          "que": "POST /api/mirror hace upsert por slug sin filtrar companyId",
+          "detalle": "Una cuenta puede pisar el snapshot de otra."
+        },
+        {
+          "id": "#77",
+          "quien": "—",
+          "tono": "riesgo",
+          "que": "El seed trae una contraseña fija, versionada en el repo",
+          "detalle": "Está en el historial de git. Rotarla no basta: hay que sacarla del código."
+        }
+      ]
+    },
+    {
+      "n": "05",
+      "titulo": "Que no vuelva a pasar",
+      "cuando": "la raíz, no el síntoma",
+      "bajada": "Dos caídas en tres días, ninguna detectada por el sistema. Esto es lo que cambia el patrón.",
+      "items": [
+        {
+          "id": "#75",
+          "quien": "—",
+          "tono": "roto",
+          "etiqueta": "raíz",
+          "que": "CI y un health que pruebe una escritura, no un 200",
+          "detalle": "El 25, /api/health devolvía 200 mientras la base rechazaba toda escritura. Un GET sano es exactamente la señal falsa que costó 10 horas. El health tiene que escribir algo y borrarlo."
+        },
+        {
+          "id": "nuevo",
+          "quien": "decide Álvaro",
+          "tono": "riesgo",
+          "que": "Alerta cuando el motor esté mal configurado",
+          "detalle": "El #92 hace que el 503 diga la verdad, pero nadie se entera igual. Un notify() lo avisa. Manda mensajes hacia afuera, así que necesita un sí explícito."
+        },
+        {
+          "id": "#67",
+          "quien": "—",
+          "tono": "riesgo",
+          "que": "El repo no fija la versión de Node",
+          "detalle": "Railway la elige. Un cambio silencioso de versión es otra caída que nadie ve venir."
+        }
+      ]
+    },
+    {
+      "n": "06",
+      "titulo": "Producto",
+      "cuando": "si sobra semana",
+      "bajada": "Nada de esto entra antes que lo de arriba.",
+      "items": [
+        {
+          "id": "#80",
+          "quien": "Álvaro",
+          "tono": "ok",
+          "que": "Territorios como multiselect",
+          "detalle": "Diseño ya cerrado: el multiselect es obligatorio, el primero de la lista es el mercado principal con badge, y la pantalla lo dice. Sin eso el motor afirma «tu mercado principal» sobre un orden de casillas que nadie eligió."
+        },
+        {
+          "id": "#50",
+          "quien": "Álvaro",
+          "tono": "ok",
+          "que": "Subir material adicional en el cuestionario",
+          "detalle": ""
+        },
+        {
+          "id": "#51",
+          "quien": "Álvaro",
+          "tono": "ok",
+          "que": "Medir el embudo",
+          "detalle": "Hoy no sabemos dónde se cae la gente."
+        },
+        {
+          "id": "#33",
+          "quien": "Álvaro",
+          "tono": "ok",
+          "etiqueta": "decisión",
+          "que": "Definición de precio y qué desbloquea el pago",
+          "detalle": "La landing del #91 sale sin precio, solo free preview. Esto define qué viene después."
+        }
+      ]
+    }
+  ],
+  "decisiones": [
+    {
+      "que": "¿El #93 de Melanie se rebasa después del #91, o se aplica dentro?",
+      "detalle": "Rebasar un archivo reescrito entero es rehacer el trabajo. Recomendación: aplicarlo dentro del #91 antes de mergear."
+    },
+    {
+      "que": "¿Quién revisa el #91?",
+      "detalle": "99 archivos a producción. La política pide QA de alguien distinto del que desarrolló."
+    },
+    {
+      "que": "¿Se aplica la migración del #71 en prtech-qa?",
+      "detalle": "Aditivo y reversible. Medido: 37,9 MB de 512 usados, sumaría unos 37. Es base compartida con Juan y Melanie."
+    },
+    {
+      "que": "¿Se agrega la alerta del motor?",
+      "detalle": "Manda mensajes hacia afuera, así que no sale sin un sí."
+    },
+    {
+      "que": "Los cuatro issues de seguridad no tienen dueño. ¿Juan, Melanie o un agente?",
+      "detalle": "Los cuatro son de un día de trabajo entre todos."
+    }
+  ],
+  "pie": "Las tres cosas que se arreglaron esta semana y no eran visibles sin ejecutar código: los links de contraseña contra un host muerto, la migración del radar sin índices, y la fuga del roster de usuarios internos."
+}
