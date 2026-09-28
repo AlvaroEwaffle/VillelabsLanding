@@ -268,8 +268,8 @@
     }
   ],
   "estado": {
-    "fecha": "28-sep-2026",
-    "lectura": "La plataforma existe y aguanta: roles y permisos, cuenta de cliente en vez de PIN, aislamiento entre cuentas y un espejo que ya no inventa. Lo que falta no es plataforma, es negocio: nadie puede pagar, ningún correo sale y no hay base legal para escribirle a un periodista real. Además entraron 14 historias que el kick-off no tenía —seguridad, CI, autoguardado, la apuesta web-first— y son trabajo de esta fase aunque nadie las había contado.",
+    "fecha": "28-sep-2026, cierre del día",
+    "lectura": "La plataforma existe, aguanta y ya está en producción: hoy entraron a main el cockpit (#91), el espejo web-first (#96) y cinco fixes, Railway los desplegó solo, y el motor volvió a generar kits tras reemplazar la clave de Anthropic. Ewaffle y Fidelidapp ya tienen cuenta real con kit y periodistas. Lo que falta no es plataforma, es negocio: nadie puede pagar, ningún correo sale y no hay base legal para escribirle a un periodista real. Además entraron 15 historias que el kick-off no tenía (seguridad, CI, autoguardado, la apuesta, los nombres ambiguos) y son trabajo de esta fase aunque nadie las había contado.",
     "huecos": [
       {
         "titulo": "Cobrar",
@@ -286,7 +286,7 @@
           52,
           56
         ],
-        "detalle": "El módulo de difusión está construido y probado, y no tiene credenciales. El charter ya lo llama el rojo más grande de la fase."
+        "detalle": "El módulo de difusión está construido y probado, y no tiene credenciales. El #90 hizo honesto el error (503 en vez de prometer un correo), pero el proveedor sigue sin configurar: #55 vuelve a «por tomar»."
       },
       {
         "titulo": "Base legal (Ley 1581)",
