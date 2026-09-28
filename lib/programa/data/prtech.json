@@ -1,5 +1,5 @@
 {
-  "generado": "2026-09-28T11:46:08.731Z",
+  "generado": "2026-09-28T12:27:39.195Z",
   "slug": "prtech",
   "nombre": "PR Tech",
   "repo": "AlvaroEwaffle/prtech-ai",
@@ -871,7 +871,7 @@
       "sprint": "Sprint 2",
       "prioridad": null,
       "estimacion": null,
-      "fase": null,
+      "fase": "Fase 1 · La plataforma",
       "fase_vence": null,
       "etiquetas": [
         "bug"
@@ -892,7 +892,7 @@
       "sprint": null,
       "prioridad": null,
       "estimacion": null,
-      "fase": null,
+      "fase": "Fase 1 · La plataforma",
       "fase_vence": null,
       "etiquetas": [
         "bug"
@@ -913,7 +913,7 @@
       "sprint": "Sprint 2",
       "prioridad": null,
       "estimacion": null,
-      "fase": null,
+      "fase": "Fase 1 · La plataforma",
       "fase_vence": null,
       "etiquetas": [],
       "asignados": [
@@ -932,7 +932,7 @@
       "sprint": null,
       "prioridad": null,
       "estimacion": null,
-      "fase": null,
+      "fase": "Fase 1 · La plataforma",
       "fase_vence": null,
       "etiquetas": [],
       "asignados": [
@@ -951,7 +951,7 @@
       "sprint": null,
       "prioridad": null,
       "estimacion": null,
-      "fase": null,
+      "fase": "Fase 1 · La plataforma",
       "fase_vence": null,
       "etiquetas": [],
       "asignados": [
@@ -970,7 +970,7 @@
       "sprint": null,
       "prioridad": null,
       "estimacion": null,
-      "fase": null,
+      "fase": "Fase 1 · La plataforma",
       "fase_vence": null,
       "etiquetas": [],
       "asignados": [
@@ -989,7 +989,7 @@
       "sprint": "Sprint 2",
       "prioridad": null,
       "estimacion": null,
-      "fase": null,
+      "fase": "Fase 1 · La plataforma",
       "fase_vence": null,
       "etiquetas": [],
       "asignados": [
@@ -1008,7 +1008,7 @@
       "sprint": "Sprint 2",
       "prioridad": null,
       "estimacion": null,
-      "fase": null,
+      "fase": "Fase 1 · La plataforma",
       "fase_vence": null,
       "etiquetas": [
         "bug"
@@ -1029,7 +1029,7 @@
       "sprint": "Sprint 2",
       "prioridad": null,
       "estimacion": null,
-      "fase": null,
+      "fase": "Fase 1 · La plataforma",
       "fase_vence": null,
       "etiquetas": [
         "bug"
@@ -1050,7 +1050,7 @@
       "sprint": null,
       "prioridad": null,
       "estimacion": null,
-      "fase": null,
+      "fase": "Fase 1 · La plataforma",
       "fase_vence": null,
       "etiquetas": [],
       "asignados": [
@@ -1069,7 +1069,7 @@
       "sprint": "Sprint 2",
       "prioridad": null,
       "estimacion": null,
-      "fase": null,
+      "fase": "Fase 1 · La plataforma",
       "fase_vence": null,
       "etiquetas": [],
       "asignados": [
@@ -1088,7 +1088,7 @@
       "sprint": "Sprint 2",
       "prioridad": null,
       "estimacion": null,
-      "fase": null,
+      "fase": "Fase 1 · La plataforma",
       "fase_vence": null,
       "etiquetas": [],
       "asignados": [
@@ -1107,9 +1107,10 @@
       "sprint": "Sprint 2",
       "prioridad": null,
       "estimacion": null,
-      "fase": null,
+      "fase": "Fase 1 · La plataforma",
       "fase_vence": null,
       "etiquetas": [
+        "fase: 1",
         "epic: espejo-y-registro"
       ],
       "asignados": [
