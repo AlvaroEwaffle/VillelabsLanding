@@ -6,9 +6,9 @@
   "estado": [
     {
       "etiqueta": "El motor de producción",
-      "valor": "Caído",
-      "tono": "roto",
-      "pie": "POST /api/generate devuelve 502 en producción. La causa más probable es una clave de Anthropic inválida (las dos guardadas en el repo dan 401), sin confirmar hasta leer los logs de Railway. Sin kit no hay producto."
+      "valor": "Arriba",
+      "tono": "ok",
+      "pie": "Desde el 28-sep 11:20: clave de Anthropic válida en Railway (la anterior daba 401) y variable de workspace borrada. Dos kits reales generados en producción en ~10 s cada uno."
     },
     {
       "etiqueta": "PRs abiertas",
@@ -29,27 +29,27 @@
       "pie": "Dos caídas esta semana. Las dos las encontró una persona mirando una pantalla."
     }
   ],
-  "lectura": "Lo que más pesa de este sprint no es una funcionalidad. El 25 el espejo estuvo 10 horas caído y nos enteramos por una pantalla en blanco. Desde el 27 el motor devuelve 502 y nos enteramos porque alguien lo probó a mano. Dos veces el mismo patrón: el sistema falla y no lo dice. La meta del sprint —lo que ve es cierto— empieza por que nosotros sepamos cuándo deja de serlo.",
+  "lectura": "Lo que más pesaba de este sprint ya no es una funcionalidad: el motor de producción estuvo caído del 27 al 28 por una clave inválida, y el 25 el espejo estuvo 10 horas caído. Las dos veces nos enteramos por una persona mirando una pantalla. El motor ya está arriba; lo que sigue es que el sistema avise solo (#75) para que no se repita.",
   "bloques": [
     {
       "n": "01",
       "titulo": "Destrabar",
-      "cuando": "hoy, antes que nada",
-      "bajada": "Nada de lo demás importa mientras un cliente no pueda generar su kit. Las dos son de Álvaro y suman quince minutos.",
+      "cuando": "hecho el 28-sep",
+      "bajada": "Las dos se hicieron el 28-sep: railway login (Álvaro) y clave válida (Vilo). El motor de producción genera kits.",
       "items": [
         {
           "id": "P0",
           "quien": "Álvaro",
-          "tono": "roto",
-          "que": "Clave válida de Anthropic en Railway",
-          "detalle": "Dos de las claves guardadas en el repo devuelven 401 «API key is invalid». Si Railway tiene una de ésas, es la causa. Hasta que no haya clave válida, el flujo de punta a punta no existe."
+          "tono": "ok",
+          "que": "Clave válida de Anthropic en Railway · hecho",
+          "detalle": "Confirmado: la que había daba 401 y la buena da 200. Reemplazada el 28-sep; además se borró ANTHROPIC_WORKSPACE_ID, que hacía fallar a la clave buena. Probado con dos kits reales (Ewaffle, Fidelidapp)."
         },
         {
           "id": "P0",
           "quien": "Álvaro",
-          "tono": "roto",
-          "que": "railway login · el CLI expiró en las dos sesiones",
-          "detalle": "Sin esto nadie puede leer logs ni confirmar la causa. Es interactivo: no lo puede hacer un agente."
+          "tono": "ok",
+          "que": "railway login · hecho",
+          "detalle": "Álvaro lo hizo el 28-sep. Con eso se leyeron las variables y se confirmó la causa."
         }
       ]
     },
@@ -279,8 +279,8 @@
       "detalle": "Decidido el 28-sep. Ojo: la apuesta no cubre del todo el #48, la cabecera sigue afirmando «últimos N días» con una constante; por eso el issue queda abierto y re-alcanzado."
     },
     {
-      "que": "¿Se despliega producción ahora, con el motor caído?",
-      "detalle": "main tiene el cockpit, la apuesta y los cinco fixes; producción sigue con la versión vieja y sin clave válida. Recomendación: clave primero, deploy después, el mismo día."
+      "que": "Cerrado: producción ya corre main con la clave buena.",
+      "detalle": "Railway despliega solo desde main (verificado: el merge del #88 salió a las 11:02). Con la clave nueva el motor genera kits. No hay deploy manual pendiente."
     },
     {
       "que": "¿Se aplica la migración del #71 en prtech-qa?",
