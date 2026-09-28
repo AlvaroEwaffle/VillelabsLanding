@@ -78,16 +78,18 @@ function Etiqueta({ tono, children }: { tono: Tono; children: React.ReactNode })
 
 function Fila({ it }: { it: Item }) {
   return (
-    <div className="flex gap-4 border-b border-white/[0.055] py-3.5 last:border-0">
-      <div className="w-14 shrink-0 pt-0.5 text-[13px] font-semibold text-[#4da3cc]">{it.id}</div>
-      <div className="w-24 shrink-0 pt-0.5 text-[13px] text-white/70">{it.quien}</div>
+    <div className="flex flex-col gap-1.5 border-b border-white/[0.055] py-3.5 last:border-0 sm:flex-row sm:gap-4">
+      <div className="flex items-baseline gap-3 sm:contents">
+        <div className="text-[13px] font-semibold text-[#4da3cc] sm:w-14 sm:shrink-0 sm:pt-0.5">{it.id}</div>
+        <div className="text-[13px] text-white/70 sm:w-24 sm:shrink-0 sm:pt-0.5">{it.quien}</div>
+      </div>
       <div className="min-w-0 flex-1">
         <div className="flex flex-wrap items-center gap-2">
           <span className="text-[14px] text-white/90">{it.que}</span>
           {it.etiqueta && <Etiqueta tono={it.tono ?? 'ok'}>{it.etiqueta}</Etiqueta>}
         </div>
         {it.detalle && (
-          <p className="mt-1 text-[12.5px] leading-relaxed text-white/40">{it.detalle}</p>
+          <p className="mt-1 text-[13.5px] leading-relaxed text-white/45">{it.detalle}</p>
         )}
       </div>
     </div>
@@ -116,7 +118,7 @@ export default function SemanaApp({ llave }: { llave: string }) {
           <div key={e.etiqueta} className="rounded-lg border border-white/10 bg-white/[0.028] p-4">
             <p className={`font-serif text-[26px] leading-none ${TONO_CIFRA[e.tono]}`}>{e.valor}</p>
             <p className="mt-2 text-[12px] font-medium text-white/60">{e.etiqueta}</p>
-            <p className="mt-1.5 text-[11.5px] leading-relaxed text-white/35">{e.pie}</p>
+            <p className="mt-1.5 text-[12.5px] leading-relaxed text-white/40">{e.pie}</p>
           </div>
         ))}
       </div>
@@ -151,7 +153,7 @@ export default function SemanaApp({ llave }: { llave: string }) {
                   <div className="min-w-0">
                     <p className="text-[13.5px] text-white/90">{p.que}</p>
                     {p.detalle && (
-                      <p className="mt-0.5 text-[12.5px] leading-relaxed text-white/40">{p.detalle}</p>
+                      <p className="mt-0.5 text-[13.5px] leading-relaxed text-white/45">{p.detalle}</p>
                     )}
                   </div>
                 </div>
@@ -172,7 +174,7 @@ export default function SemanaApp({ llave }: { llave: string }) {
       <section className="mb-12">
         <h2 className="font-serif text-[21px] text-white">
           <span className="mr-2.5 font-sans text-[14px] font-semibold tracking-wide text-[#4da3cc]">
-            07
+            {String(DOC.bloques.length + 1).padStart(2, '0')}
           </span>
           Lo que necesita decisión
         </h2>
@@ -188,7 +190,7 @@ export default function SemanaApp({ llave }: { llave: string }) {
               </div>
               <div className="min-w-0 flex-1">
                 <p className="text-[14px] text-white/90">{d.que}</p>
-                <p className="mt-1 text-[12.5px] leading-relaxed text-white/40">{d.detalle}</p>
+                <p className="mt-1 text-[13.5px] leading-relaxed text-white/45">{d.detalle}</p>
               </div>
             </div>
           ))}

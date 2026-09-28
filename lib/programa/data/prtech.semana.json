@@ -1,5 +1,5 @@
 {
-  "_revisado": "28-sep-2026 · estado tomado del repositorio prtech-ai: 10 PRs abiertas, 39 issues, mapa de colisiones calculado sobre los archivos de cada rama",
+  "_revisado": "28-sep-2026 · estado tomado del repositorio prtech-ai (10 PRs abiertas, 39 issues, mapa de colisiones sobre los archivos de cada rama) más la apuesta espejo web-first, que todavía no tiene PR. Dueños verificados contra GitHub el 28-sep.",
   "sprint": "Sprint 2",
   "semana": "28 de septiembre — 4 de octubre",
   "meta": "Un cliente entra solo, de punta a punta, y lo que ve es cierto.",
@@ -8,7 +8,7 @@
       "etiqueta": "El motor de producción",
       "valor": "Caído",
       "tono": "roto",
-      "pie": "POST /api/generate devuelve 401 de Anthropic. Sin kit no hay producto, y sin producto la meta del sprint es inalcanzable."
+      "pie": "POST /api/generate devuelve 502 en producción. La causa más probable es una clave de Anthropic inválida (las dos guardadas en el repo dan 401), sin confirmar hasta leer los logs de Railway. Sin kit no hay producto."
     },
     {
       "etiqueta": "PRs abiertas",
@@ -18,9 +18,9 @@
     },
     {
       "etiqueta": "Seguridad sin dueño",
-      "valor": "4",
+      "valor": "2",
       "tono": "riesgo",
-      "pie": "#64, #77, #84 y #85. Baratos de arreglar, caros de explicar."
+      "pie": "#84 y #85 no tienen dueño. #64 y #77 son de Álvaro desde el 23 y el 24-sep. Baratos de arreglar, caros de explicar."
     },
     {
       "etiqueta": "Caídas que detectó un test",
@@ -29,7 +29,7 @@
       "pie": "Dos caídas esta semana. Las dos las encontró una persona mirando una pantalla."
     }
   ],
-  "lectura": "Lo que más pesa de este sprint no es una funcionalidad. El 25 el espejo estuvo 10 horas caído y nos enteramos por una pantalla en blanco. El 27 el motor lleva horas devolviendo 502 y nos enteramos porque alguien lo probó a mano. Dos veces el mismo patrón: el sistema falla y no lo dice. La meta del sprint —lo que ve es cierto— empieza por que nosotros sepamos cuándo deja de serlo.",
+  "lectura": "Lo que más pesa de este sprint no es una funcionalidad. El 25 el espejo estuvo 10 horas caído y nos enteramos por una pantalla en blanco. Desde el 27 el motor devuelve 502 y nos enteramos porque alguien lo probó a mano. Dos veces el mismo patrón: el sistema falla y no lo dice. La meta del sprint —lo que ve es cierto— empieza por que nosotros sepamos cuándo deja de serlo.",
   "bloques": [
     {
       "n": "01",
@@ -123,9 +123,49 @@
     },
     {
       "n": "04",
+      "titulo": "La apuesta",
+      "cuando": "espejo web-first · corta el 2-oct",
+      "bajada": "Ciclo de innovación registrado el 27-sep. No aparece entre las PRs porque no se pushea hasta que pase la aceptación: vive en la rama feat/espejo-web-first, corre en local y en la copia de producción del túnel. Validada antes de construir: de 10 startups conocidas el corpus veía 5, la web 10.",
+      "items": [
+        {
+          "id": "S1–S2",
+          "quien": "Vilo",
+          "tono": "ok",
+          "etiqueta": "listo en local",
+          "que": "El espejo busca primero en la web (Google News + Bing) y el corpus corre al lado, con 4 s de tope",
+          "detalle": "Circuit breaker ya pasado: el 85 % de las notas de medios principales trae firma. El lead no ve de dónde salió cada mención, solo si aparece o no."
+        },
+        {
+          "id": "S3–S4",
+          "quien": "Vilo",
+          "tono": "ok",
+          "etiqueta": "listo en local",
+          "que": "Registro de búsquedas y lector de notas en segundo plano",
+          "detalle": "Cada búsqueda queda guardada; el lector resuelve los links de Google News (150 de 150) y lee lo pendiente sin bloquear al espejo."
+        },
+        {
+          "id": "S5–S6",
+          "quien": "Vilo",
+          "tono": "ok",
+          "etiqueta": "listo en local",
+          "que": "Periodistas derivados de las firmas, job nocturno y cifras públicas",
+          "detalle": "El corpus de 606 periodistas se mantiene; las firmas nuevas se derivan del registro, los dormidos salen del match y un job nocturno reintenta lo que falló. Consola en /team/radar."
+        },
+        {
+          "id": "PO",
+          "quien": "Álvaro",
+          "tono": "riesgo",
+          "etiqueta": "decisión",
+          "que": "Aceptación A1–A12 y recién ahí push como PR sobre el #91",
+          "detalle": "Reescribe la misma ruta del espejo que tocan el #93 y el #71, así que entra después del #91 y esos dos se rebasan sobre ella. Sin push hasta PASS del PO y ok explícito."
+        }
+      ]
+    },
+    {
+      "n": "05",
       "titulo": "Seguridad",
-      "cuando": "cuatro issues sin dueño",
-      "bajada": "Baratos de arreglar, caros de explicar. Ninguno tiene asignado.",
+      "cuando": "dos sin dueño",
+      "bajada": "Baratos de arreglar, caros de explicar. #64 y #77 ya son de Álvaro; #84 y #85 no tienen a nadie.",
       "items": [
         {
           "id": "#84",
@@ -136,7 +176,7 @@
         },
         {
           "id": "#64",
-          "quien": "—",
+          "quien": "Álvaro",
           "tono": "roto",
           "que": "Lo mismo en el login",
           "detalle": "Mismo mecanismo, misma línea de arreglo. Conviene resolverlos juntos."
@@ -150,7 +190,7 @@
         },
         {
           "id": "#77",
-          "quien": "—",
+          "quien": "Álvaro",
           "tono": "riesgo",
           "que": "El seed trae una contraseña fija, versionada en el repo",
           "detalle": "Está en el historial de git. Rotarla no basta: hay que sacarla del código."
@@ -158,14 +198,14 @@
       ]
     },
     {
-      "n": "05",
+      "n": "06",
       "titulo": "Que no vuelva a pasar",
       "cuando": "la raíz, no el síntoma",
       "bajada": "Dos caídas en tres días, ninguna detectada por el sistema. Esto es lo que cambia el patrón.",
       "items": [
         {
           "id": "#75",
-          "quien": "—",
+          "quien": "Álvaro",
           "tono": "roto",
           "etiqueta": "raíz",
           "que": "CI y un health que pruebe una escritura, no un 200",
@@ -180,7 +220,7 @@
         },
         {
           "id": "#67",
-          "quien": "—",
+          "quien": "Álvaro",
           "tono": "riesgo",
           "que": "El repo no fija la versión de Node",
           "detalle": "Railway la elige. Un cambio silencioso de versión es otra caída que nadie ve venir."
@@ -188,7 +228,7 @@
       ]
     },
     {
-      "n": "06",
+      "n": "07",
       "titulo": "Producto",
       "cuando": "si sobra semana",
       "bajada": "Nada de esto entra antes que lo de arriba.",
@@ -228,7 +268,7 @@
   "decisiones": [
     {
       "que": "¿El #93 de Melanie se rebasa después del #91, o se aplica dentro?",
-      "detalle": "Rebasar un archivo reescrito entero es rehacer el trabajo. Recomendación: aplicarlo dentro del #91 antes de mergear."
+      "detalle": "Rebasar un archivo reescrito entero es rehacer el trabajo, y la apuesta web-first vuelve a reescribir esa ruta. Recomendación: aplicarlo dentro del #91 antes de mergear, y la apuesta rebasa sobre eso."
     },
     {
       "que": "¿Quién revisa el #91?",
@@ -243,8 +283,8 @@
       "detalle": "Manda mensajes hacia afuera, así que no sale sin un sí."
     },
     {
-      "que": "Los cuatro issues de seguridad no tienen dueño. ¿Juan, Melanie o un agente?",
-      "detalle": "Los cuatro son de un día de trabajo entre todos."
+      "que": "#84 y #85 no tienen dueño. ¿Juan, Melanie o un agente?",
+      "detalle": "#64 y #77 ya son de Álvaro. Los cuatro juntos son un día de trabajo."
     }
   ],
   "pie": "Las tres cosas que se arreglaron esta semana y no eran visibles sin ejecutar código: los links de contraseña contra un host muerto, la migración del radar sin índices, y la fuga del roster de usuarios internos."
