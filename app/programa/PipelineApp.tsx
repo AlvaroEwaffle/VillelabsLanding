@@ -217,18 +217,85 @@ function ListaNotas({ items }: { items: string[] }) {
   );
 }
 
+/** Cada paso, con el concepto general arriba y la realidad de PR Tech abajo. */
+function PasoExplicado({ paso, color }: { paso: (typeof PASOS_EXPLICADOS)[number]; color: string }) {
+  return (
+    <li className="rounded-xl border border-white/10 bg-white/[0.03] p-3.5" style={{ borderLeft: `3px solid ${color}` }}>
+      <div className="flex items-baseline gap-2">
+        <span className="font-mono text-xs text-white/30">{paso.n}</span>
+        <h3 className="text-sm font-medium" style={{ color }}>
+          {paso.concepto}
+        </h3>
+      </div>
+      <p className="mt-1 text-xs leading-relaxed text-white/50">{paso.que}</p>
+      <Parrafo texto={paso.aca} className="mt-1.5 text-xs leading-relaxed text-white/75" />
+    </li>
+  );
+}
+
 const NOTAS_ARQUITECTURA = [
+  'Patrón: servicios separados que comparten una base de datos, no un monolito — así `radar-engine` puede fallar o reiniciarse sin tumbar la app.',
   'Local: Node 20+, Mongo en `127.0.0.1:27017`, `npm run seed` siembra 15 periodistas LATAM + la demo Ewaffle.',
   'El tablero es el proyecto #1 "PR Tech" de GitHub Projects — 43 items al momento de escribir esto.',
 ];
 
-const NOTAS_PIPELINE = [
-  '`feature/*` → PR → merge → producción, sola, en minutos. No hay ambiente intermedio.',
-  '**No hay CI**: sin `.github/`, nada corre typecheck ni tests solo — depende de que cada quien lo corra a mano antes de abrir el PR.',
-  'Verificado hoy: `tsc --noEmit` limpio; el build compila 16 rutas estáticas + 24 rutas de API sin error.',
-  '`closes #N` en el PR sí cierra el issue solo con el merge a `main` — no hace falta cerrarlo a mano.',
-  'La rama `prod` del remoto es vestigial: nadie la promueve, el deploy real sale de `main`.',
-  '`/api/health` en cada servicio: `ok`, `db`, `engine` (mock/openai/llm), `uptimeSec` — nunca el connection string. No hay smoke test de producción documentado.',
+/**
+ * Cada paso del diagrama, explicado en dos capas: `que` es el concepto de
+ * DevOps en general — lo que significaría en cualquier pipeline — y `aca` es
+ * lo que ese paso hace específicamente en PR Tech. Pensado para alguien que
+ * ve un pipeline por primera vez: el concepto no sirve sin el ejemplo real,
+ * y el ejemplo real no enseña nada sin el concepto detrás.
+ */
+const PASOS_EXPLICADOS = [
+  {
+    n: '01',
+    concepto: 'Rama (branch)',
+    que: 'Una copia de trabajo aislada del código. Cada quien construye su cambio en la suya para no pisar lo que están construyendo los demás.',
+    aca: 'Acá no hay ambiente intermedio: de `feature/*` se salta directo a `main`, y de `main` directo a producción.',
+  },
+  {
+    n: '02',
+    concepto: 'Build + typecheck',
+    que: 'La "definición de terminado": el código tiene que compilar y pasar el chequeo de tipos antes de siquiera pedir que alguien lo revise.',
+    aca: 'Verificado hoy: `tsc --noEmit` sale limpio y el build compila 16 rutas estáticas + 24 rutas de API sin error.',
+  },
+  {
+    n: '03',
+    concepto: 'Pull Request (PR)',
+    que: 'Pedís que tu rama se sume al tronco compartido. En un pipeline con CI, acá es justo donde correrían los tests y el build en automático.',
+    aca: '**No hay CI acá**: sin `.github/`, nada se corre solo — la definición de terminado depende de que cada quien la corra a mano antes de abrir el PR.',
+  },
+  {
+    n: '04',
+    concepto: 'Code review + merge',
+    que: 'Alguien más lee el cambio antes de que entre a `main`. En muchos equipos ese filtro lo complementa una máquina (checks obligatorios); acá es 100% humano.',
+    aca: '`closes #N` en el mensaje del PR cierra el issue solo, en el momento del merge — no hace falta cerrarlo a mano.',
+  },
+  {
+    n: '05',
+    concepto: 'Continuous Deployment (CD)',
+    que: 'Lo que entra a `main` sale a producción sin que nadie lo empuje a mano. Es la mitad "CD" de "CI/CD" — acá existe, aunque la mitad "CI" no.',
+    aca: 'Automático desde `main` a Railway, confirmado en minutos tras cada merge — sin staging entre medio.',
+  },
+  {
+    n: '06',
+    concepto: 'Healthcheck',
+    que: 'Un endpoint que el sistema expone para decir "sigo vivo" después de un deploy. Sin uno, un deploy roto se entera por el cliente, no por el sistema.',
+    aca: '`/api/health` devuelve `ok`, `db`, `engine` y `uptimeSec` — nunca el connection string. No hay smoke test de producción documentado más allá de eso.',
+  },
+] as const;
+
+const GLOSARIO: Array<{ termino: string; definicion: string }> = [
+  { termino: 'Pipeline', definicion: 'La cadena de pasos, automáticos o manuales, que lleva un cambio de código a producción.' },
+  { termino: 'CI · Integración Continua', definicion: 'Cada cambio se compila y prueba solo, apenas se sube. Acá no existe.' },
+  { termino: 'CD · Despliegue Continuo', definicion: 'Lo que pasa el gate llega a producción sin empujarlo a mano. Acá sí existe.' },
+  { termino: 'Branch (rama)', definicion: 'Una copia de trabajo aislada, para no pisar lo que construyen los demás.' },
+  { termino: 'Pull Request (PR)', definicion: 'Pedís revisión antes de sumar tu rama al tronco compartido (main).' },
+  { termino: 'Code review', definicion: 'Alguien más lee tu cambio antes de que entre. Acá el revisor es siempre una persona.' },
+  { termino: 'Merge', definicion: 'El momento en que tu rama se une a main — y acá, lo que dispara el deploy.' },
+  { termino: 'Staging', definicion: 'Un ambiente intermedio, igual a producción, para probar antes de que lo vea un cliente. Acá no existe.' },
+  { termino: 'Healthcheck', definicion: 'Un endpoint que confirma que el sistema sigue vivo después de un deploy.' },
+  { termino: 'Rollback', definicion: 'Volver a la versión anterior si un deploy sale mal. Acá es manual, no automático.' },
 ];
 
 // ── Scripts de prueba, como grilla de chips en vez de tabla larga ──────────
@@ -303,6 +370,26 @@ export default function PipelineApp({ llave }: { llave: string }) {
           </p>
         </header>
 
+        {/* ── Para quien ve esto por primera vez ──────────────────────── */}
+        <section className="rounded-2xl border border-[#2175a1]/30 bg-[#2175a1]/[0.06] p-4">
+          <p className="text-xs font-medium uppercase tracking-wide text-[#7ec1e8]">
+            Para quien ve un pipeline por primera vez
+          </p>
+          <p className="mt-1.5 text-sm leading-relaxed text-white/75">
+            Un <strong className="text-white">pipeline</strong> es la cadena de pasos —automáticos o
+            manuales— que lleva un cambio de código desde la laptop de alguien hasta producción. La
+            sigla <strong className="text-white">CI/CD</strong> junta dos mitades:{' '}
+            <strong className="text-white">CI</strong> (Integración Continua) compila y prueba cada
+            cambio solo, apenas se sube; <strong className="text-white">CD</strong> (Despliegue
+            Continuo) lo publica solo, sin que nadie lo empuje a mano. Acá la mitad CD existe —
+            Railway despliega solo desde{' '}
+            <code className="rounded bg-white/10 px-1 py-0.5 text-white/85">main</code>— pero la
+            mitad CI no: nada corre los tests en automático, así que ese trabajo lo hace una persona,
+            a mano, antes de abrir el PR. Abajo, cada paso real de PR Tech con el concepto que
+            representa.
+          </p>
+        </section>
+
         {/* ── Arquitectura ─────────────────────────────────────────────── */}
         <section className="space-y-3">
           <h2 className="font-serif text-xl text-white">Arquitectura</h2>
@@ -314,7 +401,30 @@ export default function PipelineApp({ llave }: { llave: string }) {
         <section className="space-y-3">
           <h2 className="font-serif text-xl text-white">De una rama a producción</h2>
           <DiagramaPipeline />
-          <ListaNotas items={NOTAS_PIPELINE} />
+          <ol className="list-none space-y-2">
+            {PASOS_EXPLICADOS.map((paso, i) => (
+              <PasoExplicado key={paso.n} paso={paso} color={PASOS_PIPELINE[i].color} />
+            ))}
+          </ol>
+          <p className="text-xs leading-relaxed text-white/35">
+            Nota aparte: existe una rama <code className="text-white/50">prod</code> en el remoto,
+            pero es vestigial — nadie la promueve; el deploy real sale de{' '}
+            <code className="text-white/50">main</code>.
+          </p>
+        </section>
+
+        {/* ── Glosario ─────────────────────────────────────────────────── */}
+        <section className="space-y-3">
+          <h2 className="font-serif text-xl text-white">Glosario</h2>
+          <p className="text-xs text-white/40">Los términos de arriba, en una línea cada uno.</p>
+          <dl className="grid gap-2 sm:grid-cols-2">
+            {GLOSARIO.map((g) => (
+              <div key={g.termino} className="rounded-lg border border-white/10 bg-white/[0.03] p-3">
+                <dt className="text-xs font-medium text-white/85">{g.termino}</dt>
+                <dd className="mt-0.5 text-xs leading-relaxed text-white/50">{g.definicion}</dd>
+              </div>
+            ))}
+          </dl>
         </section>
 
         {/* ── Scripts de prueba ────────────────────────────────────────── */}
@@ -322,7 +432,9 @@ export default function PipelineApp({ llave }: { llave: string }) {
           <div>
             <h2 className="font-serif text-xl text-white">Definición de &quot;terminado&quot;: los tests</h2>
             <p className="mt-1 text-xs leading-relaxed text-white/40">
-              Pasa el mouse sobre un script para el detalle completo y su fuente.
+              Código que prueba que el código no se rompió. Acá no corren solos —no hay CI que los
+              dispare— así que alguien los corre a mano antes de abrir el PR. Pasa el mouse sobre un
+              script para el detalle completo y su fuente.
             </p>
           </div>
           <p className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-white/40">
