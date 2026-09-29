@@ -80,7 +80,7 @@ export const ARTEFACTOS: Artefacto[] = [
     bajada: 'Rama, pruebas, build, PR, merge y despliegue en Railway — de punta a punta.',
     pregunta: '¿Cómo llega un cambio de mi máquina a producción, y qué se rompe si me salto un paso?',
     frescura: 'escrito',
-    fuente: 'Verificado contra el repo `prtech-ai` el 23-sep-2026',
+    fuente: 'Verificado contra el repo `prtech-ai` , GitHub Actions y Railway el 29-sep-2026',
     icono: 'pipeline',
   },
 ];
