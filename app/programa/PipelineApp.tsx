@@ -282,7 +282,7 @@ const PASOS_EXPLICADOS = [
     n: '06',
     concepto: 'Smoke test + healthcheck',
     que: 'Después de cada deploy, una prueba corta contra producción real confirma que lo esencial funciona. Un health periódico avisa si algo se cae entre deploys. Sin esto, un deploy roto se entera por el cliente.',
-    aca: '`/api/health` prueba una escritura real en la base y devuelve `writeMs`. Tras cada deploy, `smoke:prod` crea una empresa de prueba y la borra; cada hora corre el health. Verde sobre `ceff0f0` el 29-sep. El aviso a #prtech cuando falla está en un PR de seguimiento.',
+    aca: '`/api/health` prueba una escritura real en la base y devuelve `writeMs`. Tras cada deploy, `smoke:prod` crea una empresa de prueba y la borra; cada hora corre el health. Verde sobre `ceff0f0` el 29-sep. Si falla, avisa en #prtech.',
   },
 ] as const;
 

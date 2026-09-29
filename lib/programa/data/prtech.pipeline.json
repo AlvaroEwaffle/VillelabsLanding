@@ -154,7 +154,7 @@
       "filas": [
         [
           "`GET /api/health`",
-          "Cada hora (cron) y en cada deploy",
+          "Cada hora (cron, minuto 17, best-effort de GitHub: puede atrasarse o saltarse turnos) y en cada deploy",
           "Conexión **y una escritura real**: upsert a `_healthchecks/probe` con tope de 2 s. Devuelve `writeMs`.",
           "503 `read-only` o `write-timeout`. Es lo que habría convertido las 10 h del 23-sep en una hora."
         ],
@@ -166,9 +166,9 @@
         ],
         [
           "Aviso a Slack",
-          "En fallo y al recuperarse",
-          "Un mensaje por racha en #prtech (canal de notificaciones).",
-          "En curso (PR de seguimiento del #75)."
+          "Al pasar a rojo y al volver a verde",
+          "Un mensaje por racha en #prtech, con el código de salida traducido, la hora CLT y el link al run (#109, en main desde el 29-sep).",
+          "Si el propio aviso falla, queda en el log del run."
         ]
       ]
     }
