@@ -40,9 +40,10 @@ const SLUG = 'prtech';
  * de la home vieja — se descartó por duplicado: Avance y los 7 criterios ya
  * dicen lo mismo con más detalle.
  *
- * `/scrum` sigue viva y sirve este mismo componente — hay un link a ella ya
- * compartido en Slack. Ver [[reference_downloads_scandir_blocked]]-style
- * gotcha: un edge cache no perdona un 404 nuevo en una URL vieja.
+ * `/scrum` ya no es una ruta — public/_redirects la manda acá con un 301.
+ * Antes servía este mismo componente por partida doble (dos URLs, un
+ * contenido); un redirect real es la versión consolidada de eso, y de paso
+ * el link ya compartido en Slack sigue resolviendo a algo.
  */
 export default function ScrumHome({ llave }: { llave: string }) {
   const cfg = CONFIGS[SLUG];

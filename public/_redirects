@@ -1,3 +1,10 @@
 /cases/*    /work/:splat    301
 /portfolio  /work           301
 /consulting /services       301
+
+# El Scrum Board se fusionó con el home del Programa (28-sep-2026). Antes
+# /scrum servía el mismo componente que el home — dos URLs, un contenido.
+# Redirect real en vez de un segundo servicio: una sola fuente, y el link
+# ya compartido en Slack sigue funcionando, solo que ahora resuelve al
+# canónico.
+/programa/:llave/scrum     /programa/:llave    301
