@@ -26,6 +26,8 @@ const DOC = pipeline as unknown as {
   trampas: Item[];
   no_verificable: NoVerificable[];
   hallazgos: string[];
+  donde_corre: Array<{ que: string; donde: string; cuando: string; detalle: string }>;
+  revision: Array<{ n: string; paso: string; quien: string; detalle: string }>;
 };
 
 /** Negritas con **…** y `código`. Lo mínimo para que el texto respire. */
@@ -143,7 +145,7 @@ const PASOS_PIPELINE = [
   { n: '01', t1: 'rama', t2: 'feature/*', color: 'rgba(255,255,255,.4)', fill: 'rgba(255,255,255,.04)' },
   { n: '02', t1: 'CI', t2: 'tsc + build + tests', color: '#1f8b4c', fill: '#1f8b4c1f' },
   { n: '03', t1: 'PR a', t2: 'main', color: '#2175a1', fill: '#2175a11f' },
-  { n: '04', t1: 'Álvaro valida', t2: 'y mergea', color: '#c9860a', fill: '#c9860a1f' },
+  { n: '04', t1: 'PASS del PO', t2: 'y Álvaro mergea', color: '#c9860a', fill: '#c9860a1f' },
   { n: '05', t1: 'Railway', t2: 'despliega solo', color: '#1f8b4c', fill: '#1f8b4c1f' },
   { n: '06', t1: 'smoke + health', t2: 'cada deploy y hora', color: '#2175a1', fill: '#2175a11f' },
 ] as const;
@@ -270,7 +272,7 @@ const PASOS_EXPLICADOS = [
     n: '04',
     concepto: 'Code review + merge',
     que: 'Alguien más lee el cambio antes de que entre a `main`. En muchos equipos ese filtro lo complementa una máquina (checks obligatorios); acá es 100% humano.',
-    aca: '`closes #N` en el mensaje del PR cierra el issue solo, en el momento del merge — no hace falta cerrarlo a mano.',
+    aca: 'Primero el PO prueba el PR y da PASS o FAIL con evidencia; después Álvaro da el ok y mergea. `closes #N` en el cuerpo del PR cierra el issue en el momento del merge.',
   },
   {
     n: '05',
@@ -436,6 +438,46 @@ export default function PipelineApp({ llave }: { llave: string }) {
             pero es vestigial — nadie la promueve; el deploy real sale de{' '}
             <code className="text-white/50">main</code>.
           </p>
+        </section>
+
+        {/* ── Dónde corre cada cosa ────────────────────────────────────── */}
+        <section className="space-y-3">
+          <h2 className="font-serif text-xl text-white">Dónde corre cada cosa</h2>
+          <p className="text-sm leading-relaxed text-white/70">
+            Nada de esto corre en un computador del equipo. Las pruebas corren en GitHub Actions, el
+            deploy en Railway y los avisos llegan a Slack.
+          </p>
+          <div className="grid gap-2 sm:grid-cols-2">
+            {DOC.donde_corre.map((x) => (
+              <div key={x.que} className="rounded-xl border border-white/10 bg-white/[0.03] p-3.5 space-y-1.5">
+                <h3 className="text-sm font-medium text-white">{x.que}</h3>
+                <Parrafo texto={`**Dónde:** ${x.donde}`} className="text-xs leading-relaxed text-white/60" />
+                <Parrafo texto={`**Cuándo:** ${x.cuando}`} className="text-xs leading-relaxed text-white/60" />
+                <Parrafo texto={x.detalle} className="text-xs leading-relaxed text-white/50" />
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* ── Cómo entra un PR a main ──────────────────────────────────── */}
+        <section className="space-y-3">
+          <h2 className="font-serif text-xl text-white">Cómo entra un PR a main</h2>
+          <p className="text-sm leading-relaxed text-white/70">
+            El proceso de revisión, de la rama al tablero. Ningún paso se salta.
+          </p>
+          <ol className="list-none space-y-2">
+            {DOC.revision.map((r) => (
+              <li key={r.n} className="flex gap-3 rounded-xl border border-white/10 bg-white/[0.03] p-3.5">
+                <span className="font-mono text-xs text-white/30">{r.n}</span>
+                <div className="space-y-1">
+                  <p className="text-sm font-medium text-white">
+                    {r.paso} <span className="ml-1 text-xs font-normal text-[#7ec1e8]">{r.quien}</span>
+                  </p>
+                  <Parrafo texto={r.detalle} className="text-xs leading-relaxed text-white/60" />
+                </div>
+              </li>
+            ))}
+          </ol>
         </section>
 
         {/* ── Glosario ─────────────────────────────────────────────────── */}

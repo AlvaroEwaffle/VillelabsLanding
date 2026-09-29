@@ -231,6 +231,22 @@
     {
       "titulo": "El correo solo llega a la casilla de la cuenta de Resend",
       "detalle": "Resend está configurado (`RESEND_API_KEY`, `EMAIL_FROM`), pero sin dominio verificado solo puede enviar a prtechplatform@gmail.com. Para periodistas y clientes falta verificar `prtech.villelab.com` en Resend (#55)."
+    },
+    {
+      "titulo": "El CI no bloquea el deploy",
+      "detalle": "Railway publica todo lo que llega a `main`, esté el CI verde o rojo. Bloquearlo exige protección de rama, que en un repo privado necesita GitHub Pro. Por ahora es regla del equipo: **con CI rojo no se mergea**."
+    },
+    {
+      "titulo": "Finales de línea de Windows (CRLF)",
+      "detalle": "Un editor que guarda en CRLF hace que el diff muestre el archivo entero como cambiado: #100 parecía de 2.185 líneas y eran 533, y #99 chocaba en los diccionarios completos por 2 líneas reales. Solución: `.gitattributes` con `eol=lf` en el repo y el editor configurado en LF."
+    },
+    {
+      "titulo": "El cron de GitHub es best-effort",
+      "detalle": "Un schedule nuevo puede tardar horas en correr la primera vez, y bajo carga GitHub atrasa o salta turnos. Que no haya corrida en un turno no prueba que esté roto: se mira la lista con `gh run list --workflow smoke.yml --event schedule`."
+    },
+    {
+      "titulo": "`closes #N` va en el cuerpo del PR",
+      "detalle": "El 29-sep, tres issues (#51, #103, #106) quedaron abiertos tras mergear sus PR porque la frase no estaba en el cuerpo. Se cerraron a mano."
     }
   ],
   "no_verificable": [
@@ -252,5 +268,87 @@
     "**El CI destapó un test roto en su primera corrida.** `claim:e2e` llevaba cuatro días rojo en `main` sin que nadie lo corriera. Es el argumento entero a favor de que la definición de terminado la haga cumplir una herramienta.",
     "**Una sola generación de PR Tech hacia adelante.** El dominio `prtech.villelab.com` quedó registrado en el servicio de `prtech-ai`; la copia congelada en `Vilo/platform/apps/prtech` queda para podar. Falta el DNS en Cloudflare (Álvaro) y después setear `PRTECH_PUBLIC_URL`, de la que cuelgan los links de correo, el canonical y el sitemap (#106).",
     "**`docs/como-trabajamos.md` ya dice la verdad** sobre el deploy automático desde `main` (PR #70, mergeado)."
+  ],
+  "donde_corre": [
+    {
+      "que": "CI",
+      "donde": "GitHub Actions: una máquina Linux temporal que GitHub crea para cada corrida y descarta al terminar.",
+      "cuando": "Cada PR (en cada push a la rama) y cada push a `main`.",
+      "detalle": "Levanta Node 24 y un MongoDB 7 desechable dentro de la misma máquina. Corre `tsc --noEmit` de la app y de `radar-engine`, `npm run build` y 14 suites. Tarda ~2 minutos y **nunca toca producción**. El resultado es el check `ci` del PR. Archivo: `.github/workflows/ci.yml`."
+    },
+    {
+      "que": "Deploy",
+      "donde": "Railway, proyecto «PR Tech AI», servicios `prtech` y `radar-engine`.",
+      "cuando": "Cada commit que llega a `main`.",
+      "detalle": "Railway construye y publica por su cuenta; **no espera al CI**. Al terminar le avisa a GitHub con un evento `deployment_status`, y eso dispara el smoke."
+    },
+    {
+      "que": "Smoke post-deploy",
+      "donde": "GitHub Actions, contra la URL de producción.",
+      "cuando": "Cuando Railway avisa que un deploy terminó bien.",
+      "detalle": "Un job `gate` espera 60 s y se queda solo con el aviso más reciente, porque Railway a veces manda dos. Después `npm run smoke:prod` crea una empresa `zzz-smoke-*`, la verifica y la borra. Archivo: `.github/workflows/smoke.yml`."
+    },
+    {
+      "que": "Health horario",
+      "donde": "GitHub Actions, contra `/api/health` de producción.",
+      "cuando": "Cada hora, en el minuto 17 (`cron: \"17 * * * *\"`).",
+      "detalle": "Confirma que la app responde y que la base acepta una escritura. Es lo que detecta una caída **entre** deploys, como la del 23-sep. El scheduler de GitHub es best-effort: puede atrasarse o saltarse turnos (el primero llegó a las 08:29 UTC, #115)."
+    },
+    {
+      "que": "Aviso",
+      "donde": "Slack, canal #prtech (notificaciones).",
+      "cuando": "Cuando el smoke o el health pasa a rojo, y otra vez cuando vuelve a verde.",
+      "detalle": "Un mensaje por racha, no uno por hora. Trae qué falló, la hora de Chile y el link al run. Las corridas de prueba no cuentan. El equipo conversa en #pr-tech-dev, no en #prtech."
+    },
+    {
+      "que": "Manual",
+      "donde": "GitHub → Actions → «Smoke producción» → Run workflow.",
+      "cuando": "A pedido.",
+      "detalle": "En modo `read-only` corre solo el health; en `full`, el smoke completo que escribe y borra."
+    }
+  ],
+  "revision": [
+    {
+      "n": "1",
+      "paso": "Rama e issue",
+      "quien": "Dev",
+      "detalle": "Rama propia desde `main` recién traído (`git fetch` primero). Nunca commits directos a `main`. El cuerpo del PR lleva `closes #N`: sin esa frase el issue queda abierto aunque el PR se mergee."
+    },
+    {
+      "n": "2",
+      "paso": "CI verde",
+      "quien": "GitHub",
+      "detalle": "El check `ci` tiene que estar verde en el último commit del PR. Si la rama es anterior al CI (antes del 29-sep), se rebasa sobre `main` para que corra."
+    },
+    {
+      "n": "3",
+      "paso": "Revisión del PO",
+      "quien": "PO",
+      "detalle": "Prueba el PR contra los criterios del issue en un servidor propio y entrega PASS o FAIL con evidencia. En un FAIL, el dev corrige y el PO revisa solo lo que cambió. Lo que no bloquea se anota como issue de seguimiento en el tablero."
+    },
+    {
+      "n": "4",
+      "paso": "Orden de merge",
+      "quien": "PO + coordinación",
+      "detalle": "Se revisa con `git merge-tree` contra todos los PR abiertos. Los PR de Juan se revisan primero. Si dos PR chocan, entra primero el que el otro necesita (ej.: #108 antes que #107, que usa sus columnas)."
+    },
+    {
+      "n": "5",
+      "paso": "Merge",
+      "quien": "Álvaro",
+      "detalle": "Solo con PASS del PO y el ok explícito de Álvaro. **Mergear es publicar**: Railway despliega en ~3 minutos."
+    },
+    {
+      "n": "6",
+      "paso": "Verificar producción",
+      "quien": "Automático + coordinación",
+      "detalle": "Esperar el smoke verde del último commit y mirar `/api/health`. Si algo falla, avisa en #prtech."
+    },
+    {
+      "n": "7",
+      "paso": "Cerrar el ciclo",
+      "quien": "Coordinación",
+      "detalle": "Issue cerrado, item en **Done** en el tablero y páginas del Programa al día, el mismo día."
+    }
   ]
 }
