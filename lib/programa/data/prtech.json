@@ -1,5 +1,5 @@
 {
-  "generado": "2026-09-28T19:37:46.042Z",
+  "generado": "2026-09-29T01:18:51.812Z",
   "slug": "prtech",
   "nombre": "PR Tech",
   "repo": "AlvaroEwaffle/prtech-ai",
@@ -311,7 +311,7 @@
       "asignados": [
         "AlvaroEwaffle"
       ],
-      "comentarios": 0,
+      "comentarios": 3,
       "creada": "2026-09-21T14:34:17Z",
       "cerrada": null
     },
@@ -651,7 +651,7 @@
       "titulo": "02.4 · Subir material adicional en el cuestionario",
       "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/50",
       "estado_github": "OPEN",
-      "estado_board": "Sprint Backlog",
+      "estado_board": "Ready",
       "sprint": "Sprint 2",
       "prioridad": null,
       "estimacion": null,
@@ -673,7 +673,7 @@
       "titulo": "06.2 · Medir el embudo",
       "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/51",
       "estado_github": "OPEN",
-      "estado_board": "Sprint Backlog",
+      "estado_board": "In review",
       "sprint": "Sprint 2",
       "prioridad": null,
       "estimacion": null,
@@ -759,7 +759,7 @@
       "titulo": "08.8 · Configurar el proveedor de correo",
       "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/55",
       "estado_github": "OPEN",
-      "estado_board": "Sprint Backlog",
+      "estado_board": "In progress",
       "sprint": "Sprint 2",
       "prioridad": null,
       "estimacion": null,
@@ -773,7 +773,7 @@
       "asignados": [
         "AlvaroEwaffle"
       ],
-      "comentarios": 0,
+      "comentarios": 1,
       "creada": "2026-09-21T22:24:09Z",
       "cerrada": null
     },
@@ -782,7 +782,7 @@
       "titulo": "08.9 · Bitácora de distribución por cuenta",
       "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/56",
       "estado_github": "OPEN",
-      "estado_board": "Sprint Backlog",
+      "estado_board": "Ready",
       "sprint": "Sprint 2",
       "prioridad": null,
       "estimacion": null,
@@ -913,7 +913,7 @@
       "titulo": "El repo no fija la versión de Node: Railway la elige y puede cambiarla en un redeploy",
       "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/67",
       "estado_github": "OPEN",
-      "estado_board": "Sprint Backlog",
+      "estado_board": "In review",
       "sprint": "Sprint 2",
       "prioridad": null,
       "estimacion": null,
@@ -995,7 +995,7 @@
       "titulo": "Ningún test atrapó 10 horas de caída: falta CI, health de escritura y smoke post-deploy",
       "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/75",
       "estado_github": "OPEN",
-      "estado_board": "Sprint Backlog",
+      "estado_board": "In review",
       "sprint": "Sprint 2",
       "prioridad": null,
       "estimacion": null,
@@ -1162,9 +1162,135 @@
       "comentarios": 0,
       "creada": "2026-09-28T12:48:00Z",
       "cerrada": null
+    },
+    {
+      "numero": 103,
+      "titulo": "Layout: la página usa poco ancho; debe sentirse como un diario (maximizar espacio sin romper la lectura)",
+      "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/103",
+      "estado_github": "OPEN",
+      "estado_board": "In progress",
+      "sprint": "Sprint 2",
+      "prioridad": null,
+      "estimacion": null,
+      "fase": "Fase 1 · La plataforma",
+      "fase_vence": null,
+      "etiquetas": [],
+      "asignados": [
+        "AlvaroEwaffle"
+      ],
+      "comentarios": 0,
+      "creada": "2026-09-29T00:35:17Z",
+      "cerrada": null
+    },
+    {
+      "numero": 106,
+      "titulo": "SEO: dominio prtech.villelab.com, rutas /es y /en, metadata, sitemap y el espejo como página por empresa",
+      "url": "https://github.com/AlvaroEwaffle/prtech-ai/issues/106",
+      "estado_github": "OPEN",
+      "estado_board": "In progress",
+      "sprint": "Sprint 2",
+      "prioridad": null,
+      "estimacion": null,
+      "fase": "Fase 1 · La plataforma",
+      "fase_vence": null,
+      "etiquetas": [],
+      "asignados": [
+        "AlvaroEwaffle"
+      ],
+      "comentarios": 0,
+      "creada": "2026-09-29T00:43:55Z",
+      "cerrada": null
     }
   ],
   "prs": [
+    {
+      "numero": 108,
+      "titulo": "Layout de diario: ancho completo con columnas y medida de lectura (cierra #103)",
+      "url": "https://github.com/AlvaroEwaffle/prtech-ai/pull/108",
+      "autor": "AlvaroEwaffle",
+      "borrador": false,
+      "aprobado": false,
+      "abierta": "2026-09-29T01:07:23Z",
+      "tocada": "2026-09-29T01:07:23Z",
+      "etiquetas": []
+    },
+    {
+      "numero": 107,
+      "titulo": "SEO: rutas /es y /en, metadata, sitemap y el espejo como página por empresa",
+      "url": "https://github.com/AlvaroEwaffle/prtech-ai/pull/107",
+      "autor": "AlvaroEwaffle",
+      "borrador": false,
+      "aprobado": false,
+      "abierta": "2026-09-29T01:03:06Z",
+      "tocada": "2026-09-29T01:04:13Z",
+      "etiquetas": []
+    },
+    {
+      "numero": 104,
+      "titulo": "Embudo: conversión del espejo al primer correo (/team/funnel)",
+      "url": "https://github.com/AlvaroEwaffle/prtech-ai/pull/104",
+      "autor": "AlvaroEwaffle",
+      "borrador": false,
+      "aprobado": false,
+      "abierta": "2026-09-29T00:37:13Z",
+      "tocada": "2026-09-29T00:49:53Z",
+      "etiquetas": []
+    },
+    {
+      "numero": 105,
+      "titulo": "feat(ops): CI, health que prueba una escritura y smoke post-deploy — Cierra #75",
+      "url": "https://github.com/AlvaroEwaffle/prtech-ai/pull/105",
+      "autor": "AlvaroEwaffle",
+      "borrador": false,
+      "aprobado": false,
+      "abierta": "2026-09-29T00:40:52Z",
+      "tocada": "2026-09-29T00:44:25Z",
+      "etiquetas": []
+    },
+    {
+      "numero": 102,
+      "titulo": "fix(runtime): fijar Node 24 en engines y .nvmrc — Cierra #67",
+      "url": "https://github.com/AlvaroEwaffle/prtech-ai/pull/102",
+      "autor": "AlvaroEwaffle",
+      "borrador": false,
+      "aprobado": false,
+      "abierta": "2026-09-29T00:32:15Z",
+      "tocada": "2026-09-29T00:32:15Z",
+      "etiquetas": []
+    },
+    {
+      "numero": 101,
+      "titulo": "feat(engine): priorizar tema del comunicado sobre sector en matching (#52)",
+      "url": "https://github.com/AlvaroEwaffle/prtech-ai/pull/101",
+      "autor": "Mel-Lopez21",
+      "borrador": false,
+      "aprobado": false,
+      "abierta": "2026-09-29T00:03:35Z",
+      "tocada": "2026-09-29T00:22:54Z",
+      "etiquetas": []
+    },
+    {
+      "numero": 100,
+      "titulo": "feat(cuestionario): adjuntar material adicional (#50)",
+      "url": "https://github.com/AlvaroEwaffle/prtech-ai/pull/100",
+      "autor": "jsstagno90",
+      "borrador": false,
+      "aprobado": false,
+      "abierta": "2026-09-28T23:17:53Z",
+      "tocada": "2026-09-28T23:17:53Z",
+      "etiquetas": []
+    },
+    {
+      "numero": 99,
+      "titulo": "feat(team): bitacora de distribucion por cuenta (#56)",
+      "url": "https://github.com/AlvaroEwaffle/prtech-ai/pull/99",
+      "autor": "jsstagno90",
+      "borrador": false,
+      "aprobado": false,
+      "abierta": "2026-09-28T22:40:48Z",
+      "tocada": "2026-09-28T22:40:48Z",
+      "etiquetas": []
+    },
     {
       "numero": 97,
       "titulo": "Owner lock, borrar usuarios y pestañas de equipo — rebase sobre main (#86)",
