@@ -9,54 +9,44 @@ import { useOverlay } from '@/lib/programa/useOverlay';
 import {
   COLOR_RAG,
   NOMBRE_RAG,
-  bloqueada,
+  estadoEfectivo,
   hecha,
   leer,
   nombreDe,
   serie,
   sprintVigente,
-  type Rag,
 } from '@/lib/programa/derivar';
-import type { Overlay, Snapshot } from '@/lib/programa/tipos';
+import { ESTADOS_PM, NOMBRE_RAID, type Overlay, type Snapshot } from '@/lib/programa/tipos';
 import { Grafico } from './Grafico';
-import { Historias } from './Historias';
+import { Historias, TONO } from './Historias';
 import { Marco } from './Marco';
 import { Producto } from './Producto';
-import { Raid } from './Raid';
+import { Raid, semaforo } from './Raid';
 
 const SNAPSHOT = snapshotPrtech as unknown as Snapshot;
 const SEMILLA = semillaPrtech as unknown as Pick<Overlay, 'raid' | 'nota_general'>;
 const SLUG = 'prtech';
 
+const ORDEN_RAG = { r: 0, a: 1, v: 2 } as const;
+const ORDEN_IMPACTO = { alto: 0, medio: 1, bajo: 2 } as const;
+
 /**
- * El home de PR Tech, fusionado con el Scrum Board (28-sep-2026, a pedido de
- * Álvaro). Antes eran dos páginas con tres cosas repetidas — la nota del día,
- * el resumen por persona, el estado del producto — con el riesgo de que una
- * se desactualizara sin que nadie lo notara. Ahora hay una fuente por dato.
+ * El home de PR Tech, fusionado con el Scrum Board (28-sep-2026) y rediseñado
+ * como dashboard visual (28-sep-2026, a pedido de Álvaro).
  *
- * Lo único que sobrevive del Repositorio viejo es "Necesita a alguien"
- * (arriba, es lo que abre la daily) y "Los artefactos" (abajo, es la salida
- * hacia el resto de los documentos). El resto — KPI row y "Quién tiene qué"
- * de la home vieja — se descartó por duplicado: Avance y los 7 criterios ya
- * dicen lo mismo con más detalle.
+ * Orden pedido: métricas → burndown/burnup → top 3 RAID → issues per state
+ * del sprint → tabla completa del RAID al final. "Por qué ese color" y
+ * "Necesita a alguien" se retiraron como secciones propias: sus datos ya
+ * viven en las métricas de arriba y en el top 3 RAID, y dos vistas del mismo
+ * número invitan a que una se desactualice sin que nadie lo note.
  *
  * `/scrum` ya no es una ruta — public/_redirects la manda acá con un 301.
- * Antes servía este mismo componente por partida doble (dos URLs, un
- * contenido); un redirect real es la versión consolidada de eso, y de paso
- * el link ya compartido en Slack sigue resolviendo a algo.
  */
 export default function ScrumHome({ llave }: { llave: string }) {
   const cfg = CONFIGS[SLUG];
   const {
-    overlay,
-    cargando,
-    respaldo,
-    guardando,
-    fijarHistoria,
-    fijarNotaGeneral,
-    guardarRaid,
-    borrarRaid,
-    sembrar,
+    overlay, cargando, respaldo, guardando,
+    fijarHistoria, fijarNotaGeneral, guardarRaid, borrarRaid, sembrar,
   } = useOverlay(SLUG);
 
   // El RAID arranca con lo que ya estaba levantado a mano, una sola vez. Un
@@ -87,43 +77,30 @@ export default function ScrumHome({ llave }: { llave: string }) {
     return filas.sort((a, b) => b.abiertas - a.abiertas);
   }, [cfg.equipo, overlay]);
 
-  // Lo que necesita a alguien. Un board que solo muestra progreso no sirve
-  // para correr una daily: lo que se decide son los bloqueos. Va primero —
-  // es lo que se mira antes que cualquier gráfico.
-  const atencion = useMemo(() => {
-    const items: Array<{ clave: string; que: string; detalle: string; estado: Rag; href?: string }> = [];
+  // Top 3 del RAID: primero por semáforo (rojo antes que ámbar), después por
+  // impacto declarado. Lo cerrado no compite por un lugar acá.
+  const raidTop3 = useMemo(() => {
+    return [...overlay.raid]
+      .filter((r) => r.estado !== 'cerrado')
+      .sort(
+        (a, b) =>
+          ORDEN_RAG[semaforo(a)] - ORDEN_RAG[semaforo(b)] ||
+          ORDEN_IMPACTO[a.impacto] - ORDEN_IMPACTO[b.impacto] ||
+          b.creada.localeCompare(a.creada),
+      )
+      .slice(0, 3);
+  }, [overlay.raid]);
 
-    for (const h of deFase.filter((x) => bloqueada(x, overlay))) {
-      items.push({
-        clave: `b-${h.numero}`,
-        que: `#${h.numero} bloqueada`,
-        detalle: overlay.historias[String(h.numero)]?.bloqueo || h.titulo,
-        estado: 'r',
-        href: h.url,
-      });
-    }
-    for (const pr of SNAPSHOT.prs.filter((p) => !p.borrador)) {
-      const dias = Math.floor((Date.now() - Date.parse(pr.tocada)) / 86_400_000);
-      items.push({
-        clave: `pr-${pr.numero}`,
-        que: `PR #${pr.numero} ${pr.aprobado ? 'aprobado, sin mergear' : 'esperando revisión'}`,
-        detalle: `${pr.titulo} · ${nombreDe(pr.autor ?? '—', cfg)} · ${dias} d sin tocar`,
-        estado: pr.aprobado ? 'a' : dias > 3 ? 'r' : 'a',
-        href: pr.url,
-      });
-    }
-    for (const r of overlay.raid.filter(
-      (x) => x.impacto === 'alto' && x.estado !== 'cerrado' && (x.tipo === 'R' || x.tipo === 'I'),
-    )) {
-      items.push({ clave: r.id, que: `${r.id} · ${r.titulo}`, detalle: r.accion || r.detalle, estado: 'r' });
-    }
-    for (const d of overlay.raid.filter(
-      (x) => x.tipo === 'D' && !['cerrado', 'en revisión'].includes(x.estado),
-    )) {
-      items.push({ clave: d.id, que: `${d.id} · ${d.titulo}`, detalle: d.detalle, estado: 'a' });
-    }
-    return items.sort((a, b) => (a.estado === 'r' ? -1 : 1) - (b.estado === 'r' ? -1 : 1));
-  }, [deFase, overlay, cfg]);
+  // Las historias del sprint vigente, agrupadas por su estado efectivo — el
+  // mismo cálculo que usa cada fila de Historias, no uno nuevo.
+  const porEstadoSprint = useMemo(() => {
+    const deSprint = SNAPSHOT.historias.filter((h) => h.sprint === sprint.nombre);
+    return ESTADOS_PM.map((estado) => ({
+      estado,
+      total: deSprint.filter((h) => estadoEfectivo(h, overlay) === estado).length,
+    }));
+  }, [sprint, overlay]);
+  const totalSprint = porEstadoSprint.reduce((s, f) => s + f.total, 0);
 
   const c = COLOR_RAG[lectura.estado];
   const base = `/programa/${llave}`;
@@ -131,92 +108,36 @@ export default function ScrumHome({ llave }: { llave: string }) {
   return (
     <Marco llave={llave} activo={null}>
       <div className="space-y-10">
-        {/* ── Necesita a alguien ──────────────────────────────────────── */}
+        {/* ── Métricas ────────────────────────────────────────────────── */}
         <section>
-          <h2 className="mb-1 font-serif text-2xl text-white">
-            Necesita a alguien <span className="text-white/40">· {atencion.length}</span>
-          </h2>
-          <p className="mb-2.5 text-xs text-white/40">
-            Bloqueos, PRs esperando y lo abierto de impacto alto. Esto es lo que se mira antes que
-            cualquier gráfico de abajo.
-          </p>
-          <ul className="space-y-1.5">
-            {atencion.map((a) => {
-              const cc = COLOR_RAG[a.estado];
-              const Tag = (a.href ? 'a' : 'div') as 'a';
-              return (
-                <li key={a.clave}>
-                  <Tag
-                    href={a.href}
-                    target={a.href ? '_blank' : undefined}
-                    rel={a.href ? 'noreferrer' : undefined}
-                    className={`block rounded-xl border border-white/10 bg-white/[0.03] px-3 py-2.5 ${a.href ? 'transition-colors hover:border-white/25' : ''}`}
-                    style={{ borderLeft: `3px solid ${cc}` }}
-                  >
-                    <p className="text-sm text-white/90">{a.que}</p>
-                    <p className="mt-0.5 text-xs leading-relaxed text-white/45">{a.detalle}</p>
-                  </Tag>
-                </li>
-              );
-            })}
-            {atencion.length === 0 && (
-              <li className="rounded-xl border border-dashed border-white/15 px-3 py-6 text-center text-sm text-white/40">
-                Nada esperando a nadie.
-              </li>
-            )}
-          </ul>
-        </section>
-
-        {/* ── La lectura ──────────────────────────────────────────────── */}
-        <section>
-          <h2 className="mb-2 font-serif text-2xl text-white">La lectura</h2>
-          <p className="mb-2 text-xs text-white/40">
-            Lo que dirías en la daily. Se guarda solo; es lo único de esta página que no se calcula.
-          </p>
-          <textarea
-            value={overlay.nota_general}
-            onChange={(e) => fijarNotaGeneral(e.target.value)}
-            rows={4}
-            disabled={cargando}
-            placeholder="¿Dónde está parado el programa hoy, y qué decisión necesita?"
-            className="w-full resize-y rounded-2xl border border-white/15 bg-white/[0.04] px-4 py-3 text-sm leading-relaxed text-white outline-none placeholder:text-white/30 focus-visible:ring-2 focus-visible:ring-[#2175a1] disabled:opacity-50"
-          />
-        </section>
-
-        {/* ── Por qué ese color ───────────────────────────────────────── */}
-        <section>
-          <h2 className="mb-1 font-serif text-2xl text-white">
-            Por qué ese color <span style={{ color: c }}>· {NOMBRE_RAG[lectura.estado]}</span>
-          </h2>
+          <div className="mb-1 flex items-baseline gap-2">
+            <h2 className="font-serif text-2xl text-white">Métricas</h2>
+            <span className="text-sm" style={{ color: c }}>
+              · {NOMBRE_RAG[lectura.estado]}
+            </span>
+          </div>
           <p className="mb-3 text-xs text-white/40">
-            Los siete criterios con su umbral. Un RAG cuyo criterio no se puede auditar es decoración.
-            El color del programa es el peor de estos, nunca el promedio.
+            Los siete criterios que arman el semáforo, con su umbral. Un RAG cuyo criterio no se
+            puede auditar es decoración; el color del programa es el peor de estos, nunca el
+            promedio.
           </p>
-          <div className="grid gap-2 sm:grid-cols-2">
+          <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-4">
             {lectura.criterios.map((k) => {
               const cc = COLOR_RAG[k.estado];
               return (
                 <div
                   key={k.clave}
-                  className="rounded-xl border border-white/10 bg-white/[0.03] p-3"
-                  style={{ borderLeft: `3px solid ${cc}` }}
+                  className="rounded-2xl border border-white/10 bg-white/[0.03] p-3.5"
+                  style={{ borderTop: `3px solid ${cc}` }}
                 >
-                  <div className="flex items-baseline justify-between gap-2">
-                    <h3 className="text-sm font-medium text-white/85">{k.titulo}</h3>
-                    <span className="shrink-0 text-[10px] uppercase tracking-wide" style={{ color: cc }}>
-                      {NOMBRE_RAG[k.estado]}
-                    </span>
-                  </div>
-                  <p className="mt-0.5 text-sm text-white/65">{k.valor}</p>
-                  <p className="mt-1 text-xs leading-relaxed text-white/35">{k.regla}</p>
+                  <p className="text-xs text-white/45">{k.titulo}</p>
+                  <p className="mt-1 text-base font-medium leading-snug text-white">{k.valor}</p>
+                  <p className="mt-1.5 text-[11px] leading-relaxed text-white/30">{k.regla}</p>
                 </div>
               );
             })}
           </div>
         </section>
-
-        {/* ── El producto ─────────────────────────────────────────────── */}
-        <Producto />
 
         {/* ── Avance ──────────────────────────────────────────────────── */}
         <section>
@@ -257,6 +178,93 @@ export default function ScrumHome({ llave }: { llave: string }) {
           </div>
         </section>
 
+        {/* ── Top 3 RAID ──────────────────────────────────────────────── */}
+        <section>
+          <h2 className="mb-1 font-serif text-2xl text-white">Top 3 RAID</h2>
+          <p className="mb-3 text-xs text-white/40">
+            Lo más urgente del RAID abierto: primero por semáforo, después por impacto. La tabla
+            completa está al final de la página.
+          </p>
+          <div className="grid gap-2 sm:grid-cols-3">
+            {raidTop3.map((r) => {
+              const cc = COLOR_RAG[semaforo(r)];
+              return (
+                <article
+                  key={r.id}
+                  className="rounded-2xl border border-white/10 bg-white/[0.03] p-3.5"
+                  style={{ borderLeft: `3px solid ${cc}` }}
+                >
+                  <span
+                    className="rounded px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide"
+                    style={{ background: `${cc}22`, color: cc }}
+                  >
+                    {NOMBRE_RAID[r.tipo]}
+                  </span>
+                  <h3 className="mt-1.5 text-sm font-medium text-white/90">
+                    {r.titulo || '(sin título)'}
+                  </h3>
+                  <p className="mt-1 text-xs text-white/45">
+                    {r.dueno || 'sin dueño'} · {r.estado} · impacto {r.impacto}
+                  </p>
+                  {r.accion && (
+                    <p className="mt-1.5 text-xs leading-relaxed text-white/70">
+                      <span className="text-white/40">→ </span>
+                      {r.accion}
+                    </p>
+                  )}
+                </article>
+              );
+            })}
+            {raidTop3.length === 0 && (
+              <p className="rounded-xl border border-dashed border-white/15 px-4 py-6 text-center text-sm text-white/40 sm:col-span-3">
+                Nada abierto en el RAID.
+              </p>
+            )}
+          </div>
+        </section>
+
+        {/* ── Issues per state ────────────────────────────────────────── */}
+        <section>
+          <h2 className="mb-1 font-serif text-2xl text-white">
+            Issues per state <span className="text-white/40">· {sprint.nombre}</span>
+          </h2>
+          <p className="mb-3 text-xs text-white/40">
+            Las historias del sprint vigente, agrupadas por su estado efectivo — el mismo que
+            manda en el filtro de Historias, más abajo.
+          </p>
+          <div className="overflow-x-auto rounded-2xl border border-white/10">
+            <table className="w-full min-w-[360px] text-sm">
+              <thead>
+                <tr className="text-left text-xs uppercase tracking-wide text-white/35">
+                  <th className="py-2 pl-3 pr-2 font-normal">Estado</th>
+                  <th className="py-2 pr-3 text-right font-normal">Historias</th>
+                </tr>
+              </thead>
+              <tbody>
+                {porEstadoSprint.map((f) => (
+                  <tr key={f.estado} className="border-t border-white/10">
+                    <td className="py-2.5 pl-3 pr-2 text-white/80" style={{ borderLeft: `3px solid ${TONO[f.estado]}` }}>
+                      {f.estado}
+                    </td>
+                    <td className="py-2.5 pr-3 text-right font-mono tabular-nums text-white/90">
+                      {f.total}
+                    </td>
+                  </tr>
+                ))}
+                <tr className="border-t border-white/15 bg-white/[0.03]">
+                  <td className="py-2.5 pl-3 pr-2 font-medium text-white">Total</td>
+                  <td className="py-2.5 pr-3 text-right font-mono tabular-nums font-medium text-white">
+                    {totalSprint}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        {/* ── Historias ───────────────────────────────────────────────── */}
+        <Historias historias={SNAPSHOT.historias} overlay={overlay} cfg={cfg} fijar={fijarHistoria} />
+
         {/* ── PRs ─────────────────────────────────────────────────────── */}
         {SNAPSHOT.prs.length > 0 && (
           <section>
@@ -293,11 +301,24 @@ export default function ScrumHome({ llave }: { llave: string }) {
           </section>
         )}
 
-        {/* ── Historias ───────────────────────────────────────────────── */}
-        <Historias historias={SNAPSHOT.historias} overlay={overlay} cfg={cfg} fijar={fijarHistoria} />
+        {/* ── El producto ─────────────────────────────────────────────── */}
+        <Producto />
 
-        {/* ── RAID ────────────────────────────────────────────────────── */}
-        <Raid entradas={overlay.raid} cargando={cargando} guardar={guardarRaid} borrar={borrarRaid} />
+        {/* ── La lectura ──────────────────────────────────────────────── */}
+        <section>
+          <h2 className="mb-2 font-serif text-2xl text-white">La lectura</h2>
+          <p className="mb-2 text-xs text-white/40">
+            Lo que dirías en la daily. Se guarda solo; es lo único de esta página que no se calcula.
+          </p>
+          <textarea
+            value={overlay.nota_general}
+            onChange={(e) => fijarNotaGeneral(e.target.value)}
+            rows={4}
+            disabled={cargando}
+            placeholder="¿Dónde está parado el programa hoy, y qué decisión necesita?"
+            className="w-full resize-y rounded-2xl border border-white/15 bg-white/[0.04] px-4 py-3 text-sm leading-relaxed text-white outline-none placeholder:text-white/30 focus-visible:ring-2 focus-visible:ring-[#2175a1] disabled:opacity-50"
+          />
+        </section>
 
         {/* ── Los artefactos ──────────────────────────────────────────── */}
         <section>
@@ -330,6 +351,9 @@ export default function ScrumHome({ llave }: { llave: string }) {
             ))}
           </ul>
         </section>
+
+        {/* ── RAID completo ───────────────────────────────────────────── */}
+        <Raid entradas={overlay.raid} cargando={cargando} guardar={guardarRaid} borrar={borrarRaid} />
       </div>
     </Marco>
   );

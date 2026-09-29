@@ -4,7 +4,7 @@ import { useMemo, useState } from 'react';
 import { COLOR_RAG, divergente, epicaDe, estadoEfectivo, nombreDe } from '@/lib/programa/derivar';
 import { ESTADOS_PM, type ConfigPrograma, type EstadoPM, type Historia, type Overlay, type OverlayHistoria } from '@/lib/programa/tipos';
 
-const TONO: Record<EstadoPM, string> = {
+export const TONO: Record<EstadoPM, string> = {
   'Sin tocar': 'rgba(255,255,255,.28)',
   'En análisis': '#6b7fa3',
   'Lista para tomar': '#2175a1',

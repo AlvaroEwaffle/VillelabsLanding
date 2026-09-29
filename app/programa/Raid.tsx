@@ -8,7 +8,7 @@ const ESTADOS = ['abierto', 'mitigando', 'en revisión', 'cerrado'];
 const IMPACTOS: EntradaRaid['impacto'][] = ['alto', 'medio', 'bajo'];
 
 /** El color de una entrada sale de su impacto y de si sigue abierta. */
-function semaforo(r: EntradaRaid): Rag {
+export function semaforo(r: EntradaRaid): Rag {
   if (r.estado === 'cerrado') return 'v';
   if (r.impacto === 'alto') return r.estado === 'mitigando' || r.estado === 'en revisión' ? 'a' : 'r';
   if (r.impacto === 'medio') return 'a';
@@ -77,53 +77,67 @@ export function Raid({
         porque nada de esto es una historia: es lo que explica por qué las historias van como van.
       </p>
 
-      <div className="space-y-1.5">
-        {lista.map((r) => {
-          const c = COLOR_RAG[semaforo(r)];
-          return (
-            <article
-              key={r.id}
-              className="rounded-xl border border-white/10 bg-white/[0.03] p-3"
-              style={{ borderLeft: `3px solid ${c}` }}
-            >
-              <div className="flex flex-wrap items-baseline gap-x-2.5 gap-y-1">
-                <span
-                  className="rounded px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide"
-                  style={{ background: `${c}22`, color: c }}
-                >
-                  {NOMBRE_RAID[r.tipo]}
-                </span>
-                <h3 className="mr-auto text-sm font-medium text-white/90">{r.titulo || '(sin título)'}</h3>
-                <span className="text-xs text-white/45">{r.dueno}</span>
-                <span className="text-xs text-white/35">
-                  {r.estado} · impacto {r.impacto}
-                </span>
-                <button
-                  type="button"
-                  onClick={() => setEditando(r)}
-                  className="text-xs text-[#2175a1] underline-offset-2 hover:underline"
-                >
-                  editar
-                </button>
-              </div>
-              {r.detalle && <p className="mt-1.5 text-sm leading-relaxed text-white/55">{r.detalle}</p>}
-              {r.accion && (
-                <p className="mt-1.5 text-sm leading-relaxed text-white/75">
-                  <span className="text-white/40">→ </span>
-                  {r.accion}
-                </p>
-              )}
-            </article>
-          );
-        })}
+      <div className="overflow-x-auto rounded-2xl border border-white/10">
+        <table className="w-full min-w-[640px] text-sm">
+          <thead>
+            <tr className="text-left text-xs uppercase tracking-wide text-white/35">
+              <th className="py-2 pl-3 pr-2 font-normal">Tipo</th>
+              <th className="py-2 pr-2 font-normal">Título</th>
+              <th className="py-2 pr-2 font-normal">Dueño</th>
+              <th className="py-2 pr-2 font-normal">Impacto</th>
+              <th className="py-2 pr-2 font-normal">Estado</th>
+              <th className="py-2 pr-3 font-normal" />
+            </tr>
+          </thead>
+          <tbody>
+            {lista.map((r) => {
+              const c = COLOR_RAG[semaforo(r)];
+              return (
+                <tr key={r.id} className="border-t border-white/10 align-top">
+                  <td className="py-2.5 pl-3 pr-2" style={{ borderLeft: `3px solid ${c}` }}>
+                    <span
+                      className="rounded px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide"
+                      style={{ background: `${c}22`, color: c }}
+                    >
+                      {NOMBRE_RAID[r.tipo]}
+                    </span>
+                  </td>
+                  <td className="max-w-xs py-2.5 pr-2">
+                    <p className="text-white/90">{r.titulo || '(sin título)'}</p>
+                    {r.accion && (
+                      <p className="mt-0.5 text-xs leading-relaxed text-white/45">
+                        <span className="text-white/30">→ </span>
+                        {r.accion}
+                      </p>
+                    )}
+                  </td>
+                  <td className="py-2.5 pr-2 text-white/55">{r.dueno || '—'}</td>
+                  <td className="py-2.5 pr-2 text-white/55">{r.impacto}</td>
+                  <td className="py-2.5 pr-2 text-white/55">{r.estado}</td>
+                  <td className="py-2.5 pr-3 text-right">
+                    <button
+                      type="button"
+                      onClick={() => setEditando(r)}
+                      className="text-xs text-[#2175a1] underline-offset-2 hover:underline"
+                    >
+                      editar
+                    </button>
+                  </td>
+                </tr>
+              );
+            })}
 
-        {lista.length === 0 && (
-          // Mientras carga no se dice "no hay nada": el RAID llega de Firestore
-          // un instante después y afirmarlo antes sería decir algo falso.
-          <p className="rounded-xl border border-dashed border-white/15 px-4 py-6 text-center text-sm text-white/40">
-            {cargando ? 'Cargando…' : 'Nada registrado todavía.'}
-          </p>
-        )}
+            {lista.length === 0 && (
+              // Mientras carga no se dice "no hay nada": el RAID llega de Firestore
+              // un instante después y afirmarlo antes sería decir algo falso.
+              <tr>
+                <td colSpan={6} className="px-4 py-6 text-center text-sm text-white/40">
+                  {cargando ? 'Cargando…' : 'Nada registrado todavía.'}
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
       </div>
 
       {editando && (
