@@ -141,11 +141,11 @@ function DiagramaArquitectura() {
 
 const PASOS_PIPELINE = [
   { n: '01', t1: 'rama', t2: 'feature/*', color: 'rgba(255,255,255,.4)', fill: 'rgba(255,255,255,.04)' },
-  { n: '02', t1: 'build + typecheck', t2: 'sin warnings', color: '#1f8b4c', fill: '#1f8b4c1f' },
+  { n: '02', t1: 'CI', t2: 'tsc + build + tests', color: '#1f8b4c', fill: '#1f8b4c1f' },
   { n: '03', t1: 'PR a', t2: 'main', color: '#2175a1', fill: '#2175a11f' },
   { n: '04', t1: 'Álvaro valida', t2: 'y mergea', color: '#c9860a', fill: '#c9860a1f' },
   { n: '05', t1: 'Railway', t2: 'despliega solo', color: '#1f8b4c', fill: '#1f8b4c1f' },
-  { n: '06', t1: 'producción', t2: '/api/health', color: '#2175a1', fill: '#2175a11f' },
+  { n: '06', t1: 'smoke + health', t2: 'cada deploy y hora', color: '#2175a1', fill: '#2175a11f' },
 ] as const;
 
 function DiagramaPipeline() {
@@ -235,8 +235,9 @@ function PasoExplicado({ paso, color }: { paso: (typeof PASOS_EXPLICADOS)[number
 
 const NOTAS_ARQUITECTURA = [
   'Patrón: servicios separados que comparten una base de datos, no un monolito — así `radar-engine` puede fallar o reiniciarse sin tumbar la app.',
-  'Local: Node 20+, Mongo en `127.0.0.1:27017`, `npm run seed` siembra 15 periodistas LATAM + la demo Ewaffle.',
-  'El tablero es el proyecto #1 "PR Tech" de GitHub Projects — 43 items al momento de escribir esto.',
+  'Local: Node 24 (fijado en `engines` y `.nvmrc`, #102), Mongo en `127.0.0.1:27017`, `npm run seed` siembra periodistas LATAM + la demo Ewaffle.',
+  'El tablero es el proyecto #1 "PR Tech" de GitHub Projects: 57 items al 29-sep. `gh project item-add` sí agrega items (verificado el 28-sep).',
+  'Dominio `prtech.villelab.com` registrado en el servicio de Railway el 28-sep; resuelve cuando se agregue el DNS en Cloudflare. Mientras tanto, la app vive en `prtech-production-ef4c.up.railway.app`.',
 ];
 
 /**
@@ -255,15 +256,15 @@ const PASOS_EXPLICADOS = [
   },
   {
     n: '02',
-    concepto: 'Build + typecheck',
-    que: 'La "definición de terminado": el código tiene que compilar y pasar el chequeo de tipos antes de siquiera pedir que alguien lo revise.',
-    aca: 'Verificado hoy: `tsc --noEmit` sale limpio y el build compila 16 rutas estáticas + 24 rutas de API sin error.',
+    concepto: 'CI · Integración Continua',
+    que: 'La "definición de terminado" la hace cumplir una máquina: cada cambio se compila, se chequean los tipos y se corren los tests solos, apenas se sube.',
+    aca: 'Desde el 29-sep (#105): el workflow `CI` corre `tsc --noEmit`, `npm run build` y 14 suites, las de base contra un Mongo del runner, en ~2 minutos. En su primera corrida destapó un test que llevaba cuatro días rojo.',
   },
   {
     n: '03',
     concepto: 'Pull Request (PR)',
     que: 'Pedís que tu rama se sume al tronco compartido. En un pipeline con CI, acá es justo donde correrían los tests y el build en automático.',
-    aca: '**No hay CI acá**: sin `.github/`, nada se corre solo — la definición de terminado depende de que cada quien la corra a mano antes de abrir el PR.',
+    aca: 'Cada PR muestra el check `CI` en verde o rojo. **Un PR con CI rojo no se mergea.** La protección de rama que lo haría obligatorio no está disponible (repo privado sin GitHub Pro), así que la regla es del equipo.',
   },
   {
     n: '04',
@@ -274,27 +275,28 @@ const PASOS_EXPLICADOS = [
   {
     n: '05',
     concepto: 'Continuous Deployment (CD)',
-    que: 'Lo que entra a `main` sale a producción sin que nadie lo empuje a mano. Es la mitad "CD" de "CI/CD" — acá existe, aunque la mitad "CI" no.',
-    aca: 'Automático desde `main` a Railway, confirmado en minutos tras cada merge — sin staging entre medio.',
+    que: 'Lo que entra a `main` sale a producción sin que nadie lo empuje a mano. Es la mitad "CD" de "CI/CD".',
+    aca: 'Automático desde `main` a Railway (Node 24), en unos 3 minutos tras cada merge, sin staging entre medio. **Mergear es publicar.**',
   },
   {
     n: '06',
-    concepto: 'Healthcheck',
-    que: 'Un endpoint que el sistema expone para decir "sigo vivo" después de un deploy. Sin uno, un deploy roto se entera por el cliente, no por el sistema.',
-    aca: '`/api/health` devuelve `ok`, `db`, `engine` y `uptimeSec` — nunca el connection string. No hay smoke test de producción documentado más allá de eso.',
+    concepto: 'Smoke test + healthcheck',
+    que: 'Después de cada deploy, una prueba corta contra producción real confirma que lo esencial funciona. Un health periódico avisa si algo se cae entre deploys. Sin esto, un deploy roto se entera por el cliente.',
+    aca: '`/api/health` prueba una escritura real en la base y devuelve `writeMs`. Tras cada deploy, `smoke:prod` crea una empresa de prueba y la borra; cada hora corre el health. Verde sobre `ceff0f0` el 29-sep. El aviso a #prtech cuando falla está en un PR de seguimiento.',
   },
 ] as const;
 
 const GLOSARIO: Array<{ termino: string; definicion: string }> = [
   { termino: 'Pipeline', definicion: 'La cadena de pasos, automáticos o manuales, que lleva un cambio de código a producción.' },
-  { termino: 'CI · Integración Continua', definicion: 'Cada cambio se compila y prueba solo, apenas se sube. Acá no existe.' },
+  { termino: 'CI · Integración Continua', definicion: 'Cada cambio se compila y prueba solo, apenas se sube. Acá existe desde el 29-sep.' },
   { termino: 'CD · Despliegue Continuo', definicion: 'Lo que pasa el gate llega a producción sin empujarlo a mano. Acá sí existe.' },
   { termino: 'Branch (rama)', definicion: 'Una copia de trabajo aislada, para no pisar lo que construyen los demás.' },
   { termino: 'Pull Request (PR)', definicion: 'Pedís revisión antes de sumar tu rama al tronco compartido (main).' },
   { termino: 'Code review', definicion: 'Alguien más lee tu cambio antes de que entre. Acá el revisor es siempre una persona.' },
   { termino: 'Merge', definicion: 'El momento en que tu rama se une a main — y acá, lo que dispara el deploy.' },
   { termino: 'Staging', definicion: 'Un ambiente intermedio, igual a producción, para probar antes de que lo vea un cliente. Acá no existe.' },
-  { termino: 'Healthcheck', definicion: 'Un endpoint que confirma que el sistema sigue vivo después de un deploy.' },
+  { termino: 'Healthcheck', definicion: 'Un endpoint que confirma que el sistema sigue vivo. El de acá prueba además que la base acepta escrituras.' },
+  { termino: 'Smoke test', definicion: 'Una prueba corta contra producción tras cada deploy: crea algo de prueba, lo verifica y lo borra.' },
   { termino: 'Rollback', definicion: 'Volver a la versión anterior si un deploy sale mal. Acá es manual, no automático.' },
 ];
 
@@ -310,6 +312,11 @@ const RESUMENES: Record<string, string> = {
   'isolation:test': 'Aislamiento entre cuentas (#18)',
   'mirror:test': 'Si el radar calla, la pantalla calla — nunca inventa (PR #66)',
   'mentions:test': 'Regex del espejo de medios, con casos congelados',
+  'i18n:test': 'Paridad de claves EN/ES',
+  'territories:test': 'Territorios y país primario',
+  'team-users:e2e': 'Roster e invitaciones de equipo',
+  'lector:test': 'Registro y lector del espejo web-first',
+  'periodistas:test': 'Periodistas derivados de las firmas',
   'mentions:fixtures': 'Regenera los fixtures de mentions:test (no es un test)',
 };
 
@@ -400,11 +407,10 @@ export default function PipelineApp({ llave }: { llave: string }) {
             sigla <strong className="text-white">CI/CD</strong> junta dos mitades:{' '}
             <strong className="text-white">CI</strong> (Integración Continua) compila y prueba cada
             cambio solo, apenas se sube; <strong className="text-white">CD</strong> (Despliegue
-            Continuo) lo publica solo, sin que nadie lo empuje a mano. Acá la mitad CD existe —
-            Railway despliega solo desde{' '}
-            <code className="rounded bg-white/10 px-1 py-0.5 text-white/85">main</code>— pero la
-            mitad CI no: nada corre los tests en automático, así que ese trabajo lo hace una persona,
-            a mano, antes de abrir el PR. Abajo, cada paso real de PR Tech con el concepto que
+            Continuo) lo publica solo, sin que nadie lo empuje a mano. Acá existen las dos desde el
+            29-sep: GitHub corre el build y los tests en cada PR, y Railway despliega solo desde{' '}
+            <code className="rounded bg-white/10 px-1 py-0.5 text-white/85">main</code>. Después de
+            cada deploy, un smoke test prueba producción real. Abajo, cada paso real de PR Tech con el concepto que
             representa.
           </p>
         </section>
@@ -451,8 +457,8 @@ export default function PipelineApp({ llave }: { llave: string }) {
           <div>
             <h2 className="font-serif text-xl text-white">Definición de &quot;terminado&quot;: los tests</h2>
             <p className="mt-1 text-xs leading-relaxed text-white/40">
-              Código que prueba que el código no se rompió. Acá no corren solos —no hay CI que los
-              dispare— así que alguien los corre a mano antes de abrir el PR. Pasa el mouse sobre un
+              Código que prueba que el código no se rompió. Corren solos en cada PR y en cada push a
+              main, en el workflow CI. Pasa el mouse sobre un
               script para el detalle completo y su fuente.
             </p>
           </div>
