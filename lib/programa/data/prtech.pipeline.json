@@ -115,6 +115,18 @@
           "Derivación de periodistas desde las firmas, filtro de firmas que no son personas, conteo por empresa, dormidos fuera del match.",
           "Parcial",
           "`scripts/periodistas-test.ts`"
+        ],
+        [
+          "`seo:test`",
+          "Detección de crawlers (bots reales vs navegadores humanos como DuckDuckGo, Pinterest o Cubot), qué empresas entran al sitemap y que leer el registro no escriba. Entra al CI con #116.",
+          "**Sí**",
+          "`scripts/seo-test.ts`"
+        ],
+        [
+          "`embudo:test`",
+          "Etapas del embudo por marca, regla de empresa de prueba (solo nombre, slug o correo propio), rangos de fechas y ceros sin NaN. Entra al CI con #116.",
+          "**Sí**",
+          "`scripts/embudo-test.ts`"
         ]
       ]
     },

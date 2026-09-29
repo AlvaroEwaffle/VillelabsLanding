@@ -319,6 +319,8 @@ const RESUMENES: Record<string, string> = {
   'team-users:e2e': 'Roster e invitaciones de equipo',
   'lector:test': 'Registro y lector del espejo web-first',
   'periodistas:test': 'Periodistas derivados de las firmas',
+  'seo:test': 'Crawlers vs personas, sitemap',
+  'embudo:test': 'Embudo por marca, sin pruebas',
   'mentions:fixtures': 'Regenera los fixtures de mentions:test (no es un test)',
 };
 
