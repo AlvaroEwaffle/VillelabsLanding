@@ -324,6 +324,25 @@ function puntoMongo(texto: string): { color: string; borde: boolean; titulo: str
   return { color: '#1f8b4c', borde: false, titulo: limpio };
 }
 
+function ChequeosGrid({ tabla }: { tabla: Tabla }) {
+  return (
+    <div className="space-y-2">
+      <h3 className="text-xs font-medium uppercase tracking-wide text-white/40">{tabla.titulo}</h3>
+      {tabla.nota && <p className="text-xs leading-relaxed text-white/50">{limpiar(tabla.nota)}</p>}
+      <div className="grid gap-2 sm:grid-cols-3">
+        {tabla.filas.map((fila) => (
+          <div key={fila[0]} className="rounded-xl border border-white/10 bg-white/[0.03] p-3 space-y-1">
+            <code className="text-xs text-white/85">{limpiar(fila[0])}</code>
+            <p className="text-[11px] uppercase tracking-wide text-white/40">{limpiar(fila[1])}</p>
+            <p className="text-xs leading-snug text-white/60">{limpiar(fila[2])}</p>
+            <p className="text-xs leading-snug text-white/45">Si falla: {limpiar(fila[3])}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function ScriptsGrid({ tabla, subtitulo }: { tabla: Tabla; subtitulo: string }) {
   return (
     <div className="space-y-2">
@@ -451,6 +470,7 @@ export default function PipelineApp({ llave }: { llave: string }) {
           </p>
           {DOC.tablas[0] && <ScriptsGrid tabla={DOC.tablas[0]} subtitulo="prtech-ai" />}
           {DOC.tablas[1] && <ScriptsGrid tabla={DOC.tablas[1]} subtitulo="radar-engine" />}
+          {DOC.tablas[2] && <ChequeosGrid tabla={DOC.tablas[2]} />}
         </section>
 
         {/* ── Trampas ──────────────────────────────────────────────────── */}
