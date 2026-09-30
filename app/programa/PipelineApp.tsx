@@ -501,11 +501,51 @@ export default function PipelineApp({ llave }: { llave: string }) {
           <div>
             <h2 className="font-serif text-xl text-white">Definición de &quot;terminado&quot;: los tests</h2>
             <p className="mt-1 text-xs leading-relaxed text-white/40">
-              Código que prueba que el código no se rompió. Corren solos en cada PR y en cada push a
-              main, en el workflow CI. Pasa el mouse sobre un
-              script para el detalle completo y su fuente.
+              Código que prueba que el código no se rompió. Pasa el mouse sobre un script para el
+              detalle completo y su fuente.
             </p>
           </div>
+
+          <div className="space-y-2.5 rounded-xl border border-white/10 bg-black/20 p-3.5">
+            <p className="text-xs font-medium text-white/70">
+              ¿Se corren en local? <span className="font-normal text-white/50">Sí, y además corren solas.</span>
+            </p>
+            <p className="text-xs leading-relaxed text-white/50">
+              Pasan por dos lugares, no uno solo. <strong className="text-white/70">Automático:</strong>{' '}
+              el workflow <code className="rounded bg-white/10 px-1 py-0.5 text-white/80">CI</code> los corre
+              a todos, solos, en cada PR y en cada push a <code className="rounded bg-white/10 px-1 py-0.5 text-white/80">main</code>{' '}
+              (ver «Dónde corre cada cosa», arriba). <strong className="text-white/70">Local:</strong> podés
+              (y conviene) correrlos a mano mientras programás, para feedback más rápido que esperar
+              el PR — pero eso no reemplaza el gate: un PR con CI rojo no se mergea igual.
+            </p>
+            <div className="space-y-1 overflow-x-auto rounded-lg bg-black/40 p-3 font-mono text-[11px] leading-relaxed text-white/75">
+              <p>
+                <span className="text-white/30">$</span> npm run guard:test{' '}
+                <span className="text-white/30"># en prtech-ai · no toca Mongo</span>
+              </p>
+              <p>
+                <span className="text-white/30">$</span> npm run isolation:test{' '}
+                <span className="text-white/30"># idem, pero necesita Mongo en 127.0.0.1:27017</span>
+              </p>
+              <p>
+                <span className="text-white/30">$</span> cd radar-engine &amp;&amp; npm run mentions:test{' '}
+                <span className="text-white/30"># repo aparte, no es workspace del raíz</span>
+              </p>
+            </div>
+            <p className="text-xs leading-relaxed text-white/40">
+              No hay un <code className="rounded bg-white/10 px-1 py-0.5 text-white/70">npm test</code> que
+              los corra todos juntos — cada script se llama por su nombre, uno a la vez, igual que en
+              la lista de abajo. Antes de correrlos necesitás Node 24, Mongo local en{' '}
+              <code className="rounded bg-white/10 px-1 py-0.5 text-white/70">127.0.0.1:27017</code>{' '}
+              (solo para los marcados con el punto verde) y un{' '}
+              <code className="rounded bg-white/10 px-1 py-0.5 text-white/70">.env.local</code>{' '}
+              copiado de <code className="rounded bg-white/10 px-1 py-0.5 text-white/70">.env.example</code>.{' '}
+              <strong className="text-white/60">Nunca</strong>{' '}
+              <code className="rounded bg-white/10 px-1 py-0.5 text-white/70">npm install</code> en un
+              clon local — ver «Trampas», abajo.
+            </p>
+          </div>
+
           <p className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-white/40">
             <span className="flex items-center gap-1.5">
               <span className="h-1.5 w-1.5 rounded-full" style={{ background: '#1f8b4c' }} /> usa Mongo
