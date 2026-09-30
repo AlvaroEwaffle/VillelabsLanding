@@ -268,8 +268,8 @@
     }
   ],
   "estado": {
-    "fecha": "28-sep-2026, cierre del día",
-    "lectura": "La plataforma existe, aguanta y ya está en producción: hoy entraron a main el cockpit (#91), el espejo web-first (#96) y cinco fixes, Railway los desplegó solo, y el motor volvió a generar kits tras reemplazar la clave de Anthropic. Ewaffle y Fidelidapp ya tienen cuenta real con kit y periodistas. Lo que falta no es plataforma, es negocio: nadie puede pagar, ningún correo sale y no hay base legal para escribirle a un periodista real. Además entraron 15 historias que el kick-off no tenía (seguridad, CI, autoguardado, la apuesta, los nombres ambiguos) y son trabajo de esta fase aunque nadie las había contado.",
+    "fecha": "29-sep-2026, mediodía",
+    "lectura": "Sprint 2 va 14 de 26 hechas a una semana del cierre (lunes 5-oct). Hoy entraron a main siete PRs: el embudo del espejo al primer correo (#104), CI y health de escritura (#105), Node fijado (#102), SEO con rutas /es y /en (#107), layout de diario (#108), el aviso del smoke a Slack (#109) y el bloqueo de dueño con borrado de usuarios (#97). La plataforma ya se mide y se vigila sola; lo que falta sigue siendo negocio: nadie puede pagar, ningún correo sale y no hay base legal para escribirle a un periodista real. Ayer se definió la oferta de entrada (un paquete de lanzamiento y, después, una suscripción de escucha y reporte) y el precio ya tiene una recomendación en el #33; falta que Álvaro fije el monto. En seguridad quedan #64 y #84 en revisión y #77 y #85 sin empezar: son lo que hay que cerrar antes del primer cliente real. Entraron además seis historias de seguimiento (#110 a #115) de CI, SEO y layout, sin sprint todavía.",
     "huecos": [
       {
         "titulo": "Cobrar",
@@ -277,7 +277,7 @@
           33,
           32
         ],
-        "detalle": "Sin precio definido ni pasarela, el kit se libera gratis o no se libera. Es el paso 4 del recorrido y está en rojo desde el kick-off."
+        "detalle": "Sin precio definido ni pasarela, el kit se libera gratis o no se libera. La oferta ya está decidida (paquete de entrada y suscripción) y el #33 trae la recomendación de precio y la tabla de planes; falta el monto. Para el piloto 1 se propone un link de pago y dejar la pasarela completa para cuando haya clientes."
       },
       {
         "titulo": "Enviar un correo",
@@ -286,7 +286,7 @@
           52,
           56
         ],
-        "detalle": "El módulo de difusión está construido y probado, y no tiene credenciales. El #90 hizo honesto el error (503 en vez de prometer un correo), pero el proveedor sigue sin configurar: #55 vuelve a «por tomar»."
+        "detalle": "El módulo de difusión está construido y probado, y no tiene credenciales. El #90 hizo honesto el error (503 en vez de prometer un correo), pero el proveedor sigue sin configurar: #55 está «por tomar» y no tiene PR. La bitácora de envíos (#56) tiene su PR (#99) esperando revisión."
       },
       {
         "titulo": "Base legal (Ley 1581)",
