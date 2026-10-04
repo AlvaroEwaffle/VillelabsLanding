@@ -1,6 +1,6 @@
 {
   "_nota": "Escrito a mano contra el repo real, no contra lo que alguien recuerda. Cada comando citado existe en un package.json o en un archivo verificable; lo que no se pudo verificar desde el repo está marcado como tal, con dónde mirarlo.",
-  "_revisado": "2026-09-29",
+  "_revisado": "2026-10-04",
   "una_linea": "Rama propia → PR a `main` → CI verde (typecheck, build, 14 suites en Node 24) → PASS del PO → Álvaro mergea → Railway despliega solo → smoke post-deploy contra producción, más un health que prueba escribir cada hora.",
   "secciones": [
     {
@@ -259,6 +259,10 @@
     {
       "titulo": "`closes #N` va en el cuerpo del PR",
       "detalle": "El 29-sep, tres issues (#51, #103, #106) quedaron abiertos tras mergear sus PR porque la frase no estaba en el cuerpo. Se cerraron a mano."
+    },
+    {
+      "titulo": "Un PASS caduca cuando main cambia debajo",
+      "detalle": "La revisión del PO vale para el main contra el que se hizo. El 2-oct, el #129 entró con PASS y trajo una ruta de reclamo (/claim) que no pedía la cookie de la postulación; el hueco solo apareció al revisar el #100 contra el main nuevo, y se cerró ese mismo día con el #139. Antes de mergear un PR con PASS viejo, se vuelve a probar contra el main actual (merge-tree, typecheck y las suites que toca)."
     }
   ],
   "no_verificable": [

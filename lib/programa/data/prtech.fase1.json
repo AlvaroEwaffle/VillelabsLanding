@@ -268,8 +268,8 @@
     }
   ],
   "estado": {
-    "fecha": "28-sep-2026, cierre del día",
-    "lectura": "La plataforma existe, aguanta y ya está en producción: hoy entraron a main el cockpit (#91), el espejo web-first (#96) y cinco fixes, Railway los desplegó solo, y el motor volvió a generar kits tras reemplazar la clave de Anthropic. Ewaffle y Fidelidapp ya tienen cuenta real con kit y periodistas. Lo que falta no es plataforma, es negocio: nadie puede pagar, ningún correo sale y no hay base legal para escribirle a un periodista real. Además entraron 15 historias que el kick-off no tenía (seguridad, CI, autoguardado, la apuesta, los nombres ambiguos) y son trabajo de esta fase aunque nadie las había contado.",
+    "fecha": "4-oct-2026",
+    "lectura": "La plataforma está en producción y ahora es más segura y más honesta. Entre el 29-sep y el 2-oct entraron a main catorce PR: la portada nueva (#130), la medición del embudo (#104, cierra #51), la administración de usuarios del cliente (#97), el rate limit con la IP real (#98), el arreglo del kit con sesión activa (#129), la cookie de postulación que cierra la toma de cuentas ajenas (#139, cierra #134), la bitácora de distribución (#99, cierra #56) y la vista de correos para el cliente (#138), entre otros. Cada uno pasó por la revisión del PO antes del merge. Lo que falta sigue siendo negocio: nadie puede pagar, ningún correo sale y no hay base legal para escribirle a un periodista real. En revisión quedan cinco PR: adjuntos en el cuestionario (#100), afinidad por tema del comunicado (#101), dos arreglos de seguridad (#117, #118) y la desambiguación de nombres en el espejo (#137).",
     "huecos": [
       {
         "titulo": "Cobrar",
@@ -277,7 +277,7 @@
           33,
           32
         ],
-        "detalle": "Sin precio definido ni pasarela, el kit se libera gratis o no se libera. Es el paso 4 del recorrido y está en rojo desde el kick-off."
+        "detalle": "Sin precio definido ni pasarela, el kit se libera gratis o no se libera. Es el paso 4 del recorrido y sigue en rojo desde el kick-off."
       },
       {
         "titulo": "Enviar un correo",
@@ -286,7 +286,7 @@
           52,
           56
         ],
-        "detalle": "El módulo de difusión está construido y probado, y no tiene credenciales. El #90 hizo honesto el error (503 en vez de prometer un correo), pero el proveedor sigue sin configurar: #55 vuelve a «por tomar»."
+        "detalle": "La bitácora de lo enviado ya está en producción (#99) y el cliente ve sus correos (#138), pero el proveedor no envía a nadie más que a la casilla de prueba: #55 espera el dominio propio en Resend y su DNS en Cloudflare."
       },
       {
         "titulo": "Base legal (Ley 1581)",
@@ -307,7 +307,7 @@
         58,
         53
       ],
-      "nota": "Seis historias que cierran el recorrido con un cliente que paga y recibe difusión real. Lo demás (#50, #51, #54, #56, #61, #52) puede pasar a Fase 2 sin que el cliente lo note."
+      "nota": "Seis historias que cierran el recorrido con un cliente que paga y recibe difusión real. #51, #56 y #61 ya están cerradas; #50 y #52 están en revisión (#100 y #101) y #54 puede pasar a Fase 2 sin que el cliente lo note."
     }
   }
 }

@@ -21,12 +21,13 @@ export const CONFIGS: Record<string, ConfigPrograma> = {
       {
         nombre: 'Sprint 2',
         desde: '2026-09-25',
-        hasta: '2026-10-08',
+        // Los sprints cierran los lunes (Álvaro, 28-sep): Sprint 2 cierra el 5-oct.
+        hasta: '2026-10-05',
         meta: 'La cuenta de cliente reemplaza al PIN y el portal muestra cobertura real.',
       },
       {
         nombre: 'Sprint 3',
-        desde: '2026-10-09',
+        desde: '2026-10-06',
         hasta: '2026-10-22',
         meta: 'Por definir en el planning.',
       },
