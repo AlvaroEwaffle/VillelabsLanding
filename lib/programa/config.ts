@@ -28,13 +28,14 @@ export const CONFIGS: Record<string, ConfigPrograma> = {
       {
         nombre: 'Sprint 3',
         desde: '2026-10-06',
-        hasta: '2026-10-22',
+        // Dos semanas, cierre en lunes (Álvaro, 4-oct): antes figuraba el jueves 22.
+        hasta: '2026-10-19',
         meta: 'Por definir en el planning.',
       },
       {
         nombre: 'Sprint 4',
-        desde: '2026-10-23',
-        hasta: '2026-11-05',
+        desde: '2026-10-20',
+        hasta: '2026-11-02',
         meta: 'Por definir en el planning.',
       },
     ],
