@@ -309,5 +309,132 @@
       ],
       "nota": "Seis historias que cierran el recorrido con un cliente que paga y recibe difusión real. #51, #56 y #61 ya están cerradas; #50 y #52 están en revisión (#100 y #101) y #54 puede pasar a Fase 2 sin que el cliente lo note."
     }
+  },
+  "plan_sprint": {
+    "sprint": "Sprint 3",
+    "fecha": "4-oct-2026",
+    "nota": "Todo lo que queda de la fase 1, cargado en el board con Sprint 3, prioridad, tamaño y dueño. Se ordena en el planning del lunes 5-oct, día de cierre del Sprint 2. El estado, el dueño y la prioridad de cada historia salen del board en cada sync.",
+    "frentes": [
+      {
+        "titulo": "Envío a medios",
+        "historias": [
+          125,
+          126,
+          55,
+          142,
+          144
+        ]
+      },
+      {
+        "titulo": "Cobro",
+        "historias": [
+          33,
+          32
+        ],
+        "nota": "#33 va antes que #32: sin precio no hay pasarela."
+      },
+      {
+        "titulo": "Datos personales",
+        "historias": [
+          57,
+          58
+        ]
+      },
+      {
+        "titulo": "Espejo y registro",
+        "historias": [
+          95,
+          148,
+          68,
+          141,
+          143,
+          53
+        ]
+      },
+      {
+        "titulo": "Cuenta y seguridad",
+        "historias": [
+          121,
+          77,
+          145,
+          64,
+          122,
+          123,
+          124,
+          140,
+          135
+        ]
+      },
+      {
+        "titulo": "Experiencia y calidad",
+        "historias": [
+          120,
+          54,
+          133,
+          110,
+          111,
+          112,
+          113,
+          132
+        ]
+      }
+    ],
+    "bloqueos": [
+      {
+        "que": "Precio y mercado",
+        "historias": [
+          33
+        ],
+        "bloquea": [
+          32
+        ],
+        "quien": "Álvaro"
+      },
+      {
+        "que": "DNS de prtech.villelab.com y dominio en Resend",
+        "historias": [
+          55
+        ],
+        "bloquea": [
+          125,
+          126
+        ],
+        "quien": "Álvaro",
+        "nota": "Sin esto no hay envío real desde #125 y #126."
+      },
+      {
+        "que": "Texto legal de la política Ley 1581",
+        "historias": [
+          58
+        ],
+        "bloquea": [],
+        "quien": "Álvaro"
+      },
+      {
+        "que": "CSV real de Sentidos",
+        "historias": [
+          53
+        ],
+        "bloquea": [],
+        "quien": "Sentidos"
+      },
+      {
+        "que": "Decisiones sobre usuarios",
+        "historias": [
+          123,
+          124
+        ],
+        "bloquea": [],
+        "quien": "Álvaro"
+      },
+      {
+        "que": "Ok para borrar en producción",
+        "historias": [
+          68
+        ],
+        "bloquea": [],
+        "quien": "Álvaro"
+      }
+    ]
   }
 }

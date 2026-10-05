@@ -30,7 +30,7 @@ export const CONFIGS: Record<string, ConfigPrograma> = {
         desde: '2026-10-06',
         // Dos semanas, cierre en lunes (Álvaro, 4-oct): antes figuraba el jueves 22.
         hasta: '2026-10-19',
-        meta: 'Por definir en el planning.',
+        meta: 'Cerrar la fase 1: el cliente aprueba su kit y lo envía a 5 periodistas desde su dominio, el cobro conectado, y la base de periodistas con procedencia y política de datos.',
       },
       {
         nombre: 'Sprint 4',

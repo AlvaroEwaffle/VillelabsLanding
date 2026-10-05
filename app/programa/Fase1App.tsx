@@ -15,10 +15,14 @@ const SLUG = 'prtech';
 interface HistoriaDoc { numero: number; epica: string; titulo: string; criterio: string }
 interface Paso { paso: string; titulo: string; nota: string; marco: string; svg: string; historias: number[] }
 interface Hueco { titulo: string; historias: number[]; detalle: string }
+interface Frente { titulo: string; historias: number[]; nota?: string }
+interface Bloqueo { que: string; historias: number[]; bloquea: number[]; quien: string; nota?: string }
+interface PlanSprint { sprint: string; fecha: string; nota: string; frentes: Frente[]; bloqueos: Bloqueo[] }
 const DOC = fase1 as unknown as {
   _fuente: string; _fecha: string;
   historias: HistoriaDoc[]; storyboard: Paso[];
   estado: { fecha: string; lectura: string; huecos: Hueco[]; cierre: { sprint: string; historias: number[]; nota: string } };
+  plan_sprint?: PlanSprint;
 };
 
 const MARCO: Record<string, { color: string; texto: string }> = {
@@ -201,6 +205,75 @@ export default function Fase1App({ llave }: { llave: string }) {
             <span className="text-white/45">· {DOC.estado.cierre.nota}</span>
           </p>
         </section>
+
+        {/* ── Plan del sprint: frentes y bloqueos. Dueño, prioridad y estado salen del board. ── */}
+        {DOC.plan_sprint && (() => {
+          const plan = DOC.plan_sprint;
+          const cfgS = CONFIGS[SLUG].sprints.find((x) => x.nombre === plan.sprint);
+          const link = (n: number) => {
+            const h = porNumero.get(n);
+            return (
+              <a key={n} href={h?.url ?? `https://github.com/${SNAP.repo}/issues/${n}`} target="_blank" rel="noreferrer" className="mr-1.5 font-mono hover:text-[#7ec1e8]" style={{ color: colorDe(h, overlay) }}>
+                #{n}
+              </a>
+            );
+          };
+          return (
+            <section>
+              <h2 className="mb-1 font-serif text-2xl text-white">
+                Plan del {plan.sprint}
+                {cfgS && <span className="ml-2 align-middle text-sm font-normal text-white/40">{cfgS.desde.slice(5).split("-").reverse().join("/")} al {cfgS.hasta.slice(5).split("-").reverse().join("/")}</span>}
+              </h2>
+              {cfgS && <p className="mb-1 text-[14px] leading-relaxed text-white/75">{cfgS.meta}</p>}
+              <p className="mb-3 text-xs leading-relaxed text-white/40">{plan.nota} · {plan.fecha}</p>
+              <div className="grid gap-3 lg:grid-cols-2">
+                {plan.frentes.map((fr) => {
+                  const hs = fr.historias.map((n) => porNumero.get(n));
+                  const listas = hs.filter((h) => h && hecha(h, overlay)).length;
+                  return (
+                    <div key={fr.titulo} className="min-w-0 rounded-lg border border-white/10 bg-white/[0.03] p-3.5">
+                      <p className="font-serif text-[17px] text-white">
+                        {fr.titulo} <span className="text-xs font-normal text-white/35">{listas} de {fr.historias.length} hechas</span>
+                      </p>
+                      {fr.nota && <p className="mt-0.5 text-[12px] text-white/45">{fr.nota}</p>}
+                      <ul className="mt-2 space-y-1.5">
+                        {fr.historias.map((n) => {
+                          const h = porNumero.get(n);
+                          const c = colorDe(h, overlay);
+                          return (
+                            <li key={n} className="flex min-w-0 flex-wrap items-baseline gap-x-2 text-[12.5px]" style={{ overflowWrap: "anywhere" }}>
+                              <a href={h?.url ?? `https://github.com/${SNAP.repo}/issues/${n}`} target="_blank" rel="noreferrer" className="font-mono text-white/35 hover:text-[#7ec1e8]">#{n}</a>
+                              <span className="min-w-0 flex-1 text-white/80">{h?.titulo ?? "fuera del board"}</span>
+                              {h?.prioridad && <span className="font-mono text-[11px] text-white/50">{h.prioridad}</span>}
+                              <span className="text-[11px] text-white/40">{h?.asignados.length ? h.asignados.map((a) => nombreDe(a, CONFIGS[SLUG])).join(", ") : "sin dueño"}</span>
+                              <span className="text-[11px]" style={{ color: c }}>{h ? estadoEfectivo(h, overlay) : ""}</span>
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    </div>
+                  );
+                })}
+              </div>
+              <div className="mt-4 rounded-r-lg border-l-[3px] bg-white/[0.028] px-5 py-4" style={{ borderColor: COLOR_RAG.r }}>
+                <p className="text-[11px] uppercase tracking-[0.18em] text-white/30">Bloqueos que dependen de Álvaro o de terceros</p>
+                <ul className="mt-2 space-y-1.5 text-[13px] leading-relaxed text-white/70">
+                  {plan.bloqueos.map((b) => (
+                    <li key={b.que}>
+                      {b.historias.map(link)}
+                      <span className="text-white/85">{b.que}</span>
+                      <span className="text-white/40"> · {b.quien}</span>
+                      {b.bloquea.length > 0 && (
+                        <span className="text-white/45"> · bloquea {b.bloquea.map(link)}</span>
+                      )}
+                      {b.nota && <span className="text-white/40"> {b.nota}</span>}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </section>
+          );
+        })()}
 
         {/* ── Storyboard ──────────────────────────────────────────────── */}
         <section>
