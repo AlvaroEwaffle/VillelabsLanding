@@ -29,6 +29,11 @@ export const products: Product[] = [
     externalUrl: 'https://www.fidelidapp.cl',
     relatedCases: ['fidelidapp'],
   },
+  {
+    slug: 'cata-juega',
+    icon: 'Gamepad2',
+    relatedCases: [],
+  },
 ];
 
 export function getProduct(slug: string): Product | undefined {
