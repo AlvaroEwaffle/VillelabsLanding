@@ -8,6 +8,7 @@ export const es: TranslationDictionary = {
     about: 'Nosotros',
     blog: 'Blog',
     workshops: 'Talleres',
+    catalog: 'Catálogo',
     contact: 'Contacto',
     bookACall: 'Agenda una Llamada',
     menu: 'Menú',

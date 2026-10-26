@@ -16,6 +16,7 @@ export default function Navigation() {
   const { t } = useTranslation();
 
   const navLinks = [
+    { href: '/catalogo', label: t.nav.catalog },
     { href: '/services', label: t.nav.services },
     { href: '/products', label: t.nav.products },
     { href: '/work', label: t.nav.work },
