@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { ArrowRight, Calendar, Compass, FileText, Inbox, Megaphone, MessageCircle, Search, Shield, Users, ChevronDown, Quote } from 'lucide-react';
 import { useTranslation } from '@/lib/i18n';
 import HeroFondo from '@/components/HeroFondo';
+import AgenteTrabajando from '@/components/AgenteTrabajando';
 
 /*
  * Home de Villelab (26-oct-2026). Estructura tipo ewaffle.cl: una promesa, el problema en tres líneas,
@@ -272,11 +273,17 @@ export default function HomeContent() {
       {/* Promesa (fondo animado detrás, ver components/HeroFondo.tsx) */}
       <section className="relative isolate overflow-hidden">
         <HeroFondo />
-        <div className="mx-auto max-w-6xl px-4 pb-24 pt-36 sm:px-6 md:pb-28 md:pt-44">
-          <Kicker>{c.kicker}</Kicker>
-          <h1 className="mt-5 max-w-4xl font-serif text-4xl leading-tight text-white sm:text-5xl md:text-6xl">{c.titulo}</h1>
-          <p className="mt-6 max-w-2xl text-base text-slate-300 sm:text-lg">{c.bajada}</p>
-          <Ctas c={c} catalogo={false} />
+        <div className="mx-auto grid max-w-6xl gap-12 px-4 pb-24 pt-36 sm:px-6 md:pb-28 md:pt-44 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-10">
+          <div className="min-w-0">
+            <Kicker>{c.kicker}</Kicker>
+            <h1 className="mt-5 max-w-4xl font-serif text-4xl leading-tight text-white sm:text-5xl lg:text-[3.4rem]">{c.titulo}</h1>
+            <p className="mt-6 max-w-2xl text-base text-slate-300 sm:text-lg">{c.bajada}</p>
+            <Ctas c={c} catalogo={false} />
+          </div>
+          {/* Panel "agente trabajando": a la derecha en escritorio, bajo los botones en móvil */}
+          <div className="flex min-w-0 justify-center lg:justify-end">
+            <AgenteTrabajando lang={language === 'en' ? 'en' : 'es'} />
+          </div>
         </div>
       </section>
 
