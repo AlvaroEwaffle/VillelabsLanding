@@ -15,15 +15,18 @@ export default function Navigation() {
   const pathname = usePathname();
   const { t } = useTranslation();
 
+  // Orden decidido el 26-oct-2026: Catálogo · Servicios · Proyectos · Academia · Blog · Sobre mí · Contacto
   const navLinks = [
+    { href: '/catalogo', label: t.nav.catalog },
     { href: '/services', label: t.nav.services },
-    { href: '/products', label: t.nav.products },
     { href: '/work', label: t.nav.work },
-    { href: '/about', label: t.nav.about },
+    { href: '/academia', label: t.nav.workshops },
     { href: '/blog', label: t.nav.blog },
-    { href: '/workshops', label: t.nav.workshops },
+    { href: '/sobre-mi', label: t.nav.about },
     { href: '/contact', label: t.nav.contact },
   ];
+
+  const isActiveLink = (href: string) => pathname === href || pathname.startsWith(`${href}/`);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -65,19 +68,19 @@ export default function Navigation() {
             <Link href="/" className="flex items-center gap-3 group">
               <BrandLogo size="sm" />
               <span className="text-white font-medium text-lg tracking-tight group-hover:text-accent transition-colors duration-300">
-                Villelabs
+                Villelab
               </span>
             </Link>
 
             {/* Desktop Links */}
-            <div className="hidden md:flex items-center gap-1">
+            <div className="hidden md:flex items-center gap-0.5 lg:gap-1">
               {navLinks.map((link) => {
-                const isActive = pathname === link.href;
+                const isActive = isActiveLink(link.href);
                 return (
                   <Link
                     key={link.href}
                     href={link.href}
-                    className={`relative px-4 py-2 text-sm font-light transition-colors duration-300 rounded-lg ${
+                    className={`relative px-2.5 lg:px-4 py-2 text-sm font-light whitespace-nowrap transition-colors duration-300 rounded-lg ${
                       isActive
                         ? 'text-white'
                         : 'text-white/60 hover:text-white'
@@ -100,8 +103,8 @@ export default function Navigation() {
             <div className="hidden md:flex items-center gap-3">
               <LanguageSwitcher />
               <Link
-                href="/contact"
-                className="inline-flex items-center px-5 py-2.5 rounded-full bg-accent text-white text-sm font-medium hover:bg-accent/90 transition-colors duration-300 shadow-accent"
+                href="/diagnostic"
+                className="inline-flex items-center whitespace-nowrap px-4 lg:px-5 py-2.5 rounded-full bg-accent text-white text-sm font-medium hover:bg-accent/90 transition-colors duration-300 shadow-accent"
               >
                 {t.nav.bookACall}
               </Link>
@@ -139,14 +142,14 @@ export default function Navigation() {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-              className="fixed top-0 right-0 bottom-0 w-[280px] bg-slate-950 border-l border-white/10 z-[10000] flex flex-col"
+              className="fixed top-0 right-0 bottom-0 w-[280px] max-w-[85vw] bg-slate-950 border-l border-white/10 z-[10000] flex flex-col"
             >
               <div className="flex items-center justify-between px-6 h-16">
                 <span className="text-white font-medium text-lg">{t.nav.menu}</span>
               </div>
-              <div className="flex-1 px-6 py-4 space-y-1">
+              <div className="flex-1 overflow-y-auto px-6 py-4 space-y-1">
                 {navLinks.map((link, index) => {
-                  const isActive = pathname === link.href;
+                  const isActive = isActiveLink(link.href);
                   return (
                     <motion.div
                       key={link.href}
@@ -173,7 +176,7 @@ export default function Navigation() {
                   <LanguageSwitcher />
                 </div>
                 <Link
-                  href="/contact"
+                  href="/diagnostic"
                   className="flex items-center justify-center w-full px-5 py-3 rounded-full bg-accent text-white text-sm font-medium hover:bg-accent/90 transition-colors duration-300"
                 >
                   {t.nav.bookACall}

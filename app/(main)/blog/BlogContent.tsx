@@ -1,27 +1,30 @@
 'use client';
 
 import { useState, FormEvent } from 'react';
-import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { Calendar, ArrowRight, Clock, Mail, CheckCircle } from 'lucide-react';
+import { ArrowRight, Clock, Mail, CheckCircle } from 'lucide-react';
 import { blogPosts } from '@/lib/blog-posts';
 import { useTranslation } from '@/lib/i18n';
+import { Kicker, PageHero } from '@/components/PageBits';
 
-const EASE_SMOOTH = [0.6, -0.05, 0.01, 0.99] as const;
+/* Blog (26-oct-2026): mismo estilo que el home. Los posts viven en lib/blog-posts.ts. */
 
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, ease: EASE_SMOOTH },
+const COPY = {
+  es: {
+    kicker: 'Blog',
+    titulo: 'Agentes de IA explicados en simple.',
+    bajada: 'Notas cortas de Álvaro sobre cómo trabajan los agentes, qué deciden solos y qué te preguntan. Y algo de cómo construimos plataformas.',
+    destacado: 'Lo último',
+    todos: 'Todas las notas',
+    leer: 'Leer la nota',
   },
-};
-
-const containerVariants = {
-  hidden: {},
-  visible: {
-    transition: { staggerChildren: 0.08 },
+  en: {
+    kicker: 'Blog',
+    titulo: 'AI agents explained simply.',
+    bajada: 'Short notes by Álvaro on how agents work, what they decide on their own and what they ask you. Plus some of how we build platforms.',
+    destacado: 'Latest',
+    todos: 'All notes',
+    leer: 'Read the note',
   },
 };
 
@@ -52,7 +55,7 @@ function NewsletterCTA() {
             updateEnabled: true,
             attributes: {
               SOURCE: 'blog_newsletter',
-              SITE: 'villelabs.cl',
+              SITE: 'villelab.com',
             },
           }),
         });
@@ -69,30 +72,22 @@ function NewsletterCTA() {
 
   if (isSubmitted) {
     return (
-      <div className="flex flex-col items-center text-center py-4">
-        <div className="flex items-center justify-center w-12 h-12 rounded-full bg-green-500/10 border border-green-500/20 mb-4">
-          <CheckCircle className="w-6 h-6 text-green-400" />
+      <div className="flex flex-col items-center py-4 text-center">
+        <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full border border-green-500/20 bg-green-500/10">
+          <CheckCircle className="h-6 w-6 text-green-400" />
         </div>
-        <p className="text-white text-lg font-light mb-2">{t.pages.blog.subscribedTitle}</p>
-        <p className="text-white/40 text-sm font-light">
-          {t.pages.blog.subscribedDescription}
-        </p>
+        <p className="text-lg text-white">{t.pages.blog.subscribedTitle}</p>
+        <p className="mt-2 text-sm text-slate-400">{t.pages.blog.subscribedDescription}</p>
       </div>
     );
   }
 
   return (
     <>
-      <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-accent/10 border border-accent/20 mb-5 mx-auto">
-        <Mail className="w-6 h-6 text-accent" />
-      </div>
-      <p className="text-white text-lg font-light mb-2">
-        {t.pages.blog.newsletterHeading}
-      </p>
-      <p className="text-white/40 text-sm font-light mb-6">
-        {t.pages.blog.newsletterDescription}
-      </p>
-      <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+      <Mail className="h-6 w-6 text-accent" />
+      <p className="mt-4 text-xl text-white">{t.pages.blog.newsletterHeading}</p>
+      <p className="mt-2 max-w-md text-sm text-slate-400">{t.pages.blog.newsletterDescription}</p>
+      <form onSubmit={handleSubmit} className="mt-6 flex max-w-md flex-col gap-3 sm:flex-row">
         <input
           type="email"
           required
@@ -100,114 +95,83 @@ function NewsletterCTA() {
           onChange={(e) => setEmail(e.target.value)}
           placeholder={t.pages.blog.newsletterPlaceholder}
           autoComplete="email"
-          className="flex-1 px-4 py-3 rounded-xl bg-slate-800/60 border border-white/10 text-white placeholder-white/30 focus:outline-none focus:border-accent/50 focus:ring-1 focus:ring-accent/30 text-sm transition-all"
+          className="min-h-[48px] flex-1 rounded-full border border-white/10 bg-white/[0.04] px-5 text-sm text-white placeholder-slate-500 transition-all focus:border-accent/50 focus:outline-none focus:ring-1 focus:ring-accent/30"
         />
         <button
           type="submit"
           disabled={isSubmitting}
-          className="px-6 py-3 bg-accent text-white text-sm font-medium rounded-xl hover:bg-accent/90 transition-colors border border-accent/30 hover:border-accent/50 disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
+          className="inline-flex min-h-[48px] items-center justify-center whitespace-nowrap rounded-full bg-accent px-6 text-sm font-medium text-white hover:bg-[#2a8bbd] disabled:cursor-not-allowed disabled:opacity-50"
         >
           {isSubmitting ? t.pages.blog.subscribing : t.pages.blog.subscribe}
         </button>
       </form>
-      <p className="text-xs text-white/25 mt-3">{t.pages.blog.noSpam}</p>
+      <p className="mt-3 text-xs text-slate-500">{t.pages.blog.noSpam}</p>
     </>
   );
 }
 
 export default function BlogContent() {
-  const { t, language } = useTranslation();
+  const { language } = useTranslation();
+  const c = COPY[language === 'en' ? 'en' : 'es'];
 
-  const filteredPosts = blogPosts.filter((p) => p.language === language);
+  const posts = blogPosts.filter((p) => p.language === language);
+  const [primero, ...resto] = posts;
 
   return (
-    <main className="pt-24 md:pt-32 pb-16 md:pb-24">
-      {/* Header */}
-      <motion.div
-        className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-16"
-        initial="hidden"
-        animate="visible"
-        variants={containerVariants}
-      >
-        <motion.p
-          variants={itemVariants}
-          className="text-xs uppercase tracking-[0.2em] text-accent font-medium mb-4"
-        >
-          {t.pages.blog.label}
-        </motion.p>
-        <motion.h1
-          variants={itemVariants}
-          className="text-4xl md:text-5xl lg:text-6xl font-light text-white mb-6"
-        >
-          {t.pages.blog.heading}
-        </motion.h1>
-        <motion.p
-          variants={itemVariants}
-          className="text-lg text-white/50 font-light max-w-xl mx-auto"
-        >
-          {t.pages.blog.description}
-        </motion.p>
-      </motion.div>
+    <main className="relative w-full overflow-x-hidden bg-slate-950" aria-label="Main content">
+      <PageHero kicker={c.kicker} titulo={c.titulo} bajada={c.bajada} />
 
-      {/* Published posts */}
-      <motion.div
-        className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 mb-16"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.1 }}
-        variants={containerVariants}
-      >
-        <div className="space-y-6">
-          {filteredPosts.map((post) => (
-            <motion.article key={post.slug} variants={itemVariants}>
+      {primero ? (
+        <section className="mx-auto max-w-6xl px-4 py-6 sm:px-6">
+          <Kicker>{c.destacado}</Kicker>
+          <Link
+            href={`/blog/${primero.slug}`}
+            className="group mt-4 block rounded-3xl border border-accent/40 bg-accent/[0.06] p-6 transition-colors hover:border-accent/70 sm:p-8"
+          >
+            <div className="flex flex-wrap items-center gap-3 text-xs text-slate-400">
+              <span className="rounded-full border border-white/10 px-3 py-1 uppercase tracking-wider">{primero.category}</span>
+              <span className="inline-flex items-center gap-1.5"><Clock className="h-3 w-3" /> {primero.readTime}</span>
+              <span>{primero.date}</span>
+            </div>
+            <h2 className="mt-4 max-w-3xl font-serif text-2xl text-white sm:text-3xl">{primero.title}</h2>
+            <p className="mt-3 max-w-2xl text-slate-300">{primero.excerpt}</p>
+            <span className="mt-5 inline-flex min-h-[44px] items-center gap-2 text-sm text-slate-200 group-hover:text-white">
+              {c.leer} <ArrowRight className="h-4 w-4" />
+            </span>
+          </Link>
+        </section>
+      ) : null}
+
+      <section className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
+        <Kicker>{c.todos}</Kicker>
+        <ul className="mt-4 grid gap-4 md:grid-cols-2">
+          {resto.map((post) => (
+            <li key={post.slug}>
               <Link
                 href={`/blog/${post.slug}`}
-                className="group block p-6 md:p-8 rounded-xl border border-white/[0.06] bg-white/[0.02] hover:border-accent/20 transition-all duration-300"
+                className="group flex h-full flex-col rounded-2xl border border-white/10 bg-white/[0.02] p-6 transition-colors hover:border-white/25"
               >
-                <div className="flex flex-wrap items-center gap-3 mb-3">
-                  <span className="px-2.5 py-0.5 rounded-full bg-accent/10 border border-accent/20 text-accent text-[10px] uppercase tracking-wider font-medium">
-                    {post.category}
-                  </span>
-                  <span className="flex items-center gap-1.5 text-white/25 text-xs font-light">
-                    <Clock className="w-3 h-3" />
-                    {post.readTime}
-                  </span>
-                  <span className="flex items-center gap-1.5 text-white/25 text-xs font-light">
-                    <Calendar className="w-3 h-3" />
-                    {post.date}
-                  </span>
+                <div className="flex flex-wrap items-center gap-3 text-xs text-slate-400">
+                  <span className="rounded-full border border-white/10 px-3 py-1 uppercase tracking-wider">{post.category}</span>
+                  <span className="inline-flex items-center gap-1.5"><Clock className="h-3 w-3" /> {post.readTime}</span>
+                  <span>{post.date}</span>
                 </div>
-                <h2 className="text-white text-lg font-medium mb-2 group-hover:text-accent transition-colors">
-                  {post.title}
-                </h2>
-                <p className="text-white/40 text-sm font-light leading-relaxed mb-4">
-                  {post.excerpt}
-                </p>
-                <span className="inline-flex items-center gap-1.5 text-accent text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  {t.pages.blog.readArticle}
-                  <ArrowRight className="w-3.5 h-3.5" />
+                <h2 className="mt-4 text-xl text-white">{post.title}</h2>
+                <p className="mt-2 flex-1 text-sm text-slate-400">{post.excerpt}</p>
+                <span className="mt-4 inline-flex min-h-[44px] items-center gap-2 text-sm text-slate-200 group-hover:text-white">
+                  {c.leer} <ArrowRight className="h-4 w-4" />
                 </span>
               </Link>
-            </motion.article>
+            </li>
           ))}
-        </div>
-      </motion.div>
+        </ul>
+      </section>
 
-      {/* Newsletter CTA */}
-      <motion.div
-        className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 mt-20 text-center"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.3 }}
-        variants={containerVariants}
-      >
-        <motion.div
-          variants={itemVariants}
-          className="p-8 md:p-10 rounded-xl border border-white/[0.06] bg-white/[0.02]"
-        >
+      <section className="mx-auto max-w-6xl px-4 pb-32 pt-10 sm:px-6">
+        <div className="rounded-3xl border border-white/10 bg-white/[0.02] p-6 sm:p-10">
           <NewsletterCTA />
-        </motion.div>
-      </motion.div>
+        </div>
+      </section>
     </main>
   );
 }

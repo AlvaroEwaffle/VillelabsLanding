@@ -5,14 +5,14 @@
 
 'use client';
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://villelabs.cl';
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://villelab.com';
 
 export default function SEOHead() {
   const organizationSchema = {
     '@context': 'https://schema.org',
     '@type': 'Organization',
     '@id': `${SITE_URL}/#organization`,
-    name: 'Villelabs',
+    name: 'Villelab',
     url: SITE_URL,
     logo: {
       '@type': 'ImageObject',
@@ -54,7 +54,7 @@ export default function SEOHead() {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
     '@id': `${SITE_URL}/#website`,
-    name: 'Villelabs - Sistemas de ingresos, no solo sitios web',
+    name: 'Villelab - Agentes de IA para el trabajo de tu equipo',
     url: SITE_URL,
     description:
       'Construimos sistemas digitales que convierten visitantes en clientes.',
@@ -69,7 +69,7 @@ export default function SEOHead() {
     '@context': 'https://schema.org',
     '@type': 'LocalBusiness',
     '@id': `${SITE_URL}/#localbusiness`,
-    name: 'Villelabs',
+    name: 'Villelab',
     url: SITE_URL,
     logo: `${SITE_URL}/icono.png`,
     description:

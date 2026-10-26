@@ -127,3 +127,125 @@ body {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ---------- Hero del home: fondo animado (components/HeroFondo.tsx) ----------
+   Técnica tomada del hero de ewaffle.cl: capas absolutas + @keyframes + brillo
+   que sigue al puntero vía --mx/--my. Sin canvas, sin librerías. */
+.hero-fondo {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+  --mx: 72%;
+  --my: 38%;
+  background: linear-gradient(180deg, #0b1526 0%, #060b18 60%, #020617 100%);
+}
+.hero-fondo > * {
+  position: absolute;
+}
+.hero-fondo__grilla {
+  inset: -60px;
+  background-image: radial-gradient(rgba(148, 163, 184, 0.28) 1px, transparent 1.4px);
+  background-size: 28px 28px;
+  opacity: 0.55;
+  mask-image: radial-gradient(ellipse 80% 70% at 60% 40%, #000 30%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 80% 70% at 60% 40%, #000 30%, transparent 100%);
+  animation: hero-grilla 80s linear infinite;
+}
+@keyframes hero-grilla {
+  to {
+    background-position: 280px 280px;
+  }
+}
+.hero-fondo__brillo {
+  inset: 0;
+  background: radial-gradient(560px circle at var(--mx) var(--my), rgba(33, 117, 161, 0.38), transparent 65%);
+  transition: background 0.15s;
+}
+.hero-fondo__blob {
+  border-radius: 50%;
+  filter: blur(48px);
+  animation: hero-flota 14s ease-in-out infinite alternate;
+}
+.hero-fondo__blob--a {
+  width: 420px;
+  height: 420px;
+  left: -120px;
+  top: -100px;
+  background: rgba(33, 117, 161, 0.34);
+}
+.hero-fondo__blob--b {
+  width: 320px;
+  height: 320px;
+  left: 52%;
+  bottom: -150px;
+  background: rgba(52, 211, 153, 0.16);
+  animation-delay: -5s;
+}
+@keyframes hero-flota {
+  to {
+    transform: translate(50px, 36px) scale(1.14);
+  }
+}
+.hero-fondo__particulas {
+  inset: 0;
+}
+.hero-fondo__particulas i {
+  position: absolute;
+  bottom: 0;
+  display: block;
+  border-radius: 50%;
+  opacity: 0;
+  box-shadow: 0 0 12px -2px currentColor;
+  animation: hero-sube linear infinite;
+  will-change: transform, opacity;
+}
+.hero-fondo__particulas i.is-pill {
+  border-radius: 99px;
+}
+@keyframes hero-sube {
+  0% {
+    transform: translateY(40px) rotate(0deg);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.7;
+  }
+  85% {
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateY(-620px) rotate(300deg);
+    opacity: 0;
+  }
+}
+/* Velo para legibilidad: oscurece la zona del texto y funde el borde inferior con el fondo del sitio. */
+.hero-fondo__velo {
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(2, 6, 23, 0.72) 0%, rgba(2, 6, 23, 0.42) 45%, rgba(2, 6, 23, 0.1) 100%),
+    linear-gradient(180deg, rgba(2, 6, 23, 0.35) 0%, transparent 25%, transparent 70%, #020617 100%);
+}
+@media (max-width: 640px) {
+  .hero-fondo__velo {
+    background:
+      linear-gradient(180deg, rgba(2, 6, 23, 0.55) 0%, rgba(2, 6, 23, 0.45) 60%, #020617 100%);
+  }
+  .hero-fondo__blob--a {
+    width: 300px;
+    height: 300px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-fondo__grilla,
+  .hero-fondo__blob {
+    animation: none !important;
+  }
+  .hero-fondo__particulas {
+    display: none;
+  }
+  .hero-fondo__brillo {
+    transition: none;
+  }
+}

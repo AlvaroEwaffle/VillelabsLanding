@@ -13,7 +13,7 @@ import type { BlogPost } from '@/lib/blog-posts';
 import { blogPosts } from '@/lib/blog-posts';
 import { useTranslation, getWhatsAppUrl } from '@/lib/i18n';
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://villelabs.cl';
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://villelab.com';
 
 const EASE_SMOOTH = [0.6, -0.05, 0.01, 0.99] as const;
 
@@ -58,7 +58,7 @@ export default function BlogPostPage({ post }: BlogPostPageProps) {
     },
     publisher: {
       '@type': 'Organization',
-      name: 'Villelabs',
+      name: 'Villelab',
       logo: {
         '@type': 'ImageObject',
         url: `${SITE_URL}/icono.png`,

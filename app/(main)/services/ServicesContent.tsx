@@ -1,223 +1,249 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import Link from 'next/link';
-import {
-  Layout,
-  Globe,
-  TrendingUp,
-  Cog,
-  Code2,
-  MessageSquare,
-  ArrowRight,
-  Sparkles,
-} from 'lucide-react';
+import { ArrowRight, Calendar, Compass, FileText, Inbox, Search, Shield, Users } from 'lucide-react';
 import { useTranslation } from '@/lib/i18n';
-import type { ServiceDetailTranslation } from '@/lib/i18n/types';
+import { PageHero, Seccion, CtaFinal } from '@/components/PageBits';
 
-const EASE_SMOOTH = [0.6, -0.05, 0.01, 0.99] as const;
+/*
+ * Servicios (26-oct-2026): la oferta vigente son las tres formas de trabajar del home.
+ * Precios solo desde VPM/Villelabs/pricing/price-book.json (los mismos del home y /catalogo).
+ */
 
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, ease: EASE_SMOOTH },
+const usd = (n: number) => `USD $${n.toLocaleString('es-CL')}`;
+const PRECIOS = { diagnostico: 2420, setup: 2420, operacion: 2960, cto: 3500 };
+
+const COPY = {
+  es: {
+    kicker: 'Servicios',
+    titulo: 'Tres formas de trabajar juntos.',
+    bajada:
+      'Instalamos y operamos agentes de IA que hacen el trabajo repetitivo de tu equipo. Partimos por un diagnóstico; si tiene sentido, seguimos con el servicio mensual. Si lo que necesitas es dirección técnica para un proyecto propio, también la damos.',
+    ofertas: [
+      {
+        icon: Compass,
+        tag: 'Para partir',
+        titulo: 'Diagnóstico',
+        texto: 'Dos semanas para ver dónde se le va el tiempo a tu equipo, qué información tienen y qué agente conviene instalar primero.',
+        incluye: [
+          'Mapa de roles, tareas que se repiten y herramientas que usan',
+          'Qué información tiene cada persona y qué le falta',
+          'El primer agente a instalar, con alcance y precio cerrados',
+        ],
+        precio: `desde ${usd(PRECIOS.diagnostico)} · 2 semanas`,
+        nota: 'Si sigues con nosotros, se descuenta de la instalación.',
+        href: '/catalogo#formato-01',
+      },
+      {
+        icon: Users,
+        tag: 'Servicio mensual',
+        titulo: 'Agents as a Service',
+        texto: 'Cada persona del equipo trabaja con un agente que conoce el negocio, sus herramientas y sus límites. Lo instalamos y lo mejoramos cada mes.',
+        incluye: [
+          'Instalación: instrucciones del negocio y de cada rol, conexión a tu información, acceso por persona con permisos según su cargo',
+          'Acompañamiento uno a uno hasta que cada persona usa su agente en un flujo real',
+          'Operación: mantenimiento, tareas nuevas, soporte al equipo y mejora todos los meses',
+        ],
+        precio: `instalación desde ${usd(PRECIOS.setup)} + operación desde ${usd(PRECIOS.operacion)}/mes`,
+        nota: 'Las licencias de Claude (~USD 25–30 por persona al mes) las contrata tu empresa directo.',
+        href: '/catalogo#formato-06',
+        destacado: true,
+      },
+      {
+        icon: Search,
+        tag: 'Dirección técnica',
+        titulo: 'CTO fraccional',
+        texto: 'Para cuando no necesitas agentes operando, sino a alguien que dirija la parte técnica de un proyecto tuyo, unas horas a la semana.',
+        incluye: [
+          'Decisiones de arquitectura, proveedores y equipo',
+          'Prioridades y alcance de cada ciclo de desarrollo',
+          'Revisión de lo que se entrega antes de que salga',
+        ],
+        precio: `desde ${usd(PRECIOS.cto)}/mes`,
+        href: '/catalogo#formato-07',
+      },
+    ],
+    verEnCatalogo: 'Ver en el catálogo',
+    pasosKicker: 'Cómo trabajamos',
+    pasosTitulo: 'Diagnóstico, instalación, operación.',
+    pasosBajada: 'Siempre en ese orden. Cada paso cierra antes de abrir el siguiente, y en cada uno decides si seguir.',
+    pasos: [
+      { n: '01', titulo: 'Diagnóstico', texto: 'Mapeamos roles, tareas que se repiten e información. Elegimos el primer agente y cerramos alcance y precio.', href: '/catalogo#formato-01', link: 'Qué incluye el diagnóstico' },
+      { n: '02', titulo: 'Instalación', texto: 'Lo conectamos a tus herramientas con permisos por persona. Cada una sale usando al menos un flujo real.', href: '/catalogo#formato-06', link: 'Cómo es la instalación' },
+      { n: '03', titulo: 'Operación', texto: 'Lo mantenemos, sumamos tareas nuevas y lo mejoramos todos los meses. Tú ves qué hizo cada agente y qué dejó pendiente.', href: '/catalogo#formato-06', link: 'Qué incluye la operación' },
+    ],
+    agentesKicker: 'Qué hace un agente',
+    agentesTitulo: 'Tareas completas, no respuestas.',
+    agentesBajada: 'Estos son los agentes que ya operan en nuestros propios negocios. En el catálogo puedes probar cada uno con una demo.',
+    agentes: [
+      { icon: Inbox, titulo: 'Bandeja de entrada', texto: 'Lee lo que llega, separa posibles clientes de lo demás y deja la respuesta escrita.', href: '/catalogo#formato-02' },
+      { icon: FileText, titulo: 'Propuestas', texto: 'Arma la propuesta con lo conversado y con tu lista de precios. Nunca sale sin que la revises.', href: '/catalogo#formato-03' },
+      { icon: Calendar, titulo: 'Calendarios', texto: 'Si tienes varias agendas, cada una bloquea los horarios ocupados de las otras.', href: '/catalogo#formato-04' },
+      { icon: Shield, titulo: 'Seguimientos con frenos', texto: 'Persigue respuestas, confirma reuniones y avisa al equipo. Lo que compromete plata o fechas, te lo pregunta.', href: '/catalogo#formato-05' },
+    ],
+    probar: 'Probar la demo',
+    freno: 'El freno en todos los servicios: nada que comprometa plata, alcance o una fecha de entrega sale sin el sí de una persona.',
+    finalTitulo: '¿No sabes por cuál partir? Partimos por el diagnóstico.',
+    finalBajada: 'En 30 minutos vemos qué tareas se repiten en tu equipo y si un agente tiene sentido. Si no lo tiene, te lo decimos.',
+  },
+  en: {
+    kicker: 'Services',
+    titulo: 'Three ways to work together.',
+    bajada:
+      'We install and run AI agents that do your team’s repetitive work. We start with a diagnostic; if it makes sense, we continue with the monthly service. If what you need is technical leadership for your own project, we do that too.',
+    ofertas: [
+      {
+        icon: Compass,
+        tag: 'To start',
+        titulo: 'Diagnostic',
+        texto: 'Two weeks to find where your team’s time goes, what information they have and which agent to install first.',
+        incluye: [
+          'Map of roles, repetitive tasks and the tools they use',
+          'What information each person has and what they lack',
+          'The first agent to install, with scope and price agreed',
+        ],
+        precio: `from ${usd(PRECIOS.diagnostico)} · 2 weeks`,
+        nota: 'If you continue with us, it is credited towards the setup.',
+        href: '/catalogo#formato-01',
+      },
+      {
+        icon: Users,
+        tag: 'Monthly service',
+        titulo: 'Agents as a Service',
+        texto: 'Each person on the team works with an agent that knows the business, its tools and its limits. We install it and improve it every month.',
+        incluye: [
+          'Setup: business and per-role instructions, connection to your information, per-person access with role-based permissions',
+          'One-on-one onboarding until each person uses their agent on a real flow',
+          'Operation: maintenance, new tasks, team support and monthly improvements',
+        ],
+        precio: `setup from ${usd(PRECIOS.setup)} + operation from ${usd(PRECIOS.operacion)}/month`,
+        nota: 'Claude licenses (~USD 25–30 per person/month) are contracted by your company directly.',
+        href: '/catalogo#formato-06',
+        destacado: true,
+      },
+      {
+        icon: Search,
+        tag: 'Technical leadership',
+        titulo: 'Fractional CTO',
+        texto: 'For when you don’t need agents running, but someone to lead the technical side of your own project, a few hours a week.',
+        incluye: [
+          'Architecture, vendor and team decisions',
+          'Priorities and scope for each development cycle',
+          'Review of what ships before it ships',
+        ],
+        precio: `from ${usd(PRECIOS.cto)}/month`,
+        href: '/catalogo#formato-07',
+      },
+    ],
+    verEnCatalogo: 'See in the catalog',
+    pasosKicker: 'How we work',
+    pasosTitulo: 'Diagnostic, setup, operation.',
+    pasosBajada: 'Always in that order. Each step closes before the next one opens, and at each one you decide whether to continue.',
+    pasos: [
+      { n: '01', titulo: 'Diagnostic', texto: 'We map roles, repetitive tasks and information. We pick the first agent and agree scope and price.', href: '/catalogo#formato-01', link: 'What the diagnostic includes' },
+      { n: '02', titulo: 'Setup', texto: 'We connect it to your tools with per-person permissions. Everyone leaves using at least one real flow.', href: '/catalogo#formato-06', link: 'How setup works' },
+      { n: '03', titulo: 'Operation', texto: 'We maintain it, add new tasks and improve it every month. You see what each agent did and what it left pending.', href: '/catalogo#formato-06', link: 'What operation includes' },
+    ],
+    agentesKicker: 'What an agent does',
+    agentesTitulo: 'Complete tasks, not answers.',
+    agentesBajada: 'These are the agents already running our own businesses. In the catalog you can try each one with a demo.',
+    agentes: [
+      { icon: Inbox, titulo: 'Inbox', texto: 'Reads what comes in, separates prospects from the rest and leaves the reply drafted.', href: '/catalogo#formato-02' },
+      { icon: FileText, titulo: 'Proposals', texto: 'Builds the proposal from the conversation and your price list. It never goes out without your review.', href: '/catalogo#formato-03' },
+      { icon: Calendar, titulo: 'Calendars', texto: 'If you have several calendars, each one blocks the busy slots of the others.', href: '/catalogo#formato-04' },
+      { icon: Shield, titulo: 'Follow-ups with brakes', texto: 'Chases replies, confirms meetings and keeps the team posted. Anything that commits money or dates, it asks you.', href: '/catalogo#formato-05' },
+    ],
+    probar: 'Try the demo',
+    freno: 'The brake in every service: nothing that commits money, scope or a delivery date goes out without a person’s yes.',
+    finalTitulo: 'Not sure where to start? We start with the diagnostic.',
+    finalBajada: 'In 30 minutes we look at which tasks repeat in your team and whether an agent makes sense. If it doesn’t, we’ll tell you.',
   },
 };
-
-const containerVariants = {
-  hidden: {},
-  visible: {
-    transition: { staggerChildren: 0.08 },
-  },
-};
-
-function ServiceDetailCard({
-  icon: Icon,
-  title,
-  description,
-  pricing,
-  slug,
-  learnMore,
-}: {
-  icon: typeof Layout;
-  title: string;
-  description: string;
-  pricing: string;
-  slug: string;
-  learnMore: string;
-}) {
-  return (
-    <motion.div variants={itemVariants}>
-      <Link
-        href={`/services/${slug}`}
-        className="group block p-8 rounded-xl border border-white/[0.06] bg-white/[0.02] hover:border-accent/20 hover:bg-white/[0.04] transition-all duration-300 h-full"
-      >
-        <div className="w-12 h-12 rounded-lg bg-accent/10 border border-accent/20 flex items-center justify-center mb-6 group-hover:bg-accent/15 transition-colors">
-          <Icon className="w-6 h-6 text-accent" />
-        </div>
-        <h3 className="text-white text-xl font-medium mb-3">{title}</h3>
-        <p className="text-white/50 text-sm font-light leading-relaxed mb-4">{description}</p>
-        <div className="flex items-center gap-2 text-accent/70 text-sm mb-4">
-          <Sparkles className="w-3.5 h-3.5" />
-          <span className="font-light italic">{pricing}</span>
-        </div>
-        <span className="inline-flex items-center gap-2 text-accent text-sm font-medium group-hover:gap-3 transition-all">
-          {learnMore}
-          <ArrowRight className="w-3.5 h-3.5" />
-        </span>
-      </Link>
-    </motion.div>
-  );
-}
 
 export default function ServicesContent() {
-  const { t } = useTranslation();
-
-  const marketingIcons = [Layout, Globe, TrendingUp];
-  const developmentIcons = [Cog, Code2, MessageSquare];
-
-  const learnMore = t.pages.services.learnMore;
-
-  const marketingServices = t.pages.services.marketingServices.map((service, i) => ({
-    icon: marketingIcons[i],
-    learnMore,
-    ...service,
-  }));
-
-  const developmentServices = t.pages.services.developmentServices.map((service, i) => ({
-    icon: developmentIcons[i],
-    learnMore,
-    ...service,
-  }));
+  const { language } = useTranslation();
+  const c = COPY[language === 'en' ? 'en' : 'es'];
 
   return (
-    <main className="pt-24 md:pt-32 pb-16 md:pb-24">
-      {/* Header */}
-      <motion.div
-        className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-20"
-        initial="hidden"
-        animate="visible"
-        variants={containerVariants}
-      >
-        <motion.p
-          variants={itemVariants}
-          className="text-xs uppercase tracking-[0.2em] text-accent font-medium mb-4"
-        >
-          {t.pages.services.label}
-        </motion.p>
-        <motion.h1
-          variants={itemVariants}
-          className="text-4xl md:text-5xl lg:text-6xl font-light text-white mb-6"
-        >
-          {t.pages.services.heading}<span className="text-accent">{t.pages.services.headingHighlight}</span>
-        </motion.h1>
-        <motion.p
-          variants={itemVariants}
-          className="text-lg text-white/50 font-light max-w-2xl mx-auto leading-relaxed"
-        >
-          {t.pages.services.description}
-        </motion.p>
-      </motion.div>
+    <main className="relative w-full overflow-x-hidden bg-slate-950" aria-label="Main content">
+      <PageHero kicker={c.kicker} titulo={c.titulo} bajada={c.bajada} />
 
-      {/* Marketing Track */}
-      <motion.section
-        id="marketing"
-        className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mb-20"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.1 }}
-        variants={containerVariants}
-      >
-        <motion.div variants={itemVariants} className="mb-10">
-          <div className="flex items-center gap-3 mb-2">
-            <div className="w-3 h-3 rounded-full bg-accent" />
-            <h2 className="text-xs uppercase tracking-[0.2em] text-white/60 font-medium">
-              {t.pages.services.marketingTrack}
-            </h2>
-          </div>
-          <p className="text-white/40 text-sm font-light max-w-lg ml-6">
-            {t.pages.services.marketingDescription}
-          </p>
-        </motion.div>
-        <div className="grid md:grid-cols-3 gap-6">
-          {marketingServices.map((service) => (
-            <ServiceDetailCard key={service.title} {...service} />
-          ))}
+      {/* Ofertas */}
+      <section className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
+        <div className="grid gap-5 md:grid-cols-3">
+          {c.ofertas.map((o) => {
+            const Icon = o.icon;
+            return (
+              <article
+                key={o.titulo}
+                className={`flex flex-col rounded-3xl border p-6 ${o.destacado ? 'border-accent/50 bg-accent/[0.07]' : 'border-white/10 bg-white/[0.02]'}`}
+              >
+                <div className="flex items-center gap-3">
+                  <Icon className="h-6 w-6 text-accent" />
+                  <span className="rounded-full border border-white/10 px-3 py-1 text-[11px] uppercase tracking-wider text-slate-400">{o.tag}</span>
+                </div>
+                <h2 className="mt-5 text-2xl text-white">{o.titulo}</h2>
+                <p className="mt-3 text-slate-300">{o.texto}</p>
+                <ul className="mt-5 flex-1 space-y-2 border-t border-white/10 pt-5 text-sm text-slate-300">
+                  {o.incluye.map((i) => (
+                    <li key={i} className="flex gap-2">
+                      <span className="mt-[9px] h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
+                      {i}
+                    </li>
+                  ))}
+                </ul>
+                <p className="mt-5 text-sm font-medium text-accent">{o.precio}</p>
+                {'nota' in o && o.nota ? <p className="mt-2 text-xs text-slate-500">{o.nota}</p> : null}
+                <Link href={o.href} className="mt-6 inline-flex min-h-[44px] items-center gap-2 text-sm text-slate-200 hover:text-white">
+                  {c.verEnCatalogo} <ArrowRight className="h-4 w-4" />
+                </Link>
+              </article>
+            );
+          })}
         </div>
-      </motion.section>
+      </section>
 
-      {/* Development Track */}
-      <motion.section
-        id="development"
-        className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mb-20"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.1 }}
-        variants={containerVariants}
-      >
-        <motion.div variants={itemVariants} className="mb-10">
-          <div className="flex items-center gap-3 mb-2">
-            <div className="w-3 h-3 rounded-full bg-accent" />
-            <h2 className="text-xs uppercase tracking-[0.2em] text-white/60 font-medium">
-              {t.pages.services.developmentTrack}
-            </h2>
-          </div>
-          <p className="text-white/40 text-sm font-light max-w-lg ml-6">
-            {t.pages.services.developmentDescription}
-          </p>
-        </motion.div>
-        <div className="grid md:grid-cols-3 gap-6">
-          {developmentServices.map((service) => (
-            <ServiceDetailCard key={service.title} {...service} />
+      {/* Cómo trabajamos */}
+      <Seccion kicker={c.pasosKicker} titulo={c.pasosTitulo} bajada={c.pasosBajada}>
+        <ol className="mt-10 grid gap-5 md:grid-cols-3">
+          {c.pasos.map((p) => (
+            <li key={p.n} className="flex flex-col rounded-2xl border border-white/10 p-6">
+              <span className="font-mono text-sm text-accent">{p.n}</span>
+              <h3 className="mt-3 text-xl text-white">{p.titulo}</h3>
+              <p className="mt-2 flex-1 text-slate-300">{p.texto}</p>
+              <Link href={p.href} className="mt-5 inline-flex min-h-[44px] items-center gap-2 text-sm text-slate-200 hover:text-white">
+                {p.link} <ArrowRight className="h-4 w-4" />
+              </Link>
+            </li>
           ))}
-        </div>
-      </motion.section>
+        </ol>
+      </Seccion>
 
-      {/* Pricing Note */}
-      <motion.div
-        className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mb-20 text-center"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        variants={containerVariants}
-      >
-        <motion.p
-          variants={itemVariants}
-          className="text-sm text-white/30 font-light italic"
-        >
-          {t.pages.services.pricingNote}
-        </motion.p>
-      </motion.div>
+      {/* Qué hace un agente */}
+      <Seccion kicker={c.agentesKicker} titulo={c.agentesTitulo} bajada={c.agentesBajada}>
+        <ul className="mt-10 grid gap-4 sm:grid-cols-2">
+          {c.agentes.map((a) => {
+            const Icon = a.icon;
+            return (
+              <li key={a.titulo} className="flex flex-col rounded-2xl border border-white/10 bg-white/[0.02] p-5">
+                <div className="flex items-center gap-3">
+                  <Icon className="h-5 w-5 shrink-0 text-accent" />
+                  <h3 className="text-lg text-white">{a.titulo}</h3>
+                </div>
+                <p className="mt-3 flex-1 text-slate-300">{a.texto}</p>
+                <Link href={a.href} className="mt-4 inline-flex min-h-[44px] items-center gap-2 text-sm text-slate-200 hover:text-white">
+                  {c.probar} <ArrowRight className="h-4 w-4" />
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+        <p className="mt-8 flex items-start gap-3 rounded-2xl border border-emerald-500/30 bg-emerald-500/[0.06] p-4 text-emerald-200">
+          <Shield className="mt-0.5 h-5 w-5 shrink-0" /> {c.freno}
+        </p>
+      </Seccion>
 
-      {/* CTA */}
-      <motion.div
-        className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        variants={containerVariants}
-      >
-        <motion.div
-          variants={itemVariants}
-          className="p-10 md:p-14 rounded-2xl border border-white/[0.06] bg-white/[0.02]"
-        >
-          <h3 className="text-2xl md:text-3xl font-light text-white mb-4">
-            {t.pages.services.ctaHeading}
-          </h3>
-          <p className="text-white/50 text-base font-light mb-8 max-w-md mx-auto">
-            {t.pages.services.ctaDescription}
-          </p>
-          <Link
-            href="/contact"
-            className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-accent text-white font-medium text-base hover:bg-accent/90 transition-all duration-300 shadow-accent-lg group"
-          >
-            {t.pages.services.ctaButton}
-            <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-          </Link>
-        </motion.div>
-      </motion.div>
+      <CtaFinal titulo={c.finalTitulo} bajada={c.finalBajada} />
     </main>
   );
 }

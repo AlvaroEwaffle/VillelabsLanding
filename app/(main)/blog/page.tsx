@@ -1,16 +1,16 @@
 import type { Metadata } from 'next';
 import BlogContent from './BlogContent';
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://villelabs.cl';
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://villelab.com';
 
 export const metadata: Metadata = {
-  title: 'Blog | Insights on Web Design, Strategy & Growth',
+  title: 'Blog | Agentes de IA explicados en simple',
   description:
-    'Practical insights on web design, conversion optimization, digital strategy, and business growth. Updated weekly.',
+    'Notas de Álvaro Villena sobre agentes de IA en lenguaje simple: qué hacen, en qué nivel está tu negocio, qué deciden solos y qué te preguntan. Más cómo construimos plataformas.',
   alternates: { canonical: `${siteUrl}/blog` },
   openGraph: {
-    title: 'Blog | Villelabs',
-    description: 'Practical insights on web design, strategy, and business growth.',
+    title: 'Blog | Villelab',
+    description: 'Agentes de IA explicados en simple, y cómo construimos plataformas.',
     url: `${siteUrl}/blog`,
   },
 };

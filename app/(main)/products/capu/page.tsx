@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import ProductPage from '@/components/ProductPage';
 import { getProduct } from '@/lib/products';
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://villelabs.cl';
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://villelab.com';
 const product = getProduct('capu')!;
 
 export const metadata: Metadata = {

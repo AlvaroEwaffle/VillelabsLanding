@@ -48,6 +48,7 @@ export interface TranslationDictionary {
     about: string;
     blog: string;
     workshops: string;
+    catalog: string;
     contact: string;
     bookACall: string;
     menu: string;

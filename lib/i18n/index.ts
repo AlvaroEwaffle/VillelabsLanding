@@ -93,8 +93,8 @@ export function useTranslation() {
 export function getWhatsAppUrl(language: Language): string {
   const message =
     language === 'es'
-      ? 'Hola, me gustaría saber más sobre sus servicios. Los encontré en villelabs.cl'
-      : "Hi, I'd like to know more about your services. I found you at villelabs.cl";
+      ? 'Hola, vengo de villelab.com y quiero saber si un agente tiene sentido para mi equipo.'
+      : 'Hi, I found villelab.com and want to know if an agent makes sense for my team.';
   return `https://wa.me/56920115198?text=${encodeURIComponent(message)}`;
 }
 

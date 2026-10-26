@@ -62,7 +62,7 @@ export default function ProductPage({ product }: ProductPageProps) {
       >
         <motion.div variants={itemVariants} className="mb-8">
           <Link
-            href="/products"
+            href="/catalogo"
             className="inline-flex items-center gap-2 text-white/40 text-sm hover:text-accent transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />

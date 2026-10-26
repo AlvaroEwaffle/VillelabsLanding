@@ -189,7 +189,7 @@ export default function ExitIntentPopup() {
             updateEnabled: true,
             attributes: {
               SOURCE: 'exit_popup',
-              SITE: 'villelabs.cl',
+              SITE: 'villelab.com',
             },
           }),
         }).catch(() => {})

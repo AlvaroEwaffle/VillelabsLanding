@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://villelabs.cl';
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://villelab.com';
 
 export const metadata: Metadata = {
   title: 'Terms of Service',
@@ -30,7 +30,7 @@ export default function TermsPage() {
           </p>
 
           <p>
-            These Terms of Service (&ldquo;Terms&rdquo;) govern your use of the website villelabs.cl
+            These Terms of Service (&ldquo;Terms&rdquo;) govern your use of the website villelab.com
             and any services provided by Villelabs. By using our website or engaging our services,
             you agree to these Terms.
           </p>

@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import ConsultingContent from './ConsultingContent';
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://villelabs.cl';
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://villelab.com';
 
 export const metadata: Metadata = {
   title: 'Consultoría | Liderazgo ágil y de producto con IA',

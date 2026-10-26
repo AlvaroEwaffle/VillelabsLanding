@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://villelabs.cl";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://villelab.com";
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -25,11 +25,11 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Villelabs | Sistemas de ingresos, no solo sitios web",
-    template: "%s | Villelabs",
+    default: "Villelab | Agentes de IA para el trabajo de tu equipo",
+    template: "%s | Villelab",
   },
   description:
-    "Construimos sistemas digitales que convierten visitantes en clientes: paginas de conversion, sitios web estrategicos y plataformas a medida para empresas listas para crecer.",
+    "Instalamos y operamos agentes de IA que hacen el trabajo repetitivo de tu equipo: correo, propuestas, seguimientos y reportes. Con frenos: lo que compromete plata, alcance o fechas pasa por una persona.",
   keywords: [
     "web design agency",
     "revenue systems",
@@ -57,7 +57,7 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Alvaro Villena", url: siteUrl }],
   creator: "Alvaro Villena",
-  publisher: "Villelabs",
+  publisher: "Villelab",
   robots: {
     index: true,
     follow: true,
@@ -73,25 +73,25 @@ export const metadata: Metadata = {
     type: "website",
     locale: "es_CL",
     url: siteUrl,
-    siteName: "Villelabs",
-    title: "Villelabs | Sistemas de ingresos, no solo sitios web",
+    siteName: "Villelab",
+    title: "Villelab | Agentes de IA para el trabajo de tu equipo",
     description:
-      "Construimos sistemas digitales que convierten visitantes en clientes: paginas de conversion, sitios web estrategicos y plataformas a medida para empresas listas para crecer.",
+      "Instalamos y operamos agentes de IA que hacen el trabajo repetitivo de tu equipo: correo, propuestas, seguimientos y reportes. Con frenos: lo que compromete plata, alcance o fechas pasa por una persona.",
     images: [
       {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Villelabs - Sistemas de ingresos, no solo sitios web",
+        alt: "Villelab - Agentes de IA para el trabajo de tu equipo",
       },
-      { url: "/icono.png", width: 512, height: 512, alt: "Villelabs" },
+      { url: "/icono.png", width: 512, height: 512, alt: "Villelab" },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Villelabs | Sistemas de ingresos, no solo sitios web",
+    title: "Villelab | Agentes de IA para el trabajo de tu equipo",
     description:
-      "Construimos sistemas digitales que convierten visitantes en clientes: plataformas a medida, sitios web estrategicos y paginas de conversion.",
+      "Instalamos y operamos agentes de IA que hacen el trabajo repetitivo de tu equipo: correo, propuestas, seguimientos y reportes. Con frenos: lo que compromete plata, alcance o fechas pasa por una persona.",
     creator: "@alvarovillena",
     images: ["/og-image.jpg"],
   },
@@ -112,7 +112,7 @@ export const metadata: Metadata = {
     "msapplication-TileImage": "/icono.png",
     "apple-mobile-web-app-capable": "yes",
     "apple-mobile-web-app-status-bar-style": "black-translucent",
-    "apple-mobile-web-app-title": "Villelabs",
+    "apple-mobile-web-app-title": "Villelab",
   },
 };
 
