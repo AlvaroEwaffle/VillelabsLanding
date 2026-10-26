@@ -1,20 +1,12 @@
 import type { Metadata } from 'next';
-import AboutContent from './AboutContent';
+import Redirect from '@/components/Redirect';
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://villelab.com';
-
+// Ruta antigua: redirige a /sobre-mi (public/_redirects responde 301 en Cloudflare Pages).
 export const metadata: Metadata = {
-  title: 'About | Meet the Team Behind Villelabs',
-  description:
-    'A small, focused team of product leaders, developers, and strategists based in Santiago, Chile. We build revenue systems for 50+ businesses globally.',
-  alternates: { canonical: `${siteUrl}/about` },
-  openGraph: {
-    title: 'About | Villelabs',
-    description: 'Meet the team that builds revenue systems, not just websites.',
-    url: `${siteUrl}/about`,
-  },
+  title: 'Sobre mí',
+  robots: { index: false, follow: true },
 };
 
-export default function AboutPage() {
-  return <AboutContent />;
+export default function RedirectPage() {
+  return <Redirect to="/sobre-mi" label="Ir a Sobre mí" />;
 }
