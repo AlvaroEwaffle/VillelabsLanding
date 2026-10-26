@@ -11,6 +11,112 @@ export interface BlogPost {
 }
 
 export const blogPosts: BlogPost[] = [
+  // --- Notas nuevas (26-oct-2026), adaptadas de los guiones de los reels de Álvaro (alvaro-reels/src/*.json) ---
+  {
+    slug: 'cinco-niveles-ia-en-tu-negocio',
+    title: '¿En qué nivel de IA está tu negocio? Hay cinco',
+    date: 'Octubre 2026',
+    excerpt:
+      'Del chat que responde preguntas a varios agentes que se coordinan con frenos. Cada nivel arregla lo que el anterior no puede. ¿En cuál estás tú?',
+    category: 'Agentes de IA',
+    readTime: '3 min de lectura',
+    keywords: ['niveles de IA en la empresa', 'agentes de IA', 'chat vs agente', 'automatizar trabajo con IA', 'IA para pymes Chile'],
+    language: 'es',
+    content: `
+<p>Cuando alguien me dice «ya usamos IA en la empresa», la pregunta que sigue es: ¿en qué nivel? Hay cinco, y cada uno arregla lo que el anterior no puede.</p>
+
+<h2>Nivel uno: el chat</h2>
+<p>Le preguntas y te responde. Es donde parte casi todo el mundo. El problema: cada vez tienes que explicarle todo de nuevo. Quién eres, qué vendes, cómo escribes.</p>
+
+<h2>Nivel dos: un chat que conoce tu negocio</h2>
+<p>Le dejas instrucciones y archivos guardados: tu lista de precios, tus plantillas, tu forma de hablar. Ya no partes de cero. Pero el trabajo igual lo haces tú: copias, pegas, revisas, envías.</p>
+
+<h2>Nivel tres: un agente que hace una tarea</h2>
+<p>Acá cambia la cosa. Un agente no responde: hace. Lee el correo, busca los datos y te deja el borrador listo. Tú solo lo revisas. Pero solo trabaja cuando tú lo llamas.</p>
+
+<h2>Nivel cuatro: un agente con despertador</h2>
+<p>Trabaja solo, a su hora, aunque tú estés durmiendo. Cada mañana revisa la bandeja, cada tarde hace seguimiento. Pero es uno solo, haciendo una sola cosa.</p>
+
+<h2>Nivel cinco: varios agentes que se coordinan, con frenos</h2>
+<p>Cada uno hace lo suyo: uno ordena el correo, otro arma propuestas, otro cuida los calendarios. Y lo importante te lo preguntan antes. Ese «antes» es el freno, y es lo que permite dejarlos trabajar sin mirarlos todo el día.</p>
+
+<h2>¿En qué nivel estás tú?</h2>
+<p>La mayoría de los equipos que conozco está entre el uno y el dos. Subir al tres es el salto más grande, porque es cuando la IA deja de conversar y empieza a trabajar. Si quieres subir uno, parte por elegir una sola tarea que se repita todas las semanas. Por ahí se entra.</p>
+`,
+  },
+  {
+    slug: 'agente-decide-solo-o-pregunta',
+    title: '¿Tu agente debería decidir solo o preguntarte primero?',
+    date: 'Octubre 2026',
+    excerpt:
+      'La regla que uso con mis agentes: lo que se deshace, va solo. Lo que compromete plata, alcance o una fecha, te pregunta. Y preparar un borrador nunca necesitó permiso.',
+    category: 'Agentes de IA',
+    readTime: '3 min de lectura',
+    keywords: ['agentes de IA con frenos', 'qué puede decidir un agente', 'autonomía de agentes de IA', 'control humano IA', 'agentes de IA para empresas'],
+    language: 'es',
+    content: `
+<p>Es la pregunta que más me hacen cuando instalo agentes en un equipo: ¿y si hace algo que no debía? La respuesta es una regla simple que uso con todos mis agentes. Te la muestro con una imagen.</p>
+
+<h2>Imagina una calle</h2>
+<p>Cada cosa que le piden al agente es un auto que sube por esa calle. Abajo va lo que hace solo: avisar que recibió un correo, agendar una hora, hacer seguimiento de una propuesta que ya se envió, coordinar con el equipo.</p>
+
+<p>Pero más arriba hay una línea: el punto de corte. Ahí el agente frena y te pregunta.</p>
+
+<h2>¿Qué cruza la línea?</h2>
+<p>Tres cosas, y solo tres:</p>
+<ul>
+<li>Todo lo que <strong>compromete plata</strong>: un precio, un descuento, una cotización.</li>
+<li>Todo lo que <strong>cambia qué vas a entregar</strong>: el alcance de un proyecto.</li>
+<li>Toda <strong>fecha de entrega</strong> prometida a un cliente.</li>
+</ul>
+
+<h2>Ojo: agendar una hora no es prometer una entrega</h2>
+<p>Mover un calendario se deshace. Prometerle una fecha a un cliente, no. Por eso el agente agenda solo, pero nunca dice «te lo entregamos el viernes» sin que alguien lo haya aprobado.</p>
+
+<h2>Y preparar un borrador nunca necesitó permiso</h2>
+<p>Esto es lo que más tiempo ahorra. El agente puede armar la propuesta completa, con precios y todo, y dejarla lista. Lo que no puede es enviarla. Tú solo la apruebas. Preparar es gratis; enviar, cruza la línea.</p>
+
+<h2>La regla, en una frase</h2>
+<p>Lo que se deshace, va solo. Lo que compromete, te pregunta. Con esa regla puedes dejar agentes trabajando en tu equipo sin estar mirándolos, y sin la sorpresa de un correo que no debió salir.</p>
+`,
+  },
+  {
+    slug: 'por-que-la-ia-se-olvida-pizarra-y-cuaderno',
+    title: 'Por qué la IA se olvida de lo que le contaste ayer',
+    date: 'Octubre 2026',
+    excerpt:
+      'La IA piensa sobre una pizarra de tamaño fijo. Cuando se llena, borra lo más antiguo; cuando abres una conversación nueva, parte en blanco. Un agente recuerda con un truco simple: un cuaderno.',
+    category: 'Agentes de IA',
+    readTime: '3 min de lectura',
+    keywords: ['memoria de la IA', 'por qué ChatGPT se olvida', 'contexto y memoria en agentes de IA', 'qué es un agente de IA', 'alucinar IA'],
+    language: 'es',
+    content: `
+<p>«Ayer le expliqué todo y hoy no se acuerda de nada». Si te ha pasado con ChatGPT o con cualquier otra IA, no es un error tuyo. Es cómo funciona. Te lo explico con una pizarra y un cuaderno.</p>
+
+<h2>La pizarra</h2>
+<p>Imagina que la IA piensa sobre una pizarra. Todo lo que le escribes, y todo lo que te responde, va quedando anotado ahí. Mientras la conversación sigue, la pizarra está llena de lo que han hablado y por eso parece que entiende.</p>
+
+<p>Pero la pizarra tiene un tamaño fijo. Cuando se llena, para escribir algo nuevo tiene que borrar lo más antiguo. Y cuando abres una conversación nueva, la pizarra parte en blanco. Lo de ayer ya no está.</p>
+
+<h2>El cuaderno</h2>
+<p>Entonces, ¿cómo recuerda un agente? Con un truco muy simple: tiene un cuaderno. Al terminar el día, anota lo importante: quién es cada cliente, qué se prometió y qué quedó pendiente. Y cada mañana, antes de trabajar, lee su cuaderno y lo copia a la pizarra. Por eso parece que se acuerda.</p>
+
+<p>La «memoria» de ChatGPT funciona parecido: no es que la pizarra sea infinita, es que hay un cuaderno detrás.</p>
+
+<h2>Cuatro palabras que vas a escuchar</h2>
+<p>Con la pizarra y el cuaderno claros, el resto del vocabulario se entiende solo:</p>
+<ul>
+<li><strong>IA:</strong> un cerebro que solo escribe. Le preguntas y te responde con texto. Nada más.</li>
+<li><strong>Alucinar:</strong> cuando la IA no sabe algo, a veces lo inventa. Y te lo dice con total seguridad.</li>
+<li><strong>Agente:</strong> un cerebro con manos. No solo responde: busca, anota y te deja borradores.</li>
+<li><strong>Contexto:</strong> la pizarra donde piensa. Tamaño fijo; cuando se llena, borra lo más antiguo.</li>
+<li><strong>Memoria:</strong> el cuaderno. Lo importante se anota ahí para que no se pierda de una conversación a otra.</li>
+</ul>
+
+<h2>En una frase</h2>
+<p>Pizarra para pensar, cuaderno para recordar. Si un agente va a trabajar en tu equipo, lo primero que hay que definir es qué va en su cuaderno: quiénes son tus clientes, cómo escribes, qué no se puede prometer. Eso es lo que lo hace tuyo.</p>
+`,
+  },
   {
     slug: 'landing-page-cost-chile-2026',
     title: 'How Much Does a Landing Page Cost in Chile in 2026?',
