@@ -20,10 +20,10 @@ const PRECIOS = { diagnostico: 2420, setup: 2420, operacion: 2960, cto: 3500 };
 type Cliente = { nombre: string; logo?: string; nota?: string; color?: boolean };
 const CORPORACIONES: Cliente[] = [
   { nombre: 'LATAM Airlines', logo: '/logos/latam.svg' },
-  { nombre: 'CMPC' },
-  { nombre: 'Kimberly-Clark' },
-  { nombre: 'PepsiCo' },
-  { nombre: 'HarperCollins' },
+  { nombre: 'CMPC', logo: '/logos/cmpc.svg' },
+  { nombre: 'Kimberly-Clark', logo: '/logos/kimberly-clark.svg' },
+  { nombre: 'PepsiCo', logo: '/logos/pepsico.svg' },
+  { nombre: 'HarperCollins', logo: '/logos/harpercollins.png' },
 ];
 const CORPORACIONES_EWAFFLE: Cliente[] = [
   { nombre: 'ACHS', logo: '/logos/achs.svg', color: true },
