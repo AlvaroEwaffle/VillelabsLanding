@@ -198,15 +198,17 @@ function Kicker({ children }: { children: React.ReactNode }) {
   return <p className="font-mono text-xs uppercase tracking-[0.2em] text-accent">{children}</p>;
 }
 
-function Ctas({ c }: { c: (typeof COPY)['es'] }) {
+function Ctas({ c, catalogo = true }: { c: (typeof COPY)['es']; catalogo?: boolean }) {
   return (
     <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
       <Link href="/diagnostic" className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full bg-accent px-6 text-sm font-medium text-white hover:bg-[#2a8bbd]">
         {c.ctaPrincipal} <ArrowRight className="h-4 w-4" />
       </Link>
-      <Link href="/catalogo" className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full border border-white/15 px-6 text-sm text-slate-200 hover:border-white/30">
-        {c.ctaCatalogo}
-      </Link>
+      {catalogo && (
+        <Link href="/catalogo" className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full border border-white/15 px-6 text-sm text-slate-200 hover:border-white/30">
+          {c.ctaCatalogo}
+        </Link>
+      )}
       <a
         href={`${WHATSAPP}?text=${encodeURIComponent(c.whatsappTexto)}`}
         target="_blank"
@@ -272,7 +274,7 @@ export default function HomeContent() {
         <Kicker>{c.kicker}</Kicker>
         <h1 className="mt-5 max-w-4xl font-serif text-4xl leading-tight text-white sm:text-5xl md:text-6xl">{c.titulo}</h1>
         <p className="mt-6 max-w-2xl text-base text-slate-300 sm:text-lg">{c.bajada}</p>
-        <Ctas c={c} />
+        <Ctas c={c} catalogo={false} />
       </section>
 
       {/* Problema */}
