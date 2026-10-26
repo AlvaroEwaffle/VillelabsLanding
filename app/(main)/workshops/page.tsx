@@ -1,19 +1,12 @@
 import type { Metadata } from 'next';
-import WorkshopsContent from './WorkshopsContent';
+import Redirect from '@/components/Redirect';
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://villelab.com';
-
+// Ruta antigua: redirige a /academia (public/_redirects responde 301 en Cloudflare Pages).
 export const metadata: Metadata = {
-  title: 'Talleres | Aprende IA aplicada a tu trabajo',
-  description: 'Cursos practicos de Vibe Coding y Agentes de IA para disenadores y Product Managers. Aprende a construir con IA sin saber programar.',
-  alternates: { canonical: `${siteUrl}/workshops` },
-  openGraph: {
-    title: 'Talleres | Villelabs',
-    description: 'Cursos practicos de IA para profesionales creativos y de producto.',
-    url: `${siteUrl}/workshops`,
-  },
+  title: 'Academia',
+  robots: { index: false, follow: true },
 };
 
-export default function WorkshopsPage() {
-  return <WorkshopsContent />;
+export default function RedirectPage() {
+  return <Redirect to="/academia" label="Ir a la Academia" />;
 }
