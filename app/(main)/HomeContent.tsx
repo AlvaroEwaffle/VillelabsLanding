@@ -48,7 +48,7 @@ const PROPIOS: Cliente[] = [
 const COPY = {
   es: {
     kicker: 'IA aplicada al trabajo · Agentes y workflows',
-    titulo: 'Agentes de IA que hacen el trabajo repetitivo de tu equipo. Con frenos.',
+    titulo: 'Agentes de IA que hacen el trabajo repetitivo de tu equipo.',
     bajada:
       'Los instalamos, los conectamos a tu información y los operamos contigo. Leen, ordenan, redactan y hacen seguimiento. Lo que compromete plata, alcance o fechas, te lo preguntan.',
     ctaPrincipal: 'Agenda un diagnóstico',
@@ -133,7 +133,7 @@ const COPY = {
   },
   en: {
     kicker: 'Applied AI for work · Agents and workflows',
-    titulo: 'AI agents that do your team’s repetitive work. With brakes.',
+    titulo: 'AI agents that do your team’s repetitive work.',
     bajada:
       'We install them, connect them to your information and run them with you. They read, sort, draft and follow up. Anything that commits money, scope or dates, they ask you first.',
     ctaPrincipal: 'Book a diagnostic',
