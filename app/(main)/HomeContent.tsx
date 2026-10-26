@@ -15,12 +15,15 @@ const WHATSAPP = 'https://wa.me/56920115198';
 const usd = (n: number) => `USD $${n.toLocaleString('es-CL')}`;
 const PRECIOS = { diagnostico: 2420, setup: 2420, operacion: 2960, cto: 3500 };
 
-// Solo nombres que ya son públicos en villelab.com, ewaffle.cl o alvarovillena.cl. Sin logo => insignia de texto.
+// Nombres que Álvaro autorizó mostrar. Sin logo => insignia de texto.
 // `color`: logos tipo sello (fondo propio) que se ven mal en blanco plano; van con sus colores.
 type Cliente = { nombre: string; logo?: string; nota?: string; color?: boolean };
 const CORPORACIONES: Cliente[] = [
   { nombre: 'LATAM Airlines', logo: '/logos/latam.svg' },
-  { nombre: 'PepsiCo', nota: 'vía Toptal' },
+  { nombre: 'CMPC' },
+  { nombre: 'Kimberly-Clark' },
+  { nombre: 'PepsiCo' },
+  { nombre: 'HarperCollins' },
 ];
 const CORPORACIONES_EWAFFLE: Cliente[] = [
   { nombre: 'ACHS', logo: '/logos/achs.svg', color: true },
@@ -114,8 +117,6 @@ const COPY = {
     clientesKicker: 'Con quién he trabajado',
     clientesTitulo: 'Experiencia con grandes corporaciones y empresas medianas.',
     grupoCorporaciones: 'Grandes corporaciones',
-    multinacional: 'Una multinacional de consumo masivo',
-    multinacionalNota: 'nombre reservado',
     viaEwaffle: 'Con Ewaffle, mi empresa de formación digital',
     grupoMedianas: 'Empresas medianas y startups',
     propios: 'Mis propios negocios, operados con agentes',
@@ -175,8 +176,6 @@ const COPY = {
     clientesKicker: 'Who I’ve worked with',
     clientesTitulo: 'Experience with large corporations and mid-sized companies.',
     grupoCorporaciones: 'Large corporations',
-    multinacional: 'A global consumer goods company',
-    multinacionalNota: 'name withheld',
     viaEwaffle: 'With Ewaffle, my digital learning company',
     grupoMedianas: 'Mid-sized companies and startups',
     propios: 'My own businesses, run with agents',
@@ -363,7 +362,6 @@ export default function HomeContent() {
         <h2 className="mt-3 max-w-3xl font-serif text-3xl text-white sm:text-4xl">{c.clientesTitulo}</h2>
         <Grupo titulo={c.grupoCorporaciones}>
           {CORPORACIONES.map((x) => <Logo key={x.nombre} c={x} />)}
-          <Logo c={{ nombre: c.multinacional, nota: c.multinacionalNota }} />
         </Grupo>
         <Grupo titulo={c.viaEwaffle}>
           {CORPORACIONES_EWAFFLE.map((x) => <Logo key={x.nombre} c={x} />)}
