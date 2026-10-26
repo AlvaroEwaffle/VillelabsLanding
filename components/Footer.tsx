@@ -11,7 +11,7 @@ export default function Footer() {
     {
       title: t.footer.company,
       links: [
-        { label: t.footer.aboutLink, href: '/about' },
+        { label: t.footer.aboutLink, href: '/sobre-mi' },
         { label: t.footer.workLink, href: '/work' },
         { label: t.footer.contactLink, href: '/contact' },
       ],
@@ -19,25 +19,25 @@ export default function Footer() {
     {
       title: t.footer.services,
       links: [
-        { label: t.footer.marketingLink, href: '/services#marketing' },
-        { label: t.footer.developmentLink, href: '/services#development' },
+        { label: t.footer.marketingLink, href: '/catalogo#formato-01' },
+        { label: t.footer.developmentLink, href: '/catalogo#formato-06' },
+        { label: t.footer.productsLink, href: '/catalogo#formato-07' },
+        { label: t.footer.mocaLink, href: '/catalogo' },
       ],
     },
     {
       title: t.footer.products,
       links: [
-        { label: t.footer.mocaLink, href: '/products/moca' },
-        { label: t.footer.capuLink, href: '/products/capu' },
-        { label: t.footer.lateLink, href: '/products/late' },
-        { label: t.footer.fidelidappLink, href: '/products/fidelidapp' },
+        { label: t.footer.capuLink, href: '/academia' },
+        { label: t.footer.lateLink, href: '/blog' },
       ],
     },
     {
       title: t.footer.resources,
       links: [
-        { label: t.footer.blogLink, href: '/blog' },
-        { label: t.footer.diagnosticLink, href: '/contact' },
+        { label: t.footer.diagnosticLink, href: '/diagnostic' },
         { label: t.footer.caseStudiesLink, href: '/work' },
+        { label: t.footer.fidelidappLink, href: 'https://www.fidelidapp.cl/', external: true },
       ],
     },
     {
@@ -45,7 +45,7 @@ export default function Footer() {
       links: [
         { label: t.footer.whatsappLink, href: getWhatsAppUrl(language), external: true },
         { label: t.footer.linkedinLink, href: 'https://www.linkedin.com/in/alvarovillena', external: true },
-        { label: t.footer.bookACallLink, href: '/contact' },
+        { label: t.footer.bookACallLink, href: '/diagnostic' },
       ],
     },
   ];
@@ -60,7 +60,7 @@ export default function Footer() {
             <Link href="/" className="flex items-center gap-3 mb-4">
               <BrandLogo size="sm" />
               <span className="text-white font-medium text-lg tracking-tight">
-                Villelabs
+                Villelab
               </span>
             </Link>
             <p className="text-white/40 text-sm font-light leading-relaxed max-w-xs">

@@ -1,20 +1,12 @@
 import type { Metadata } from 'next';
-import ProductsContent from './ProductsContent';
+import Redirect from '@/components/Redirect';
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://villelab.com';
-
+// Ruta antigua: redirige a /catalogo (public/_redirects responde 301 en Cloudflare Pages).
 export const metadata: Metadata = {
-  title: 'Productos SaaS | MOCA, CAPU, LATE y Fidelidapp — Villelabs',
-  description:
-    'Productos propios para PyMEs en LATAM: MOCA automatiza Instagram DMs, CAPU organiza Gmail, LATE monitorea publicidad y Fidelidapp fideliza clientes.',
-  alternates: { canonical: `${siteUrl}/products` },
-  openGraph: {
-    title: 'Productos SaaS | Villelabs',
-    description: 'Herramientas para automatizar ventas, email, publicidad y retención de clientes.',
-    url: `${siteUrl}/products`,
-  },
+  title: 'Catálogo',
+  robots: { index: false, follow: true },
 };
 
-export default function ProductsPage() {
-  return <ProductsContent />;
+export default function RedirectPage() {
+  return <Redirect to="/catalogo" label="Ir al catálogo" />;
 }

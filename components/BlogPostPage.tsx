@@ -58,7 +58,7 @@ export default function BlogPostPage({ post }: BlogPostPageProps) {
     },
     publisher: {
       '@type': 'Organization',
-      name: 'Villelabs',
+      name: 'Villelab',
       logo: {
         '@type': 'ImageObject',
         url: `${SITE_URL}/icono.png`,

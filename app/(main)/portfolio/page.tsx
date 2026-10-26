@@ -1,20 +1,12 @@
 import type { Metadata } from 'next';
-import PortfolioContent from './PortfolioContent';
+import Redirect from '@/components/Redirect';
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://villelab.com';
-
+// Ruta antigua: redirige a /work (public/_redirects responde 301 en Cloudflare Pages).
 export const metadata: Metadata = {
-  title: 'Portfolio | Projects That Deliver Results',
-  description:
-    'Explore our work: strategic websites, e-commerce platforms, SaaS products, and landing pages for 50+ businesses across LATAM.',
-  alternates: { canonical: `${siteUrl}/portfolio` },
-  openGraph: {
-    title: 'Portfolio | Villelabs',
-    description: 'Real projects with real results for real businesses.',
-    url: `${siteUrl}/portfolio`,
-  },
+  title: 'Proyectos',
+  robots: { index: false, follow: true },
 };
 
-export default function PortfolioPage() {
-  return <PortfolioContent />;
+export default function RedirectPage() {
+  return <Redirect to="/work" label="Ir a Proyectos" />;
 }

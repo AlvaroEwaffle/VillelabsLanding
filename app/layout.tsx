@@ -26,7 +26,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
     default: "Villelab | Agentes de IA para el trabajo de tu equipo",
-    template: "%s | Villelabs",
+    template: "%s | Villelab",
   },
   description:
     "Instalamos y operamos agentes de IA que hacen el trabajo repetitivo de tu equipo: correo, propuestas, seguimientos y reportes. Con frenos: lo que compromete plata, alcance o fechas pasa por una persona.",
@@ -57,7 +57,7 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Alvaro Villena", url: siteUrl }],
   creator: "Alvaro Villena",
-  publisher: "Villelabs",
+  publisher: "Villelab",
   robots: {
     index: true,
     follow: true,
@@ -73,7 +73,7 @@ export const metadata: Metadata = {
     type: "website",
     locale: "es_CL",
     url: siteUrl,
-    siteName: "Villelabs",
+    siteName: "Villelab",
     title: "Villelab | Agentes de IA para el trabajo de tu equipo",
     description:
       "Instalamos y operamos agentes de IA que hacen el trabajo repetitivo de tu equipo: correo, propuestas, seguimientos y reportes. Con frenos: lo que compromete plata, alcance o fechas pasa por una persona.",
@@ -84,7 +84,7 @@ export const metadata: Metadata = {
         height: 630,
         alt: "Villelab - Agentes de IA para el trabajo de tu equipo",
       },
-      { url: "/icono.png", width: 512, height: 512, alt: "Villelabs" },
+      { url: "/icono.png", width: 512, height: 512, alt: "Villelab" },
     ],
   },
   twitter: {
@@ -112,7 +112,7 @@ export const metadata: Metadata = {
     "msapplication-TileImage": "/icono.png",
     "apple-mobile-web-app-capable": "yes",
     "apple-mobile-web-app-status-bar-style": "black-translucent",
-    "apple-mobile-web-app-title": "Villelabs",
+    "apple-mobile-web-app-title": "Villelab",
   },
 };
 

@@ -30,7 +30,7 @@ export default function PrivacyPage() {
           </p>
 
           <p>
-            Villelabs (&ldquo;we&rdquo;, &ldquo;us&rdquo;, or &ldquo;our&rdquo;) operates the website villelabs.cl.
+            Villelabs (&ldquo;we&rdquo;, &ldquo;us&rdquo;, or &ldquo;our&rdquo;) operates the website villelab.com.
             This page informs you of our policies regarding the collection, use, and disclosure
             of personal data when you use our website and services.
           </p>
