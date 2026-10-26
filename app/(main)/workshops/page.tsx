@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import WorkshopsContent from './WorkshopsContent';
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://villelabs.cl';
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://villelab.com';
 
 export const metadata: Metadata = {
   title: 'Talleres | Aprende IA aplicada a tu trabajo',

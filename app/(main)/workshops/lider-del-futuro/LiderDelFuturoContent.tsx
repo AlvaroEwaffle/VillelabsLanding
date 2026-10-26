@@ -20,7 +20,7 @@ import { DISCOVERY_CALL_URL } from '@/lib/scheduling';
 
 const DISCOVERY_URL = DISCOVERY_CALL_URL;
 const WHATSAPP_URL =
-  'https://wa.me/56920115198?text=Hola%20Alvaro%2C%20vi%20Lider%20del%20Futuro%20en%20villelabs.cl%20y%20quiero%20saber%20si%20calza%20conmigo.';
+  'https://wa.me/56920115198?text=Hola%20Alvaro%2C%20vi%20Lider%20del%20Futuro%20en%20villelab.com%20y%20quiero%20saber%20si%20calza%20conmigo.';
 
 const EASE_SMOOTH = [0.6, -0.05, 0.01, 0.99] as const;
 

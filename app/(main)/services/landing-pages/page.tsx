@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import ServicePage from '@/components/ServicePage';
 import { getService } from '@/lib/services';
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://villelabs.cl';
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://villelab.com';
 const service = getService('landing-pages')!;
 
 export const metadata: Metadata = {

@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://villelabs.cl";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://villelab.com";
 
 export const viewport: Viewport = {
   width: "device-width",

@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import ProductsContent from './ProductsContent';
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://villelabs.cl';
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://villelab.com';
 
 export const metadata: Metadata = {
   title: 'Productos SaaS | MOCA, CAPU, LATE y Fidelidapp — Villelabs',
