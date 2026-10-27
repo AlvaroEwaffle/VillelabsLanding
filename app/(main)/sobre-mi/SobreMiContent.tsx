@@ -83,7 +83,16 @@ export default function SobreMiContent() {
 
   return (
     <main className="relative w-full overflow-x-hidden bg-slate-950" aria-label="Main content">
-      <PageHero kicker={c.kicker} titulo={c.titulo} bajada={c.bajada}>
+      <PageHero
+        kicker={c.kicker}
+        titulo={c.titulo}
+        bajada={c.bajada}
+        aside={
+          <figure className="mx-auto w-full max-w-sm overflow-hidden rounded-3xl border border-white/10 lg:mt-10">
+            <img src="/fotos/alvaro-ciudad.jpg" alt="Álvaro Villena" width={619} height={646} className="h-auto w-full object-cover" />
+          </figure>
+        }
+      >
         <ul className="mt-8 flex flex-wrap gap-2">
           {c.credenciales.map((x) => (
             <li key={x} className="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1.5 text-xs uppercase tracking-wider text-slate-300">
