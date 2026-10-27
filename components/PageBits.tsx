@@ -10,13 +10,18 @@ export function Kicker({ children }: { children: React.ReactNode }) {
   return <p className="font-mono text-xs uppercase tracking-[0.2em] text-accent">{children}</p>;
 }
 
-export function PageHero({ kicker, titulo, bajada, children }: { kicker: string; titulo: string; bajada?: string; children?: React.ReactNode }) {
-  return (
-    <section className="mx-auto max-w-6xl px-4 pb-12 pt-32 sm:px-6 md:pt-40">
+export function PageHero({ kicker, titulo, bajada, children, aside }: { kicker: string; titulo: string; bajada?: string; children?: React.ReactNode; aside?: React.ReactNode }) {
+  const texto = (
+    <div>
       <Kicker>{kicker}</Kicker>
       <h1 className="mt-5 max-w-4xl font-serif text-4xl leading-tight text-white sm:text-5xl md:text-6xl">{titulo}</h1>
       {bajada ? <p className="mt-6 max-w-2xl text-base text-slate-300 sm:text-lg">{bajada}</p> : null}
       {children}
+    </div>
+  );
+  return (
+    <section className="mx-auto max-w-6xl px-4 pb-12 pt-32 sm:px-6 md:pt-40">
+      {aside ? <div className="grid items-start gap-10 lg:grid-cols-[1fr_360px]">{texto}{aside}</div> : texto}
     </section>
   );
 }
