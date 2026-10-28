@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
-import { trackBookingClick, trackWhatsAppClick } from '@/lib/ga4';
+import { trackBookingClick, trackCTAClick, trackWhatsAppClick } from '@/lib/ga4';
 
 function getClickLocation(anchor: HTMLAnchorElement): string {
   const label =
@@ -31,6 +31,11 @@ export default function ConversionClickTracker() {
 
       if (href.includes('capu.villelab.com/schedule')) {
         trackBookingClick(location);
+      }
+
+      // Los «Agenda un diagnóstico» viven en varias páginas; se miden todos acá.
+      if (anchor.origin === window.location.origin && anchor.pathname.replace(/\/$/, '') === '/diagnostic') {
+        trackCTAClick('agenda_diagnostico', location);
       }
     };
 
