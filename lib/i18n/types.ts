@@ -95,14 +95,8 @@ export interface TranslationDictionary {
     title: string;
     subtitle: string;
     description: string;
-    emailPlaceholder: string;
-    emailLabel: string;
-    submitButton: string;
-    submitting: string;
-    antiSpam: string;
-    successTitle: string;
-    successMessage: string;
-    successButton: string;
+    ctaButton: string;
+    note: string;
     closePopup: string;
   };
   hero: {

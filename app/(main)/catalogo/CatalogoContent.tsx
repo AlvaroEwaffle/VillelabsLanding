@@ -16,25 +16,23 @@ import {
   Compass,
 } from 'lucide-react';
 import { getLenis } from '@/lib/lenis';
+import { PRECIOS_AGENTES, PRECIO_CTO_USD, uf, usd } from '@/lib/precios';
 
 /*
  * Catálogo Villelabs: espejo de ewaffle.cl/catalogo para la oferta de agentes.
- * Precios: SOLO los de VPM/Villelabs/pricing/price-book.json (USD, "desde").
+ * Precios: SOLO los de lib/precios.ts, espejo de VPM/Villelabs/pricing/price-book.json (oferta en 3 pasos, 3-nov-2026).
  * Las demos son simulaciones en el navegador: no llaman a ningún sistema ni envían nada.
  */
 
 const WHATSAPP = 'https://wa.me/56920115198';
 
 const PRECIOS = {
-  diagnostico: 2420,
-  setup: 2420,
-  operacion: 2960,
-  cto: 3500,
-  licenciaMin: 25,
-  licenciaMax: 30,
+  implementacion: PRECIOS_AGENTES.implementacionUF,
+  mantenimiento: PRECIOS_AGENTES.mantenimientoUF,
+  cto: PRECIO_CTO_USD,
+  licenciaMin: PRECIOS_AGENTES.licenciaUsdMin,
+  licenciaMax: PRECIOS_AGENTES.licenciaUsdMax,
 };
-
-const usd = (n: number) => `USD $${n.toLocaleString('es-CL')}`;
 
 type DemoId = 'mapa' | 'bandeja' | 'propuesta' | 'calendario' | 'regla' | 'equipo';
 const DEMOS: DemoId[] = ['mapa', 'bandeja', 'propuesta', 'calendario', 'regla', 'equipo'];
@@ -131,7 +129,7 @@ function DemoMapa({ onTry }: { onTry: () => void }) {
                 </li>
               ))}
             </ul>
-            <p className="mt-3 text-slate-400">En el diagnóstico medimos cuánto tiempo se va en cada una y cuál conviene partir primero.</p>
+            <p className="mt-3 text-slate-400">En la reunión de descubrimiento vemos cuánto tiempo se va en cada una y cuál conviene partir primero.</p>
           </>
         )}
       </div>
@@ -414,19 +412,19 @@ type Formato = {
 };
 
 const FORMATOS: Formato[] = [
-  { n: '01', id: 'mapa', icon: Compass, tag: 'Asesoría', titulo: 'Diagnóstico', bajada: 'Dos semanas para mapear dónde se le va el tiempo a tu equipo, qué datos tienen y qué agente conviene partir primero. Si después sigues con nosotros, se descuenta.', precio: `desde ${usd(PRECIOS.diagnostico)} · 2 semanas · se descuenta del proyecto`, Demo: DemoMapa },
-  { n: '02', id: 'bandeja', icon: Inbox, tag: 'Agente por tarea', titulo: 'Bandeja de entrada', bajada: 'Lee lo que llega, separa posibles clientes de lo demás y te deja la respuesta escrita. Tú apruebas.', precio: 'incluido en Agents as a Service · alcance en el diagnóstico', Demo: DemoBandeja },
-  { n: '03', id: 'propuesta', icon: FileText, tag: 'Agente por tarea', titulo: 'Propuestas', bajada: 'Arma la propuesta con lo conversado y con tu lista de precios. Nunca sale sin que la revises.', precio: 'incluido en Agents as a Service · alcance en el diagnóstico', Demo: DemoPropuesta },
-  { n: '04', id: 'calendario', icon: Calendar, tag: 'Agente por tarea', titulo: 'Calendarios', bajada: 'Si tienes varias agendas, cada una bloquea los horarios ocupados de las otras. Nadie te agenda encima.', precio: 'incluido en Agents as a Service · alcance en el diagnóstico', Demo: DemoCalendario },
-  { n: '05', id: 'regla', icon: Shield, tag: 'Agente por tarea', titulo: 'Seguimientos con frenos', bajada: 'Persigue respuestas, confirma reuniones y avisa al equipo. Lo que compromete plata o fechas, te lo pregunta.', precio: 'incluido en Agents as a Service · alcance en el diagnóstico', Demo: DemoRegla },
-  { n: '06', id: 'equipo', icon: Users, tag: 'Servicio mensual', titulo: 'Agents as a Service', bajada: 'Cada persona del equipo trabaja con un agente que conoce el negocio, sus herramientas y sus límites. Lo instalamos, lo conectamos a tu información y lo mejoramos cada mes.', precio: `instalación desde ${usd(PRECIOS.setup)} + operación desde ${usd(PRECIOS.operacion)}/mes`, Demo: DemoEquipo },
+  { n: '01', id: 'mapa', icon: Compass, tag: 'Para partir', titulo: 'Reunión de descubrimiento', bajada: 'Treinta minutos para ver dónde se le va el tiempo a tu equipo y con qué agente conviene partir. Si un agente no tiene sentido para ustedes, te lo decimos.', precio: 'gratis · 30 minutos', Demo: DemoMapa },
+  { n: '02', id: 'bandeja', icon: Inbox, tag: 'Agente por tarea', titulo: 'Bandeja de entrada', bajada: 'Lee lo que llega, separa posibles clientes de lo demás y te deja la respuesta escrita. Tú apruebas.', precio: 'incluido en Agentes como servicio · se define en la implementación', Demo: DemoBandeja },
+  { n: '03', id: 'propuesta', icon: FileText, tag: 'Agente por tarea', titulo: 'Propuestas', bajada: 'Arma la propuesta con lo conversado y con tu lista de precios. Nunca sale sin que la revises.', precio: 'incluido en Agentes como servicio · se define en la implementación', Demo: DemoPropuesta },
+  { n: '04', id: 'calendario', icon: Calendar, tag: 'Agente por tarea', titulo: 'Calendarios', bajada: 'Si tienes varias agendas, cada una bloquea los horarios ocupados de las otras. Nadie te agenda encima.', precio: 'incluido en Agentes como servicio · se define en la implementación', Demo: DemoCalendario },
+  { n: '05', id: 'regla', icon: Shield, tag: 'Agente por tarea', titulo: 'Seguimientos con frenos', bajada: 'Persigue respuestas, confirma reuniones y avisa al equipo. Lo que compromete plata o fechas, te lo pregunta.', precio: 'incluido en Agentes como servicio · se define en la implementación', Demo: DemoRegla },
+  { n: '06', id: 'equipo', icon: Users, tag: 'Servicio mensual', titulo: 'Agentes como servicio', bajada: 'Cada persona del equipo trabaja con un agente que conoce el negocio, sus herramientas y sus límites. Lo implementamos, lo conectamos a tu información y lo mantenemos cada mes.', precio: `implementación desde ${uf(PRECIOS.implementacion)} + mantenimiento ${uf(PRECIOS.mantenimiento)}/mes`, Demo: DemoEquipo },
   { n: '07', id: null, icon: Search, tag: 'Dirección técnica', titulo: 'CTO fraccional', bajada: 'Para cuando no necesitas agentes operando, sino a alguien que dirija la parte técnica de un proyecto tuyo, unas horas a la semana.', precio: `desde ${usd(PRECIOS.cto)}/mes` },
 ];
 
 /* ------------------------------------------------------------------ */
 
 const FLUJOS = ['Bandeja de entrada', 'Propuestas', 'Calendarios', 'Seguimientos', 'Reportes'];
-type Modalidad = 'diagnostico' | 'aaas' | 'cto';
+type Modalidad = 'aaas' | 'cto';
 
 function Cotizador() {
   const [mod, setMod] = useState<Modalidad>('aaas');
@@ -436,12 +434,10 @@ function Cotizador() {
 
   const resumen = useMemo(() => {
     const lineas: { label: string; valor: string; nota?: string }[] = [];
-    if (mod === 'diagnostico') {
-      lineas.push({ label: 'Diagnóstico (2 semanas)', valor: `desde ${usd(PRECIOS.diagnostico)}`, nota: 'Se descuenta si después sigues con la instalación.' });
-    }
     if (mod === 'aaas') {
-      lineas.push({ label: 'Instalación (una vez)', valor: `desde ${usd(PRECIOS.setup)}`, nota: 'Incluye el diagnóstico y la puesta en marcha con cada persona.' });
-      lineas.push({ label: 'Operación y mejoras', valor: `desde ${usd(PRECIOS.operacion)}/mes` });
+      lineas.push({ label: 'Reunión de descubrimiento (30 min)', valor: 'gratis' });
+      lineas.push({ label: 'Implementación (una vez)', valor: `desde ${uf(PRECIOS.implementacion)}`, nota: 'Incluye la puesta en marcha con cada persona.' });
+      lineas.push({ label: 'Mantenimiento y mejoras', valor: `${uf(PRECIOS.mantenimiento)}/mes` });
     }
     if (mod === 'cto') {
       lineas.push({ label: 'CTO fraccional', valor: `desde ${usd(PRECIOS.cto)}/mes` });
@@ -452,7 +448,7 @@ function Cotizador() {
   const licMin = personas * PRECIOS.licenciaMin;
   const licMax = personas * PRECIOS.licenciaMax;
   const mensaje = encodeURIComponent(
-    `Hola, vengo del catálogo de Villelabs. Me interesa: ${mod === 'aaas' ? 'Agents as a Service' : mod === 'cto' ? 'CTO fraccional' : 'Diagnóstico'}` +
+    `Hola, vengo del catálogo de Villelabs. Me interesa: ${mod === 'aaas' ? 'Agentes como servicio' : 'CTO fraccional'}` +
       (mod !== 'cto' ? `, equipo de ${personas} personas, agentes para: ${flujos.join(', ') || 'por definir'}.` : '.'),
   );
 
@@ -461,10 +457,9 @@ function Cotizador() {
       <div className="space-y-6 rounded-2xl border border-white/10 bg-slate-900/60 p-5 sm:p-6">
         <div>
           <p className="font-mono text-xs uppercase tracking-[0.18em] text-accent">01 · Cómo quieres partir</p>
-          <div className="mt-3 grid gap-2 sm:grid-cols-3">
+          <div className="mt-3 grid gap-2 sm:grid-cols-2">
             {([
-              ['diagnostico', 'Solo el diagnóstico', 'Para saber por dónde partir'],
-              ['aaas', 'Agents as a Service', 'Agentes operando en tu equipo'],
+              ['aaas', 'Agentes como servicio', 'Agentes operando en tu equipo'],
               ['cto', 'CTO fraccional', 'Dirección técnica de un proyecto'],
             ] as [Modalidad, string, string][]).map(([k, t, d]) => (
               <button
@@ -536,7 +531,7 @@ function Cotizador() {
                 <span className="text-sm text-slate-300">Agentes por tarea</span>
                 <span className="text-sm text-white">{flujos.length ? `${flujos.length} incluidos` : 'por definir'}</span>
               </div>
-              <p className="mt-1 text-xs text-slate-400">No tienen precio aparte: el alcance exacto de cada uno se define en el diagnóstico.</p>
+              <p className="mt-1 text-xs text-slate-400">No tienen precio aparte: el alcance exacto de cada uno se define en la implementación.</p>
             </li>
           ) : null}
           {mod === 'aaas' ? (
@@ -551,10 +546,10 @@ function Cotizador() {
             </li>
           ) : null}
         </ul>
-        <p className="mt-4 text-xs text-slate-400">Precios en dólares, «desde». El valor final se cierra en el diagnóstico, con el alcance escrito.</p>
+        <p className="mt-4 text-xs text-slate-400">Agentes como servicio en UF; CTO fraccional en dólares. El valor final se cierra por escrito antes de partir.</p>
         <div className="mt-5 flex flex-col gap-3 sm:flex-row">
-          <Link href="/diagnostic" className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full bg-accent px-5 text-sm font-medium text-white hover:bg-[#2a8bbd]">
-            Agenda un diagnóstico <ArrowRight className="h-4 w-4" />
+          <Link href="/agentes" className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full bg-accent px-5 text-sm font-medium text-white hover:bg-[#2a8bbd]">
+            Ver la oferta en 3 pasos <ArrowRight className="h-4 w-4" />
           </Link>
           <a href={`${WHATSAPP}?text=${mensaje}`} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full border border-green-500/30 px-5 text-sm text-green-300 hover:border-green-500/60">
             <MessageCircle className="h-4 w-4" /> Enviar por WhatsApp
@@ -616,7 +611,7 @@ export default function CatalogoContent() {
           Agentes de IA para tu equipo. Pruébalos acá mismo.
         </h1>
         <p className="mt-6 max-w-2xl text-base text-slate-300 sm:text-lg">
-          Asesoría, agentes que hacen una tarea completa y el servicio mensual donde cada persona trabaja con su agente. Seis demos que puedes usar sin registrarte, y una calculadora con los precios de lista.
+          Una reunión gratis para partir, agentes que hacen una tarea completa y el servicio mensual donde cada persona trabaja con su agente. Seis demos que puedes usar sin registrarte, y una calculadora con los precios de lista.
         </p>
         <div className="mt-8 flex flex-col gap-3 sm:flex-row">
           <Btn onClick={() => irA('formatos')}>

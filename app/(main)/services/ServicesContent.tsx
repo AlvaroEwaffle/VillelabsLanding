@@ -4,49 +4,48 @@ import Link from 'next/link';
 import { ArrowRight, Calendar, Compass, FileText, Inbox, Search, Shield, Users } from 'lucide-react';
 import { useTranslation } from '@/lib/i18n';
 import { PageHero, Seccion, CtaFinal } from '@/components/PageBits';
+import { PRECIOS_AGENTES, PRECIO_CTO_USD, TEXTO_PRECIO_AGENTES, uf, usd } from '@/lib/precios';
 
 /*
  * Servicios (26-oct-2026): la oferta vigente son las tres formas de trabajar del home.
- * Precios solo desde VPM/Villelabs/pricing/price-book.json (los mismos del home y /catalogo).
+ * Precios solo desde lib/precios.ts, espejo de VPM/Villelabs/pricing/price-book.json (los mismos del home, /catalogo y /agentes).
  */
 
-const usd = (n: number) => `USD $${n.toLocaleString('es-CL')}`;
-const PRECIOS = { diagnostico: 2420, setup: 2420, operacion: 2960, cto: 3500 };
 
 const COPY = {
   es: {
     kicker: 'Servicios',
     titulo: 'Tres formas de trabajar juntos.',
     bajada:
-      'Instalamos y operamos agentes de IA que hacen el trabajo repetitivo de tu equipo. Partimos por un diagnóstico; si tiene sentido, seguimos con el servicio mensual. Si lo que necesitas es dirección técnica para un proyecto propio, también la damos.',
+      'Instalamos y operamos agentes de IA que hacen el trabajo repetitivo de tu equipo. Partimos por una reunión gratis de 30 minutos; si tiene sentido, seguimos con la implementación y el mantenimiento mensual. Si lo que necesitas es dirección técnica para un proyecto propio, también la damos.',
     ofertas: [
       {
         icon: Compass,
         tag: 'Para partir',
-        titulo: 'Diagnóstico',
-        texto: 'Dos semanas para ver dónde se le va el tiempo a tu equipo, qué información tienen y qué agente conviene instalar primero.',
+        titulo: 'Reunión de descubrimiento',
+        texto: 'Te cuento en qué se va el tiempo de tu equipo y con qué agente partiría yo.',
         incluye: [
-          'Mapa de roles, tareas que se repiten y herramientas que usan',
-          'Qué información tiene cada persona y qué le falta',
-          'El primer agente a instalar, con alcance y precio cerrados',
+          'Videollamada de 30 minutos con Álvaro Villena',
+          'Revisamos qué tareas se repiten en tu equipo',
+          'Con qué agente partir, o si un agente no tiene sentido para ustedes',
         ],
-        precio: `desde ${usd(PRECIOS.diagnostico)} · 2 semanas`,
-        nota: 'Si sigues con nosotros, se descuenta de la instalación.',
-        href: '/catalogo#formato-01',
+        precio: 'gratis · 30 minutos',
+        nota: 'Sin compromiso.',
+        href: '/agentes',
       },
       {
         icon: Users,
         tag: 'Servicio mensual',
-        titulo: 'Agents as a Service',
-        texto: 'Cada persona del equipo trabaja con un agente que conoce el negocio, sus herramientas y sus límites. Lo instalamos y lo mejoramos cada mes.',
+        titulo: 'Agentes como servicio',
+        texto: 'Cada persona del equipo trabaja con un agente que conoce el negocio, sus herramientas y sus límites. Lo implementamos y lo mantenemos funcionando cada mes.',
         incluye: [
-          'Instalación: instrucciones del negocio y de cada rol, conexión a tu información, acceso por persona con permisos según su cargo',
-          'Acompañamiento uno a uno hasta que cada persona usa su agente en un flujo real',
-          'Operación: mantenimiento, tareas nuevas, soporte al equipo y mejora todos los meses',
+          'Implementación: instrucciones del negocio y de cada rol, conexión a tu información, acceso por persona con permisos según su cargo',
+          'Acompañamiento uno a uno hasta que cada persona usa su agente en una tarea real',
+          'Mantenimiento: ajustes, tareas nuevas, soporte al equipo y mejora todos los meses',
         ],
-        precio: `instalación desde ${usd(PRECIOS.setup)} + operación desde ${usd(PRECIOS.operacion)}/mes`,
+        precio: TEXTO_PRECIO_AGENTES.es,
         nota: 'Las licencias de Claude (~USD 25–30 por persona al mes) las contrata tu empresa directo.',
-        href: '/catalogo#formato-06',
+        href: '/agentes',
         destacado: true,
       },
       {
@@ -59,18 +58,18 @@ const COPY = {
           'Prioridades y alcance de cada ciclo de desarrollo',
           'Revisión de lo que se entrega antes de que salga',
         ],
-        precio: `desde ${usd(PRECIOS.cto)}/mes`,
+        precio: `desde ${usd(PRECIO_CTO_USD)}/mes`,
         href: '/catalogo#formato-07',
       },
     ],
-    verEnCatalogo: 'Ver en el catálogo',
+    verEnCatalogo: 'Ver detalle',
     pasosKicker: 'Cómo trabajamos',
-    pasosTitulo: 'Diagnóstico, instalación, operación.',
+    pasosTitulo: 'Reunión, implementación, mantenimiento.',
     pasosBajada: 'Siempre en ese orden. Cada paso cierra antes de abrir el siguiente, y en cada uno decides si seguir.',
     pasos: [
-      { n: '01', titulo: 'Diagnóstico', texto: 'Mapeamos roles, tareas que se repiten e información. Elegimos el primer agente y cerramos alcance y precio.', href: '/catalogo#formato-01', link: 'Qué incluye el diagnóstico' },
-      { n: '02', titulo: 'Instalación', texto: 'Lo conectamos a tus herramientas con permisos por persona. Cada una sale usando al menos un flujo real.', href: '/catalogo#formato-06', link: 'Cómo es la instalación' },
-      { n: '03', titulo: 'Operación', texto: 'Lo mantenemos, sumamos tareas nuevas y lo mejoramos todos los meses. Tú ves qué hizo cada agente y qué dejó pendiente.', href: '/catalogo#formato-06', link: 'Qué incluye la operación' },
+      { n: '01', titulo: 'Reunión de descubrimiento', texto: 'Gratis, 30 minutos. Vemos qué tareas se repiten en tu equipo y con qué agente partir.', href: '/agentes#pasos', link: 'Qué incluye la reunión' },
+      { n: '02', titulo: 'Implementación', texto: `Desde ${uf(PRECIOS_AGENTES.implementacionUF)}. Lo conectamos a tus herramientas con permisos por persona. Cada una sale usándolo en una tarea real.`, href: '/agentes#pasos', link: 'Cómo es la implementación' },
+      { n: '03', titulo: 'Mantenimiento', texto: `${uf(PRECIOS_AGENTES.mantenimientoUF)} al mes. Lo mantenemos, sumamos tareas nuevas y lo mejoramos todos los meses.`, href: '/agentes#pasos', link: 'Qué incluye el mantenimiento' },
     ],
     agentesKicker: 'Qué hace un agente',
     agentesTitulo: 'Tareas completas, no respuestas.',
@@ -83,42 +82,42 @@ const COPY = {
     ],
     probar: 'Probar la demo',
     freno: 'El freno en todos los servicios: nada que comprometa plata, alcance o una fecha de entrega sale sin el sí de una persona.',
-    finalTitulo: '¿No sabes por cuál partir? Partimos por el diagnóstico.',
+    finalTitulo: '¿No sabes por cuál partir? Partimos por una reunión de 30 minutos.',
     finalBajada: 'En 30 minutos vemos qué tareas se repiten en tu equipo y si un agente tiene sentido. Si no lo tiene, te lo decimos.',
   },
   en: {
     kicker: 'Services',
     titulo: 'Three ways to work together.',
     bajada:
-      'We install and run AI agents that do your team’s repetitive work. We start with a diagnostic; if it makes sense, we continue with the monthly service. If what you need is technical leadership for your own project, we do that too.',
+      'We install and run AI agents that do your team’s repetitive work. We start with a free 30-minute call; if it makes sense, we continue with setup and monthly upkeep. If what you need is technical leadership for your own project, we do that too.',
     ofertas: [
       {
         icon: Compass,
         tag: 'To start',
-        titulo: 'Diagnostic',
-        texto: 'Two weeks to find where your team’s time goes, what information they have and which agent to install first.',
+        titulo: 'Discovery call',
+        texto: 'I’ll show you where your team’s time goes and which agent I’d start with.',
         incluye: [
-          'Map of roles, repetitive tasks and the tools they use',
-          'What information each person has and what they lack',
-          'The first agent to install, with scope and price agreed',
+          '30-minute video call with Álvaro Villena',
+          'We review which tasks repeat in your team',
+          'Which agent to start with, or whether an agent makes no sense for you',
         ],
-        precio: `from ${usd(PRECIOS.diagnostico)} · 2 weeks`,
-        nota: 'If you continue with us, it is credited towards the setup.',
-        href: '/catalogo#formato-01',
+        precio: 'free · 30 minutes',
+        nota: 'No commitment.',
+        href: '/agentes',
       },
       {
         icon: Users,
         tag: 'Monthly service',
         titulo: 'Agents as a Service',
-        texto: 'Each person on the team works with an agent that knows the business, its tools and its limits. We install it and improve it every month.',
+        texto: 'Each person on the team works with an agent that knows the business, its tools and its limits. We set it up and keep it running every month.',
         incluye: [
           'Setup: business and per-role instructions, connection to your information, per-person access with role-based permissions',
-          'One-on-one onboarding until each person uses their agent on a real flow',
-          'Operation: maintenance, new tasks, team support and monthly improvements',
+          'One-on-one onboarding until each person uses their agent on a real task',
+          'Upkeep: adjustments, new tasks, team support and monthly improvements',
         ],
-        precio: `setup from ${usd(PRECIOS.setup)} + operation from ${usd(PRECIOS.operacion)}/month`,
+        precio: TEXTO_PRECIO_AGENTES.en,
         nota: 'Claude licenses (~USD 25–30 per person/month) are contracted by your company directly.',
-        href: '/catalogo#formato-06',
+        href: '/agentes',
         destacado: true,
       },
       {
@@ -131,18 +130,18 @@ const COPY = {
           'Priorities and scope for each development cycle',
           'Review of what ships before it ships',
         ],
-        precio: `from ${usd(PRECIOS.cto)}/month`,
+        precio: `from ${usd(PRECIO_CTO_USD)}/month`,
         href: '/catalogo#formato-07',
       },
     ],
-    verEnCatalogo: 'See in the catalog',
+    verEnCatalogo: 'See details',
     pasosKicker: 'How we work',
-    pasosTitulo: 'Diagnostic, setup, operation.',
+    pasosTitulo: 'Call, setup, upkeep.',
     pasosBajada: 'Always in that order. Each step closes before the next one opens, and at each one you decide whether to continue.',
     pasos: [
-      { n: '01', titulo: 'Diagnostic', texto: 'We map roles, repetitive tasks and information. We pick the first agent and agree scope and price.', href: '/catalogo#formato-01', link: 'What the diagnostic includes' },
-      { n: '02', titulo: 'Setup', texto: 'We connect it to your tools with per-person permissions. Everyone leaves using at least one real flow.', href: '/catalogo#formato-06', link: 'How setup works' },
-      { n: '03', titulo: 'Operation', texto: 'We maintain it, add new tasks and improve it every month. You see what each agent did and what it left pending.', href: '/catalogo#formato-06', link: 'What operation includes' },
+      { n: '01', titulo: 'Discovery call', texto: 'Free, 30 minutes. We look at which tasks repeat in your team and which agent to start with.', href: '/agentes#pasos', link: 'What the call includes' },
+      { n: '02', titulo: 'Setup', texto: `From ${uf(PRECIOS_AGENTES.implementacionUF)}. We connect it to your tools with per-person permissions. Everyone leaves using it on a real task.`, href: '/agentes#pasos', link: 'How setup works' },
+      { n: '03', titulo: 'Upkeep', texto: `${uf(PRECIOS_AGENTES.mantenimientoUF)} per month. We maintain it, add new tasks and improve it every month.`, href: '/agentes#pasos', link: 'What upkeep includes' },
     ],
     agentesKicker: 'What an agent does',
     agentesTitulo: 'Complete tasks, not answers.',
@@ -155,7 +154,7 @@ const COPY = {
     ],
     probar: 'Try the demo',
     freno: 'The brake in every service: nothing that commits money, scope or a delivery date goes out without a person’s yes.',
-    finalTitulo: 'Not sure where to start? We start with the diagnostic.',
+    finalTitulo: 'Not sure where to start? We start with a 30-minute call.',
     finalBajada: 'In 30 minutes we look at which tasks repeat in your team and whether an agent makes sense. If it doesn’t, we’ll tell you.',
   },
 };

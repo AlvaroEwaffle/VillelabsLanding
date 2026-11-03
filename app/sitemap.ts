@@ -17,6 +17,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     entry('', 1, 'weekly'),
     // Navbar (26-oct-2026): Catálogo · Servicios · Proyectos · Academia · Blog · Sobre mí · Contacto
+    entry('/agentes', 1),
     entry('/catalogo', 0.9),
     entry('/services', 0.9),
     entry('/work', 0.8),

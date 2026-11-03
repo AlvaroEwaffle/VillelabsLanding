@@ -67,8 +67,8 @@ const COPY = {
     verTodos: 'Ver todos los cursos',
     villelabKicker: 'Si prefieres que lo hagamos por ti',
     villelabTitulo: 'La Academia enseña el criterio. Villelab lo instala en tu equipo.',
-    villelabTexto: 'Si no quieres aprender a armar los agentes sino tenerlos funcionando, eso es Agents as a Service: los instalamos, los conectamos a tu información y los operamos contigo.',
-    villelabCta: 'Ver Agents as a Service',
+    villelabTexto: 'Si no quieres aprender a armar los agentes sino tenerlos funcionando, eso es Agentes como servicio: los instalamos, los conectamos a tu información y los operamos contigo.',
+    villelabCta: 'Ver Agentes como servicio',
     finalTitulo: 'Parte por el primer módulo.',
     finalBajada: 'Una hora, a tu ritmo, con garantía de 7 días. Si no era lo que esperabas, te devuelven el dinero.',
   },
@@ -228,7 +228,7 @@ export default function AcademiaContent() {
           <Kicker>{c.villelabKicker}</Kicker>
           <h2 className="mt-3 max-w-3xl font-serif text-3xl text-white sm:text-4xl">{c.villelabTitulo}</h2>
           <p className="mt-4 max-w-2xl text-slate-300">{c.villelabTexto}</p>
-          <Link href="/catalogo#formato-06" className="mt-6 inline-flex min-h-[44px] items-center gap-2 text-sm text-slate-200 hover:text-white">
+          <Link href="/agentes" className="mt-6 inline-flex min-h-[44px] items-center gap-2 text-sm text-slate-200 hover:text-white">
             {c.villelabCta} <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
