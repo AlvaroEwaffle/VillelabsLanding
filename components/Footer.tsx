@@ -19,8 +19,8 @@ export default function Footer() {
     {
       title: t.footer.services,
       links: [
-        { label: t.footer.marketingLink, href: '/catalogo#formato-01' },
-        { label: t.footer.developmentLink, href: '/catalogo#formato-06' },
+        { label: t.footer.marketingLink, href: '/agentes' },
+        { label: t.footer.developmentLink, href: '/agentes#pasos' },
         { label: t.footer.productsLink, href: '/catalogo#formato-07' },
         { label: t.footer.mocaLink, href: '/catalogo' },
       ],

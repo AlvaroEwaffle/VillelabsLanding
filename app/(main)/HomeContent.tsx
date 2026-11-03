@@ -4,18 +4,17 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { ArrowRight, Calendar, Compass, FileText, Inbox, Megaphone, MessageCircle, Search, Shield, Users, ChevronDown, Quote } from 'lucide-react';
 import { useTranslation } from '@/lib/i18n';
+import { PRECIOS_AGENTES, PRECIO_CTO_USD, TEXTO_PRECIO_AGENTES, uf, usd } from '@/lib/precios';
 import HeroFondo from '@/components/HeroFondo';
 import AgenteTrabajando from '@/components/AgenteTrabajando';
 
 /*
  * Home de Villelab (26-oct-2026). Estructura tipo ewaffle.cl: una promesa, el problema en tres líneas,
  * tres ofertas, cómo trabajamos, prueba real, preguntas y un solo llamado repetido.
- * Precios: solo desde VPM/Villelabs/pricing/price-book.json (los mismos que muestra /catalogo).
+ * Precios: solo desde lib/precios.ts, espejo de VPM/Villelabs/pricing/price-book.json (los mismos que /catalogo y /agentes).
  */
 
 const WHATSAPP = 'https://wa.me/56920115198';
-const usd = (n: number) => `USD $${n.toLocaleString('es-CL')}`;
-const PRECIOS = { diagnostico: 2420, setup: 2420, operacion: 2960, cto: 3500 };
 
 // Nombres que Álvaro autorizó mostrar. Sin logo => insignia de texto.
 // `color`: logos tipo sello (fondo propio) que se ven mal en blanco plano; van con sus colores.
@@ -72,19 +71,19 @@ const COPY = {
       {
         icon: Compass,
         tag: 'Para partir',
-        titulo: 'Diagnóstico',
-        texto: 'Dos semanas para ver dónde se le va el tiempo a tu equipo y qué agente conviene partir primero.',
-        precio: `desde ${usd(PRECIOS.diagnostico)} · 2 semanas · se descuenta si sigues`,
-        href: '/catalogo#formato-01',
+        titulo: 'Reunión de descubrimiento',
+        texto: 'Te cuento en qué se va el tiempo de tu equipo y con qué agente partiría yo.',
+        precio: 'gratis · 30 minutos',
+        href: '/agentes',
       },
       {
         icon: Users,
         tag: 'Servicio mensual',
-        titulo: 'Agents as a Service',
-        texto: 'Cada persona trabaja con un agente que conoce el negocio, sus herramientas y sus límites. Lo instalamos y lo mejoramos cada mes.',
-        precio: `instalación desde ${usd(PRECIOS.setup)} + desde ${usd(PRECIOS.operacion)}/mes`,
+        titulo: 'Agentes como servicio',
+        texto: 'Un agente que conoce el negocio, sus herramientas y sus límites. Lo implementamos y lo mantenemos funcionando cada mes.',
+        precio: TEXTO_PRECIO_AGENTES.es,
         nota: 'Las licencias de Claude (~USD 25–30 por persona al mes) las paga tu empresa directo.',
-        href: '/catalogo#formato-06',
+        href: '/agentes',
         destacado: true,
       },
       {
@@ -92,17 +91,17 @@ const COPY = {
         tag: 'Dirección técnica',
         titulo: 'CTO fraccional',
         texto: 'Si lo que necesitas es alguien que dirija la parte técnica de un proyecto propio.',
-        precio: `desde ${usd(PRECIOS.cto)}/mes`,
+        precio: `desde ${usd(PRECIO_CTO_USD)}/mes`,
         href: '/catalogo#formato-07',
       },
     ],
-    verEnCatalogo: 'Ver en el catálogo',
+    verEnCatalogo: 'Ver detalle',
     pasosKicker: 'Cómo trabajamos',
     pasosTitulo: 'De la primera llamada a agentes trabajando.',
     pasos: [
-      { n: '01', titulo: 'Diagnóstico', texto: 'Mapeamos roles, tareas que se repiten e información. Elegimos el primer agente.' },
-      { n: '02', titulo: 'Instalación', texto: 'Lo conectamos a tus herramientas, con permisos por persona. Cada uno sale usando al menos un flujo real.' },
-      { n: '03', titulo: 'Operación', texto: 'Lo mantenemos, sumamos tareas nuevas y lo mejoramos todos los meses.' },
+      { n: '01', titulo: 'Reunión de descubrimiento', texto: 'Gratis, 30 minutos. Vemos qué tareas se repiten en tu equipo y con qué agente partir.' },
+      { n: '02', titulo: 'Implementación', texto: `Desde ${uf(PRECIOS_AGENTES.implementacionUF)}. Lo conectamos a tus herramientas, con permisos por persona. Cada uno sale usándolo en una tarea real.` },
+      { n: '03', titulo: 'Mantenimiento', texto: `${uf(PRECIOS_AGENTES.mantenimientoUF)} al mes. Lo mantenemos, sumamos tareas nuevas y lo mejoramos todos los meses.` },
     ],
     pruebaKicker: 'Por qué creernos',
     pruebaTitulo: 'Es el mismo sistema con el que operamos nuestros propios negocios.',
@@ -128,7 +127,7 @@ const COPY = {
       { q: '¿Es un chatbot?', a: 'No. Un chatbot conversa. Un agente hace tareas completas: lee, ordena, redacta y hace seguimiento, dentro de los límites que tú defines.' },
       { q: '¿Mi equipo tiene que saber programar?', a: 'No. Está pensado para equipos no técnicos. En la instalación acompañamos a cada persona hasta que usa su agente en un flujo real.' },
       { q: '¿Qué pasa con la información de mi empresa?', a: 'Cada persona tiene permisos según su rol, y el agente solo ve lo que necesita para su tarea. Lo definimos juntos en el diagnóstico.' },
-      { q: '¿Cuánto cuesta?', a: `El diagnóstico parte en ${usd(PRECIOS.diagnostico)}. Agents as a Service parte en ${usd(PRECIOS.setup)} de instalación más ${usd(PRECIOS.operacion)} al mes. El alcance exacto se cierra en el diagnóstico.` },
+      { q: '¿Cuánto cuesta?', a: `La reunión de descubrimiento es gratis. La implementación parte en ${uf(PRECIOS_AGENTES.implementacionUF)} y el mantenimiento es de ${uf(PRECIOS_AGENTES.mantenimientoUF)} al mes. Las licencias de Claude las contrata tu empresa aparte.` },
       { q: '¿Y si un agente no tiene sentido para mi equipo?', a: 'Te lo decimos en la primera llamada. Preferimos eso a venderte algo que no van a usar.' },
     ],
     finalTitulo: 'Partimos por entender tu operación, no por vender un agente.',
@@ -152,17 +151,17 @@ const COPY = {
     ofertasKicker: 'What we do',
     ofertasTitulo: 'Three ways to work together.',
     ofertas: [
-      { icon: Compass, tag: 'To start', titulo: 'Diagnostic', texto: 'Two weeks to find where your team’s time goes and which agent to start with.', precio: `from ${usd(PRECIOS.diagnostico)} · 2 weeks · credited if you continue`, href: '/catalogo#formato-01' },
-      { icon: Users, tag: 'Monthly service', titulo: 'Agents as a Service', texto: 'Each person works with an agent that knows the business, its tools and its limits. We install it and improve it every month.', precio: `setup from ${usd(PRECIOS.setup)} + from ${usd(PRECIOS.operacion)}/month`, nota: 'Claude licenses (~USD 25–30 per person/month) are paid by your company directly.', href: '/catalogo#formato-06', destacado: true },
-      { icon: Search, tag: 'Technical leadership', titulo: 'Fractional CTO', texto: 'When you need someone to lead the technical side of your own project.', precio: `from ${usd(PRECIOS.cto)}/month`, href: '/catalogo#formato-07' },
+      { icon: Compass, tag: 'To start', titulo: 'Discovery call', texto: 'I’ll show you where your team’s time goes and which agent I’d start with.', precio: 'free · 30 minutes', href: '/agentes' },
+      { icon: Users, tag: 'Monthly service', titulo: 'Agents as a Service', texto: 'An agent that knows the business, its tools and its limits. We set it up and keep it running every month.', precio: TEXTO_PRECIO_AGENTES.en, nota: 'Claude licenses (~USD 25–30 per person/month) are paid by your company directly.', href: '/agentes', destacado: true },
+      { icon: Search, tag: 'Technical leadership', titulo: 'Fractional CTO', texto: 'When you need someone to lead the technical side of your own project.', precio: `from ${usd(PRECIO_CTO_USD)}/month`, href: '/catalogo#formato-07' },
     ],
-    verEnCatalogo: 'See in the catalog',
+    verEnCatalogo: 'See details',
     pasosKicker: 'How we work',
     pasosTitulo: 'From the first call to agents at work.',
     pasos: [
-      { n: '01', titulo: 'Diagnostic', texto: 'We map roles, repetitive tasks and information, and pick the first agent.' },
-      { n: '02', titulo: 'Setup', texto: 'We connect it to your tools with per-person permissions. Everyone leaves using at least one real flow.' },
-      { n: '03', titulo: 'Operation', texto: 'We maintain it, add new tasks and improve it every month.' },
+      { n: '01', titulo: 'Discovery call', texto: 'Free, 30 minutes. We look at which tasks repeat in your team and which agent to start with.' },
+      { n: '02', titulo: 'Setup', texto: `From ${uf(PRECIOS_AGENTES.implementacionUF)}. We connect it to your tools with per-person permissions. Everyone leaves using it on a real task.` },
+      { n: '03', titulo: 'Upkeep', texto: `${uf(PRECIOS_AGENTES.mantenimientoUF)} per month. We maintain it, add new tasks and improve it every month.` },
     ],
     pruebaKicker: 'Why trust us',
     pruebaTitulo: 'It’s the same system we use to run our own businesses.',
@@ -187,7 +186,7 @@ const COPY = {
       { q: 'Is it a chatbot?', a: 'No. A chatbot chats. An agent does complete tasks: reads, sorts, drafts and follows up, within limits you define.' },
       { q: 'Does my team need to code?', a: 'No. It’s built for non-technical teams. During setup we walk each person through until they use their agent on a real flow.' },
       { q: 'What about my company’s information?', a: 'Each person has role-based permissions, and the agent only sees what its task needs. We define it together in the diagnostic.' },
-      { q: 'How much does it cost?', a: `The diagnostic starts at ${usd(PRECIOS.diagnostico)}. Agents as a Service starts at ${usd(PRECIOS.setup)} setup plus ${usd(PRECIOS.operacion)} per month. Exact scope is set in the diagnostic.` },
+      { q: 'How much does it cost?', a: `The discovery call is free. Setup starts at ${uf(PRECIOS_AGENTES.implementacionUF)} and upkeep is ${uf(PRECIOS_AGENTES.mantenimientoUF)} per month (UF is Chile’s inflation-indexed unit). Claude licenses are paid separately by your company.` },
       { q: 'What if an agent doesn’t make sense for my team?', a: 'We’ll tell you on the first call. We’d rather do that than sell you something you won’t use.' },
     ],
     finalTitulo: 'We start by understanding your operation, not by selling an agent.',
