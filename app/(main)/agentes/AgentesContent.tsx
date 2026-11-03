@@ -16,7 +16,7 @@ import {
   Sunrise,
 } from 'lucide-react';
 import { DISCOVERY_CALL_URL } from '@/lib/scheduling';
-import { PRECIOS_AGENTES, uf, usd } from '@/lib/precios';
+import { NOTA_IVA, PRECIOS_AGENTES, uf, usd } from '@/lib/precios';
 
 /*
  * /agentes — landing de «Agentes como servicio» (3-nov-2026). También es la landing de Google Ads.
@@ -124,7 +124,7 @@ const FRENOS = [
 const FAQ = [
   { q: '¿Es un chatbot?', a: 'No. Un chatbot conversa. Un agente hace tareas completas: lee, ordena, redacta y hace seguimiento, dentro de los límites que tú defines.' },
   { q: '¿Mi equipo tiene que saber programar?', a: 'No. Está pensado para equipos de 3 a 15 personas sin perfil técnico. En la implementación acompaño a cada persona hasta que usa su agente en una tarea real.' },
-  { q: '¿Por qué en UF?', a: 'La UF se ajusta con la inflación, así el precio se mantiene parejo en el tiempo. A noviembre de 2026, 12 UF son unos $495.000 y 4 UF unos $165.000.' },
+  { q: '¿Por qué en UF?', a: 'La UF se ajusta con la inflación, así el precio se mantiene parejo en el tiempo. A noviembre de 2026, 12 UF son unos $495.000 y 4 UF unos $165.000. Son valores exentos de IVA: emitimos factura exenta.' },
   { q: '¿Qué pasa si un agente no tiene sentido para mi equipo?', a: 'Te lo digo en la reunión de descubrimiento. Prefiero eso a venderte algo que no van a usar.' },
 ];
 
@@ -193,6 +193,7 @@ export default function AgentesContent() {
           <li className="flex items-center gap-2"><Check className="h-4 w-4 text-accent" /> Implementación desde {uf(PRECIOS_AGENTES.implementacionUF)}</li>
           <li className="flex items-center gap-2"><Check className="h-4 w-4 text-accent" /> Mantenimiento {uf(PRECIOS_AGENTES.mantenimientoUF)} al mes</li>
         </ul>
+        <p className="mt-3 text-xs text-slate-400">{NOTA_IVA.es}</p>
         <CtaReunion ubicacion="hero" />
       </section>
 
@@ -222,7 +223,7 @@ export default function AgentesContent() {
           ))}
         </ol>
         <p className="mt-6 max-w-3xl text-sm text-slate-400">
-          Precios en UF. Las licencias de Claude no están incluidas: las contrata tu empresa directamente.
+          Precios en UF. {NOTA_IVA.es} Las licencias de Claude no están incluidas: las contrata tu empresa directamente.
         </p>
       </section>
 

@@ -16,7 +16,7 @@ import {
   Compass,
 } from 'lucide-react';
 import { getLenis } from '@/lib/lenis';
-import { PRECIOS_AGENTES, PRECIO_CTO_USD, uf, usd } from '@/lib/precios';
+import { NOTA_IVA, PRECIOS_AGENTES, PRECIO_CTO_USD, uf, usd } from '@/lib/precios';
 
 /*
  * Catálogo Villelabs: espejo de ewaffle.cl/catalogo para la oferta de agentes.
@@ -546,7 +546,7 @@ function Cotizador() {
             </li>
           ) : null}
         </ul>
-        <p className="mt-4 text-xs text-slate-400">Agentes como servicio en UF; CTO fraccional en dólares. El valor final se cierra por escrito antes de partir.</p>
+        <p className="mt-4 text-xs text-slate-400">Agentes como servicio en UF; CTO fraccional en dólares. {NOTA_IVA.es} El valor final se cierra por escrito antes de partir.</p>
         <div className="mt-5 flex flex-col gap-3 sm:flex-row">
           <Link href="/agentes" className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full bg-accent px-5 text-sm font-medium text-white hover:bg-[#2a8bbd]">
             Ver la oferta en 3 pasos <ArrowRight className="h-4 w-4" />
@@ -658,6 +658,7 @@ export default function CatalogoContent() {
             );
           })}
         </div>
+        <p className="mt-6 text-sm text-slate-400">{NOTA_IVA.es}</p>
       </section>
 
       {/* 02 · Cotiza acá */}
