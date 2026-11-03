@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { ArrowRight, Calendar, Compass, FileText, Inbox, Search, Shield, Users } from 'lucide-react';
 import { useTranslation } from '@/lib/i18n';
 import { PageHero, Seccion, CtaFinal } from '@/components/PageBits';
-import { PRECIOS_AGENTES, PRECIO_CTO_USD, TEXTO_PRECIO_AGENTES, uf, usd } from '@/lib/precios';
+import { NOTA_IVA, PRECIOS_AGENTES, PRECIO_CTO_USD, TEXTO_PRECIO_AGENTES, uf, usd } from '@/lib/precios';
 
 /*
  * Servicios (26-oct-2026): la oferta vigente son las tres formas de trabajar del home.
@@ -200,6 +200,7 @@ export default function ServicesContent() {
             );
           })}
         </div>
+        <p className="mt-6 text-sm text-slate-400">{NOTA_IVA[language === 'en' ? 'en' : 'es']}</p>
       </section>
 
       {/* Cómo trabajamos */}
