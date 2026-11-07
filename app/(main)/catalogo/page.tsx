@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Catálogo Villelabs · Agentes de IA para tu equipo',
     description:
-      'Prueba los agentes acá mismo y mira cuánto cuesta: reunión gratis, implementación desde 12 UF y mantenimiento de 4 UF al mes.',
+      'Prueba los agentes acá mismo y mira cuánto cuesta: reunión gratis, implementación desde 12 UF y mantenimiento desde 3 UF al mes.',
     url: `${siteUrl}/catalogo`,
   },
 };

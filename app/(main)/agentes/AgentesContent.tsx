@@ -17,6 +17,7 @@ import {
 } from 'lucide-react';
 import { DISCOVERY_CALL_URL } from '@/lib/scheduling';
 import { NOTA_IVA, PRECIOS_AGENTES, uf, usd } from '@/lib/precios';
+import VslAgentes from '@/components/VslAgentes';
 
 /*
  * /agentes — landing de «Agentes como servicio» (3-nov-2026). También es la landing de Google Ads.
@@ -58,8 +59,8 @@ const PASOS = [
   {
     n: '03',
     titulo: 'Mantenimiento',
-    precio: `${uf(PRECIOS_AGENTES.mantenimientoUF)} al mes`,
-    texto: 'El agente sigue funcionando y mejora todos los meses.',
+    precio: `desde ${uf(PRECIOS_AGENTES.mantenimientoUF)} al mes`,
+    texto: `${uf(PRECIOS_AGENTES.mantenimientoUF)} al mes si ya tienes tu licencia de Claude, o ${uf(PRECIOS_AGENTES.mantenimientoConLicenciaUF)} al mes con la licencia incluida: la ponemos nosotros.`,
     incluye: [
       'Lo mantenemos funcionando día a día',
       'Lo ajustamos cuando cambia tu forma de trabajar',
@@ -110,7 +111,7 @@ const CASOS = [
 ];
 
 const NECESITAS = [
-  `Las licencias de Claude, contratadas por tu empresa (unos ${usd(PRECIOS_AGENTES.licenciaUsdMin)}–${PRECIOS_AGENTES.licenciaUsdMax} por persona al mes). No están incluidas en el precio.`,
+  `La licencia de Claude. Si ya la tienen, el mantenimiento es de ${uf(PRECIOS_AGENTES.mantenimientoUF)} al mes; si no, la ponemos nosotros y el mantenimiento es de ${uf(PRECIOS_AGENTES.mantenimientoConLicenciaUF)} al mes.`,
   'Acceso a las herramientas que usa el equipo: correo, calendario y planillas.',
   'Una persona que conozca bien la operación, para las conversaciones de la implementación.',
 ];
@@ -124,7 +125,7 @@ const FRENOS = [
 const FAQ = [
   { q: '¿Es un chatbot?', a: 'No. Un chatbot conversa. Un agente hace tareas completas: lee, ordena, redacta y hace seguimiento, dentro de los límites que tú defines.' },
   { q: '¿Mi equipo tiene que saber programar?', a: 'No. Está pensado para equipos de 3 a 15 personas sin perfil técnico. En la implementación acompaño a cada persona hasta que usa su agente en una tarea real.' },
-  { q: '¿Por qué en UF?', a: 'La UF se ajusta con la inflación, así el precio se mantiene parejo en el tiempo. A noviembre de 2026, 12 UF son unos $495.000 y 4 UF unos $165.000. Son valores exentos de IVA: emitimos factura exenta.' },
+  { q: '¿Por qué en UF?', a: 'La UF se ajusta con la inflación, así el precio se mantiene parejo en el tiempo. A noviembre de 2026, 12 UF son unos $495.000 3 UF unos $124.000 y 6 UF unos $248.000. Son valores exentos de IVA: emitimos factura exenta.' },
   { q: '¿Qué pasa si un agente no tiene sentido para mi equipo?', a: 'Te lo digo en la reunión de descubrimiento. Prefiero eso a venderte algo que no van a usar.' },
 ];
 
@@ -191,9 +192,10 @@ export default function AgentesContent() {
         <ul className="mt-6 flex flex-col gap-2 text-sm text-slate-300 sm:flex-row sm:flex-wrap sm:gap-x-6">
           <li className="flex items-center gap-2"><Check className="h-4 w-4 text-accent" /> Reunión gratis de 30 minutos</li>
           <li className="flex items-center gap-2"><Check className="h-4 w-4 text-accent" /> Implementación desde {uf(PRECIOS_AGENTES.implementacionUF)}</li>
-          <li className="flex items-center gap-2"><Check className="h-4 w-4 text-accent" /> Mantenimiento {uf(PRECIOS_AGENTES.mantenimientoUF)} al mes</li>
+          <li className="flex items-center gap-2"><Check className="h-4 w-4 text-accent" /> Mantenimiento desde {uf(PRECIOS_AGENTES.mantenimientoUF)} al mes</li>
         </ul>
         <p className="mt-3 text-xs text-slate-400">{NOTA_IVA.es}</p>
+        <VslAgentes />
         <CtaReunion ubicacion="hero" />
       </section>
 
@@ -223,7 +225,7 @@ export default function AgentesContent() {
           ))}
         </ol>
         <p className="mt-6 max-w-3xl text-sm text-slate-400">
-          Precios en UF. {NOTA_IVA.es} Las licencias de Claude no están incluidas: las contrata tu empresa directamente.
+          Precios en UF. {NOTA_IVA.es} Mantenimiento: {uf(PRECIOS_AGENTES.mantenimientoUF)} al mes si ya tienen su licencia de Claude, o {uf(PRECIOS_AGENTES.mantenimientoConLicenciaUF)} al mes con la licencia incluida.
         </p>
       </section>
 
