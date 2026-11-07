@@ -44,7 +44,7 @@ const COPY = {
           'Mantenimiento: ajustes, tareas nuevas, soporte al equipo y mejora todos los meses',
         ],
         precio: TEXTO_PRECIO_AGENTES.es,
-        nota: 'Las licencias de Claude (~USD 25–30 por persona al mes) las contrata tu empresa directo.',
+        nota: `Mantenimiento ${uf(PRECIOS_AGENTES.mantenimientoUF)} al mes con tu licencia de Claude, o ${uf(PRECIOS_AGENTES.mantenimientoConLicenciaUF)} con la licencia incluida.`,
         href: '/agentes',
         destacado: true,
       },
@@ -69,7 +69,7 @@ const COPY = {
     pasos: [
       { n: '01', titulo: 'Reunión de descubrimiento', texto: 'Gratis, 30 minutos. Vemos qué tareas se repiten en tu equipo y con qué agente partir.', href: '/agentes#pasos', link: 'Qué incluye la reunión' },
       { n: '02', titulo: 'Implementación', texto: `Desde ${uf(PRECIOS_AGENTES.implementacionUF)}. Lo conectamos a tus herramientas con permisos por persona. Cada una sale usándolo en una tarea real.`, href: '/agentes#pasos', link: 'Cómo es la implementación' },
-      { n: '03', titulo: 'Mantenimiento', texto: `${uf(PRECIOS_AGENTES.mantenimientoUF)} al mes. Lo mantenemos, sumamos tareas nuevas y lo mejoramos todos los meses.`, href: '/agentes#pasos', link: 'Qué incluye el mantenimiento' },
+      { n: '03', titulo: 'Mantenimiento', texto: `Desde ${uf(PRECIOS_AGENTES.mantenimientoUF)} al mes. Lo mantenemos, sumamos tareas nuevas y lo mejoramos todos los meses.`, href: '/agentes#pasos', link: 'Qué incluye el mantenimiento' },
     ],
     agentesKicker: 'Qué hace un agente',
     agentesTitulo: 'Tareas completas, no respuestas.',
@@ -141,7 +141,7 @@ const COPY = {
     pasos: [
       { n: '01', titulo: 'Discovery call', texto: 'Free, 30 minutes. We look at which tasks repeat in your team and which agent to start with.', href: '/agentes#pasos', link: 'What the call includes' },
       { n: '02', titulo: 'Setup', texto: `From ${uf(PRECIOS_AGENTES.implementacionUF)}. We connect it to your tools with per-person permissions. Everyone leaves using it on a real task.`, href: '/agentes#pasos', link: 'How setup works' },
-      { n: '03', titulo: 'Upkeep', texto: `${uf(PRECIOS_AGENTES.mantenimientoUF)} per month. We maintain it, add new tasks and improve it every month.`, href: '/agentes#pasos', link: 'What upkeep includes' },
+      { n: '03', titulo: 'Upkeep', texto: `From ${uf(PRECIOS_AGENTES.mantenimientoUF)} per month. We maintain it, add new tasks and improve it every month.`, href: '/agentes#pasos', link: 'What upkeep includes' },
     ],
     agentesKicker: 'What an agent does',
     agentesTitulo: 'Complete tasks, not answers.',
