@@ -10,7 +10,12 @@ export const LINKS = {
   guiaProspeccionCompra: 'https://pay.hotmart.com/H108396355K',
   guiaProspeccion: '/guia/prospeccion',
   curso: '/curso',
-  cursoCompra: 'https://pay.hotmart.com/PENDIENTE-CURSO',
+  // Mientras el curso no exista en Hotmart (sin precio fundador), «Quiero el curso» abre WhatsApp con Álvaro en vez
+  // de un checkout roto (error 008 de Hotmart, hallazgo del análisis UX «Rodrigo», 8-nov-2026). Al crear el producto,
+  // reemplazar por el link pay.hotmart.com.
+  cursoCompra:
+    'https://wa.me/56920115198?text=' +
+    encodeURIComponent('Hola Álvaro, quiero el curso «El sistema de tu negocio» en preventa. ¿Me avisas cuando abra?'),
   cursoModulo0: '/curso/modulo-0',
   agendar: 'https://capu.villelab.com/schedule/reunion-descubrimiento-con-alvaro-villelabs',
 } as const;
