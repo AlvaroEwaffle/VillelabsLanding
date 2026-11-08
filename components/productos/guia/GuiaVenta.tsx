@@ -5,6 +5,7 @@
  * Lo que incluye sale de lib/productos/guia/contenido-v2.ts y de los componentes v2: no prometer nada que no esté ahí.
  */
 
+import { VERSION_ACTUAL, fechaLarga } from '@/lib/productos/guia/versiones';
 import Link from 'next/link';
 import {
   ArrowRight,
@@ -161,6 +162,12 @@ export default function GuiaVenta() {
                 <div>
                   <dt className="text-xs uppercase tracking-wider text-slate-500">Te llevas</dt>
                   <dd className="mt-1 text-slate-100">Planilla en Excel o Google Sheets, mensajes y certificado</dd>
+                </div>
+                <div>
+                  <dt className="text-xs uppercase tracking-wider text-slate-500">Guía viva</dt>
+                  <dd className="mt-1 text-slate-100">
+                    La revisamos y actualizamos; tú recibes cada mejora. Última actualización: {fechaLarga(VERSION_ACTUAL.fecha)}
+                  </dd>
                 </div>
               </dl>
             </div>

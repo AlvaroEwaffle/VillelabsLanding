@@ -49,6 +49,7 @@ import { ExportarPlanilla, Planilla } from './Planilla';
 import { Certificado } from './Certificado';
 import { Pantallita } from '@/components/productos/Pantallita';
 import { VideoMarco } from '@/components/productos/VideoProducto';
+import { VERSIONES_GUIA, VERSION_ACTUAL, fechaLarga } from '@/lib/productos/guia/versiones';
 
 const POSE_ESCENA: Record<number, PoseCamila> = { 0: 'saludo', 1: 'pensando', 2: 'notebook', 3: 'preocupada', 4: 'celular', 5: 'celebrando', 6: 'saludo' };
 
@@ -399,6 +400,18 @@ function Portada({ irA, ruta }: { irA: (v: Vista) => void; ruta: Ruta | null }) 
           <span className="rounded-full border border-white/15 px-3 py-1">{GUIA.duracion}</span>
           <span className="rounded-full border border-white/15 px-3 py-1">{GUIA.herramientas}</span>
         </div>
+        <details className="mt-4 text-sm text-slate-400">
+          <summary className="cursor-pointer">
+            Guía viva · versión {VERSION_ACTUAL.version}, actualizada el {fechaLarga(VERSION_ACTUAL.fecha)}
+          </summary>
+          <ul className="mt-2 space-y-2 border-l border-white/10 pl-4">
+            {VERSIONES_GUIA.map((v) => (
+              <li key={v.version}>
+                <span className="text-slate-200">v{v.version} · {fechaLarga(v.fecha)}:</span> {v.cambios.join(' ')}
+              </li>
+            ))}
+          </ul>
+        </details>
         <button type="button" className={`${btnPrimario} mt-6 w-full sm:w-auto`} onClick={() => irA(siguiente ? siguiente.n : 'cierre')}>
           {hechas === 0 ? 'Empezar por el diagnóstico' : siguiente ? `Seguir en la parte ${siguiente.n}` : 'Ir al cierre'}
         </button>
