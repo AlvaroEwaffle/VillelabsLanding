@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
 import ConversionClickTracker from "@/components/ConversionClickTracker";
 import Rastreo from "@/components/productos/Rastreo";
+import PixelMeta from "@/components/productos/PixelMeta";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -167,6 +168,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         {/* End Google Tag Manager (noscript) */}
         <ConversionClickTracker />
         <Rastreo />
+        <PixelMeta />
         {children}
       </body>
     </html>

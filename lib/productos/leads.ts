@@ -12,6 +12,7 @@
 // siguiente registro exitoso (reintentarPendientes).
 
 import { registrarEvento } from './eventos';
+import { eventoPixel } from './pixel';
 
 const API = process.env.NEXT_PUBLIC_FIDELIDAPP_API_URL ?? 'https://api.fidelidapp.cl';
 /** Cuenta Fidelidapp «Alvaro Villena» (marca personal). Es un id público, como el de los otros formularios del sitio. */
@@ -94,6 +95,7 @@ export async function registrarLead(datos: DatosLead): Promise<boolean> {
   const cuerpo = armarCuerpo(datos);
   // Aviso al Slack de Villelabs (en el hilo de la visita), salga o no el registro en Fidelidapp.
   registrarEvento('lead', { detalle: datos.producto, nombre: datos.nombre, correo: datos.correo, datos: datos.detalles ?? {} });
+  eventoPixel('Lead', { content_name: datos.producto });
   const ok = await enviar(cuerpo);
   if (!ok) guardarCola([...leerCola(), { cuerpo, intentos: 1, fecha: new Date().toISOString() }]);
   // Si la red respondió, aprovecha de despachar lo que haya quedado pendiente de antes.
