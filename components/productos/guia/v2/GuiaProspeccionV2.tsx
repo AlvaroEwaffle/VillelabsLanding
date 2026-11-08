@@ -9,7 +9,6 @@ import {
   ENTREGABLE,
   ESCENAS,
   GUIA,
-  GUION_VIDEO_0,
   GUION_VIDEO_2,
   INSIGHTS,
   PARTES,
@@ -49,6 +48,7 @@ import { ChipEtiqueta, Diagnostico, PruebaReal, Quiz, Temporizador } from './her
 import { ExportarPlanilla, Planilla } from './Planilla';
 import { Certificado } from './Certificado';
 import { Pantallita } from '@/components/productos/Pantallita';
+import { VideoMarco } from '@/components/productos/VideoProducto';
 
 const POSE_ESCENA: Record<number, PoseCamila> = { 0: 'saludo', 1: 'pensando', 2: 'notebook', 3: 'preocupada', 4: 'celular', 5: 'celebrando', 6: 'saludo' };
 
@@ -125,9 +125,6 @@ function ContenidoParte({ n, irA }: { n: number; irA: (v: Vista) => void }) {
     case 0:
       return (
         <>
-          <Bloque etiqueta="Video · 40 s">
-            <VideoPlaceholder titulo="Cómo usar esta guía" duracion="40 s" guion={GUION_VIDEO_0} etiquetaGuion="Leer lo que digo en el video" video="v03-guia-parte0" />
-          </Bloque>
           <Escena n={0} />
           <MapaGuia />
           <Bloque etiqueta="Antes de partir">
@@ -390,8 +387,10 @@ function Portada({ irA, ruta }: { irA: (v: Vista) => void; ruta: Ruta | null }) 
   const siguiente = orden.map((n) => PARTES[n]).find((x) => !parteCompleta(p, x.n, x.checklist.length));
   return (
     <>
-      <header className="grid items-end gap-6 pt-8 sm:grid-cols-[1fr_220px] sm:pt-14">
-        <div>
+      <header className="pt-8 sm:pt-14">
+        {/* Video de bienvenida en la portada (pedido de Álvaro, 8-nov): es lo primero que ve el comprador. */}
+        <VideoMarco id="v03-guia-parte0" titulo="Bienvenida: cómo usar esta guía" duracion="40 s" />
+        <div className="mt-8">
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#5fb2dd]">{GUIA.etiqueta}</p>
         <h1 className="mt-3 font-serif text-4xl leading-[1.08] text-white sm:text-5xl">{GUIA.titulo}</h1>
         <p className="mt-5 text-lg leading-relaxed text-slate-300">{GUIA.promesa}</p>
@@ -404,10 +403,6 @@ function Portada({ irA, ruta }: { irA: (v: Vista) => void; ruta: Ruta | null }) 
           {hechas === 0 ? 'Empezar por el diagnóstico' : siguiente ? `Seguir en la parte ${siguiente.n}` : 'Ir al cierre'}
         </button>
         </div>
-        <figure className="order-first sm:order-none">
-          <Foto foto={FOTOS.analista} prioridad className="aspect-[16/10] w-full sm:aspect-[781/1100]" pos="50% 22%" sizes="(min-width: 640px) 220px, 100vw" />
-          <figcaption className="mt-2 text-xs text-slate-400">Álvaro Villena, Villelab</figcaption>
-        </figure>
       </header>
 
       <section className="mt-10 grid items-center gap-4 overflow-hidden rounded-3xl border border-white/10 bg-[#16213a] p-4 sm:grid-cols-2 sm:p-6">
