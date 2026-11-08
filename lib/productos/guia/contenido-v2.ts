@@ -714,9 +714,9 @@ export const QUIZ: { pregunta: string; opciones: string[]; correcta: number; por
   },
 ];
 
-// Transcripción del video 5 tal como se grabó (curso v1.0). No editar hasta regrabarlo: el guion nuevo, con el enfoque
-// «tu primer CRM y ERP», está en lib/productos/curso/guiones.ts (clave 'v05-guia-cierre').
+// Transcripción del video 5 (regrabado el 8-nov-2026 con el enfoque «tu primer CRM y ERP»; mismo texto que
+// lib/productos/curso/guiones.ts, clave 'v05-guia-cierre').
 export const GUION_VIDEO_CURSO =
-  'Lo que hiciste en esta guía funciona: lista, mensaje, seguimientos y rutina. Hoy lo hiciste a mano y con un chat. En el curso «Tu negocio de punta a punta» te enseño a que agentes hagan esto solos: buscan prospectos, preparan los mensajes, te avisan los seguimientos del día y todo queda conectado con tu planilla, corriendo en el fondo. Tú solo apruebas. Y no solo ventas: también marketing, operación, atención al cliente y finanzas.';
+  'Felicitaciones. Lo que hiciste en esta guía funciona: lista, mensaje, seguimientos y rutina. Y tu planilla ya es tu primer CRM. En el curso «El sistema de tu negocio» la extiendes al resto: de dónde llegan tus clientes, los pedidos, la atención, la cobranza y la caja, todo en la misma planilla y con un tablero que miras los lunes. Tu lista de esta guía pasa sola a la hoja Clientes. Te espero adentro.';
 
 export const ENTREGABLE = 'Tu primer CRM: una planilla con 20 posibles clientes contactados, cada uno con su próximo paso y su fecha, y el registro de tus 5 días.';

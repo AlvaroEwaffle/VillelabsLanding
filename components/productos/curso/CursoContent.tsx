@@ -130,12 +130,8 @@ export default function CursoContent() {
           ))}
         </dl>
         <p className="mt-4 max-w-3xl text-sm text-slate-400">{CURSO.noEsSoftware}</p>
-        {/* Video 8 · venta de la preventa (8-nov-2026). Grabado con la v1.0: pendiente de regrabar con el enfoque CRM/ERP. */}
-        <VideoMarco id="v08-curso-venta" titulo="Tu negocio, ordenado en 6 semanas" duracion="50 s" className="mt-10 max-w-3xl" />
-        <p className="mt-2 max-w-3xl text-xs text-slate-500">
-          Este video es de la primera versión del curso: el final habla de agentes. Desde la versión 1.1, el resultado es tu planilla con su tablero, y la IA
-          es una ayuda opcional. Lo vamos a regrabar.
-        </p>
+        {/* Video 8 · venta de la preventa (regrabado con el enfoque CRM/ERP, 8-nov-2026). */}
+        <VideoMarco id="v08-curso-venta" titulo="Tu primer CRM y ERP, en 6 semanas" duracion="49 s" className="mt-10 max-w-3xl" />
       </section>
 
       {/* Para quién */}

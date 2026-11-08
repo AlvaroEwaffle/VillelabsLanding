@@ -1,8 +1,8 @@
 // Guiones de los videos del curso «El sistema de tu negocio: tu primer CRM y ERP en Google Sheets» (v1.1, 8-nov-2026).
-// Módulos 1–6 (claves m{N}-l{i}): pendientes de grabar (HeyGen con créditos limitados); mientras tanto la lección muestra
-// el marcador «Video próximamente» y el guion se puede leer debajo.
-// Al final, los guiones para REGRABAR los videos ya publicados de la v1.0 (claves v05, v08…v13, v17): sus mp4 y vtt en
-// public/videos siguen siendo los viejos y llevan una nota en pantalla hasta que se regraben.
+// Módulos 1–6 (claves m{N}-l{i}): grabados el 8-nov-2026; si a una lección le falta el mp4, muestra «Video próximamente»
+// y el guion se puede leer debajo.
+// Al final, los guiones de los videos de la v1.0 regrabados el 8-nov-2026 (claves v05, v08, v09, v11, v12, v13, v17).
+// Los módulos 1–6 y esos videos se grabaron el 8-nov-2026: este archivo dice exactamente lo que dice cada video.
 // Regla 20/80: Álvaro en cámara ~20 % del tiempo (apertura y, a veces, el cierre); el resto, gráficos con su voz.
 // La duración se calcula sola a ~2,4 palabras por segundo (ritmo de locución en español).
 // Copia en VPM/Villelabs/productos-digitales/guiones-curso-modulos-1-6.md (generada desde este archivo; regenerarla tras la v1.1).
@@ -57,7 +57,7 @@ const CRUDOS: Record<string, { titulo: string; escenas: Escena[] }> = {
       G('Árbol de decisión: ¿pregunta repetida? ¿quiere comprar? ¿reclamo?', 'Cuando llega un comentario o un mensaje, pregúntate tres cosas. ¿Es una pregunta que se repite? Respondes con tu plantilla. ¿Quiere comprar o cotizar? Pasa a ventas el mismo día. ¿Es un reclamo? Lo ve una persona, siempre.'),
       G('Pantallita: comentario de una cafetería en el post de Grano Norte y la respuesta', 'En Grano Norte, una cafetería comenta «¿venden por mayor?». No se responde con un precio en público: se le agradece, se le escribe por interno ese mismo día y entra a la hoja Clientes con su origen, Instagram.'),
       G('Tarjetas de plantillas con el tono de la marca', 'Tus plantillas suenan como tú: cortas, cercanas y con una sola pregunta al final.'),
-      G('El ejercicio de clasificar mensajes', 'En el ejercicio practicas con seis mensajes reales de una semana y ajustas tus plantillas.'),
+      G('El ejercicio de la lección: Clasifica 6 mensajes', 'En el ejercicio practicas con seis mensajes de una semana típica y ajustas tus plantillas.'),
     ],
   },
   'm2-l5': {
@@ -192,7 +192,7 @@ const CRUDOS: Record<string, { titulo: string; escenas: Escena[] }> = {
   'm4-l1': {
     titulo: 'Los 3 tipos de mensaje',
     escenas: [
-      A('Álvaro con el celular lleno de notificaciones', 'Antes de ordenar la atención, hay que saber qué te escriben. Y casi nadie lo sabe con números.'),
+      A('Álvaro a cámara (con micrófono, estilo podcast); sigue en gráficos', 'Antes de ordenar la atención, hay que saber qué te escriben. Y casi siempre lo sabemos de memoria, no con números.'),
       G('Tres cajas: repetidos, con decisión, nuevos', 'Todos tus mensajes caben en tres tipos. Repetidos: precio, horario, despacho. Con decisión: un descuento, una fecha especial, un reclamo. Y nuevos: lo que nunca te habían preguntado.'),
       G('Pantallita: conteo de dos días de Grano Norte', 'Camila contó sus mensajes dos días: de cada diez, seis eran repetidos, tres necesitaban una decisión y uno era nuevo.'),
       G('Los repetidos van a una respuesta lista; los otros, a una persona y a la hoja Atención', 'Los repetidos se responden con un texto que ya está escrito, y lo puede mandar cualquiera de tu equipo. Los otros dos pasan por una persona y quedan anotados hasta cerrarse.'),
@@ -235,7 +235,7 @@ const CRUDOS: Record<string, { titulo: string; escenas: Escena[] }> = {
   'm4-l5': {
     titulo: 'Postventa: que vuelvan a comprar',
     escenas: [
-      A('Álvaro con una taza de café', 'Casi nadie le escribe al cliente después de la entrega. Ahí hay ventas que se pierden solo por no preguntar.'),
+      A('Álvaro a cámara (con micrófono, estilo podcast); sigue en gráficos', 'Después de la entrega, muchos negocios no le vuelven a escribir al cliente. Ahí hay ventas que se pierden solo por no preguntar.'),
       G('Tres momentos en línea: día 2 o 3, «gracias», ciclo de compra', 'La postventa son tres mensajes. A los dos o tres días, uno corto para saber cómo les fue. Si te dan las gracias, ese es un buen momento para pedir un referido. Y cuando se cumple su ciclo de compra, le escribes para que vuelva.'),
       G('La columna «Última compra» de la hoja Clientes y una fecha calculada: «le toca el jueves»', 'El ciclo sale de tu hoja Clientes: la última compra, más los días que suele demorar en volver a comprar. Así sabes a quién le toca esta semana.'),
       G('Pantallita: mensaje de recompra a Cafetería Puerto Dulce', 'En Grano Norte, Puerto Dulce compra cada dos semanas. A los doce días, Camila le escribe: «¿te preparo lo mismo de siempre para el jueves?».'),
@@ -346,26 +346,29 @@ const CRUDOS: Record<string, { titulo: string; escenas: Escena[] }> = {
       G('La planilla con sus hojas llenas y el tablero al final', 'Tu proyecto final es tu planilla con datos reales: clientes, origen, productos, pedidos, atención, cobranza y caja, conectados en un tablero.'),
       G('Equipo mirando el tablero en una pantalla', 'Compártela con tu equipo. Es lo que les permite saber en qué va cada cliente y cada pedido sin preguntarte.'),
       G('La hoja del proyecto final guardándose como PDF', 'Guarda la hoja del proyecto en PDF, con quién actualiza cada hoja y tus rutinas. La planilla no es un archivo que se guarda: es el que se usa cada lunes.'),
-      A('Álvaro, plano cercano', 'Y si quedó algo pendiente, lo armamos juntos. Pero lo más difícil ya lo hiciste: anotar cómo funciona tu negocio en un solo lugar.'),
+      G('Frase en pantalla: ¿Quedó algo pendiente? Lo armamos juntos.', 'Y si quedó algo pendiente, lo armamos juntos.'),
+      A('Álvaro a cámara (escritorio con monitores)', 'Pero lo más difícil ya lo hiciste: anotar cómo funciona tu negocio en un solo lugar.'),
     ],
   },
 
-  // ─── Videos ya grabados con la v1.0, para regrabar con el enfoque v1.1 (8-nov-2026) ─────────────
-  // Los mp4 y vtt de public/videos siguen siendo los de la v1.0; estos son los guiones nuevos.
+  // ─── Videos de la v1.0 regrabados con el enfoque v1.1 (8-nov-2026) ─────────────
+  // v10 no se regrabó (fuera de alcance): su entrada, si existe, es solo guion.
   'v08-curso-venta': {
     titulo: 'Tu primer CRM y ERP, en 6 semanas',
     escenas: [
-      A('Álvaro en su escritorio, plano medio', '¿Tus clientes viven en el WhatsApp y los pedidos en tu cabeza? No es desorden: nada está anotado en un solo lugar.'),
+      A('Álvaro a cámara (oficina de noche, camisa azul); sigue en gráficos', '¿Tus clientes viven en el WhatsApp y los pedidos en tu cabeza? No es desorden: nada está anotado en un solo lugar.'),
       G('Una planilla vacía; aparecen dos tarjetas: CRM y ERP', 'En este curso armas tu primer CRM y ERP en Google Sheets. El CRM es el lugar donde ves a todos tus clientes y en qué va cada uno. El ERP es donde se juntan ventas, pedidos, cobranza y caja.'),
       G('Pestañas que se suman una por semana: Clientes, Origen, Pedidos, Atención, Cobranza, Caja', 'Cada semana sumas una hoja a la misma planilla, con las fórmulas listas: tú llenas filas.'),
       G('El tablero de Grano Norte con sus números', 'Al final, un tablero te muestra tus números del lunes: lo que vendiste, lo que te deben y cuánta caja tienes. No es un software: es una planilla bien armada y rutinas cortas.'),
-      A('Álvaro a cámara, cierre', 'Está en preventa a precio fundador: el módulo 0 y tu planilla base los recibes hoy. Te espero adentro.'),
+      A('Álvaro a cámara (oficina de noche, camisa azul)', 'Está en preventa a precio fundador.'),
+      G('Botón final: El sistema de tu negocio', 'El módulo 0 y tu planilla base los recibes hoy. Te espero adentro.'),
     ],
   },
   'v09-m0-l1': {
     titulo: 'Por qué todo pasa por ti',
     escenas: [
-      A('Álvaro frente a la pizarra', 'Si el precio está en tu cabeza, cada cotización te espera. Si los pedidos se coordinan de memoria, cada despacho te espera. El problema no es que trabajes poco: es que nada está anotado en un solo lugar.'),
+      A('Álvaro a cámara (frente a la pizarra)', 'Si el precio está en tu cabeza, cada cotización te espera. Si el despacho se coordina de memoria, cada pedido te espera.'),
+      G('Frase en pantalla: El problema no es que trabajes poco: es que nada está anotado en un solo lugar.', 'El problema no es que trabajes poco: es que nada está anotado en un solo lugar.'),
       G('Dos tarjetas: CRM y ERP, con su definición', 'Dos palabras que vas a escuchar harto. Un CRM es el lugar donde ves a todos tus clientes y en qué va cada uno. Un ERP es el sistema donde se juntan ventas, pedidos, cobranza y caja.'),
       G('El mapa: cinco hojas alrededor del tablero', 'Tu sistema tiene cinco piezas, cada una con su hoja: clientes y ventas, de dónde llegan, pedidos, atención, y cobranza con caja. Al centro, el tablero que las lee todas.'),
       G('Pantallita de Grano Norte: WhatsApp, un cuaderno y un Excel', 'Camila, de Grano Norte, vende bien, pero tiene a sus clientes repartidos entre el WhatsApp, un cuaderno y un Excel que nadie actualiza. No le falta talento: le falta un solo lugar.'),
@@ -391,23 +394,27 @@ const CRUDOS: Record<string, { titulo: string; escenas: Escena[] }> = {
   'v12-m0-l4': {
     titulo: 'Las reglas de freno del negocio',
     escenas: [
-      A('Álvaro frente a la pizarra', 'Antes de que algo funcione sin ti, hay que decidir qué no puede pasar sin ti. Eso son las reglas de freno: precios especiales, plazos de entrega, plata y reclamos.'),
-      G('La lista de 15 reglas; se marcan tres', 'Abajo tienes 15 reglas. Elige las que aplican a tu negocio y edítalas con tus palabras. Camila decidió que cualquier pedido sobre 20 kilos, cualquier descuento y cualquier reclamo pasan por ella.'),
+      A('Álvaro a cámara (con micrófono, estilo podcast)', 'Antes de que algo funcione sin ti, hay que decidir qué no puede pasar sin ti.'),
+      G('Gráfico', 'Eso son las reglas de freno: precios especiales, plazos de entrega, plata y reclamos.'),
+      G('Gráfico', 'Abajo tienes 15 reglas. Elige las que aplican a tu negocio y edítalas con tus palabras. Por ejemplo, Camila decidió que cualquier pedido sobre 20 kilos, cualquier descuento y cualquier reclamo pasan por ella.'),
       G('La portada del sistema: semáforo, planilla base y reglas', 'Con tu semáforo, tu planilla base y tus reglas ya tienes la portada de tu sistema. La próxima semana partimos con tu CRM: la hoja Clientes.'),
     ],
   },
   'v13-m0-cierre': {
     titulo: 'Lo que viene',
     escenas: [
-      A('Álvaro a cámara, plano medio', 'Ya tienes el mapa de tu negocio, tu semáforo, tu planilla base y tus reglas. Eso es más de lo que tiene anotado la mayoría de los negocios. Si quieres seguir conmigo, el curso suma una hoja por semana hasta tu tablero. Y si todavía no, mira la grabación del último workshop.'),
+      A('Álvaro a cámara (oficina creativa); sigue en gráficos', 'Ya tienes el mapa de tu negocio, tu semáforo, tu planilla base y tus reglas.'),
+      G('Frase en pantalla: Más orden del que tenías hace una semana.', 'Eso ya es más orden del que tenías hace una semana.'),
+      G('Tarjetas: Lo que viene', 'Si quieres seguir conmigo, el curso suma una hoja por semana hasta tu tablero. Y si todavía no, mira la grabación del último workshop.'),
     ],
   },
   'v05-guia-cierre': {
     titulo: 'De tu primer CRM al sistema de tu negocio',
     escenas: [
-      A('Álvaro a cámara, celebrando', 'Felicitaciones. Lo que hiciste en esta guía funciona: lista, mensaje, seguimientos y rutina. Y tu planilla ya es tu primer CRM.'),
-      G('La hoja Posibles clientes pasa a la hoja Clientes y aparecen las otras pestañas', 'En el curso El sistema de tu negocio la extiendes al resto: de dónde llegan tus clientes, los pedidos, la atención, la cobranza y la caja, todo en la misma planilla y con un tablero que miras los lunes.'),
-      A('Álvaro a cámara, cierre', 'Tu lista de esta guía pasa sola a la hoja Clientes. Te espero adentro.'),
+      A('Álvaro a cámara (oficina de noche, camisa azul)', 'Felicitaciones. Lo que hiciste en esta guía funciona: lista, mensaje, seguimientos y rutina.'),
+      G('Las pestañas de la planilla: Tu planilla ya es tu primer CRM', 'Y tu planilla ya es tu primer CRM. En el curso El sistema de tu negocio la extiendes al resto: de dónde llegan tus clientes, los pedidos, la atención, la cobranza y la caja, todo en la misma planilla y con un tablero que miras los lunes.'),
+      G('Botón final: Tu lista pasa sola a la hoja Clientes', 'Tu lista de esta guía pasa sola a la hoja Clientes.'),
+      A('Álvaro a cámara (oficina de noche, camisa azul)', 'Te espero adentro.'),
     ],
   },
   'v17-anuncio-curso': {
@@ -415,7 +422,8 @@ const CRUDOS: Record<string, { titulo: string; escenas: Escena[] }> = {
     escenas: [
       A('Álvaro a cámara, vertical 9:16', '¿Tus clientes viven en el WhatsApp y los pedidos en tu cabeza? No es desorden: nada está anotado en un solo lugar.'),
       G('Pestañas de la planilla y el tablero', 'En 6 semanas armas tu primer CRM y ERP en Google Sheets: clientes, pedidos, cobranza y caja en una planilla, con un tablero que miras los lunes. Sin pagar software.'),
-      A('Álvaro a cámara, cierre', 'Está en preventa a precio fundador. Link en mi perfil.'),
+      A('Álvaro a cámara (oficina de noche, camisa azul)', 'Está en preventa a precio fundador.'),
+      G('Botón final: Tu primer CRM y ERP en Google Sheets', 'Link en mi perfil.'),
     ],
   },
 };

@@ -28,6 +28,8 @@ import { GUIONES, type Guion } from '@/lib/productos/curso/guiones';
 import { useMontado, usePersistido } from '@/lib/productos/curso/persistencia';
 import type { ImagenApoyo } from '@/lib/productos/apoyo';
 import { Foto, Kicker, PuntoSemaforo, VideoProximamente } from './piezas';
+import { VideoMarco } from '@/components/productos/VideoProducto';
+import { VIDEOS_CURSO } from '@/lib/productos/curso/videos';
 import { DescargaPlantilla } from './Plantilla';
 
 // ─── Tipos y constantes ───────────────────────────────────────────────────
@@ -479,14 +481,16 @@ export function useMarcas(clave: string) {
 
 // ─── Video pendiente con su guion ─────────────────────────────────────────
 
-export function VideoPendiente({ titulo, guion, portada, posicion }: { titulo: string; guion?: Guion; portada: ImagenApoyo; posicion?: string }) {
+/** Video de la lección (si ya está grabado, VIDEOS_CURSO[clave]) o el marcador «Video próximamente», con el guion desplegable. */
+export function VideoPendiente({ titulo, guion, portada, posicion, clave }: { titulo: string; guion?: Guion; portada: ImagenApoyo; posicion?: string; clave?: string }) {
+  const video = clave ? VIDEOS_CURSO[clave] : undefined;
   return (
     <div>
-      <VideoProximamente titulo={titulo} foto={portada} posicion={posicion ?? 'center 30%'} />
+      {video ? <VideoMarco id={video.id} titulo={titulo} duracion={video.duracion} /> : <VideoProximamente titulo={titulo} foto={portada} posicion={posicion ?? 'center 30%'} />}
       {guion ? (
         <details className="group mt-3 rounded-xl border border-white/10 bg-white/[0.02]">
           <summary className="flex min-h-[44px] cursor-pointer list-none items-center justify-between gap-3 px-4 text-sm text-slate-300 hover:text-white">
-            <span>Mientras se graba, lee lo que cuenta el video · {guion.duracion}</span>
+            <span>{video ? 'Leer lo que digo en el video' : `Mientras se graba, lee lo que cuenta el video · ${guion.duracion}`}</span>
             <ChevronDown className="h-4 w-4 shrink-0 transition group-open:rotate-180" aria-hidden />
           </summary>
           <ol className="space-y-3 border-t border-white/10 px-4 py-4">
@@ -894,7 +898,7 @@ export function ModuloCurso({
             <h2 className="mt-3 font-serif text-3xl leading-tight text-white sm:text-4xl">{titulo(pagina)}</h2>
             <p className="mt-3 max-w-2xl text-slate-300">{leccion.bajada}</p>
             <div className="mt-6">
-              <VideoPendiente titulo={titulo(pagina)} guion={GUIONES[`m${numero}-l${pagina + 1}`]} portada={leccion.portada} posicion={leccion.posicion} />
+              <VideoPendiente titulo={titulo(pagina)} guion={GUIONES[`m${numero}-l${pagina + 1}`]} portada={leccion.portada} posicion={leccion.posicion} clave={`m${numero}-l${pagina + 1}`} />
             </div>
             {leccion.contenido}
             <Checklist items={leccion.checklist} checks={checksVisibles} onToggle={toggle} />

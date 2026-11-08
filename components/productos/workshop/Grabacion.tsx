@@ -119,10 +119,7 @@ export default function Grabacion() {
           {/* Video 8 · venta de la preventa: la oferta del workshop (8-nov-2026) */}
           <div className="mb-10 max-w-3xl">
             <p className="font-mono text-xs uppercase tracking-[0.2em] text-[#5fb2dd]">Si quieres ir más allá del workshop</p>
-            <VideoMarco id="v08-curso-venta" titulo="Tu negocio, ordenado en 6 semanas" duracion="50 s" className="mt-3" />
-            <p className="mt-2 text-xs text-slate-500">
-              Video de la primera versión del curso. Hoy el curso arma tu primer CRM y ERP en Google Sheets, y la IA es una ayuda opcional. Lo vamos a regrabar.
-            </p>
+            <VideoMarco id="v08-curso-venta" titulo="Tu primer CRM y ERP, en 6 semanas" duracion="49 s" className="mt-3" />
           </div>
           <SiguientePaso logro="Ya sabes de qué se trata" pago={PASO_CURSO} gratis={[GRATIS_PROXIMO_WORKSHOP, GRATIS_ESQUELETO]} />
         </section>

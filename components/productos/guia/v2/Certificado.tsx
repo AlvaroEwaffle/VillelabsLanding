@@ -151,11 +151,7 @@ function ModalCelebracion({ onCerrar }: { onCerrar: () => void }) {
             miras los lunes. Tu lista de esta guía pasa sola a la hoja Clientes.
           </p>
           <div className="mt-4">
-            <VideoPlaceholder titulo="Del chat a un sistema que corre solo" duracion="30 s" guion={GUION_VIDEO_CURSO} etiquetaGuion="Leer lo que digo en el video" video="v05-guia-cierre" />
-            <p className="mt-2 text-xs text-slate-500">
-              Este video habla de la primera versión del curso, con agentes. Desde el 8 de noviembre de 2026, el curso arma tu CRM y tu ERP en Google Sheets, y la IA
-              es una ayuda opcional. Lo vamos a regrabar.
-            </p>
+            <VideoPlaceholder titulo="De tu primer CRM al sistema de tu negocio" duracion="30 s" guion={GUION_VIDEO_CURSO} etiquetaGuion="Leer lo que digo en el video" video="v05-guia-cierre" />
           </div>
           <SiguientePaso
             logro="Ya tienes tu sistema de ventas andando"

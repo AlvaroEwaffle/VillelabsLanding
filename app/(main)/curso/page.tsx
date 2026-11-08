@@ -45,9 +45,8 @@ const JSON_LD = [
   faqPage(FAQ.map((f) => ({ q: f.p, a: f.r }))),
   videoObject({
     id: 'v08-curso-venta',
-    nombre: 'Tu negocio, ordenado en 6 semanas',
-    // Video de la v1.0 (pendiente de regrabar con el enfoque CRM/ERP): la descripción dice lo que el video muestra.
-    descripcion: 'Álvaro Villena presenta el curso en preventa: por qué todo en un negocio pasa por el dueño cuando nada está anotado, y cómo el curso lo ordena en 6 semanas, con el caso Grano Norte y una plantilla en cada lección.',
+    nombre: 'Tu primer CRM y ERP, en 6 semanas',
+    descripcion: 'Álvaro Villena presenta el curso en preventa: en 6 semanas armas tu primer CRM y ERP en Google Sheets, una hoja por semana con las fórmulas listas, hasta un tablero con lo que vendiste, lo que te deben y cuánta caja tienes.',
     segundos: 49,
     pagina: '/curso',
   }),

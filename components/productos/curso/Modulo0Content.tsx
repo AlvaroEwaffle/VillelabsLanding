@@ -173,25 +173,13 @@ function CabeceraLeccion({ leccion }: { leccion: LeccionM0 }) {
 }
 
 // Videos de las lecciones (8-nov-2026). Si una lección no tiene video, queda el marcador «Video próximamente».
-// Se grabaron con la v1.0 del curso: los que hablan de «5 áreas» o del esqueleto del agente llevan una nota hasta
-// regrabarlos (guiones nuevos en lib/productos/curso/guiones.ts, claves v09…v13).
+// v09, v11, v12 y v13 se regrabaron con el enfoque v1.1 (CRM y ERP en Google Sheets) el 8-nov-2026; la nota queda
+// disponible por si un video vuelve a quedar desalineado con el producto.
 const VIDEO_LECCION: Partial<Record<string, { id: VideoId; duracion: string; nota?: string }>> = {
-  mapa: {
-    id: 'v09-m0-l1',
-    duracion: '55 s',
-    nota: 'Este video es de la versión anterior del curso y habla de «5 áreas». Hoy son las 5 piezas de tu sistema, cada una con su hoja en la planilla, y el tablero que las junta. Lo vamos a regrabar.',
-  },
+  mapa: { id: 'v09-m0-l1', duracion: '57 s' },
   diagnostico: { id: 'v10-m0-l2', duracion: '27 s' },
-  planilla: {
-    id: 'v11-m0-l3',
-    duracion: '31 s',
-    nota: 'Este video es de la versión anterior y habla del esqueleto de tu agente. Desde la versión 1.1, la base es tu planilla con la ficha del negocio; el esqueleto queda como ayuda opcional si usas IA. Lo vamos a regrabar.',
-  },
-  reglas: {
-    id: 'v12-m0-l4',
-    duracion: '36 s',
-    nota: 'Al final, el video nombra el esqueleto: hoy la portada junta tu semáforo, tu planilla base y tus reglas de freno.',
-  },
+  planilla: { id: 'v11-m0-l3', duracion: '33 s' },
+  reglas: { id: 'v12-m0-l4', duracion: '35 s' },
 };
 
 function NotaVideo({ children }: { children: React.ReactNode }) {
@@ -1004,8 +992,7 @@ export default function Modulo0Content() {
             }}
           >
             {/* Video 13 · cierre del módulo 0, sobre el siguiente paso (8-nov-2026) */}
-            <VideoMarco id="v13-m0-cierre" titulo="Lo que viene" duracion="20 s" />
-            <NotaVideo>Este video es de la versión anterior y nombra el esqueleto: hoy tu portada junta el mapa, el semáforo, tu planilla base y tus reglas.</NotaVideo>
+            <VideoMarco id="v13-m0-cierre" titulo="Lo que viene" duracion="18 s" />
             <div className="mb-10" />
             <SiguientePaso
               logro="Ya tienes el mapa, tu planilla base y la portada de tu sistema"

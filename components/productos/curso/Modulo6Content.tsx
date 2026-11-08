@@ -563,7 +563,7 @@ function ProyectoFinal() {
           {PROYECTO_FINAL.texto} Aquí juntas lo que armaste en los 7 módulos: compruebas que cada hoja tenga datos reales, comparas tu semáforo con el del módulo 0 y dejas escrito quién actualiza qué y cuándo.
         </p>
         <div className="mt-6">
-          <VideoPendiente titulo={guion?.titulo ?? 'Tu negocio en 6 semanas: antes y después'} guion={guion} portada={FOTOS.retrato} posicion="center 20%" />
+          <VideoPendiente titulo={guion?.titulo ?? 'Tu negocio en 6 semanas: antes y después'} guion={guion} portada={FOTOS.retrato} posicion="center 20%" clave="m6-final" />
         </div>
 
         <Subtitulo>1 · La prueba real: una semana con tu sistema</Subtitulo>

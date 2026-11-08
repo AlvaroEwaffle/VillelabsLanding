@@ -109,17 +109,11 @@ const REELS: Reel[] = [
   {
     id: 'v17-anuncio-curso',
     numero: 17,
-    titulo: 'Si todo pasa por ti, no es tu culpa',
+    titulo: 'Tu primer CRM y ERP en Google Sheets',
     destinoA: 'Perfil (link en la bio)',
     destinoB: '/curso',
-    duracion: '23 s',
+    duracion: '26 s',
     guion: [
-      'Si todo en tu negocio pasa por ti, no es que seas desordenado: nada está escrito.',
-      'En 6 semanas ordenamos marketing, ventas, operación, atención y finanzas, un área por semana, con plantillas y un caso real. Al final tienes agentes trabajando con tus reglas.',
-      'Está en preventa a precio fundador. Link en mi perfil.',
-    ],
-    aviso: 'No publicar como anuncio todavía: es de la primera versión del curso y promete «agentes trabajando con tus reglas». Desde el 8-nov-2026 el curso arma tu primer CRM y ERP en Google Sheets. Regrabar con el guion nuevo.',
-    guionNuevo: [
       '¿Tus clientes viven en el WhatsApp y los pedidos en tu cabeza? No es desorden: nada está anotado en un solo lugar.',
       'En 6 semanas armas tu primer CRM y ERP en Google Sheets: clientes, pedidos, cobranza y caja en una planilla, con un tablero que miras los lunes. Sin pagar software.',
       'Está en preventa a precio fundador. Link en mi perfil.',
