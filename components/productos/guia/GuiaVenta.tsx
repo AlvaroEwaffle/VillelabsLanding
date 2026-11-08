@@ -1,5 +1,6 @@
 /*
- * /guia — página de venta de la Guía 1 «Tu lista de prospectos y el primer mensaje, cada mañana» (8-nov-2026).
+ * /guia — página de venta de la Guía 1 «Tu lista de prospectos y el primer mensaje, cada mañana» (8-nov-2026; copy v1.2 con
+ * las palabras del comprador: «clientes nuevos», «primer CRM», «sin envío masivo». El título del producto en Hotmart no cambia).
  * El producto vive en /guia/prospeccion (noindex); aquí solo se vende. Compra en Hotmart (LINKS.guiaProspeccionCompra).
  * Los clics a la compra los registra el Rastreo global (a/button), así que los botones son <a> normales.
  * Lo que incluye sale de lib/productos/guia/contenido-v2.ts y de los componentes v2: no prometer nada que no esté ahí.
@@ -28,10 +29,11 @@ import { FOTOS } from '@/lib/productos/fotos';
 import { APOYO } from '@/lib/productos/apoyo';
 import { CAMILA } from '@/lib/productos/guia/caso';
 import { ASI_NO, ASI_SI, GUIA, PARTES, SEGUIMIENTOS } from '@/lib/productos/guia/contenido-v2';
-import { FAQ_GUIA, PARA_QUIEN_GUIA, PRECIO_GUIA, PROBLEMAS } from '@/lib/productos/guia/venta';
+import { FAQ_GUIA, PARA_QUIEN_GUIA, PRECIO_GUIA, PROBLEMAS, TESTIMONIOS } from '@/lib/productos/guia/venta';
 import { Foto, Kicker } from '@/components/productos/curso/piezas';
 import { EstructuraMensaje, RutinaVeinte } from '@/components/productos/guia/v2/infografias';
 import { VideoMarco } from '@/components/productos/VideoProducto';
+import Evidencia from '@/components/productos/guia/Evidencia';
 
 function BotonCompra({ texto = 'Quiero la guía', className = '' }: { texto?: string; className?: string }) {
   return (
@@ -70,23 +72,23 @@ const INCLUYE: { icono: LucideIcon; titulo: string; texto: string }[] = [
   },
   {
     icono: FileSpreadsheet,
-    titulo: 'Tu planilla de prospectos',
-    texto: 'La armas dentro de la guía, con puntaje, estado, próximo paso y fecha. La bajas en Excel (con prueba de 5 días, calendario y dashboard), en CSV o la pasas a Google Sheets.',
+    titulo: 'Tu primer CRM en Google Sheets (o Excel)',
+    texto: 'Una planilla que armas dentro de la guía: cada posible cliente con puntaje, estado, próximo paso y fecha. La bajas en Excel (con prueba de 5 días, calendario y dashboard), en CSV o la pasas a Google Sheets, gratis.',
   },
   {
     icono: MessageSquareText,
     titulo: 'Mensajes para copiar y adaptar',
-    texto: 'Tu primer mensaje de 3 frases y los seguimientos de los días 2, 7 y 14, con ejemplos de «así no» y «así sí».',
+    texto: 'Tu primer mensaje de 3 frases y los seguimientos, con ejemplos de «así no» y «así sí», ejemplos para otros rubros y un seguimiento para cotizaciones que quedaron en nada.',
   },
   {
     icono: ClipboardCopy,
-    titulo: 'Instrucciones listas para tu chat',
-    texto: 'En cada parte, un texto para pegar en ChatGPT o Claude con tus datos: te ayuda a redactar y ordenar. Tú revisas y envías.',
+    titulo: 'Ayuda para redactar, si la quieres',
+    texto: 'Claude o ChatGPT te ayudan a redactar el borrador con instrucciones listas para copiar; tú lo revisas y lo envías. Si prefieres, lo haces a mano con las plantillas.',
   },
   {
     icono: Gamepad2,
     titulo: 'Juegos cortos para practicar',
-    texto: '¿Prospecto o no?, cada fuente con su cliente, a quién le haces seguimiento primero y encuentra el error en el mensaje.',
+    texto: '¿Le escribo o no?, cada fuente con su cliente, a quién le haces seguimiento primero y encuentra el error en el mensaje.',
   },
   {
     icono: PlayCircle,
@@ -102,9 +104,9 @@ const INCLUYE: { icono: LucideIcon; titulo: string; texto: string }[] = [
 
 const PASOS: { titulo: string; texto: string }[] = [
   { titulo: 'Diagnóstico', texto: '10 minutos y nueve preguntas. Sales con tu ruta y con la carpeta «Mi sistema de ventas» creada.' },
-  { titulo: 'Las 6 partes', texto: 'Acompañas a Camila, dueña de una tostaduría de Valparaíso: ella lo hace primero y tú después, con tu negocio.' },
-  { titulo: 'Tu planilla', texto: 'Anotas tus 20 prospectos con puntaje y cada uno queda con su próximo paso y una fecha exacta.' },
-  { titulo: 'Tus mensajes', texto: 'Escribes el primer mensaje para tus 20, lo revisas y lo envías. Los seguimientos quedan en plantilla.' },
+  { titulo: 'Las 6 partes', texto: 'Acompañas a Camila, dueña de una tostaduría de Valparaíso (un caso de ejemplo): ella lo hace primero y tú después, con tu negocio.' },
+  { titulo: 'Tu primer CRM', texto: 'Anotas a tus 20 posibles clientes con puntaje y cada uno queda con su próximo paso y una fecha exacta.' },
+  { titulo: 'Tus mensajes', texto: 'Escribes el primer mensaje para tus 20, lo revisas y lo envías por el canal que corresponde a cada uno. Los seguimientos quedan en plantilla.' },
   { titulo: 'Prueba real y certificado', texto: '20 minutos al día durante 5 días hábiles, registrando enviados y respuestas. Después, el quiz y tu certificado.' },
 ];
 
@@ -122,9 +124,19 @@ export default function GuiaVenta() {
               Deja de vender solo cuando te llega un referido.
             </h1>
             <p className="mt-6 max-w-2xl text-base text-slate-300 sm:text-lg">
-              En una tarde armas tu lista de 20 prospectos, el primer mensaje y los seguimientos con fecha. Te queda una rutina de 20 minutos cada
-              mañana para que ningún prospecto se te enfríe.
+              En una tarde armas tu lista de 20 posibles clientes, el primer mensaje y los seguimientos con fecha. Después, 20 minutos cada mañana: tu
+              planilla te dice a quién escribirle y nadie se te enfría.
             </p>
+            <ul className="mt-5 max-w-2xl space-y-2 text-sm text-slate-200 sm:text-base">
+              <li className="flex gap-2">
+                <Check className="mt-0.5 h-5 w-5 shrink-0 text-[#5fb2dd]" aria-hidden />
+                Mensajes escritos por ti, uno a uno: sin envío masivo ni riesgo de que te bloqueen el WhatsApp.
+              </li>
+              <li className="flex gap-2">
+                <Check className="mt-0.5 h-5 w-5 shrink-0 text-[#5fb2dd]" aria-hidden />
+                Tu primer CRM en Google Sheets (o Excel), gratis y listo en la misma tarde.
+              </li>
+            </ul>
             <div className="mt-7 flex flex-wrap items-baseline gap-x-3 gap-y-1">
               <p className="font-serif text-4xl text-white">{PRECIO_GUIA.texto}</p>
               <p className="text-sm text-slate-400">CLP · pago único o {PRECIO_GUIA.cuotas}</p>
@@ -161,12 +173,13 @@ export default function GuiaVenta() {
                 </div>
                 <div>
                   <dt className="text-xs uppercase tracking-wider text-slate-500">Te llevas</dt>
-                  <dd className="mt-1 text-slate-100">Planilla en Excel o Google Sheets, mensajes y certificado</dd>
+                  <dd className="mt-1 text-slate-100">Tu primer CRM en Google Sheets o Excel, tus mensajes y el certificado</dd>
                 </div>
                 <div>
                   <dt className="text-xs uppercase tracking-wider text-slate-500">Guía viva</dt>
                   <dd className="mt-1 text-slate-100">
-                    La revisamos y actualizamos; tú recibes cada mejora. Última actualización: {fechaLarga(VERSION_ACTUAL.fecha)}
+                    La revisamos y actualizamos, y su evidencia se revisa cada tres meses; tú recibes cada mejora. Última actualización:{' '}
+                    {fechaLarga(VERSION_ACTUAL.fecha)}
                   </dd>
                 </div>
               </dl>
@@ -199,7 +212,8 @@ export default function GuiaVenta() {
               <p className="mt-2 text-sm text-slate-100">{ASI_SI}</p>
             </div>
             <p className="text-sm text-slate-400">
-              Tres frases: algo de ellos, lo que ganan y una pregunta fácil. Con ese cambio a Camila le contestaron en una hora.
+              Tres frases: algo de ellos, lo que ganan y una pregunta fácil. En el caso de ejemplo de la guía, con ese cambio a Camila le contestaron
+              en una hora.
             </p>
           </div>
         </div>
@@ -209,7 +223,7 @@ export default function GuiaVenta() {
       <Seccion
         id="incluye"
         kicker="Qué incluye"
-        titulo="Todo lo que necesitas para vender esta semana."
+        titulo="Todo lo que necesitas para salir a buscar clientes esta semana."
         bajada="No es un libro para leer y guardar: cada parte termina con algo hecho en tu negocio."
       >
         <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -280,6 +294,11 @@ export default function GuiaVenta() {
           <div>
             <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-[#5fb2dd]">Una muestra de adentro</p>
             <VideoMarco id="v04-guia-primer-mensaje" titulo="El primer mensaje, a mano" duracion="50 s" className="mt-3" />
+            {/* C30: sacar esta nota si se regraba el video diciendo por qué va por WhatsApp. */}
+            <p className="mt-3 text-sm text-slate-400">
+              En el video, Camila le escribe a Diego por WhatsApp porque él le dio su número. A quien no te conoce, el primer mensaje va por correo,
+              LinkedIn o Instagram.
+            </p>
           </div>
           <div className="[&>figure]:mt-0">
             <EstructuraMensaje />
@@ -291,7 +310,7 @@ export default function GuiaVenta() {
       <Seccion
         kicker="El caso que recorre la guía"
         titulo="Camila lo hace primero. Tú lo haces después."
-        bajada="Camila tiene Grano Norte, una tostaduría de café en Valparaíso que le vende a cafeterías y oficinas. Prospectaba un lunes con ganas y el jueves ya no se acordaba a quién le había escrito. En cada parte ves cómo lo resuelve ella."
+        bajada="Camila tiene Grano Norte, una tostaduría de café en Valparaíso que le vende a cafeterías y oficinas (es un caso de ejemplo). Salía a buscar clientes un lunes con ganas y el jueves ya no se acordaba a quién le había escrito. En cada parte ves cómo lo resuelve ella."
       >
         <div className="mt-10 grid items-start gap-5 lg:grid-cols-3">
           <figure className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-white/10 lg:aspect-[4/5]">
@@ -315,6 +334,7 @@ export default function GuiaVenta() {
                 </li>
               ))}
             </ol>
+            <p className="mt-4 text-xs text-slate-400">Los días 2, 7 y 14 son un punto de partida: si tu rubro es más lento, los estiras.</p>
           </div>
           <div className="[&>figure]:mt-0">
             <RutinaVeinte />
@@ -369,12 +389,40 @@ export default function GuiaVenta() {
               Hoy dirijo Villelab y dos negocios propios, Ewaffle y Fidelidapp. Esta guía es lo que hago cada semana para conseguir clientes nuevos:
               una lista corta, un primer mensaje que habla del otro y seguimientos con fecha.
             </p>
-            <Link href="/sobre-mi" className="inline-flex min-h-[44px] items-center gap-1 text-sm text-[#5fb2dd] hover:text-white">
-              Más sobre mí <ArrowRight className="h-4 w-4" aria-hidden />
-            </Link>
+            <p className="border-l-2 border-[#5fb2dd]/60 pl-4 text-slate-200">
+              Experiencia de terreno en Ewaffle, Fidelidapp y Villelab, contrastada con estudios y reportes de la industria: te digo qué tiene
+              respaldo y qué es criterio práctico, y reviso la evidencia cada tres meses.
+            </p>
+            <div className="flex flex-wrap gap-x-6">
+              <a href="#en-que-se-basa" className="inline-flex min-h-[44px] items-center gap-1 text-sm text-[#5fb2dd] hover:text-white">
+                En qué se basa esta guía <ChevronDown className="h-4 w-4" aria-hidden />
+              </a>
+              <Link href="/sobre-mi" className="inline-flex min-h-[44px] items-center gap-1 text-sm text-[#5fb2dd] hover:text-white">
+                Más sobre mí <ArrowRight className="h-4 w-4" aria-hidden />
+              </Link>
+            </div>
           </div>
         </div>
       </Seccion>
+
+      <Evidencia />
+
+      {/* Testimonios: solo reales y con permiso (venta.ts). Vacío hoy, así que no se muestra. */}
+      {TESTIMONIOS.length > 0 && (
+        <Seccion kicker="Lo que dicen" titulo="Quienes ya hicieron la prueba de 5 días.">
+          <ul className="mt-10 grid gap-4 md:grid-cols-2">
+            {TESTIMONIOS.map((t) => (
+              <li key={t.nombre} className="rounded-2xl border border-white/10 bg-white/[0.02] p-5">
+                <p className="text-slate-100">«{t.texto}»</p>
+                {t.resultado ? <p className="mt-2 text-sm text-[#5fb2dd]">{t.resultado}</p> : null}
+                <p className="mt-3 text-sm text-slate-400">
+                  {t.nombre} · {t.negocio}
+                </p>
+              </li>
+            ))}
+          </ul>
+        </Seccion>
+      )}
 
       {/* Garantía */}
       <section className="mx-auto max-w-6xl px-4 py-14 sm:px-6">

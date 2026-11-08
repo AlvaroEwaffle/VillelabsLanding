@@ -7,14 +7,16 @@ import { fraunces } from '@/lib/productos/fuente';
 import GuiaVenta from '@/components/productos/guia/GuiaVenta';
 
 // /guia — página de venta (indexable) de la Guía 1. El producto está en /guia/prospeccion (noindex).
-const TITULO_OG = 'Tus primeros 20 prospectos y el primer mensaje, en una tarde';
-const DESCRIPCION_OG = 'Guía paso a paso con planilla, mensajes y seguimientos con fecha. $14.990 CLP, garantía de 7 días.';
+// Copy v1.2 (8-nov-2026) con las palabras que busca el comprador: «conseguir clientes», «CRM», «WhatsApp».
+const TITULO_OG = 'Deja de vender solo cuando te llega un referido';
+const DESCRIPCION_OG =
+  'En una tarde armas tu lista de 20 posibles clientes, el primer mensaje y los seguimientos, con tu primer CRM en Google Sheets. Sin envío masivo. $14.990 CLP.';
 const IMAGEN_OG = `${SITE_URL}/og/guia.jpg`;
 
 export const metadata: Metadata = {
-  title: { absolute: 'Guía de prospección para pymes: tu lista de 20 y el primer mensaje' },
+  title: { absolute: 'Cómo conseguir clientes para tu pyme: tu lista de 20 y el primer mensaje' },
   description:
-    'Arma en una tarde tu lista de 20 prospectos, el primer mensaje y los seguimientos de los días 2, 7 y 14. Planilla en Excel incluida. $14.990 CLP, garantía de 7 días.',
+    'Arma en una tarde tu lista de 20 posibles clientes, el primer mensaje y los seguimientos, con tu primer CRM en Google Sheets o Excel. Uno a uno, sin envío masivo. $14.990 CLP.',
   alternates: { canonical: `${SITE_URL}${LINKS.guiaVenta}` },
   openGraph: {
     type: 'website',
@@ -60,7 +62,7 @@ const JSON_LD = [
     id: 'v04-guia-primer-mensaje',
     nombre: 'El primer mensaje, a mano',
     descripcion:
-      'Álvaro Villena escribe un primer mensaje de prospección en tres frases (algo de ellos, lo que ganan y una pregunta fácil) con el caso de la tostaduría Grano Norte. Muestra de la Guía 1.',
+      'Álvaro Villena escribe a mano un primer mensaje en tres frases (algo de ellos, lo que ganan y una pregunta fácil) para un posible cliente que le dio su WhatsApp, con el caso de ejemplo de la tostaduría Grano Norte. Muestra de la Guía 1.',
     segundos: 49,
     pagina: LINKS.guiaVenta,
   }),

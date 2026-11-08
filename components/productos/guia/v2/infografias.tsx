@@ -183,7 +183,7 @@ export function CalendarioSeguimientos() {
   ];
   return (
     <Marco titulo="El calendario de seguimientos">
-      <p className="mb-3 text-sm font-semibold text-white">Por prospecto</p>
+      <p className="mb-3 text-sm font-semibold text-white">Por cada posible cliente</p>
       <div className="relative px-2 pb-2 pt-6">
         <div className="absolute left-2 right-2 top-[2.1rem] h-1 rounded-full bg-gradient-to-r from-[#5fb2dd] to-[#2175a1]" />
         <div className="relative flex justify-between">

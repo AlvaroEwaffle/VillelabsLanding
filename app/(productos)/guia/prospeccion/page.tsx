@@ -7,7 +7,7 @@ import GuiaProspeccionV2 from '@/components/productos/guia/v2/GuiaProspeccionV2'
 // no herede la tarjeta ni la URL de la portada del sitio.
 export const metadata: Metadata = {
   title: 'Guía 1 · Tu lista de prospectos y el primer mensaje',
-  description: 'Guía interactiva de Villelab: diagnóstico y ruta, cliente ideal, tu planilla de 20 prospectos, primer mensaje, seguimientos y rutina de 20 minutos.',
+  description: 'Guía interactiva de Villelab: diagnóstico y ruta, cliente ideal, tu primer CRM con 20 posibles clientes, primer mensaje, seguimientos y rutina de 20 minutos.',
   robots: { index: false, follow: false },
   alternates: { canonical: `${SITE_URL}/guia/prospeccion` },
   openGraph: {

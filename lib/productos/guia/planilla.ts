@@ -88,8 +88,8 @@ export async function construirXLSX(filas: Fila[], prueba: DiaPrueba[]) {
     ws.views = [{ state: 'frozen', ySplit: 1 }];
   };
 
-  // --- Prospectos ---
-  const ws = wb.addWorksheet('Prospectos');
+  // --- Posibles clientes (tu primer CRM) ---
+  const ws = wb.addWorksheet('Posibles clientes');
   ws.columns = [
     { header: CABECERA[0], width: 22 },
     { header: CABECERA[1], width: 24 },
@@ -159,7 +159,10 @@ export async function construirXLSX(filas: Fila[], prueba: DiaPrueba[]) {
   wp.addRow(['Total', { formula: 'SUM(B2:B6)' }, { formula: 'SUM(C2:C6)' }, { formula: 'SUM(D2:D6)' }, { formula: 'IF(B7>0,C7/B7,"")' }]);
   wp.getCell('E7').numFmt = '0%';
   wp.getRow(7).font = { bold: true };
-  wp.getCell('A9').value = 'Bajo 10 %: revisa tu primer mensaje (parte 4). Sobre 20 %: sube a más prospectos nuevos por día.';
+  // C10 (8-nov-2026): mismo criterio que la herramienta de la parte 6 y la pregunta 5 del quiz.
+  wp.getCell('A9').value = 'Con 25 mensajes los números todavía bailan mucho. Si después de dos tandas (40 a 50 mensajes) tienes 0 o 1 respuesta, revisa tu primer mensaje (parte 4). Si te responde más de 1 de cada 5, súmale posibles clientes nuevos cada día.';
+  wp.getCell('A10').value = 'Lo normal es que respondan 1 o 2 de cada 20. Cinco días sirven para partir: sigue con la rutina y compara cuando juntes 40 a 50 mensajes.';
+  wp.getCell('A10').font = { italic: true, color: { argb: 'FF475569' } };
   wp.getCell('A9').font = { italic: true, color: { argb: 'FF475569' } };
 
   // --- Calendario ---
@@ -179,17 +182,17 @@ export async function construirXLSX(filas: Fila[], prueba: DiaPrueba[]) {
       wc.addRow([aFecha(f.fecha), f.nombre, f.empresa, f.proximo, f.estado]);
       wc.getCell(`A${i + 2}`).numFmt = 'dd-mm-yyyy';
     });
-  if (!conDatos.some((f) => f.fecha)) wc.addRow([null, 'Aún no hay próximos pasos con fecha. Complétalos en la hoja Prospectos.']);
+  if (!conDatos.some((f) => f.fecha)) wc.addRow([null, 'Aún no hay próximos pasos con fecha. Complétalos en la hoja Posibles clientes.']);
 
   // --- Dashboard ---
   const wd = wb.addWorksheet('Dashboard');
   wd.columns = [{ width: 32 }, { width: 16 }];
-  wd.getCell('A1').value = 'Mi sistema de ventas · Dashboard';
+  wd.getCell('A1').value = 'Mi sistema de ventas · Dashboard de tu primer CRM';
   wd.getCell('A1').font = { bold: true, size: 16, color: { argb: NOCHE } };
-  const P = `Prospectos!`;
+  const P = `'Posibles clientes'!`;
   const T = `'Prueba 5 días'!`;
   const metricas: [string, string, string?][] = [
-    ['Total prospectos', `COUNTA(${P}A2:A${ultima})`],
+    ['Total de posibles clientes', `COUNTA(${P}A2:A${ultima})`],
     ['Contactados', `COUNTA(${P}A2:A${ultima})-COUNTIFS(${P}A2:A${ultima},"<>",${P}K2:K${ultima},"Sin mensaje")`],
     ['Mensajes enviados (5 días)', `${T}B7`],
     ['Respuestas', `${T}C7`],

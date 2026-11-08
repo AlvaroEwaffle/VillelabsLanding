@@ -6,6 +6,7 @@ import {
   ASI_NO,
   ASI_SI,
   CUADERNO,
+  EJEMPLOS_RUBRO,
   ENTREGABLE,
   ESCENAS,
   GUIA,
@@ -14,8 +15,11 @@ import {
   PARTES,
   PLATAFORMAS,
   PROMPTS,
+  SEGUIMIENTO_COTIZACION,
   SEGUIMIENTOS,
 } from '@/lib/productos/guia/contenido-v2';
+import { LINKS } from '@/lib/productos/links';
+import { CONTEO_EVIDENCIA, REVISION_EVIDENCIA } from '@/lib/productos/guia/evidencia-resumen';
 import { calcularRuta, type Ruta } from '@/lib/productos/guia/ruta';
 import { filaConDatos, parteCompleta, useProgreso, type Vista } from '@/lib/productos/guia/progreso-v2';
 import { Bloque, Checklist, ConsejoAlvaro, Cuaderno, Foto, Insight, Prompt, Tarjeta, VideoPlaceholder, btnPrimario, btnSecundario } from './ui';
@@ -66,6 +70,7 @@ function Escena({ n }: { n: number }) {
         enviado={n === 5 ? SEGUIMIENTOS[1].texto : ASI_SI}
         respuesta={n === 5 ? '¡Dale! Déjanos una muestra el jueves.' : '¡Gracias! Sí, el jueves estamos. ¿A qué hora pasas?'}
         contacto={n === 5 ? 'Paula · Café Brisa' : 'Diego · Cafetería Mirador'}
+        canal={n === 5 ? 'Correo' : 'WhatsApp'}
       />
     ) : null;
   return (
@@ -89,7 +94,7 @@ function Escena({ n }: { n: number }) {
 // Regla 20/80 (8-nov-2026): solo el primer consejo lleva la cara de Álvaro; los demás, una imagen de lo que dice.
 const CONSEJOS: Record<number, { foto: ImagenApoyo; texto: string; pos?: string }> = {
   1: { foto: FOTOS.explicando, texto: 'Antes de escribirle a nadie, escribe a quién no le vas a escribir. Eso ordena todo lo demás.' },
-  2: { foto: APOYO.cafeteria, texto: 'Yo parto siempre por mis clientes: un referido contesta mucho más que diez desconocidos.', pos: '40% 50%' },
+  2: { foto: APOYO.cafeteria, texto: 'Yo parto siempre por mis clientes: un referido suele contestar bastante más que un desconocido.', pos: '40% 50%' },
   3: { foto: APOYO.planilla, texto: 'No midas el éxito por las respuestas de un día: mídelo por tandas enviadas en el mes.', pos: '45% 50%' },
   4: { foto: APOYO.escribir, texto: 'Lee tu mensaje en voz alta antes de enviarlo. Si suena a folleto, bórralo y parte de nuevo.', pos: '55% 50%' },
   5: { foto: APOYO.calendario, texto: 'Agenda el seguimiento en el mismo momento en que envías el primer mensaje, no después.', pos: '50% 50%' },
@@ -192,6 +197,14 @@ function ContenidoParte({ n, irA }: { n: number; irA: (v: Vista) => void }) {
           <Escena n={2} />
           <Idea>
             <p>Hay muchas fuentes; ordénalas de la más tibia a la más fría y empieza siempre por las tibias.</p>
+            <p>
+              En ventas a estos nombres les dicen «prospectos»: gente que podría comprarte y todavía no lo ha hecho. Aquí les decimos posibles
+              clientes, y la planilla donde los anotas es tu primer CRM.
+            </p>
+            <p>
+              Cada fuente tiene su canal: por WhatsApp solo le escribes a quien ya te conoce o te dio su número. A los demás, el primer mensaje va
+              por correo, LinkedIn o Instagram.
+            </p>
           </Idea>
           <EmbudoFuentes />
           <CadenaReferido />
@@ -210,6 +223,9 @@ function ContenidoParte({ n, irA }: { n: number; irA: (v: Vista) => void }) {
                     {pl.nombre}
                   </p>
                   <p className="mt-1 text-sm text-slate-300">{pl.consejo}</p>
+                  <p className="mt-2 text-sm text-slate-200">
+                    <span className="font-semibold text-[#5fb2dd]">Por dónde le escribes:</span> {pl.canal}
+                  </p>
                   <p className="mt-2 text-sm text-[#cfe8f5]">Camila: {pl.camila}</p>
                 </Tarjeta>
               ))}
@@ -241,7 +257,12 @@ function ContenidoParte({ n, irA }: { n: number; irA: (v: Vista) => void }) {
             </p>
             <p>
               El puntaje no sirve para dejar a 15 sin escribir: sirve para decidir a quién le haces seguimiento primero y con qué mensaje.
-              Puntúa de 1 a 3 en Encaje, Señal y Acceso.
+              Puntúa de 1 a 3 en Encaje, Señal y Acceso. Es una regla práctica: si con el tiempo ves que otra cosa predice mejor quién te
+              compra, ajústala.
+            </p>
+            <p>
+              ¿Por qué 20? Es un número chico y fijo: la tarea cabe en una tarde y la repites cada semana. Si te sobra o te falta, ajústalo, pero
+              que sea un número fijo.
             </p>
           </Idea>
           <TandaSemanal />
@@ -267,7 +288,29 @@ function ContenidoParte({ n, irA }: { n: number; irA: (v: Vista) => void }) {
           <Escena n={4} />
           <Idea>
             <p>El primer mensaje no vende: abre una conversación. Máximo 3 frases. Sin adjuntos ni links en el primero.</p>
+            <p>El nombre solo no basta: lo que se nota es que miraste su negocio.</p>
           </Idea>
+          <Bloque etiqueta="Por dónde le escribes" titulo="WhatsApp, solo con quien ya te conoce">
+            <div className="grid gap-2 sm:grid-cols-2">
+              <Tarjeta className="!p-4">
+                <p className="font-semibold text-white">WhatsApp</p>
+                <p className="mt-1 text-sm text-slate-300">
+                  Para tus clientes, los referidos que te dieron permiso y la gente de tu agenda o que te dio su número.
+                </p>
+              </Tarjeta>
+              <Tarjeta className="!p-4">
+                <p className="font-semibold text-white">Correo, LinkedIn o Instagram</p>
+                <p className="mt-1 text-sm text-slate-300">
+                  Para quien no te conoce: lo que encontraste en Google Maps, Instagram, LinkedIn o un directorio. Cuando te responda y te dé su
+                  número, pasas a WhatsApp.
+                </p>
+              </Tarjeta>
+            </div>
+            <p className="mt-3 text-sm text-slate-400">
+              Así no te arriesgas a que te reporten o te bloqueen el número: la política de WhatsApp Business pide que la persona te haya dado su
+              número y aceptado tus mensajes. Y nada de envíos masivos: aquí se escribe uno a uno, a mano.
+            </p>
+          </Bloque>
           <EstructuraMensaje />
           <EscaleraConversacion />
           <Insight>{insight}</Insight>
@@ -286,6 +329,23 @@ function ContenidoParte({ n, irA }: { n: number; irA: (v: Vista) => void }) {
           </Bloque>
           <Bloque etiqueta="Video 2 · 50 s">
             <VideoPlaceholder titulo="El primer mensaje, a mano" duracion="50 s" guion={GUION_VIDEO_2} etiquetaGuion="Leer lo que digo en el video" video="v04-guia-primer-mensaje" />
+            {/* C30: el video (grabado antes de la revisión) no dice por qué va por WhatsApp. Sacar esta nota si se regraba. */}
+            <p className="mt-3 rounded-xl border border-[#5fb2dd]/40 bg-[#2175a1]/10 p-3 text-sm text-slate-200">
+              Ojo con el canal: en el video Camila le escribe a Diego por WhatsApp porque él le dio su número en una feria. A quien no te conoce,
+              el primer mensaje va por correo, LinkedIn o Instagram.
+            </p>
+          </Bloque>
+          <Bloque etiqueta="Otros rubros" titulo="El mismo mensaje de 3 frases, en otros negocios">
+            <div className="grid gap-2 sm:grid-cols-2">
+              {EJEMPLOS_RUBRO.map((e) => (
+                <Tarjeta key={e.rubro} className="!p-4">
+                  <p className="font-semibold text-white">{e.rubro}</p>
+                  <p className="mt-0.5 text-xs text-[#5fb2dd]">{e.canal}</p>
+                  <p className="mt-2 text-sm leading-relaxed text-slate-200">«{e.mensaje}»</p>
+                </Tarjeta>
+              ))}
+            </div>
+            <p className="mt-2 text-xs text-slate-500">Son ejemplos para que veas la estructura; cambia los datos por los de tu negocio.</p>
           </Bloque>
           <Prompt texto={PROMPTS.p4} />
           <JuegoError />
@@ -298,6 +358,9 @@ function ContenidoParte({ n, irA }: { n: number; irA: (v: Vista) => void }) {
           <Escena n={5} />
           <Idea>
             <p>Tres seguimientos, cada uno aporta algo nuevo, nunca «¿viste mi mensaje?».</p>
+            <p>
+              Los días 2, 7 y 14 son un calendario simple, un punto de partida para ajustar con tus números: si tu rubro es más lento, estíralo.
+            </p>
           </Idea>
           <Insight>{insight}</Insight>
           <Consejo n={n} />
@@ -318,11 +381,29 @@ function ContenidoParte({ n, irA }: { n: number; irA: (v: Vista) => void }) {
               ))}
             </ol>
           </Bloque>
+          <Bloque etiqueta="Bonus · cotizaciones sin respuesta" titulo="¿Mandaste cotizaciones que quedaron en nada?">
+            <p className="text-slate-300">
+              Son tus posibles clientes más tibios: ya te pidieron precio. Escríbeles por donde te la pidieron, con este mismo espaciado.
+            </p>
+            <ol className="mt-3 space-y-2">
+              {SEGUIMIENTO_COTIZACION.map((s) => (
+                <li key={s.cuando}>
+                  <Tarjeta className="!p-4">
+                    <p className="text-sm font-semibold text-[#5fb2dd]">{s.cuando}</p>
+                    <p className="mt-1 text-sm leading-relaxed text-slate-100">«{s.texto}»</p>
+                  </Tarjeta>
+                </li>
+              ))}
+            </ol>
+          </Bloque>
           <Prompt texto={PROMPTS.p5} />
           <Bloque etiqueta="Regla de oro">
             <div className="rounded-2xl border border-[#5fb2dd]/50 bg-gradient-to-br from-[#2175a1]/30 to-transparent p-5 sm:p-6">
               <p className="font-serif text-2xl leading-snug text-white">
-                Todos los mensajes los apruebas tú antes de enviarlos. La herramienta escribe; tú decides.
+                Todos los mensajes los revisas tú antes de enviarlos. Claude o ChatGPT te ayudan con el borrador; tú decides qué sale.
+              </p>
+              <p className="mt-3 text-sm text-slate-300">
+                Agrega siempre un detalle que solo tú sabes de esa persona: los mensajes que salen tal cual del chat se parecen todos.
               </p>
             </div>
           </Bloque>
@@ -351,9 +432,13 @@ function ContenidoParte({ n, irA }: { n: number; irA: (v: Vista) => void }) {
             Lunes 8:30 en Grano Norte: le toca el día 2 a Cafetería Mirador y el día 7 a Café Brisa. Camila envía esos dos, suma 4 nombres
             nuevos, les manda el primer mensaje y deja cada fila con su próximo paso y fecha. 8:50, listo.
           </Ejemplo>
-          <Prompt titulo="Pásale esto a tu agente · cada mañana" texto={PROMPTS.p6} />
+          <Prompt titulo="Con Claude o ChatGPT · cada mañana, si quieres" texto={PROMPTS.p6} />
           <Bloque etiqueta="Prueba real · 5 días" titulo="Haz la rutina 5 días hábiles y anota tus números">
-            <p className="text-slate-300">Esto queda en tu planilla: hoja «Prueba 5 días» y en el Dashboard del Excel.</p>
+            <p className="text-slate-300">
+              Cinco días no forman un hábito: sirven para partir y ver tus primeros números. Si un día no puedes, retoma al siguiente; saltarse un
+              día no arruina el hábito. Y no saques conclusiones con 25 mensajes: compara cuando juntes 40 a 50.
+            </p>
+            <p className="mt-2 text-slate-300">Esto queda en tu planilla: hoja «Prueba 5 días» y en el Dashboard del Excel.</p>
             <div className="mt-4">
               <PruebaReal prueba={p.prueba} actualizar={actualizar} />
             </div>
@@ -411,6 +496,12 @@ function Portada({ irA, ruta }: { irA: (v: Vista) => void; ruta: Ruta | null }) 
               </li>
             ))}
           </ul>
+          <p className="mt-3">
+            La evidencia detrás de cada recomendación se revisa cada tres meses (la próxima, en {REVISION_EVIDENCIA.proxima}).{' '}
+            <a href={`${LINKS.guiaVenta}#en-que-se-basa`} target="_blank" rel="noopener" className="text-[#5fb2dd] underline underline-offset-2">
+              En qué se basa esta guía ↗
+            </a>
+          </p>
         </details>
         <button type="button" className={`${btnPrimario} mt-6 w-full sm:w-auto`} onClick={() => irA(siguiente ? siguiente.n : 'cierre')}>
           {hechas === 0 ? 'Empezar por el diagnóstico' : siguiente ? `Seguir en la parte ${siguiente.n}` : 'Ir al cierre'}
@@ -533,6 +624,22 @@ function Cierre({ irA }: { irA: (v: Vista) => void }) {
           </p>
         </Tarjeta>
         <ExportarPlanilla />
+      </Bloque>
+      <Bloque etiqueta="En qué se basa esta guía">
+        <Tarjeta>
+          <p className="leading-relaxed text-slate-200">
+            Revisé las {CONTEO_EVIDENCIA.total} recomendaciones de esta guía contra estudios, reportes de la industria y las reglas de WhatsApp.{' '}
+            {CONTEO_EVIDENCIA.fuerte} tienen respaldo fuerte, como volver a escribir a quien no respondió, decidir a qué hora y dónde haces tu rutina,
+            anotar tus números y usar Claude o ChatGPT como borrador que tú revisas.
+          </p>
+          <p className="mt-3 leading-relaxed text-slate-300">
+            Los números exactos (20 nombres, días 2, 7 y 14, comparar a los 40 o 50 mensajes) son criterio práctico: un punto de partida para
+            ajustar con tus números. La evidencia se revisa cada tres meses.
+          </p>
+          <a href={`${LINKS.guiaVenta}#en-que-se-basa`} target="_blank" rel="noopener" className={`${btnSecundario} mt-4`}>
+            Ver el detalle y las fuentes ↗
+          </a>
+        </Tarjeta>
       </Bloque>
       <Certificado />
       <div className="mt-8">

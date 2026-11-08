@@ -29,7 +29,7 @@ function Marcador({ ok, total, onReiniciar }: { ok: number; total: number; onRei
   );
 }
 
-// ---------- Parte 1 · ¿Prospecto o no? ----------
+// ---------- Parte 1 · ¿Le escribo o no? ----------
 export function JuegoProspecto() {
   const [respuestas, setRespuestas] = useState<boolean[]>([]);
   const i = respuestas.length;
@@ -49,7 +49,7 @@ export function JuegoProspecto() {
   const actual = TARJETAS_PROSPECTO[i];
 
   return (
-    <Bloque etiqueta="Juego · ¿Prospecto o no?" titulo="¿Es cliente ideal de Grano Norte?">
+    <Bloque etiqueta="Juego · ¿Le escribo o no?" titulo="¿Es cliente ideal de Grano Norte?">
       <p className="text-slate-300">
         Toca <strong>Sí</strong> o <strong>No</strong> (o desliza la tarjeta) para cada negocio. Recuerda: cafeterías
         independientes de 1 a 3 locales en Valparaíso y Viña, con una señal de «ahora».
@@ -122,7 +122,7 @@ export function JuegoFuentes() {
   return (
     <Bloque etiqueta="Juego · Cada fuente con su cliente" titulo="¿Dónde lo encuentras más fácil?">
       <p className="text-slate-300">
-        Toca un prospecto y después la fuente donde es más fácil encontrarlo. En computador también puedes arrastrarlo.
+        Toca un posible cliente y después la fuente donde es más fácil encontrarlo. En computador también puedes arrastrarlo.
       </p>
       {!revisado && (
         <div className="mt-4 space-y-2">

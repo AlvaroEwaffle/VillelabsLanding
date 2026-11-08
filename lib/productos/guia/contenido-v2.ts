@@ -2,19 +2,22 @@
 // Fuente de verdad: VPM/Villelabs/productos-digitales/contenido-primeros-productos.html
 // (sección «PRODUCTO 3 · GUÍA 1») + cambios v2 pedidos por Álvaro el 7-nov-2026.
 // Caso transversal: Grano Norte, tostaduría de Valparaíso; Camila es la dueña.
+// v1.2 (8-nov-2026): lenguaje del comprador («posibles clientes», «tu primer CRM»; «prospecto» se explica una vez
+// en la parte 2), WhatsApp solo con quien ya te conoce (C30), umbrales de la prueba (C10) y mito del segundo
+// contacto (C19) corregidos según investigacion/base-evidencia-guia1-2026-11-08.md. El título queda igual (Hotmart).
 
 export const GUIA = {
   titulo: 'Tu lista de prospectos y el primer mensaje, cada mañana',
-  etiqueta: 'Guía 1 · Ventas y prospección',
+  etiqueta: 'Guía 1 · Ventas y clientes nuevos',
   promesa:
-    'En una tarde armas la lista de a quién venderle, el primer mensaje y los seguimientos, y te queda una rutina de 20 minutos al día para que ningún prospecto se te enfríe.',
+    'En una tarde armas la lista de a quién venderle, el primer mensaje y los seguimientos, y te queda una rutina de 20 minutos al día para que ningún posible cliente se te enfríe.',
   duracion: '2,5 a 3 horas',
-  herramientas: 'Claude (o ChatGPT) + tu planilla, que armas aquí mismo',
+  herramientas: 'Tu primer CRM en una planilla + Claude o ChatGPT de apoyo',
   resultado: [
     { texto: 'La ficha de tu cliente ideal, en una página.', partes: [1] },
-    { texto: 'Una planilla con 20 prospectos reales con puntaje.', partes: [2, 3] },
+    { texto: 'Tu primer CRM: una planilla con 20 posibles clientes reales, con puntaje.', partes: [2, 3] },
     { texto: 'Tu primer mensaje y 3 seguimientos (días 2, 7 y 14), con tu tono.', partes: [4, 5] },
-    { texto: 'Una rutina de 20 minutos al día y la prueba hecha con 5 días reales.', partes: [6] },
+    { texto: 'Una rutina de 20 minutos al día y tus primeros 5 días hechos, con tus números.', partes: [6] },
   ],
 } as const;
 
@@ -49,7 +52,7 @@ export const PARTES: ParteMeta[] = [
     nombre: 'Dónde están',
     titulo: 'Tus primeros 20 nombres',
     minutos: '35 min',
-    checklist: ['Tengo 20 prospectos en la planilla.', 'Al menos 5 vienen de fuentes tibias.'],
+    checklist: ['Tengo 20 posibles clientes en la planilla.', 'Al menos 5 vienen de fuentes tibias.'],
   },
   {
     n: 3,
@@ -79,7 +82,7 @@ export const PARTES: ParteMeta[] = [
     minutos: '25 min',
     checklist: [
       'Tengo mis 3 seguimientos en plantilla.',
-      'En la planilla, cada prospecto tiene su próximo paso y una fecha exacta.',
+      'En la planilla, cada posible cliente tiene su próximo paso y una fecha exacta.',
     ],
   },
   {
@@ -100,7 +103,7 @@ export const ESCENAS: Record<number, { titulo: string; texto: string; ilustracio
   0: {
     titulo: 'Conoce a Camila',
     texto:
-      'Camila tiene Grano Norte, una tostaduría de café en Valparaíso. Le vende a cafeterías y a oficinas. El café es bueno; el problema es que prospecta un lunes con ganas y el jueves ya se le olvidó a quién le escribió. En cada parte vas a ver cómo lo resuelve ella, y después lo haces tú.',
+      'Camila tiene Grano Norte, una tostaduría de café en Valparaíso. Le vende a cafeterías y a oficinas. El café es bueno; el problema es que sale a buscar clientes un lunes con ganas y el jueves ya se le olvidó a quién le escribió. En cada parte vas a ver cómo lo resuelve ella, y después lo haces tú.',
     ilustracion: 'tostaduria',
   },
   1: {
@@ -112,25 +115,25 @@ export const ESCENAS: Record<number, { titulo: string; texto: string; ilustracio
   2: {
     titulo: 'La planilla de Camila',
     texto:
-      'Un domingo en la tarde, Camila abre una planilla y anota 20 nombres. Parte por sus propios clientes, que le pasan dos datos, y sigue con Google Maps e Instagram.',
+      'Un domingo en la tarde, Camila abre una planilla y anota 20 nombres. Parte por sus propios clientes, que le pasan dos datos, y sigue con Google Maps e Instagram. Esa planilla es su primer CRM.',
     ilustracion: 'planilla',
   },
   3: {
     titulo: 'Camila le escribe a los 20 el lunes',
     texto:
-      'El lunes, Camila manda el primer mensaje a sus 20. El martes le contestan dos. No se desanima: sabe que esa es la cuenta normal y que el próximo lunes viene otra tanda.',
+      'El lunes, Camila manda el primer mensaje a sus 20: por WhatsApp a quienes ya la conocen y por correo o Instagram a los demás. El martes le contestan dos. No se desanima: sabe que esa es la cuenta normal y que el próximo lunes viene otra tanda.',
     ilustracion: 'planilla',
   },
   4: {
     titulo: 'El mensaje que sí le contestaron',
     texto:
-      'Camila mandaba el catálogo en PDF y nadie respondía. Cambió a tres frases: algo de ellos, lo que ganan y una pregunta. Diego, de la cafetería nueva de Cerro Alegre, le contestó en una hora.',
+      'Camila mandaba el catálogo en PDF y nadie respondía. Cambió a tres frases: algo de ellos, lo que ganan y una pregunta. Diego, de la cafetería nueva de Cerro Alegre, le había dado su WhatsApp en una feria en Viña, así que le escribió por ahí. Le contestó en una hora.',
     ilustracion: 'whatsapp',
   },
   5: {
     titulo: 'El seguimiento que cerró la venta',
     texto:
-      'Café Brisa no respondió el primer mensaje. Al día 7 Camila les mandó el caso de la Cafetería Puerto y ahí sí: pidieron una muestra.',
+      'Café Brisa no respondió el primer correo. Al día 7 Camila les mandó el caso de la Cafetería Puerto y ahí sí: Paula pidió una muestra y le dejó su WhatsApp para coordinar.',
     ilustracion: 'whatsapp',
   },
   6: {
@@ -143,12 +146,12 @@ export const ESCENAS: Record<number, { titulo: string; texto: string; ilustracio
 
 // ---------- Insights (ideas clave destacadas) ----------
 export const INSIGHTS: Record<number, string> = {
-  1: 'Si le escribes a todos, no le escribes a nadie. Un cliente ideal claro hace que el mismo mensaje rinda el doble.',
-  2: 'Parte siempre por lo tibio: alguien que ya te conoce, o que conoce a un cliente tuyo, contesta mucho más que un desconocido.',
+  1: 'Si le escribes a todos, no le escribes a nadie. Un cliente ideal claro hace que tus mensajes le lleguen a quien sí puede comprarte.',
+  2: 'Parte siempre por lo tibio: alguien que ya te conoce, o que conoce a un cliente tuyo, suele contestar bastante más que un desconocido.',
   3: 'De 20 mensajes, lo normal es que respondan 1 o 2. Eso no es fracaso: es la unidad de trabajo. Lo que vende es repetirla cada semana.',
-  4: 'El primer mensaje no vende: abre una conversación. Si hablas de ti, no te contestan; si hablas de ellos, sí.',
-  5: 'La mayoría de las ventas se activa después del segundo contacto, y casi nadie hace ese segundo contacto. Ahí está tu ventaja.',
-  6: 'La constancia le gana al entusiasmo: 20 minutos todos los días rinden más que una tarde entera una vez al mes.',
+  4: 'El primer mensaje no vende: abre una conversación. Si hablas solo de ti, cuesta que te contesten; si hablas de ellos, es más fácil.',
+  5: 'Casi la mitad de las respuestas llega en un seguimiento, no en el primer mensaje, y mucha gente nunca vuelve a escribir. Ahí está tu ventaja.',
+  6: '20 minutos todos los días te mantienen los seguimientos a tiempo y vuelven la búsqueda de clientes un hábito. Una tarde al mes deja que todos se enfríen.',
 };
 
 // ---------- Cuaderno (actividades reflexivas que se guardan) ----------
@@ -175,7 +178,12 @@ export const CUADERNO: Record<number, PreguntaCuaderno[]> = {
     { id: 'seg-14', pregunta: 'Tu seguimiento del día 14', ayuda: 'Cierre amable que deje la puerta abierta.', filas: 2 },
   ],
   6: [
-    { id: 'hora-rutina', pregunta: '¿A qué hora haces tu rutina y dónde?', ayuda: 'Camila: 8:30, en el escritorio de la tostaduría, con el primer café.' },
+    {
+      id: 'hora-rutina',
+      pregunta: '¿A qué hora haces tu rutina y dónde?',
+      ayuda: 'Escríbelo así: «Si son las [hora] y estoy en [lugar], entonces abro la planilla». Camila: «Si son las 8:30 y estoy en el escritorio de la tostaduría, abro la planilla con el primer café».',
+      filas: 2,
+    },
     { id: 'alimentar', pregunta: '¿De dónde vas a sacar los nombres de la próxima tanda?', ayuda: 'Camila: 5 referidos de clientes, 10 de Google Maps en Viña y 5 de Instagram.', filas: 3 },
   ],
 };
@@ -198,7 +206,7 @@ export const DIAGNOSTICO: PreguntaDiag[] = [
   },
   {
     id: 'tiempo',
-    pregunta: '¿Cuánto tiempo le das hoy a prospectar?',
+    pregunta: '¿Cuánto tiempo le das hoy a buscar clientes nuevos?',
     opciones: [
       { id: 'nada', texto: 'Casi nada: cuando me acuerdo' },
       { id: 'rachas', texto: 'Algunos días, cuando tengo tiempo' },
@@ -216,7 +224,7 @@ export const DIAGNOSTICO: PreguntaDiag[] = [
   },
   {
     id: 'fuentes',
-    pregunta: '¿Cómo encuentras prospectos hoy?',
+    pregunta: '¿Cómo encuentras clientes nuevos hoy?',
     opciones: [
       { id: 'llegan', texto: 'No busco: espero que lleguen' },
       { id: 'conocidos', texto: 'Referidos y conocidos' },
@@ -226,7 +234,7 @@ export const DIAGNOSTICO: PreguntaDiag[] = [
   },
   {
     id: 'lista',
-    pregunta: '¿Tienes una lista de prospectos?',
+    pregunta: '¿Tienes una lista de posibles clientes?',
     opciones: [
       { id: 'no', texto: 'No' },
       { id: 'cabeza', texto: 'En la cabeza o en notas sueltas' },
@@ -245,7 +253,7 @@ export const DIAGNOSTICO: PreguntaDiag[] = [
   },
   {
     id: 'mensaje',
-    pregunta: '¿Cómo es tu primer mensaje a un prospecto?',
+    pregunta: '¿Cómo es tu primer mensaje a alguien que todavía no te compra?',
     opciones: [
       { id: 'no', texto: 'No escribo primero' },
       { id: 'generico', texto: 'El mismo para todos, presentando la empresa' },
@@ -254,11 +262,11 @@ export const DIAGNOSTICO: PreguntaDiag[] = [
   },
   {
     id: 'ia',
-    pregunta: '¿Cómo usas la IA hoy en tu trabajo?',
+    pregunta: '¿Usas Claude o ChatGPT en tu trabajo?',
     opciones: [
-      { id: 'nada', texto: 'No la uso' },
-      { id: 'sueltas', texto: 'Le pregunto cosas sueltas' },
-      { id: 'prompts', texto: 'Tengo prompts guardados' },
+      { id: 'nada', texto: 'No los uso' },
+      { id: 'sueltas', texto: 'Les pregunto cosas sueltas' },
+      { id: 'prompts', texto: 'Tengo instrucciones guardadas' },
       { id: 'agente', texto: 'Tengo un agente configurado' },
     ],
   },
@@ -279,7 +287,7 @@ export const ETIQUETAS: Record<Etiqueta, string> = {
   salta: 'Puedes saltarla',
 };
 
-// ---------- Prompts «Pásale esto a tu agente» ----------
+// ---------- Instrucciones para Claude o ChatGPT (borrador que revisa el alumno) ----------
 export const PROMPTS = {
   p1: `Te paso mi negocio: [pega el esqueleto de tu agente, si lo armaste, o descríbelo en 5 líneas].
 Mis 3 mejores clientes actuales son: [nombre o tipo + por qué son buenos].
@@ -295,26 +303,29 @@ Dame 10 búsquedas exactas para encontrarlos:
 - 3 para Instagram (hashtags o ubicaciones)
 - 3 para LinkedIn (cargo + ciudad + rubro)
 Y escríbeme un mensaje corto para pedirle un referido a un cliente actual.`,
-  p3: `Te paso mi planilla de prospectos: [pega las filas].
+  p3: `Te paso mi planilla de posibles clientes: [pega las filas].
 Puntúa cada uno de 1 a 3 en Encaje, Señal y Acceso según mi cliente ideal: [pégalo].
 Devuélveme la lista ordenada con el puntaje total. Le voy a escribir a los 20 hoy:
 dime, para los 5 primeros, por qué conviene hacerles seguimiento antes y qué detalle usar en su mensaje.`,
-  p4: `Escribe el primer mensaje para este prospecto: [nombre, empresa, señal, canal].
+  p4: `Escribe el primer mensaje para este posible cliente: [nombre, empresa, señal].
+Canal: [correo, LinkedIn, Instagram, o WhatsApp solo si me dio su número].
 Mi negocio: [una línea]. Mi tono: [tuteo/usted, 3 palabras].
+Incluye este detalle que solo yo sé de él: [detalle].
 Reglas: máximo 3 frases; la primera habla de algo específico de ellos;
 la segunda dice qué ganan en concreto; la tercera es UNA pregunta fácil de responder.
-Sin adjuntos, sin links, sin «quedo atenta». Dame 2 versiones.`,
-  p5: `Este es mi primer mensaje a [prospecto]: [pégalo].
+Sin adjuntos, sin links, sin «quedo atenta». Dame 2 versiones: yo elijo, corrijo y envío.`,
+  p5: `Este es mi primer mensaje a [nombre]: [pégalo].
+Un detalle que solo yo sé de él: [detalle].
 Escribe 3 seguimientos: día 2 (recordatorio útil con una propuesta concreta de fecha),
 día 7 (un caso o dato que aporte) y día 14 (cierre amable que deje la puerta abierta).
 Máximo 2 frases cada uno, mismo tono, nunca «¿viste mi mensaje?».`,
   p6: `Esta es mi planilla de hoy: [pega las filas].
 1. Dime a quién le toca seguimiento hoy y cuál (día 2, 7 o 14), con el texto listo.
-2. Escribe el primer mensaje para los prospectos nuevos que agregué, con mis reglas.
-Todo queda en borrador: yo apruebo y envío.`,
+2. Escribe el primer mensaje para los nombres nuevos que agregué, con mis reglas y por el canal de cada uno.
+Todo queda en borrador: yo reviso y envío.`,
 } as const;
 
-// ---------- Juego parte 1 · ¿Prospecto o no? ----------
+// ---------- Juego parte 1 · ¿Le escribo o no? ----------
 export const TARJETAS_PROSPECTO: { texto: string; si: boolean; porque: string }[] = [
   {
     texto: 'Cadena de 40 cafeterías con proveedor nacional',
@@ -339,7 +350,7 @@ export const TARJETAS_PROSPECTO: { texto: string; si: boolean; porque: string }[
   {
     texto: 'Cafetería de barrio en Valparaíso que publicó en Instagram que busca proveedor de café',
     si: true,
-    porque: 'Señal: publicación buscando proveedor. Es la señal más clara de todas.',
+    porque: 'Señal: publicación buscando proveedor. Es de las señales más claras: te está diciendo que busca.',
   },
   {
     texto: 'Cafetería de un local en Viña, contenta con su tostador desde hace 5 años, sin novedades',
@@ -349,59 +360,70 @@ export const TARJETAS_PROSPECTO: { texto: string; si: boolean; porque: string }[
 ];
 
 // ---------- Parte 2 · Plataformas ----------
-export const PLATAFORMAS: { nombre: string; temperatura: 'tibia' | 'templada' | 'fria'; consejo: string; camila: string }[] = [
+// «canal»: por dónde va el primer mensaje. WhatsApp solo con quien ya te conoce o te dio su número (C30, política
+// de WhatsApp Business); a los fríos, correo, LinkedIn o mensaje directo de Instagram.
+export const PLATAFORMAS: { nombre: string; temperatura: 'tibia' | 'templada' | 'fria'; consejo: string; canal: string; camila: string }[] = [
   {
     nombre: 'Tus clientes actuales y referidos',
     temperatura: 'tibia',
     consejo: 'Pide un solo nombre a cada cliente, con su permiso para decir «me pasó tu dato».',
+    canal: 'WhatsApp o correo, contando quién te pasó el dato.',
     camila: 'La Cafetería Puerto le presentó a la cafetería amiga de la esquina.',
   },
   {
     nombre: 'Tu agenda y tus contactos',
     temperatura: 'tibia',
     consejo: 'Revisa tu WhatsApp y tus correos de los últimos 6 meses: ahí hay gente que ya te conoce.',
+    canal: 'Por donde ya conversaban: WhatsApp o correo.',
     camila: 'Encontró a una excompañera que hoy administra un cowork con 60 personas.',
   },
   {
     nombre: 'Grupos de WhatsApp y Facebook',
     temperatura: 'templada',
     consejo: 'Entra a grupos del rubro o del barrio y responde preguntas antes de ofrecer algo.',
+    canal: 'Si alguien pregunta por lo tuyo, pregúntale en el grupo si le puedes escribir por interno.',
     camila: 'En el grupo «Emprendedores de Valpo» alguien preguntaba por café para su local.',
   },
   {
     nombre: 'Ferias y cámaras de comercio',
     temperatura: 'templada',
     consejo: 'Pide la lista de expositores o socios: viene con nombre, rubro y contacto.',
+    canal: 'Correo, o WhatsApp si te dieron su número en la feria.',
     camila: 'Sacó 8 nombres de la lista de expositores de una feria gastronómica en Viña.',
   },
   {
     nombre: 'Google Maps',
     temperatura: 'fria',
     consejo: 'Busca «rubro + comuna» y ordena por reseñas recientes: ahí ves locales nuevos y quejas.',
+    canal: 'Correo o Instagram. El WhatsApp de su ficha es para sus clientes, no para escribirle en frío.',
     camila: '«Cafetería + Cerro Alegre»: tres locales abiertos este año.',
   },
   {
     nombre: 'Instagram por ubicación y hashtag',
     temperatura: 'fria',
     consejo: 'Mira las publicaciones etiquetadas en tu zona y hashtags del rubro: aparecen negocios chicos que no están en Maps.',
+    canal: 'Mensaje directo de Instagram.',
     camila: 'Revisó #cafeteriavalparaiso y la ubicación «Viña del Mar».',
   },
   {
     nombre: 'LinkedIn y Sales Navigator',
     temperatura: 'fria',
     consejo: 'Para empresas, busca por cargo + ciudad (ej. «jefe de administración Viña»). Sales Navigator filtra por tamaño.',
+    canal: 'Mensaje de LinkedIn o correo.',
     camila: 'Para el plan oficina buscó «administración» + «Valparaíso» en empresas de 20 a 100 personas.',
   },
   {
     nombre: 'Directorios del rubro',
     temperatura: 'fria',
     consejo: 'Asociaciones gremiales, guías de proveedores y listados de rubro traen datos ya ordenados.',
+    canal: 'Correo.',
     camila: 'Usó una guía de cafeterías de especialidad de la región.',
   },
   {
     nombre: 'Mercado Público (ChileCompra)',
     temperatura: 'fria',
     consejo: 'Si le vendes a instituciones, busca licitaciones y compras ágiles de tu rubro en tu región.',
+    canal: 'Ofertas por la misma plataforma, según las reglas de cada compra.',
     camila: 'Encontró una compra ágil de café para una universidad de Valparaíso.',
   },
 ];
@@ -478,7 +500,7 @@ export const PROSPECTOS_ORDEN: ProspectoOrden[] = [
   {
     id: 'mirador',
     nombre: 'Cafetería Mirador',
-    datos: 'Cerro Alegre, abrió hace 2 semanas. El dueño te sigue en Instagram y responde mensajes.',
+    datos: 'Cerro Alegre, abrió hace 2 semanas. El dueño te sigue en Instagram y te dio su WhatsApp en una feria.',
     encaje: 3,
     senal: 3,
     acceso: 3,
@@ -494,7 +516,7 @@ export const PROSPECTOS_ORDEN: ProspectoOrden[] = [
   {
     id: 'barrasur',
     nombre: 'Barra Sur',
-    datos: 'Valparaíso, 1 local, contenta con su proveedor. Tienes el WhatsApp del jefe de barra.',
+    datos: 'Valparaíso, 1 local, contenta con su proveedor. Conociste al jefe de barra en una feria y tienes su correo.',
     encaje: 3,
     senal: 1,
     acceso: 2,
@@ -512,7 +534,7 @@ export const GUION_VIDEO_2 =
 export const ERRORES = [
   { id: 'nosotros', texto: 'Habla solo de nosotros' },
   { id: 'preguntas', texto: 'Tres preguntas' },
-  { id: 'generico', texto: 'Nada específico del prospecto' },
+  { id: 'generico', texto: 'Nada específico de esa persona' },
   { id: 'adjunto', texto: 'Adjunta catálogo' },
 ] as const;
 export type ErrorId = (typeof ERRORES)[number]['id'];
@@ -551,6 +573,35 @@ export const MENSAJES_ERROR: { mensaje: string; error: ErrorId; porque: string; 
   },
 ];
 
+// Objeción «mi rubro es distinto» (investigación de demanda, 8-nov-2026): el mismo primer mensaje de 3 frases en
+// cuatro rubros B2B chilenos, cada uno por el canal que corresponde (C30). Son ejemplos, no casos reales.
+export const EJEMPLOS_RUBRO: { rubro: string; canal: string; mensaje: string }[] = [
+  {
+    rubro: 'Distribuidora de insumos de aseo',
+    canal: 'LinkedIn, a una administradora de edificios que no la conoce',
+    mensaje:
+      'Hola Carolina, vi en LinkedIn que asumiste la administración de tres edificios en Ñuñoa, ¡felicitaciones! Despachamos los insumos de aseo en 48 horas, con una sola factura mensual por edificio. ¿Te mando la lista de precios para que la compares?',
+  },
+  {
+    rubro: 'Mantención de aire acondicionado',
+    canal: 'Correo, a una clínica que encontró en Google Maps',
+    mensaje:
+      'Hola Andrés, vi que Clínica Sonríe abrió su segunda sucursal en Providencia. Hacemos la mantención de los equipos antes o después de la atención, para no cerrar ningún box. ¿Te acomoda que pasemos una mañana a revisarlos sin costo?',
+  },
+  {
+    rubro: 'Agencia de marketing chica',
+    canal: 'Mensaje directo de Instagram, a una tienda que sigue',
+    mensaje:
+      'Hola Fernanda, vi que en Tienda Lúcuma lanzaron la línea de velas y que las fotos se llenaron de comentarios. Armamos campañas para tiendas chicas con un tope de presupuesto que tú defines. ¿Te muestro en 15 minutos lo que haríamos el primer mes?',
+  },
+  {
+    rubro: 'Contabilidad para pymes',
+    canal: 'WhatsApp, a un referido que dio su número',
+    mensaje:
+      'Hola Rodrigo, Paula de Transportes Ruta 5 me pasó tu número y me contó que estás buscando contador. Llevamos la contabilidad de varias pymes de transporte y entregamos el estado de resultados el día 10 de cada mes. ¿Te llamo el jueves 10 minutos para ver si te calza?',
+  },
+];
+
 // ---------- Parte 5 ----------
 export const SEGUIMIENTOS = [
   {
@@ -568,7 +619,24 @@ export const SEGUIMIENTOS = [
     dia: 'Día 14',
     nombre: 'Cierre amable',
     texto:
-      'No quiero llenarte el WhatsApp. Si más adelante necesitas proveedor, aquí estamos. ¿Te escribo en un mes o prefieres que no?',
+      'No quiero llenarte de mensajes. Si más adelante necesitas proveedor, aquí estamos. ¿Te escribo en un mes o prefieres que no?',
+  },
+];
+
+// Cotizaciones que quedaron en nada (bonus sugerido por la investigación de demanda): quien pidió precio ya te dio
+// su contacto, así que le escribes por donde te lo pidió. Mismo espaciado de la parte 5, como punto de partida.
+export const SEGUIMIENTO_COTIZACION = [
+  {
+    cuando: 'A los 2 días',
+    texto: 'Hola [nombre], te escribo por la cotización de [producto] del [fecha]. Si el monto se pasa de lo que tenías pensado, te armo una versión con [alternativa más simple]. ¿Te la mando?',
+  },
+  {
+    cuando: 'A la semana',
+    texto: 'Te cuento: [cliente parecido] partió con [versión chica] y al mes [resultado concreto]. Si quieres, te paso su contacto para que te cuente.',
+  },
+  {
+    cuando: 'A las 2 semanas',
+    texto: 'Para no insistir de más: ¿cierro esta cotización o prefieres que te escriba en [mes]?',
   },
 ];
 
@@ -582,16 +650,19 @@ export const RUTINA = [
 
 export const ALIMENTAR_LISTA: { titulo: string; texto: string }[] = [
   { titulo: 'Una tanda nueva por semana', texto: 'Elige un día fijo para sumar 20 nombres. Si te falta tiempo, que sean 10, pero cada semana.' },
-  { titulo: 'Pide referidos cuando te digan «gracias»', texto: 'El mejor momento para pedir un nombre es justo después de una entrega que salió bien.' },
+  {
+    titulo: 'Pide referidos cuando te digan «gracias»',
+    texto: 'Un buen momento para pedir un nombre es justo después de una entrega que salió bien. Pídelo de forma explícita: muchos clientes contentos no recomiendan si nadie se lo pide.',
+  },
   { titulo: 'Rota las fuentes', texto: 'Una semana Google Maps, otra Instagram, otra LinkedIn o una feria. Así no se te agota ninguna.' },
-  { titulo: 'Recicla los «ahora no»', texto: 'Quien te dijo «más adelante» vuelve a la lista con fecha. A los 30 días es un prospecto tibio.' },
+  { titulo: 'Recicla los «ahora no»', texto: 'Quien te dijo «más adelante» vuelve a la lista con fecha. A los 30 días ya es un contacto tibio: te conoce.' },
   { titulo: 'Anota las señales al pasar', texto: 'Un local nuevo en tu camino, una publicación buscando proveedor: anótalo en la planilla en el momento.' },
 ];
 
 // ---------- Cierre ----------
 export const QUIZ: { pregunta: string; opciones: string[]; correcta: number; porque: string }[] = [
   {
-    pregunta: 'Un prospecto te respondió «ahora no». ¿Qué haces?',
+    pregunta: 'Alguien a quien le escribiste te respondió «ahora no». ¿Qué haces?',
     opciones: [
       'Lo borro.',
       'Seguimiento en 3 días.',
@@ -633,16 +704,17 @@ export const QUIZ: { pregunta: string; opciones: string[]; correcta: number; por
   {
     pregunta: 'Terminaste los 5 días: 25 mensajes enviados y 2 respuestas. ¿Qué haces?',
     opciones: [
-      'Reviso mis mensajes con la parte 4.',
-      'Subo a 8 nuevos por día.',
-      'Dejo de prospectar: no funciona.',
+      'Es la cuenta normal: sigo con los seguimientos y comparo cuando junte 40 a 50 mensajes.',
+      'Cambio todo el mensaje: algo está mal.',
+      'Dejo de buscar clientes: no funciona.',
     ],
     correcta: 0,
-    porque: 'Es una tasa de 8 %, bajo el 10 %: el problema está en el mensaje, no en la cantidad. Vuelve a la parte 4.',
+    porque:
+      '2 de 25 está dentro de lo normal (1 o 2 de cada 20), y con tan pocos mensajes los números todavía bailan mucho. Si después de 40 a 50 mensajes tienes 0 o 1 respuesta, ahí revisa tu primer mensaje con la parte 4.',
   },
 ];
 
 export const GUION_VIDEO_CURSO =
   'Lo que hiciste en esta guía funciona: lista, mensaje, seguimientos y rutina. Hoy lo hiciste a mano y con un chat. En el curso «Tu negocio de punta a punta» te enseño a que agentes hagan esto solos: buscan prospectos, preparan los mensajes, te avisan los seguimientos del día y todo queda conectado con tu planilla, corriendo en el fondo. Tú solo apruebas. Y no solo ventas: también marketing, operación, atención al cliente y finanzas.';
 
-export const ENTREGABLE = 'Planilla con 20 prospectos, contactados, con su próximo paso, su fecha y el registro de tus 5 días.';
+export const ENTREGABLE = 'Tu primer CRM: una planilla con 20 posibles clientes contactados, cada uno con su próximo paso y su fecha, y el registro de tus 5 días.';

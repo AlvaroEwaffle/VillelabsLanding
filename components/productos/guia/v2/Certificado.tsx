@@ -106,7 +106,7 @@ function ModalCelebracion({ onCerrar }: { onCerrar: () => void }) {
 
   const logros = [
     'Tu cliente ideal, claro y por escrito.',
-    `${prospectos >= 20 ? 20 : prospectos || 20} prospectos reales en tu planilla, con puntaje.`,
+    `${prospectos >= 20 ? 20 : prospectos || 20} posibles clientes reales en tu planilla, con puntaje.`,
     'Tu primer mensaje de 3 frases y tus 3 seguimientos.',
     'Una rutina de 20 minutos y 5 días de prueba real.',
   ];

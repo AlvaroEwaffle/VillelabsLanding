@@ -38,7 +38,7 @@ export function Insight({ children }: { children: React.ReactNode }) {
   );
 }
 
-export function Prompt({ texto, titulo = 'Pásale esto a tu agente' }: { texto: string; titulo?: string }) {
+export function Prompt({ texto, titulo = 'Si quieres ayuda para redactar' }: { texto: string; titulo?: string }) {
   const [copiado, setCopiado] = useState(false);
   const copiar = async () => {
     try {
@@ -65,8 +65,8 @@ export function Prompt({ texto, titulo = 'Pásale esto a tu agente' }: { texto: 
             </svg>
           </span>
           <div className="min-w-0">
-            <p className="text-sm font-semibold text-white">Tu agente</p>
-            <p className="text-xs text-slate-400">En Claude o ChatGPT · completa los [corchetes]</p>
+            <p className="text-sm font-semibold text-white">Para Claude o ChatGPT</p>
+            <p className="text-xs text-slate-400">Completa los [corchetes] · te devuelve un borrador · tú lo revisas</p>
           </div>
         </div>
         <div className="p-4">
@@ -77,7 +77,7 @@ export function Prompt({ texto, titulo = 'Pásale esto a tu agente' }: { texto: 
         <div className="flex flex-wrap items-center justify-between gap-2 border-t border-white/10 px-4 py-3">
           <span className="text-xs text-slate-400">Guarda la respuesta en tu carpeta «Mi sistema de ventas».</span>
           <button type="button" onClick={copiar} className={`${btnPrimario} px-4 text-sm`} aria-live="polite">
-            {copiado ? 'Copiado ✓' : 'Copiar para mi agente'}
+            {copiado ? 'Copiado ✓' : 'Copiar instrucción'}
           </button>
         </div>
       </div>

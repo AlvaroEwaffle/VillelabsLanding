@@ -63,14 +63,14 @@ export function CadenaReferido() {
   return (
     <Diagrama
       titulo="Por qué partir por tus clientes"
-      aria="Cadena del referido: un cliente contento te presenta a otro negocio; ese prospecto llega tibio porque ya sabe quién eres, y por eso responde más que un desconocido."
+      aria="Cadena del referido: un cliente contento te presenta a otro negocio; ese posible cliente llega tibio porque ya sabe quién eres, y por eso suele responder más que un desconocido."
     >
       <Flujo
         pasos={[
           { titulo: 'Un cliente contento', texto: 'Una cafetería que ya te compra' },
           { titulo: 'Te presenta', texto: '«Un amigo abrió un local, háblale»', tono: 'acento' },
           { titulo: 'Llega tibio', texto: 'Ya sabe quién eres y qué vendes' },
-          { titulo: 'Responde', texto: 'Mucho más que un desconocido', tono: 'claro' },
+          { titulo: 'Responde', texto: 'Suele contestar más que un desconocido', tono: 'claro' },
         ]}
       />
     </Diagrama>
@@ -176,10 +176,10 @@ export function PlanillaAlCentro() {
   return (
     <Diagrama
       titulo="Tu planilla es el centro"
-      aria="Ciclo de la rutina alrededor de tu planilla: filtrar los que tocan hoy, que tu agente redacte los mensajes, aprobarlos y enviarlos tú, y anotar la respuesta con el próximo paso y la fecha."
-      pie="La planilla te dice a quién escribir. El agente escribe. Tú apruebas y envías. Nada queda en tu cabeza."
+      aria="Ciclo de la rutina alrededor de tu planilla: filtrar los que tocan hoy, preparar el borrador (con Claude o ChatGPT, si quieres), revisarlo y enviarlo tú, y anotar la respuesta con el próximo paso y la fecha."
+      pie="La planilla te dice a quién escribir. Claude o ChatGPT te ayudan con el borrador, si quieres. Tú revisas y envías. Nada queda en tu cabeza."
     >
-      <Ciclo nodos={[['Filtra', '«hoy»'], ['Tu agente', 'redacta'], ['Tú apruebas', 'y envías'], ['Anota', 'próximo paso']]} centro={['Tu', 'planilla']} />
+      <Ciclo nodos={[['Filtra', '«hoy»'], ['Borrador', 'con ayuda'], ['Tú revisas', 'y envías'], ['Anota', 'próximo paso']]} centro={['Tu', 'planilla']} />
     </Diagrama>
   );
 }
@@ -206,7 +206,7 @@ export function SemanaAntesDespues() {
   return (
     <Diagrama
       titulo="Tu semana, antes y después"
-      aria="Comparación de una semana. Antes: escribes a prospectos cuando te acuerdas, algunos días nada y otros varios de golpe. Después: 20 minutos cada mañana, con seguimientos y nombres nuevos todos los días."
+      aria="Comparación de una semana. Antes: escribes a posibles clientes cuando te acuerdas, algunos días nada y otros varios de golpe. Después: 20 minutos cada mañana, con seguimientos y nombres nuevos todos los días."
     >
       <Comparacion
         izq={{

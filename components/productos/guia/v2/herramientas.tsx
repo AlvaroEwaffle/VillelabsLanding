@@ -69,7 +69,7 @@ export function Diagnostico({
             <p className="mt-1 text-sm text-slate-300">{ruta.tandas}</p>
           </Tarjeta>
           <Tarjeta>
-            <p className="text-sm font-semibold text-white">Tu agente</p>
+            <p className="text-sm font-semibold text-white">Claude o ChatGPT</p>
             <p className="mt-1 text-sm text-slate-300">{ruta.consejoIA}</p>
           </Tarjeta>
         </div>
@@ -215,11 +215,26 @@ export function PruebaReal({ prueba, actualizar }: { prueba: DiaPrueba[]; actual
   const tasa = enviados > 0 ? (respuestas / enviados) * 100 : null;
   const diasListos = prueba.filter((d) => d.enviados !== '').length;
 
+  // C10 (8-nov-2026): con 25 mensajes el margen es enorme (2 de 25 calza con 2 % a 25 %), así que no se concluye
+  // antes de 40 mensajes. Mismo criterio que la celda A9 del Excel (planilla.ts) y la pregunta 5 del quiz.
+  const MINIMO = 40;
+  const resp = `${respuestas} respuesta${respuestas === 1 ? '' : 's'}`;
   let sugerencia: { ok: boolean; texto: string } | null = null;
   if (diasListos === 5 && tasa !== null) {
-    if (tasa < 10) sugerencia = { ok: false, texto: 'Tu tasa está bajo 10 %: revisa la parte 4. El problema suele estar en el primer mensaje, no en la cantidad.' };
-    else if (tasa > 20) sugerencia = { ok: true, texto: 'Tu tasa está sobre 20 %: sube a 8 nuevos por día.' };
-    else sugerencia = { ok: true, texto: 'Tu tasa está entre 10 y 20 %: vas bien. Mantén el ritmo y no te saltes ningún seguimiento.' };
+    if (enviados < MINIMO)
+      sugerencia = {
+        ok: true,
+        texto: `Llevas ${enviados} mensajes y ${resp}. Con menos de 40 mensajes los números todavía bailan mucho: sigue con la rutina y los seguimientos, y compara cuando juntes 40 a 50.${
+          tasa > 20 ? ' Por ahora te responde más de 1 de cada 5: buena señal. Si se mantiene, súmale posibles clientes nuevos cada día.' : ''
+        }`,
+      };
+    else if (respuestas <= 1)
+      sugerencia = {
+        ok: false,
+        texto: `Con ${enviados} mensajes y ${resp}, revisa tu primer mensaje con la parte 4: el problema suele estar ahí, no en la cantidad.`,
+      };
+    else if (tasa > 20) sugerencia = { ok: true, texto: 'Te responde más de 1 de cada 5: súmale posibles clientes nuevos cada día.' };
+    else sugerencia = { ok: true, texto: 'Vas dentro de lo normal (lo común es 1 o 2 de cada 20). Mantén el ritmo y no te saltes ningún seguimiento.' };
   }
 
   const campos: { k: keyof DiaPrueba; label: string }[] = [
@@ -269,7 +284,7 @@ export function PruebaReal({ prueba, actualizar }: { prueba: DiaPrueba[]; actual
       {sugerencia ? (
         <Feedback ok={sugerencia.ok}>{sugerencia.texto}</Feedback>
       ) : (
-        <p className="mt-3 text-sm text-slate-400">Llevas {diasListos} de 5 días. Al completar el quinto ves tu sugerencia.</p>
+        <p className="mt-3 text-sm text-slate-400">Llevas {diasListos} de 5 días. Al completar el quinto ves cómo leer tus números.</p>
       )}
     </div>
   );

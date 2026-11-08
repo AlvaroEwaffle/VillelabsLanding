@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "deploy": "npm run build && wrangler pages deploy ./dist --project-name=villelabs --commit-dirty=true",
-    "programa:sync": "node scripts/programa/sync.mjs"
+    "programa:sync": "node scripts/programa/sync.mjs",
+    "guia:evidencia": "node scripts/guia/evidencia.mjs"
   },
   "dependencies": {
     "exceljs": "^4.4.0",

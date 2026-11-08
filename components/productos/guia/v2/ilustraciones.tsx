@@ -83,13 +83,13 @@ export function PlanillaIlustracion({ className = '' }: { className?: string }) 
     ['Café Express', 3],
   ] as const;
   return (
-    <svg viewBox="0 0 320 200" className={className} role="img" aria-label="La planilla de prospectos de Camila en su computador">
+    <svg viewBox="0 0 320 200" className={className} role="img" aria-label="La planilla de clientes de Camila en su computador">
       <rect width="320" height="200" fill={C.noche2} />
       <rect x="40" y="22" width="240" height="146" rx="10" fill="#0b1222" stroke={C.celeste} strokeOpacity="0.4" />
       <rect x="40" y="22" width="240" height="22" rx="10" fill={C.azul} />
       <rect x="40" y="34" width="240" height="10" fill={C.azul} />
       <text x="54" y="37" fontSize="9" fontWeight="700" fill="#fff">
-        Prospectos · Grano Norte
+        Mi CRM · Grano Norte
       </text>
       {filas.map(([n, pts], i) => {
         const y = 56 + i * 21;
@@ -120,17 +120,21 @@ export function WhatsAppIlustracion({
   enviado,
   respuesta,
   contacto = 'Diego · Cafetería Mirador',
+  canal = 'WhatsApp',
 }: {
   className?: string;
   enviado: string;
   respuesta?: string;
   contacto?: string;
+  /** Por dónde va la conversación (C30: WhatsApp solo con quien te dio su número). */
+  canal?: 'WhatsApp' | 'Correo' | 'Instagram';
 }) {
   return (
-    <div className={`mx-auto w-full max-w-[300px] rounded-[2rem] border-4 border-[#24406a] bg-[#0b1222] p-2 shadow-premium ${className}`} role="img" aria-label={`Conversación de WhatsApp de Camila con ${contacto}`}>
+    <div className={`mx-auto w-full max-w-[300px] rounded-[2rem] border-4 border-[#24406a] bg-[#0b1222] p-2 shadow-premium ${className}`} role="img" aria-label={`Conversación por ${canal === 'Correo' ? 'correo' : canal} de Camila con ${contacto}`}>
       <div className="flex items-center gap-2 rounded-t-[1.4rem] bg-[#16213a] px-3 py-2">
         <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#2175a1] text-xs font-bold text-white">{contacto[0]}</span>
-        <span className="min-w-0 truncate text-sm font-semibold text-white">{contacto}</span>
+        <span className="min-w-0 flex-1 truncate text-sm font-semibold text-white">{contacto}</span>
+        <span className="shrink-0 rounded-full border border-white/15 px-2 py-0.5 text-[0.65rem] text-slate-300">{canal}</span>
       </div>
       <div className="space-y-2 px-2 py-3">
         <div className="ml-6 rounded-2xl rounded-tr-sm bg-[#2175a1] p-2.5 text-[0.8rem] leading-snug text-white">

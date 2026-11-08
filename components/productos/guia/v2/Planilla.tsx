@@ -124,7 +124,7 @@ export function Planilla({ modo, titulo }: { modo: ModoPlanilla; titulo?: string
 
       <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
         <p className="text-sm text-slate-300">
-          {titulo ?? 'Tu planilla'} · <strong className="text-white">{conDatos}</strong> de 20 prospectos · se guarda sola
+          {titulo ?? 'Tu planilla'} · <strong className="text-white">{conDatos}</strong> de 20 posibles clientes · se guarda sola
         </p>
         <div className="h-2 w-full overflow-hidden rounded-full bg-white/10 sm:w-40">
           <div className="h-full rounded-full bg-[#5fb2dd] transition-[width]" style={{ width: `${Math.min(100, (conDatos / 20) * 100)}%` }} />
@@ -133,7 +133,7 @@ export function Planilla({ modo, titulo }: { modo: ModoPlanilla; titulo?: string
 
       {visibles.length === 0 && (
         <p className="rounded-xl border border-dashed border-white/15 p-4 text-sm text-slate-400">
-          {soloLectura ? 'Todavía no tienes prospectos. Agrégalos en la parte 2.' : 'Agrega tu primera fila para empezar.'}
+          {soloLectura ? 'Todavía no tienes posibles clientes. Agrégalos en la parte 2.' : 'Agrega tu primera fila para empezar.'}
         </p>
       )}
 
@@ -144,7 +144,7 @@ export function Planilla({ modo, titulo }: { modo: ModoPlanilla; titulo?: string
             <thead className="bg-[#2175a1]/25 text-xs uppercase tracking-wider text-slate-300">
               <tr>
                 <th className="px-2 py-2">#</th>
-                {soloLectura && <th className="px-2 py-2">Prospecto</th>}
+                {soloLectura && <th className="px-2 py-2">Posible cliente</th>}
                 {campos.map((c) => (
                   <th key={c.k} className="px-2 py-2">
                     {c.label}
@@ -193,7 +193,7 @@ export function Planilla({ modo, titulo }: { modo: ModoPlanilla; titulo?: string
             <div className="mb-2 flex items-center justify-between gap-2">
               <p className="min-w-0 truncate font-semibold text-white">
                 <span className="mr-2 text-slate-500">{i + 1}</span>
-                {f.nombre || f.empresa || 'Prospecto nuevo'}
+                {f.nombre || f.empresa || 'Fila nueva'}
                 {soloLectura && f.empresa && f.nombre && <span className="font-normal text-slate-400"> · {f.empresa}</span>}
               </p>
               {(modo === 'puntaje' || modo === 'completa') && (
@@ -257,8 +257,8 @@ export function ExportarPlanilla() {
 
   return (
     <div className="mt-4 rounded-2xl border border-white/10 bg-white/[0.03] p-4">
-      <p className="font-semibold text-white">Llévate tu planilla</p>
-      <p className="text-sm text-slate-400">El Excel trae 4 hojas: Prospectos, Prueba 5 días, Calendario y Dashboard.</p>
+      <p className="font-semibold text-white">Llévate tu primer CRM</p>
+      <p className="text-sm text-slate-400">Funciona en Excel o en Google Sheets. El Excel trae 4 hojas: Posibles clientes, Prueba 5 días, Calendario y Dashboard.</p>
       <div className="mt-3 flex flex-col gap-2 sm:flex-row sm:flex-wrap">
         <button type="button" className={btnPrimario} onClick={excel} disabled={cargando}>
           {cargando ? 'Generando…' : 'Descargar Excel (.xlsx)'}

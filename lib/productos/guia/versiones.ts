@@ -6,6 +6,15 @@ export type VersionGuia = { version: string; fecha: string; cambios: string[] };
 
 export const VERSIONES_GUIA: VersionGuia[] = [
   {
+    version: '1.2',
+    fecha: '2026-11-08',
+    cambios: [
+      'Lenguaje más claro: hablamos de clientes nuevos y de tu primer CRM en Google Sheets o Excel.',
+      'WhatsApp solo con quien ya te conoce o te dio su número; a los demás, por correo, LinkedIn o Instagram.',
+      'Nueva sección «En qué se basa esta guía», y la prueba de 5 días te pide comparar cuando juntes 40 a 50 mensajes.',
+    ],
+  },
+  {
     version: '1.1',
     fecha: '2026-11-08',
     cambios: [

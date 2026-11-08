@@ -310,5 +310,5 @@ export const TEXTOS = {
   guardar: 'Puedes guardar y seguir después.',
   cierreTitulo: 'Tu negocio ya responde bien. Ahora falta que te escriban más clientes.',
   cierreGuia:
-    'La Guía 1 te deja en una tarde tu lista de prospectos, el primer mensaje y una rutina de 20 minutos al día.',
+    'La Guía 1 te deja en una tarde tu lista de posibles clientes, el primer mensaje y una rutina de 20 minutos al día para que nadie se te enfríe.',
 } as const;
