@@ -124,6 +124,10 @@ export const onRequestPost = async ({ request, env }: Ctx): Promise<Response> =>
   const ua = request.headers.get('user-agent') ?? '';
   const disp = dispositivo(ua);
   if (disp === 'bot') return json({ ok: true, omitido: 'bot' }, 200, origen);
+  // Meta revisa cada link nuevo (bio, anuncios) con navegadores reales desde su red (AS32934): llegaban como
+  // «visitas desde Facebook» de Springfield, Prineville, Forest City… No son personas.
+  const asn = (request as unknown as { cf?: { asn?: number } }).cf?.asn;
+  if (asn === 32934 || asn === 63293) return json({ ok: true, omitido: 'meta' }, 200, origen);
 
   const n = (conteo.get(sid) ?? 0) + 1;
   conteo.set(sid, n);
