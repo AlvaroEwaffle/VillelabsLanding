@@ -116,10 +116,10 @@ export async function generarCertificadoPNG(datos: DatosCertificado): Promise<Bl
   ctx.fillText('completó', W / 2, 800);
   ctx.fillStyle = '#ffffff';
   ctx.font = `400 54px ${serif}`;
-  ctx.fillText('Guía 1 · Ventas y prospección · 4 horas', W / 2, 880);
+  ctx.fillText('Guía 1 · Ventas y clientes nuevos · 4 horas', W / 2, 880);
   ctx.fillStyle = '#94a3b8';
   ctx.font = `400 32px ${sans}`;
-  ctx.fillText('«Tu lista de prospectos y el primer mensaje, cada mañana»', W / 2, 940);
+  ctx.fillText('«Tu lista de posibles clientes y el primer mensaje, cada mañana»', W / 2, 940);
 
   const fecha = new Date().toLocaleDateString('es-CL', { day: 'numeric', month: 'long', year: 'numeric' });
   // Fecha (izquierda) y firma (derecha)

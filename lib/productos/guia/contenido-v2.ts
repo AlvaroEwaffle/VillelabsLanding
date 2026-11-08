@@ -1,13 +1,15 @@
-// Contenido de la Guía 1 · «Tu lista de prospectos y el primer mensaje, cada mañana» (v2).
+// Contenido de la Guía 1 · «Tu lista de posibles clientes y el primer mensaje, cada mañana» (v2).
 // Fuente de verdad: VPM/Villelabs/productos-digitales/contenido-primeros-productos.html
 // (sección «PRODUCTO 3 · GUÍA 1») + cambios v2 pedidos por Álvaro el 7-nov-2026.
 // Caso transversal: Grano Norte, tostaduría de Valparaíso; Camila es la dueña.
 // v1.2 (8-nov-2026): lenguaje del comprador («posibles clientes», «tu primer CRM»; «prospecto» se explica una vez
 // en la parte 2), WhatsApp solo con quien ya te conoce (C30), umbrales de la prueba (C10) y mito del segundo
-// contacto (C19) corregidos según investigacion/base-evidencia-guia1-2026-11-08.md. El título queda igual (Hotmart).
+// contacto (C19) corregidos según investigacion/base-evidencia-guia1-2026-11-08.md.
+// 8-nov-2026 (análisis UX «Rodrigo»): el título deja «prospectos» y pasa a «posibles clientes». El nombre del producto
+// en Hotmart se cambia aparte, a mano, en el panel.
 
 export const GUIA = {
-  titulo: 'Tu lista de prospectos y el primer mensaje, cada mañana',
+  titulo: 'Tu lista de posibles clientes y el primer mensaje, cada mañana',
   etiqueta: 'Guía 1 · Ventas y clientes nuevos',
   promesa:
     'En una tarde armas la lista de a quién venderle, el primer mensaje y los seguimientos, y te queda una rutina de 20 minutos al día para que ningún posible cliente se te enfríe.',

@@ -62,7 +62,7 @@ export function Certificado() {
         <p className="text-sm text-slate-300">Lo firma Álvaro Villena, de Villelab. Te lo ganaste: hiciste la guía completa.</p>
       </div>
       <form onSubmit={descargar} onFocus={precargar} className="grid gap-3 rounded-2xl border border-[#5fb2dd]/40 bg-[#2175a1]/10 p-4 sm:p-6" noValidate>
-        <p className="text-sm text-slate-300">Guía 1 · Ventas y prospección · 3 horas. Se genera aquí mismo, en tu navegador.</p>
+        <p className="text-sm text-slate-300">Guía 1 · Ventas y clientes nuevos · 3 horas. Se genera aquí mismo, en tu navegador.</p>
         <label className="block">
           <span className="text-sm font-medium text-white">Nombre completo</span>
           <input autoComplete="name" value={datos.nombre} onChange={(e) => setDatos({ ...datos, nombre: e.target.value })} className={inputCls} />

@@ -408,7 +408,7 @@ function ContenidoParte({ n, irA }: { n: number; irA: (v: Vista) => void }) {
             </div>
           </Bloque>
           <Cuaderno preguntas={CUADERNO[5]} titulo="Tu cuaderno · tus seguimientos" />
-          <Bloque etiqueta="Tu planilla · próximo paso y fecha" titulo="Cada prospecto con su fecha exacta">
+          <Bloque etiqueta="Tu planilla · próximo paso y fecha" titulo="Cada posible cliente con su fecha exacta">
             <Planilla modo="seguimiento" />
           </Bloque>
         </>
@@ -620,7 +620,7 @@ function Cierre({ irA }: { irA: (v: Vista) => void }) {
         <Tarjeta>
           <p className="text-lg text-white">{ENTREGABLE}</p>
           <p className="mt-2 text-sm text-slate-400">
-            Hoy tienes {prospectos} prospecto{prospectos === 1 ? '' : 's'} en tu planilla. Descárgala y guárdala en «Mi sistema de ventas».
+            Hoy tienes {prospectos} {prospectos === 1 ? 'posible cliente' : 'posibles clientes'} en tu planilla. Descárgala y guárdala en «Mi sistema de ventas».
           </p>
         </Tarjeta>
         <ExportarPlanilla />

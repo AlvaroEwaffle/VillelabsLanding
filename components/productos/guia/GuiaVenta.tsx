@@ -1,5 +1,5 @@
 /*
- * /guia — página de venta de la Guía 1 «Tu lista de prospectos y el primer mensaje, cada mañana» (8-nov-2026; copy v1.2 con
+ * /guia — página de venta de la Guía 1 «Tu lista de posibles clientes y el primer mensaje, cada mañana» (8-nov-2026; copy v1.2 con
  * las palabras del comprador: «clientes nuevos», «primer CRM», «sin envío masivo». El título del producto en Hotmart no cambia).
  * El producto vive en /guia/prospeccion (noindex); aquí solo se vende. Compra en Hotmart (LINKS.guiaProspeccionCompra).
  * Los clics a la compra los registra el Rastreo global (a/button), así que los botones son <a> normales.
@@ -34,6 +34,7 @@ import { Foto, Kicker } from '@/components/productos/curso/piezas';
 import { EstructuraMensaje, RutinaVeinte } from '@/components/productos/guia/v2/infografias';
 import { VideoMarco } from '@/components/productos/VideoProducto';
 import Evidencia from '@/components/productos/guia/Evidencia';
+import OtrosRubros from '@/components/productos/guia/OtrosRubros';
 
 function BotonCompra({ texto = 'Quiero la guía', className = '' }: { texto?: string; className?: string }) {
   return (
@@ -210,6 +211,7 @@ export default function GuiaVenta() {
               Tres frases: algo de ellos, lo que ganan y una pregunta fácil. En el caso de ejemplo de la guía, con ese cambio a Camila le contestaron
               en una hora.
             </p>
+            <OtrosRubros />
           </div>
         </div>
       </Seccion>
