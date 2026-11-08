@@ -22,7 +22,8 @@ export default function ExitIntentPopup() {
   const previousFocusRef = useRef<HTMLElement | null>(null);
   const { t } = useTranslation();
   const pathname = usePathname();
-  const isSuppressedRoute = pathname === '/asesoria';
+  // Sin popup en la asesoría ni en los productos digitales (esqueleto, workshop, curso): ya tienen su propia oferta.
+  const isSuppressedRoute = ['/asesoria', '/esqueleto', '/workshop', '/curso', '/reels'].includes(pathname);
 
   const alreadyShown = useCallback(() => {
     try {
@@ -221,7 +222,7 @@ export default function ExitIntentPopup() {
                   rel="noopener noreferrer"
                   data-track-location="exit_popup"
                   onClick={closePopup}
-                  className="flex w-full items-center justify-center gap-2 bg-accent hover:bg-accent/90 text-white px-6 py-3 rounded-xl font-semibold text-sm transition-all duration-200 border border-accent/30 hover:border-accent/50"
+                  className="flex w-full items-center justify-center gap-2 bg-rosa hover:bg-[#ff5c9f] text-white px-6 py-3 rounded-xl font-semibold text-sm transition-all duration-200 border border-rosa/30 hover:border-rosa/50"
                 >
                   <Calendar className="w-4 h-4" /> {t.exitPopup.ctaButton}
                 </a>

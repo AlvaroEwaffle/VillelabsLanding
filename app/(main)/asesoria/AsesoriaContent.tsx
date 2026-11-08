@@ -157,7 +157,7 @@ export default function AsesoriaContent() {
         >
           <Link
             href="/contact"
-            className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-accent text-white font-medium text-base hover:bg-accent/90 transition-all duration-300 shadow-accent-lg group"
+            className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-rosa text-white font-semibold text-base hover:bg-[#ff5c9f] transition-all duration-300 shadow-rosa group"
           >
             Agenda un diagnóstico gratuito
             <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
@@ -415,7 +415,7 @@ export default function AsesoriaContent() {
           </p>
           <Link
             href="/contact"
-            className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-accent text-white font-medium text-base hover:bg-accent/90 transition-all duration-300 shadow-accent-lg group"
+            className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-rosa text-white font-semibold text-base hover:bg-[#ff5c9f] transition-all duration-300 shadow-rosa group"
           >
             Agenda el diagnóstico gratuito
             <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />

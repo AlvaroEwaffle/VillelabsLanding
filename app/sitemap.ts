@@ -27,6 +27,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     entry('/contact', 0.9),
     entry('/diagnostic', 0.8),
     entry('/asesoria', 0.7),
+    // Productos digitales (8-nov-2026): imán gratis, workshop y curso. La guía, el módulo 0, las diapositivas y /reels van con noindex.
+    entry('/esqueleto', 0.9),
+    entry('/workshop', 0.9, 'weekly'),
+    entry('/workshop/grabacion', 0.7),
+    entry('/curso', 0.9),
     // Productos propios (el índice /products redirige al catálogo)
     entry('/products/moca', 0.5),
     entry('/products/capu', 0.5),

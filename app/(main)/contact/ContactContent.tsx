@@ -132,7 +132,7 @@ export default function ContactContent() {
                 href={BOOKING_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-accent text-white font-medium text-sm hover:bg-accent/90 transition-all duration-300 shadow-accent-lg"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-rosa text-white font-semibold text-sm hover:bg-[#ff5c9f] transition-all duration-300 shadow-rosa"
               >
                 <Calendar className="w-4 h-4" />
                 {t.pages.contact.bookCallButton}

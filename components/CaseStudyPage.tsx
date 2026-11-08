@@ -243,7 +243,7 @@ export default function CaseStudyPage({ caseStudy: fallback }: CaseStudyPageProp
               href={`https://wa.me/56920115198?text=${encodeURIComponent(language === 'es' ? 'Hola, vi su caso de estudio y me gustaría hablar sobre un proyecto.' : "Hi, I saw your case study and I'd like to discuss a project.")}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-accent text-white text-sm font-medium rounded-lg hover:bg-accent/90 transition-colors shadow-accent"
+              className="inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-rosa text-white text-sm font-semibold rounded-lg hover:bg-[#ff5c9f] transition-colors shadow-rosa"
             >
               <Calendar className="w-4 h-4" />
               {t.caseStudy.bookStrategyCall}

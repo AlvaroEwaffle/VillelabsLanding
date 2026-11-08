@@ -201,7 +201,7 @@ function Kicker({ children }: { children: React.ReactNode }) {
 function Ctas({ c, catalogo = true }: { c: (typeof COPY)['es']; catalogo?: boolean }) {
   return (
     <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-      <Link href="/diagnostic" className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full bg-accent px-6 text-sm font-medium text-white hover:bg-[#2a8bbd]">
+      <Link href="/diagnostic" className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full bg-rosa px-6 text-sm font-semibold text-white hover:bg-[#ff5c9f]">
         {c.ctaPrincipal} <ArrowRight className="h-4 w-4" />
       </Link>
       {catalogo && (

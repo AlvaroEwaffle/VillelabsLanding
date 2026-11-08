@@ -46,7 +46,7 @@ export function CtaFinal({ titulo, bajada }: { titulo: string; bajada: string })
         <h2 className="max-w-2xl font-serif text-3xl text-white sm:text-4xl">{titulo}</h2>
         <p className="mt-4 max-w-2xl text-slate-300">{bajada}</p>
         <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-          <Link href="/diagnostic" className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full bg-accent px-6 text-sm font-medium text-white hover:bg-[#2a8bbd]">
+          <Link href="/diagnostic" className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full bg-rosa px-6 text-sm font-semibold text-white hover:bg-[#ff5c9f]">
             {es ? 'Agenda un diagnóstico' : 'Book a diagnostic'} <ArrowRight className="h-4 w-4" />
           </Link>
           <Link href="/catalogo" className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full border border-white/15 px-6 text-sm text-slate-200 hover:border-white/30">

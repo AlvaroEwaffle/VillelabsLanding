@@ -338,7 +338,7 @@ export default function DiagnosticoPresenciaDigital({ open, onClose }: Diagnosti
                     <button
                       type="button"
                       onClick={handleStart}
-                      className="w-full py-4 rounded-xl bg-accent hover:bg-accent/90 text-white font-semibold text-base border border-accent/30 hover:shadow-[0_0_24px_rgba(33,117,161,0.3)] transition-all"
+                      className="w-full py-4 rounded-xl bg-rosa hover:bg-[#ff5c9f] text-white font-semibold text-base border border-rosa/30 hover:shadow-rosa transition-all"
                     >
                       {INTRO.cta}
                     </button>
@@ -404,7 +404,7 @@ export default function DiagnosticoPresenciaDigital({ open, onClose }: Diagnosti
                     <button
                       type="button"
                       onClick={openScheduling}
-                      className="w-full mt-6 py-4 rounded-xl bg-accent hover:bg-accent/90 text-white font-semibold text-base border border-accent/30 hover:shadow-[0_0_24px_rgba(33,117,161,0.3)] transition-all"
+                      className="w-full mt-6 py-4 rounded-xl bg-rosa hover:bg-[#ff5c9f] text-white font-semibold text-base border border-rosa/30 hover:shadow-rosa transition-all"
                     >
                       Agendar reunión de descubrimiento
                     </button>

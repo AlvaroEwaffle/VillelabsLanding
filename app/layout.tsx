@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
 import ConversionClickTracker from "@/components/ConversionClickTracker";
+import Rastreo from "@/components/productos/Rastreo";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -141,7 +142,8 @@ export default function RootLayout({
           id="gtm-script"
           strategy="afterInteractive"
           dangerouslySetInnerHTML={{
-            __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            // Solo en villelab.com: localhost y previews no deben ensuciar GA4 (8-nov-2026, las pruebas locales aparecían como visitas).
+            __html: `if(/(^|\\.)villelab\\.com$/.test(location.hostname))(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
@@ -164,6 +166,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         </noscript>
         {/* End Google Tag Manager (noscript) */}
         <ConversionClickTracker />
+        <Rastreo />
         {children}
       </body>
     </html>

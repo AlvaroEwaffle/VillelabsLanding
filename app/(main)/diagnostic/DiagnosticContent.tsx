@@ -544,7 +544,7 @@ export default function DiagnosticContent() {
                     href={DISCOVERY_CALL_URL}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-1 inline-flex items-center justify-center gap-2 px-6 py-4 rounded-full bg-accent text-white font-medium text-base hover:bg-accent/90 transition-all duration-300 shadow-accent-lg"
+                    className="flex-1 inline-flex items-center justify-center gap-2 px-6 py-4 rounded-full bg-rosa text-white font-semibold text-base hover:bg-[#ff5c9f] transition-all duration-300 shadow-rosa"
                   >
                     <Calendar className="w-4 h-4" />
                     {t.pages.diagnostic.bookDiscoveryCall}
@@ -699,8 +699,8 @@ export default function DiagnosticContent() {
                     w-full py-3.5 rounded-full text-white font-medium text-sm transition-all duration-300
                     ${
                       leadFormTouched && !isLeadFormValid
-                        ? 'bg-accent/40 cursor-not-allowed'
-                        : 'bg-accent hover:bg-accent/90 cursor-pointer shadow-accent-lg'
+                        ? 'bg-rosa/40 cursor-not-allowed'
+                        : 'bg-rosa hover:bg-[#ff5c9f] cursor-pointer shadow-rosa'
                     }
                   `}
                 >

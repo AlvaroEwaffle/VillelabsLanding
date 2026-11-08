@@ -223,7 +223,7 @@ export default function LeadQualificationForm({
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full bg-accent hover:bg-accent/90 text-white px-6 py-3 md:py-4 rounded-xl font-semibold text-sm md:text-base transition-all duration-200 border border-accent/30 hover:border-accent/50 hover:shadow-[0_0_20px_rgba(33,117,161,0.25)] disabled:opacity-50 disabled:cursor-not-allowed mt-2 relative"
+            className="w-full bg-rosa hover:bg-[#ff5c9f] text-white px-6 py-3 md:py-4 rounded-xl font-semibold text-sm md:text-base transition-all duration-200 border border-rosa/30 hover:border-rosa/50 hover:shadow-rosa disabled:opacity-50 disabled:cursor-not-allowed mt-2 relative"
           >
             {isSubmitting ? (
               <span className="flex items-center justify-center gap-3">
