@@ -1,22 +1,25 @@
 'use client';
 
 /*
- * /curso/modulo-6 — Módulo 6 «Tu propia infra: arma tu sistema propio» + proyecto final «El tablero de tu negocio».
- * 5 lecciones + página final (prueba real, semáforo de las 5 áreas antes/después, tablero imprimible, certificado, siguiente paso).
- * El tablero se arma con lo guardado en los módulos 0–5 (mismas claves de localStorage).
+ * /curso/modulo-6 — Módulo 6 «El tablero que lo junta todo» + proyecto final «Tu ERP en Google Sheets con su tablero»
+ * (curso v1.1, «El sistema de tu negocio: tu primer CRM y ERP en Google Sheets», 8-nov-2026).
+ * 5 lecciones: tus números del lunes, cómo se conectan las hojas, compartirlo con tu equipo, las rutinas y cuándo
+ * una planilla ya no basta. Página final: prueba real, semáforo de las 5 piezas antes/después, la hoja del proyecto
+ * (imprimible), la planilla, certificado y siguiente paso. Lee lo guardado en los módulos 0–5 (mismas claves).
+ * Los números del tablero de Grano Norte salen del ejemplo de lib/productos/curso/plantilla.ts.
  */
 
-import Link from 'next/link';
-import { ArrowUpRight, Check, Printer } from 'lucide-react';
-import { AREAS, CLAVES_STORAGE, PROYECTO_FINAL, REGLAS_FRENO, type AreaId, type ReglaFreno, type Respuesta } from '@/lib/productos/curso/curso';
+import { ArrowUpRight, Printer } from 'lucide-react';
+import { AREAS, CLAVES_STORAGE, HOJAS, IA_OPCIONAL, PROYECTO_FINAL, REGLAS_FRENO, type AreaId, type ReglaFreno, type Respuesta, type Semaforo } from '@/lib/productos/curso/curso';
 import { APOYO } from '@/lib/productos/apoyo';
 import { FOTOS } from '@/lib/productos/fotos';
 import { LINKS } from '@/lib/productos/links';
 import { useMontado, usePersistido } from '@/lib/productos/curso/persistencia';
 import { GUIONES } from '@/lib/productos/curso/guiones';
 import { Pantallita } from '@/components/productos/Pantallita';
-import { DiagramaBaseInformacion, DiagramaHechoVsPropio, DiagramaPermisos, DiagramaRevisionViernes, DiagramaRutinaAutomatica } from '@/components/productos/diagramas/modulos';
+import { DiagramaPlanillaOSoftware, DiagramaQuienEdita, DiagramaRutinasSistema, DiagramaTableroLee } from '@/components/productos/diagramas/sistema-m56';
 import { Kicker, PuntoSemaforo } from './piezas';
+import { DescargaPlantilla } from './Plantilla';
 import {
   BloqueCopiar,
   BotonDescarga,
@@ -27,7 +30,6 @@ import {
   ETIQUETA_SEMAFORO,
   Elegibles,
   Explica,
-  FILAS_VACIAS,
   FotoBanda,
   Freno,
   Instruccion,
@@ -40,27 +42,21 @@ import {
   armarTxt,
   claveModulo,
   descargarArchivo,
-  nuevoId,
-  rutaModulo,
   semaforoGuardado,
-  useFilas,
   useMarcas,
   useNegocio,
   useTextos,
   type Campo,
-  type Fila,
   type LeccionDef,
 } from './leccion';
 
 const K = {
-  decision: claveModulo(6, 'decision'),
-  base: claveModulo(6, 'base'),
-  permisos: claveModulo(6, 'permisos'),
-  rutina: claveModulo(6, 'rutina'),
-  revision: claveModulo(6, 'revision'),
-  frenosRevision: claveModulo(6, 'frenos_revision'),
-  historial: claveModulo(6, 'historial'),
-  tablero: claveModulo(6, 'tablero'),
+  lunes: claveModulo(6, 'lunes'),
+  donde: claveModulo(6, 'donde'),
+  quien: claveModulo(6, 'quien'),
+  rutinas: claveModulo(6, 'rutinas'),
+  senales: claveModulo(6, 'senales'),
+  hojas: claveModulo(6, 'hojas'),
   prueba: claveModulo(6, 'prueba'),
 };
 
@@ -74,244 +70,258 @@ function useReglasM0() {
   return todas.filter((r) => estado.elegidas?.includes(r.id)).map((r) => (estado.textos?.[r.id] ?? r.texto).trim() || r.texto);
 }
 
-const hayTexto = (o: Record<string, string>) => Object.values(o).some((v) => typeof v === 'string' && v.trim());
+/** Hojas que se llenan con datos (sin Inicio ni Tablero, que no se llenan a mano). */
+const HOJAS_DATOS = HOJAS.filter((h) => h.nombre !== 'Inicio' && h.nombre !== 'Tablero');
+const idHoja = (nombre: string) =>
+  nombre
+    .normalize('NFD')
+    .replace(/[̀-ͯ]/g, '')
+    .toLowerCase();
 
-// ─── Lección 1 · Producto hecho vs. lo propio ─────────────────────────────
+// ─── Lección 1 · Tus números del lunes ────────────────────────────────────
 
-const PREGUNTAS_DECISION = [
-  { id: 'q1', texto: '¿Tu problema es común en tu rubro (responder WhatsApp, fidelizar, agendar)?', lista: 'Sí', propio: 'No, es muy mío' },
-  { id: 'q2', texto: '¿Tu forma de trabajar es parte de lo que te diferencia?', lista: 'No', propio: 'Sí' },
-  { id: 'q3', texto: '¿Usas varias herramientas que no se hablan entre ellas?', lista: 'No', propio: 'Sí' },
-  { id: 'q4', texto: '¿Hay alguien que pueda revisar el sistema 15 minutos cada semana?', lista: 'No', propio: 'Sí' },
-  { id: 'q5', texto: '¿Necesitas que funcione esta misma semana?', lista: 'Sí', propio: 'Puede esperar' },
+// Mismas etiquetas y secciones que la hoja Tablero de la planilla; valores del ejemplo de Grano Norte.
+const TABLERO_EJEMPLO: { titulo: string; filas: { l: string; v: string; alerta?: string }[] }[] = [
+  {
+    titulo: 'Clientes y ventas (CRM) · módulo 1',
+    filas: [
+      { l: 'Clientes activos', v: '3' },
+      { l: 'Posibles clientes en conversación o propuesta', v: '2' },
+      { l: 'Propuestas abiertas ($)', v: '$174.000' },
+      { l: 'Próximos pasos para hoy o atrasados', v: '2', alerta: 'Revisar hoy' },
+    ],
+  },
+  {
+    titulo: 'Marketing y origen · módulo 2',
+    filas: [
+      { l: 'Canal que más clientes te trae', v: 'Referido' },
+      { l: 'Contactos con su origen anotado', v: '100 %' },
+    ],
+  },
+  {
+    titulo: 'Pedidos y operación · módulo 3',
+    filas: [
+      { l: 'Ventas del mes', v: '$311.000' },
+      { l: 'Pedidos por entregar', v: '3' },
+      { l: 'Pedidos atrasados', v: '1', alerta: 'Revisar hoy' },
+    ],
+  },
+  {
+    titulo: 'Atención y postventa · módulo 4',
+    filas: [
+      { l: 'Casos abiertos', v: '2' },
+      { l: 'Reclamos abiertos', v: '1', alerta: 'Lo ve una persona' },
+    ],
+  },
+  {
+    titulo: 'Cobranza y caja · módulo 5',
+    filas: [
+      { l: 'Por cobrar', v: '$165.000' },
+      { l: 'Vencido sin pagar', v: '$96.000', alerta: 'Cobrar esta semana' },
+      { l: 'Por cobrar en las próximas 4 semanas', v: '$69.000' },
+      { l: 'Caja hoy', v: '$437.000' },
+      { l: 'Margen promedio de tus productos', v: '27 %' },
+    ],
+  },
 ];
 
-function LeccionDecision() {
-  const [d, setD] = useTextos(K.decision);
-  const montado = useMontado();
-  const v = montado ? d : TEXTOS_VACIOS;
-  const respondidas = PREGUNTAS_DECISION.filter((q) => v[q.id]).length;
-  const propio = PREGUNTAS_DECISION.filter((q) => v[q.id] === 'propio').length;
+function TableroEjemplo() {
+  return (
+    <div className="mt-6 overflow-hidden rounded-2xl border border-[#24314d] bg-[#131c31]">
+      <div className="flex items-center justify-between gap-3 border-b border-white/10 px-4 py-3">
+        <p className="font-serif text-lg text-white">Tablero de Grano Norte</p>
+        <p className="font-mono text-[10px] uppercase tracking-wider text-[#5fb2dd]">Lunes</p>
+      </div>
+      <div className="space-y-4 p-4">
+        {TABLERO_EJEMPLO.map((s) => (
+          <div key={s.titulo}>
+            <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-[#5fb2dd]">{s.titulo}</p>
+            <ul className="mt-1.5 space-y-1">
+              {s.filas.map((f) => (
+                <li key={f.l} className="flex flex-wrap items-baseline justify-between gap-x-3 border-b border-white/5 py-1 text-sm">
+                  <span className="min-w-0 text-slate-300">{f.l}</span>
+                  <span className="flex items-baseline gap-2">
+                    {f.alerta ? <span className="text-[11px] italic text-rose-300">{f.alerta}</span> : null}
+                    <span className="font-mono font-semibold text-white">{f.v}</span>
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+const CAMPOS_LUNES: Campo[] = [
+  { id: 'numero', etiqueta: 'El número que más me preocupa esta semana', placeholder: 'Ej.: $96.000 vencidos sin pagar' },
+  { id: 'decision', etiqueta: 'Qué decidimos hacer', filas: 2, placeholder: 'Ej.: llamar hoy a Puerto Dulce por la F-1021' },
+  { id: 'quien', etiqueta: 'Quién lo hace y para cuándo', placeholder: 'Ej.: Camila, hoy antes de las 13:00' },
+];
+
+const EJEMPLO_LUNES = {
+  numero: '$96.000 vencidos sin pagar y 1 pedido atrasado.',
+  decision: 'Llamar hoy a Puerto Dulce por la F-1021. Sofía entrega el pedido del Cowork mañana a primera hora y le avisa.',
+  quien: 'Camila (cobranza) y Sofía (pedido), hoy.',
+};
+
+function LeccionLunes() {
   return (
     <>
       <Explica>
         <p>
-          No todo hay que construirlo. A veces una <strong>herramienta lista</strong> resuelve el 80 % en una tarde: un chatbot de WhatsApp como el de Fidelidapp, una agenda en línea, un programa de puntos. Armar <strong>lo propio</strong> conviene cuando tu forma de trabajar es lo que te diferencia o cuando tus herramientas no se hablan.
+          Hasta aquí armaste las hojas una por una. La <strong>hoja Tablero</strong> las junta: es la única que nadie llena, porque se calcula sola desde las demás. Cada lunes la miras 10 minutos con tu equipo y sabes cómo va el negocio sin preguntarle a nadie.
         </p>
-        <p>Lo más común es una mezcla: herramientas listas para lo común y rutinas propias para lo tuyo. Lo importante es que todo lea la misma base de información (la próxima lección).</p>
+        <p>
+          Son pocos números, en cinco grupos: <strong>clientes y ventas</strong> (cuántos clientes activos, cuánta plata hay en propuestas, a quién le toca un seguimiento hoy), <strong>origen</strong> (qué canal te trae más clientes), <strong>pedidos</strong> (ventas del mes, por entregar y atrasados), <strong>atención</strong> (casos y reclamos abiertos) y <strong>cobranza y caja</strong> (por cobrar, vencido, lo que entra en 4 semanas, la caja de hoy y el margen). Al lado de algunos aparece un aviso: «Revisar hoy», «Cobrar esta semana».
+        </p>
       </Explica>
-      <DiagramaHechoVsPropio className="mt-6" />
-      <Subtitulo>¿Qué te conviene para cada área?</Subtitulo>
-      <Instruccion>Responde pensando en el área que más tiempo te quita hoy.</Instruccion>
-      <ul className="mt-4 space-y-3">
-        {PREGUNTAS_DECISION.map((q) => (
-          <li key={q.id} className="rounded-xl border border-white/10 bg-white/[0.02] p-3">
-            <p className="text-slate-100">{q.texto}</p>
-            <div className="mt-2 grid grid-cols-2 gap-2" role="radiogroup" aria-label={q.texto}>
-              {[
-                { val: 'lista', l: q.lista },
-                { val: 'propio', l: q.propio },
-              ].map((o) => (
-                <button
-                  key={o.val}
-                  type="button"
-                  role="radio"
-                  aria-checked={v[q.id] === o.val}
-                  onClick={() => setD((p) => ({ ...p, [q.id]: o.val }))}
-                  className={`min-h-[44px] rounded-lg border text-sm ${v[q.id] === o.val ? 'border-[#5fb2dd] bg-[#2175a1] text-white' : 'border-white/15 text-slate-300'}`}
-                >
-                  {o.l}
-                </button>
-              ))}
-            </div>
+      <TableroEjemplo />
+      <Pantallita titulo="Grano Norte · el primer lunes" className="mt-6">
+        <p className="text-sm">En 10 minutos salieron dos cosas: $96.000 vencidos y un pedido atrasado. Antes, Camila se habría enterado por un reclamo o a fin de mes.</p>
+      </Pantallita>
+      <Subtitulo>Tu primer lunes con el tablero</Subtitulo>
+      <Instruccion>Abre la hoja Tablero de tu planilla (o el ejemplo de Grano Norte, si todavía no tienes datos) y responde.</Instruccion>
+      <Campos clave={K.lunes} campos={CAMPOS_LUNES} ejemplo={EJEMPLO_LUNES} />
+      <DescargaPlantilla titulo="Abre tu tablero" texto="La hoja Tablero ya viene armada en la planilla del sistema, con las fórmulas listas. Si todavía no tienes datos, mira el ejemplo de Grano Norte: los números de arriba salen de ahí." />
+      <Freno>El tablero muestra; no decide. Lo que se hace con un número (cobrar, dar un plazo, cambiar un precio) lo decide una persona.</Freno>
+    </>
+  );
+}
+
+// ─── Lección 2 · Cómo se conectan las hojas ───────────────────────────────
+
+const CONEXIONES = [
+  { n: 'Clientes activos, propuestas abiertas, próximos pasos', lee: 'Clientes: las columnas Estado, Monto de la propuesta y Fecha del próximo paso.' },
+  { n: 'Canal que más clientes te trae', lee: 'Origen, que a su vez cuenta la columna Origen de Clientes.' },
+  { n: 'Ventas del mes, por entregar, atrasados', lee: 'Pedidos: Fecha, Total, Estado y Fecha de entrega. El precio sale de Productos.' },
+  { n: 'Casos y reclamos abiertos', lee: 'Atención: Tipo y Estado.' },
+  { n: 'Por cobrar, vencido, próximas 4 semanas', lee: 'Cobranza: Monto, Vencimiento y Pagado.' },
+  { n: 'Caja hoy', lee: 'Caja: lo que entra menos lo que sale.' },
+  { n: 'Margen promedio', lee: 'Productos: Costo y Precio.' },
+];
+
+const DONDE_HOJAS = [
+  { id: 'clientes', etiqueta: 'Clientes' },
+  { id: 'pedidos', etiqueta: 'Pedidos' },
+  { id: 'atencion', etiqueta: 'Atención' },
+  { id: 'cobranza', etiqueta: 'Cobranza' },
+  { id: 'caja', etiqueta: 'Caja' },
+  { id: 'productos', etiqueta: 'Productos' },
+];
+
+const DONDE_ITEMS = [
+  { id: 'd1', texto: 'Una oficina te pide cotización por WhatsApp.', correcta: 'clientes', porque: 'Es un posible cliente: va a Clientes con estado y próximo paso.' },
+  { id: 'd2', texto: 'Puerto Dulce te pide 5 kilos para el jueves.', correcta: 'pedidos', porque: 'Es un pedido con fecha de entrega y responsable.' },
+  { id: 'd3', texto: 'El Cowork reclama que el molido llegó muy fino.', correcta: 'atencion', porque: 'Es un caso: queda abierto en Atención hasta cerrarlo.' },
+  { id: 'd4', texto: 'Emitiste la factura del pedido 4.', correcta: 'cobranza', porque: 'Cada factura va a Cobranza con su vencimiento.' },
+  { id: 'd5', texto: 'Pagaste el arriendo.', correcta: 'caja', porque: 'Es plata que sale: una fila en Caja.' },
+  { id: 'd6', texto: 'El café verde subió y cambias el precio del kilo.', correcta: 'productos', porque: 'El precio vive en un solo lugar: Productos. Pedidos lo toma de ahí.' },
+  { id: 'd7', texto: 'Estudio Ríos te pagó la F-1022.', correcta: 'cobranza', porque: 'Se marca «Sí» en Pagado. Y la plata que entra se anota también en Caja.' },
+  { id: 'd8', texto: 'La propuesta a Oficinas Bahía se aceptó.', correcta: 'clientes', porque: 'Cambia su estado a «Cliente». El pedido nuevo va a Pedidos.' },
+];
+
+function LeccionConexiones() {
+  return (
+    <>
+      <Explica>
+        <p>
+          El tablero no tiene nada escrito a mano: <strong>cada número lee una hoja</strong>. Por eso la regla más importante de tu sistema es simple: <strong>cada dato se anota una vez, en un solo lugar</strong>. El precio vive en Productos; el estado de un cliente, en Clientes; si una factura se pagó, en Cobranza. Si copias un número a mano en otra parte, tarde o temprano las dos versiones dejan de calzar.
+        </p>
+        <p>
+          La otra cara: si una hoja queda sin actualizar, el tablero miente. Si nadie marca los pagos en Cobranza, el tablero dice que tienes plata vencida que ya entró. Por eso, cuando un número no te calza, el problema casi nunca está en la fórmula: está en una hoja que nadie abrió esa semana.
+        </p>
+      </Explica>
+      <DiagramaTableroLee className="mt-6" />
+      <Subtitulo>Qué lee cada número</Subtitulo>
+      <ul className="mt-4 space-y-2">
+        {CONEXIONES.map((c) => (
+          <li key={c.n} className="rounded-xl border border-white/10 bg-white/[0.02] p-3">
+            <p className="text-sm font-semibold text-white">{c.n}</p>
+            <p className="mt-0.5 text-sm text-slate-300">{c.lee}</p>
           </li>
         ))}
       </ul>
-      {respondidas === PREGUNTAS_DECISION.length ? (
-        <div className="mt-4 rounded-2xl border border-[#5fb2dd]/40 bg-[#2175a1]/10 p-4" aria-live="polite">
-          <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-[#5fb2dd]">Para esa área</p>
-          <p className="mt-1 text-white">
-            {propio >= 4
-              ? 'Te conviene armar lo propio: una rutina con tu asistente que lea tu base de información.'
-              : propio >= 2
-                ? 'Mezcla: parte con una herramienta lista y suma rutinas propias donde te diferencias.'
-                : 'Parte con una herramienta lista. Configúrala con tu esqueleto y tus frenos, y listo.'}
-          </p>
+      <Subtitulo>Práctica: ¿dónde se anota?</Subtitulo>
+      <Instruccion>Ocho cosas que pasan en una semana de Grano Norte. Elige la hoja donde va cada una.</Instruccion>
+      <Clasificador clave={K.donde} categorias={DONDE_HOJAS} items={DONDE_ITEMS} />
+      <Pantallita titulo="Grano Norte · el número que no calzaba" className="mt-6">
+        <p className="text-sm">Un lunes, el tablero decía $160.000 vencidos. Camila sabía que el Cowork ya había pagado. Nadie había marcado el pago en Cobranza. Desde ese día, quien recibe un pago lo marca ahí y lo anota en Caja el mismo día.</p>
+      </Pantallita>
+      <Freno>No escribas encima de las fórmulas del tablero para «arreglar» un número. Arregla la hoja que lo alimenta.</Freno>
+    </>
+  );
+}
+
+// ─── Lección 3 · Compartirlo con tu equipo ────────────────────────────────
+
+const PASOS_COMPARTIR = [
+  'Abre tu planilla en Google Sheets y toca «Compartir» (arriba a la derecha).',
+  'Agrega a cada persona con su correo. Quien actualiza una hoja va como «Editor»; quien solo mira, como «Lector».',
+  'Protege lo que cambia una sola persona: menú «Datos» → «Proteger hojas y rangos» → elige la hoja (Productos y Tablero) → «Restringir quién puede editar» → solo tú.',
+  'Si algo se borra por error, «Archivo» → «Historial de versiones» te deja volver a una versión anterior.',
+];
+
+function LeccionCompartir() {
+  const [q] = useTextos(K.quien);
+  const montado = useMontado();
+  const negocio = useNegocio();
+  const reglas = useReglasM0();
+  const v = montado ? q : TEXTOS_VACIOS;
+  const campos: Campo[] = HOJAS_DATOS.map((h) => ({ id: idHoja(h.nombre), etiqueta: `${h.nombre} · ${h.guarda}`, placeholder: `Ej.: ${h.quien}` }));
+  return (
+    <>
+      <Explica>
+        <p>
+          Una planilla que solo abres tú sigue dependiendo de ti. El paso que cambia todo es <strong>compartirla</strong>: que quien vende actualice Clientes, que quien recibe pedidos los anote en Pedidos, que quien cobra marque los pagos. Así cada uno ve en qué va todo sin preguntarte.
+        </p>
+        <p>
+          Compartir no es soltar el control. Google Sheets te deja dar tres tipos de acceso: <strong>editor</strong> (actualiza), <strong>lector</strong> (solo mira) y <strong>hojas protegidas</strong>, que cambia solo una persona. Las hojas protegidas son tus <strong>reglas de freno</strong> del módulo 0, escritas en la planilla: si los precios los decides tú, la hoja Productos la editas solo tú.
+        </p>
+      </Explica>
+      <DiagramaQuienEdita className="mt-6" />
+      <Subtitulo>Paso a paso en Google Sheets</Subtitulo>
+      <ol className="mt-4 space-y-2">
+        {PASOS_COMPARTIR.map((p, i) => (
+          <li key={p} className="flex gap-3 rounded-xl border border-white/10 bg-white/[0.02] p-3 text-sm text-slate-200">
+            <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-white/15 font-mono text-[11px] text-slate-300">{i + 1}</span>
+            <span className="min-w-0">{p}</span>
+          </li>
+        ))}
+      </ol>
+      <Subtitulo>Quién actualiza cada hoja</Subtitulo>
+      <Instruccion>Un nombre por hoja (puede ser el tuyo). Si nadie es dueño de una hoja, esa hoja se desactualiza.</Instruccion>
+      <Campos clave={K.quien} campos={campos} />
+      {montado && reglas.length ? (
+        <div className="mt-6 rounded-2xl border border-white/10 p-4">
+          <p className="text-sm font-medium text-white">Tus reglas de freno del módulo 0</p>
+          <p className="mt-1 text-sm text-slate-400">Revisa cuáles se traducen en una hoja protegida.</p>
+          <ul className="mt-2 space-y-1 text-sm text-slate-300">
+            {reglas.map((r) => (
+              <li key={r}>· {r}</li>
+            ))}
+          </ul>
         </div>
       ) : null}
-      <Pantallita titulo="Grano Norte · la mezcla" className="mt-6">
-        <p className="text-sm">Herramienta lista para WhatsApp (el chatbot del módulo 4). Rutinas propias para el resumen del día y el reporte del lunes, porque leen sus planillas.</p>
+      <Pantallita titulo="Grano Norte · quién edita qué" className="mt-6">
+        <p className="text-sm">Sofía actualiza Pedidos y Atención; Matías, Pedidos; Camila, Clientes, Cobranza y Caja. Productos y Tablero están protegidas: solo Camila. El contador entra como lector a fin de mes.</p>
       </Pantallita>
+      <Freno>Comparte con correos de personas, nunca con «cualquier persona con el enlace»: tu planilla tiene datos de tus clientes. Y cuando alguien deja el equipo, quítale el acceso ese mismo día.</Freno>
       <div className="mt-4">
         <BotonDescarga
-          etiqueta="Descargar mi decisión (.txt)"
-          disabled={respondidas < PREGUNTAS_DECISION.length}
+          etiqueta="Descargar quién actualiza qué (.txt)"
           onClick={() =>
             descargarArchivo(
-              'herramienta-lista-o-propia.txt',
-              armarTxt('Herramienta lista o sistema propio', [
-                ...PREGUNTAS_DECISION.map((q) => `- ${q.texto} → ${v[q.id] === 'propio' ? q.propio : q.lista}`),
-                '',
-                `Resultado: ${propio >= 4 ? 'armar lo propio' : propio >= 2 ? 'mezcla (herramienta lista + rutinas propias)' : 'herramienta lista'}.`,
-                'En los dos casos, todo lee la misma base de información.',
-              ]),
-            )
-          }
-        />
-      </div>
-    </>
-  );
-}
-
-// ─── Lección 2 · Base de información ──────────────────────────────────────
-
-function useDocumentosCurso() {
-  const [m0checks] = usePersistido(CLAVES_STORAGE.checklist, CHECKS_VACIOS);
-  const reglas = useReglasM0();
-  const [frase] = usePersistido(claveModulo(1, 'frase'), TEXTOS_VACIOS);
-  const [temas] = usePersistido(claveModulo(1, 'temas'), TEXTOS_VACIOS);
-  const [mensajes] = usePersistido(claveModulo(2, 'mensajes'), TEXTOS_VACIOS);
-  const [propuesta] = usePersistido(claveModulo(2, 'propuesta'), TEXTOS_VACIOS);
-  const [procesos] = usePersistido(claveModulo(3, 'procesos'), TEXTOS_VACIOS);
-  const [checklist] = usePersistido(claveModulo(3, 'checklist_propio'), TEXTOS_VACIOS);
-  const [asistente] = usePersistido(claveModulo(4, 'asistente'), TEXTOS_VACIOS);
-  const [derivacion] = usePersistido(claveModulo(4, 'derivacion'), TEXTOS_VACIOS);
-  const [reclamos] = usePersistido(claveModulo(4, 'reclamos'), TEXTOS_VACIOS);
-  const [cobranza] = usePersistido(claveModulo(5, 'cobranza'), TEXTOS_VACIOS);
-  const [gastos] = usePersistido(claveModulo(5, 'gastos'), FILAS_VACIAS);
-  const [numeros] = usePersistido(claveModulo(5, 'numeros'), TEXTOS_VACIOS);
-  const [margen] = usePersistido(claveModulo(5, 'margen'), TEXTOS_VACIOS);
-  return [
-    { carpeta: '01 · Esqueleto', doc: 'Esqueleto de tu agente', modulo: 0, listo: !!m0checks.l3a },
-    { carpeta: '02 · Reglas de freno', doc: 'Reglas de freno', modulo: 0, listo: reglas.length > 0 },
-    { carpeta: '02 · Reglas de freno', doc: 'Reglas de derivación', modulo: 4, listo: hayTexto(derivacion) },
-    { carpeta: '03 · Procesos', doc: '3 procesos escritos', modulo: 3, listo: hayTexto(procesos) },
-    { carpeta: '03 · Procesos', doc: 'Checklist de entrega', modulo: 3, listo: hayTexto(checklist) },
-    { carpeta: '04 · Plantillas', doc: 'Frase y 3 temas', modulo: 1, listo: hayTexto(frase) || hayTexto(temas) },
-    { carpeta: '04 · Plantillas', doc: 'Mensajes de seguimiento y propuesta', modulo: 2, listo: hayTexto(mensajes) || hayTexto(propuesta) },
-    { carpeta: '04 · Plantillas', doc: 'Instrucciones del asistente', modulo: 4, listo: hayTexto(asistente) },
-    { carpeta: '04 · Plantillas', doc: 'Plantillas de reclamos y cobranza', modulo: 4, listo: hayTexto(reclamos) || hayTexto(cobranza) },
-    { carpeta: '05 · Números', doc: 'Gastos, reporte del lunes y margen', modulo: 5, listo: gastos.length > 0 || hayTexto(numeros) || hayTexto(margen) },
-  ];
-}
-
-const LEEME = [
-  'LEEME · Mi negocio · Sistema',
-  '',
-  'Esta carpeta es la única versión de cómo funciona el negocio. Si algo cambia (un precio, un horario, un proceso), se cambia aquí.',
-  '',
-  '00 · LEEME ............ este archivo',
-  '01 · Esqueleto ........ qué vendemos, a quién, precios, horario, tono, preguntas de siempre',
-  '02 · Reglas de freno .. lo que decide siempre una persona + reglas de derivación',
-  '03 · Procesos ......... procesos en 7 pasos o menos + checklists de entrega',
-  '04 · Plantillas ....... mensajes, propuesta, reclamos, cobranza, instrucciones del asistente',
-  '05 · Números .......... embudo, gastos, reporte del lunes, margen',
-  '',
-  'Quién actualiza cada carpeta: [nombre por carpeta]',
-  'Cuándo se revisa: en la revisión de los viernes (15 min).',
-  '',
-  'Si usas un proyecto en Claude o ChatGPT: sube estos archivos como conocimiento del proyecto y pega en las instrucciones:',
-  '«Antes de responder, revisa los archivos del proyecto. Si algo no está ahí, dilo; no lo inventes. Respeta siempre las reglas de freno.»',
-];
-
-function LeccionBase() {
-  const docs = useDocumentosCurso();
-  const montado = useMontado();
-  const listos = montado ? docs.filter((d) => d.listo).length : 0;
-  return (
-    <>
-      <Explica>
-        <p>
-          Cada asistente que armaste en el curso necesita saber lo mismo: quién eres, qué vendes, cómo hablas y qué decide una persona. Si esa información vive en cinco lugares distintos, tarde o temprano uno queda desactualizado y responde mal.
-        </p>
-        <p>
-          Por eso juntas todo en <strong>un solo lugar ordenado</strong>: una carpeta compartida (Google Drive sirve) o un proyecto en Claude o ChatGPT donde subes esos archivos. Lo importante es que haya una sola versión: si cambia un precio, se cambia ahí y todos lo leen.
-        </p>
-      </Explica>
-      <DiagramaBaseInformacion className="mt-6" />
-      <Subtitulo>Lo que ya armaste en el curso</Subtitulo>
-      <Instruccion>
-        {montado ? `${listos} de ${docs.length} documentos tienen avance guardado en este navegador.` : 'Revisando tu avance…'} Descarga cada uno desde su módulo y guárdalo en su carpeta.
-      </Instruccion>
-      <ul className="mt-4 space-y-2">
-        {docs.map((d) => (
-          <li key={d.doc} className={`flex items-start gap-3 rounded-xl border p-3 ${montado && d.listo ? 'border-[#2175a1]/60 bg-[#2175a1]/10' : 'border-white/10 bg-white/[0.02]'}`}>
-            <span className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded border ${montado && d.listo ? 'border-[#2175a1] bg-[#2175a1]' : 'border-white/30'}`}>
-              {montado && d.listo ? <Check className="h-3.5 w-3.5 text-white" aria-hidden /> : null}
-            </span>
-            <span className="min-w-0 flex-1">
-              <span className="block text-sm text-white">{d.doc}</span>
-              <span className="block font-mono text-[11px] text-slate-400">{d.carpeta}</span>
-            </span>
-            {!(montado && d.listo) ? (
-              <Link href={rutaModulo(d.modulo)} className="shrink-0 text-xs text-[#5fb2dd] hover:underline">
-                Módulo {d.modulo}
-              </Link>
-            ) : null}
-          </li>
-        ))}
-      </ul>
-      <Pantallita titulo="Grano Norte · Sistema" className="mt-6">
-        <p className="text-sm">Una carpeta en Drive con 6 subcarpetas y un proyecto en Claude con los mismos archivos. Cuando Camila cambió el precio del kilo, lo cambió en un solo archivo y el asistente de WhatsApp lo supo al tiro.</p>
-      </Pantallita>
-      <Freno>En la base van tus reglas, procesos y plantillas, no claves ni datos bancarios. Y la base la actualiza una persona: el asistente la lee, no la cambia.</Freno>
-      <div className="mt-4">
-        <BotonDescarga etiqueta="Descargar el LEEME de tu carpeta (.txt)" onClick={() => descargarArchivo('00-LEEME.txt', LEEME.join('\r\n'))} />
-      </div>
-    </>
-  );
-}
-
-// ─── Lección 3 · Permisos ──────────────────────────────────────────────────
-
-const NIVELES = [
-  { id: 'leer', etiqueta: 'Puede leer' },
-  { id: 'borrador', etiqueta: 'Solo borrador' },
-  { id: 'nunca', etiqueta: 'Nunca' },
-];
-
-const ACCIONES = [
-  { id: 'a1', texto: 'Leer los correos de clientes para el resumen del día.', correcta: 'leer', porque: 'Leer para resumir no cambia nada.' },
-  { id: 'a2', texto: 'Responder un correo de un cliente.', correcta: 'borrador', porque: 'Lo deja listo; lo envía una persona.' },
-  { id: 'a3', texto: 'Hacer una transferencia a un proveedor.', correcta: 'nunca', porque: 'La plata la mueve siempre una persona.' },
-  { id: 'a4', texto: 'Ver el calendario para saber qué entregas hay hoy.', correcta: 'leer', porque: 'Solo lectura.' },
-  { id: 'a5', texto: 'Crear un evento con un cliente nuevo.', correcta: 'borrador', porque: 'Propone el horario; una persona lo confirma.' },
-  { id: 'a6', texto: 'Borrar correos antiguos para ordenar la bandeja.', correcta: 'nunca', porque: 'Borrar no se deshace.' },
-  { id: 'a7', texto: 'Leer la planilla de pagos para el reporte del lunes.', correcta: 'leer', porque: 'Solo lectura.' },
-  { id: 'a8', texto: 'Enviar un recordatorio de cobranza.', correcta: 'borrador', porque: 'Toca plata y relación con el cliente: lo revisa una persona.' },
-  { id: 'a9', texto: 'Confirmarle una fecha de entrega a un cliente.', correcta: 'nunca', porque: 'Comprometer una fecha es una regla de freno.' },
-  { id: 'a10', texto: 'Cambiar un precio en la lista vigente.', correcta: 'nunca', porque: 'Los precios los cambia una persona en la base de información.' },
-];
-
-function LeccionPermisos() {
-  const negocio = useNegocio();
-  return (
-    <>
-      <Explica>
-        <p>
-          Conectar un asistente a tu correo, tu calendario y tus planillas es lo que le permite trabajar con datos reales. Darle permiso para enviar, pagar o borrar sin revisar es un riesgo que no necesitas correr.
-        </p>
-        <p>
-          Piensa en tres niveles: lo que <strong>puede leer</strong>, lo que <strong>solo puede dejar en borrador</strong> y lo que <strong>nunca hace</strong>. Cuando conectes una herramienta (por ejemplo, al darle acceso a tu cuenta de Google), elige el permiso mínimo: si solo necesita leer el calendario, no le des permiso para modificarlo.
-        </p>
-      </Explica>
-      <DiagramaPermisos className="mt-6" />
-      <Subtitulo>Práctica: clasifica 10 acciones</Subtitulo>
-      <Clasificador clave={K.permisos} categorias={NIVELES} items={ACCIONES} />
-      <Pantallita titulo="Grano Norte · permisos" className="mt-6">
-        <p className="text-sm">El asistente lee pedidos, pagos y el calendario; deja borradores de seguimiento y cobranza; y nunca toca la cuenta del banco. Una vez al mes, Camila revisa qué apps tienen acceso a su cuenta de Google y desconecta las que ya no usa.</p>
-      </Pantallita>
-      <div className="mt-4">
-        <BotonDescarga
-          etiqueta="Descargar matriz de permisos (.txt)"
-          onClick={() =>
-            descargarArchivo(
-              'matriz-de-permisos.txt',
+              'quien-actualiza-que.txt',
               armarTxt(
-                'Matriz de permisos del asistente',
+                'Quién actualiza cada hoja',
                 [
-                  ...NIVELES.flatMap((n) => [n.etiqueta.toUpperCase(), ...ACCIONES.filter((a) => a.correcta === n.id).map((a) => `- ${a.texto}`), '']),
-                  'REVISIÓN MENSUAL: qué herramientas tienen acceso a mis cuentas; desconectar lo que ya no uso.',
+                  ...HOJAS_DATOS.map((h) => `- ${h.nombre}: ${(v[idHoja(h.nombre)] ?? '').trim() || h.quien}`),
+                  '- Tablero: nadie lo llena; se mira los lunes.',
+                  '',
+                  'PROTEGIDAS (las edita solo una persona): Productos y Tablero.',
+                  ...(reglas.length ? ['', 'REGLAS DE FRENO', ...reglas.map((r, i) => `${i + 1}. ${r}`)] : []),
                 ],
                 negocio,
               ),
@@ -323,166 +333,89 @@ function LeccionPermisos() {
   );
 }
 
-// ─── Lección 4 · Rutinas automáticas ──────────────────────────────────────
+// ─── Lección 4 · Las rutinas de tu sistema ────────────────────────────────
 
 const RUTINAS = [
-  { id: 'resumen', t: 'Resumen del día', m: 'Módulo 3', hace: 'Lee correo, pedidos y tablero; deja qué llegó, qué falta y qué vence.', hora: 'Lunes a viernes, 8:30' },
-  { id: 'prospectos', t: 'Lista de prospectos', m: 'Módulo 2', hace: 'Propone 10 prospectos que calzan con tu cliente ideal y los borradores del primer mensaje.', hora: 'Lunes a viernes, 9:00' },
-  { id: 'lunes', t: 'Reporte del lunes', m: 'Módulo 5', hace: 'Arma tus 5 números comparados con la semana anterior.', hora: 'Lunes, 8:00' },
+  { id: 'diaria', t: 'Cada día · 20 min', que: 'Clientes (a quién le toca hoy) y Pedidos (qué llegó, qué falta, qué vence).', hora: '8:30', lugar: 'mi escritorio, antes de abrir el WhatsApp' },
+  { id: 'lunes', t: 'Lunes · 10 min', que: 'El tablero con el equipo: qué se arregla esta semana.', hora: '9:00', lugar: 'la mesa de la bodega, con el equipo' },
+  { id: 'viernes', t: 'Viernes · 15 min', que: 'Que cada hoja esté al día: casos abiertos, pagos en Cobranza, movimientos en Caja y la cuenta de 4 semanas.', hora: '16:00', lugar: 'mi escritorio' },
+  { id: 'mes', t: 'Fin de mes', que: 'Precios y costos en Productos; el mes comparado en el tablero.', hora: 'el último viernes, 16:30', lugar: 'mi escritorio' },
 ];
 
-const CAMPOS_RUTINA: Campo[] = [
-  { id: 'hora', etiqueta: 'Cuándo corre', placeholder: 'Ej.: lunes a viernes, 8:30' },
-  { id: 'fuentes', etiqueta: 'Qué lee', placeholder: 'Ej.: correo, planilla de pedidos, tablero' },
-  { id: 'donde', etiqueta: 'Dónde deja el borrador', placeholder: 'Ej.: en mi correo o en el grupo del equipo' },
-  { id: 'quien', etiqueta: 'Quién lo revisa', placeholder: 'Ej.: Camila; si no está, Rocío' },
-  { id: 'herramienta', etiqueta: 'Con qué corre', placeholder: 'Ej.: tarea programada del asistente, o recordatorio de calendario + prompt' },
+function frase(v: Record<string, string>, r: (typeof RUTINAS)[number]) {
+  const hora = (v[`${r.id}_hora`] ?? '').trim() || '[hora]';
+  const lugar = (v[`${r.id}_lugar`] ?? '').trim() || '[lugar]';
+  return `Si son las ${hora} y estoy en ${lugar}, entonces abro la planilla y reviso ${r.que.charAt(0).toLowerCase()}${r.que.slice(1)}`;
+}
+
+const FRENOS_VIERNES = [
+  { id: 'f1', texto: 'Ningún precio, descuento o pago salió sin una persona.' },
+  { id: 'f2', texto: 'Ninguna fecha de entrega se comprometió sin confirmar.' },
+  { id: 'f3', texto: 'Todos los reclamos tuvieron respuesta de una persona a tiempo.' },
+  { id: 'f4', texto: 'Cada hoja tiene los datos de esta semana.' },
 ];
 
 function LeccionRutinas() {
-  const [r, setR] = useTextos(K.rutina);
+  const [r, setR] = useTextos(K.rutinas);
   const montado = useMontado();
   const negocio = useNegocio();
   const v = montado ? r : TEXTOS_VACIOS;
-  const rutina = RUTINAS.find((x) => x.id === v.tipo) ?? RUTINAS[0];
-  const ficha = [
-    `RUTINA: ${rutina.t}`,
-    `Qué hace: ${rutina.hace}`,
-    `Cuándo: ${(v.hora ?? '').trim() || rutina.hora}`,
-    `Qué lee: ${(v.fuentes ?? '').trim() || '(definir)'}`,
-    `Dónde deja el borrador: ${(v.donde ?? '').trim() || '(definir)'}`,
-    `Quién lo revisa: ${(v.quien ?? '').trim() || '(definir)'}`,
-    `Con qué corre: ${(v.herramienta ?? '').trim() || '(definir)'}`,
-  ];
-  const prompt = [
-    `Eres el asistente de ${negocio.trim() || '[mi negocio]'}. Lee primero la base de información (esqueleto, reglas de freno, procesos).`,
-    `Tarea: ${rutina.t.toLowerCase()}. ${rutina.hace}`,
-    `Fuentes: ${(v.fuentes ?? '').trim() || '[tus fuentes]'}.`,
-    `Entrega: un borrador corto en ${(v.donde ?? '').trim() || '[dónde lo dejas]'}. No envíes, no respondas a nadie y no cambies nada.`,
-    'Si falta un dato, escribe «FALTA» en vez de inventarlo.',
-  ].join('\n');
   return (
     <>
       <Explica>
         <p>
-          Una rutina automática es una tarea que <strong>se prepara sola, a la misma hora</strong>, sin que tengas que acordarte. En el curso diseñaste tres: el resumen del día, la lista de prospectos y el reporte del lunes. Elige una para empezar; cuando corra bien una semana, sumas la siguiente.
+          Una planilla vale lo que valen sus rutinas: si nadie la abre, deja de decir la verdad en dos semanas. Tu sistema se mantiene con poco: <strong>20 minutos al día, 10 los lunes y 15 los viernes</strong>, más una revisión a fin de mes.
         </p>
         <p>
-          Varios asistentes (ChatGPT, por ejemplo) ya permiten programar una tarea para que corra a una hora fija. Si el tuyo no, un recordatorio de calendario a esa hora con el prompt guardado funciona igual: abres, pegas, revisas. Lo que importa es la ficha: qué hace, cuándo, qué lee, dónde lo deja y quién lo revisa.
+          Lo que más ayuda está bien estudiado: <strong>decidir de antemano a qué hora y dónde</strong> lo vas a hacer, y hacerlo siempre en el mismo momento y lugar. Escrito así: «Si son las [hora] y estoy en [lugar], entonces abro la planilla». Suena simple, y por eso funciona: no dependes de acordarte ni de tener ganas.
         </p>
       </Explica>
-      <DiagramaRutinaAutomatica className="mt-6" />
-      <Subtitulo>1 · Elige tu primera rutina</Subtitulo>
-      <div className="mt-3 grid gap-2 sm:grid-cols-3" role="radiogroup" aria-label="Rutina">
+      <DiagramaRutinasSistema className="mt-6" />
+      <Subtitulo>Tus rutinas: cuándo y dónde</Subtitulo>
+      <div className="mt-4 space-y-3">
         {RUTINAS.map((x) => (
-          <button
-            key={x.id}
-            type="button"
-            role="radio"
-            aria-checked={rutina.id === x.id}
-            onClick={() => setR((p) => ({ ...p, tipo: x.id }))}
-            className={`flex min-h-[96px] flex-col items-start rounded-xl border p-3 text-left ${rutina.id === x.id ? 'border-[#5fb2dd] bg-[#2175a1]/25' : 'border-white/10 bg-white/[0.02] hover:border-white/25'}`}
-          >
-            <span className="font-mono text-[10px] uppercase tracking-wider text-[#5fb2dd]">{x.m}</span>
-            <span className="text-sm font-semibold text-white">{x.t}</span>
-            <span className="mt-1 text-[13px] leading-snug text-slate-300">{x.hace}</span>
-          </button>
+          <div key={x.id} className="rounded-xl border border-white/10 bg-white/[0.02] p-3">
+            <p className="text-sm font-semibold text-white">{x.t}</p>
+            <p className="mt-0.5 text-sm text-slate-400">{x.que}</p>
+            <div className="mt-2 grid gap-2 sm:grid-cols-[140px_1fr]">
+              <label className="block min-w-0 text-xs text-slate-400">
+                A qué hora
+                <input
+                  value={v[`${x.id}_hora`] ?? ''}
+                  onChange={(e) => setR((p) => ({ ...p, [`${x.id}_hora`]: e.target.value }))}
+                  placeholder={`Ej.: ${x.hora}`}
+                  className="mt-1 min-h-[44px] w-full min-w-0 rounded-lg border border-white/10 bg-[#0f172a] px-3 text-[15px] text-slate-100 placeholder:text-slate-600 focus:border-[#5fb2dd] focus:outline-none"
+                />
+              </label>
+              <label className="block min-w-0 text-xs text-slate-400">
+                Dónde
+                <input
+                  value={v[`${x.id}_lugar`] ?? ''}
+                  onChange={(e) => setR((p) => ({ ...p, [`${x.id}_lugar`]: e.target.value }))}
+                  placeholder={`Ej.: ${x.lugar}`}
+                  className="mt-1 min-h-[44px] w-full min-w-0 rounded-lg border border-white/10 bg-[#0f172a] px-3 text-[15px] text-slate-100 placeholder:text-slate-600 focus:border-[#5fb2dd] focus:outline-none"
+                />
+              </label>
+            </div>
+            {montado && (v[`${x.id}_hora`] || v[`${x.id}_lugar`]) ? <p className="mt-2 text-sm italic text-[#5fb2dd]">{frase(v, x)}</p> : null}
+          </div>
         ))}
       </div>
-      <Subtitulo>2 · Su ficha</Subtitulo>
-      <Campos clave={K.rutina} campos={CAMPOS_RUTINA} />
-      <Pantallita titulo={`Ficha · ${rutina.t}`} className="mt-6">
-        <ul className="space-y-1 text-sm">
-          {ficha.map((l) => (
-            <li key={l}>{l}</li>
-          ))}
-        </ul>
-      </Pantallita>
-      <BloqueCopiar titulo="Prompt de la rutina" texto={montado ? prompt : ''} nota="Pruébalo a mano dos días antes de programarlo." />
-      <Freno>Una rutina prepara; no envía. Lo que sale hacia un cliente, o lo que toca plata, plazos o reclamos, lo revisa una persona antes.</Freno>
-      <div className="mt-4">
-        <BotonDescarga etiqueta="Descargar ficha y prompt (.txt)" onClick={() => descargarArchivo('rutina-automatica.txt', armarTxt('Rutina automática', [...ficha, '', 'PROMPT', prompt], negocio))} />
-      </div>
-    </>
-  );
-}
-
-// ─── Lección 5 · Revisión de los viernes ──────────────────────────────────
-
-const CAMPOS_REVISION: Campo[] = [
-  { id: 'hizo', etiqueta: '¿Qué hizo el sistema esta semana?', filas: 2, placeholder: 'Ej.: 5 resúmenes, 1 reporte, 38 mensajes respondidos' },
-  { id: 'fallo', etiqueta: '¿Qué falló?', filas: 2, placeholder: 'Ej.: el asistente respondió tarde en la noche' },
-  { id: 'ajuste', etiqueta: '¿Qué ajusto y dónde lo escribo?', filas: 2, placeholder: 'Ej.: horario del asistente → instrucciones' },
-];
-
-const FRENOS_REVISION = [
-  { id: 'f1', texto: 'Ningún precio, descuento o pago salió sin una persona.' },
-  { id: 'f2', texto: 'Ninguna fecha de entrega se comprometió sola.' },
-  { id: 'f3', texto: 'Todos los reclamos tuvieron respuesta humana a tiempo.' },
-  { id: 'f4', texto: 'La base de información está al día (precios, horarios, procesos).' },
-];
-
-function LeccionRevision() {
-  const [r, setR] = useTextos(K.revision);
-  const [historial, setHistorial] = useFilas(K.historial);
-  const [frenos, setFrenos] = useMarcas(K.frenosRevision);
-  const montado = useMontado();
-  const guardar = () => {
-    if (!CAMPOS_REVISION.some((c) => r[c.id]?.trim())) return;
-    const ok = FRENOS_REVISION.filter((f) => frenos[f.id]).length;
-    setHistorial((p) => [{ _id: nuevoId(), fecha: new Date().toLocaleDateString('es-CL'), hizo: r.hizo ?? '', fallo: r.fallo ?? '', ajuste: r.ajuste ?? '', frenos: `${ok}/${FRENOS_REVISION.length}` } as Fila, ...p].slice(0, 12));
-    setR(() => ({}));
-    setFrenos(() => ({}));
-  };
-  return (
-    <>
-      <Explica>
-        <p>
-          Un sistema que nadie revisa se desordena solo. <strong>Quince minutos los viernes</strong> lo mantienen al día: qué hizo el sistema, qué falló y qué vas a ajustar. Y revisas tus frenos: que nada que toque plata, plazos o reclamos haya salido sin una persona.
-        </p>
-        <p>Cada falla deja un ajuste escrito: una línea en las instrucciones, un paso en un proceso o una regla de freno más. Así el sistema aprende contigo.</p>
-      </Explica>
-      <DiagramaRevisionViernes className="mt-6" />
+      <Subtitulo>La revisión del viernes: tus frenos</Subtitulo>
+      <Instruccion>Al final de los 15 minutos del viernes, marca lo que se cumplió. Si algo no, escribe el ajuste: un paso más en un proceso o una regla de freno nueva.</Instruccion>
+      <Elegibles clave={claveModulo(6, 'frenos_viernes')} opciones={FRENOS_VIERNES} />
       <FotoBanda foto={APOYO.escritorioNoche} posicion="center 50%" />
-      <Subtitulo>Tu revisión de esta semana</Subtitulo>
-      <Campos clave={K.revision} campos={CAMPOS_REVISION} />
-      <p className="mt-6 text-sm font-medium text-slate-200">Los frenos de la semana</p>
-      <Elegibles clave={K.frenosRevision} opciones={FRENOS_REVISION} className="mt-2" />
-      <button type="button" onClick={guardar} className="mt-4 inline-flex min-h-[48px] items-center justify-center rounded-full border border-[#2175a1] bg-[#2175a1]/20 px-6 text-sm font-semibold text-white hover:bg-[#2175a1]/35">
-        Guardar la revisión de hoy
-      </button>
-      {montado && historial.length ? (
-        <div className="mt-6">
-          <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-[#5fb2dd]">Tus revisiones</p>
-          <ul className="mt-2 space-y-2">
-            {historial.map((h) => (
-              <li key={h._id} className="rounded-xl border border-white/10 bg-white/[0.02] p-3 text-sm text-slate-300">
-                <p className="font-mono text-xs text-slate-400">
-                  {h.fecha} · frenos {h.frenos}
-                </p>
-                {h.fallo ? <p className="mt-1">Falló: {h.fallo}</p> : null}
-                {h.ajuste ? <p>Ajuste: {h.ajuste}</p> : null}
-              </li>
-            ))}
-          </ul>
-        </div>
-      ) : null}
-      <Pantallita titulo="Grano Norte · viernes" className="mt-6">
-        <p className="text-sm">Hizo: 5 resúmenes y 41 respuestas. Falló: el asistente respondía a las 23:00 y prometía «mañana temprano». Ajuste: horario de atención en las instrucciones; fuera de horario, mensaje de ausencia.</p>
+      <Pantallita titulo="Grano Norte · las rutinas" className="mt-6">
+        <p className="text-sm">«Si son las 8:30 y estoy en mi escritorio, abro la planilla antes que el WhatsApp.» Camila lo pegó en el monitor. Los lunes a las 9:00, el tablero se mira de pie, con café, en la bodega.</p>
       </Pantallita>
+      <Freno>Si un día no puedes, retoma al siguiente: saltarte un día no arruina la rutina. Lo que la arruina es esperar al lunes para «empezar de nuevo».</Freno>
       <div className="mt-4">
         <BotonDescarga
-          etiqueta="Descargar plantilla de revisión (.txt)"
+          etiqueta="Descargar mis rutinas (.txt)"
           onClick={() =>
             descargarArchivo(
-              'revision-de-los-viernes.txt',
-              armarTxt('Revisión de los viernes · 15 min', [
-                ...CAMPOS_REVISION.map((c) => `${c.etiqueta}\n`),
-                'FRENOS',
-                ...FRENOS_REVISION.map((f) => `[ ] ${f.texto}`),
-                '',
-                ...(historial.length ? ['HISTORIAL', ...historial.map((h) => `${h.fecha} · frenos ${h.frenos} · falló: ${h.fallo || '—'} · ajuste: ${h.ajuste || '—'}`)] : []),
-              ]),
+              'rutinas-de-mi-sistema.txt',
+              armarTxt('Las rutinas de tu sistema', [...RUTINAS.flatMap((x) => [x.t.toUpperCase(), frase(v, x), '']), 'REVISIÓN DEL VIERNES · FRENOS', ...FRENOS_VIERNES.map((f) => `[ ] ${f.texto}`)], negocio),
             )
           }
         />
@@ -491,15 +424,80 @@ function LeccionRevision() {
   );
 }
 
-// ─── Proyecto final · El tablero de tu negocio ─────────────────────────────
+// ─── Lección 5 · Cuándo una planilla ya no basta ──────────────────────────
 
-const DEFAULTS_AREA: Record<AreaId, { rutina: string; plantilla: string; numero: string }> = {
-  marketing: { rutina: 'Una tarde al mes: 4 ideas al calendario. Viernes, 10 min: números por pieza.', plantilla: 'Frase, 3 temas, calendario de 4 semanas y plantillas de comentarios', numero: 'Mensajes de clientes que llegaron por el contenido' },
-  ventas: { rutina: '20 minutos cada día hábil. Seguimientos de propuestas a los 3, 7 y 14 días.', plantilla: 'Mensajes de seguimiento y propuesta de una página', numero: 'Conversaciones nuevas' },
-  operacion: { rutina: 'Resumen del día a las 8:30. Tablero revisado a las 9:00 y a las 17:00.', plantilla: '3 procesos escritos y checklist de entrega', numero: 'Entregas a tiempo' },
-  atencion: { rutina: 'Asistente activo. Derivados revisados 2 veces al día.', plantilla: 'Instrucciones del asistente, reglas de derivación y plantillas de reclamos', numero: '% de mensajes resueltos solos' },
-  finanzas: { rutina: 'Cobranza en fechas fijas. Boletas los viernes. Reporte de 5 números los lunes.', plantilla: 'Planilla de gastos, reporte del lunes y margen', numero: 'Por cobrar' },
-};
+const SENALES = [
+  { id: 's1', texto: 'Más de 5 personas editan la planilla, y a veces al mismo tiempo se pisan.' },
+  { id: 's2', texto: 'Tienes cientos de pedidos al mes y la hoja Pedidos se pone lenta.' },
+  { id: 's3', texto: 'Necesitas que los pedidos generen la factura electrónica o descuenten inventario solos.' },
+  { id: 's4', texto: 'Se rompen fórmulas seguido porque alguien escribe encima.' },
+  { id: 's5', texto: 'Tus clientes necesitan entrar a ver sus pedidos o su estado de cuenta.' },
+  { id: 's6', texto: 'Llevas al menos 3 meses usando la planilla con tus rutinas, y sabes qué te falta.' },
+];
+
+const PROMPT_REVISAR = [
+  'Te pego abajo mi hoja Clientes (es una planilla de un negocio chico). Revísala y dime, en una lista corta:',
+  '1. Qué filas no tienen próximo paso o no tienen fecha.',
+  '2. Qué clientes en «Conversación» o «Propuesta» tienen la fecha del próximo paso vencida.',
+  '3. Qué filas no tienen anotado el Origen.',
+  'No inventes datos: si algo no está en la hoja, dilo. No cambies nada; solo dime qué revisar.',
+  '',
+  '[pega aquí las columnas Nombre, Empresa, Origen, Estado, Próximo paso y Fecha; sin teléfonos, correos ni RUT]',
+].join('\n');
+
+function LeccionCuandoNoBasta() {
+  const [s] = useMarcas(K.senales);
+  const montado = useMontado();
+  const n = montado ? SENALES.filter((x) => s[x.id]).length : 0;
+  return (
+    <>
+      <Explica>
+        <p>
+          Esta planilla es tu primer CRM y tu primer ERP. Para una pyme de 3 a 15 personas suele bastar por mucho tiempo, y tiene una ventaja que ningún software te da: la entiendes completa, porque la armaste tú.
+        </p>
+        <p>
+          Pero hay un punto en que se queda chica. Las señales son concretas: muchas personas editando a la vez, cientos de pedidos al mes, la necesidad de conectar la facturación electrónica o el inventario. Cuando llegues ahí, tu planilla no se pierde: <strong>es la mejor preparación para elegir un software</strong>. Ya sabes qué datos necesitas, quién los actualiza y qué números miras. La mayoría de los CRM y ERP te dejan importar tus hojas tal como están.
+        </p>
+      </Explica>
+      <DiagramaPlanillaOSoftware className="mt-6" />
+      <Subtitulo>¿Cuántas señales tienes hoy?</Subtitulo>
+      <Elegibles clave={K.senales} opciones={SENALES} />
+      {montado ? (
+        <div className="mt-4 rounded-2xl border border-[#5fb2dd]/40 bg-[#2175a1]/10 p-4" aria-live="polite">
+          <p className="text-white">
+            {n <= 1
+              ? 'La planilla te sobra. Dedica el tiempo a las rutinas, no a buscar software.'
+              : n <= 3
+                ? 'Empieza a mirar opciones, sin apuro. Anota qué te falta y prueba 2 o 3 con tus datos antes de pagar.'
+                : 'Es momento de evaluar un software de CRM o ERP. Tu planilla es la lista de requisitos: lo que no sabe hacer, lo tiene que hacer el software.'}
+          </p>
+          <p className="mt-1 text-sm text-slate-400">
+            {n} de {SENALES.length} señales.
+          </p>
+        </div>
+      ) : null}
+      <Pantallita titulo="Grano Norte · por ahora, planilla" className="mt-6">
+        <p className="text-sm">Camila marcó una señal: quiere que los pedidos generen la factura sola. Por ahora sigue con la planilla y anota qué le falta; lo vuelve a mirar en tres meses, con números.</p>
+      </Pantallita>
+      <Subtitulo>Opcional · la IA como segunda mirada</Subtitulo>
+      <p className="mt-3 text-slate-300">{IA_OPCIONAL} Un uso que sirve: pegarle una hoja y pedirle que te diga qué está incompleto.</p>
+      <BloqueCopiar titulo="Texto para copiar · revisar tu hoja Clientes" texto={PROMPT_REVISAR} nota="Funciona en ChatGPT, Claude o Gemini. Revisa lo que te responde contra tu planilla: tú decides." />
+      <Freno>No le pegues a una IA datos que no compartirías: teléfonos, correos, RUT ni datos bancarios de tus clientes. Y la decisión de comprar un software, con su costo mensual, la toma una persona con números, no con una demo.</Freno>
+    </>
+  );
+}
+
+// ─── Proyecto final · Tu ERP en Google Sheets con su tablero ──────────────
+
+function EstadoSemaforo({ s }: { s: Semaforo | null }) {
+  return s ? (
+    <span className="inline-flex items-center gap-1.5 text-slate-300">
+      <PuntoSemaforo semaforo={s} /> {ETIQUETA_SEMAFORO[s]}
+    </span>
+  ) : (
+    <span className="text-slate-500">—</span>
+  );
+}
 
 const ESTILOS_IMPRESION = `
 @media print {
@@ -509,34 +507,51 @@ const ESTILOS_IMPRESION = `
   .m6-final { padding: 0 !important; max-width: none !important; }
   .m6-hoja { border: none !important; padding: 0 !important; margin: 0 !important; }
   .m6-hoja, .m6-hoja *:not(.semaforo-punto) { color: #0f172a !important; background-color: transparent !important; border-color: #cbd5e1 !important; box-shadow: none !important; }
-  .m6-hoja input, .m6-hoja textarea { border: none !important; padding: 0 !important; resize: none !important; }
   .m6-salto { break-before: page; }
   .semaforo-punto { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 }
 `;
-
-const CAMPO_TABLERO = 'w-full rounded-lg border border-white/10 bg-[#0f172a] px-3 py-2 text-[14px] text-slate-100 focus:border-[#5fb2dd] focus:outline-none';
 
 function ProyectoFinal() {
   const montado = useMontado();
   const negocio = useNegocio();
   const reglas = useReglasM0();
   const [antes] = usePersistido(CLAVES_STORAGE.diagnostico, RESPUESTAS_VACIAS);
-  const [m0checks] = usePersistido(CLAVES_STORAGE.checklist, CHECKS_VACIOS);
-  const despues = {
-    marketing: usePersistido(claveModulo(1, 'despues'), RESPUESTAS_VACIAS)[0],
-    ventas: usePersistido(claveModulo(2, 'despues'), RESPUESTAS_VACIAS)[0],
-    operacion: usePersistido(claveModulo(3, 'despues'), RESPUESTAS_VACIAS)[0],
-    atencion: usePersistido(claveModulo(4, 'despues'), RESPUESTAS_VACIAS)[0],
-    finanzas: usePersistido(claveModulo(5, 'despues'), RESPUESTAS_VACIAS)[0],
-  } as Record<AreaId, Record<string, Respuesta>>;
-  const [t, setT] = useTextos(K.tablero);
+  // Semáforo «después» guardado al cierre de cada módulo (la clave usa el número de módulo de cada pieza).
+  const d1 = usePersistido(claveModulo(1, 'despues'), RESPUESTAS_VACIAS)[0];
+  const d2 = usePersistido(claveModulo(2, 'despues'), RESPUESTAS_VACIAS)[0];
+  const d3 = usePersistido(claveModulo(3, 'despues'), RESPUESTAS_VACIAS)[0];
+  const d4 = usePersistido(claveModulo(4, 'despues'), RESPUESTAS_VACIAS)[0];
+  const d5 = usePersistido(claveModulo(5, 'despues'), RESPUESTAS_VACIAS)[0];
+  const porModulo: Record<number, Record<string, Respuesta>> = { 1: d1, 2: d2, 3: d3, 4: d4, 5: d5 };
+  const despues = Object.fromEntries(AREAS.map((a) => [a.id, porModulo[a.modulo] ?? RESPUESTAS_VACIAS])) as Record<AreaId, Record<string, Respuesta>>;
   const [prueba, setPrueba] = useMarcas(K.prueba);
-  const [historial] = useFilas(K.historial);
-  const [rutina] = useTextos(K.rutina);
-  const valor = (area: AreaId, campo: 'rutina' | 'plantilla' | 'numero' | 'quien') => (montado ? t[`${area}_${campo}`] : undefined) ?? (campo === 'quien' ? '' : DEFAULTS_AREA[area][campo]);
+  const [hojas] = useMarcas(K.hojas);
+  const [quien] = useTextos(K.quien);
+  const [rutinas] = useTextos(K.rutinas);
   const guion = GUIONES['m6-final'];
-  const rutinaActiva = RUTINAS.find((x) => x.id === rutina.tipo) ?? RUTINAS[0];
+  const q = montado ? quien : TEXTOS_VACIOS;
+  const r = montado ? rutinas : TEXTOS_VACIOS;
+  const listas = montado ? HOJAS_DATOS.filter((h) => hojas[idHoja(h.nombre)]).length : 0;
+
+  const lineasTxt = [
+    '1 · SEMÁFORO (antes → después)',
+    ...AREAS.map((a) => {
+      const s0 = semaforoGuardado(a.id, antes);
+      const s1 = semaforoGuardado(a.id, despues[a.id]);
+      return `- ${a.nombre}: ${s0 ? ETIQUETA_SEMAFORO[s0] : '—'} → ${s1 ? ETIQUETA_SEMAFORO[s1] : '—'}`;
+    }),
+    '',
+    '2 · LAS HOJAS DE TU SISTEMA (con datos reales · quién la actualiza)',
+    ...HOJAS_DATOS.map((h) => `[${hojas[idHoja(h.nombre)] ? 'x' : ' '}] ${h.nombre} · ${(q[idHoja(h.nombre)] ?? '').trim() || h.quien}`),
+    '- Tablero: se calcula solo; se mira los lunes.',
+    '',
+    '3 · TUS RUTINAS',
+    ...RUTINAS.map((x) => `- ${x.t}: ${frase(r, x)}`),
+    '',
+    '4 · REGLAS DE FRENO (hojas protegidas: Productos y Tablero)',
+    ...(reglas.length ? reglas.map((x, i) => `${i + 1}. ${x}`) : ['(pendientes: módulo 0, lección 4)']),
+  ];
 
   return (
     <section className="m6-final mx-auto max-w-3xl px-4 pb-24 pt-10 sm:px-6 sm:pt-14">
@@ -544,25 +559,27 @@ function ProyectoFinal() {
       <div className="mod-no-print">
         <Kicker>Proyecto final</Kicker>
         <h2 className="mt-3 font-serif text-3xl leading-tight text-white sm:text-4xl">{PROYECTO_FINAL.titulo}</h2>
-        <p className="mt-3 text-slate-300">{PROYECTO_FINAL.texto} Junta lo que armaste en los 7 módulos en un solo documento, compáralo con el mapa del módulo 0 y guárdalo en PDF.</p>
+        <p className="mt-3 text-slate-300">
+          {PROYECTO_FINAL.texto} Aquí juntas lo que armaste en los 7 módulos: compruebas que cada hoja tenga datos reales, comparas tu semáforo con el del módulo 0 y dejas escrito quién actualiza qué y cuándo.
+        </p>
         <div className="mt-6">
           <VideoPendiente titulo={guion?.titulo ?? 'Tu negocio en 6 semanas: antes y después'} guion={guion} portada={FOTOS.retrato} posicion="center 20%" />
         </div>
 
-        <Subtitulo>1 · La prueba real: una rutina sola durante una semana</Subtitulo>
-        <p className="mt-2 text-slate-300">Tu rutina elegida: {rutinaActiva.t.toLowerCase()}.</p>
+        <Subtitulo>1 · La prueba real: una semana con tu sistema</Subtitulo>
+        <p className="mt-2 text-slate-300">Una semana con tus rutinas y el tablero revisado el lunes con tu equipo.</p>
         <Checklist
           titulo="Durante la semana"
           items={[
-            { id: 'p1', texto: 'La rutina corrió sola al menos 5 días.' },
-            { id: 'p2', texto: 'Revisé cada borrador antes de que saliera algo.' },
-            { id: 'p3', texto: 'Hice mi revisión del viernes y anoté un ajuste.' },
+            { id: 'p1', texto: 'Hice la rutina diaria de 20 minutos al menos 4 días.' },
+            { id: 'p2', texto: 'El lunes miramos el tablero con el equipo y decidimos una cosa.' },
+            { id: 'p3', texto: 'El viernes revisé que cada hoja estuviera al día y mis frenos.' },
           ]}
           checks={montado ? prueba : CHECKS_VACIOS}
           onToggle={(id) => setPrueba((p) => ({ ...p, [id]: !p[id] }))}
         />
 
-        <Subtitulo>2 · Tu semáforo de las 5 áreas, hoy</Subtitulo>
+        <Subtitulo>2 · Tu semáforo de las 5 piezas, hoy</Subtitulo>
         <p className="mt-2 text-slate-300">Si ya lo respondiste al cierre de cada módulo, aparece marcado. Completa lo que falte.</p>
         {AREAS.map((a) => (
           <details key={a.id} className="group mt-3 rounded-xl border border-white/10 bg-white/[0.02] px-4" open={montado && !semaforoGuardado(a.id, despues[a.id])}>
@@ -584,107 +601,82 @@ function ProyectoFinal() {
           </details>
         ))}
 
-        <Subtitulo>3 · Tu tablero</Subtitulo>
-        <p className="mt-2 text-slate-300">Revisa y ajusta la rutina, la plantilla, el número semanal y el responsable de cada área. Lo que escribas aquí queda en la hoja.</p>
+        <Subtitulo>3 · Las hojas de tu sistema</Subtitulo>
+        <p className="mt-2 text-slate-300">Marca las hojas que ya tienen datos reales de tu negocio. El tablero solo dice la verdad si todas están al día.</p>
+        <Elegibles clave={K.hojas} opciones={HOJAS_DATOS.map((h) => ({ id: idHoja(h.nombre), texto: `${h.nombre} · ${h.guarda}` }))} />
+        <p className="mt-3 text-sm text-slate-400">
+          {listas} de {HOJAS_DATOS.length} hojas con datos reales.
+        </p>
       </div>
 
-      <div className="m6-hoja mt-6 rounded-2xl border border-white/15 bg-white/[0.03] p-5 sm:p-8">
+      <div className="m6-hoja mt-8 rounded-2xl border border-white/15 bg-white/[0.03] p-5 sm:p-8">
         <div className="flex flex-wrap items-baseline justify-between gap-2 border-b border-white/10 pb-4">
           <div>
-            <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-slate-400">El tablero de tu negocio</p>
+            <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-slate-400">Tu ERP en Google Sheets · proyecto final</p>
             <p className="mt-1 font-serif text-2xl text-white sm:text-3xl">{(montado && negocio.trim()) || 'Mi negocio'}</p>
           </div>
           <p className="font-mono text-xs text-slate-400">{montado ? new Date().toLocaleDateString('es-CL') : ''}</p>
         </div>
 
-        <h3 className="mt-6 text-xs uppercase tracking-wider text-slate-400">1 · Mapa y semáforo, antes y después</h3>
-        <table className="mt-3 w-full text-left text-sm">
-          <thead>
-            <tr className="text-[11px] uppercase tracking-wider text-slate-500">
-              <th className="py-1 font-normal">Área</th>
-              <th className="py-1 font-normal">Antes</th>
-              <th className="py-1 font-normal">Después</th>
-            </tr>
-          </thead>
-          <tbody>
-            {AREAS.map((a) => {
-              const s0 = montado ? semaforoGuardado(a.id, antes) : null;
-              const s1 = montado ? semaforoGuardado(a.id, despues[a.id]) : null;
-              return (
-                <tr key={a.id} className="border-t border-white/5">
-                  <td className="py-2 pr-2 text-slate-100">{a.nombre}</td>
-                  <td className="py-2 pr-2">
-                    {s0 ? (
-                      <span className="inline-flex items-center gap-1.5 text-slate-300">
-                        <PuntoSemaforo semaforo={s0} /> {ETIQUETA_SEMAFORO[s0]}
-                      </span>
-                    ) : (
-                      <span className="text-slate-500">—</span>
-                    )}
-                  </td>
-                  <td className="py-2">
-                    {s1 ? (
-                      <span className="inline-flex items-center gap-1.5 text-slate-300">
-                        <PuntoSemaforo semaforo={s1} /> {ETIQUETA_SEMAFORO[s1]}
-                      </span>
-                    ) : (
-                      <span className="text-slate-500">—</span>
-                    )}
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+        <h3 className="mt-6 text-xs uppercase tracking-wider text-slate-400">1 · Semáforo, antes y después</h3>
+        <ul className="mt-3 space-y-2 text-sm">
+          {AREAS.map((a) => {
+            const s0 = montado ? semaforoGuardado(a.id, antes) : null;
+            const s1 = montado ? semaforoGuardado(a.id, despues[a.id]) : null;
+            return (
+              <li key={a.id} className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 border-t border-white/5 pt-2 first:border-t-0 first:pt-0">
+                <span className="text-slate-100">
+                  {a.nombre} <span className="font-mono text-[11px] text-slate-500">· hoja {a.hoja}</span>
+                </span>
+                <span className="flex items-center gap-2 text-xs">
+                  <EstadoSemaforo s={s0} /> <span aria-hidden className="text-slate-500">→</span> <EstadoSemaforo s={s1} />
+                </span>
+              </li>
+            );
+          })}
+        </ul>
 
-        <h3 className="mt-6 text-xs uppercase tracking-wider text-slate-400">2 · Esqueleto y reglas de freno</h3>
-        <p className="mt-2 text-sm text-slate-200">{montado && m0checks.l3a ? 'Esqueleto completo: vive en la carpeta 01 de la base de información.' : 'Esqueleto: pendiente (módulo 0, lección 3).'}</p>
+        <h3 className="mt-6 text-xs uppercase tracking-wider text-slate-400">2 · Las hojas y quién las actualiza</h3>
+        <ul className="mt-2 space-y-1.5 text-sm text-slate-200">
+          {HOJAS_DATOS.map((h) => (
+            <li key={h.nombre} className="flex gap-2">
+              <span aria-hidden className={montado && hojas[idHoja(h.nombre)] ? 'text-[#5fb2dd]' : 'text-slate-500'}>
+                {montado && hojas[idHoja(h.nombre)] ? '✓' : '○'}
+              </span>
+              <span className="min-w-0">
+                <strong className="font-semibold text-white">{h.nombre}</strong> · {(q[idHoja(h.nombre)] ?? '').trim() || h.quien}
+              </span>
+            </li>
+          ))}
+          <li className="flex gap-2">
+            <span aria-hidden className="text-[#5fb2dd]">✓</span>
+            <span className="min-w-0">
+              <strong className="font-semibold text-white">Tablero</strong> · se calcula solo; se mira los lunes con el equipo.
+            </span>
+          </li>
+        </ul>
+
+        <h3 className="m6-salto mt-6 text-xs uppercase tracking-wider text-slate-400">3 · Tus rutinas</h3>
+        <ul className="mt-2 space-y-1.5 text-sm text-slate-200">
+          {RUTINAS.map((x) => (
+            <li key={x.id}>
+              <strong className="font-semibold text-white">{x.t}.</strong> {frase(r, x)}
+            </li>
+          ))}
+        </ul>
+
+        <h3 className="mt-6 text-xs uppercase tracking-wider text-slate-400">4 · Reglas de freno · hojas protegidas: Productos y Tablero</h3>
         {montado && reglas.length ? (
           <ol className="mt-2 list-decimal space-y-1 pl-5 text-sm text-slate-200">
-            {reglas.map((r) => (
-              <li key={r}>{r}</li>
+            {reglas.map((x) => (
+              <li key={x}>{x}</li>
             ))}
           </ol>
         ) : (
-          <p className="mt-1 text-sm text-slate-400">Reglas de freno: pendientes (módulo 0, lección 4).</p>
+          <p className="mt-2 text-sm text-slate-400">Pendientes: módulo 0, lección 4.</p>
         )}
 
-        <h3 className="m6-salto mt-6 text-xs uppercase tracking-wider text-slate-400">3 · Cada área: rutina, plantilla, número semanal y responsable</h3>
-        <div className="mt-3 space-y-4">
-          {AREAS.map((a) => (
-            <div key={a.id} className="border-t border-white/10 pt-3">
-              <p className="font-serif text-lg text-white">
-                {a.nombre} <span className="font-mono text-[11px] text-slate-500">· módulo {a.modulo}</span>
-              </p>
-              <div className="mt-2 grid gap-2 sm:grid-cols-2">
-                {(
-                  [
-                    { c: 'rutina', l: 'Rutina (qué, cuándo)' },
-                    { c: 'quien', l: 'Quién' },
-                    { c: 'plantilla', l: 'Plantilla' },
-                    { c: 'numero', l: 'Número semanal' },
-                  ] as const
-                ).map((x) => (
-                  <label key={x.c} className="block text-[11px] uppercase tracking-wider text-slate-400">
-                    {x.l}
-                    <textarea
-                      rows={x.c === 'quien' ? 1 : 2}
-                      value={valor(a.id, x.c)}
-                      placeholder={x.c === 'quien' ? 'Nombre del responsable' : ''}
-                      onChange={(e) => setT((p) => ({ ...p, [`${a.id}_${x.c}`]: e.target.value }))}
-                      className={`mt-1 resize-y normal-case tracking-normal ${CAMPO_TABLERO}`}
-                    />
-                  </label>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-
-        <h3 className="mt-6 text-xs uppercase tracking-wider text-slate-400">4 · La revisión de los viernes</h3>
-        <p className="mt-2 text-sm text-slate-200">15 minutos: qué hizo el sistema, qué falló, qué ajustar y revisar los frenos.{montado && historial.length ? ` Última revisión: ${historial[0].fecha}.` : ''}</p>
-
-        <p className="mt-8 border-t border-white/10 pt-3 font-mono text-[10px] text-slate-500">Curso «Tu negocio de punta a punta» · Proyecto final · Villelab</p>
+        <p className="mt-8 border-t border-white/10 pt-3 font-mono text-[10px] text-slate-500">Curso «El sistema de tu negocio» · Proyecto final · Villelab</p>
       </div>
 
       <div className="mod-no-print">
@@ -692,45 +684,14 @@ function ProyectoFinal() {
           <button type="button" onClick={() => window.print()} className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full bg-[#FF3D8B] px-6 text-sm font-semibold text-white hover:bg-[#ff5c9f]">
             <Printer className="h-4 w-4" aria-hidden /> Imprimir o guardar en PDF
           </button>
-          <BotonDescarga
-            etiqueta="Descargar tablero (.txt)"
-            onClick={() =>
-              descargarArchivo(
-                'tablero-de-mi-negocio.txt',
-                armarTxt(
-                  'El tablero de tu negocio',
-                  [
-                    '1 · MAPA Y SEMÁFORO (antes → después)',
-                    ...AREAS.map((a) => {
-                      const s0 = semaforoGuardado(a.id, antes);
-                      const s1 = semaforoGuardado(a.id, despues[a.id]);
-                      return `- ${a.nombre}: ${s0 ? ETIQUETA_SEMAFORO[s0] : '—'} → ${s1 ? ETIQUETA_SEMAFORO[s1] : '—'}`;
-                    }),
-                    '',
-                    '2 · REGLAS DE FRENO',
-                    ...(reglas.length ? reglas.map((r, i) => `${i + 1}. ${r}`) : ['(pendientes)']),
-                    '',
-                    '3 · CADA ÁREA',
-                    ...AREAS.flatMap((a) => [
-                      a.nombre.toUpperCase(),
-                      `  Rutina: ${valor(a.id, 'rutina')}`,
-                      `  Quién: ${valor(a.id, 'quien') || '(definir)'}`,
-                      `  Plantilla: ${valor(a.id, 'plantilla')}`,
-                      `  Número semanal: ${valor(a.id, 'numero')}`,
-                    ]),
-                    '',
-                    '4 · REVISIÓN DE LOS VIERNES: 15 min · qué hizo, qué falló, qué ajustar, frenos.',
-                  ],
-                  negocio,
-                ),
-              )
-            }
-          />
+          <BotonDescarga etiqueta="Descargar proyecto final (.txt)" onClick={() => descargarArchivo('proyecto-final-mi-sistema.txt', armarTxt(PROYECTO_FINAL.titulo, lineasTxt, negocio))} />
         </div>
+
+        <DescargaPlantilla className="mt-8" titulo="Tu planilla del sistema" />
 
         <div className="mt-8 rounded-2xl border border-[#5fb2dd]/40 bg-[#2175a1]/10 p-5">
           <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-[#5fb2dd]">Certificado de finalización</p>
-          <p className="mt-2 text-slate-200">Guarda tu tablero en PDF: es lo que subes para recibir tu certificado de finalización del curso.</p>
+          <p className="mt-2 text-slate-200">Guarda esta hoja en PDF y tenla junto a tu planilla con datos reales: eso es tu proyecto final, y al entregarlo recibes tu certificado de finalización del curso.</p>
         </div>
 
         <div className="mt-6 grid gap-5 overflow-hidden rounded-2xl border border-white/10 sm:grid-cols-[200px_1fr]">
@@ -741,7 +702,7 @@ function ProyectoFinal() {
           <div className="p-5 sm:pl-0">
             <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-slate-400">Siguiente paso opcional</p>
             <p className="mt-2 font-serif text-xl text-white">Una sesión de 90 minutos para armar contigo lo que quedó pendiente</p>
-            <p className="mt-2 text-sm text-slate-400">Traes tu tablero y lo dejamos funcionando en el área que más te cuesta.</p>
+            <p className="mt-2 text-sm text-slate-400">Traes tu planilla y la dejamos funcionando en la hoja que más te cuesta.</p>
             <a
               href={LINKS.agendar}
               target="_blank"
@@ -763,60 +724,60 @@ function ProyectoFinal() {
 
 const LECCIONES: LeccionDef[] = [
   {
-    id: 'decision',
-    bajada: 'Cuándo basta con una herramienta lista (como Fidelidapp) y cuándo conviene armar lo propio.',
-    portada: FOTOS.tutorial,
+    id: 'lunes',
+    bajada: 'Ventas del mes, propuestas abiertas, pedidos atrasados, casos abiertos, por cobrar y caja: la hoja Tablero los calcula sola desde tus hojas.',
+    portada: APOYO.tableroLaptop,
+    contenido: <LeccionLunes />,
+    checklist: [
+      { id: 'l1a', texto: 'Abrí la hoja Tablero (la mía o la del ejemplo).' },
+      { id: 'l1b', texto: 'Entiendo qué dice cada número.' },
+      { id: 'l1c', texto: 'Anoté el número que más me preocupa y qué hago con él.' },
+    ],
+  },
+  {
+    id: 'conexiones',
+    bajada: 'Qué lee cada número del tablero, por qué cada dato se anota en un solo lugar y qué pasa si una hoja queda sin actualizar.',
+    portada: FOTOS.pizarra,
     posicion: 'center 30%',
-    contenido: <LeccionDecision />,
+    contenido: <LeccionConexiones />,
     checklist: [
-      { id: 'l1a', texto: 'Respondí las 5 preguntas para mi área más cargada.' },
-      { id: 'l1b', texto: 'Decidí qué uso listo y qué armo propio.' },
-      { id: 'l1c', texto: 'Anoté qué herramientas ya pago y no uso.' },
+      { id: 'l2a', texto: 'Sé qué hoja alimenta cada número.' },
+      { id: 'l2b', texto: 'Hice la práctica de dónde se anota cada cosa.' },
+      { id: 'l2c', texto: 'Revisé que no tengo un mismo dato anotado en dos lugares.' },
     ],
   },
   {
-    id: 'base',
-    bajada: 'Esqueleto, procesos, plantillas y reglas en un solo lugar ordenado (carpeta o proyecto en Claude) que todos tus asistentes leen.',
-    portada: APOYO.escritorioClaro,
-    contenido: <LeccionBase />,
+    id: 'compartir',
+    bajada: 'Google Sheets con permisos: quién edita cada hoja, quién solo mira y qué hojas quedan protegidas.',
+    portada: APOYO.oficina,
+    contenido: <LeccionCompartir />,
     checklist: [
-      { id: 'l2a', texto: 'Creé la carpeta con sus 6 subcarpetas.' },
-      { id: 'l2b', texto: 'Guardé ahí los documentos que armé en el curso.' },
-      { id: 'l2c', texto: 'Escribí el LEEME con quién actualiza cada carpeta.' },
-    ],
-  },
-  {
-    id: 'permisos',
-    bajada: 'Con permisos mínimos: qué puede leer y qué solo puede dejar en borrador.',
-    portada: FOTOS.explicando,
-    posicion: 'center 25%',
-    contenido: <LeccionPermisos />,
-    checklist: [
-      { id: 'l3a', texto: 'Clasifiqué las 10 acciones.' },
-      { id: 'l3b', texto: 'Revisé qué apps tienen acceso a mi correo y calendario.' },
-      { id: 'l3c', texto: 'Desconecté lo que ya no uso.' },
+      { id: 'l3a', texto: 'Compartí la planilla con mi equipo, con correos.' },
+      { id: 'l3b', texto: 'Protegí Productos y Tablero.' },
+      { id: 'l3c', texto: 'Cada hoja tiene un responsable.' },
     ],
   },
   {
     id: 'rutinas',
-    bajada: 'Resumen del día, lista de prospectos y reporte del lunes: cómo dejarlas corriendo a una hora fija.',
+    bajada: '20 minutos al día, 10 los lunes y 15 los viernes: a qué hora, dónde y quién actualiza cada hoja.',
     portada: APOYO.mesaCafe,
     contenido: <LeccionRutinas />,
     checklist: [
-      { id: 'l4a', texto: 'Elegí mi primera rutina.' },
-      { id: 'l4b', texto: 'Completé su ficha.' },
-      { id: 'l4c', texto: 'La dejé programada (o con recordatorio y prompt).' },
+      { id: 'l4a', texto: 'Escribí cuándo y dónde hago cada rutina.' },
+      { id: 'l4b', texto: 'Las agendé en mi calendario.' },
+      { id: 'l4c', texto: 'Hice mi primera revisión del viernes.' },
     ],
   },
   {
-    id: 'revision',
-    bajada: '15 minutos los viernes para revisar qué hizo el sistema, qué falló y qué ajustar.',
-    portada: APOYO.calendario,
-    contenido: <LeccionRevision />,
+    id: 'cuando-no-basta',
+    bajada: 'Las señales concretas para pasar a un software de CRM o ERP, y por qué tu planilla te deja listo para hacerlo.',
+    portada: FOTOS.tutorial,
+    posicion: 'center 30%',
+    contenido: <LeccionCuandoNoBasta />,
     checklist: [
-      { id: 'l5a', texto: 'Agendé 15 minutos los viernes.' },
-      { id: 'l5b', texto: 'Hice mi primera revisión y la guardé.' },
-      { id: 'l5c', texto: 'Escribí un ajuste en la base de información.' },
+      { id: 'l5a', texto: 'Revisé cuántas señales tengo hoy.' },
+      { id: 'l5b', texto: 'Anoté qué le falta a mi planilla, si algo.' },
+      { id: 'l5c', texto: 'Decidí cuándo lo vuelvo a mirar.' },
     ],
   },
 ];
@@ -825,12 +786,12 @@ export default function Modulo6Content() {
   return (
     <ModuloCurso
       numero={6}
-      intro="Arma tu sistema propio. Juntas todo en una base de información, conectas correo, calendario y planillas con permisos mínimos, dejas una rutina corriendo sola y cierras con el tablero de tu negocio."
+      intro="El tablero que lo junta todo. Al terminar tienes tu ERP en Google Sheets: tus hojas conectadas en un tablero que miras los lunes, compartido con tu equipo con permisos, tus rutinas escritas y claro cuándo te convendría pasar a un software."
       portada={APOYO.oficina}
       lecciones={LECCIONES}
       cierre={<ProyectoFinal />}
-      etiquetaCierre="Tablero"
-      textoIrCierre="Ir al proyecto final: el tablero de tu negocio"
+      etiquetaCierre="Final"
+      textoIrCierre="Ir al proyecto final: tu ERP en Google Sheets"
     />
   );
 }

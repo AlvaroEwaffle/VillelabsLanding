@@ -1,7 +1,8 @@
 'use client';
 
 /*
- * Piezas compartidas de los módulos 1–6 del curso «Tu negocio de punta a punta» (8-nov-2026).
+ * Piezas compartidas de los módulos 1–6 del curso «El sistema de tu negocio: tu primer CRM y ERP en Google Sheets»
+ * (v1.0 «Tu negocio de punta a punta», 8-nov-2026; v1.1 con el enfoque CRM/ERP, mismo día).
  * Mismo formato que el módulo 0 (Modulo0Content.tsx, que no se tocó): una lección por pantalla, la página
  * en el hash (#leccion-2, #cierre) y en localStorage, checklist «Antes de seguir», video pendiente con su
  * guion, plantillas descargables y una página de cierre con la prueba real, el semáforo del área antes y
@@ -27,6 +28,7 @@ import { GUIONES, type Guion } from '@/lib/productos/curso/guiones';
 import { useMontado, usePersistido } from '@/lib/productos/curso/persistencia';
 import type { ImagenApoyo } from '@/lib/productos/apoyo';
 import { Foto, Kicker, PuntoSemaforo, VideoProximamente } from './piezas';
+import { DescargaPlantilla } from './Plantilla';
 
 // ─── Tipos y constantes ───────────────────────────────────────────────────
 
@@ -77,7 +79,7 @@ export function armarTxt(titulo: string, cuerpo: string[], negocio?: string): st
     '',
     ...cuerpo,
     '',
-    'Curso «Tu negocio de punta a punta» · Villelab',
+    'Curso «El sistema de tu negocio» · Villelab',
   ].join('\r\n');
 }
 
@@ -95,7 +97,7 @@ export function armarIcs(eventos: { fecha: Date; titulo: string; detalle?: strin
   const esc = (s: string) => s.replace(/\\/g, '\\\\').replace(/;/g, '\\;').replace(/,/g, '\\,').replace(/\n/g, '\\n');
   const ymd = (d: Date) => `${d.getFullYear()}${String(d.getMonth() + 1).padStart(2, '0')}${String(d.getDate()).padStart(2, '0')}`;
   const sello = new Date().toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
-  const lineas = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Villelab//Curso punta a punta//ES', 'CALSCALE:GREGORIAN'];
+  const lineas = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Villelab//Curso El sistema de tu negocio//ES', 'CALSCALE:GREGORIAN'];
   eventos.forEach((e, i) => {
     const fin = new Date(e.fecha);
     fin.setDate(fin.getDate() + 1);
@@ -670,9 +672,12 @@ export function CierreModulo({
   resumen,
   descargar,
   extra,
+  hoja,
 }: {
   numero: number;
   area: AreaId;
+  /** Hoja (o hojas) de la planilla del sistema que se trabajan en el módulo. */
+  hoja?: string;
   pruebaReal: ItemCheck[];
   /** Lo que la persona armó en el módulo, para revisar antes de descargar. */
   resumen: ReactNode;
@@ -687,7 +692,7 @@ export function CierreModulo({
       <Kicker>Cierre del módulo {numero}</Kicker>
       <h2 className="mt-3 font-serif text-3xl leading-tight text-white sm:text-4xl">Tu semana de prueba y tu entregable</h2>
       <p className="mt-3 text-slate-300">
-        Lo que armaste en las lecciones se prueba ahora con tu negocio, durante la semana. Al terminar, vuelve, mide tu área otra vez y descarga el entregable: se suma al tablero de tu negocio.
+        Lo que armaste en las lecciones se prueba ahora con tu negocio, durante la semana. Al terminar, vuelve, mide esta pieza otra vez y descarga el entregable: se suma a la planilla de tu sistema.
       </p>
 
       <Subtitulo>1 · La prueba real</Subtitulo>
@@ -704,6 +709,15 @@ export function CierreModulo({
       <div className="mt-4">
         <BotonDescarga principal etiqueta="Descargar mi entregable (.txt)" onClick={descargar} />
       </div>
+      {hoja ? (
+        <>
+          <Subtitulo>4 · Tu planilla: {hoja}</Subtitulo>
+          <p className="mt-2 text-slate-300">
+            Lo de esta semana vive en tu planilla del sistema, la misma que abriste en el módulo 0. Si todavía no la tienes, o te falta una hoja, descárgala aquí y copia la hoja que necesitas.
+          </p>
+          <DescargaPlantilla className="mt-4" titulo="La planilla de tu sistema" />
+        </>
+      ) : null}
       <PieModulos actual={numero} />
     </section>
   );

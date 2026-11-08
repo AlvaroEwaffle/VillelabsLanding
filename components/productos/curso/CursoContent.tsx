@@ -1,17 +1,21 @@
 'use client';
 
 /*
- * /curso — página de venta del curso «Tu negocio de punta a punta» en preventa (7-nov-2026).
- * Textos: contenido-primeros-productos.html (PRODUCTO 4 · CURSO), aprobados por Álvaro.
+ * /curso — página de venta del curso «El sistema de tu negocio: tu primer CRM y ERP en Google Sheets» en preventa.
+ * v1.0 (7-nov-2026) «Tu negocio de punta a punta»; v1.1 (8-nov-2026) reposicionado como «construye tu primer CRM y ERP»
+ * con la investigación de demanda (persona Rodrigo) y la base de evidencia. Hero compacto (corrección de Álvaro, 8-nov):
+ * cabe en el primer viewport de escritorio y «El curso en corto» queda como franja bajo el hero.
  * Precio: PRECIO_FUNDADOR en lib/productos/curso/curso.ts (null = se oculta la cifra).
  * Medición: todo clic a la compra emite curso_click_compra al dataLayer.
  */
 
 import Link from 'next/link';
 import { useState } from 'react';
-import { ArrowRight, Check, ChevronDown, ClipboardCheck, ClipboardList, Eye, FlaskConical, Handshake, LayoutDashboard, Map as MapIcon, Megaphone, MessageCircle, Wallet, Workflow, X, type LucideIcon } from 'lucide-react';
+import { ArrowRight, Check, ChevronDown, ClipboardCheck, ClipboardList, Eye, FileSpreadsheet, FlaskConical, Handshake, LayoutDashboard, Map as MapIcon, Megaphone, MessageCircle, Sparkles, Wallet, X, type LucideIcon } from 'lucide-react';
 import { LINKS } from '@/lib/productos/links';
-import { AREAS, CASO, CURSO, FAQ, MODULOS, PARA_QUIEN, PREVENTA, PROYECTO_FINAL, textoPrecio } from '@/lib/productos/curso/curso';
+import { AREAS, CASO, CURSO, FAQ, HOJAS, IA_OPCIONAL, MODULOS, PARA_QUIEN, PREVENTA, PROYECTO_FINAL, QUE_ES, textoPrecio } from '@/lib/productos/curso/curso';
+import { VERSION_CURSO, VERSIONES_CURSO, fechaLarga } from '@/lib/productos/curso/versiones';
+import EnQueSeBasa from './EnQueSeBasa';
 import { trackCursoClickCompra } from '@/lib/productos/curso/tracking';
 import { FOTOS } from '@/lib/productos/fotos';
 import { APOYO, type ImagenApoyo } from '@/lib/productos/apoyo';
@@ -23,12 +27,12 @@ import { VideoMarco } from '@/components/productos/VideoProducto';
 // (lib/productos/apoyo.ts); la cara de Álvaro queda en la portada y en «Quién lo enseña».
 const IMAGEN_MODULO: Record<number, { foto: ImagenApoyo; icono: LucideIcon; posicion?: string }> = {
   0: { foto: APOYO.tableroKanban, icono: MapIcon },
-  1: { foto: APOYO.contenidoTripode, icono: Megaphone },
-  2: { foto: APOYO.cafeteria, icono: Handshake },
+  1: { foto: APOYO.cafeteria, icono: Handshake },
+  2: { foto: APOYO.contenidoTripode, icono: Megaphone },
   3: { foto: APOYO.cajasDespacho, icono: ClipboardList },
   4: { foto: APOYO.celularMensajes, icono: MessageCircle },
   5: { foto: APOYO.finanzas, icono: Wallet },
-  6: { foto: APOYO.tableroLaptop, icono: Workflow },
+  6: { foto: APOYO.tableroLaptop, icono: LayoutDashboard },
 };
 
 function BotonCompra({ ubicacion, texto = 'Quiero el curso en preventa' }: { ubicacion: string; texto?: string }) {
@@ -86,45 +90,56 @@ export default function CursoContent() {
 
   return (
     <main className="relative w-full overflow-x-hidden bg-[#0f172a] text-slate-100">
-      {/* Hero */}
-      <section className="mx-auto max-w-6xl px-4 pb-12 pt-32 sm:px-6 md:pt-40">
-        <div className="grid items-start gap-10 lg:grid-cols-[1fr_360px]">
+      {/* Hero: dos columnas centradas que caben en el primer viewport de escritorio; foto acotada. */}
+      <section className="mx-auto max-w-6xl px-4 pb-10 pt-28 sm:px-6 md:pt-32">
+        <div className="grid items-center gap-8 lg:grid-cols-[1fr_400px] lg:gap-12">
+          <figure className="relative aspect-[16/10] max-h-[260px] w-full overflow-hidden rounded-3xl border border-white/10 sm:max-h-[340px] lg:order-last lg:aspect-[4/5] lg:max-h-[460px]">
+            <Foto foto={FOTOS.explicando} posicion="center 12%" prioridad />
+            <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-[#0f172a]/50 via-transparent to-transparent" />
+          </figure>
           <div>
             <Kicker>Curso · Preventa abierta</Kicker>
-            <h1 className="mt-5 max-w-4xl font-serif text-4xl leading-tight text-white sm:text-5xl md:text-6xl">{CURSO.nombre}</h1>
-            <p className="mt-6 max-w-2xl text-base text-slate-300 sm:text-lg">{CURSO.promesa}</p>
-            <p className="mt-6 inline-flex items-center gap-2 rounded-full border border-[#5fb2dd]/30 bg-[#5fb2dd]/10 px-4 py-2 text-sm text-[#5fb2dd]">
+            <h1 className="mt-4 max-w-3xl font-serif text-4xl leading-[1.08] text-white sm:text-5xl lg:text-[3.4rem]">{CURSO.nombre}</h1>
+            <p className="mt-3 font-serif text-xl text-[#5fb2dd] sm:text-2xl">{CURSO.apellido}</p>
+            <p className="mt-5 max-w-2xl text-base text-slate-300 sm:text-lg">{CURSO.promesa}</p>
+            <p className="mt-5 inline-flex items-center gap-2 rounded-full border border-[#5fb2dd]/30 bg-[#5fb2dd]/10 px-4 py-2 text-sm text-[#5fb2dd]">
               {textoPrecio()} · el módulo 0 lo recibes hoy
             </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+            <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               <BotonCompra ubicacion="hero" />
               <BotonModulo0 texto="Ver el módulo 0 de muestra" />
             </div>
+            <p className="mt-4 text-xs text-slate-500">
+              Versión {VERSION_CURSO.version} · actualizado el {fechaLarga(VERSION_CURSO.fecha)} ·{' '}
+              <a href="#versiones" className="underline-offset-2 hover:text-slate-300 hover:underline">
+                qué cambió
+              </a>
+            </p>
           </div>
-          <aside className="overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03]">
-            <div className="relative aspect-[4/3] lg:aspect-[4/5]">
-              <Foto foto={FOTOS.explicando} posicion="center 6%" prioridad />
-              <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-[#131c31] via-transparent to-transparent" />
-            </div>
-            <div className="p-6 pt-2">
-            <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-slate-400">El curso en corto</p>
-            <dl className="mt-4 space-y-4">
-              {CURSO.formato.map((f) => (
-                <div key={f.etiqueta}>
-                  <dt className="text-xs uppercase tracking-wider text-slate-500">{f.etiqueta}</dt>
-                  <dd className="mt-1 text-slate-100">{f.valor}</dd>
-                </div>
-              ))}
-            </dl>
-            </div>
-          </aside>
         </div>
-        {/* Video 8 · venta de la preventa (8-nov-2026) */}
+      </section>
+
+      {/* El curso en corto: franja bajo el hero (5 datos en fila en escritorio, apilados en celular). */}
+      <section aria-label="El curso en corto" className="mx-auto max-w-6xl px-4 sm:px-6">
+        <dl className="grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-white/10 bg-white/10 sm:grid-cols-3 lg:grid-cols-5">
+          {CURSO.formato.map((f, i) => (
+            <div key={f.etiqueta} className={`bg-[#111a2e] p-4 sm:p-5 ${i === CURSO.formato.length - 1 ? 'col-span-2 sm:col-span-1' : ''}`}>
+              <dt className="font-mono text-[10px] uppercase tracking-[0.18em] text-slate-500">{f.etiqueta}</dt>
+              <dd className="mt-1.5 text-sm text-slate-100">{f.valor}</dd>
+            </div>
+          ))}
+        </dl>
+        <p className="mt-4 max-w-3xl text-sm text-slate-400">{CURSO.noEsSoftware}</p>
+        {/* Video 8 · venta de la preventa (8-nov-2026). Grabado con la v1.0: pendiente de regrabar con el enfoque CRM/ERP. */}
         <VideoMarco id="v08-curso-venta" titulo="Tu negocio, ordenado en 6 semanas" duracion="50 s" className="mt-10 max-w-3xl" />
+        <p className="mt-2 max-w-3xl text-xs text-slate-500">
+          Este video es de la primera versión del curso: el final habla de agentes. Desde la versión 1.1, el resultado es tu planilla con su tablero, y la IA
+          es una ayuda opcional. Lo vamos a regrabar.
+        </p>
       </section>
 
       {/* Para quién */}
-      <Seccion kicker="Para quién es" titulo="Para dueñas y dueños de negocio que hoy son el cuello de botella.">
+      <Seccion kicker="Para quién es" titulo="Para dueñas y dueños de pyme que hoy son el cuello de botella.">
         <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-[260px_1fr_1fr]">
           <figure className="relative aspect-[16/10] overflow-hidden rounded-2xl border border-white/10 md:col-span-2 lg:col-span-1 lg:aspect-auto lg:min-h-[320px]">
             <Foto foto={APOYO.celularPendientes} posicion="55% 40%" />
@@ -153,12 +168,24 @@ export default function CursoContent() {
         <DiagramaCuelloBotella className="mt-5" />
       </Seccion>
 
-      {/* Mapa de 5 áreas */}
+      {/* Qué es un CRM y un ERP + el mapa del sistema */}
       <Seccion
-        kicker="El mapa"
-        titulo="Tu negocio en 5 áreas que se pasan la pelota."
-        bajada="Te sientes pegado al celular porque todo pasa por ti, y todo pasa por ti porque nada está escrito. El curso ordena cada área y las conecta."
+        kicker="El sistema"
+        titulo="Tu primer CRM y ERP, hoja por hoja."
+        bajada="Todo pasa por ti porque nada está anotado en un solo lugar. El curso junta tu negocio en una planilla: cada módulo le agrega una hoja y el tablero las lee todas."
       >
+        <div className="mt-8 grid gap-3 md:grid-cols-2">
+          <div className="rounded-2xl border border-[#5fb2dd]/40 bg-[#2175a1]/10 p-5">
+            <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-[#5fb2dd]">Qué es un CRM</p>
+            <p className="mt-2 font-serif text-xl text-white">Es {QUE_ES.crm}</p>
+            <p className="mt-2 text-sm text-slate-400">En tu planilla: la hoja Clientes. Si hiciste la Guía 1, ya tienes la primera parte.</p>
+          </div>
+          <div className="rounded-2xl border border-[#5fb2dd]/40 bg-[#2175a1]/10 p-5">
+            <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-[#5fb2dd]">Qué es un ERP</p>
+            <p className="mt-2 font-serif text-xl text-white">Es {QUE_ES.erp}</p>
+            <p className="mt-2 text-sm text-slate-400">En tu planilla: todas las hojas juntas, con un tablero que calcula tus números solo.</p>
+          </div>
+        </div>
         <div className="mt-10 grid items-center gap-8 lg:grid-cols-[380px_1fr]">
           <div className="mx-auto w-full max-w-[340px] lg:max-w-none">
             <DiagramaCiclo areas={AREAS} />
@@ -166,7 +193,7 @@ export default function CursoContent() {
         <ol className="grid gap-4 sm:grid-cols-2">
           {AREAS.map((a, i) => (
             <li key={a.id} className="relative rounded-2xl border border-white/10 bg-white/[0.02] p-5">
-              <p className="font-mono text-xs text-[#5fb2dd]">0{i + 1} · Módulo {a.modulo}</p>
+              <p className="font-mono text-xs text-[#5fb2dd]">0{i + 1} · Módulo {a.modulo} · hoja {a.hoja}</p>
               <h3 className="mt-3 font-serif text-xl text-white">{a.nombre}</h3>
               <p className="mt-2 text-sm text-slate-300">{a.corto}</p>
               <p className="mt-4 border-t border-white/10 pt-3 text-xs text-slate-400">{a.pasaA}</p>
@@ -175,7 +202,7 @@ export default function CursoContent() {
         </ol>
         </div>
         <p className="mt-6 max-w-3xl text-sm text-slate-400">
-          Al centro de las cinco: el esqueleto de tu agente y tus reglas de freno, lo que decide siempre una persona. El módulo 6 junta todo en un sistema propio.
+          Al centro: el tablero del módulo 6, que lee todas las hojas y te muestra tus números del lunes. Y en el módulo 0, tus reglas de freno: lo que decide siempre una persona.
         </p>
       </Seccion>
 
@@ -184,7 +211,7 @@ export default function CursoContent() {
         id="modulos"
         kicker="El programa"
         titulo={`${MODULOS.length} módulos, ${totalLecciones} lecciones cortas.`}
-        bajada="Cada módulo cierra con una prueba real en tu negocio y un entregable que se suma a tu tablero."
+        bajada="Cada módulo cierra con una prueba real en tu negocio y suma una hoja a tu planilla."
       >
         <div className="mt-10 space-y-3">
           {MODULOS.map((m) => (
@@ -266,6 +293,13 @@ export default function CursoContent() {
             ))}
           </ul>
           <DiagramaComoSeAprende />
+          <div className="flex gap-4 rounded-2xl border border-white/10 bg-white/[0.02] p-5">
+            <Sparkles className="mt-0.5 h-5 w-5 shrink-0 text-[#5fb2dd]" aria-hidden />
+            <div>
+              <p className="text-sm font-semibold text-white">¿Y la inteligencia artificial?</p>
+              <p className="mt-1 text-sm text-slate-300">{IA_OPCIONAL}</p>
+            </div>
+          </div>
           </div>
           <div className="self-start overflow-hidden rounded-2xl border border-[#2175a1]/40 bg-gradient-to-br from-[#2175a1]/15 to-transparent">
             {/* Ilustración del caso: Camila en Grano Norte (motor de personajes LXD). */}
@@ -298,7 +332,7 @@ export default function CursoContent() {
             <TableroMock />
           </div>
           <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-6">
-            <LayoutDashboard className="h-6 w-6 text-[#5fb2dd]" aria-hidden />
+            <FileSpreadsheet className="h-6 w-6 text-[#5fb2dd]" aria-hidden />
             <ul className="mt-4 space-y-3">
               {PROYECTO_FINAL.incluye.map((x) => (
                 <li key={x} className="flex gap-3 text-slate-200">
@@ -306,6 +340,20 @@ export default function CursoContent() {
                 </li>
               ))}
             </ul>
+          </div>
+          <div className="rounded-2xl border border-white/10 p-6 md:col-span-2 md:order-last lg:col-span-3">
+            <h3 className="font-serif text-xl text-white">Las hojas de tu planilla</h3>
+            <ul className="mt-4 grid gap-x-6 gap-y-3 sm:grid-cols-2 lg:grid-cols-3">
+              {HOJAS.map((h) => (
+                <li key={h.nombre} className="text-sm">
+                  <p className="text-white">
+                    {h.nombre} <span className="font-mono text-[11px] text-[#5fb2dd]">· módulo {h.modulo}</span>
+                  </p>
+                  <p className="mt-0.5 text-slate-400">{h.guarda}</p>
+                </li>
+              ))}
+            </ul>
+            <p className="mt-4 text-xs text-slate-500">Funciona en Google Sheets, gratis, o en Excel. Las fórmulas vienen listas: tú llenas filas.</p>
           </div>
           <div className="rounded-2xl border border-white/10 p-6">
             <h3 className="font-serif text-xl text-white">Al cerrar el curso</h3>
@@ -323,7 +371,7 @@ export default function CursoContent() {
         id="preventa"
         kicker="Cómo funciona la preventa"
         titulo="El módulo 0 hoy. Un módulo nuevo cada semana."
-        bajada="Compras ahora con precio fundador, empiezas hoy con el mapa y el diagnóstico, y el resto llega semana a semana."
+        bajada="Compras ahora con precio fundador, empiezas hoy con el mapa, el diagnóstico y tu planilla base, y el resto llega semana a semana."
       >
         <div className="mt-10 grid gap-8 lg:grid-cols-[1fr_360px]">
           <ol className="relative space-y-3 border-l border-white/10 pl-6">
@@ -347,10 +395,10 @@ export default function CursoContent() {
             <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-[#5fb2dd]">Preventa</p>
             <p className="mt-3 font-serif text-2xl text-white">{textoPrecio()}</p>
             <ul className="mt-4 space-y-2 text-sm text-slate-300">
-              <li className="flex gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-[#5fb2dd]" aria-hidden /> Módulo 0 al tiro</li>
-              <li className="flex gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-[#5fb2dd]" aria-hidden /> Los 7 módulos y sus plantillas</li>
+              <li className="flex gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-[#5fb2dd]" aria-hidden /> Módulo 0 y tu planilla base al tiro</li>
+              <li className="flex gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-[#5fb2dd]" aria-hidden /> Los 7 módulos y la planilla completa del sistema</li>
               <li className="flex gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-[#5fb2dd]" aria-hidden /> Avanzas a tu ritmo: los módulos no se cierran</li>
-              <li className="flex gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-[#5fb2dd]" aria-hidden /> Certificado al subir tu tablero</li>
+              <li className="flex gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-[#5fb2dd]" aria-hidden /> Certificado al entregar tu proyecto final</li>
             </ul>
             <div className="mt-6 flex flex-col gap-3">
               <BotonCompra ubicacion="preventa" texto="Comprar en preventa" />
@@ -380,7 +428,7 @@ export default function CursoContent() {
               Ingeniero industrial de la Universidad de Chile, con más de 8 años liderando equipos de producto en LATAM Airlines, en PepsiCo a través de Toptal y en startups.
             </p>
             <p>
-              Hoy dirijo Villelab y dos negocios propios, Ewaffle y Fidelidapp. Este curso es el mismo orden que uso en ellos todos los días: qué se escribe, qué se repite solo y qué decide siempre una persona.
+              Hoy dirijo Villelab y dos negocios propios, Ewaffle y Fidelidapp. Este curso es el mismo orden que uso en ellos todos los días: qué se anota y dónde, qué se revisa cada semana y qué decide siempre una persona.
             </p>
             <Link href="/sobre-mi" className="inline-flex min-h-[44px] items-center gap-1 text-sm text-[#5fb2dd] hover:text-white">
               Más sobre mí <ArrowRight className="h-4 w-4" aria-hidden />
@@ -388,6 +436,8 @@ export default function CursoContent() {
           </div>
         </div>
       </Seccion>
+
+      <EnQueSeBasa />
 
       {/* FAQ */}
       <Seccion kicker="Preguntas frecuentes" titulo="Lo que más nos preguntan.">
@@ -418,15 +468,32 @@ export default function CursoContent() {
             <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-[#0f172a]/70 to-transparent md:bg-gradient-to-r" />
           </figure>
           <div className="p-6 sm:p-10">
-          <h2 className="max-w-2xl font-serif text-3xl text-white sm:text-4xl">Empieza hoy con el mapa de tu negocio.</h2>
+          <h2 className="max-w-2xl font-serif text-3xl text-white sm:text-4xl">Empieza hoy con el mapa y tu planilla base.</h2>
           <p className="mt-4 max-w-2xl text-slate-300">
-            En 30 minutos sabes qué área está en rojo, por dónde partir y qué decisiones no deberían salir de tus manos. Lo demás llega semana a semana.
+            En 30 minutos sabes qué pieza de tu negocio está en rojo, por dónde partir y qué decisiones no deberían salir de tus manos, y te llevas la planilla donde vas a armar tu sistema. Lo demás llega semana a semana.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
             <BotonCompra ubicacion="cta_final" />
             <BotonModulo0 />
           </div>
           </div>
+        </div>
+        <div id="versiones" className="mt-10 scroll-mt-24 rounded-2xl border border-white/10 p-5 sm:p-6">
+          <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-slate-400">Producto vivo · historial de versiones</p>
+          <ol className="mt-4 space-y-4">
+            {VERSIONES_CURSO.map((v) => (
+              <li key={v.version}>
+                <p className="text-sm text-white">
+                  Versión {v.version} <span className="text-slate-500">· {fechaLarga(v.fecha)}</span>
+                </p>
+                <ul className="mt-1 space-y-1 text-sm text-slate-400">
+                  {v.cambios.map((c) => (
+                    <li key={c}>· {c}</li>
+                  ))}
+                </ul>
+              </li>
+            ))}
+          </ol>
         </div>
       </section>
     </main>

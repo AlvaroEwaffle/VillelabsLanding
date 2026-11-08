@@ -1,13 +1,13 @@
 'use client';
 
-// Diagramas de los módulos 1–6 del curso (8-nov-2026). Mismas piezas base que el resto (./base):
+// Diagramas de los módulos 1–6 del curso (8-nov-2026; v1.1: se quitaron los del enfoque anterior, los nuevos viven en sistema-m12/m34/m56.tsx). Mismas piezas base que el resto (./base):
 // HTML + Tailwind que refluye a 360 px, figura accesible con aria-label, paleta azul noche, sin amarillo.
 import { motion } from 'framer-motion';
-import { Ciclo, Comparacion, Diagrama, Flecha, Flujo, Globo, Nodo, PIEZA } from './base';
+import { Comparacion, Diagrama, Flecha, Flujo, Globo, Nodo, PIEZA } from './base';
 
 type P = { className?: string };
 
-// ─── Módulo 1 · Marketing ─────────────────────────────────────────────────
+// ─── Módulo 2 · Marketing y origen (era el módulo 1) ─────────────────────
 
 export function DiagramaFrase({ className = '' }: P) {
   return (
@@ -115,57 +115,7 @@ export function DiagramaDerivarComentario({ className = '' }: P) {
   );
 }
 
-export function DiagramaNumerosQueImportan({ className = '' }: P) {
-  const pisos = [
-    { t: 'Mensajes', d: 'Gente que te escribió por esa pieza', w: '100%' },
-    { t: 'Reuniones o cotizaciones', d: 'Conversaciones que avanzaron', w: '72%' },
-    { t: 'Ventas', d: 'Clientes que compraron', w: '46%' },
-  ];
-  return (
-    <Diagrama
-      titulo="Los 3 números que sí importan"
-      className={className}
-      aria="Para saber qué pieza trae clientes, el alcance no sirve. Se miden tres números por pieza: mensajes, reuniones o cotizaciones, y ventas."
-      pie="Si una pieza trae mensajes de clientes que calzan con tu cliente ideal, esa manda, aunque tenga menos alcance."
-    >
-      <motion.div variants={PIEZA} className="mx-auto w-full rounded-lg border border-dashed border-white/15 p-2 text-center text-sm text-slate-500 line-through">
-        Alcance, reproducciones y «me gusta»
-      </motion.div>
-      <div className="mt-2 flex flex-col items-center gap-1.5">
-        {pisos.map((p) => (
-          <motion.div key={p.t} variants={PIEZA} style={{ width: p.w }} className="min-w-[220px] rounded-lg border border-[#5fb2dd]/50 bg-[#2175a1]/25 px-3 py-2 text-center">
-            <p className="text-sm font-semibold text-white">{p.t}</p>
-            <p className="text-[12px] text-slate-300">{p.d}</p>
-          </motion.div>
-        ))}
-      </div>
-    </Diagrama>
-  );
-}
-
-// ─── Módulo 2 · Ventas ────────────────────────────────────────────────────
-
-export function DiagramaRutina20({ className = '' }: P) {
-  return (
-    <Diagrama
-      titulo="La rutina de 20 minutos"
-      className={className}
-      aria="La rutina diaria de ventas dura 20 minutos: 5 minutos para buscar prospectos que calcen con tu cliente ideal, 10 minutos para escribir los mensajes y 5 minutos para anotar la fecha del próximo contacto."
-      pie="Todos los días hábiles, a la misma hora. Lo que no tiene fecha, no existe."
-    >
-      <div className="flex h-3 overflow-hidden rounded-full">
-        <motion.span variants={PIEZA} className="w-1/4 bg-[#2175a1]" />
-        <motion.span variants={PIEZA} className="w-1/2 bg-[#5fb2dd]" />
-        <motion.span variants={PIEZA} className="w-1/4 bg-[#2175a1]" />
-      </div>
-      <div className="mt-3 grid gap-2 sm:grid-cols-[1fr_2fr_1fr]">
-        <Nodo numero="5 min" titulo="Buscar" texto="Prospectos que calzan y muestran una señal" />
-        <Nodo numero="10 min" titulo="Escribir" texto="Primer mensaje o seguimiento del día" tono="acento" />
-        <Nodo numero="5 min" titulo="Anotar" texto="Fecha del próximo contacto de cada uno" />
-      </div>
-    </Diagrama>
-  );
-}
+// ─── Módulo 1 · Clientes y ventas (era el módulo 2) ──────────────────────
 
 export function DiagramaSecuenciaSeguimiento({ className = '', dias = [0, 3, 7, 14], etiquetas = ['Primer mensaje', 'Pregunta corta', 'Un dato que le sirva', 'Cierre amable'] }: P & { dias?: number[]; etiquetas?: string[] }) {
   return (
@@ -255,22 +205,22 @@ export function DiagramaEmbudo({ className = '', pisos }: P & { pisos: { t: stri
   );
 }
 
-// ─── Módulo 3 · Operación ─────────────────────────────────────────────────
+// ─── Módulo 3 · Pedidos y operación ──────────────────────────────────────
 
 export function DiagramaProcesoPasos({ className = '' }: P) {
   const pasos = [
-    { t: 'Recibir', q: 'Rocío' },
-    { t: 'Confirmar stock', q: 'Rocío' },
+    { t: 'Recibir', q: 'Sofía' },
+    { t: 'Confirmar stock', q: 'Sofía' },
     { t: 'Tostar', q: 'Pedro' },
     { t: 'Envasar y etiquetar', q: 'Pedro' },
-    { t: 'Despachar', q: 'Juan' },
-    { t: 'Avisar al cliente', q: 'Juan' },
+    { t: 'Despachar', q: 'Matías' },
+    { t: 'Avisar al cliente', q: 'Matías' },
   ];
   return (
     <Diagrama
       titulo="Un proceso en 7 pasos o menos"
       className={className}
-      aria="Proceso de pedido de oficina de Grano Norte en seis pasos, cada uno con su responsable: recibir (Rocío), confirmar stock (Rocío), tostar (Pedro), envasar y etiquetar (Pedro), despachar (Juan) y avisar al cliente (Juan)."
+      aria="Proceso de pedido de oficina de Grano Norte en seis pasos, cada uno con su responsable: recibir (Sofía), confirmar stock (Sofía), tostar (Pedro), envasar y etiquetar (Pedro), despachar (Matías) y avisar al cliente (Matías)."
       pie="Cada paso empieza con un verbo y tiene un responsable. Si tiene más de 7 pasos, divídelo en dos procesos."
     >
       <ol className="grid grid-cols-2 gap-2 sm:grid-cols-6">
@@ -282,25 +232,6 @@ export function DiagramaProcesoPasos({ className = '' }: P) {
           </motion.li>
         ))}
       </ol>
-    </Diagrama>
-  );
-}
-
-export function DiagramaReunionTareas({ className = '' }: P) {
-  return (
-    <Diagrama
-      titulo="De la reunión a las tareas"
-      className={className}
-      aria="Las notas o la grabación de una reunión pasan por un asistente que propone la lista de tareas; una persona la revisa; cada tarea queda con qué, quién y para cuándo, y se comparte con el equipo el mismo día."
-    >
-      <Flujo
-        pasos={[
-          { titulo: 'Notas o grabación', texto: 'Lo que se habló, tal cual' },
-          { titulo: 'Asistente propone', texto: 'ChatGPT o Claude saca la lista', tono: 'acento' },
-          { titulo: 'Tú revisas', texto: 'Corriges y confirmas fechas', tono: 'claro' },
-          { titulo: 'Qué · quién · cuándo', texto: 'Se comparte el mismo día' },
-        ]}
-      />
     </Diagrama>
   );
 }
@@ -320,62 +251,7 @@ export function DiagramaChecklistEntrega({ className = '' }: P) {
   );
 }
 
-export function DiagramaTableroEstado({ className = '' }: P) {
-  const cols = [
-    { t: 'Por hacer', c: ['Oficina Plaza · 5 kg', 'Café Puerto · muestra'] },
-    { t: 'En curso', c: ['Cowork Cerro · tostando'] },
-    { t: 'Listo', c: ['Bar Ánimas · entregado', 'Estudio Sur · entregado'] },
-  ];
-  return (
-    <Diagrama
-      titulo="El estado de todo, en una vista"
-      className={className}
-      aria="Tablero con tres columnas: por hacer, en curso y listo. Cada pedido es una tarjeta con responsable y fecha que avanza de izquierda a derecha. Quien mueve el trabajo, mueve la tarjeta."
-      pie="Regla: quien mueve el trabajo, mueve la tarjeta. Se revisa a las 9:00 y a las 17:00."
-    >
-      <div className="grid grid-cols-3 gap-1.5 sm:gap-2">
-        {cols.map((c) => (
-          <motion.div key={c.t} variants={PIEZA} className="rounded-xl border border-white/10 bg-white/[0.03] p-1.5 sm:p-2">
-            <p className="font-mono text-[10px] uppercase tracking-wider text-[#5fb2dd]">{c.t}</p>
-            <div className="mt-1.5 space-y-1.5">
-              {c.c.map((x) => (
-                <p key={x} className="rounded-md bg-[#24314d] px-1.5 py-1.5 text-[11px] leading-tight text-slate-100 sm:text-[12px]">
-                  {x}
-                </p>
-              ))}
-            </div>
-          </motion.div>
-        ))}
-      </div>
-    </Diagrama>
-  );
-}
-
-export function DiagramaResumenDia({ className = '' }: P) {
-  return (
-    <Diagrama
-      titulo="El resumen del día"
-      className={className}
-      aria="El resumen del día: un asistente lee el correo, el WhatsApp o la planilla de pedidos y el tablero, y a las 8:30 deja un borrador con qué llegó, qué falta y qué vence. Tú lo revisas en 5 minutos y decides."
-    >
-      <div className="grid items-center gap-2 sm:grid-cols-[1fr_auto_1.3fr_auto_1fr]">
-        <div className="space-y-1.5">
-          {['Correo', 'Planilla de pedidos', 'Tablero'].map((f) => (
-            <motion.p key={f} variants={PIEZA} className="rounded-lg border border-white/10 bg-white/[0.03] px-3 py-1.5 text-center text-[13px] text-slate-200">
-              {f}
-            </motion.p>
-          ))}
-        </div>
-        <Flecha />
-        <Nodo tono="acento" numero="8:30 · borrador" titulo="Qué llegó · qué falta · qué vence" />
-        <Flecha />
-        <Nodo tono="claro" titulo="Tú, 5 minutos" texto="Lees y decides" className="text-center" />
-      </div>
-    </Diagrama>
-  );
-}
-
-// ─── Módulo 4 · Atención ──────────────────────────────────────────────────
+// ─── Módulo 4 · Atención y postventa ─────────────────────────────────────
 
 export function DiagramaTresTipos({ className = '' }: P) {
   const tipos = [
@@ -401,46 +277,6 @@ export function DiagramaTresTipos({ className = '' }: P) {
           </motion.div>
         ))}
       </div>
-    </Diagrama>
-  );
-}
-
-export function DiagramaAsistenteCapas({ className = '' }: P) {
-  return (
-    <Diagrama
-      titulo="Cómo se arma tu asistente"
-      className={className}
-      aria="Tu asistente se arma en capas: el esqueleto de tu negocio (qué vendes, a quién, cómo hablas, respuestas de siempre), tus reglas de freno y cuándo pasa a una persona. Luego se prueba con preguntas trampa y cada error se corrige en las instrucciones, en un ciclo."
-    >
-      <div className="grid items-center gap-3 sm:grid-cols-[1fr_auto_1fr]">
-        <div className="space-y-1.5">
-          <Nodo numero="Capa 1" titulo="El esqueleto" texto="Qué vendes, a quién, cómo hablas, respuestas de siempre" tono="acento" />
-          <Nodo numero="Capa 2" titulo="Tus reglas de freno" texto="Lo que nunca promete ni decide" tono="acento" />
-          <Nodo numero="Capa 3" titulo="Cuándo pasa a una persona" texto="Y qué le dice al cliente" tono="acento" />
-        </div>
-        <Flecha />
-        <Ciclo nodos={[['Preguntas', 'trampa'], ['Ver qué', 'falló'], ['Corregir']]} centro={['Tu', 'asistente']} className="max-w-[260px]" />
-      </div>
-    </Diagrama>
-  );
-}
-
-export function DiagramaPasosWhatsApp({ className = '' }: P) {
-  const pasos = ['Número de WhatsApp Business', 'Conectar el chatbot', 'Pegar tus instrucciones', 'Cargar tus respuestas', 'Horario y derivación', 'Probar desde otro celular', 'Partir con un grupo chico'];
-  return (
-    <Diagrama
-      titulo="7 pasos, sin programar"
-      className={className}
-      aria={`Los siete pasos para poner tu asistente en WhatsApp: ${pasos.join(', ')}.`}
-    >
-      <ol className="grid grid-cols-1 gap-1.5 sm:grid-cols-7">
-        {pasos.map((p, i) => (
-          <motion.li key={p} variants={PIEZA} className="flex items-center gap-2 rounded-lg border border-white/10 bg-white/[0.04] p-2 sm:flex-col sm:text-center">
-            <span className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full font-mono text-xs ${i === 6 ? 'bg-[#5fb2dd] text-[#0f172a]' : 'bg-[#2175a1] text-white'}`}>{i + 1}</span>
-            <span className="text-[12px] leading-tight text-white">{p}</span>
-          </motion.li>
-        ))}
-      </ol>
     </Diagrama>
   );
 }
@@ -487,7 +323,7 @@ export function DiagramaCasoReclamo({ className = '' }: P) {
   );
 }
 
-// ─── Módulo 5 · Finanzas ──────────────────────────────────────────────────
+// ─── Módulo 5 · Cobranza y caja ──────────────────────────────────────────
 
 export function DiagramaCobranza({ className = '' }: P) {
   const hitos = [
@@ -521,43 +357,6 @@ export function DiagramaCobranza({ className = '' }: P) {
   );
 }
 
-export function DiagramaBoletaPlanilla({ className = '' }: P) {
-  return (
-    <Diagrama
-      titulo="De la boleta a la planilla sin digitar"
-      className={className}
-      aria="De la boleta a la planilla: le sacas foto a la boleta, un asistente extrae la fecha, el proveedor, el monto y la categoría, tú revisas, y la fila se pega en la planilla de gastos."
-    >
-      <Flujo
-        pasos={[
-          { titulo: 'Foto de la boleta', texto: 'O la factura en PDF' },
-          { titulo: 'El asistente extrae', texto: 'Fecha, proveedor, monto, categoría', tono: 'acento' },
-          { titulo: 'Tú revisas', texto: '10 segundos por boleta', tono: 'claro' },
-          { titulo: 'Fila en la planilla', texto: 'Se suma sola por categoría' },
-        ]}
-      />
-    </Diagrama>
-  );
-}
-
-export function DiagramaCincoNumeros({ className = '' }: P) {
-  const nums = ['Ventas de la semana', 'Por cobrar', 'Pagado', 'Caja disponible', 'Reuniones agendadas'];
-  return (
-    <Diagrama
-      titulo="Tus 5 números del lunes"
-      className={className}
-      aria="Los cinco números del lunes: ventas de la semana, por cobrar, pagado, caja disponible y reuniones agendadas. Se comparan con la semana anterior."
-      pie="Un número solo dice poco; dos semanas seguidas en la misma dirección piden una decisión."
-    >
-      <div className="grid grid-cols-2 gap-2 sm:grid-cols-5">
-        {nums.map((n, i) => (
-          <Nodo key={n} numero={i + 1} titulo={n} tono={i === 3 ? 'claro' : 'acento'} className={i === 4 ? 'col-span-2 sm:col-span-1' : ''} />
-        ))}
-      </div>
-    </Diagrama>
-  );
-}
-
 export function DiagramaMargen({ className = '' }: P) {
   return (
     <Diagrama
@@ -583,143 +382,7 @@ export function DiagramaMargen({ className = '' }: P) {
   );
 }
 
-// ─── Módulo 6 · Tu propia infra ───────────────────────────────────────────
-
-export function DiagramaHechoVsPropio({ className = '' }: P) {
-  return (
-    <Diagrama
-      titulo="Herramienta lista o sistema propio"
-      className={className}
-      aria="Comparación. Una herramienta lista conviene cuando el problema es común (responder WhatsApp, fidelizar clientes), necesitas partir esta semana y nadie del equipo va a mantener algo propio. Un sistema propio conviene cuando tu forma de trabajar es lo que te diferencia, usas varias herramientas que no se hablan y tienes a alguien que lo mantenga."
-    >
-      <Comparacion
-        izq={{
-          titulo: 'Herramienta lista',
-          tono: 'neutro',
-          children: (
-            <ul className="space-y-1.5 text-[13px] text-slate-200">
-              <li>· El problema es común (WhatsApp, fidelizar)</li>
-              <li>· Necesitas partir esta semana</li>
-              <li>· Nadie va a mantener algo propio</li>
-            </ul>
-          ),
-        }}
-        der={{
-          titulo: 'Sistema propio',
-          children: (
-            <ul className="space-y-1.5 text-[13px] text-slate-100">
-              <li>· Tu forma de trabajar te diferencia</li>
-              <li>· Usas varias herramientas que no se hablan</li>
-              <li>· Hay alguien que lo revisa cada semana</li>
-            </ul>
-          ),
-        }}
-      />
-      <motion.p variants={PIEZA} className="mt-3 text-center text-[13px] text-slate-300">
-        En los dos casos, todo lee la misma base de información.
-      </motion.p>
-    </Diagrama>
-  );
-}
-
-export function DiagramaBaseInformacion({ className = '' }: P) {
-  const carpetas = [
-    { n: '00 · LEEME', d: 'Qué hay y quién actualiza' },
-    { n: '01 · Esqueleto', d: 'Qué vendes, a quién, tono' },
-    { n: '02 · Reglas de freno', d: 'Lo que decide una persona' },
-    { n: '03 · Procesos', d: 'Pedido, despacho, cliente nuevo' },
-    { n: '04 · Plantillas', d: 'Mensajes, propuesta, reclamos' },
-    { n: '05 · Números', d: 'Embudo, gastos, lunes, margen' },
-  ];
-  return (
-    <Diagrama
-      titulo="Una sola base que todos leen"
-      className={className}
-      aria="La base de información es una carpeta con seis partes: un archivo LEEME, el esqueleto, las reglas de freno, los procesos, las plantillas y los números. Todos tus asistentes y tu equipo leen de ahí."
-      pie="Una sola versión: si cambia un precio, se cambia aquí y todos lo leen."
-    >
-      <div className="grid items-center gap-2 sm:grid-cols-[1.4fr_auto_1fr]">
-        <motion.div variants={PIEZA} className="rounded-xl border border-[#5fb2dd]/50 bg-[#2175a1]/15 p-3">
-          <p className="font-mono text-[11px] text-[#5fb2dd]">Carpeta · Mi negocio · Sistema</p>
-          <ul className="mt-2 space-y-1">
-            {carpetas.map((c) => (
-              <li key={c.n} className="flex flex-wrap items-baseline gap-x-2 border-l border-white/15 pl-3 text-[13px]">
-                <span className="text-white">{c.n}</span>
-                <span className="text-[12px] text-slate-400">{c.d}</span>
-              </li>
-            ))}
-          </ul>
-        </motion.div>
-        <Flecha etiqueta="la leen" />
-        <div className="space-y-1.5">
-          {['Asistente de WhatsApp', 'Resumen del día', 'Reporte del lunes', 'Tu equipo'].map((x) => (
-            <Nodo key={x} titulo={x} />
-          ))}
-        </div>
-      </div>
-    </Diagrama>
-  );
-}
-
-export function DiagramaPermisos({ className = '' }: P) {
-  const niveles = [
-    { t: 'Puede leer', d: ['Correos de clientes', 'Calendario', 'Planillas de pedidos y pagos'], tono: 'border-white/10 bg-white/[0.03]' },
-    { t: 'Solo deja en borrador', d: ['Respuestas a clientes', 'Eventos y recordatorios', 'Reportes'], tono: 'border-[#5fb2dd]/50 bg-[#2175a1]/20' },
-    { t: 'Nunca', d: ['Pagar o transferir', 'Borrar información', 'Comprometer precio o fecha'], tono: 'border-rose-400/40 bg-rose-500/[0.08]' },
-  ];
-  return (
-    <Diagrama
-      titulo="Permisos mínimos: 3 niveles"
-      className={className}
-      aria="Tres niveles de permiso para un asistente conectado. Puede leer: correos de clientes, calendario y planillas. Solo deja en borrador: respuestas a clientes, eventos, recordatorios y reportes. Nunca: pagar o transferir, borrar información o comprometer precio o fecha."
-    >
-      <div className="grid gap-2 sm:grid-cols-3">
-        {niveles.map((n) => (
-          <motion.div key={n.t} variants={PIEZA} className={`rounded-xl border p-3 ${n.tono}`}>
-            <p className="font-mono text-[11px] uppercase tracking-wider text-[#5fb2dd]">{n.t}</p>
-            <ul className="mt-2 space-y-1 text-[13px] text-slate-200">
-              {n.d.map((x) => (
-                <li key={x}>· {x}</li>
-              ))}
-            </ul>
-          </motion.div>
-        ))}
-      </div>
-    </Diagrama>
-  );
-}
-
-export function DiagramaRutinaAutomatica({ className = '' }: P) {
-  return (
-    <Diagrama
-      titulo="Cómo corre una rutina sola"
-      className={className}
-      aria="Una rutina automática: a una hora fija se dispara, lee sus fuentes (correo, planillas, calendario), deja un borrador donde lo vas a ver y una persona lo revisa antes de que salga nada."
-    >
-      <Flujo
-        pasos={[
-          { titulo: 'Hora fija', texto: 'Ej.: lunes a viernes, 8:30' },
-          { titulo: 'Lee sus fuentes', texto: 'Correo, planillas, calendario' },
-          { titulo: 'Deja un borrador', texto: 'En tu correo o en el grupo', tono: 'acento' },
-          { titulo: 'Revisa una persona', texto: 'Nada sale sin eso', tono: 'claro' },
-        ]}
-      />
-    </Diagrama>
-  );
-}
-
-export function DiagramaRevisionViernes({ className = '' }: P) {
-  return (
-    <Diagrama
-      titulo="La revisión de los viernes · 15 min"
-      className={className}
-      aria="La revisión de los viernes dura 15 minutos y es un ciclo: qué hizo el sistema, qué falló, qué ajustar y revisar los frenos. Cada ajuste se escribe en la base de información."
-      pie="Cada falla deja un ajuste escrito: una línea en las instrucciones, un paso en un proceso o una regla de freno nueva."
-    >
-      <Ciclo nodos={[['Qué hizo'], ['Qué falló'], ['Qué', 'ajustar'], ['Revisar', 'frenos']]} centro={['Viernes', '15 min']} />
-    </Diagrama>
-  );
-}
+// ─── Compartidos ─────────────────────────────────────────────────────────
 
 /** Conversación corta de ejemplo (para lecciones de atención). */
 export function DiagramaConversacion({ className = '', titulo, aria, mensajes }: P & { titulo: string; aria: string; mensajes: { de: 'cliente' | 'agente' | 'persona'; texto: string }[] }) {

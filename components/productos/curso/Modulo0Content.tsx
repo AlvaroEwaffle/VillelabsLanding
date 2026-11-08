@@ -1,9 +1,10 @@
 'use client';
 
 /*
- * /curso/modulo-0 — Módulo 0 «El mapa» del curso «Tu negocio de punta a punta».
- * Se entrega al tiro a quien compra en preventa. 4 lecciones + portada del tablero imprimible.
- * Todo el avance (diagnóstico, reglas, checklist, nombre del negocio) vive en localStorage.
+ * /curso/modulo-0 — Módulo 0 «El mapa» del curso «El sistema de tu negocio: tu primer CRM y ERP en Google Sheets».
+ * Se entrega al tiro a quien compra en preventa. 4 lecciones + portada del sistema imprimible.
+ * v1.1 (8-nov-2026): la lección 3 pasa del esqueleto del agente a la planilla base con la ficha del negocio.
+ * Todo el avance (diagnóstico, reglas, ficha, checklist, nombre del negocio) vive en localStorage.
  */
 
 import Link from 'next/link';
@@ -14,7 +15,10 @@ import {
   AREAS,
   CASO,
   CLAVES_STORAGE,
+  IA_OPCIONAL,
   LECCIONES_M0,
+  MODULOS,
+  QUE_ES,
   OPCIONES_DIAGNOSTICO,
   PREGUNTAS,
   REGLAS_FRENO,
@@ -29,29 +33,32 @@ import {
 import { useMontado, usePersistido } from '@/lib/productos/curso/persistencia';
 import { FOTOS } from '@/lib/productos/fotos';
 import { APOYO, type ImagenApoyo } from '@/lib/productos/apoyo';
-import { DiagramaEsqueletoAlimenta, DiagramaQuienDecide, DiagramaSemaforo } from '@/components/productos/diagramas/curso';
+import { DiagramaPlanillaSistema, DiagramaQuienDecide, DiagramaSemaforo } from '@/components/productos/diagramas/curso';
 import { trackCursoClickCompra } from '@/lib/productos/curso/tracking';
 import SiguientePaso from '@/components/productos/SiguientePaso';
 import { Foto, Kicker, PuntoSemaforo, VideoProximamente } from './piezas';
 import { VideoMarco, type VideoId } from '@/components/productos/VideoProducto';
 import { Pantallita } from '@/components/productos/Pantallita';
+import { VERSION_CURSO, fechaLarga } from '@/lib/productos/curso/versiones';
+import { DescargaPlantilla, useFicha } from './Plantilla';
+import type { ProductoFicha } from '@/lib/productos/curso/plantilla';
 
 // Foto de apoyo por lección (portada del video mientras se graba). Rotan looks; sin polera blanca.
 const FOTO_LECCION: Record<string, { foto: keyof typeof FOTOS; posicion?: string }> = {
   mapa: { foto: 'trabajando', posicion: 'center 35%' },
   diagnostico: { foto: 'pizarra', posicion: 'center 30%' },
-  esqueleto: { foto: 'escritorio', posicion: 'center 30%' },
+  planilla: { foto: 'escritorio', posicion: 'center 30%' },
   reglas: { foto: 'podcasterCerca', posicion: 'center 30%' },
 };
 
 // Imagen de apoyo por área en el mapa (regla 20/80, 8-nov-2026): lo que se ordena en cada una.
 const FOTO_AREA: Record<AreaId | 'centro', ImagenApoyo> = {
-  marketing: APOYO.contenidoTripode,
   ventas: APOYO.cafeteria,
+  marketing: APOYO.contenidoTripode,
   operacion: APOYO.cajasDespacho,
   atencion: APOYO.celularMensajes,
   finanzas: APOYO.finanzas,
-  centro: APOYO.escenaBodega,
+  centro: APOYO.tableroLaptop,
 };
 
 type EstadoReglas = { elegidas: string[]; textos: Record<string, string>; propias: ReglaFreno[] };
@@ -149,7 +156,10 @@ function CabeceraLeccion({ leccion }: { leccion: LeccionM0 }) {
       <p className="mt-3 max-w-2xl text-slate-300">{leccion.bajada}</p>
       <div className="mt-6">
         {VIDEO_LECCION[leccion.id] ? (
-          <VideoMarco id={VIDEO_LECCION[leccion.id]!.id} titulo={leccion.titulo} duracion={VIDEO_LECCION[leccion.id]!.duracion} />
+          <>
+            <VideoMarco id={VIDEO_LECCION[leccion.id]!.id} titulo={leccion.titulo} duracion={VIDEO_LECCION[leccion.id]!.duracion} />
+            {VIDEO_LECCION[leccion.id]!.nota ? <NotaVideo>{VIDEO_LECCION[leccion.id]!.nota}</NotaVideo> : null}
+          </>
         ) : (
           <VideoProximamente
             titulo={leccion.titulo}
@@ -163,25 +173,43 @@ function CabeceraLeccion({ leccion }: { leccion: LeccionM0 }) {
 }
 
 // Videos de las lecciones (8-nov-2026). Si una lección no tiene video, queda el marcador «Video próximamente».
-const VIDEO_LECCION: Partial<Record<string, { id: VideoId; duracion: string }>> = {
-  mapa: { id: 'v09-m0-l1', duracion: '55 s' },
+// Se grabaron con la v1.0 del curso: los que hablan de «5 áreas» o del esqueleto del agente llevan una nota hasta
+// regrabarlos (guiones nuevos en lib/productos/curso/guiones.ts, claves v09…v13).
+const VIDEO_LECCION: Partial<Record<string, { id: VideoId; duracion: string; nota?: string }>> = {
+  mapa: {
+    id: 'v09-m0-l1',
+    duracion: '55 s',
+    nota: 'Este video es de la versión anterior del curso y habla de «5 áreas». Hoy son las 5 piezas de tu sistema, cada una con su hoja en la planilla, y el tablero que las junta. Lo vamos a regrabar.',
+  },
   diagnostico: { id: 'v10-m0-l2', duracion: '27 s' },
-  esqueleto: { id: 'v11-m0-l3', duracion: '31 s' },
-  reglas: { id: 'v12-m0-l4', duracion: '36 s' },
+  planilla: {
+    id: 'v11-m0-l3',
+    duracion: '31 s',
+    nota: 'Este video es de la versión anterior y habla del esqueleto de tu agente. Desde la versión 1.1, la base es tu planilla con la ficha del negocio; el esqueleto queda como ayuda opcional si usas IA. Lo vamos a regrabar.',
+  },
+  reglas: {
+    id: 'v12-m0-l4',
+    duracion: '36 s',
+    nota: 'Al final, el video nombra el esqueleto: hoy la portada junta tu semáforo, tu planilla base y tus reglas de freno.',
+  },
 };
+
+function NotaVideo({ children }: { children: React.ReactNode }) {
+  return <p className="mt-2 rounded-xl border border-white/10 bg-white/[0.03] px-4 py-2.5 text-xs leading-relaxed text-slate-400">{children}</p>;
+}
 
 // ─── Lección 1 · Mapa interactivo ─────────────────────────────────────────
 
 const POSICION_MAPA: Record<AreaId, string> = {
-  marketing: 'col-start-1 row-start-1',
-  ventas: 'col-start-2 row-start-1',
+  ventas: 'col-start-1 row-start-1',
+  marketing: 'col-start-2 row-start-1',
   operacion: 'col-start-3 row-start-1',
   atencion: 'col-start-3 row-start-2',
   finanzas: 'col-start-1 row-start-2',
 };
 
 function MapaAreas() {
-  const [sel, setSel] = useState<AreaId | 'centro'>('marketing');
+  const [sel, setSel] = useState<AreaId | 'centro'>('ventas');
   const area = AREAS.find((a) => a.id === sel);
 
   return (
@@ -191,11 +219,25 @@ function MapaAreas() {
           Si el precio está en tu cabeza, cada cotización te espera. Si el despacho se coordina de memoria, cada pedido te espera. Si nadie sabe qué reclamo puede resolver solo, todos llegan a tu celular.
         </p>
         <p>
-          El problema no es tu equipo ni la falta de tiempo: es que <strong className="font-semibold text-white">nada está escrito</strong>. Ordenar es escribir, área por área, qué se hace, quién lo hace y qué decide siempre una persona.
+          El problema no es tu equipo ni la falta de tiempo: es que <strong className="font-semibold text-white">nada está anotado en un solo lugar</strong>. Tus clientes viven en el WhatsApp, los pedidos en tu memoria y lo que te deben en un cuaderno. Ordenar es juntar todo eso en una planilla, con reglas claras de quién anota qué.
         </p>
       </div>
 
-      <p className="mt-8 text-sm text-slate-400">Toca cada área para ver qué se ordena ahí y qué pasa si no.</p>
+      <div className="mt-6 grid gap-3 sm:grid-cols-2">
+        <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
+          <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-[#5fb2dd]">CRM</p>
+          <p className="mt-1 text-slate-100">Es {QUE_ES.crm}</p>
+          <p className="mt-1 text-sm text-slate-400">En tu planilla: la hoja Clientes (módulo 1).</p>
+        </div>
+        <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
+          <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-[#5fb2dd]">ERP</p>
+          <p className="mt-1 text-slate-100">Es {QUE_ES.erp}</p>
+          <p className="mt-1 text-sm text-slate-400">En tu planilla: todas las hojas juntas, con el tablero (módulo 6).</p>
+        </div>
+      </div>
+      <p className="mt-3 text-sm text-slate-400">No vas a instalar un software: es una planilla de Google Sheets bien armada, más rutinas cortas. Cada módulo le agrega una hoja.</p>
+
+      <p className="mt-8 text-sm text-slate-400">Toca cada pieza para ver qué se ordena ahí, qué hoja le toca y qué pasa si no.</p>
       <div className="mt-3 grid grid-cols-3 grid-rows-2 gap-2 sm:gap-3">
         {AREAS.map((a) => {
           const activa = sel === a.id;
@@ -209,7 +251,7 @@ function MapaAreas() {
                 activa ? 'border-[#5fb2dd] bg-[#2175a1]/25 shadow-accent' : 'border-white/10 bg-white/[0.03] hover:border-white/25'
               }`}
             >
-              <span className="font-mono text-[10px] text-[#5fb2dd] sm:text-xs">Mód. {a.modulo}</span>
+              <span className="font-mono text-[10px] text-[#5fb2dd] sm:text-xs">Mód. {a.modulo} · {a.hoja === 'Cobranza y Caja' ? 'Cobranza' : a.hoja}</span>
               <span className="text-[13px] font-medium leading-tight text-white sm:text-base">{a.nombre}</span>
             </button>
           );
@@ -222,11 +264,11 @@ function MapaAreas() {
             sel === 'centro' ? 'border-[#5fb2dd] bg-[#5fb2dd]/15' : 'border-white/20 hover:border-white/40'
           }`}
         >
-          <span className="text-[12px] leading-tight text-slate-200 sm:text-sm">Esqueleto + reglas de freno</span>
+          <span className="text-[12px] leading-tight text-slate-200 sm:text-sm">Tablero + reglas de freno</span>
         </button>
       </div>
       <p className="mt-3 text-center font-mono text-[11px] text-slate-500">
-        marketing → ventas → operación → atención → finanzas → marketing
+        clientes → origen → pedidos → atención → cobranza y caja → tablero
       </p>
 
       <div className="mt-5 rounded-2xl border border-[#2175a1]/40 bg-[#2175a1]/[0.07] p-5 sm:p-6" aria-live="polite">
@@ -236,7 +278,7 @@ function MapaAreas() {
         </figure>
         {area ? (
           <>
-            <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-[#5fb2dd]">Módulo {area.modulo}</p>
+            <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-[#5fb2dd]">Módulo {area.modulo} · hoja {area.hoja}</p>
             <h3 className="mt-1 font-serif text-2xl text-white">{area.nombre}</h3>
             <p className="text-sm text-slate-400">{area.corto}</p>
             <dl className="mt-5 grid gap-4 sm:grid-cols-2">
@@ -262,10 +304,10 @@ function MapaAreas() {
           </>
         ) : (
           <>
-            <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-[#5fb2dd]">Al centro · lecciones 3 y 4</p>
-            <h3 className="mt-1 font-serif text-2xl text-white">El esqueleto y las reglas de freno</h3>
+            <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-[#5fb2dd]">Al centro · módulo 6, y lecciones 3 y 4 de hoy</p>
+            <h3 className="mt-1 font-serif text-2xl text-white">El tablero y las reglas de freno</h3>
             <p className="mt-3 text-slate-300">
-              Las cinco áreas leen lo mismo: qué vendes, a quién, a qué precio y cómo hablas (el esqueleto de tu agente), y qué decide siempre una persona (las reglas de freno). Sin eso escrito, cada área vuelve a preguntarte a ti. Por eso son lo primero que armas en este módulo.
+              Las cinco hojas parten de lo mismo: qué vendes, a quién y a qué precio (la ficha del negocio, lección 3), y qué decide siempre una persona (las reglas de freno, lección 4). En el módulo 6, el tablero las lee todas y te muestra tus números del lunes sin que tengas que preguntarle a nadie.
             </p>
           </>
         )}
@@ -377,11 +419,11 @@ function Diagnostico({
               ))}
               <li className="flex items-center gap-3 text-slate-400">
                 <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-white/5 font-mono text-xs">6</span>
-                <span>Módulo 6 · Tu propia infra, para juntarlo todo</span>
+                <span>Módulo 6 · El tablero, para juntarlo todo</span>
               </li>
             </ol>
             <p className="mt-4 text-sm text-slate-400">
-              Los módulos se liberan uno por semana. Haz todos, pero cuando llegue tu área más roja, dale más tiempo y haz su prueba real primero.
+              Los módulos se liberan uno por semana y cada uno suma una hoja a la misma planilla. Haz todos, pero cuando llegue tu pieza más roja, dale más tiempo y haz su prueba real primero.
             </p>
             <button type="button" onClick={onReiniciar} className="mt-5 inline-flex min-h-[44px] items-center gap-2 text-sm text-slate-400 hover:text-white">
               <RotateCcw className="h-4 w-4" aria-hidden /> Volver a responder
@@ -389,7 +431,7 @@ function Diagnostico({
           </>
         ) : (
           <p className="text-slate-300">
-            Responde las {PREGUNTAS.length} preguntas y aquí aparece tu semáforo por área y el orden sugerido. Te faltan {PREGUNTAS.length - respondidas}.
+            Responde las {PREGUNTAS.length} preguntas y aquí aparece tu semáforo por pieza y el orden sugerido. Te faltan {PREGUNTAS.length - respondidas}.
           </p>
         )}
       </div>
@@ -397,53 +439,118 @@ function Diagnostico({
   );
 }
 
-// ─── Lección 3 · Esqueleto ────────────────────────────────────────────────────
+// ─── Lección 3 · Planilla base y ficha del negocio ───────────────────────
 
-function EsqueletoLeccion() {
-  const contenido = [
-    'Tu negocio: qué vendes, a quién, precios, horario y cómo hablas.',
-    'Las preguntas de siempre, con tu respuesta corta.',
-    'Lo que nunca debe prometer.',
-    'Cuándo pasa a una persona.',
-  ];
+const MAX_PRODUCTOS = 8;
+const claseCampo =
+  'mt-1.5 min-h-[48px] w-full rounded-xl border border-white/15 bg-white/[0.03] px-4 py-3 text-[15px] text-slate-100 placeholder:text-slate-500 focus:border-[#5fb2dd] focus:outline-none';
+
+function PlanillaLeccion({ negocio, setNegocio }: { negocio: string; setNegocio: (v: string) => void }) {
+  const montado = useMontado();
+  const [fichaGuardada, setFicha] = useFicha();
+  const ficha = montado ? fichaGuardada : { queVendes: '', aQuien: '', productos: [] as ProductoFicha[] };
+  const productos = ficha.productos.length ? ficha.productos : [{ nombre: '', precio: '' }];
+  const setProducto = (i: number, campo: keyof ProductoFicha, v: string) =>
+    setFicha((p) => {
+      const lista = p.productos.length ? [...p.productos] : [{ nombre: '', precio: '' }];
+      lista[i] = { ...lista[i], [campo]: v };
+      return { ...p, productos: lista };
+    });
   return (
-    <div className="mt-8 grid gap-5 lg:grid-cols-[1fr_320px]">
+    <div className="mt-8">
       <div className="space-y-4 text-slate-300">
         <p>
-          Todo lo que viene en el curso se apoya en un mismo documento. El calendario de contenido usa tu frase y tus temas; la propuesta usa tus precios; el asistente de WhatsApp responde con tus preguntas frecuentes y tus frenos. Si esa información vive solo en tu cabeza, cada módulo vuelve a depender de ti.
+          Todo lo que viene en el curso vive en una sola planilla. La hoja Clientes usa tus productos para las propuestas, Pedidos usa tus precios para calcular el total, y el tablero suma todo. Si eso vive solo en tu cabeza, cada hoja vuelve a depender de ti.
         </p>
         <p>
-          El esqueleto de tu agente es ese documento. Son 4 pasos y al final te queda la estructura lista para copiar. Si ya lo hiciste, ábrelo y revisa que precios, plazos y horarios sigan al día.
+          Hoy dejas lista la base: el nombre del negocio, qué vendes, a quién, y tu lista de precios. Con eso descargas tu planilla, ya con tu nombre y tus productos, y la abres en Google Sheets.
         </p>
-        <ul className="space-y-2">
-          {contenido.map((x) => (
-            <li key={x} className="flex gap-3">
-              <Check className="mt-0.5 h-5 w-5 shrink-0 text-[#5fb2dd]" aria-hidden /> <span>{x}</span>
-            </li>
-          ))}
-        </ul>
       </div>
-      <div className="flex flex-col justify-between overflow-hidden rounded-2xl border border-[#2175a1]/40 bg-gradient-to-br from-[#2175a1]/20 to-transparent p-5">
-        <figure className="relative -mx-5 -mt-5 mb-4 aspect-[16/9]">
-          <Foto foto={APOYO.escritorioNoche} posicion="center" />
-        </figure>
-        <div>
-          <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-[#5fb2dd]">15 minutos</p>
-          <p className="mt-2 font-serif text-xl text-white">Completa o revisa tu esqueleto</p>
-          <p className="mt-2 text-sm text-slate-400">Se abre en otra pestaña. Cuando termines, vuelve aquí y marca el checklist.</p>
-        </div>
-        <a
-          href={LINKS.esqueleto}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mt-5 inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full bg-[#FF3D8B] px-6 text-sm font-semibold text-white hover:bg-[#ff5c9f]"
+      <DiagramaPlanillaSistema className="mt-6" />
+
+      <Subtitulo3>1 · La ficha de tu negocio</Subtitulo3>
+      <div className="mt-3 grid gap-3">
+        <label className="block text-sm text-slate-300">
+          Nombre del negocio
+          <input value={negocio} onChange={(e) => setNegocio(e.target.value)} placeholder="Ej.: Grano Norte" className={claseCampo} />
+        </label>
+        <label className="block text-sm text-slate-300">
+          Qué vendes
+          <input
+            value={ficha.queVendes}
+            onChange={(e) => setFicha((p) => ({ ...p, queVendes: e.target.value }))}
+            placeholder="Ej.: café en grano y molido, tostado en Valparaíso"
+            className={claseCampo}
+          />
+        </label>
+        <label className="block text-sm text-slate-300">
+          A quién le vendes
+          <input
+            value={ficha.aQuien}
+            onChange={(e) => setFicha((p) => ({ ...p, aQuien: e.target.value }))}
+            placeholder="Ej.: cafeterías y oficinas de la región"
+            className={claseCampo}
+          />
+        </label>
+      </div>
+
+      <Subtitulo3>2 · Tu lista de precios</Subtitulo3>
+      <p className="mt-2 text-sm text-slate-400">Tus productos o servicios principales con su precio de lista. El costo y el margen los ves en el módulo 5.</p>
+      <ul className="mt-3 space-y-2">
+        {productos.map((pr, i) => (
+          <li key={i} className="grid grid-cols-[1fr_7.5rem_auto] items-end gap-2">
+            <label className="block min-w-0 text-xs text-slate-400">
+              <span className={i === 0 ? '' : 'sr-only'}>Producto o servicio</span>
+              <input value={pr.nombre} onChange={(e) => setProducto(i, 'nombre', e.target.value)} placeholder={i === 0 ? 'Ej.: Café en grano 1 kg' : 'Otro producto'} className={claseCampo} />
+            </label>
+            <label className="block text-xs text-slate-400">
+              <span className={i === 0 ? '' : 'sr-only'}>Precio</span>
+              <input value={pr.precio} inputMode="numeric" onChange={(e) => setProducto(i, 'precio', e.target.value)} placeholder="16000" className={claseCampo} />
+            </label>
+            <button
+              type="button"
+              aria-label="Quitar producto"
+              onClick={() => setFicha((p) => ({ ...p, productos: p.productos.filter((_, j) => j !== i) }))}
+              className="flex h-12 w-10 items-center justify-center text-slate-500 hover:text-slate-200"
+            >
+              <Trash2 className="h-4 w-4" aria-hidden />
+            </button>
+          </li>
+        ))}
+      </ul>
+      {productos.length < MAX_PRODUCTOS ? (
+        <button
+          type="button"
+          onClick={() => setFicha((p) => ({ ...p, productos: [...(p.productos.length ? p.productos : [{ nombre: '', precio: '' }]), { nombre: '', precio: '' }] }))}
+          className="mt-3 inline-flex min-h-[44px] items-center gap-2 rounded-full border border-white/15 px-4 text-sm text-slate-200 hover:border-white/30"
         >
-          Abrir el esqueleto <ArrowUpRight className="h-4 w-4" aria-hidden />
-        </a>
+          <Plus className="h-4 w-4" aria-hidden /> Agregar producto
+        </button>
+      ) : null}
+
+      <Subtitulo3>3 · Descarga tu planilla</Subtitulo3>
+      <DescargaPlantilla
+        className="mt-3"
+        titulo="Tu planilla base"
+        texto="Sale con tu ficha en la hoja Inicio y tus productos en la hoja Productos. Trae todas las hojas del curso ya conectadas: las vas a ir llenando módulo a módulo. Si quieres ver cómo queda llena, baja el ejemplo de Grano Norte."
+      />
+      <div className="mt-4 rounded-2xl border border-white/10 p-4 text-sm text-slate-300">
+        <p className="font-medium text-white">Ayuda opcional</p>
+        <p className="mt-1">{IA_OPCIONAL}</p>
+        <p className="mt-2">
+          Si además quieres que un asistente responda tu WhatsApp, el{' '}
+          <a href={LINKS.esqueleto} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-[#5fb2dd] underline-offset-2 hover:underline">
+            esqueleto gratis <ArrowUpRight className="h-3.5 w-3.5" aria-hidden />
+          </a>{' '}
+          usa esta misma información. No lo necesitas para el curso.
+        </p>
       </div>
-      <DiagramaEsqueletoAlimenta className="lg:col-span-2" />
     </div>
   );
+}
+
+function Subtitulo3({ children }: { children: React.ReactNode }) {
+  return <h3 className="mt-8 font-serif text-xl text-white">{children}</h3>;
 }
 
 // ─── Lección 4 · Reglas de freno ──────────────────────────────────────────
@@ -470,7 +577,7 @@ function descargarReglas(estado: EstadoReglas, negocio: string) {
       ...elegidas.filter((r) => r.categoria === c).map((r) => `${(n += 1)}. ${r.texto}`),
       '',
     ]),
-    'Curso «Tu negocio de punta a punta» · Villelab',
+    'Curso «El sistema de tu negocio» · Villelab',
   ];
   const blob = new Blob(['﻿' + lineas.join('\r\n')], { type: 'text/plain;charset=utf-8' });
   const url = URL.createObjectURL(blob);
@@ -627,15 +734,17 @@ function Portada({
   const completo = PREGUNTAS.every((p) => respuestas[p.id] !== undefined);
   const resultado = calcularResultado(respuestas);
   const elegidas = reglasElegidas(reglas);
-  const esqueletoListo = !!checks.l3a;
+  const planillaLista = !!checks.l3a;
+  const [fichaGuardada] = useFicha();
+  const productos = montado ? fichaGuardada.productos.filter((p) => p.nombre.trim()) : [];
 
   return (
     <section className="m0-portada mx-auto max-w-3xl px-4 pb-6 pt-12 sm:px-6">
       <div className="m0-no-print">
         <Kicker>Entregable del módulo 0</Kicker>
-        <h2 className="mt-3 font-serif text-3xl text-white sm:text-4xl">La portada de tu tablero</h2>
+        <h2 className="mt-3 font-serif text-3xl text-white sm:text-4xl">La portada de tu sistema</h2>
         <p className="mt-3 text-slate-300">
-          Junta tu semáforo, tu esqueleto y tus reglas de freno en una hoja. Imprímela o guárdala como PDF: es la primera página del tablero de tu negocio, el proyecto final del curso.
+          Junta tu semáforo, tu planilla base y tus reglas de freno en una hoja. Imprímela o guárdala como PDF junto a tu planilla: es la primera página de tu proyecto final, tu ERP en Google Sheets con su tablero.
         </p>
         <figure className="relative mt-6 aspect-[16/7] overflow-hidden rounded-2xl border border-white/10">
           <Foto foto={APOYO.escritorioClaro} posicion="center" />
@@ -654,7 +763,7 @@ function Portada({
       <div className="m0-hoja mt-6 rounded-2xl border border-white/15 bg-white/[0.03] p-5 sm:p-8">
         <div className="flex flex-wrap items-baseline justify-between gap-2 border-b border-white/10 pb-4">
           <div>
-            <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-slate-400">El tablero de tu negocio · Portada</p>
+            <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-slate-400">El sistema de tu negocio · Portada</p>
             <p className="mt-1 font-serif text-2xl text-white sm:text-3xl">{(montado && negocio.trim()) || 'Mi negocio'}</p>
           </div>
           <p className="font-mono text-xs text-slate-400">{montado ? new Date().toLocaleDateString('es-CL') : ''}</p>
@@ -662,30 +771,21 @@ function Portada({
 
         <h3 className="mt-6 text-xs uppercase tracking-wider text-slate-400">1 · Mapa y semáforo</h3>
         {montado && completo ? (
-          <table className="mt-3 w-full text-left text-sm">
-            <thead>
-              <tr className="text-[11px] uppercase tracking-wider text-slate-500">
-                <th className="py-1 font-normal">Área</th>
-                <th className="py-1 font-normal">Hoy</th>
-                <th className="py-1 text-right font-normal">Al terminar</th>
-              </tr>
-            </thead>
-            <tbody>
-              {resultado.porArea.map((r) => (
-                <tr key={r.area.id} className="border-t border-white/5">
-                  <td className="py-2 text-slate-100">{r.area.nombre}</td>
-                  <td className="py-2">
-                    <span className="inline-flex items-center gap-2 text-slate-300">
-                      <PuntoSemaforo semaforo={r.semaforo} /> {r.puntaje}/6
-                    </span>
-                  </td>
-                  <td className="py-2 text-right">
-                    <span aria-hidden className="inline-block h-3 w-3 rounded-full border border-slate-500" />
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <ul className="mt-3 space-y-2 text-sm">
+            {resultado.porArea.map((r) => (
+              <li key={r.area.id} className="flex items-center justify-between gap-3 border-t border-white/5 pt-2 first:border-t-0 first:pt-0">
+                <span className="min-w-0 text-slate-100">
+                  {r.area.nombre} <span className="text-slate-500">· hoja {r.area.hoja}</span>
+                </span>
+                <span className="inline-flex shrink-0 items-center gap-2 text-slate-300">
+                  <PuntoSemaforo semaforo={r.semaforo} /> {r.puntaje}/6
+                  <span className="sr-only">hoy;</span>
+                  <span className="ml-2 text-[11px] uppercase tracking-wider text-slate-500">al terminar</span>
+                  <span aria-hidden className="inline-block h-3 w-3 rounded-full border border-slate-500" />
+                </span>
+              </li>
+            ))}
+          </ul>
         ) : (
           <p className="mt-2 text-sm text-slate-400">
             Pendiente: <button type="button" onClick={() => irA(1)} className="text-[#5fb2dd] underline-offset-2 hover:underline">responde el diagnóstico</button> (lección 2).
@@ -696,14 +796,16 @@ function Portada({
           <>
             <h3 className="mt-6 text-xs uppercase tracking-wider text-slate-400">2 · Orden sugerido</h3>
             <p className="mt-2 text-sm text-slate-200">
-              {resultado.orden.map((r) => r.area.nombre).join(' → ')} → Tu propia infra
+              {resultado.orden.map((r) => r.area.nombre).join(' → ')} → El tablero
             </p>
           </>
         ) : null}
 
-        <h3 className="mt-6 text-xs uppercase tracking-wider text-slate-400">{montado && completo ? '3' : '2'} · Esqueleto de tu agente</h3>
+        <h3 className="mt-6 text-xs uppercase tracking-wider text-slate-400">{montado && completo ? '3' : '2'} · Tu planilla base</h3>
         <p className="mt-2 text-sm text-slate-200">
-          {montado && esqueletoListo ? 'Completo. Se guarda junto a este tablero y lo leen todas las áreas.' : 'Pendiente: completar o revisar el esqueleto (lección 3).'}
+          {montado && planillaLista
+            ? `Descargada y abierta${productos.length ? `, con ${productos.length} ${productos.length === 1 ? 'producto' : 'productos'} en tu lista de precios` : ''}. Cada módulo le suma una hoja.`
+            : 'Pendiente: descargar tu planilla y llenar la ficha del negocio (lección 3).'}
         </p>
 
         <h3 className="mt-6 text-xs uppercase tracking-wider text-slate-400">{montado && completo ? '4' : '3'} · Reglas de freno: lo que decide siempre una persona</h3>
@@ -719,7 +821,7 @@ function Portada({
           </p>
         )}
 
-        <p className="mt-8 border-t border-white/10 pt-3 font-mono text-[10px] text-slate-500">Curso «Tu negocio de punta a punta» · Módulo 0 · Villelab</p>
+        <p className="mt-8 border-t border-white/10 pt-3 font-mono text-[10px] text-slate-500">Curso «El sistema de tu negocio» · Módulo 0 · Villelab</p>
       </div>
 
       <div className="m0-no-print mt-6 flex flex-col gap-3 sm:flex-row">
@@ -854,12 +956,15 @@ export default function Modulo0Content() {
             <Foto foto={APOYO.tostaduriaPlanta} posicion="center" prioridad />
           </figure>
           <div>
-            <Kicker>Módulo 0 · El mapa · 4 lecciones · 30 min</Kicker>
-            <h1 className="mt-4 font-serif text-4xl leading-tight text-white sm:text-5xl">Tu negocio en 5 áreas</h1>
+            <Kicker>Módulo 0 · {MODULOS[0].area} · {MODULOS[0].duracion}</Kicker>
+            <h1 className="mt-4 font-serif text-4xl leading-tight text-white sm:text-5xl">{MODULOS[0].titulo}</h1>
             <p className="mt-4 text-slate-300">
-              Antes de ordenar nada, miramos el negocio completo. Al terminar este módulo tienes tu mapa con semáforo, el esqueleto de tu agente y tus reglas de freno: la portada del tablero que vas a armar durante el curso.
+              Antes de ordenar nada, miramos el negocio completo. Al terminar este módulo tienes tu mapa con semáforo, tu planilla base con la ficha del negocio y tus reglas de freno: la portada del sistema que vas a armar durante el curso.
             </p>
             <p className="mt-3 text-sm text-slate-500">Tu avance se guarda en este navegador.</p>
+            <p className="mt-1 text-xs text-slate-500">
+              Curso versión {VERSION_CURSO.version} · actualizado el {fechaLarga(VERSION_CURSO.fecha)}
+            </p>
           </div>
         </header>
       ) : null}
@@ -879,7 +984,7 @@ export default function Modulo0Content() {
                 }}
               />
             ) : null}
-            {leccion.id === 'esqueleto' ? <EsqueletoLeccion /> : null}
+            {leccion.id === 'planilla' ? <PlanillaLeccion negocio={montado ? negocio : NEGOCIO_INICIAL} setNegocio={setNegocio} /> : null}
             {leccion.id === 'reglas' ? <ReglasFreno estado={montado ? reglas : REGLAS_INICIALES} setEstado={setReglas} negocio={negocio} /> : null}
             <Checklist leccion={leccion} checks={checksVisibles} onToggle={toggle} />
             <NavLeccion pagina={pagina} ir={ir} />
@@ -899,12 +1004,14 @@ export default function Modulo0Content() {
             }}
           >
             {/* Video 13 · cierre del módulo 0, sobre el siguiente paso (8-nov-2026) */}
-            <VideoMarco id="v13-m0-cierre" titulo="Lo que viene" duracion="20 s" className="mb-10" />
+            <VideoMarco id="v13-m0-cierre" titulo="Lo que viene" duracion="20 s" />
+            <NotaVideo>Este video es de la versión anterior y nombra el esqueleto: hoy tu portada junta el mapa, el semáforo, tu planilla base y tus reglas.</NotaVideo>
+            <div className="mb-10" />
             <SiguientePaso
-              logro="Ya tienes el mapa y la portada de tu tablero"
+              logro="Ya tienes el mapa, tu planilla base y la portada de tu sistema"
               pago={{
                 titulo: 'El curso completo en preventa',
-                descripcion: `Los 6 módulos que faltan, uno por semana: marketing, ventas, operación, atención, finanzas y tu sistema propio. ${textoPrecio()}.`,
+                descripcion: `Los 6 módulos que faltan, uno por semana, cada uno con su hoja: clientes y ventas (tu CRM), marketing y origen, pedidos, atención, cobranza y caja, y el tablero. ${textoPrecio()}.`,
                 href: LINKS.cursoCompra,
                 cta: 'Quiero el curso',
               }}

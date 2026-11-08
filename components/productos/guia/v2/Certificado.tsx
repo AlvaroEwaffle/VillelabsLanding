@@ -146,17 +146,22 @@ function ModalCelebracion({ onCerrar }: { onCerrar: () => void }) {
         <div className="mt-6 border-t border-white/10 pt-6">
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">Tu siguiente paso</p>
           <p className="mt-2 text-slate-200">
-            Hoy lo hiciste a mano y con un chat. En el curso <strong className="text-white">«Tu negocio de punta a punta»</strong> aprendes a
-            mantener un sistema que corre solo: los seguimientos, las cotizaciones y los reportes salen a tiempo aunque no estés encima.
+            Tu planilla ya es tu primer CRM. En el curso <strong className="text-white">«El sistema de tu negocio»</strong> la extiendes al resto
+            del negocio: de dónde llegan tus clientes, los pedidos, la atención, la cobranza y la caja, todo en la misma planilla y con un tablero que
+            miras los lunes. Tu lista de esta guía pasa sola a la hoja Clientes.
           </p>
           <div className="mt-4">
             <VideoPlaceholder titulo="Del chat a un sistema que corre solo" duracion="30 s" guion={GUION_VIDEO_CURSO} etiquetaGuion="Leer lo que digo en el video" video="v05-guia-cierre" />
+            <p className="mt-2 text-xs text-slate-500">
+              Este video habla de la primera versión del curso, con agentes. Desde el 8 de noviembre de 2026, el curso arma tu CRM y tu ERP en Google Sheets, y la IA
+              es una ayuda opcional. Lo vamos a regrabar.
+            </p>
           </div>
           <SiguientePaso
             logro="Ya tienes tu sistema de ventas andando"
             pago={{
-              titulo: 'Curso «Tu negocio de punta a punta»',
-              descripcion: 'Agentes que buscan, preparan los mensajes y te avisan los seguimientos, conectados y corriendo en el fondo. Además marketing, operación, atención y finanzas.',
+              titulo: 'Curso «El sistema de tu negocio»',
+              descripcion: 'Tu primer CRM y ERP en Google Sheets: tu lista de esta guía sigue en la hoja Clientes y le sumas origen, pedidos, atención, cobranza, caja y un tablero.',
               href: LINKS.curso,
               cta: 'Conocer el curso',
               evento: 'guia_click_curso',

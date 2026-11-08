@@ -540,12 +540,12 @@ const DIAPOSITIVAS: { id: string; render: () => React.ReactNode }[] = [
     id: 'curso',
     render: () => (
       <div className="flex h-full flex-col justify-center">
-        <Etiqueta>Siguiente paso · hoy vimos 1 de las 5 áreas</Etiqueta>
+        <Etiqueta>Siguiente paso · hoy vimos una pieza de tu sistema</Etiqueta>
         <Titulo className="mt-[0.3em]" md="md:text-[2.2em]">
-          Curso «Tu negocio de punta a punta»
+          Curso «El sistema de tu negocio»
         </Titulo>
         <p className="mt-[0.4em] max-w-[40em] text-[0.95em] text-slate-300">
-          Lo mismo que viste hoy, con marketing, ventas, operación y finanzas. Todo conectado en el tablero de tu negocio.
+          Tu primer CRM y ERP en Google Sheets: clientes, pedidos, atención, cobranza y caja en una planilla, con un tablero que lo junta todo.
         </p>
         <div className="mt-[0.9em] grid gap-[0.5em] md:text-[0.8em] md:grid-cols-4">
           {MODULOS_CURSO.map((m) => (
@@ -561,7 +561,7 @@ const DIAPOSITIVAS: { id: string; render: () => React.ReactNode }[] = [
           ))}
           <div className="rounded-[0.8em] border border-white/20 bg-white/[0.08] p-[0.7em]">
             <p className="font-mono text-[0.85em] text-[#5fb2dd]">Proyecto final</p>
-            <p className="mt-[0.2em] text-white">El tablero de tu negocio</p>
+            <p className="mt-[0.2em] text-white">Tu ERP en Google Sheets con su tablero</p>
           </div>
         </div>
         <div className="mt-[1em] flex flex-col gap-[0.8em] rounded-[1em] border border-[#5fb2dd]/50 bg-gradient-to-r from-[#2175a1]/30 to-transparent p-[1em] md:flex-row md:items-center md:justify-between">

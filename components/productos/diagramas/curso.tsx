@@ -1,10 +1,11 @@
 'use client';
 
-// Diagramas nuevos de /curso y /curso/modulo-0 (8-nov-2026). Se suman a DiagramaCiclo, TableroMock y el mapa interactivo.
+// Diagramas de /curso y /curso/modulo-0 (8-nov-2026; v1.1 con el enfoque «tu primer CRM y ERP en Google Sheets»).
+// Se suman a DiagramaCiclo (las hojas alrededor del tablero), TableroMock y el mapa interactivo.
 import { motion } from 'framer-motion';
 import { Ciclo, Comparacion, Diagrama, Flecha, Nodo, PIEZA } from './base';
 
-const AREAS_CORTAS = ['Marketing', 'Ventas', 'Operación', 'Atención', 'Finanzas'];
+const AREAS_CORTAS = ['Clientes', 'Origen', 'Pedidos', 'Atención', 'Cobranza'];
 
 /** Estrella: todo pasa por el dueño vs áreas conectadas que leen lo mismo. */
 function Estrella({ centro, conectadas }: { centro: string; conectadas: boolean }) {
@@ -59,7 +60,7 @@ export function DiagramaCuelloBotella({ className = '' }: { className?: string }
   return (
     <Diagrama
       titulo="El cuello de botella, antes y después"
-      aria="Comparación. Antes: las cinco áreas (marketing, ventas, operación, atención y finanzas) pasan todas por ti. Después: las áreas se conectan entre ellas y leen lo mismo, el esqueleto y las reglas de freno; a ti solo llega lo que decide una persona."
+      aria="Comparación. Antes: clientes, origen, pedidos, atención y cobranza pasan todos por ti y viven en tu memoria. Después: cada pieza tiene su hoja en la misma planilla, conectadas en un tablero; a ti solo llega lo que decide una persona."
       className={className}
     >
       <Comparacion
@@ -75,13 +76,13 @@ export function DiagramaCuelloBotella({ className = '' }: { className?: string }
           ),
         }}
         der={{
-          titulo: 'Al terminar · las áreas se pasan la pelota',
+          titulo: 'Al terminar · todo en una planilla',
           children: (
             <>
               <motion.div variants={PIEZA}>
-                <Estrella centro={'Esqueleto\n+ reglas'} conectadas />
+                <Estrella centro={'Tu\ntablero'} conectadas />
               </motion.div>
-              <p className="mt-2 text-[13px] text-slate-200">A ti solo llega lo que decide siempre una persona.</p>
+              <p className="mt-2 text-[13px] text-slate-200">Tu equipo mira la planilla. A ti solo llega lo que decide siempre una persona.</p>
             </>
           ),
         }}
@@ -96,10 +97,10 @@ export function DiagramaComoSeAprende({ className = '' }: { className?: string }
     <Diagrama
       titulo="Así funciona cada módulo"
       className={className}
-      aria="Ciclo de cada módulo en cuatro pasos: la idea, una demo con el caso Grano Norte, la plantilla para tu negocio y una prueba real. El resultado se suma a tu tablero y parte el módulo siguiente."
-      pie="Cada vuelta deja un entregable en tu tablero. Siete vueltas y tienes tu negocio ordenado de punta a punta."
+      aria="Ciclo de cada módulo en cuatro pasos: la idea, el ejemplo con el caso Grano Norte, tu hoja de la planilla y una prueba real. La hoja se suma a tu planilla y parte el módulo siguiente."
+      pie="Cada vuelta suma una hoja a tu planilla. Siete vueltas y tienes tu primer CRM y ERP, con su tablero."
     >
-      <Ciclo nodos={[['La idea'], ['Demo con', 'Grano Norte'], ['Tu', 'plantilla'], ['Prueba', 'real']]} centro={['Tu', 'tablero']} />
+      <Ciclo nodos={[['La idea'], ['Ejemplo con', 'Grano Norte'], ['Tu', 'hoja'], ['Prueba', 'real']]} centro={['Tu', 'planilla']} />
     </Diagrama>
   );
 }
@@ -108,14 +109,14 @@ export function DiagramaComoSeAprende({ className = '' }: { className?: string }
 export function DiagramaSemaforo({ className = '' }: { className?: string }) {
   const filas = [
     { c: 'bg-rose-500', t: 'Rojo', d: 'Depende de ti o de la memoria', h: 'Empieza por aquí' },
-    { c: 'bg-orange-400', t: 'Naranja', d: 'A medias: se cae cuando hay harta pega', h: 'Escríbelo y ordénalo' },
-    { c: 'bg-emerald-500', t: 'Verde', d: 'Escrito y se repite solo', h: 'Afina y mide' },
+    { c: 'bg-orange-400', t: 'Naranja', d: 'A medias: se cae cuando hay harta pega', h: 'Anótalo y ordénalo' },
+    { c: 'bg-emerald-500', t: 'Verde', d: 'Anotado y se repite solo', h: 'Afina y mide' },
   ];
   return (
     <Diagrama
       titulo="Cómo leer tu semáforo"
       className={className}
-      aria="Cómo leer el semáforo del diagnóstico. Rojo: el área depende de ti o de la memoria; empieza por aquí. Naranja: está a medias y se cae cuando hay harta pega; escríbelo y ordénalo. Verde: está escrito y se repite solo; afina y mide."
+      aria="Cómo leer el semáforo del diagnóstico. Rojo: la pieza depende de ti o de la memoria; empieza por aquí. Naranja: está a medias y se cae cuando hay harta pega; anótalo y ordénalo. Verde: está anotado y se repite solo; afina y mide."
       pie="Si tienes varios rojos, parte por el que más plata o más tiempo te cuesta cada semana."
     >
       <div className="space-y-2">
@@ -134,32 +135,36 @@ export function DiagramaSemaforo({ className = '' }: { className?: string }) {
   );
 }
 
-/** Módulo 0 · Lección 3: un solo documento alimenta las cinco áreas. */
-export function DiagramaEsqueletoAlimenta({ className = '' }: { className?: string }) {
-  const usos = [
-    { a: 'Marketing', u: 'Tu frase y tus temas → el calendario de contenido' },
-    { a: 'Ventas', u: 'Tus precios → la propuesta' },
-    { a: 'Atención', u: 'Tus preguntas y frenos → el asistente de WhatsApp' },
-    { a: 'Operación', u: 'Plazos y horarios → lo que se promete' },
-    { a: 'Finanzas', u: 'Precios y productos → tus números' },
+/** Módulo 0 · Lección 3: una sola planilla, una hoja por pieza, y el tablero que las lee. */
+export function DiagramaPlanillaSistema({ className = '' }: { className?: string }) {
+  const hojas = [
+    { h: 'Clientes', u: 'Tu CRM: en qué va cada cliente', m: 'M1' },
+    { h: 'Origen', u: 'Qué canal te trae clientes', m: 'M2' },
+    { h: 'Pedidos', u: 'Qué se pidió, para cuándo y quién', m: 'M3' },
+    { h: 'Atención', u: 'Cada caso, hasta cerrarlo', m: 'M4' },
+    { h: 'Cobranza y Caja', u: 'Qué te deben y cuánta plata tienes', m: 'M5' },
   ];
   return (
     <Diagrama
-      titulo="Un documento, cinco áreas"
+      titulo="Una planilla, todo tu negocio"
       className={className}
-      aria="El esqueleto de tu agente alimenta las cinco áreas: marketing usa tu frase y tus temas para el calendario de contenido; ventas usa tus precios para la propuesta; atención usa tus preguntas y frenos en el asistente de WhatsApp; operación usa plazos y horarios; finanzas usa precios y productos."
+      aria="La planilla del sistema: la ficha del negocio y la lista de precios (módulo 0) alimentan cinco hojas, Clientes (tu CRM), Origen, Pedidos, Atención, y Cobranza y Caja, una por módulo. El tablero del módulo 6 lee todas las hojas y calcula tus números del lunes."
+      pie="CRM es la hoja Clientes. ERP es todo junto. Tú llenas filas; el tablero se calcula solo."
     >
-      <div className="grid items-center gap-3 sm:grid-cols-[180px_auto_1fr]">
-        <Nodo tono="claro" titulo="El esqueleto de tu agente" texto="Qué vendes, a quién, precios, tono, preguntas y frenos" className="text-center" />
+      <div className="grid items-center gap-3 sm:grid-cols-[150px_auto_1fr_auto_120px]">
+        <Nodo tono="claro" titulo="Ficha y precios" texto="Qué vendes, a quién y a qué precio · M0" className="text-center" />
         <Flecha />
         <div className="grid gap-1.5">
-          {usos.map((u) => (
-            <motion.div key={u.a} variants={PIEZA} className="flex items-baseline gap-2 rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2">
-              <span className="w-[5.5rem] shrink-0 font-mono text-[11px] uppercase tracking-wider text-[#5fb2dd]">{u.a}</span>
-              <span className="text-[13px] leading-snug text-slate-200">{u.u}</span>
+          {hojas.map((u) => (
+            <motion.div key={u.h} variants={PIEZA} className="flex items-baseline gap-2 rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2">
+              <span className="w-[6.5rem] shrink-0 font-mono text-[11px] uppercase tracking-wider text-[#5fb2dd]">{u.h}</span>
+              <span className="min-w-0 flex-1 text-[13px] leading-snug text-slate-200">{u.u}</span>
+              <span className="shrink-0 font-mono text-[10px] text-slate-500">{u.m}</span>
             </motion.div>
           ))}
         </div>
+        <Flecha />
+        <Nodo tono="claro" titulo="Tablero" texto="Tus números del lunes · M6" className="text-center" />
       </div>
     </Diagrama>
   );
@@ -171,12 +176,12 @@ export function DiagramaQuienDecide({ className = '' }: { className?: string }) 
     <Diagrama
       titulo="Quién decide qué"
       className={className}
-      aria="Con las reglas de freno escritas, todo lo que no está en la lista lo resuelve tu equipo o tu asistente solo, como el precio de lista, el horario o cómo comprar. Lo que está en la lista pasa siempre por ti: precios fuera de lista, fechas de entrega, lo que no sabe y los reclamos."
+      aria="Con las reglas de freno escritas, todo lo que no está en la lista lo resuelve tu equipo solo, como el precio de lista, el horario o cómo comprar. Lo que está en la lista pasa siempre por ti: precios fuera de lista, fechas de entrega, lo que no sabe y los reclamos."
       pie="Escribir los frenos no te quita control: te saca del resto."
     >
       <div className="grid gap-3 sm:grid-cols-[1fr_1fr]">
         <motion.div variants={PIEZA} className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
-          <p className="font-mono text-[11px] uppercase tracking-wider text-slate-400">Lo resuelve tu equipo o tu asistente</p>
+          <p className="font-mono text-[11px] uppercase tracking-wider text-slate-400">Lo resuelve tu equipo</p>
           <ul className="mt-3 space-y-1.5 text-[13px] text-slate-200">
             {['Precio de la lista', 'Horario y dirección', 'Cómo comprar y pagar', 'Estado de un pedido normal'].map((x) => (
               <li key={x} className="flex gap-2">

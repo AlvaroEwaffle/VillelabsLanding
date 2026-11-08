@@ -115,15 +115,20 @@ export default function GuiaVenta() {
 
   return (
     <main className="relative w-full overflow-x-hidden bg-[#0f172a] text-slate-100">
-      {/* Hero: problema → resultado → precio → CTA */}
-      <section className="mx-auto max-w-6xl px-4 pb-12 pt-32 sm:px-6 md:pt-40">
-        <div className="grid items-start gap-10 lg:grid-cols-[1fr_380px]">
+      {/* Hero: problema → resultado → precio → CTA. Compacto (corrección de Álvaro, 8-nov-2026, igual que /curso):
+          columnas centradas, foto acotada y «La guía en corto» como franja bajo el hero. */}
+      <section className="mx-auto max-w-6xl px-4 pb-10 pt-28 sm:px-6 md:pt-32">
+        <div className="grid items-center gap-8 lg:grid-cols-[1fr_380px] lg:gap-12">
+          <figure className="relative aspect-[16/10] max-h-[260px] w-full overflow-hidden rounded-3xl border border-white/10 sm:max-h-[340px] lg:order-last lg:aspect-[4/5] lg:max-h-[460px]">
+            <Foto foto={FOTOS.pizarra} posicion="35% 30%" prioridad />
+            <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-[#0f172a]/50 via-transparent to-transparent" />
+          </figure>
           <div>
             <Kicker>{GUIA.etiqueta}</Kicker>
-            <h1 className="mt-5 max-w-4xl font-serif text-4xl leading-tight text-white sm:text-5xl md:text-6xl">
+            <h1 className="mt-4 max-w-4xl font-serif text-4xl leading-[1.08] text-white sm:text-5xl lg:text-[3.4rem]">
               Deja de vender solo cuando te llega un referido.
             </h1>
-            <p className="mt-6 max-w-2xl text-base text-slate-300 sm:text-lg">
+            <p className="mt-5 max-w-2xl text-base text-slate-300 sm:text-lg">
               En una tarde armas tu lista de 20 posibles clientes, el primer mensaje y los seguimientos con fecha. Después, 20 minutos cada mañana: tu
               planilla te dice a quién escribirle y nadie se te enfría.
             </p>
@@ -137,7 +142,7 @@ export default function GuiaVenta() {
                 Tu primer CRM en Google Sheets (o Excel), gratis y listo en la misma tarde.
               </li>
             </ul>
-            <div className="mt-7 flex flex-wrap items-baseline gap-x-3 gap-y-1">
+            <div className="mt-6 flex flex-wrap items-baseline gap-x-3 gap-y-1">
               <p className="font-serif text-4xl text-white">{PRECIO_GUIA.texto}</p>
               <p className="text-sm text-slate-400">CLP · pago único o {PRECIO_GUIA.cuotas}</p>
             </div>
@@ -155,37 +160,27 @@ export default function GuiaVenta() {
               Garantía de {PRECIO_GUIA.garantiaDias} días. El acceso te llega al correo apenas se confirma el pago.
             </p>
           </div>
-          <aside className="overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03]">
-            <div className="relative aspect-[16/10]">
-              <Foto foto={FOTOS.pizarra} posicion="35% 30%" prioridad />
-              <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-[#131c31] via-transparent to-transparent" />
-            </div>
-            <div className="p-6 pt-2">
-              <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-slate-400">La guía en corto</p>
-              <dl className="mt-4 space-y-4">
-                <div>
-                  <dt className="text-xs uppercase tracking-wider text-slate-500">Formato</dt>
-                  <dd className="mt-1 text-slate-100">Guía interactiva: diagnóstico + 6 partes</dd>
-                </div>
-                <div>
-                  <dt className="text-xs uppercase tracking-wider text-slate-500">Tiempo</dt>
-                  <dd className="mt-1 text-slate-100">{GUIA.duracion}, más 5 días de prueba real</dd>
-                </div>
-                <div>
-                  <dt className="text-xs uppercase tracking-wider text-slate-500">Te llevas</dt>
-                  <dd className="mt-1 text-slate-100">Tu primer CRM en Google Sheets o Excel, tus mensajes y el certificado</dd>
-                </div>
-                <div>
-                  <dt className="text-xs uppercase tracking-wider text-slate-500">Guía viva</dt>
-                  <dd className="mt-1 text-slate-100">
-                    La revisamos y actualizamos, y su evidencia se revisa cada tres meses; tú recibes cada mejora. Última actualización:{' '}
-                    {fechaLarga(VERSION_ACTUAL.fecha)}
-                  </dd>
-                </div>
-              </dl>
-            </div>
-          </aside>
         </div>
+      </section>
+
+      {/* La guía en corto: franja bajo el hero (4 datos en fila en escritorio, apilados en celular). */}
+      <section aria-label="La guía en corto" className="mx-auto max-w-6xl px-4 sm:px-6">
+        <dl className="grid gap-px overflow-hidden rounded-2xl border border-white/10 bg-white/10 sm:grid-cols-2 lg:grid-cols-4">
+          {[
+            { k: 'Formato', v: 'Guía interactiva: diagnóstico + 6 partes' },
+            { k: 'Tiempo', v: `${GUIA.duracion}, más 5 días de prueba real` },
+            { k: 'Te llevas', v: 'Tu primer CRM en Google Sheets o Excel, tus mensajes y el certificado' },
+            {
+              k: 'Guía viva',
+              v: `La revisamos y actualizamos, y su evidencia se revisa cada tres meses; tú recibes cada mejora. Última actualización: ${fechaLarga(VERSION_ACTUAL.fecha)}`,
+            },
+          ].map((d) => (
+            <div key={d.k} className="bg-[#111a2e] p-4 sm:p-5">
+              <dt className="font-mono text-[10px] uppercase tracking-[0.18em] text-slate-500">{d.k}</dt>
+              <dd className="mt-1.5 text-sm text-slate-100">{d.v}</dd>
+            </div>
+          ))}
+        </dl>
       </section>
 
       {/* El problema */}

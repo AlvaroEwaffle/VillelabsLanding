@@ -32,6 +32,10 @@ type Reel = {
   destinoB: string;
   duracion: string;
   guion: string[];
+  /** Aviso interno: el video quedó desalineado con el producto y hay que regrabarlo antes de publicarlo. */
+  aviso?: string;
+  /** Guion para regrabar (el mismo que lib/productos/curso/guiones.ts). */
+  guionNuevo?: string[];
 };
 
 const REELS: Reel[] = [
@@ -114,6 +118,12 @@ const REELS: Reel[] = [
       'En 6 semanas ordenamos marketing, ventas, operación, atención y finanzas, un área por semana, con plantillas y un caso real. Al final tienes agentes trabajando con tus reglas.',
       'Está en preventa a precio fundador. Link en mi perfil.',
     ],
+    aviso: 'No publicar como anuncio todavía: es de la primera versión del curso y promete «agentes trabajando con tus reglas». Desde el 8-nov-2026 el curso arma tu primer CRM y ERP en Google Sheets. Regrabar con el guion nuevo.',
+    guionNuevo: [
+      '¿Tus clientes viven en el WhatsApp y los pedidos en tu cabeza? No es desorden: nada está anotado en un solo lugar.',
+      'En 6 semanas armas tu primer CRM y ERP en Google Sheets: clientes, pedidos, cobranza y caja en una planilla, con un tablero que miras los lunes. Sin pagar software.',
+      'Está en preventa a precio fundador. Link en mi perfil.',
+    ],
   },
 ];
 
@@ -153,6 +163,19 @@ export default function ReelsPage() {
                     <dd className="text-slate-300">{r.destinoB}</dd>
                   </div>
                 </dl>
+                {r.aviso ? (
+                  <div className="mt-4 rounded-xl border border-rose-400/40 bg-rose-500/[0.08] p-3 text-sm text-slate-200">
+                    <p>{r.aviso}</p>
+                    {r.guionNuevo ? (
+                      <div className="mt-2 space-y-1.5 text-slate-300">
+                        <p className="font-mono text-[11px] uppercase tracking-wider text-[#5fb2dd]">Guion para regrabar</p>
+                        {r.guionNuevo.map((g) => (
+                          <p key={g}>«{g}»</p>
+                        ))}
+                      </div>
+                    ) : null}
+                  </div>
+                ) : null}
                 <details className="group mt-4 rounded-xl border border-white/10 bg-white/[0.03]">
                   <summary className="flex min-h-[44px] cursor-pointer list-none items-center justify-between px-4 py-2 text-sm font-medium text-slate-200">
                     Guion

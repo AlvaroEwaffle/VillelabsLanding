@@ -1,4 +1,5 @@
 import { LINKS } from '@/lib/productos/links';
+import { CURSO, MODULOS } from '@/lib/productos/curso/curso';
 
 // Textos del Workshop 1, tomados del documento aprobado
 // VPM/Villelabs/productos-digitales/contenido-primeros-productos.html (Producto 2 y Entrada B).
@@ -63,15 +64,8 @@ export const RESPUESTA_SIN_REGLAS = '¡Hola! Claro, llevando 2 kilos te dejo un 
 export const RESPUESTA_CON_REGLAS =
   '¡Hola! Los descuentos los ve Camila directamente. Le paso tu mensaje y te escribe hoy antes de las 18:00. ¿Es para cafetería u oficina?';
 
-export const MODULOS_CURSO = [
-  { n: 0, area: 'El mapa', titulo: 'Tu negocio en 5 áreas' },
-  { n: 1, area: 'Marketing', titulo: 'Que te encuentren y te escriban' },
-  { n: 2, area: 'Ventas y prospección', titulo: 'Ningún seguimiento se cae' },
-  { n: 3, area: 'Operaciones', titulo: 'Entregar lo vendido sin perder tareas' },
-  { n: 4, area: 'Atención al cliente', titulo: 'Responder a tiempo, con tus reglas' },
-  { n: 5, area: 'Administración y finanzas', titulo: 'Cobrar a tiempo y saber cómo vas' },
-  { n: 6, area: 'Tu propia infra', titulo: 'Arma tu sistema propio' },
-];
+// Curso v1.1 (8-nov-2026): sale de lib/productos/curso/curso.ts para no desalinearse.
+export const MODULOS_CURSO = MODULOS.map((m) => ({ n: m.numero, area: m.area, titulo: m.titulo }));
 
 // ---------------------------------------------------------------------------
 // Notas del presentador (tecla N): guion del minuto a minuto, por diapositiva.
@@ -178,7 +172,7 @@ export const NOTAS: Nota[] = [
   {
     bloque: '38–45 · Siguiente paso y cierre',
     guion: [
-      '«Hoy vimos una de las 5 áreas: atención al cliente. Lo que les pasa a la mayoría es que cuando ordenan una, se les cae otra. En el curso "Tu negocio de punta a punta" hacemos lo mismo que viste hoy con marketing, ventas, operación y finanzas, y lo conectamos todo en un tablero. Para quienes están aquí, el precio especial dura 72 horas; el link está en el chat.»',
+      '«Hoy vimos una pieza de tu negocio: la atención al cliente. Lo que les pasa a la mayoría es que cuando ordenan una, se les cae otra. En el curso "El sistema de tu negocio" armas tu primer CRM y ERP en Google Sheets: tus clientes, los pedidos, la atención, la cobranza y la caja en una sola planilla, con un tablero que miras los lunes. Para quienes están aquí, el precio especial dura 72 horas; el link está en el chat.»',
       '«Mañana te llega la grabación y la plantilla de reglas de freno.»',
     ],
     indicaciones: ['Pega el link del curso en el chat. Luego responde las preguntas del chat (41–45).'],
@@ -190,9 +184,9 @@ export const NOTAS: Nota[] = [
 // ---------------------------------------------------------------------------
 
 export const PASO_CURSO = {
-  titulo: 'Curso «Tu negocio de punta a punta»',
+  titulo: `Curso «${CURSO.nombre}»`,
   descripcion:
-    'En 6 semanas ordenas las 5 áreas de tu negocio (marketing, ventas, operación, atención al cliente y finanzas) y armas un sistema que funciona sin que estés pegado al celular.',
+    'Tu primer CRM y ERP en Google Sheets: en 6 semanas juntas tus clientes, pedidos, atención, cobranza y caja en una planilla, con un tablero que revisas los lunes. Sin pagar software.',
   href: LINKS.curso,
   cta: 'Ver el curso',
   evento: 'siguiente_paso_curso',

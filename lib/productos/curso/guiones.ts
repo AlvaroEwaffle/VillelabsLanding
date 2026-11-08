@@ -1,9 +1,11 @@
-// Guiones de los videos de los módulos 1–6 del curso «Tu negocio de punta a punta» (8-nov-2026).
-// Pendientes de grabar (HeyGen con créditos limitados): mientras tanto la lección muestra el marcador
-// «Video próximamente» y el guion se puede leer debajo.
+// Guiones de los videos del curso «El sistema de tu negocio: tu primer CRM y ERP en Google Sheets» (v1.1, 8-nov-2026).
+// Módulos 1–6 (claves m{N}-l{i}): pendientes de grabar (HeyGen con créditos limitados); mientras tanto la lección muestra
+// el marcador «Video próximamente» y el guion se puede leer debajo.
+// Al final, los guiones para REGRABAR los videos ya publicados de la v1.0 (claves v05, v08…v13, v17): sus mp4 y vtt en
+// public/videos siguen siendo los viejos y llevan una nota en pantalla hasta que se regraben.
 // Regla 20/80: Álvaro en cámara ~20 % del tiempo (apertura y, a veces, el cierre); el resto, gráficos con su voz.
 // La duración se calcula sola a ~2,4 palabras por segundo (ritmo de locución en español).
-// Copia en VPM/Villelabs/productos-digitales/guiones-curso-modulos-1-6.md (generada desde este archivo).
+// Copia en VPM/Villelabs/productos-digitales/guiones-curso-modulos-1-6.md (generada desde este archivo; regenerarla tras la v1.1).
 
 export type Escena = { quien: 'alvaro' | 'grafico'; visual: string; voz: string };
 export type Guion = { titulo: string; duracion: string; segundos: number; segundosAlvaro: number; escenas: Escena[] };
@@ -16,8 +18,8 @@ const A = (visual: string, voz: string): Escena => ({ quien: 'alvaro', visual, v
 const G = (visual: string, voz: string): Escena => ({ quien: 'grafico', visual, voz });
 
 const CRUDOS: Record<string, { titulo: string; escenas: Escena[] }> = {
-  // ─── Módulo 1 · Marketing ────────────────────────────────────────────────
-  'm1-l1': {
+  // ─── Módulo 2 · Marketing y origen (era el módulo 1 en v1.0) ────────────────────────────────────────────────
+  'm2-l1': {
     titulo: 'Tu mensaje en una frase',
     escenas: [
       A('Álvaro en su escritorio, plano medio', 'Si alguien te pregunta qué hace tu negocio y tardas un minuto en explicarlo, tu cliente también se demora en entenderlo. Vamos a dejarlo en una frase.'),
@@ -27,7 +29,7 @@ const CRUDOS: Record<string, { titulo: string; escenas: Escena[] }> = {
       G('El ejercicio de la lección en pantalla', 'Ahora tú. Escribe tres versiones en el ejercicio, elige una y descárgala. Esa frase va a abrir tu calendario de contenido.'),
     ],
   },
-  'm1-l2': {
+  'm2-l2': {
     titulo: 'Tus 3 temas',
     escenas: [
       A('Álvaro frente a la pizarra', '¿Te ha pasado que te sientas a publicar y no sabes de qué hablar? No te falta creatividad. Te faltan temas fijos.'),
@@ -37,116 +39,119 @@ const CRUDOS: Record<string, { titulo: string; escenas: Escena[] }> = {
       G('El ejercicio de la lección en pantalla', 'Completa tus tres temas y tus nueve ideas en el ejercicio. Los vas a usar en la próxima lección.'),
     ],
   },
-  'm1-l3': {
+  'm2-l3': {
     titulo: 'Una semana de contenido en una tarde',
     escenas: [
       A('Álvaro con una taza de café, plano medio', 'Publicar todos los días no significa pensar todos los días. Una idea bien pensada te da la semana completa.'),
       G('Una idea al centro que se abre en cinco piezas: post, historia, carrusel, reel, correo', 'Tomas una idea de tus temas y la conviertes en cinco piezas: un post, una historia, un carrusel, un reel con guion y un correo a tus clientes.'),
-      G('Pantalla de un asistente (ChatGPT o Claude) con el prompt de la lección', 'El borrador lo puede preparar un asistente como ChatGPT o Claude. Le pegas tu frase, tus temas y la idea, y te devuelve las cinco piezas con tu tono.'),
+      G('La lista de las cinco piezas con su largo; al lado, opcional, la pantalla de ChatGPT o Claude', 'Las puedes escribir tú con la lista de la lección. Y si ya usas ChatGPT o Claude, te dejo instrucciones listas para que te arme un primer borrador con tu frase y tus temas. Es opcional: sin IA el resultado es el mismo.'),
       G('Calendario de lunes a viernes con una pieza por día', 'Después las repartes: lunes el post, martes la historia, miércoles el carrusel, jueves el reel y viernes el correo.'),
-      G('Ícono de freno: una persona revisa antes de publicar', 'Un freno importante: nada se publica sin que una persona lo lea. El asistente prepara, tú decides.'),
+      G('Ícono de freno: una persona revisa antes de publicar', 'Un freno importante: nada se publica sin que una persona lo lea. Si un borrador lo hizo la IA, tú decides qué sale.'),
       G('El calendario de 4 semanas descargándose', 'En el ejercicio armas tus cuatro semanas y las descargas para abrirlas en Google Sheets.'),
     ],
   },
-  'm1-l4': {
+  'm2-l4': {
     titulo: 'Responder comentarios y mensajes con tu tono',
     escenas: [
       A('Álvaro con el celular en la mano', 'Un comentario sin respuesta es una venta que se enfría. Pero no todos los mensajes se responden igual.'),
       G('Árbol de decisión: ¿pregunta repetida? ¿quiere comprar? ¿reclamo?', 'Cuando llega un comentario o un mensaje, pregúntate tres cosas. ¿Es una pregunta que se repite? Respondes con tu plantilla. ¿Quiere comprar o cotizar? Pasa a ventas el mismo día. ¿Es un reclamo? Lo ve una persona, siempre.'),
-      G('Pantallita: comentario de una cafetería en el post de Grano Norte y la respuesta', 'En Grano Norte, una cafetería comenta «¿venden por mayor?». No se responde con un precio en público: se le agradece y se le escribe por interno ese mismo día.'),
+      G('Pantallita: comentario de una cafetería en el post de Grano Norte y la respuesta', 'En Grano Norte, una cafetería comenta «¿venden por mayor?». No se responde con un precio en público: se le agradece, se le escribe por interno ese mismo día y entra a la hoja Clientes con su origen, Instagram.'),
       G('Tarjetas de plantillas con el tono de la marca', 'Tus plantillas suenan como tú: cortas, cercanas y con una sola pregunta al final.'),
       G('El ejercicio de clasificar mensajes', 'En el ejercicio practicas con seis mensajes reales de una semana y ajustas tus plantillas.'),
     ],
   },
-  'm1-l5': {
-    titulo: 'Qué pieza trae clientes',
+  'm2-l5': {
+    titulo: 'De dónde llegó cada cliente',
     escenas: [
-      A('Álvaro frente a la pantalla con datos', 'Mil reproducciones se sienten bien, pero no pagan las cuentas. Vamos a medir lo que sí importa.'),
-      G('Embudo con «alcance» tachado y tres números: mensajes, reuniones, ventas', 'El alcance no te dice si una pieza trae clientes. Mide tres números por pieza: cuántos mensajes generó, cuántas reuniones o cotizaciones, y cuántas ventas.'),
-      G('Planilla semanal de Grano Norte con una fila destacada', 'En Grano Norte, el carrusel de tostado fresco tuvo menos alcance que el reel, pero trajo nueve mensajes y dos reuniones. Esa es la pieza que hay que repetir.'),
-      G('Calendario con un bloque de 10 minutos el viernes', 'Te toma diez minutos a la semana: el viernes anotas los tres números y eliges qué repetir la semana siguiente.'),
-      G('Dos piezas lado a lado: una con muchos «me gusta» y cero mensajes, otra con pocos «me gusta» y cinco mensajes', 'Ojo con los «me gusta»: una pieza puede gustar mucho y no traer a nadie. Si una pieza trae mensajes de clientes que calzan con tu cliente ideal, esa manda, aunque se vea menos.'),
-      G('La planilla del ejercicio', 'En el ejercicio anotas tus piezas y la planilla te marca cuál trae más conversaciones.'),
+      A('Álvaro frente a la pantalla con su planilla', 'Mil reproducciones se sienten bien, pero no pagan las cuentas. La pregunta que importa es otra: ¿de dónde llegaron tus clientes?'),
+      G('La hoja Clientes con la columna Origen destacada: referido, Instagram, Google, feria', 'La respuesta ya cabe en tu CRM: la columna Origen de tu hoja Clientes. Cada contacto nuevo anota de dónde llegó. Te toma diez segundos.'),
+      G('La hoja Origen contándose sola: contactos y clientes por canal', 'Y la hoja Origen de tu planilla cuenta sola, por canal, cuántos contactos llegaron y cuántos se volvieron clientes.'),
+      G('Pantallita: hoja Origen de Grano Norte, con «Referido» destacado', 'En Grano Norte, Instagram trajo catorce contactos y dos clientes. Los referidos trajeron seis contactos y cuatro clientes. Camila decide pedirle un referido a cada cliente contento, sin dejar de publicar.'),
+      G('Dos canales lado a lado: uno con muchos «me gusta» y cero clientes, otro con pocos «me gusta» y clientes', 'Ojo con los «me gusta»: un canal puede gustar mucho y no traer a nadie. Manda el que trae clientes que calzan con tu negocio.'),
+      G('El ejercicio de la lección', 'En el ejercicio anotas tus canales, ves cuál te trae más clientes y eliges qué vas a hacer este mes con él.'),
     ],
   },
 
-  // ─── Módulo 2 · Ventas ───────────────────────────────────────────────────
-  'm2-l1': {
-    titulo: 'Cliente ideal y lista del día',
+  // ─── Módulo 1 · Clientes y ventas (era el módulo 2 en v1.0) ───────────────────────────────────────────────────
+  'm1-l1': {
+    titulo: 'De la Guía 1 a tu hoja Clientes',
     escenas: [
-      A('Álvaro en una cafetería con su notebook', 'Si tus clientes nuevos llegan solo por recomendación, tus ventas dependen de la suerte. Vamos a cambiar eso con veinte minutos al día.'),
-      G('Ficha del cliente ideal con cinco campos', 'Primero, tu cliente ideal en cinco datos: el rubro, el tamaño, dónde lo encuentras, qué señal muestra cuando te necesita y quién decide la compra.'),
-      G('Pantallita: ficha de Grano Norte, cafeterías de 1 a 3 locales', 'Para Grano Norte: cafeterías de uno a tres locales en la región. La señal: abrieron hace poco o cambiaron de carta.'),
-      G('Reloj dividido en 5 + 10 + 5 minutos', 'Después, la rutina: cinco minutos para buscar, diez para escribir y cinco para anotar la fecha del próximo contacto.'),
-      G('Lista del día con diez nombres y fechas', 'Si ya hiciste la Guía 1, esto es un repaso. Si no, completa tu ficha y tu primera lista en el ejercicio.'),
+      A('Álvaro en una cafetería con su notebook', 'Un CRM es el lugar donde ves a todos tus clientes y en qué va cada uno. No necesitas pagar un software para tener uno: lo armamos hoy en una planilla.'),
+      G('La hoja Clientes con sus columnas: nombre, empresa, origen, estado, próximo paso, fecha', 'Es una hoja con una fila por cliente o posible cliente. Cinco datos no se negocian: quién es, de dónde llegó, en qué estado va, cuál es el próximo paso y su fecha.'),
+      G('Los estados en fila: sin mensaje, contactado, respondió, conversación, propuesta, cliente', 'Cada fila avanza por estados, los mismos de la Guía 1. Si hiciste la guía, tu lista entra tal cual a esta hoja. Si no, partes con los clientes que ya te compran y las cotizaciones abiertas.'),
+      G('Pantallita: la hoja de Grano Norte ordenada por fecha', 'Camila pasó a esta hoja sus treinta y cinco empresas, que vivían entre el WhatsApp y un cuaderno. Cada mañana la ordena por fecha y sabe a quién le toca hoy.'),
+      G('Reloj dividido en 5 + 10 + 5 minutos', 'La rutina son veinte minutos al día: cinco para mirar a quién le toca, diez para escribir y cinco para anotar el nuevo estado y la fecha del próximo paso.'),
+      G('El ejercicio de la lección', 'En el ejercicio armas tus primeras diez filas. Lo que no tiene fecha, no existe.'),
     ],
   },
-  'm2-l2': {
+  'm1-l2': {
     titulo: 'Primer mensaje y seguimientos',
     escenas: [
-      A('Álvaro con el celular, plano cercano', 'La mayoría de las ventas no se cierran en el primer mensaje. Se cierran en el segundo o en el tercero. El problema es que casi nadie los manda.'),
+      A('Álvaro con el celular, plano cercano', 'Una parte grande de las respuestas llega en un seguimiento, no en el primer mensaje. Y mucha gente nunca vuelve a escribir. Ahí está tu ventaja.'),
+      G('Dos caminos: «ya te conoce» → WhatsApp; «no te conoce» → correo, LinkedIn o Instagram', 'Primero, por dónde. WhatsApp, solo con quien ya te conoce o te dio su número. A los demás les escribes por correo, LinkedIn o Instagram, y pasas a WhatsApp cuando te den su número. Así no arriesgas que te bloqueen.'),
       G('Mensaje de tres frases con una sola pregunta', 'El primer mensaje tiene tres frases y una sola pregunta: por qué le escribes a esa persona, qué le puedes resolver y una pregunta fácil de contestar.'),
-      G('Línea de tiempo: día 0, día 3, día 7, día 14', 'Si no responde, hay tres seguimientos: al día tres, al día siete y al día catorce. El último es un cierre amable que deja la puerta abierta.'),
-      G('Pantallita: mensaje de Camila a una cafetería nueva', 'Camila le escribe a una cafetería que abrió en Cerro Alegre: la felicita, le ofrece una muestra de su tostado de la semana y le pregunta si puede pasar el jueves.'),
-      G('El editor de plantillas con la vista previa', 'En el ejercicio adaptas las cuatro plantillas y ves cómo quedan con el nombre de un prospecto real.'),
+      G('Línea de tiempo: hoy, día 2, día 7, día 14', 'Si no responde, hay tres seguimientos: al día dos, al día siete y al día catorce. Es un calendario simple: si tu rubro es más lento, estíralo.'),
+      G('Pantallita: mensaje directo de Camila en Instagram a una cafetería nueva', 'Camila le escribe por Instagram a una cafetería que abrió en Cerro Alegre: la felicita, le ofrece una muestra y le pregunta si puede pasar el jueves. Y anota en su hoja la fecha del próximo paso.'),
+      G('El editor de plantillas con la vista previa', 'En el ejercicio adaptas las cuatro plantillas y ves cómo quedan con el nombre de alguien de tu hoja.'),
     ],
   },
-  'm2-l3': {
+  'm1-l3': {
     titulo: 'De la conversación a la propuesta',
     escenas: [
       A('Álvaro en la sala de reuniones', 'Una buena propuesta no se escribe en la oficina. Se escribe en la primera reunión, haciendo las preguntas correctas.'),
       G('Cinco preguntas que aparecen una a una', 'Son cinco preguntas: qué problema tienes hoy, cuánto te cuesta, qué has probado, quién más decide y para cuándo lo necesitas.'),
       G('Una hoja que se arma por bloques: problema, propuesta, precio, plazo, siguiente paso', 'Con esas respuestas armas una propuesta de una sola página: el problema con sus palabras, lo que incluye, el precio, el plazo y el siguiente paso con fecha.'),
-      G('Pantallita: propuesta «Plan oficina» de Grano Norte', 'Grano Norte armó su «plan oficina»: café en grano cada dos semanas, molienda a elección y despacho incluido.'),
-      G('Ícono de freno sobre precio y plazo', 'El precio y el plazo los decide siempre una persona. El asistente te ayuda a redactar, no a comprometer.'),
-      G('El formulario de la propuesta', 'En el ejercicio armas la tuya y la descargas lista para enviar.'),
+      G('Pantallita: propuesta «Plan oficina» de Grano Norte', 'Grano Norte armó su «plan oficina» para Oficinas Bahía: café cada mes, molienda a elección y despacho incluido.'),
+      G('La fila de Oficinas Bahía en la hoja Clientes: estado Propuesta, monto, fecha', 'Apenas la envías, queda en tu hoja Clientes: estado «Propuesta», su monto y la fecha del primer seguimiento. Así sabes cuánta plata tienes en propuestas abiertas.'),
+      G('Ícono de freno sobre precio y plazo', 'El precio y el plazo los decide siempre una persona. Si usas IA para redactar, es un borrador: nunca compromete un descuento ni una fecha.'),
+      G('El formulario de la propuesta', 'En el ejercicio armas la tuya, la descargas y la anotas en tu hoja con un clic.'),
     ],
   },
-  'm2-l4': {
+  'm1-l4': {
     titulo: 'Seguimiento de propuestas',
     escenas: [
-      A('Álvaro en su escritorio', '«Quedó en responderme». Esa frase, sin una fecha al lado, es una propuesta perdida.'),
-      G('Una propuesta con tres alarmas: día 3, día 7, día 14', 'Cada propuesta que envías nace con tres fechas de seguimiento: a los tres, a los siete y a los catorce días.'),
-      G('Calendario con los recordatorios y un borrador listo', 'Ese día, el recordatorio te deja el mensaje en borrador. Tú lo lees, lo ajustas y lo envías.'),
-      G('Pantallita: lista de propuestas de Grano Norte con su próxima fecha', 'En Grano Norte, Camila mira su lista cada mañana y sabe exactamente a quién le toca seguimiento hoy.'),
-      G('Tres mensajes de seguimiento en tarjetas: día 3, día 7, día 14', 'Cada seguimiento suma algo nuevo: al día tres, una pregunta corta para saber si la revisó; al día siete, un dato o un caso que le sirva; y al día catorce, un cierre amable: «¿lo dejamos para más adelante?». Esa pregunta suele traer la respuesta que faltaba.'),
+      A('Álvaro en su escritorio', '«Quedó en responderme». Esa frase, sin una fecha al lado, es una propuesta que se enfría.'),
+      G('La hoja Clientes filtrada por estado «Propuesta», con la columna de fecha destacada', 'La regla: ninguna propuesta queda en tu hoja sin la fecha del próximo seguimiento. Esa columna siempre dice cuándo vuelves a escribir.'),
+      G('La fecha de una fila que avanza: día 2, día 7, día 14', 'Cuando haces un seguimiento, cambias la fecha al siguiente: día dos, día siete y día catorce. Si responde, cambias el estado: cliente, descartado o una fecha en un mes más.'),
+      G('Pantallita: propuestas abiertas de Grano Norte con su monto y su fecha', 'En Grano Norte, Camila filtra sus propuestas cada mañana: sabe a quién le toca hoy y cuánta plata tiene en propuestas abiertas.'),
+      G('Tres mensajes de seguimiento en tarjetas: día 2, día 7, día 14', 'Cada seguimiento suma algo nuevo: una pregunta corta para saber si la revisó, después un dato o un caso que le sirva, y al final una salida amable: «¿te escribo en un mes o prefieres que no?».'),
       G('Ícono de freno sobre el seguimiento', 'Un freno: si el cliente pide cambiar precio o plazo, eso ya no es un seguimiento. Lo responde una persona.'),
-      G('Archivo de calendario descargándose', 'En el ejercicio anotas tus propuestas y descargas los recordatorios para tu calendario.'),
+      G('La lista de propuestas del ejercicio', 'En el ejercicio ves tus propuestas abiertas, ordenadas por fecha, y si quieres las llevas a tu calendario.'),
     ],
   },
-  'm2-l5': {
-    titulo: 'Tu embudo en una planilla',
+  'm1-l5': {
+    titulo: 'Tu embudo en la planilla',
     escenas: [
-      A('Álvaro frente a la pantalla con datos', '¿Cuántos mensajes necesitas mandar para cerrar una venta? Si no lo sabes, no sabes cuánto esfuerzo poner cada semana.'),
-      G('Embudo de cuatro pisos: prospecto, conversación, propuesta, cierre', 'Tu embudo tiene cuatro pisos: prospectos, conversaciones, propuestas y cierres. Entre piso y piso hay una tasa de paso.'),
-      G('Pantallita: los números de un mes de Grano Norte', 'Grano Norte escribió a 80 cafeterías, conversó con 20, envió 8 propuestas y cerró 3. Una de cada cuatro conversaciones termina en propuesta.'),
-      G('Flecha que vuelve desde la meta hacia arriba', 'Con esas tasas haces la cuenta al revés: si quieres dos clientes nuevos al mes, sabes cuántos prospectos necesitas por semana.'),
-      G('El piso con la tasa más baja se marca en rosa', 'Mira también dónde se te cae más gente. Si conversas harto pero envías pocas propuestas, el problema está en la reunión, no en la prospección. Arregla primero el piso más débil.'),
-      G('La calculadora del ejercicio', 'Pon tus números en la calculadora y descarga la planilla para llevarla cada semana.'),
+      A('Álvaro frente a la pantalla con su planilla', '¿A cuántas personas tienes que escribirles para ganar un cliente? Tu hoja Clientes ya lo sabe.'),
+      G('Los estados de la hoja se apilan en un embudo: contactados, conversación, propuesta, cliente', 'Cada fila está en un estado. Si los cuentas, tienes tu embudo: contactados, conversación, propuesta y cliente. Entre piso y piso hay una tasa de paso.'),
+      G('Pantallita: el embudo de Grano Norte', 'Grano Norte contactó a cuarenta, conversó con diez, envió cinco propuestas y ganó dos clientes. La mitad de las conversaciones termina en propuesta.'),
+      G('Flecha que vuelve desde la meta hacia arriba', 'Con esas tasas haces la cuenta al revés: si quieres dos clientes nuevos al mes, sabes a cuántas personas escribirles por semana. Con pocos datos los porcentajes bailan: tómalos como punto de partida.'),
+      G('El piso con la tasa más baja se marca', 'Mira también dónde se te cae más gente. Si conversas harto pero envías pocas propuestas, el problema está en la reunión. Arregla primero el piso más débil.'),
+      G('El Tablero de la planilla con los números de clientes y ventas', 'En tu planilla, el Tablero hace esta cuenta solo. En el ejercicio pones tu meta y ves cuántos contactos necesitas.'),
     ],
   },
 
-  // ─── Módulo 3 · Operación ────────────────────────────────────────────────
+  // ─── Módulo 3 · Pedidos y operación (v1.1: la hoja Pedidos) ─────────────
   'm3-l1': {
     titulo: 'Lo que se repite se escribe',
     escenas: [
       A('Álvaro en una oficina creativa', 'Si un pedido sale bien solo cuando estás tú, no tienes un proceso: tienes una memoria. Y la memoria se cansa.'),
       G('Tres tarjetas: nuevo cliente, pedido, despacho', 'Elige tus tres procesos que más se repiten. Para la mayoría son: llega un cliente nuevo, entra un pedido y sale un despacho.'),
       G('Siete pasos numerados con responsable', 'Escribe cada uno en siete pasos o menos. Cada paso empieza con un verbo y tiene un responsable.'),
-      G('Pantallita: el proceso de pedido de oficina de Grano Norte', 'En Grano Norte, el pedido de oficina quedó en seis pasos: recibir, confirmar stock, tostar, envasar, despachar y avisar al cliente.'),
-      G('Un paso vago tachado y reescrito con verbo y responsable', 'Evita los pasos vagos como «coordinar el pedido». Mejor: «Juan confirma por WhatsApp la hora de entrega con el cliente». Si un paso no tiene responsable, nadie lo va a hacer.'),
+      G('Pantallita: el proceso de pedido de Grano Norte, con dos pasos marcados «anotar en la hoja» y «cambiar el estado»', 'En Grano Norte, el pedido quedó en seis pasos. Fíjate en dos: anotar el pedido en la hoja Pedidos y cambiar su estado. Así el proceso y la planilla se mantienen al día solos.'),
+      G('Un paso vago tachado y reescrito con verbo y responsable', 'Evita los pasos vagos como «coordinar el pedido». Mejor: «Matías confirma por WhatsApp la hora de entrega con el cliente». Si un paso no tiene responsable, nadie lo va a hacer.'),
       G('El editor de procesos', 'Escribe tus tres procesos en el ejercicio. La prueba: que alguien nuevo pueda seguirlos sin preguntarte.'),
     ],
   },
   'm3-l2': {
-    titulo: 'De la reunión a las tareas',
+    titulo: 'Del WhatsApp a la hoja Pedidos',
     escenas: [
-      A('Álvaro en la sala de reuniones', 'Las reuniones no fallan por lo que se habla. Fallan por lo que nadie anota.'),
-      G('Notas desordenadas que se convierten en una tabla: qué, quién, cuándo', 'Al terminar una reunión, tus notas o la grabación pasan a una lista de tareas. Cada tarea con tres datos: qué, quién y para cuándo.'),
-      G('Asistente con la transcripción pegada y la tabla de tareas resultante', 'Un asistente como ChatGPT o Claude puede sacar esa lista de una transcripción en segundos. Tú la revisas antes de compartirla.'),
-      G('Pantallita: transcripción de la reunión semanal de Grano Norte', 'En la reunión semanal de Grano Norte salieron cuatro tareas que antes se perdían, como confirmar el despacho del viernes.'),
-      G('Ícono de freno: compromisos con clientes', 'Un freno: ninguna fecha comprometida con un cliente sale de esa lista sin que una persona la confirme.'),
-      G('La lista de tareas compartida en el grupo del equipo', 'Y la lista se comparte el mismo día, en el grupo del equipo o en el tablero. Una tarea que nadie ve es una tarea que nadie hace.'),
+      A('Álvaro con el celular en la mano', 'Si te preguntan qué hay que entregar mañana y tienes que revisar el WhatsApp entero, tus pedidos no están en ningún lado.'),
+      G('Un mensaje de WhatsApp que se convierte en una fila de planilla', 'La regla es una sola: cada pedido que llega, por WhatsApp, correo o teléfono, se anota en una fila de la hoja Pedidos. En el momento, y lo anota quien lo recibe.'),
+      G('Las columnas de la hoja Pedidos se iluminan una a una', 'La fila tiene lo mismo que tu planilla: fecha, cliente, producto, cantidad, fecha de entrega, responsable y estado. El precio y el total los completa la hoja sola desde tu lista de productos.'),
+      G('Pantallita: mensaje «necesito grano otra vez» con «¿cuánto?» y «¿para cuándo?» resaltados', 'Antes de anotar, revisa que el pedido diga cuánto y para cuándo. Si falta algo, se pregunta antes de confirmar.'),
+      G('Respuesta al cliente: «Anotado: 4 kg de molido para el jueves. Te lo lleva Sofía.»', 'Y le respondes al cliente con lo que quedó en la fila. Si algo está mal, se corrige ahí y no el día de la entrega.'),
+      G('Ícono de freno sobre la fecha de entrega', 'Un freno: ninguna fecha de entrega se confirma sin revisar stock o capacidad. Si no está en la hoja, el pedido no existe.'),
     ],
   },
   'm3-l3': {
@@ -155,20 +160,20 @@ const CRUDOS: Record<string, { titulo: string; escenas: Escena[] }> = {
       A('Álvaro junto a cajas de despacho', 'Los errores de entrega casi nunca son por falta de ganas. Son por un paso que se olvidó.'),
       G('Lista de chequeo que se marca sola', 'Un checklist de entrega es la lista de lo que tiene que estar listo antes de decir «entregado». Uno por cada tipo de trabajo.'),
       G('Pantallita: checklist «nuevo cliente oficina» de Grano Norte', 'El de Grano Norte para un cliente de oficina incluye: molienda confirmada, dirección y horario de recepción, factura con los datos correctos y un mensaje de bienvenida.'),
-      G('Persona del equipo marcando el checklist en el celular', 'El checklist lo marca quien entrega, no tú. Así sabes que está hecho sin preguntar.'),
+      G('Persona del equipo marcando el checklist y cambiando el estado a «Entregado» en la hoja', 'El checklist lo marca quien entrega, no tú. Y solo con el checklist completo se cambia el estado a «Entregado» en la hoja Pedidos. Así sabes que está hecho sin preguntar.'),
       G('Tres checklists distintos: cliente nuevo, pedido recurrente, pedido especial', 'Si haces distintos tipos de trabajo, arma un checklist para cada uno. Un pedido recurrente no necesita lo mismo que un cliente nuevo. Empieza por el que más errores te da hoy.'),
       G('El checklist del ejercicio', 'Practica con el de Grano Norte y después arma el tuyo.'),
     ],
   },
   'm3-l4': {
-    titulo: 'Estado de proyectos en una vista',
+    titulo: 'El estado de cada pedido en una vista',
     escenas: [
-      A('Álvaro frente a un tablero de notas', '¿Cuántas veces al día te preguntan «¿cómo va lo de…?». Cada pregunta es una señal de que el estado no está a la vista.'),
-      G('Tres columnas: por hacer, en curso, listo', 'Un tablero simple tiene tres columnas: por hacer, en curso y listo. Cada pedido o proyecto es una tarjeta que avanza.'),
-      G('Tarjeta con responsable y fecha', 'Cada tarjeta lleva quién es responsable y para cuándo. Y una regla: quien mueve el trabajo, mueve la tarjeta.'),
-      G('Pantallita: tablero de pedidos de Grano Norte', 'En Grano Norte, el tablero de pedidos se revisa a las nueve y a las cinco. Camila dejó de preguntar.'),
-      G('Columna «en curso» con demasiadas tarjetas, marcada en rosa', 'Una señal de alerta: si la columna «en curso» se llena, el equipo está empezando mucho y terminando poco. Antes de abrir algo nuevo, cierra lo que está andando.'),
-      G('El tablero del ejercicio', 'En el ejercicio armas tu tablero y lo descargas para pasarlo a una planilla compartida.'),
+      A('Álvaro frente a la planilla en el notebook', '¿Cuántas veces al día te preguntan «¿cómo va lo de…?». Cada pregunta es una señal de que el estado no está a la vista.'),
+      G('La columna Estado de la hoja Pedidos: por hacer, en curso, entregado', 'No necesitas otra herramienta. La hoja Pedidos ya tiene la columna Estado: por hacer, en curso, entregado o cancelado. Y una regla: quien mueve el trabajo, cambia el estado.'),
+      G('La columna Atrasado se llena sola con «Sí» en una fila', 'Al lado está la columna Atrasado. Nadie la escribe: dice «Sí» cuando la fecha de entrega ya pasó y el pedido no está entregado.'),
+      G('Menú «Datos → Crear un filtro» y la columna Estado sin «Entregado»', 'Con un filtro ves solo lo que no está entregado, ordenado por fecha de entrega. Arriba quedan los atrasados y lo que vence hoy.'),
+      G('Pantallita: hoja Pedidos de Grano Norte filtrada, un atrasado marcado', 'En Grano Norte, Camila mira ese filtro a las nueve y a las cuatro. Dejó de preguntar.'),
+      G('Muchas filas «En curso», marcadas en rosa', 'Una señal de alerta: si se llenan las filas en curso, el equipo está empezando mucho y terminando poco. Antes de abrir algo nuevo, cierra lo que está andando.'),
     ],
   },
   'm3-l5': {
@@ -176,100 +181,99 @@ const CRUDOS: Record<string, { titulo: string; escenas: Escena[] }> = {
     escenas: [
       A('Álvaro con un café en la mañana', 'Partir el día leyendo cuarenta mensajes es partir el día atrasado. Mejor partir con un resumen de cinco minutos.'),
       G('Tres secciones: qué llegó, qué falta, qué vence', 'El resumen del día responde tres preguntas: qué llegó desde ayer, qué falta por hacer y qué vence hoy.'),
-      G('Fuentes (correo, WhatsApp, planilla) que entran a un borrador a las 8:30', 'Se prepara solo, en borrador, cada mañana: un asistente lee tu correo, tu planilla de pedidos y tu tablero, y deja el resumen listo.'),
-      G('Pantallita: resumen del martes de Grano Norte', 'El martes de Grano Norte: dos pedidos nuevos, un pago por confirmar y el despacho a una oficina que vence hoy.'),
-      G('Persona leyendo el resumen en cinco minutos', 'Tú lo lees en cinco minutos y decides. El asistente ordena; las decisiones siguen siendo tuyas.'),
-      G('La plantilla del resumen descargándose', 'En el ejercicio eliges qué fuentes revisa tu resumen, a qué hora llega y quién lo lee. Te queda la plantilla y el prompt para dejarlo corriendo en el módulo 6.'),
+      G('La hoja Pedidos con tres filtros que se aplican uno tras otro', 'No lo prepara nadie: lo lees en la hoja Pedidos. Qué llegó son las filas con fecha de ayer u hoy. Qué falta, las que están por hacer o en curso. Qué vence, las que se entregan hoy o dicen atrasado.'),
+      G('Pantallita: resumen del martes de Grano Norte', 'El martes de Grano Norte: dos pedidos nuevos, el plan oficina en curso y un despacho atrasado desde ayer, que Sofía avisa antes de las once.'),
+      G('Tarjeta: «Si son las 8:30 y estoy en la tostaduría, abro la hoja Pedidos»', 'Lo que más ayuda a que se vuelva costumbre es decidir de antemano a qué hora y dónde lo vas a leer. Escríbelo así: si son las ocho y media y estoy en la tostaduría, abro la hoja Pedidos.'),
+      G('Persona leyendo la planilla en cinco minutos', 'Tú lo lees en cinco minutos, decides y avisas lo que cambia. En el módulo seis lo juntas con el tablero de los lunes.'),
     ],
   },
 
-  // ─── Módulo 4 · Atención al cliente ──────────────────────────────────────
+  // ─── Módulo 4 · Atención y postventa (v1.1: la hoja Atención) ───────────
   'm4-l1': {
     titulo: 'Los 3 tipos de mensaje',
     escenas: [
-      A('Álvaro con el celular lleno de notificaciones', 'Antes de automatizar cualquier respuesta, hay que saber qué te escriben. Y casi nadie lo sabe con números.'),
+      A('Álvaro con el celular lleno de notificaciones', 'Antes de ordenar la atención, hay que saber qué te escriben. Y casi nadie lo sabe con números.'),
       G('Tres cajas: repetidos, con decisión, nuevos', 'Todos tus mensajes caben en tres tipos. Repetidos: precio, horario, despacho. Con decisión: un descuento, una fecha especial, un reclamo. Y nuevos: lo que nunca te habían preguntado.'),
       G('Pantallita: conteo de dos días de Grano Norte', 'Camila contó sus mensajes dos días: de cada diez, seis eran repetidos, tres necesitaban una decisión y uno era nuevo.'),
-      G('Los repetidos se van a un asistente; los otros, a una persona', 'Los repetidos los puede responder un asistente con tus reglas. Los otros dos siguen pasando por una persona.'),
-      G('Cálculo: 40 mensajes × 60 % × 2 minutos = 48 minutos al día', 'Haz la cuenta: si recibes cuarenta mensajes al día, seis de cada diez son repetidos y cada uno te toma dos minutos, son casi cincuenta minutos diarios respondiendo lo mismo.'),
-      G('El contador del ejercicio', 'Usa el contador del ejercicio durante dos días. Ese número te dice cuánto tiempo puedes recuperar.'),
+      G('Los repetidos van a una respuesta lista; los otros, a una persona y a la hoja Atención', 'Los repetidos se responden con un texto que ya está escrito, y lo puede mandar cualquiera de tu equipo. Los otros dos pasan por una persona y quedan anotados hasta cerrarse.'),
+      G('Cálculo: 40 mensajes × 60 % × 2 minutos = 48 minutos al día', 'Haz la cuenta: si recibes cuarenta mensajes al día, seis de cada diez son repetidos y cada uno te toma dos minutos, son casi cincuenta minutos diarios escribiendo lo mismo.'),
+      G('El contador del ejercicio', 'Usa el contador del ejercicio durante dos días. Ese número te dice cuánto tiempo se te va en lo repetido.'),
     ],
   },
   'm4-l2': {
-    titulo: 'Tu asistente desde el esqueleto',
+    titulo: 'Respuestas listas para lo repetido',
     escenas: [
-      A('Álvaro explicando con una tablet', 'Un asistente que responde mal es peor que no tener asistente. La diferencia está en lo que le enseñas antes de prenderlo.'),
-      G('El esqueleto se transforma en instrucciones: quién eres, cómo hablas, qué sabes, qué no', 'Partes de tu esqueleto: qué vendes, a quién, cómo hablas y tus respuestas de siempre. A eso le sumas tus reglas de freno y cuándo pasar a una persona.'),
-      G('Lista de preguntas trampa con marcas de pasó y falló', 'Después lo pones a prueba con preguntas trampa: un descuento que no existe, una fecha imposible, un cliente enojado. Cada error se corrige en las instrucciones.'),
-      G('Pantallita: prueba del asistente de Grano Norte', 'El asistente de Grano Norte falló una sola vez: prometió despacho el sábado. Camila agregó una línea y no volvió a pasar.'),
-      G('El armador de instrucciones', 'Arma tus instrucciones en el ejercicio y pruébalas en ChatGPT o Claude antes de seguir.'),
+      A('Álvaro con el celular, plano cercano', 'Si escribes «lunes a viernes de nueve a dieciocho» diez veces al día, no te falta tiempo. Te falta tenerlo escrito.'),
+      G('Lista de preguntas con su respuesta corta al lado', 'Escribe una vez tus respuestas de siempre, con tu tono: cortas, cercanas y con una sola pregunta al final. Con seis a diez cubres casi todo.'),
+      G('WhatsApp Business: «Respuestas rápidas» y el atajo /horario que despliega el texto', 'Después las guardas como respuestas rápidas en la app gratis de WhatsApp Business. Escribes «barra horario» y aparece el texto completo. Y activas el mensaje de ausencia con tu horario.'),
+      G('Dos personas del equipo respondiendo lo mismo con el mismo atajo', 'Así responde igual quien sea de tu equipo, en segundos y sin preguntarte.'),
+      G('Ícono de freno sobre «precio especial», «fecha» y «reclamo»', 'Un freno: lo que toca una regla de freno, como un precio especial o un reclamo, no lleva respuesta lista. Lo ve una persona.'),
+      G('Nota al pie: «opcional · asistente de IA o chatbot»', 'Y si algún día quieres que conteste solo, este mismo texto sirve como instrucciones para un asistente o un chatbot. Es opcional: primero, las respuestas listas.'),
     ],
   },
   'm4-l3': {
-    titulo: 'Ponerlo en WhatsApp',
+    titulo: 'La hoja Atención: cada caso hasta cerrarlo',
     escenas: [
-      A('Álvaro con el celular, plano cercano', 'Tu asistente ya responde bien en la prueba. Ahora lo llevamos a donde te escriben tus clientes: WhatsApp.'),
-      G('Siete pasos en línea: número, conexión, instrucciones, respuestas, horario, prueba, grupo chico', 'Son siete pasos y ninguno requiere programar: el número de WhatsApp Business, conectarlo al chatbot, pegar tus instrucciones, cargar tus respuestas, definir horario y derivación, probar desde otro celular y partir con un grupo chico de clientes.'),
-      G('Pantalla del chatbot de WhatsApp (grabación de Fidelidapp)', 'En el curso lo mostramos con el chatbot de WhatsApp de Fidelidapp, pero la lógica es la misma en otras herramientas.'),
-      G('Dos columnas: contesta solo / pasa a una persona', 'Lo más importante no es la herramienta: es decidir qué contesta solo y qué deriva.'),
-      G('WhatsApp Business con respuestas rápidas', 'Y si todavía no quieres un asistente, parte con las respuestas rápidas de WhatsApp Business. También ahorra tiempo.'),
+      A('Álvaro serio, plano medio', 'Lo que no se resuelve con una respuesta lista queda pendiente. Y si queda solo en el chat, se pierde entre los mensajes del día siguiente.'),
+      G('Un reclamo de WhatsApp que se convierte en una fila de la hoja Atención', 'Por eso cada caso se anota en una fila de la hoja Atención: fecha, cliente, canal, tipo, qué pasó, responsable y estado. Queda abierto hasta que se cierra.'),
+      G('La columna «Días abierto» se llena sola; una fila con 3 días se marca', 'La columna días abierto se calcula sola. Si un caso pasa los dos días abierto, se revisa en la reunión del equipo.'),
+      G('Cuatro pasos: acuse, solución, seguimiento, cierre', 'Los reclamos, además, pasan por cuatro pasos: acuse el mismo día, una solución concreta con fecha, un seguimiento para confirmar que se resolvió y el cierre. Con una plantilla para cada uno, nadie improvisa.'),
+      G('Pantallita: el caso del café molido equivocado, 3 días abierto y cerrado', 'En Grano Norte, el café molido equivocado se repuso al día siguiente y se cerró con un llamado de Camila. Tres días abierto, y el checklist de entrega ahora pide confirmar la molienda por escrito.'),
+      G('Ícono de freno: compensaciones', 'Las compensaciones, como una reposición o un descuento, las decide siempre una persona.'),
     ],
   },
   'm4-l4': {
     titulo: 'Cuándo pasa a una persona',
     escenas: [
-      A('Álvaro en su escritorio', 'Un buen asistente no es el que responde todo. Es el que sabe cuándo pasarle la conversación a una persona.'),
-      G('Flujo: mensaje → asistente → ¿freno? → aviso al equipo → persona', 'Cuando un mensaje toca un freno, el asistente hace tres cosas: le avisa al cliente que lo va a atender una persona, avisa a tu equipo y deja la conversación marcada.'),
-      G('Reloj con el tiempo máximo de respuesta humana', 'Y defines un tiempo máximo: por ejemplo, dos horas hábiles. Si pasa ese tiempo, el aviso sube a una segunda persona.'),
-      G('Pantallita: traspaso de un reclamo en Grano Norte', 'En Grano Norte, un reclamo por café molido equivocado pasa directo a Juan, de despacho, con un aviso por el grupo del equipo.'),
+      A('Álvaro en su escritorio', 'Responder rápido no es responderlo todo. Hay mensajes que pasan sí o sí a una persona.'),
+      G('Flujo: mensaje → quien atiende → ¿freno? → avisa y anota → persona', 'Cuando un mensaje toca un freno, quien atiende hace tres cosas: le dice al cliente quién lo va a atender y cuándo, avisa a esa persona y anota el caso en la hoja Atención.'),
+      G('Reloj con el tiempo máximo de respuesta', 'Y defines un tiempo máximo: por ejemplo, dos horas hábiles. Si pasa ese tiempo, el aviso sube a una segunda persona.'),
+      G('Pantallita: traspaso de un reclamo en Grano Norte', 'En Grano Norte, un reclamo por café molido equivocado lo recibe Sofía, lo anota y pasa directo a Matías, de despacho, con un aviso por el grupo del equipo.'),
       G('El formulario de derivación', 'En el ejercicio defines tus disparadores, a quién se avisa y en cuánto tiempo.'),
     ],
   },
   'm4-l5': {
-    titulo: 'Correo de soporte y reclamos',
+    titulo: 'Postventa: que vuelvan a comprar',
     escenas: [
-      A('Álvaro serio, plano medio', 'Un reclamo bien atendido puede dejarte un cliente más fiel que antes. Mal atendido, se va y lo cuenta.'),
-      G('Cuatro pasos: acuse, solución, seguimiento, cierre', 'Cada reclamo pasa por cuatro pasos: acuse el mismo día, una solución concreta, un seguimiento para confirmar que se resolvió y el cierre del caso.'),
-      G('Plantillas de correo con espacios para completar', 'Para cada paso tienes una plantilla. Así nadie improvisa cuando el cliente está molesto.'),
-      G('Pantallita: el caso del café molido equivocado', 'En Grano Norte, el café molido equivocado se repuso al día siguiente y se cerró con un llamado de Camila.'),
-      G('Ícono de freno: compensaciones', 'Las compensaciones, como una reposición o un descuento, las decide siempre una persona.'),
-      G('Registro de casos con estados: abierto, en curso, cerrado', 'Y anota cada caso en un registro simple: quién reclamó, qué pasó, en qué estado está y quién lo tiene. Si un caso lleva más de dos días abierto, se revisa en la reunión.'),
-      G('El registro y las plantillas del ejercicio', 'En el ejercicio ajustas tus cuatro plantillas y practicas con tu primer caso.'),
+      A('Álvaro con una taza de café', 'Casi nadie le escribe al cliente después de la entrega. Ahí hay ventas que se pierden solo por no preguntar.'),
+      G('Tres momentos en línea: día 2 o 3, «gracias», ciclo de compra', 'La postventa son tres mensajes. A los dos o tres días, uno corto para saber cómo les fue. Si te dan las gracias, ese es un buen momento para pedir un referido. Y cuando se cumple su ciclo de compra, le escribes para que vuelva.'),
+      G('La columna «Última compra» de la hoja Clientes y una fecha calculada: «le toca el jueves»', 'El ciclo sale de tu hoja Clientes: la última compra, más los días que suele demorar en volver a comprar. Así sabes a quién le toca esta semana.'),
+      G('Pantallita: mensaje de recompra a Cafetería Puerto Dulce', 'En Grano Norte, Puerto Dulce compra cada dos semanas. A los doce días, Camila le escribe: «¿te preparo lo mismo de siempre para el jueves?».'),
+      G('Celular con un mensaje uno a uno, y una lista masiva tachada', 'Son tus clientes: ya te conocen y te dieron su número, así que por WhatsApp sí. Uno a uno y con su nombre, nunca un envío masivo.'),
+      G('Las plantillas y la lista del ejercicio', 'En el ejercicio escribes tus tres mensajes y ves a quién le toca volver a comprar.'),
     ],
   },
 
-  // ─── Módulo 5 · Finanzas ─────────────────────────────────────────────────
+  // ─── Módulo 5 · Cobranza y caja (v1.1: hojas Cobranza, Caja y Productos) ──
   'm5-l1': {
     titulo: 'Cobranza sin perseguir a nadie',
     escenas: [
-      A('Álvaro en una cafetería', 'Perseguir pagos a fin de mes es incómodo para ti y para tu cliente. Con fechas fijas, deja de ser personal.'),
-      G('Línea de tiempo: 3 días antes, el día, 5 días después, llamado', 'Tres recordatorios con tu tono: uno tres días antes del vencimiento, otro el mismo día y otro cinco días después. Si no hay respuesta, llamas.'),
-      G('Pantallita: los tres mensajes de Grano Norte', 'Los mensajes de Grano Norte son cortos y amables: le recuerdan la factura, el monto y cómo pagar. Nada de amenazas.'),
-      G('Calendario con los recordatorios cargados', 'Los recordatorios quedan en tu calendario o se preparan en borrador. Una persona revisa antes de enviar.'),
+      A('Álvaro en una cafetería', 'Perseguir pagos a fin de mes es incómodo para ti y para tu cliente. Con fechas fijas, deja de ser personal: es cómo funciona tu negocio.'),
+      G('La hoja Cobranza con sus columnas: factura, cliente, monto, emisión, vencimiento, pagado, días de atraso', 'Primero, la hoja Cobranza de tu planilla. Cada factura o boleta en una fila: cliente, monto, emisión y vencimiento. Si no pones el vencimiento, se cuenta a treinta días.'),
+      G('La columna «Días de atraso» llenándose sola y una fila que se marca', 'Los días de atraso se calculan solos, y el tablero suma lo que tienes por cobrar y lo vencido. En Grano Norte, una factura de noventa y seis mil pesos llevaba diez días vencida y nadie se había dado cuenta.'),
+      G('Línea de tiempo: 3 días antes, el día, 5 días después, llamado', 'Después, tres recordatorios con tu tono: tres días antes del vencimiento, el mismo día y cinco días después. Si no hay respuesta, llamas.'),
       G('Ícono de freno: acuerdos de pago y datos bancarios', 'Los acuerdos de pago y cualquier cambio de datos bancarios los decide siempre una persona.'),
-      G('Archivo de calendario con los recordatorios de una factura', 'En el ejercicio adaptas los tres mensajes, pones la fecha de vencimiento y descargas los recordatorios para tu calendario.'),
+      G('El ejercicio: la hoja Cobranza y el archivo de calendario', 'En el ejercicio anotas tus facturas sin pagar, adaptas los tres mensajes y descargas los recordatorios para tu calendario.'),
     ],
   },
   'm5-l2': {
-    titulo: 'Gastos y facturas en una planilla',
+    titulo: 'Lo que entra y lo que sale: la hoja Caja',
     escenas: [
-      A('Álvaro con una boleta en la mano', '¿Tienes boletas en la billetera, en el auto y en el correo? No necesitas un contador más: necesitas una planilla y diez minutos.'),
-      G('Ocho categorías en tarjetas', 'Empieza con pocas categorías: insumos, envases, despacho, arriendo, sueldos, servicios, marketing y otros.'),
-      G('Foto de boleta → asistente extrae fecha, proveedor, monto y categoría → revisas → planilla', 'Para no digitar todo, le sacas foto a la boleta y un asistente extrae la fecha, el proveedor, el monto y la categoría. Tú revisas y lo pegas en la planilla.'),
-      G('Pantallita: la planilla de gastos de octubre de Grano Norte', 'Camila descubrió que los envases le costaban casi lo mismo que el despacho. No lo sabía hasta verlo en una fila.'),
-      G('Ícono de freno sobre los datos', 'Un cuidado: a un asistente le pasas la boleta, no tus claves ni los datos completos de tu cuenta bancaria.'),
-      G('La planilla del ejercicio', 'En el ejercicio eliges tus categorías y descargas la planilla.'),
+      A('Álvaro con el celular, mirando la app del banco', '¿Sabes cuánta plata tienes hoy sin abrir el banco? Si la respuesta es «más o menos», esta lección es para ti.'),
+      G('La hoja Caja: fecha, concepto, categoría, entra, sale, saldo', 'La hoja Caja tiene una fila por movimiento: lo que entra, lo que sale y el saldo, que se calcula solo. La primera fila es el saldo de tu cuenta el día que empiezas.'),
+      G('Categorías en etiquetas: cobranza, venta al contado, insumos, sueldos, arriendo, impuestos, despacho, otros', 'Con pocas categorías basta. Si dudas dónde va un gasto, la categoría sobra.'),
+      G('Pantallita: el saldo de Grano Norte, 437 mil pesos', 'Camila creía que tenía más o menos un millón. La hoja dijo cuatrocientos treinta y siete mil: el café verde y el arriendo habían salido la misma quincena.'),
+      G('Calendario con 10 minutos el viernes', 'Diez minutos cada viernes y la hoja queda al día. Si usas ChatGPT o Claude, te puede pasar una boleta a una fila; si no, la anotas a mano en diez segundos.'),
     ],
   },
   'm5-l3': {
-    titulo: 'Tus 5 números del lunes',
+    titulo: 'Tu caja de las próximas 4 semanas',
     escenas: [
-      A('Álvaro frente a la pantalla con datos', 'No necesitas un tablero con cincuenta indicadores. Necesitas cinco números cada lunes.'),
-      G('Cinco tarjetas que aparecen: ventas, por cobrar, pagado, caja, reuniones', 'Ventas de la semana, lo que tienes por cobrar, lo que ya te pagaron, la caja disponible y las reuniones agendadas para la semana que viene.'),
-      G('Reporte en borrador que se prepara solo el lunes temprano', 'El reporte se prepara en borrador cada lunes temprano con tus planillas. Tú lo lees con el primer café.'),
-      G('Pantallita: el reporte del lunes de Grano Norte con flechas de subida y bajada', 'En Grano Norte, el lunes mostró que lo por cobrar subía tres semanas seguidas. Esa semana se activó la cobranza.'),
-      G('Las cinco tarjetas comparadas con la semana anterior', 'El valor no está en un número suelto, sino en compararlo con la semana anterior. Si algo sube o baja dos semanas seguidas, ahí hay una decisión que tomar.'),
-      G('El reporte del ejercicio', 'En el ejercicio completas tus cinco números y ves cómo queda tu primer reporte.'),
+      A('Álvaro frente a un calendario', 'Saber cuánta caja tienes hoy sirve. Saber cuánta vas a tener en tres semanas te salva.'),
+      G('Fórmula en pantalla: caja de hoy + lo que vas a cobrar − lo que tienes que pagar', 'La cuenta es simple: caja de hoy, más lo que vas a cobrar, menos lo que tienes que pagar, semana por semana. Lo que vas a cobrar sale de tu hoja Cobranza.'),
+      G('Barras de cuatro semanas; la tercera baja de cero en rojo', 'En Grano Norte, la tercera semana quedaba bajo cero: compra de café verde y arriendo, seguidos. Se vio con dos semanas de anticipación.'),
+      G('Tres salidas: cobrar antes, mover una compra, conversar un plazo', 'Con tiempo hay salidas: cobrar antes lo vencido, mover una compra a la semana siguiente o conversar un plazo con un proveedor. Camila hizo las dos primeras.'),
+      G('La calculadora del ejercicio', 'En el ejercicio haces tu cuenta de cuatro semanas. Repítela cada viernes: con una factura que no te paguen, cambia.'),
     ],
   },
   'm5-l4': {
@@ -277,76 +281,141 @@ const CRUDOS: Record<string, { titulo: string; escenas: Escena[] }> = {
     escenas: [
       A('Álvaro con una calculadora', 'Vender más de un producto que te hace perder plata es trabajar más para ganar menos.'),
       G('Barra de precio dividida en costo directo y margen', 'El margen es lo que te queda después de los costos directos: insumos, envase, despacho y comisiones. Se calcula por producto.'),
-      G('Pantallita: los tres productos de Grano Norte con su margen', 'Grano Norte calculó sus tres productos. El plan oficina, que creía el mejor, dejaba menos margen por el despacho incluido.'),
-      G('Tres caminos: subir precio, bajar costo o dejar de venderlo', 'Cuando un producto deja poco margen, tienes tres caminos: subir el precio, bajar un costo o dejar de venderlo.'),
-      G('Ícono de freno sobre los precios', 'Y recuerda tu freno: un cambio de precio lo decide una persona y se avisa con tiempo a los clientes que ya compran.'),
-      G('La calculadora del ejercicio', 'Pon tus tres productos en la calculadora y mira cuál te está haciendo perder.'),
+      G('La hoja Productos: costo, precio, margen en pesos y en porcentaje', 'Tu hoja Productos ya tiene los precios desde el módulo cero. Ahora le sumas el costo, y la hoja calcula sola el margen. El tablero muestra el promedio.'),
+      G('Pantallita: los tres productos de Grano Norte con su margen', 'Grano Norte calculó sus tres productos. El plan oficina, que Camila creía el mejor, dejaba menos margen por el despacho incluido.'),
+      G('Tres caminos: subir precio, bajar costo o dejar de venderlo', 'Cuando un producto deja poco, tienes tres caminos: subir el precio, bajar un costo o dejar de venderlo. Y un cambio de precio lo decide una persona.'),
     ],
   },
 
-  // ─── Módulo 6 · Tu propia infra ──────────────────────────────────────────
+  // ─── Módulo 6 · El tablero (v1.1: reemplaza «Tu propia infra») ────────────
   'm6-l1': {
-    titulo: 'Del producto hecho a lo tuyo',
+    titulo: 'Tus números del lunes',
     escenas: [
-      A('Álvaro en su escritorio con dos monitores', 'No todo hay que construirlo. A veces una herramienta lista resuelve el ochenta por ciento en una tarde.'),
-      G('Dos columnas: herramienta lista / sistema propio', 'Una herramienta lista sirve cuando tu problema es común, como responder WhatsApp o un programa de fidelización. Armar lo tuyo conviene cuando tu forma de trabajar es lo que te diferencia.'),
-      G('Cinco preguntas con sí o no', 'Para decidir, responde cinco preguntas en el ejercicio: qué tan común es tu problema, cuánto cambia tu proceso, cuántas herramientas usas hoy, quién lo va a mantener y cuánto tiempo tienes.'),
-      G('Pantallita: decisión de Grano Norte', 'Grano Norte usa una herramienta lista para WhatsApp y armó lo propio para su resumen del día y su reporte del lunes.'),
-      A('Álvaro, plano medio', 'Lo importante es que las dos cosas lean la misma base de información. Eso es lo que armamos en la próxima lección.'),
+      A('Álvaro en la bodega de Grano Norte, lunes temprano', 'Armaste las hojas una por una. Ahora las juntamos en la única hoja que nadie llena: el tablero.'),
+      G('La hoja Tablero con sus cinco grupos de números', 'El tablero se calcula solo desde tus hojas. Son pocos números en cinco grupos: clientes y ventas, origen, pedidos, atención, y cobranza y caja.'),
+      G('Avisos al lado de algunos números: «Revisar hoy», «Cobrar esta semana»', 'Al lado de algunos aparece un aviso: revisar hoy, cobrar esta semana. Esos son los que se conversan el lunes.'),
+      G('Pantallita: el tablero de Grano Norte, con 96 mil vencidos y un pedido atrasado', 'El primer lunes de Grano Norte salieron dos cosas en diez minutos: noventa y seis mil pesos vencidos y un pedido atrasado. Antes, Camila se habría enterado por un reclamo.'),
+      G('El ejercicio: el número que preocupa, la decisión y quién la hace', 'En el ejercicio abres tu tablero y anotas el número que más te preocupa, qué decides y quién lo hace.'),
     ],
   },
   'm6-l2': {
-    titulo: 'Tu base de información',
+    titulo: 'Cómo se conectan las hojas',
     escenas: [
-      A('Álvaro explicando con una tablet', 'Cada asistente que armaste en el curso necesita saber lo mismo: quién eres, qué vendes y qué decide una persona.'),
-      G('Una carpeta que se abre en cinco subcarpetas', 'Por eso juntas todo en un solo lugar: tu esqueleto, tus reglas de freno, tus procesos, tus plantillas y tus números.'),
-      G('La carpeta conectada a un proyecto en Claude o ChatGPT', 'Puede ser una carpeta compartida o un proyecto en Claude o ChatGPT. Lo importante es que haya una sola versión.'),
-      G('Pantallita: la carpeta «Grano Norte · Sistema»', 'En Grano Norte, la carpeta se llama «Grano Norte · Sistema». Cuando cambia un precio, se cambia ahí y todos los asistentes lo leen.'),
-      G('Archivo «LEEME» al inicio de la carpeta', 'Agrega un archivo al inicio que explique qué hay en cada carpeta y quién la actualiza. Si alguien nuevo entra al equipo, empieza por ahí.'),
-      G('Checklist de documentos del curso', 'El ejercicio te muestra qué documentos ya armaste en el curso y cuáles faltan.'),
+      A('Álvaro frente a la pizarra', 'El tablero no tiene nada escrito a mano. Cada número lee una hoja.'),
+      G('Hojas conectadas con líneas al tablero', 'Los clientes activos salen de Clientes; las ventas del mes, de Pedidos; lo vencido, de Cobranza; la caja, de Caja. Por eso la regla más importante es simple: cada dato se anota una vez, en un solo lugar.'),
+      G('El precio en Productos, tomado por Pedidos', 'El precio vive en Productos, y Pedidos lo toma de ahí. Si lo copias a mano en otra parte, tarde o temprano las dos versiones dejan de calzar.'),
+      G('Pantallita: el lunes en que el tablero decía 160 mil vencidos', 'Un lunes, el tablero de Grano Norte decía ciento sesenta mil vencidos, pero el Cowork ya había pagado. Nadie había marcado el pago. Si un número no te calza, revisa la hoja, no la fórmula.'),
+      G('El ejercicio de clasificar dónde se anota cada cosa', 'En el ejercicio decides en qué hoja va cada cosa que pasa en una semana.'),
     ],
   },
   'm6-l3': {
-    titulo: 'Conectar correo, calendario y planillas',
+    titulo: 'Compartirlo con tu equipo',
     escenas: [
-      A('Álvaro serio, plano cercano', 'Conectar un asistente a tu correo es útil. Darle permiso para enviar sin revisar es un riesgo que no necesitas correr.'),
-      G('Tres niveles: leer, dejar en borrador, nunca', 'Piensa en tres niveles. Lo que puede leer: correos, calendario, planillas. Lo que solo puede dejar en borrador: respuestas, eventos, recordatorios. Y lo que nunca hace: pagar, borrar o comprometer una fecha.'),
-      G('Pantalla de permisos de una cuenta de Google, con permisos mínimos marcados', 'Cuando conectes una herramienta, dale el permiso mínimo. Si solo necesita leer el calendario, no le des acceso para modificarlo.'),
-      G('Pantallita: la matriz de permisos de Grano Norte', 'En Grano Norte, el asistente lee pedidos y pagos, deja borradores de seguimiento y nunca toca la cuenta del banco.'),
-      G('Lista de conexiones activas con una revisión mensual', 'Y una vez al mes revisa qué herramientas tienen acceso a tus cuentas. Lo que ya no usas, lo desconectas.'),
-      G('El ejercicio de clasificar acciones', 'En el ejercicio clasificas diez acciones y te queda tu matriz de permisos.'),
+      A('Álvaro con el notebook, plano medio', 'Una planilla que solo abres tú sigue dependiendo de ti. El paso que cambia todo es compartirla.'),
+      G('Botón «Compartir» de Google Sheets y los roles editor y lector', 'En Google Sheets tocas compartir y agregas a cada persona con su correo. Quien actualiza una hoja va como editor; quien solo mira, como lector.'),
+      G('Menú Datos → Proteger hojas y rangos, con Productos y Tablero marcadas', 'Lo que cambia una sola persona se protege: los precios en Productos y el tablero. Son tus reglas de freno, escritas en la planilla.'),
+      G('Pantallita: quién edita qué en Grano Norte', 'En Grano Norte, Sofía y Matías actualizan Pedidos; Camila, Clientes, Cobranza y Caja. El contador entra como lector a fin de mes.'),
+      G('Ícono de freno sobre el enlace público', 'Comparte con correos, nunca con cualquier persona con el enlace: tu planilla tiene datos de tus clientes.'),
     ],
   },
   'm6-l4': {
-    titulo: 'Tus rutinas automáticas',
+    titulo: 'Las rutinas de tu sistema',
     escenas: [
-      A('Álvaro con un café, temprano', 'Una rutina automática es una tarea que se prepara sola, a la misma hora, sin que tengas que acordarte.'),
-      G('Tres rutinas en tarjetas: resumen del día, lista de prospectos, reporte del lunes', 'En el curso armaste tres: el resumen del día, la lista de prospectos y el reporte del lunes. Elige una para empezar.'),
-      G('Ficha de rutina: qué, cuándo, con qué, quién revisa', 'Cada rutina tiene una ficha: qué prepara, a qué hora, qué fuentes lee, dónde deja el resultado y quién lo revisa.'),
-      G('Reloj a las 8:30 y un borrador que aparece', 'Muchos asistentes ya permiten programar una tarea a una hora fija. Si el tuyo no, un recordatorio de calendario con el prompt guardado funciona igual.'),
-      G('Pantallita: la rutina del resumen diario de Grano Norte', 'En Grano Norte, el resumen está listo a las ocho y media, de lunes a viernes, y Camila lo lee antes de abrir el WhatsApp.'),
+      A('Álvaro con un café, temprano', 'Una planilla vale lo que valen sus rutinas. Si nadie la abre, en dos semanas deja de decir la verdad.'),
+      G('Cuatro tarjetas: cada día 20 min, lunes 10 min, viernes 15 min, fin de mes', 'Tu sistema se mantiene con poco: veinte minutos al día con Clientes y Pedidos, diez los lunes con el tablero, quince los viernes para dejar todo al día y una revisión a fin de mes.'),
+      G('Frase en pantalla: «Si son las [hora] y estoy en [lugar], entonces abro la planilla»', 'Lo que más ayuda está bien estudiado: decidir de antemano a qué hora y dónde lo vas a hacer. Escrito así: si son las ocho y media y estoy en mi escritorio, entonces abro la planilla.'),
+      G('Pantallita: la frase de Camila pegada en el monitor', 'Camila lo pegó en el monitor: abre la planilla antes que el WhatsApp.'),
+      G('El ejercicio de las rutinas', 'En el ejercicio escribes cuándo y dónde haces cada rutina. Y si un día no puedes, retomas al siguiente: saltarte un día no arruina nada.'),
     ],
   },
   'm6-l5': {
-    titulo: 'Frenos y revisión semanal',
+    titulo: 'Cuándo una planilla ya no basta',
     escenas: [
-      A('Álvaro en su escritorio, viernes por la tarde', 'Un sistema que nadie revisa se desordena solo. Quince minutos a la semana lo mantienen al día.'),
-      G('Ciclo de tres pasos: qué hizo, qué falló, qué ajustar', 'Cada viernes respondes tres preguntas: qué hizo el sistema esta semana, qué falló y qué vas a ajustar.'),
-      G('Lista de frenos con marcas de revisión', 'Y revisas tus frenos: que nada que toque plata, plazos o reclamos haya salido sin una persona.'),
-      G('Pantallita: la revisión de un viernes de Grano Norte', 'En la revisión de Grano Norte apareció que el asistente respondía bien, pero tarde en la noche. Se ajustó el horario y listo.'),
-      G('Tabla: falla → ajuste → dónde se escribe', 'Cada falla deja un ajuste escrito: una línea nueva en las instrucciones, un paso en un proceso o una regla de freno más. Así el sistema aprende contigo.'),
-      G('El registro semanal del ejercicio', 'En el ejercicio haces tu primera revisión. Guárdala: la próxima semana compararás.'),
+      A('Álvaro en su escritorio, tono honesto', 'Esta planilla es tu primer CRM y tu primer ERP. Para una pyme chica suele bastar por mucho tiempo, pero no para siempre.'),
+      G('Dos columnas: la planilla basta / conviene mirar un software', 'Las señales son concretas: muchas personas editando a la vez, cientos de pedidos al mes, necesitar que los pedidos generen la factura o descuenten inventario solos.'),
+      G('La planilla convirtiéndose en una lista de requisitos', 'Cuando llegues ahí, tu planilla no se pierde: es la mejor preparación para elegir un software. Ya sabes qué datos necesitas y qué números miras.'),
+      G('Pantalla de ChatGPT o Claude revisando una hoja, con la frase «revisa tú»', 'Y si usas ChatGPT o Claude, te pueden servir de segunda mirada: les pegas una hoja y te dicen qué está incompleto. Siempre como borrador que revisas tú, y sin datos sensibles de tus clientes.'),
+      A('Álvaro, plano cercano', 'Pero no compres software por una demo. Primero las rutinas, después los números, y recién ahí la herramienta.'),
     ],
   },
   'm6-final': {
     titulo: 'Tu negocio en 6 semanas: antes y después',
     escenas: [
-      A('Álvaro, plano medio, tono de cierre', 'Llegaste al final. Hace seis semanas todo pasaba por ti. Veamos qué cambió.'),
-      G('El semáforo del módulo 0 al lado del semáforo de hoy, área por área', 'Este es tu semáforo de antes y el de hoy. Cada área que pasó de rojo a naranja, o de naranja a verde, es tiempo que recuperaste.'),
-      G('El tablero de tu negocio armándose página por página', 'Tu tablero junta todo: el mapa, tus reglas de freno y, por cada área, su rutina, su plantilla y su número semanal.'),
-      G('Equipo mirando el tablero impreso', 'Muéstraselo a tu equipo. Es el documento que les permite avanzar sin preguntarte todo.'),
-      G('El tablero en la pantalla, guardándose como PDF', 'Guárdalo en PDF y repásalo cada viernes en tu revisión semanal. El tablero no es un documento que se archiva: es el que se usa.'),
-      A('Álvaro, plano cercano', 'Y si quedó algo pendiente, lo armamos juntos. Pero lo más difícil ya lo hiciste: escribir cómo funciona tu negocio.'),
+      A('Álvaro, plano medio, tono de cierre', 'Llegaste al final. Hace seis semanas tus clientes vivían en el WhatsApp y en tu memoria. Veamos qué cambió.'),
+      G('El semáforo del módulo 0 al lado del semáforo de hoy, pieza por pieza', 'Este es tu semáforo de antes y el de hoy. Cada pieza que pasó de rojo a naranja, o de naranja a verde, es tiempo que recuperaste.'),
+      G('La planilla con sus hojas llenas y el tablero al final', 'Tu proyecto final es tu planilla con datos reales: clientes, origen, productos, pedidos, atención, cobranza y caja, conectados en un tablero.'),
+      G('Equipo mirando el tablero en una pantalla', 'Compártela con tu equipo. Es lo que les permite saber en qué va cada cliente y cada pedido sin preguntarte.'),
+      G('La hoja del proyecto final guardándose como PDF', 'Guarda la hoja del proyecto en PDF, con quién actualiza cada hoja y tus rutinas. La planilla no es un archivo que se guarda: es el que se usa cada lunes.'),
+      A('Álvaro, plano cercano', 'Y si quedó algo pendiente, lo armamos juntos. Pero lo más difícil ya lo hiciste: anotar cómo funciona tu negocio en un solo lugar.'),
+    ],
+  },
+
+  // ─── Videos ya grabados con la v1.0, para regrabar con el enfoque v1.1 (8-nov-2026) ─────────────
+  // Los mp4 y vtt de public/videos siguen siendo los de la v1.0; estos son los guiones nuevos.
+  'v08-curso-venta': {
+    titulo: 'Tu primer CRM y ERP, en 6 semanas',
+    escenas: [
+      A('Álvaro en su escritorio, plano medio', '¿Tus clientes viven en el WhatsApp y los pedidos en tu cabeza? No es desorden: nada está anotado en un solo lugar.'),
+      G('Una planilla vacía; aparecen dos tarjetas: CRM y ERP', 'En este curso armas tu primer CRM y ERP en Google Sheets. El CRM es el lugar donde ves a todos tus clientes y en qué va cada uno. El ERP es donde se juntan ventas, pedidos, cobranza y caja.'),
+      G('Pestañas que se suman una por semana: Clientes, Origen, Pedidos, Atención, Cobranza, Caja', 'Cada semana sumas una hoja a la misma planilla, con las fórmulas listas: tú llenas filas.'),
+      G('El tablero de Grano Norte con sus números', 'Al final, un tablero te muestra tus números del lunes: lo que vendiste, lo que te deben y cuánta caja tienes. No es un software: es una planilla bien armada y rutinas cortas.'),
+      A('Álvaro a cámara, cierre', 'Está en preventa a precio fundador: el módulo 0 y tu planilla base los recibes hoy. Te espero adentro.'),
+    ],
+  },
+  'v09-m0-l1': {
+    titulo: 'Por qué todo pasa por ti',
+    escenas: [
+      A('Álvaro frente a la pizarra', 'Si el precio está en tu cabeza, cada cotización te espera. Si los pedidos se coordinan de memoria, cada despacho te espera. El problema no es que trabajes poco: es que nada está anotado en un solo lugar.'),
+      G('Dos tarjetas: CRM y ERP, con su definición', 'Dos palabras que vas a escuchar harto. Un CRM es el lugar donde ves a todos tus clientes y en qué va cada uno. Un ERP es el sistema donde se juntan ventas, pedidos, cobranza y caja.'),
+      G('El mapa: cinco hojas alrededor del tablero', 'Tu sistema tiene cinco piezas, cada una con su hoja: clientes y ventas, de dónde llegan, pedidos, atención, y cobranza con caja. Al centro, el tablero que las lee todas.'),
+      G('Pantallita de Grano Norte: WhatsApp, un cuaderno y un Excel', 'Camila, de Grano Norte, vende bien, pero tiene a sus clientes repartidos entre el WhatsApp, un cuaderno y un Excel que nadie actualiza. No le falta talento: le falta un solo lugar.'),
+      G('El mapa interactivo de la lección', 'Toca cada pieza en el mapa de abajo y mira qué se anota ahí. En la próxima lección vemos cuál se te cae a ti.'),
+    ],
+  },
+  'v10-m0-l2': {
+    titulo: 'Diagnóstico de 15 preguntas',
+    escenas: [
+      A('Álvaro con el celular en la mano', 'Ahora vamos a ver dónde estás. Son 15 preguntas, tres por cada pieza de tu sistema. Responde pensando en lo que pasa de verdad, no en lo que te gustaría.'),
+      G('Semáforo: rojo, naranja y verde', 'Al final te queda un semáforo: verde lo que funciona sin ti, naranja lo que funciona a medias y rojo lo que hoy depende de ti. Y te propongo el orden: primero lo rojo. Guarda este resultado: al final del curso lo comparas.'),
+    ],
+  },
+  'v11-m0-l3': {
+    titulo: 'Tu planilla base y la ficha del negocio',
+    escenas: [
+      A('Álvaro en su escritorio con el notebook', 'Todo lo que viene en el curso vive en una sola planilla. Hoy la dejas lista.'),
+      G('El formulario de la ficha llenándose', 'Anota el nombre de tu negocio, qué vendes, a quién y tu lista de precios. Son quince minutos.'),
+      G('El archivo se descarga y se abre en Google Sheets, con sus pestañas', 'Con eso descargas tu planilla, ya con tu nombre y tus productos, y la abres en Google Sheets. Trae todas las hojas del curso conectadas: las vas a ir llenando módulo a módulo.'),
+      G('El ejemplo de Grano Norte, lleno', 'Si quieres ver cómo queda, baja el ejemplo de Grano Norte. Y si usas IA, esta misma información le sirve, pero no la necesitas.'),
+    ],
+  },
+  'v12-m0-l4': {
+    titulo: 'Las reglas de freno del negocio',
+    escenas: [
+      A('Álvaro frente a la pizarra', 'Antes de que algo funcione sin ti, hay que decidir qué no puede pasar sin ti. Eso son las reglas de freno: precios especiales, plazos de entrega, plata y reclamos.'),
+      G('La lista de 15 reglas; se marcan tres', 'Abajo tienes 15 reglas. Elige las que aplican a tu negocio y edítalas con tus palabras. Camila decidió que cualquier pedido sobre 20 kilos, cualquier descuento y cualquier reclamo pasan por ella.'),
+      G('La portada del sistema: semáforo, planilla base y reglas', 'Con tu semáforo, tu planilla base y tus reglas ya tienes la portada de tu sistema. La próxima semana partimos con tu CRM: la hoja Clientes.'),
+    ],
+  },
+  'v13-m0-cierre': {
+    titulo: 'Lo que viene',
+    escenas: [
+      A('Álvaro a cámara, plano medio', 'Ya tienes el mapa de tu negocio, tu semáforo, tu planilla base y tus reglas. Eso es más de lo que tiene anotado la mayoría de los negocios. Si quieres seguir conmigo, el curso suma una hoja por semana hasta tu tablero. Y si todavía no, mira la grabación del último workshop.'),
+    ],
+  },
+  'v05-guia-cierre': {
+    titulo: 'De tu primer CRM al sistema de tu negocio',
+    escenas: [
+      A('Álvaro a cámara, celebrando', 'Felicitaciones. Lo que hiciste en esta guía funciona: lista, mensaje, seguimientos y rutina. Y tu planilla ya es tu primer CRM.'),
+      G('La hoja Posibles clientes pasa a la hoja Clientes y aparecen las otras pestañas', 'En el curso El sistema de tu negocio la extiendes al resto: de dónde llegan tus clientes, los pedidos, la atención, la cobranza y la caja, todo en la misma planilla y con un tablero que miras los lunes.'),
+      A('Álvaro a cámara, cierre', 'Tu lista de esta guía pasa sola a la hoja Clientes. Te espero adentro.'),
+    ],
+  },
+  'v17-anuncio-curso': {
+    titulo: 'Tu primer CRM y ERP en Google Sheets',
+    escenas: [
+      A('Álvaro a cámara, vertical 9:16', '¿Tus clientes viven en el WhatsApp y los pedidos en tu cabeza? No es desorden: nada está anotado en un solo lugar.'),
+      G('Pestañas de la planilla y el tablero', 'En 6 semanas armas tu primer CRM y ERP en Google Sheets: clientes, pedidos, cobranza y caja en una planilla, con un tablero que miras los lunes. Sin pagar software.'),
+      A('Álvaro a cámara, cierre', 'Está en preventa a precio fundador. Link en mi perfil.'),
     ],
   },
 };

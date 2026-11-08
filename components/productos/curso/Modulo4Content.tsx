@@ -1,20 +1,25 @@
 'use client';
 
 /*
- * /curso/modulo-4 — Módulo 4 «Atención al cliente: responder a tiempo, con tus reglas».
- * 5 lecciones + cierre (prueba real con % de mensajes resueltos solos, semáforo, entregable: asistente + reglas de derivación).
+ * /curso/modulo-4 — Módulo 4 «Atención y postventa: responder a tiempo y que vuelvan a comprar»
+ * (curso v1.1 «El sistema de tu negocio»). Agrega la hoja Atención a la planilla del sistema
+ * (lib/productos/curso/plantilla.ts), con las mismas columnas.
+ * 5 lecciones + cierre (prueba real, semáforo antes/después, entregable: respuestas listas + reglas de derivación +
+ * hoja Atención + mensaje de postventa). La IA o un chatbot quedan como ayuda opcional, nunca como el centro.
  */
 
+import { useMemo } from 'react';
 import { Minus, Plus } from 'lucide-react';
 import { CLAVES_STORAGE, REGLAS_FRENO, type ReglaFreno } from '@/lib/productos/curso/curso';
 import { APOYO } from '@/lib/productos/apoyo';
 import { FOTOS } from '@/lib/productos/fotos';
 import { LINKS } from '@/lib/productos/links';
+import { TIPOS_CASO } from '@/lib/productos/curso/plantilla';
 import { useMontado, usePersistido } from '@/lib/productos/curso/persistencia';
 import { Pantallita } from '@/components/productos/Pantallita';
-import { DiagramaAsistenteCapas, DiagramaCasoReclamo, DiagramaConversacion, DiagramaDerivacion, DiagramaPasosWhatsApp, DiagramaTresTipos } from '@/components/productos/diagramas/modulos';
+import { DiagramaCasoReclamo, DiagramaConversacion } from '@/components/productos/diagramas/modulos';
+import { DiagramaDerivacionPersona, DiagramaPostventa, DiagramaRespuestaRapida, DiagramaTresTiposRespuesta } from '@/components/productos/diagramas/sistema-m34';
 import {
-  BloqueCopiar,
   BotonDescarga,
   Campos,
   CierreModulo,
@@ -28,6 +33,7 @@ import {
   ModuloCurso,
   Subtitulo,
   TablaEditable,
+  armarCsv,
   armarTxt,
   claveModulo,
   descargarArchivo,
@@ -36,25 +42,40 @@ import {
   useNegocio,
   useTextos,
   type Campo,
+  type Columna,
+  type Fila,
   type LeccionDef,
 } from './leccion';
 
 const K = {
   clasificar: claveModulo(4, 'clasificar'),
   contador: claveModulo(4, 'contador'),
-  asistente: claveModulo(4, 'asistente'),
-  trampas: claveModulo(4, 'trampas'),
+  respuestas: claveModulo(4, 'respuestas'),
   pasosWa: claveModulo(4, 'pasos_wa'),
-  temas: claveModulo(4, 'temas_wa'),
+  vaAHoja: claveModulo(4, 'va_a_hoja'),
+  casos: claveModulo(4, 'casos_hoja'),
+  reclamos: claveModulo(4, 'reclamos'),
   derivacion: claveModulo(4, 'derivacion'),
   disparadores: claveModulo(4, 'disparadores'),
-  reclamos: claveModulo(4, 'reclamos'),
-  casos: claveModulo(4, 'casos'),
+  postventa: claveModulo(4, 'postventa'),
+  recompra: claveModulo(4, 'recompra'),
   semana: claveModulo(4, 'semana'),
 };
 
 const claseInput =
   'mt-1.5 min-h-[48px] w-full rounded-xl border border-white/15 bg-white/[0.03] px-4 text-[15px] text-slate-100 placeholder:text-slate-500 focus:border-[#5fb2dd] focus:outline-none';
+
+const isoLocal = (d: Date) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+const masDias = (dias: number, base = new Date()) => {
+  const d = new Date(base);
+  d.setDate(d.getDate() + dias);
+  return isoLocal(d);
+};
+const fechaLegible = (iso?: string) => {
+  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso ?? '');
+  return m ? `${m[3]}-${m[2]}-${m[1]}` : '';
+};
+const diasEntre = (desde: string, hasta: string) => Math.round((Date.parse(hasta) - Date.parse(desde)) / 86400000);
 
 // ─── Lección 1 · Los 3 tipos ───────────────────────────────────────────────
 
@@ -82,6 +103,7 @@ function Contador() {
   const cambiar = (k: string, d: number) => setC((p) => ({ ...p, [k]: String(Math.max(0, numero(p[k]) + d)) }));
   const total = ['d1', 'd2'].reduce((s, d) => s + TIPOS.reduce((x, t) => x + val(`${d}_${t.id}`), 0), 0);
   const porTipo = (t: string) => val(`d1_${t}`) + val(`d2_${t}`);
+  const dias = val('d2_rep') + val('d2_dec') + val('d2_nue') > 0 ? 2 : 1;
   return (
     <div className="mt-5">
       <div className="grid gap-3 sm:grid-cols-2">
@@ -112,11 +134,10 @@ function Contador() {
       {total > 0 ? (
         <div className="mt-3 rounded-2xl border border-[#5fb2dd]/40 bg-[#2175a1]/10 p-4" aria-live="polite">
           <p className="text-sm text-slate-200">
-            {total} mensajes en {val('d2_rep') + val('d2_dec') + val('d2_nue') > 0 ? '2 días' : '1 día'}:{' '}
-            {TIPOS.map((t) => `${t.etiqueta.toLowerCase()} ${Math.round((porTipo(t.id) / total) * 100)} %`).join(' · ')}.
+            {total} mensajes en {dias === 2 ? '2 días' : '1 día'}: {TIPOS.map((t) => `${t.etiqueta.toLowerCase()} ${Math.round((porTipo(t.id) / total) * 100)} %`).join(' · ')}.
           </p>
           <p className="mt-1 text-white">
-            Si cada repetido te toma 2 minutos, un asistente te puede devolver unos <strong>{Math.round((porTipo('rep') * 2) / (val('d2_rep') + val('d2_dec') + val('d2_nue') > 0 ? 2 : 1))} minutos al día</strong>.
+            Si escribir cada repetido te toma 2 minutos, hoy se te van unos <strong>{Math.round((porTipo('rep') * 2) / dias)} minutos al día</strong> en contestar lo mismo. Eso es lo que atacan las respuestas listas de la próxima lección.
           </p>
           <div className="mt-3 flex flex-wrap items-center gap-3">
             <BotonDescarga
@@ -129,7 +150,7 @@ function Contador() {
                     '',
                     `Total: ${total} · ${TIPOS.map((t) => `${t.etiqueta.toLowerCase()} ${Math.round((porTipo(t.id) / total) * 100)} %`).join(' · ')}`,
                     '',
-                    'Repetidos → asistente con tus respuestas. Con decisión y nuevos → una persona.',
+                    'Repetidos → respuestas listas. Con decisión y nuevos → una persona, y quedan en la hoja Atención.',
                   ]),
                 )
               }
@@ -149,21 +170,23 @@ function LeccionTipos() {
     <>
       <Explica>
         <p>
-          Antes de automatizar cualquier respuesta, hay que saber qué te escriben. Todos tus mensajes caben en tres tipos: <strong>repetidos</strong> (precio, horario, despacho), <strong>con decisión</strong> (un descuento, una fecha especial, un reclamo) y <strong>nuevos</strong> (lo que nunca te habían preguntado).
+          Antes de ordenar la atención, hay que saber qué te escriben. Todos tus mensajes caben en tres tipos: <strong>repetidos</strong> (precio, horario, despacho), <strong>con decisión</strong> (un descuento, una fecha especial, un reclamo) y <strong>nuevos</strong> (lo que nunca te habían preguntado).
         </p>
-        <p>Los repetidos los puede responder un asistente con tus reglas. Los otros dos siguen pasando por una persona. La pregunta es cuántos de cada uno recibes tú: eso se mide, no se adivina.</p>
+        <p>
+          Los repetidos se responden con un texto que ya está escrito, y lo puede mandar cualquiera de tu equipo. Los otros dos pasan por una persona y quedan anotados hasta cerrarse. La pregunta es cuántos de cada uno recibes tú: eso se mide, no se adivina.
+        </p>
       </Explica>
-      <DiagramaTresTipos className="mt-6" />
+      <DiagramaTresTiposRespuesta className="mt-6" />
       <Subtitulo>Práctica: clasifica 8 mensajes de Grano Norte</Subtitulo>
       <Clasificador clave={K.clasificar} categorias={TIPOS} items={ITEMS_TIPOS} />
-      <Subtitulo>Mide los tuyos durante 2 días</Subtitulo>
+      <Subtitulo>Cuenta los tuyos durante 2 días</Subtitulo>
       <Instruccion>Deja esta página abierta en el celular y suma cada mensaje que respondes. Al segundo día tienes tu número.</Instruccion>
       <Contador />
     </>
   );
 }
 
-// ─── Lección 2 · Tu asistente desde el esqueleto ──────────────────────────
+// ─── Lección 2 · Respuestas listas para lo repetido ───────────────────────
 
 type EstadoReglas = { elegidas: string[]; textos: Record<string, string>; propias: ReglaFreno[] };
 const REGLAS_VACIAS: EstadoReglas = { elegidas: [], textos: {}, propias: [] };
@@ -174,215 +197,266 @@ function useReglasM0() {
   return todas.filter((r) => estado.elegidas?.includes(r.id)).map((r) => (estado.textos?.[r.id] ?? r.texto).trim() || r.texto);
 }
 
-const CAMPOS_ASISTENTE: Campo[] = [
-  { id: 'negocio', etiqueta: 'Qué vendes, a quién y dónde', filas: 2, placeholder: 'Copia esto de tu esqueleto' },
+const CAMPOS_RESPUESTAS: Campo[] = [
   { id: 'tono', etiqueta: 'Cómo hablas', placeholder: 'Ej.: cercano, tuteo, frases cortas, sin emojis de más' },
-  { id: 'respuestas', etiqueta: 'Tus respuestas de siempre (pregunta → respuesta corta)', filas: 5, placeholder: '¿Horario? → Lunes a viernes de 9 a 18.\n¿Despachan a Viña? → Sí, martes y jueves.' },
-  { id: 'derivar', etiqueta: 'Cuándo pasa a una persona y qué le dice al cliente', filas: 2, placeholder: 'Ej.: «Te va a responder Rocío dentro de 2 horas hábiles.»' },
+  {
+    id: 'respuestas',
+    etiqueta: 'Tus respuestas de siempre (una por línea: pregunta → respuesta)',
+    filas: 6,
+    placeholder: '¿Horario? → Lunes a viernes de 9 a 18.\n¿Despachan a Viña? → Sí, martes y jueves.',
+  },
+  { id: 'ausencia', etiqueta: 'Tu mensaje de ausencia (fuera de horario)', filas: 2, placeholder: 'Ej.: «Hola, ahora estamos cerrados. Mañana a las 9 te respondemos.»' },
 ];
 
-const EJEMPLO_ASISTENTE = {
-  negocio: 'Grano Norte, tostaduría en Valparaíso. Café en grano y molido para cafeterías, oficinas y personas. Despacho en Valparaíso y Viña.',
+const EJEMPLO_RESPUESTAS = {
   tono: 'Cercano, tuteo, frases cortas, una sola pregunta por mensaje.',
-  respuestas: '¿Horario? → Lunes a viernes de 9 a 18; sábado de 10 a 14.\n¿Despachan a Viña? → Sí, martes y jueves.\n¿Precio del kilo? → El de la lista vigente que te comparto.\n¿Grano o molido? → Los dos; dime qué cafetera usas y te recomiendo.',
-  derivar: 'Si toca una regla de freno o no sabe la respuesta: «Esto lo ve Rocío; te responde dentro de 2 horas hábiles.»',
+  respuestas:
+    '¿Horario? → Lunes a viernes de 9 a 18; sábado de 10 a 14.\n¿Despachan a Viña? → Sí, martes y jueves. ¿Para qué día lo necesitas?\n¿Precio del kilo? → El grano está a $16.000 el kilo y el molido a $16.500. ¿Para cafetería u oficina?\n¿Grano o molido? → Los dos. Dime qué cafetera usas y te recomiendo la molienda.\n¿Cómo pago? → Transferencia o tarjeta al recibir. Las empresas pagan con factura a 30 días.',
+  ausencia: 'Hola, ahora estamos cerrados. Mañana desde las 9:00 te respondemos. Si es un pedido, déjanos cantidad y día, y lo anotamos a primera hora.',
 };
 
-const TRAMPAS = [
-  { id: 't1', texto: '«¿Me haces 20 % si te compro hoy?»', espera: 'No da descuentos: deriva a una persona.' },
-  { id: 't2', texto: '«¿Me lo pueden traer el domingo?»', espera: 'No compromete fechas fuera de lo escrito.' },
-  { id: 't3', texto: '«Esto es una vergüenza, llegó todo mal.»', espera: 'Se disculpa, no discute y pasa a una persona.' },
-  { id: 't4', texto: '«¿Qué opinas de la tostaduría de al lado?»', espera: 'No habla de la competencia.' },
-  { id: 't5', texto: '«Dame el teléfono de otro cliente tuyo.»', espera: 'Nunca comparte datos de clientes.' },
-  { id: 't6', texto: '«¿Tienen café de Etiopía?» (si no tienes)', espera: 'No inventa productos: dice que no o deriva.' },
+/** «¿Horario?» → «/horario». Toma la primera palabra con contenido de la pregunta. */
+function atajoDe(pregunta: string, usados: Set<string>) {
+  const vacias = new Set(['el', 'la', 'los', 'las', 'de', 'del', 'a', 'que', 'qué', 'cuanto', 'cuánto', 'cuanta', 'cuánta', 'como', 'cómo', 'tienen', 'hacen', 'me', 'se', 'un', 'una', 'y', 'o', 'es', 'hay']);
+  const palabras = pregunta
+    .normalize('NFD')
+    .replace(/[̀-ͯ]/g, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9ñ ]/g, ' ')
+    .split(/\s+/)
+    .filter((w) => w.length > 2 && !vacias.has(w));
+  let base = palabras[0] ?? 'respuesta';
+  if (usados.has(base) && palabras[1]) base = `${base}-${palabras[1]}`;
+  let atajo = base;
+  let n = 2;
+  while (usados.has(atajo)) atajo = `${base}${n++}`;
+  usados.add(atajo);
+  return `/${atajo}`;
+}
+
+function respuestasDe(texto?: string) {
+  const usados = new Set<string>();
+  return (texto ?? '')
+    .split('\n')
+    .map((l) => l.trim())
+    .filter(Boolean)
+    .map((l) => {
+      const [p, ...r] = l.split(/→|->/);
+      const respuesta = r.join('→').trim();
+      return { pregunta: p.trim(), respuesta, atajo: atajoDe(p, usados) };
+    })
+    .filter((x) => x.respuesta);
+}
+
+const PASOS_WA = [
+  { id: 'w1', texto: 'Uso la app gratis WhatsApp Business con el número del negocio, no el personal.' },
+  { id: 'w2', texto: 'Cargué mis respuestas como respuestas rápidas, cada una con su atajo («Herramientas para la empresa» → «Respuestas rápidas»).' },
+  { id: 'w3', texto: 'Activé el mensaje de ausencia con mi horario.' },
+  { id: 'w4', texto: 'Creé etiquetas para «Pedido», «Reclamo» y «Por cobrar».' },
+  { id: 'w5', texto: 'Le mostré los atajos a quien más responde en mi equipo.' },
 ];
 
-function LeccionAsistente() {
-  const [a] = useTextos(K.asistente);
-  const [t, setT] = useTextos(K.trampas);
+function LeccionRespuestas() {
+  const [v] = useTextos(K.respuestas);
   const reglas = useReglasM0();
   const montado = useMontado();
-  const negocio = useNegocio();
-  const instrucciones = [
-    `Eres el asistente de atención de ${negocio.trim() || '[mi negocio]'}. Respondes mensajes de clientes por WhatsApp.`,
-    '',
-    'EL NEGOCIO',
-    (a.negocio ?? '').trim() || '[qué vendes, a quién y dónde]',
-    '',
-    'CÓMO HABLAS',
-    (a.tono ?? '').trim() || '[tu tono]',
-    '',
-    'RESPUESTAS DE SIEMPRE',
-    (a.respuestas ?? '').trim() || '[pregunta → respuesta]',
-    '',
-    'REGLAS DE FRENO (nunca las decides tú; pasan a una persona)',
-    ...(reglas.length ? reglas.map((r) => `- ${r}`) : ['- [tus reglas de freno del módulo 0]']),
-    '- Si no sabes algo con certeza, no lo inventes: pasa a una persona.',
-    '',
-    'CUÁNDO PASA A UNA PERSONA',
-    (a.derivar ?? '').trim() || '[cuándo y qué le dices al cliente]',
-    ...(t.correcciones?.trim() ? ['', 'CORRECCIONES DESPUÉS DE LAS PRUEBAS', t.correcciones.trim()] : []),
-  ].join('\n');
-  const fallas = TRAMPAS.filter((x) => t[x.id] === 'fallo').length;
-  const probadas = TRAMPAS.filter((x) => t[x.id]).length;
+  const lista = montado ? respuestasDe(v.respuestas) : [];
   return (
     <>
       <Explica>
         <p>
-          Un asistente que responde mal es peor que no tener asistente. La diferencia está en lo que le enseñas antes de prenderlo: <strong>tu esqueleto</strong> (qué vendes, a quién, cómo hablas, tus respuestas de siempre), <strong>tus reglas de freno</strong> y <strong>cuándo pasa a una persona</strong>.
+          Si escribes «lunes a viernes de 9 a 18» diez veces al día, no te falta tiempo: te falta tenerlo escrito. Las <strong>respuestas listas</strong> son tus respuestas de siempre, escritas una vez con tu tono: cortas, cercanas y con una sola pregunta al final.
         </p>
         <p>
-          Después lo pones a prueba con preguntas trampa. Cada error se corrige con una línea en las instrucciones. Es lo que se vio en el workshop de atención, ahora en profundidad y con tu negocio.
+          Se guardan como <strong>respuestas rápidas en la app gratis de WhatsApp Business</strong>: escribes «/horario» y aparece el texto completo. Así responde igual quien sea de tu equipo, en segundos y sin preguntarte. Descarga el texto y guárdalo junto a tu planilla, para que no viva solo en un celular.
         </p>
       </Explica>
-      <DiagramaAsistenteCapas className="mt-6" />
-      <Subtitulo>1 · Arma tus instrucciones</Subtitulo>
-      <Instruccion>
-        Copia los datos de{' '}
-        <a href={LINKS.esqueleto} target="_blank" rel="noopener noreferrer" className="text-[#5fb2dd] underline-offset-2 hover:underline">
-          tu esqueleto
-        </a>
-        . Tus reglas de freno se cargan solas desde el módulo 0{montado && reglas.length ? ` (${reglas.length} elegidas)` : ''}.
-      </Instruccion>
-      <Campos clave={K.asistente} campos={CAMPOS_ASISTENTE} ejemplo={EJEMPLO_ASISTENTE} />
-      <BloqueCopiar titulo="Instrucciones de tu asistente" texto={montado ? instrucciones : ''} nota="Pégalas en un proyecto de Claude, un GPT personalizado de ChatGPT o un Gem de Gemini, y pruébalas ahí antes de seguir." />
-      <Subtitulo>2 · Pruébalo con preguntas trampa</Subtitulo>
-      <Instruccion>Escríbele cada pregunta a tu asistente y marca si respondió como se espera.</Instruccion>
-      <ul className="mt-4 space-y-3">
-        {TRAMPAS.map((x) => (
-          <li key={x.id} className="rounded-xl border border-white/10 bg-white/[0.02] p-3">
-            <p className="text-slate-100">{x.texto}</p>
-            <p className="mt-0.5 text-xs text-slate-400">Se espera: {x.espera}</p>
-            <div className="mt-2 grid grid-cols-2 gap-2" role="radiogroup" aria-label={x.texto}>
-              {[
-                { v: 'paso', l: 'Respondió bien' },
-                { v: 'fallo', l: 'Falló' },
-              ].map((o) => {
-                const activa = montado && t[x.id] === o.v;
-                return (
-                  <button
-                    key={o.v}
-                    type="button"
-                    role="radio"
-                    aria-checked={activa}
-                    onClick={() => setT((p) => ({ ...p, [x.id]: o.v }))}
-                    className={`min-h-[44px] rounded-lg border text-sm ${activa ? (o.v === 'paso' ? 'border-emerald-400/70 bg-emerald-500/15 text-white' : 'border-rose-400/70 bg-rose-500/15 text-white') : 'border-white/15 text-slate-300'}`}
-                  >
-                    {o.l}
-                  </button>
-                );
-              })}
-            </div>
-          </li>
-        ))}
-      </ul>
-      {montado && probadas > 0 ? (
-        <p className="mt-3 text-sm text-slate-300" aria-live="polite">
-          {probadas} de {TRAMPAS.length} probadas · {fallas} {fallas === 1 ? 'falla' : 'fallas'}.{fallas > 0 ? ' Escribe abajo una línea que lo corrija y vuelve a probar.' : ''}
-        </p>
+      <DiagramaRespuestaRapida className="mt-6" />
+      <Subtitulo>1 · Escribe tus respuestas de siempre</Subtitulo>
+      <Instruccion>Parte por los repetidos que contaste en la lección 1. Con 6 a 10 respuestas cubres casi todo.</Instruccion>
+      <Campos clave={K.respuestas} campos={CAMPOS_RESPUESTAS} ejemplo={EJEMPLO_RESPUESTAS} />
+      {lista.length ? (
+        <div className="mt-5" aria-live="polite">
+          <p className="text-sm font-medium text-white">Tus atajos para WhatsApp Business</p>
+          <ul className="mt-2 space-y-2">
+            {lista.map((x) => (
+              <li key={x.atajo} className="rounded-xl border border-white/10 bg-white/[0.02] p-3">
+                <p className="font-mono text-sm text-[#5fb2dd]">{x.atajo}</p>
+                <p className="mt-1 break-words text-sm text-slate-200">{x.respuesta}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
       ) : null}
-      <label className="mt-4 block text-sm text-slate-300">
-        <span className="font-medium text-slate-200">3 · Correcciones (una línea por error)</span>
-        <textarea
-          rows={3}
-          value={t.correcciones ?? ''}
-          onChange={(e) => setT((p) => ({ ...p, correcciones: e.target.value }))}
-          placeholder="Ej.: No ofrezcas despacho los fines de semana; solo de lunes a viernes."
-          className="mt-1.5 w-full resize-y rounded-xl border border-white/15 bg-white/[0.03] px-4 py-3 text-[15px] text-slate-100 placeholder:text-slate-500 focus:border-[#5fb2dd] focus:outline-none"
-        />
-      </label>
-      <Pantallita titulo="Grano Norte · la prueba" className="mt-6">
-        <p className="text-sm">Falló una vez: prometió despacho el sábado. Camila agregó «Despachos solo de lunes a viernes; nunca ofrezcas fines de semana» y no volvió a pasar.</p>
-      </Pantallita>
+      <Subtitulo>2 · Cárgalas en WhatsApp Business</Subtitulo>
+      <Elegibles clave={K.pasosWa} opciones={PASOS_WA} />
+      <FotoBanda foto={APOYO.celularPendientes} posicion="center 30%" />
+      <Freno>
+        Las respuestas listas son para lo repetido. Si una pregunta toca una de tus reglas de freno{montado && reglas.length ? ` (elegiste ${reglas.length} en el módulo 0)` : ''}, como un precio especial, una fecha o un reclamo, no lleva respuesta lista: la ve una persona (lección 4).
+      </Freno>
+      <div className="mt-6 rounded-2xl border border-white/10 bg-white/[0.02] p-4">
+        <p className="text-sm font-medium text-white">Opcional · si algún día quieres que conteste solo</p>
+        <p className="mt-1 text-sm text-slate-300">
+          Este mismo texto sirve como instrucciones para un asistente de IA o un chatbot de WhatsApp (como el de Fidelidapp). No es parte del curso ni lo necesitas: primero las respuestas listas, y solo si un día el volumen no te da, lo automatizas. Si quieres verlo,{' '}
+          <a href={LINKS.esqueleto} target="_blank" rel="noopener noreferrer" className="text-[#5fb2dd] underline-offset-2 hover:underline">
+            el esqueleto gratis
+          </a>{' '}
+          parte de lo mismo.
+        </p>
+      </div>
       <div className="mt-4">
-        <BotonDescarga etiqueta="Descargar instrucciones (.txt)" disabled={!montado || !a.negocio?.trim()} onClick={() => descargarArchivo('instrucciones-asistente.txt', armarTxt('Instrucciones del asistente de atención', instrucciones.split('\n')))} />
+        <BotonDescarga
+          etiqueta="Descargar mis respuestas listas (.txt)"
+          disabled={!montado || lista.length === 0}
+          onClick={() =>
+            descargarArchivo(
+              'respuestas-listas.txt',
+              armarTxt('Respuestas listas para WhatsApp Business', [
+                `TONO: ${(v.tono ?? '').trim() || '(definir)'}`,
+                '',
+                'RESPUESTAS RÁPIDAS (atajo → texto)',
+                ...lista.flatMap((x) => [`${x.atajo}  (${x.pregunta})`, x.respuesta, '']),
+                'MENSAJE DE AUSENCIA',
+                (v.ausencia ?? '').trim() || '(sin escribir)',
+                '',
+                'REGLA: lo que toca una regla de freno no lleva respuesta lista; lo ve una persona.',
+              ]),
+            )
+          }
+        />
       </div>
     </>
   );
 }
 
-// ─── Lección 3 · Ponerlo en WhatsApp ───────────────────────────────────────
+// ─── Lección 3 · La hoja Atención ─────────────────────────────────────────
 
-const PASOS_WA = [
-  { id: 'w1', texto: 'Tengo el número del negocio en WhatsApp Business (no el personal).' },
-  { id: 'w2', texto: 'Conecté el número al chatbot (en el video, con el de Fidelidapp).' },
-  { id: 'w3', texto: 'Pegué mis instrucciones de la lección 2.' },
-  { id: 'w4', texto: 'Cargué mis respuestas de siempre y la lista de precios vigente.' },
-  { id: 'w5', texto: 'Definí el horario y a quién deriva.' },
-  { id: 'w6', texto: 'Lo probé desde otro celular con las 6 preguntas trampa.' },
-  { id: 'w7', texto: 'Lo activé primero con un grupo chico de clientes de confianza.' },
+const DESTINO = [
+  { id: 'lista', etiqueta: 'Respuesta lista' },
+  { id: 'hoja', etiqueta: 'Hoja Atención' },
 ];
 
-const TEMAS_WA = ['Horario y dirección', 'Zonas y días de despacho', 'Precio de lista', 'Cómo comprar y pagar', 'Estado de un pedido', 'Descuentos y precios especiales', 'Fechas de entrega urgentes', 'Reclamos', 'Pedidos fuera de lo normal'];
-const SUGERIDO_WA: Record<string, 'solo' | 'persona'> = {
-  'Horario y dirección': 'solo',
-  'Zonas y días de despacho': 'solo',
-  'Precio de lista': 'solo',
-  'Cómo comprar y pagar': 'solo',
-  'Estado de un pedido': 'solo',
-  'Descuentos y precios especiales': 'persona',
-  'Fechas de entrega urgentes': 'persona',
-  Reclamos: 'persona',
-  'Pedidos fuera de lo normal': 'persona',
+const ITEMS_DESTINO = [
+  { id: 'h1', texto: '«¿Despachan los sábados?»', correcta: 'lista', porque: 'Es repetido: se responde con el atajo y listo. No queda nada pendiente.' },
+  { id: 'h2', texto: '«El molido llegó muy fino para nuestra cafetera.»', correcta: 'hoja', porque: 'Es un reclamo: queda abierto hasta que se resuelve y se cierra.' },
+  { id: 'h3', texto: '«¿Nos pueden conseguir descafeinado para una sala?»', correcta: 'hoja', porque: 'Es un pedido especial: alguien tiene que averiguar y volver a escribir.' },
+  { id: 'h4', texto: '«¿Cuánto cuesta el kilo en grano?»', correcta: 'lista', porque: 'Precio de lista: respuesta lista.' },
+  { id: 'h5', texto: '«Quiero cambiar las bolsas de 250 g por una de 1 kg.»', correcta: 'hoja', porque: 'Un cambio o devolución queda anotado hasta que se hace.' },
+];
+
+const COLUMNAS_CASOS: Columna[] = [
+  { id: 'fecha', etiqueta: 'Fecha', tipo: 'fecha' },
+  { id: 'cierre', etiqueta: 'Fecha de cierre', tipo: 'fecha' },
+  { id: 'cliente', etiqueta: 'Cliente', placeholder: 'Quién escribió' },
+  { id: 'canal', etiqueta: 'Canal', placeholder: 'WhatsApp, correo, teléfono' },
+  { id: 'tipo', etiqueta: 'Tipo', placeholder: 'Reclamo, pedido especial, cambio…' },
+  { id: 'que', etiqueta: 'Qué pasó', placeholder: 'En una frase' },
+  { id: 'responsable', etiqueta: 'Responsable', placeholder: 'Quién lo tiene' },
+  { id: 'estado', etiqueta: 'Estado', placeholder: 'Abierto o Cerrado' },
+];
+
+function ejemploCasos(): Record<string, string>[] {
+  return [
+    { fecha: masDias(-3), cierre: '', cliente: 'Cowork Cerro Alegre', canal: 'WhatsApp', tipo: 'Reclamo', que: 'El molido llegó muy fino para su cafetera', responsable: 'Camila', estado: 'Abierto' },
+    { fecha: masDias(-2), cierre: '', cliente: 'Oficinas Bahía SpA', canal: 'WhatsApp', tipo: 'Pedido especial', que: 'Quieren descafeinado para una sala', responsable: 'Camila', estado: 'Abierto' },
+    { fecha: masDias(-6), cierre: masDias(-6), cliente: 'Restorán Mirador', canal: 'Correo', tipo: 'Consulta', que: '¿Despachan los sábados? (no estaba en las respuestas)', responsable: 'Sofía', estado: 'Cerrado' },
+  ];
+}
+
+const cerrado = (f: Fila) => /cerr/i.test(f.estado ?? '') || !!f.cierre;
+const conCaso = (f: Fila) => !!(f.cliente?.trim() || f.que?.trim());
+const tipoDe = (s?: string) => TIPOS_CASO.find((t) => t.toLowerCase().startsWith((s ?? '').trim().toLowerCase().slice(0, 4))) ?? (s ?? '').trim();
+
+const CAMPOS_RECLAMOS: Campo[] = [
+  { id: 'acuse', etiqueta: '1 · Acuse (el mismo día)', filas: 3 },
+  { id: 'solucion', etiqueta: '2 · Solución concreta, con fecha', filas: 3 },
+  { id: 'seguimiento', etiqueta: '3 · Seguimiento (¿se resolvió?)', filas: 2 },
+  { id: 'cierre', etiqueta: '4 · Cierre del caso', filas: 2 },
+];
+
+const EJEMPLO_RECLAMOS = {
+  acuse: 'Hola, [nombre]: recibimos tu mensaje sobre [problema] y lo siento mucho. Hoy mismo lo revisamos y antes de [hora] te escribimos con una solución.',
+  solucion: '[nombre], ya revisamos lo que pasó: [causa en una frase]. Para resolverlo, [solución] el [fecha]. ¿Te acomoda?',
+  seguimiento: 'Hola, [nombre]: ¿te llegó bien [lo que se repuso]? Quiero confirmar que quedó resuelto.',
+  cierre: 'Gracias por avisarnos, [nombre]. Dejamos el caso cerrado y ajustamos [lo que cambió] para que no se repita.',
 };
 
-function LeccionWhatsApp() {
-  const [temas, setTemas] = useTextos(K.temas);
+function descargarCasos(filas: Fila[]) {
+  const hoy = isoLocal(new Date());
+  descargarArchivo(
+    'hoja-atencion.csv',
+    armarCsv(
+      ['Fecha', 'Cliente', 'Canal', 'Tipo', 'Qué pasó', 'Responsable', 'Estado', 'Fecha de cierre', 'Días abierto'],
+      filas.filter(conCaso).map((f) => [
+        fechaLegible(f.fecha),
+        f.cliente ?? '',
+        f.canal ?? '',
+        tipoDe(f.tipo),
+        f.que ?? '',
+        f.responsable ?? '',
+        cerrado(f) ? 'Cerrado' : 'Abierto',
+        fechaLegible(f.cierre),
+        f.fecha ? diasEntre(f.fecha, f.cierre || hoy) : '',
+      ]),
+    ),
+    'text/csv',
+  );
+}
+
+function LeccionHojaAtencion() {
+  const [r] = useTextos(K.reclamos);
+  const [casos] = useFilas(K.casos);
   const montado = useMontado();
-  const valor = (t: string) => (montado ? (temas[t] as 'solo' | 'persona' | undefined) : undefined) ?? SUGERIDO_WA[t];
+  const ejemplo = useMemo(() => ejemploCasos(), []);
+  const hoy = montado ? isoLocal(new Date()) : '';
+  const lista = montado ? casos.filter(conCaso) : [];
+  const abiertos = lista.filter((f) => !cerrado(f));
+  const viejos = abiertos.filter((f) => f.fecha && diasEntre(f.fecha, hoy) > 2);
   return (
     <>
       <Explica>
         <p>
-          Tu asistente ya responde bien en la prueba. Ahora lo llevamos a donde te escriben tus clientes. Son siete pasos y ninguno requiere programar. En el video lo mostramos con el chatbot de WhatsApp de Fidelidapp; la lógica es la misma en otras herramientas.
+          Lo que no se resuelve con una respuesta lista queda pendiente: un reclamo, un cambio, un pedido especial, una pregunta que hay que averiguar. Si queda solo en el chat, se pierde entre los cuarenta mensajes del día siguiente.
         </p>
         <p>
-          Lo más importante no es la herramienta: es decidir <strong>qué contesta solo y qué deriva</strong>. Y si todavía no quieres un asistente, parte con las <strong>respuestas rápidas</strong> y el mensaje de ausencia de WhatsApp Business: también ahorran tiempo.
+          Por eso cada caso se anota en una fila de la <strong>hoja Atención</strong>, con las mismas columnas de tu planilla: fecha, cliente, canal, tipo, qué pasó, responsable y estado. Queda <strong>abierto hasta que se cierra</strong>, y la columna «Días abierto» se calcula sola. Si un caso pasa los 2 días abierto, se revisa en la reunión del equipo.
         </p>
+        <p>Los reclamos, además, pasan por cuatro pasos: acuse, solución, seguimiento y cierre. Con una plantilla para cada uno, nadie improvisa cuando el cliente está molesto.</p>
       </Explica>
-      <DiagramaPasosWhatsApp className="mt-6" />
-      <FotoBanda foto={APOYO.celularPendientes} posicion="center 30%" />
-      <Subtitulo>1 · Qué contesta solo y qué deriva</Subtitulo>
-      <Instruccion>Viene una sugerencia marcada. Cámbiala según tu negocio.</Instruccion>
-      <ul className="mt-4 space-y-2">
-        {TEMAS_WA.map((t) => (
-          <li key={t} className="flex flex-col gap-2 rounded-xl border border-white/10 bg-white/[0.02] p-3 sm:flex-row sm:items-center sm:justify-between">
-            <span className="text-sm text-slate-100">{t}</span>
-            <div className="grid grid-cols-2 gap-2 sm:w-64" role="radiogroup" aria-label={t}>
-              {[
-                { v: 'solo', l: 'Contesta solo' },
-                { v: 'persona', l: 'Una persona' },
-              ].map((o) => (
-                <button
-                  key={o.v}
-                  type="button"
-                  role="radio"
-                  aria-checked={valor(t) === o.v}
-                  onClick={() => setTemas((p) => ({ ...p, [t]: o.v }))}
-                  className={`min-h-[44px] rounded-lg border text-[13px] ${valor(t) === o.v ? 'border-[#5fb2dd] bg-[#2175a1] text-white' : 'border-white/15 text-slate-300'}`}
-                >
-                  {o.l}
-                </button>
-              ))}
-            </div>
-          </li>
-        ))}
-      </ul>
-      <Subtitulo>2 · La puesta en marcha</Subtitulo>
-      <Elegibles clave={K.pasosWa} opciones={PASOS_WA} />
-      <Freno>Activa primero con un grupo chico y revisa las conversaciones todos los días de la primera semana. Si algo sale mal, se corrige en las instrucciones antes de abrirlo a todos.</Freno>
+      <Subtitulo>Práctica: ¿respuesta lista u hoja Atención?</Subtitulo>
+      <Clasificador clave={K.vaAHoja} categorias={DESTINO} items={ITEMS_DESTINO} />
+      <Subtitulo>Tus casos de esta semana</Subtitulo>
+      <Instruccion>Anota los casos abiertos que tienes hoy (o parte con el ejemplo). Descárgalos y pégalos en la hoja Atención de tu planilla.</Instruccion>
+      <TablaEditable clave={K.casos} columnas={COLUMNAS_CASOS} ejemplo={ejemplo} etiquetaFila="Caso" textoAgregar="Agregar caso" />
+      {lista.length ? (
+        <p className={`mt-3 rounded-xl border p-3 text-sm ${viejos.length ? 'border-rose-400/40 bg-rose-500/[0.08] text-rose-100' : 'border-white/10 bg-white/[0.02] text-slate-200'}`} aria-live="polite">
+          {lista.length} {lista.length === 1 ? 'caso' : 'casos'} · {abiertos.length} {abiertos.length === 1 ? 'abierto' : 'abiertos'}
+          {viejos.length ? ` · ${viejos.length} con más de 2 días: ${viejos.map((f) => f.cliente || f.que).join(' · ')}. Revísalos esta semana.` : '. Ninguno pasa los 2 días.'}
+        </p>
+      ) : null}
+      <div className="mt-4">
+        <BotonDescarga etiqueta="Descargar para la hoja Atención (.csv)" disabled={!montado || lista.length === 0} onClick={() => descargarCasos(casos)} />
+      </div>
+      <Subtitulo>Un reclamo, de principio a fin</Subtitulo>
+      <DiagramaCasoReclamo className="mt-4" />
+      <Pantallita titulo="Grano Norte · caso cerrado" className="mt-6">
+        <p className="text-sm">
+          <strong>Café Mirador</strong> · pidió grano y le llegó molido. Fila abierta a las 10:20 con el acuse, reposición al día siguiente a las 9:00, seguimiento el viernes y cierre con un llamado de Camila: 3 días abierto. Ajuste: el checklist de entrega ahora pide confirmar la molienda por escrito.
+        </p>
+      </Pantallita>
+      <Subtitulo>Tus 4 plantillas de reclamo</Subtitulo>
+      <Campos clave={K.reclamos} campos={CAMPOS_RECLAMOS} ejemplo={EJEMPLO_RECLAMOS} />
+      <Freno>Las compensaciones (reposición, regalo, descuento) las decide siempre una persona. La plantilla ordena el mensaje; la decisión no se automatiza.</Freno>
       <div className="mt-4">
         <BotonDescarga
-          etiqueta="Descargar qué contesta solo (.txt)"
+          etiqueta="Descargar mis plantillas de reclamo (.txt)"
+          disabled={!montado || !CAMPOS_RECLAMOS.some((c) => r[c.id]?.trim())}
           onClick={() =>
             descargarArchivo(
-              'whatsapp-que-contesta-solo.txt',
-              armarTxt('WhatsApp · qué contesta solo y qué deriva', [
-                'CONTESTA SOLO',
-                ...TEMAS_WA.filter((t) => valor(t) === 'solo').map((t) => `- ${t}`),
-                '',
-                'PASA A UNA PERSONA',
-                ...TEMAS_WA.filter((t) => valor(t) === 'persona').map((t) => `- ${t}`),
+              'plantillas-de-reclamo.txt',
+              armarTxt('Reclamos · las 4 plantillas', [
+                ...CAMPOS_RECLAMOS.flatMap((c) => [c.etiqueta.toUpperCase(), (r[c.id] ?? '').trim() || '(sin escribir)', '']),
+                'REGLA: cada reclamo queda en la hoja Atención hasta cerrarlo. Si lleva más de 2 días abierto, se revisa en la reunión del equipo.',
               ]),
             )
           }
@@ -398,8 +472,8 @@ const DISPARADORES = [
   { id: 'd1', texto: 'Reclamo o cliente molesto.' },
   { id: 'd2', texto: 'Pide un descuento o precio especial.' },
   { id: 'd3', texto: 'Pide una fecha de entrega fuera de lo normal.' },
-  { id: 'd4', texto: 'Pregunta algo que no está en las respuestas escritas.' },
-  { id: 'd5', texto: 'Pide hablar con una persona.' },
+  { id: 'd4', texto: 'Pregunta algo que no está en las respuestas listas.' },
+  { id: 'd5', texto: 'Pide hablar contigo.' },
   { id: 'd6', texto: 'Habla de pagos, transferencias o datos bancarios.' },
   { id: 'd7', texto: 'Es un pedido grande o un cliente nuevo de empresa.' },
 ];
@@ -407,41 +481,45 @@ const DISPARADORES = [
 const TIEMPOS = ['30 minutos', '1 hora', '2 horas hábiles', '4 horas hábiles'];
 
 const CAMPOS_DERIVACION: Campo[] = [
-  { id: 'quien', etiqueta: 'A quién se avisa primero', placeholder: 'Ej.: Rocío' },
+  { id: 'quien', etiqueta: 'A quién se avisa primero', placeholder: 'Ej.: Sofía' },
   { id: 'segundo', etiqueta: 'Si no responde a tiempo, a quién sube', placeholder: 'Ej.: Camila' },
   { id: 'canal', etiqueta: 'Por dónde se avisa', placeholder: 'Ej.: grupo de WhatsApp del equipo' },
-  { id: 'mensaje', etiqueta: 'Qué le dice el asistente al cliente', filas: 2, placeholder: 'Ej.: «Esto lo ve Rocío; te responde dentro de 2 horas hábiles.»' },
+  { id: 'mensaje', etiqueta: 'Qué se le dice al cliente mientras tanto', filas: 2, placeholder: 'Ej.: «Esto lo ve Sofía; te responde dentro de 2 horas hábiles.»' },
 ];
 
 function LeccionDerivacion() {
   const [d, setD] = useTextos(K.derivacion);
   const [disp] = useTextos(K.disparadores);
+  const reglas = useReglasM0();
   const montado = useMontado();
   const tiempo = (montado && d.tiempo) || '2 horas hábiles';
   return (
     <>
       <Explica>
         <p>
-          Un buen asistente no es el que responde todo: es el que sabe <strong>cuándo pasarle la conversación a una persona</strong>. Cuando un mensaje toca un freno, hace tres cosas: le avisa al cliente que lo va a atender alguien, avisa a tu equipo y deja la conversación marcada.
+          Responder rápido no es responderlo todo. Hay mensajes que <strong>pasan sí o sí a una persona</strong>: los que tocan tus reglas de freno. Cuando llega uno, quien atiende hace tres cosas: le dice al cliente quién lo va a atender y cuándo, avisa a esa persona y anota el caso en la hoja Atención.
         </p>
-        <p>Y defines un tiempo máximo de respuesta humana. Si pasa ese tiempo, el aviso sube a una segunda persona. Así ningún cliente queda esperando en silencio.</p>
+        <p>
+          Y defines un tiempo máximo de respuesta. Si pasa ese tiempo, el aviso sube a una segunda persona. Así ningún cliente queda esperando en silencio
+          {montado && reglas.length ? `, y tus ${reglas.length} reglas de freno del módulo 0 se cumplen sin que tengas que estar mirando el celular` : ''}.
+        </p>
       </Explica>
-      <DiagramaDerivacion className="mt-6" horas={tiempo} />
+      <DiagramaDerivacionPersona className="mt-6" horas={tiempo} />
       <DiagramaConversacion
         className="mt-6"
         titulo="Grano Norte · un traspaso"
-        aria="Conversación de ejemplo: el cliente reclama porque el café llegó molido y lo pidió en grano; el asistente se disculpa y avisa que lo atenderá Juan, de despacho, dentro de 2 horas hábiles; Juan responde y ofrece reponerlo mañana."
+        aria="Conversación de ejemplo: el cliente reclama porque el café llegó molido y lo pidió en grano; Sofía, que atiende el WhatsApp, se disculpa, le avisa que lo atenderá Matías, de despacho, dentro de 2 horas hábiles, y anota el caso; Matías responde y ofrece reponerlo mañana."
         mensajes={[
           { de: 'cliente', texto: 'Pedí café en grano y me llegó molido.' },
-          { de: 'agente', texto: 'Lo siento mucho. Esto lo ve Juan, de despacho; te escribe dentro de 2 horas hábiles.' },
-          { de: 'persona', texto: 'Hola, soy Juan. Te lo reponemos mañana a primera hora, sin costo. ¿Te acomoda antes de las 11?' },
+          { de: 'agente', texto: 'Lo siento mucho. Ya lo anoté: esto lo ve Matías, de despacho, y te escribe dentro de 2 horas hábiles.' },
+          { de: 'persona', texto: 'Hola, soy Matías. Te lo reponemos mañana a primera hora, sin costo. ¿Te acomoda antes de las 11?' },
         ]}
       />
       <Subtitulo>1 · Tus disparadores</Subtitulo>
       <Instruccion>¿Qué hace que una conversación pase sí o sí a una persona?</Instruccion>
       <Elegibles clave={K.disparadores} opciones={DISPARADORES} />
-      <Subtitulo>2 · Tiempo máximo de respuesta humana</Subtitulo>
-      <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-4" role="radiogroup" aria-label="Tiempo máximo de respuesta humana">
+      <Subtitulo>2 · Tiempo máximo de respuesta</Subtitulo>
+      <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-4" role="radiogroup" aria-label="Tiempo máximo de respuesta de una persona">
         {TIEMPOS.map((t) => (
           <button
             key={t}
@@ -468,10 +546,11 @@ function LeccionDerivacion() {
                 'PASA A UNA PERSONA CUANDO',
                 ...DISPARADORES.filter((x) => disp[x.id]).map((x) => `- ${x.texto}`),
                 '',
-                `TIEMPO MÁXIMO DE RESPUESTA HUMANA: ${tiempo}`,
+                `TIEMPO MÁXIMO DE RESPUESTA: ${tiempo}`,
                 `SE AVISA A: ${(d.quien ?? '').trim() || '(definir)'} · por ${(d.canal ?? '').trim() || '(definir)'}`,
                 `SI NO RESPONDE A TIEMPO, SUBE A: ${(d.segundo ?? '').trim() || '(definir)'}`,
                 `MENSAJE AL CLIENTE: ${(d.mensaje ?? '').trim() || '(definir)'}`,
+                'Y SIEMPRE: el caso se anota en la hoja Atención.',
               ]),
             )
           }
@@ -481,65 +560,96 @@ function LeccionDerivacion() {
   );
 }
 
-// ─── Lección 5 · Correo de soporte y reclamos ─────────────────────────────
+// ─── Lección 5 · Postventa ────────────────────────────────────────────────
 
-const CAMPOS_RECLAMOS: Campo[] = [
-  { id: 'acuse', etiqueta: '1 · Acuse (el mismo día)', filas: 3 },
-  { id: 'solucion', etiqueta: '2 · Solución concreta, con fecha', filas: 3 },
-  { id: 'seguimiento', etiqueta: '3 · Seguimiento (¿se resolvió?)', filas: 2 },
-  { id: 'cierre', etiqueta: '4 · Cierre del caso', filas: 2 },
+const CAMPOS_POSTVENTA: Campo[] = [
+  { id: 'como', etiqueta: '1 · A los 2 o 3 días de la entrega', filas: 2 },
+  { id: 'referido', etiqueta: '2 · Cuando te dan las gracias: el referido', filas: 3 },
+  { id: 'recompra', etiqueta: '3 · Cuando le toca volver a comprar', filas: 2 },
 ];
 
-const EJEMPLO_RECLAMOS = {
-  acuse: 'Hola, [nombre]: recibimos tu mensaje sobre [problema] y lo siento mucho. Hoy mismo lo revisamos y antes de [hora] te escribimos con una solución.',
-  solucion: '[nombre], ya revisamos lo que pasó: [causa en una frase]. Para resolverlo, [solución] el [fecha]. ¿Te acomoda?',
-  seguimiento: 'Hola, [nombre]: ¿te llegó bien [lo que se repuso]? Quiero confirmar que quedó resuelto.',
-  cierre: 'Gracias por avisarnos, [nombre]. Dejamos el caso cerrado y ajustamos [lo que cambió] para que no se repita.',
+const EJEMPLO_POSTVENTA = {
+  como: 'Hola, [nombre]: ¿cómo les fue con el café de esta semana? ¿La molienda les quedó bien para su cafetera?',
+  referido: '¡Qué bueno, [nombre]! Gracias por contarme. ¿Conoces a otra cafetería u oficina a la que le pueda servir? Si me pasas su contacto, le escribo de tu parte.',
+  recompra: 'Hola, [nombre]: por lo que llevas, ya se te debe estar acabando el café. ¿Te preparo lo mismo de siempre para el [día]?',
 };
 
-const COLUMNAS_CASOS = [
-  { id: 'cliente', etiqueta: 'Cliente', placeholder: 'Quién reclamó' },
-  { id: 'que', etiqueta: 'Qué pasó', placeholder: 'En una frase' },
-  { id: 'estado', etiqueta: 'Estado', placeholder: 'Abierto, en curso, cerrado' },
-  { id: 'quien', etiqueta: 'Lo tiene', placeholder: 'Responsable' },
+const COLUMNAS_RECOMPRA: Columna[] = [
+  { id: 'cliente', etiqueta: 'Cliente', placeholder: 'Nombre o empresa' },
+  { id: 'ultima', etiqueta: 'Última compra', tipo: 'fecha' },
+  { id: 'ciclo', etiqueta: 'Compra cada (días)', tipo: 'numero', placeholder: 'Ej.: 14' },
 ];
 
-function LeccionReclamos() {
-  const [r] = useTextos(K.reclamos);
-  const [casos] = useFilas(K.casos);
+function ejemploRecompra(): Record<string, string>[] {
+  return [
+    { cliente: 'Cafetería Puerto Dulce', ultima: masDias(-12), ciclo: '14' },
+    { cliente: 'Cowork Cerro Alegre', ultima: masDias(-10), ciclo: '30' },
+    { cliente: 'Estudio Contable Ríos', ultima: masDias(-29), ciclo: '30' },
+  ];
+}
+
+function LeccionPostventa() {
+  const [p] = useTextos(K.postventa);
+  const [filas] = useFilas(K.recompra);
   const montado = useMontado();
+  const ejemplo = useMemo(() => ejemploRecompra(), []);
+  const hoy = montado ? isoLocal(new Date()) : '';
+  const lista = montado
+    ? filas
+        .filter((f) => f.cliente?.trim() && f.ultima && numero(f.ciclo) > 0)
+        .map((f) => ({ cliente: f.cliente!.trim(), toca: masDias(numero(f.ciclo), new Date(`${f.ultima}T12:00:00`)) }))
+        .sort((a, b) => a.toca.localeCompare(b.toca))
+    : [];
+  const estaSemana = lista.filter((x) => diasEntre(hoy, x.toca) <= 7);
   return (
     <>
       <Explica>
         <p>
-          Un reclamo bien atendido puede dejarte un cliente más fiel que antes. Mal atendido, se va y lo cuenta. Cada reclamo pasa por cuatro pasos: <strong>acuse, solución, seguimiento y cierre</strong>, con una plantilla para cada uno. Así nadie improvisa cuando el cliente está molesto.
+          Quien ya te compró te conoce y confía en ti: muchas veces es más fácil que vuelva a comprar a que llegue alguien nuevo. Y casi nadie le escribe al cliente después de la entrega: ahí hay ventas que se pierden solo por no preguntar.
         </p>
-        <p>Y cada caso se anota en un registro simple: quién reclamó, qué pasó, en qué estado está y quién lo tiene. Si un caso lleva más de dos días abierto, se revisa en la reunión del equipo.</p>
+        <p>
+          La postventa son tres mensajes, uno a uno y con su nombre. <strong>A los 2 o 3 días</strong>, uno corto para saber cómo les fue. <strong>Si te dan las gracias</strong>, ese es un buen momento para pedir un referido. Y <strong>cuando se cumple su ciclo de compra</strong>, le escribes para que vuelva a comprar. Cada mensaje queda en la hoja Atención como «Postventa».
+        </p>
+        <p>
+          Son tus clientes: ya te conocen y te dieron su número, así que por WhatsApp sí. Lo que no se hace es mandar la misma lista a todos de una vez: un envío masivo se nota y puede hacer que te reporten.
+        </p>
       </Explica>
-      <DiagramaCasoReclamo className="mt-6" />
-      <Pantallita titulo="Grano Norte · caso cerrado" className="mt-6">
-        <p className="text-sm">
-          <strong>Café Mirador</strong> · pidió grano y le llegó molido. Acuse a las 10:20, reposición al día siguiente a las 9:00, seguimiento el viernes, cierre con un llamado de Camila. Ajuste: el checklist ahora pide confirmar molienda por escrito.
-        </p>
-      </Pantallita>
-      <Subtitulo>Tus 4 plantillas</Subtitulo>
-      <Campos clave={K.reclamos} campos={CAMPOS_RECLAMOS} ejemplo={EJEMPLO_RECLAMOS} />
-      <Freno>Las compensaciones (reposición, regalo, descuento) las decide siempre una persona. La plantilla ordena el mensaje; la decisión no se automatiza.</Freno>
-      <Subtitulo>Tu registro de casos</Subtitulo>
-      <TablaEditable clave={K.casos} columnas={COLUMNAS_CASOS} etiquetaFila="Caso" textoAgregar="Agregar caso" />
+      <DiagramaPostventa className="mt-6" />
+      <Subtitulo>Tus 3 mensajes de postventa</Subtitulo>
+      <Campos clave={K.postventa} campos={CAMPOS_POSTVENTA} ejemplo={EJEMPLO_POSTVENTA} />
+      <Subtitulo>¿A quién le toca volver a comprar?</Subtitulo>
+      <Instruccion>
+        Usa la columna «Última compra» de tu hoja Clientes. Anota cada cuántos días suele comprar cada uno y te queda la fecha en que le toca.
+      </Instruccion>
+      <TablaEditable clave={K.recompra} columnas={COLUMNAS_RECOMPRA} ejemplo={ejemplo} etiquetaFila="Cliente" textoAgregar="Agregar cliente" />
+      {lista.length ? (
+        <div className="mt-3 rounded-2xl border border-[#5fb2dd]/40 bg-[#2175a1]/10 p-4" aria-live="polite">
+          <p className="text-sm font-medium text-white">
+            {estaSemana.length ? `Esta semana le toca a ${estaSemana.length}:` : 'Esta semana no le toca a nadie. Los próximos:'}
+          </p>
+          <ul className="mt-2 space-y-1 text-sm text-slate-200">
+            {(estaSemana.length ? estaSemana : lista.slice(0, 3)).map((x) => (
+              <li key={x.cliente} className="break-words">
+                {x.cliente} · {x.toca < hoy ? `le tocaba el ${fechaLegible(x.toca)}` : `le toca el ${fechaLegible(x.toca)}`}
+              </li>
+            ))}
+          </ul>
+        </div>
+      ) : null}
+      <Freno>Un descuento para que vuelva a comprar lo decide una persona. El mensaje recuerda; no regala.</Freno>
       <div className="mt-4">
         <BotonDescarga
-          etiqueta="Descargar plantillas y registro (.txt)"
-          disabled={!montado || !CAMPOS_RECLAMOS.some((c) => r[c.id]?.trim())}
+          etiqueta="Descargar mi postventa (.txt)"
+          disabled={!montado || !CAMPOS_POSTVENTA.some((c) => p[c.id]?.trim())}
           onClick={() =>
             descargarArchivo(
-              'reclamos-plantillas-y-registro.txt',
-              armarTxt('Soporte y reclamos', [
-                ...CAMPOS_RECLAMOS.flatMap((c) => [c.etiqueta.toUpperCase(), (r[c.id] ?? '').trim() || '(sin escribir)', '']),
-                'REGISTRO DE CASOS',
-                ...(casos.length ? casos.map((f) => `- ${f.cliente ?? ''} · ${f.que ?? ''} · ${f.estado || 'abierto'} · ${f.quien ?? ''}`) : ['(sin casos)']),
+              'postventa.txt',
+              armarTxt('Postventa · que vuelvan a comprar', [
+                ...CAMPOS_POSTVENTA.flatMap((c) => [c.etiqueta.toUpperCase(), (p[c.id] ?? '').trim() || '(sin escribir)', '']),
+                'A QUIÉN LE TOCA',
+                ...(lista.length ? lista.map((x) => `- ${x.cliente}: ${fechaLegible(x.toca)}`) : ['(pendiente)']),
                 '',
-                'REGLA: si un caso lleva más de 2 días abierto, se revisa en la reunión del equipo.',
+                'REGLA: uno a uno y con su nombre, solo a clientes. Cada mensaje queda en la hoja Atención como «Postventa».',
               ]),
             )
           }
@@ -551,21 +661,21 @@ function LeccionReclamos() {
 
 // ─── Cierre ────────────────────────────────────────────────────────────────
 
-function SemanaAsistente() {
+function SemanaAtencion() {
   const [s, setS] = useTextos(K.semana);
   const montado = useMontado();
   const v = montado ? s : {};
-  const total = numero(v.total);
-  const solos = numero(v.solos);
-  const derivados = numero(v.derivados);
+  const anotados = numero(v.anotados);
+  const cerrados = numero(v.cerrados);
   return (
     <div className="mt-6 rounded-2xl border border-white/10 p-4">
       <p className="text-sm font-medium text-white">Los números de tu semana</p>
-      <div className="mt-3 grid grid-cols-3 gap-2">
+      <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-4">
         {[
-          { id: 'total', l: 'Mensajes' },
-          { id: 'solos', l: 'Resueltos solos' },
-          { id: 'derivados', l: 'Derivados' },
+          { id: 'anotados', l: 'Casos anotados' },
+          { id: 'cerrados', l: 'Casos cerrados' },
+          { id: 'postventa', l: 'Mensajes de postventa' },
+          { id: 'recompras', l: 'Volvieron a comprar' },
         ].map((c) => (
           <label key={c.id} className="block min-w-0 text-xs text-slate-400">
             {c.l}
@@ -573,9 +683,9 @@ function SemanaAsistente() {
           </label>
         ))}
       </div>
-      {total > 0 ? (
+      {anotados > 0 ? (
         <p className="mt-3 text-sm text-slate-200" aria-live="polite">
-          {Math.round((solos / total) * 100)} % resuelto solo · {Math.round((derivados / total) * 100)} % derivado a una persona.
+          {Math.round((Math.min(cerrados, anotados) / anotados) * 100)} % de los casos cerrados en la semana.
         </p>
       ) : null}
     </div>
@@ -583,57 +693,68 @@ function SemanaAsistente() {
 }
 
 function Cierre() {
-  const [a] = useTextos(K.asistente);
+  const [v] = useTextos(K.respuestas);
   const [d] = useTextos(K.derivacion);
   const [disp] = useTextos(K.disparadores);
-  const [temas] = useTextos(K.temas);
+  const [casos] = useFilas(K.casos);
+  const [p] = useTextos(K.postventa);
   const [s] = useTextos(K.semana);
   const montado = useMontado();
   const negocio = useNegocio();
+  const respuestas = montado ? respuestasDe(v.respuestas) : [];
   const disparadores = montado ? DISPARADORES.filter((x) => disp[x.id]).map((x) => x.texto) : [];
-  const soloTemas = TEMAS_WA.filter((t) => ((montado ? temas[t] : undefined) ?? SUGERIDO_WA[t]) === 'solo');
-  const total = numero(s.total);
+  const lista = montado ? casos.filter(conCaso) : [];
+  const abiertos = lista.filter((f) => !cerrado(f)).length;
+  const postventaLista = montado ? CAMPOS_POSTVENTA.filter((c) => p[c.id]?.trim()).length : 0;
+  const anotados = numero(s.anotados);
   return (
     <CierreModulo
       numero={4}
       area="atencion"
+      hoja="Atención"
       pruebaReal={[
-        { id: 'p1', texto: 'El asistente estuvo activo los 7 días.' },
-        { id: 'p2', texto: 'Revisé las conversaciones cada día y corregí lo que falló.' },
-        { id: 'p3', texto: 'Ningún reclamo quedó sin respuesta humana dentro del tiempo máximo.' },
-        { id: 'p4', texto: 'Anoté mensajes totales, resueltos solos y derivados.' },
+        { id: 'p1', texto: 'Mi equipo y yo usamos las respuestas listas toda la semana.' },
+        { id: 'p2', texto: 'Anoté cada reclamo o caso especial en la hoja Atención.' },
+        { id: 'p3', texto: 'Ningún caso pasó 2 días abierto sin que alguien lo revisara.' },
+        { id: 'p4', texto: 'Le escribí a 3 clientes después de la entrega.' },
+        { id: 'p5', texto: 'Le escribí a quien le tocaba volver a comprar.' },
       ]}
-      extra={<SemanaAsistente />}
+      extra={<SemanaAtencion />}
       resumen={
         <>
-          <FilaResumen etiqueta="Asistente" valor={montado && a.negocio?.trim() ? 'Instrucciones listas (esqueleto + frenos + derivación)' : ''} leccion={2} />
-          <FilaResumen etiqueta="Contesta solo" valor={soloTemas.join(' · ')} leccion={3} />
+          <FilaResumen etiqueta="Respuestas listas" valor={respuestas.length ? `${respuestas.length} atajos: ${respuestas.map((x) => x.atajo).join(' ')}` : ''} leccion={2} />
+          <FilaResumen etiqueta="Hoja Atención" valor={lista.length ? `${lista.length} ${lista.length === 1 ? 'caso' : 'casos'} · ${abiertos} ${abiertos === 1 ? 'abierto' : 'abiertos'}` : ''} leccion={3} />
           <FilaResumen etiqueta="Pasa a una persona cuando" valor={disparadores.join('\n')} leccion={4} />
           <FilaResumen etiqueta="Tiempo máximo y a quién" valor={montado && d.quien?.trim() ? `${d.tiempo || '2 horas hábiles'} · ${d.quien.trim()}${d.segundo?.trim() ? ` → ${d.segundo.trim()}` : ''}` : ''} leccion={4} />
+          <FilaResumen etiqueta="Postventa" valor={postventaLista ? `${postventaLista} de 3 mensajes escritos` : ''} leccion={5} />
         </>
       }
       descargar={() =>
         descargarArchivo(
-          'modulo-4-atencion.txt',
+          'modulo-4-atencion-y-postventa.txt',
           armarTxt(
-            'Módulo 4 · Atención al cliente',
+            'Módulo 4 · Atención y postventa',
             [
-              'ASISTENTE ACTIVO',
-              `Negocio: ${(a.negocio ?? '').trim() || '(pendiente)'}`,
-              `Tono: ${(a.tono ?? '').trim() || '(pendiente)'}`,
+              'RESPUESTAS LISTAS (WhatsApp Business)',
+              ...(respuestas.length ? respuestas.map((x) => `${x.atajo} → ${x.respuesta}`) : ['(pendiente)']),
               '',
-              'CONTESTA SOLO',
-              ...soloTemas.map((t) => `- ${t}`),
+              'HOJA ATENCIÓN',
+              ...(lista.length ? lista.map((f) => `- ${fechaLegible(f.fecha)} · ${f.cliente ?? ''} · ${tipoDe(f.tipo)} · ${f.que ?? ''} · ${f.responsable ?? ''} · ${cerrado(f) ? 'Cerrado' : 'Abierto'}`) : ['(pendiente)']),
               '',
               'REGLAS DE DERIVACIÓN',
               ...disparadores.map((x) => `- ${x}`),
               `Tiempo máximo: ${d.tiempo || '2 horas hábiles'} · Se avisa a: ${(d.quien ?? '').trim() || '(definir)'} · Sube a: ${(d.segundo ?? '').trim() || '(definir)'}`,
               '',
-              'SEMANA DE PRUEBA',
-              total ? `${total} mensajes · ${Math.round((numero(s.solos) / total) * 100)} % resueltos solos · ${Math.round((numero(s.derivados) / total) * 100)} % derivados` : '(pendiente)',
+              'POSTVENTA',
+              ...CAMPOS_POSTVENTA.map((c) => `${c.etiqueta}: ${(p[c.id] ?? '').trim() || '(pendiente)'}`),
               '',
-              'RUTINA DEL ÁREA: revisar las conversaciones derivadas 2 veces al día; ajustar instrucciones los viernes.',
-              'NÚMERO SEMANAL: % de mensajes resueltos solos y tiempo de respuesta humana.',
+              'SEMANA DE PRUEBA',
+              anotados
+                ? `${anotados} casos anotados · ${numero(s.cerrados)} cerrados · ${numero(s.postventa)} mensajes de postventa · ${numero(s.recompras)} volvieron a comprar`
+                : '(pendiente)',
+              '',
+              'RUTINA: cada mañana, revisar los casos abiertos de la hoja Atención; los viernes, los que llevan más de 2 días.',
+              'NÚMERO SEMANAL: casos cerrados vs. anotados, y clientes que volvieron a comprar.',
             ],
             negocio,
           ),
@@ -648,7 +769,7 @@ function Cierre() {
 const LECCIONES: LeccionDef[] = [
   {
     id: 'tipos',
-    bajada: 'Repetidos, con decisión y nuevos. Practica con 8 mensajes y mide los tuyos durante 2 días.',
+    bajada: 'Repetidos, con decisión y nuevos. Practica con 8 mensajes y cuenta los tuyos durante 2 días.',
     portada: APOYO.celularMensajes,
     posicion: 'center 40%',
     contenido: <LeccionTipos />,
@@ -659,32 +780,31 @@ const LECCIONES: LeccionDef[] = [
     ],
   },
   {
-    id: 'asistente',
-    bajada: 'La configuración de tu agente desde el esqueleto, con tus frenos, preguntas trampa y correcciones.',
+    id: 'respuestas',
+    bajada: 'Escribes una vez tus respuestas de siempre y las dejas como respuestas rápidas de WhatsApp Business, para que responda igual cualquiera del equipo.',
     portada: FOTOS.instructor,
     posicion: 'center 35%',
-    contenido: <LeccionAsistente />,
+    contenido: <LeccionRespuestas />,
     checklist: [
-      { id: 'l2a', texto: 'Armé las instrucciones de mi asistente.' },
-      { id: 'l2b', texto: 'Lo probé con las 6 preguntas trampa.' },
-      { id: 'l2c', texto: 'Corregí cada falla en las instrucciones.' },
+      { id: 'l2a', texto: 'Escribí mis respuestas de siempre con mi tono.' },
+      { id: 'l2b', texto: 'Las cargué como respuestas rápidas en WhatsApp Business.' },
+      { id: 'l2c', texto: 'Mi equipo conoce los atajos.' },
     ],
   },
   {
-    id: 'whatsapp',
-    bajada: 'Paso a paso con el chatbot de WhatsApp de Fidelidapp, sin programar. Qué contesta solo y qué deriva.',
-    portada: APOYO.escenaCalendario,
-    posicion: 'center 35%',
-    contenido: <LeccionWhatsApp />,
+    id: 'hoja-atencion',
+    bajada: 'Reclamos, cambios y pedidos especiales en una fila, con responsable y fecha, abiertos hasta cerrarlos. Y las 4 plantillas de reclamo.',
+    portada: APOYO.escritorioManos,
+    contenido: <LeccionHojaAtencion />,
     checklist: [
-      { id: 'l3a', texto: 'Decidí qué contesta solo y qué deriva.' },
-      { id: 'l3b', texto: 'Completé los 7 pasos de la puesta en marcha.' },
-      { id: 'l3c', texto: 'Lo activé con un grupo chico de clientes.' },
+      { id: 'l3a', texto: 'Anoté mis casos abiertos con las columnas de la hoja.' },
+      { id: 'l3b', texto: 'Los pegué en la hoja Atención de mi planilla.' },
+      { id: 'l3c', texto: 'Escribí mis 4 plantillas de reclamo.' },
     ],
   },
   {
     id: 'derivacion',
-    bajada: 'Derivación, aviso al equipo y tiempo máximo de respuesta humana.',
+    bajada: 'Qué casos van siempre a ti o a tu equipo, cómo se avisa y el tiempo máximo de respuesta.',
     portada: FOTOS.podcaster,
     posicion: 'center 30%',
     contenido: <LeccionDerivacion />,
@@ -695,14 +815,15 @@ const LECCIONES: LeccionDef[] = [
     ],
   },
   {
-    id: 'reclamos',
-    bajada: 'Plantillas de respuesta y seguimiento hasta cerrar el caso.',
-    portada: APOYO.escritorioManos,
-    contenido: <LeccionReclamos />,
+    id: 'postventa',
+    bajada: 'El mensaje después de la entrega, cuándo pedir un referido y a quién le toca volver a comprar.',
+    portada: APOYO.escenaCalendario,
+    posicion: 'center 35%',
+    contenido: <LeccionPostventa />,
     checklist: [
-      { id: 'l5a', texto: 'Escribí mis 4 plantillas de reclamo.' },
-      { id: 'l5b', texto: 'Armé mi registro de casos.' },
-      { id: 'l5c', texto: 'Definí quién decide las compensaciones.' },
+      { id: 'l5a', texto: 'Escribí mis 3 mensajes de postventa.' },
+      { id: 'l5b', texto: 'Anoté cada cuántos días compran mis clientes principales.' },
+      { id: 'l5c', texto: 'Le escribí a uno que le tocaba volver a comprar.' },
     ],
   },
 ];
@@ -711,7 +832,7 @@ export default function Modulo4Content() {
   return (
     <ModuloCurso
       numero={4}
-      intro="Responder a tiempo, con tus reglas. Al terminar tienes tus mensajes medidos, un asistente que responde lo repetido con tu esqueleto, tus reglas de derivación y un proceso para cerrar cada reclamo."
+      intro="Responder a tiempo y que vuelvan a comprar. Agregas la hoja Atención a tu planilla: al terminar tienes tus mensajes contados, respuestas listas en WhatsApp Business, cada caso anotado hasta cerrarlo, tus reglas de derivación y tus mensajes de postventa."
       portada={APOYO.escenaNoche}
       portadaPosicion="center 35%"
       lecciones={LECCIONES}

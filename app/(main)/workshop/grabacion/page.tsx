@@ -43,7 +43,8 @@ const JSON_LD = [
   videoObject({
     id: 'v08-curso-venta',
     nombre: 'Tu negocio, ordenado en 6 semanas',
-    descripcion: 'Las 5 áreas de un negocio que se pasan la pelota (marketing, ventas, operación, atención y finanzas) y cómo el curso «Tu negocio de punta a punta» las ordena en 6 semanas.',
+    // Video de la v1.0 del curso (pendiente de regrabar con el enfoque CRM/ERP): la descripción dice lo que el video muestra.
+    descripcion: 'Álvaro Villena presenta el curso en preventa: por qué todo en un negocio pasa por el dueño cuando nada está anotado, y cómo el curso lo ordena en 6 semanas, con el caso Grano Norte y una plantilla en cada lección.',
     segundos: 49,
     pagina: '/workshop/grabacion',
   }),

@@ -1,37 +1,38 @@
 'use client';
 
 /*
- * /curso/modulo-2 — Módulo 2 «Ventas y prospección: ningún seguimiento se cae».
- * 5 lecciones + cierre (prueba real, semáforo antes/después, entregable: planilla de embudo con datos reales).
+ * /curso/modulo-2 — Módulo 2 «Marketing y origen: de dónde llegan tus clientes».
+ * Curso «El sistema de tu negocio» v1.1 (8-nov-2026). Era el módulo 1 «Marketing» en v1.0.
+ * 5 lecciones + cierre (prueba real, semáforo antes/después, entregable: frase + 3 temas + calendario de
+ * 4 semanas + hoja Origen). La lección 5 lee la hoja Clientes del módulo 1 (misma clave de localStorage) para
+ * contar contactos y clientes por canal, igual que la hoja Origen de la planilla del sistema.
  */
 
-import { useState } from 'react';
 import { APOYO } from '@/lib/productos/apoyo';
 import { FOTOS } from '@/lib/productos/fotos';
 import { useMontado } from '@/lib/productos/curso/persistencia';
 import { Pantallita } from '@/components/productos/Pantallita';
-import { DiagramaEmbudo, DiagramaPropuestaUnaPagina, DiagramaRutina20, DiagramaSecuenciaSeguimiento } from '@/components/productos/diagramas/modulos';
+import { DiagramaDerivarComentario, DiagramaFrase, DiagramaTresTemas, DiagramaUnaIdeaCincoPiezas } from '@/components/productos/diagramas/modulos';
+import { DiagramaOrigen } from '@/components/productos/diagramas/sistema-m12';
+import { CANALES } from '@/lib/productos/curso/plantilla';
 import {
+  BloqueCopiar,
   BotonDescarga,
   Campos,
   CierreModulo,
+  Clasificador,
   Explica,
   FilaResumen,
   FotoBanda,
   Freno,
   Instruccion,
-  ListaCheck,
   ModuloCurso,
   Subtitulo,
-  TablaEditable,
   armarCsv,
-  armarIcs,
   armarTxt,
   claveModulo,
   descargarArchivo,
-  fechaCorta,
   numero,
-  sumarDias,
   useFilas,
   useNegocio,
   useTextos,
@@ -40,177 +41,112 @@ import {
 } from './leccion';
 
 const K = {
-  ideal: claveModulo(2, 'ideal'),
-  lista: claveModulo(2, 'lista'),
-  mensajes: claveModulo(2, 'mensajes'),
-  propuesta: claveModulo(2, 'propuesta'),
-  propuestas: claveModulo(2, 'propuestas'),
-  embudo: claveModulo(2, 'embudo'),
+  frase: claveModulo(2, 'frase'),
+  temas: claveModulo(2, 'temas'),
+  semana: claveModulo(2, 'semana'),
+  clasificar: claveModulo(2, 'clasificar'),
+  plantillas: claveModulo(2, 'plantillas'),
+  origen: claveModulo(2, 'origen'),
+  /** La hoja Clientes del módulo 1: de ahí sale la columna Origen. */
+  clientesM1: claveModulo(1, 'clientes'),
 };
 
-const claseInput =
-  'mt-1.5 min-h-[48px] w-full rounded-xl border border-white/15 bg-white/[0.03] px-4 text-[15px] text-slate-100 placeholder:text-slate-500 focus:border-[#5fb2dd] focus:outline-none';
-
-// ─── Lección 1 · Cliente ideal y lista del día ────────────────────────────
-
-const CAMPOS_IDEAL: Campo[] = [
-  { id: 'rubro', etiqueta: 'Rubro', placeholder: 'Ej.: cafeterías de especialidad' },
-  { id: 'tamano', etiqueta: 'Tamaño', placeholder: 'Ej.: 1 a 3 locales' },
-  { id: 'donde', etiqueta: 'Dónde lo encuentras', placeholder: 'Ej.: Instagram, Google Maps, ferias' },
-  { id: 'senal', etiqueta: 'La señal de que te necesita ahora', placeholder: 'Ej.: abrió hace poco o cambió su carta' },
-  { id: 'decide', etiqueta: 'Quién decide la compra', placeholder: 'Ej.: el dueño o el jefe de barra' },
+const DIAS = [
+  { d: 'Lunes', p: 'Post' },
+  { d: 'Martes', p: 'Historia' },
+  { d: 'Miércoles', p: 'Carrusel' },
+  { d: 'Jueves', p: 'Reel con guion' },
+  { d: 'Viernes', p: 'Correo a clientes' },
 ];
 
-const EJEMPLO_IDEAL = {
-  rubro: 'Cafeterías de especialidad y oficinas con cafetera propia',
-  tamano: 'Cafeterías de 1 a 3 locales; oficinas de 15 a 80 personas',
-  donde: 'Instagram, Google Maps y recomendaciones de clientes',
-  senal: 'Abrió hace menos de 3 meses, cambió su carta o se queja de su proveedor',
-  decide: 'El dueño (cafeterías) o administración (oficinas)',
-};
+// ─── Lección 1 · Frase ─────────────────────────────────────────────────────
 
-const COLUMNAS_LISTA = [
-  { id: 'nombre', etiqueta: 'Prospecto', placeholder: 'Nombre del negocio' },
-  { id: 'senal', etiqueta: 'Señal', placeholder: 'Por qué ahora' },
-  { id: 'proximo', etiqueta: 'Próximo contacto', tipo: 'fecha' as const },
-  { id: 'canal', etiqueta: 'Canal', placeholder: 'WhatsApp, IG…' },
-];
+function useFraseElegida() {
+  const [f] = useTextos(K.frase);
+  const id = f.elegida || 'v1';
+  return (f[id] ?? '').trim();
+}
 
-function LeccionIdeal() {
-  const [ideal] = useTextos(K.ideal);
-  const [lista] = useFilas(K.lista);
+function LeccionFrase() {
+  const [f, setF] = useTextos(K.frase);
   const montado = useMontado();
+  const elegida = montado ? f.elegida || 'v1' : 'v1';
+  const versiones = ['v1', 'v2', 'v3'];
   return (
     <>
       <Explica>
         <p>
-          Si tus clientes nuevos llegan solo por recomendación, tus ventas dependen de la suerte. Para cambiarlo necesitas dos cosas: saber <strong>a quién</strong> buscas y una <strong>rutina corta</strong> que no se salte.
+          Cuando alguien te pregunta qué hace tu negocio y te demoras un minuto en explicarlo, tu cliente también se demora en entenderlo. Y si no lo entiende en tres segundos, sigue de largo.
         </p>
         <p>
-          Tu cliente ideal cabe en cinco datos. La rutina dura 20 minutos al día: buscas, escribes y anotas la fecha del próximo contacto. Si ya hiciste la Guía 1 de prospección, esto es un repaso: revisa tu ficha y pasa a la lección 2.
+          Tu mensaje cabe en una frase con tres piezas: <strong>para quién</strong>, <strong>el problema que tiene</strong> y <strong>el resultado que logra contigo</strong>. No describe lo que haces: describe lo que cambia para tu cliente.
         </p>
       </Explica>
-      <DiagramaRutina20 className="mt-6" />
-      <Pantallita titulo="Grano Norte · cliente ideal" className="mt-6">
-        <p className="text-sm">
-          <strong>Cafeterías de 1 a 3 locales</strong> en Valparaíso y Viña, que abrieron hace menos de 3 meses o cambiaron su carta. Decide el dueño. Se encuentran en Instagram y Google Maps.
-        </p>
-        <p className="mt-2 text-sm text-slate-400">Primera lista: 10 cafeterías, 4 de ellas abiertas este año.</p>
+      <DiagramaFrase className="mt-6" />
+      <Pantallita titulo="Grano Norte · 3 versiones" className="mt-6">
+        <ol className="space-y-2 text-sm">
+          <li>
+            <span className="font-semibold">1.</span> «Tostamos café de especialidad en Valparaíso». <span className="text-slate-400">Habla de Camila, no del cliente.</span>
+          </li>
+          <li>
+            <span className="font-semibold">2.</span> «El mejor café para tu negocio». <span className="text-slate-400">No dice para quién ni qué resuelve.</span>
+          </li>
+          <li>
+            <span className="font-semibold">3.</span> «Café fresco cada semana para cafeterías de la región, sin quedarte nunca sin stock». <span className="text-slate-400">Elegida: nombra a alguien y promete algo que se ve.</span>
+          </li>
+        </ol>
       </Pantallita>
-      <Subtitulo>1 · Tu cliente ideal en 5 datos</Subtitulo>
-      <Campos clave={K.ideal} campos={CAMPOS_IDEAL} ejemplo={EJEMPLO_IDEAL} />
-      <Subtitulo>2 · Tu lista del día</Subtitulo>
-      <Instruccion>Anota 10 prospectos que calcen con tu ficha y la fecha en que les vas a escribir. Lo que no tiene fecha, no existe.</Instruccion>
-      <TablaEditable clave={K.lista} columnas={COLUMNAS_LISTA} etiquetaFila="Prospecto" textoAgregar="Agregar prospecto" maxFilas={40} />
+
+      <Subtitulo>Escribe tus 3 versiones y elige una</Subtitulo>
+      <Instruccion>No busques la perfecta: escribe rápido tres maneras distintas de decirlo y después elige.</Instruccion>
+      <div className="mt-4 space-y-3">
+        {versiones.map((v, i) => (
+          <div key={v} className={`rounded-xl border p-3 transition ${elegida === v ? 'border-[#5fb2dd]/70 bg-[#2175a1]/10' : 'border-white/10 bg-white/[0.02]'}`}>
+            <label className="block text-sm text-slate-300">
+              <span className="font-medium text-slate-200">Versión {i + 1}</span>
+              <textarea
+                rows={2}
+                value={f[v] ?? ''}
+                onChange={(e) => setF((p) => ({ ...p, [v]: e.target.value }))}
+                placeholder={i === 0 ? 'Para quién + su problema + el resultado' : 'Otra forma de decirlo'}
+                className="mt-1.5 w-full resize-y rounded-xl border border-white/15 bg-white/[0.03] px-4 py-3 text-[15px] text-slate-100 placeholder:text-slate-500 focus:border-[#5fb2dd] focus:outline-none"
+              />
+            </label>
+            <button
+              type="button"
+              role="radio"
+              aria-checked={elegida === v}
+              onClick={() => setF((p) => ({ ...p, elegida: v }))}
+              className={`mt-2 inline-flex min-h-[40px] items-center gap-2 rounded-full border px-4 text-sm ${elegida === v ? 'border-[#5fb2dd] bg-[#2175a1] text-white' : 'border-white/15 text-slate-300 hover:border-white/30'}`}
+            >
+              {elegida === v ? 'Elegida' : 'Elegir esta'}
+            </button>
+          </div>
+        ))}
+      </div>
+      <div className="mt-5 rounded-2xl border border-white/10 p-4">
+        <p className="text-sm font-medium text-white">Antes de quedarte con una, revisa:</p>
+        <ul className="mt-2 space-y-1 text-sm text-slate-300">
+          <li>· ¿La entendería tu cliente sin que le expliques nada?</li>
+          <li>· ¿Nombra a alguien concreto (no «todos»)?</li>
+          <li>· ¿Promete un resultado que se puede ver?</li>
+        </ul>
+      </div>
       <div className="mt-4">
         <BotonDescarga
-          etiqueta="Descargar ficha y lista (.csv)"
-          disabled={!montado || (!ideal.rubro?.trim() && lista.length === 0)}
+          etiqueta="Descargar mis 3 versiones (.txt)"
+          disabled={!montado || !versiones.some((v) => f[v]?.trim())}
           onClick={() =>
             descargarArchivo(
-              'cliente-ideal-y-lista.csv',
-              armarCsv(
-                ['Prospecto', 'Señal', 'Canal', 'Próximo contacto', 'Estado'],
-                [
-                  ...lista.map((f) => [f.nombre ?? '', f.senal ?? '', f.canal ?? '', f.proximo ?? '', 'Por contactar']),
-                  [],
-                  ['CLIENTE IDEAL'],
-                  ...CAMPOS_IDEAL.map((c) => [c.etiqueta, ideal[c.id] ?? '']),
-                ],
-              ),
-              'text/csv',
-            )
-          }
-        />
-      </div>
-    </>
-  );
-}
-
-// ─── Lección 2 · Primer mensaje y seguimientos ────────────────────────────
-
-const CAMPOS_MENSAJES: Campo[] = [
-  { id: 'm0', etiqueta: 'Primer mensaje (día 0)', ayuda: 'Por qué le escribes + qué le resuelves + una pregunta fácil.', filas: 3 },
-  { id: 'm3', etiqueta: 'Seguimiento 1 (día 3)', ayuda: 'Una pregunta corta.', filas: 2 },
-  { id: 'm7', etiqueta: 'Seguimiento 2 (día 7)', ayuda: 'Un dato, un caso o algo que le sirva.', filas: 3 },
-  { id: 'm14', etiqueta: 'Cierre amable (día 14)', ayuda: 'Deja la puerta abierta.', filas: 2 },
-];
-
-const EJEMPLO_MENSAJES = {
-  m0: 'Hola, {nombre}. Vi que {negocio} abrió hace poco en el cerro, ¡felicitaciones! Tostamos café cada semana para cafeterías de la zona. ¿Te puedo dejar una muestra el jueves?',
-  m3: 'Hola, {nombre}, ¿alcanzaste a ver mi mensaje del lunes? La muestra sigue en pie.',
-  m7: '{nombre}, te comparto algo útil: el café pierde buena parte de su aroma después de 4 semanas de tostado. Si quieres, te cuento cómo lo resolvieron otras cafeterías de la zona.',
-  m14: 'Hola, {nombre}. No te escribo más para no molestar. Si más adelante quieres probar café fresco, aquí estoy. ¿Lo dejamos para más adelante?',
-};
-
-function reemplazar(texto: string, nombre: string, negocio: string) {
-  return texto.replace(/\{nombre\}/g, nombre || '{nombre}').replace(/\{negocio\}/g, negocio || '{negocio}');
-}
-
-function LeccionMensajes() {
-  const [m] = useTextos(K.mensajes);
-  const montado = useMontado();
-  const [prueba, setPrueba] = useState({ nombre: 'Ana', negocio: 'Café Mirador' });
-  const frases = (t: string) => t.split(/[.!?]+\s/).filter((x) => x.trim()).length;
-  const preguntas = (t: string) => (t.match(/\?/g) ?? []).length;
-  return (
-    <>
-      <Explica>
-        <p>
-          La mayoría de las ventas no se cierran en el primer mensaje: se cierran en el segundo o en el tercero. El problema es que casi nadie los manda, porque escribir cada uno desde cero cansa.
-        </p>
-        <p>
-          Por eso escribes <strong>cuatro plantillas una sola vez</strong>: el primer mensaje y tres seguimientos. La regla: máximo tres frases y <strong>una sola pregunta</strong>, fácil de contestar.
-        </p>
-      </Explica>
-      <DiagramaSecuenciaSeguimiento className="mt-6" />
-      <Pantallita titulo="Grano Norte · WhatsApp" className="mt-6">
-        <p className="text-sm">«Hola, Ana. Vi que Café Mirador abrió hace poco en el cerro, ¡felicitaciones! Tostamos café cada semana para cafeterías de la zona. ¿Te puedo dejar una muestra el jueves?»</p>
-        <p className="mt-2 text-sm text-slate-400">Tres frases, una pregunta, cero precios.</p>
-      </Pantallita>
-      <Subtitulo>Tus 4 plantillas</Subtitulo>
-      <Instruccion>Usa {'{nombre}'} y {'{negocio}'} donde van los datos de cada prospecto.</Instruccion>
-      <Campos clave={K.mensajes} campos={CAMPOS_MENSAJES} ejemplo={EJEMPLO_MENSAJES} />
-      <Subtitulo>Pruébalas con un prospecto</Subtitulo>
-      <div className="mt-3 grid grid-cols-2 gap-2">
-        <label className="block text-sm text-slate-300">
-          Nombre
-          <input value={prueba.nombre} onChange={(e) => setPrueba((p) => ({ ...p, nombre: e.target.value }))} className={claseInput} />
-        </label>
-        <label className="block text-sm text-slate-300">
-          Negocio
-          <input value={prueba.negocio} onChange={(e) => setPrueba((p) => ({ ...p, negocio: e.target.value }))} className={claseInput} />
-        </label>
-      </div>
-      <ul className="mt-4 space-y-3">
-        {CAMPOS_MENSAJES.map((c) => {
-          const t = montado ? (m[c.id] ?? '').trim() : '';
-          const nf = frases(t);
-          const np = preguntas(t);
-          return (
-            <li key={c.id} className="rounded-xl border border-white/10 bg-white/[0.02] p-3">
-              <p className="font-mono text-[11px] uppercase tracking-wider text-[#5fb2dd]">{c.etiqueta}</p>
-              <p className="mt-1 whitespace-pre-line text-sm text-slate-100">{t ? reemplazar(t, prueba.nombre, prueba.negocio) : 'Escribe la plantilla arriba.'}</p>
-              {t ? (
-                <p className={`mt-1 text-xs ${nf <= 3 && np === 1 ? 'text-emerald-300' : 'text-orange-300'}`}>
-                  {nf} {nf === 1 ? 'frase' : 'frases'} · {np} {np === 1 ? 'pregunta' : 'preguntas'}
-                  {nf <= 3 && np === 1 ? ' · bien' : ' · apunta a 3 frases y 1 pregunta'}
-                </p>
-              ) : null}
-            </li>
-          );
-        })}
-      </ul>
-      <div className="mt-4">
-        <BotonDescarga
-          etiqueta="Descargar mis plantillas (.txt)"
-          disabled={!montado || !CAMPOS_MENSAJES.some((c) => m[c.id]?.trim())}
-          onClick={() =>
-            descargarArchivo(
-              'mensajes-de-seguimiento.txt',
-              armarTxt('Primer mensaje y seguimientos', [
-                ...CAMPOS_MENSAJES.flatMap((c) => [c.etiqueta.toUpperCase(), (m[c.id] ?? '').trim() || '(sin escribir)', '']),
-                'REGLA: máximo 3 frases y 1 pregunta. Si responde, la secuencia se detiene.',
+              'mi-frase.txt',
+              armarTxt('Tu mensaje en una frase', [
+                'ELEGIDA',
+                (f[elegida] ?? '').trim() || '(sin escribir)',
+                '',
+                'VERSIONES',
+                ...versiones.map((v, i) => `${i + 1}. ${(f[v] ?? '').trim() || '(sin escribir)'}`),
+                '',
+                'Fórmula: para quién + su problema + el resultado.',
               ]),
             )
           }
@@ -220,267 +156,163 @@ function LeccionMensajes() {
   );
 }
 
-// ─── Lección 3 · De la conversación a la propuesta ────────────────────────
+// ─── Lección 2 · 3 temas ───────────────────────────────────────────────────
 
-const CAMPOS_PROPUESTA: Campo[] = [
-  { id: 'cliente', etiqueta: 'Cliente', placeholder: 'Nombre del negocio y de quien decide' },
-  { id: 'problema', etiqueta: 'El problema, con sus palabras', filas: 2 },
-  { id: 'incluye', etiqueta: 'Qué incluye', ayuda: 'Una línea por punto.', filas: 4 },
-  { id: 'precio', etiqueta: 'Precio', placeholder: 'Lo pones tú, con tu lista de precios vigente' },
-  { id: 'plazo', etiqueta: 'Plazo o frecuencia', placeholder: 'Ej.: primera entrega en 5 días hábiles' },
-  { id: 'siguiente', etiqueta: 'Siguiente paso con fecha', placeholder: 'Ej.: confirmar el lunes 16 para partir el 23' },
-  { id: 'vigencia', etiqueta: 'Vigencia', placeholder: 'Ej.: 15 días' },
+const CAMPOS_TEMAS: Campo[] = [
+  { id: 't1', etiqueta: 'Tema 1 · Lo que tu cliente quiere aprender', placeholder: 'Ej.: cómo elegir café para tu cafetería' },
+  { id: 'i1', etiqueta: '3 ideas del tema 1', filas: 3, placeholder: 'Una idea por línea' },
+  { id: 't2', etiqueta: 'Tema 2 · Lo que te diferencia', placeholder: 'Ej.: tostado fresco vs. café de supermercado' },
+  { id: 'i2', etiqueta: '3 ideas del tema 2', filas: 3, placeholder: 'Una idea por línea' },
+  { id: 't3', etiqueta: 'Tema 3 · La prueba (casos, clientes, resultados)', placeholder: 'Ej.: cafeterías que se cambiaron' },
+  { id: 'i3', etiqueta: '3 ideas del tema 3', filas: 3, placeholder: 'Una idea por línea' },
 ];
 
-const EJEMPLO_PROPUESTA = {
-  cliente: 'Estudio Sur · Paula, administración',
-  problema: '«El café de la oficina se acaba a mitad de mes y nadie se acuerda de pedir.»',
-  incluye: 'Café en grano o molido, entregado cada 2 semanas\nMolienda según su cafetera\nDespacho incluido en Valparaíso y Viña\nAviso 2 días antes de cada entrega',
-  precio: '[precio por kilo según tu lista vigente]',
-  plazo: 'Primera entrega 5 días hábiles después de confirmar',
-  siguiente: 'Confirmar el lunes para entregar el martes de la semana siguiente',
-  vigencia: '15 días',
+const EJEMPLO_TEMAS = {
+  t1: 'Cómo elegir café para tu cafetería',
+  i1: 'Grano o molido: qué conviene según tu máquina\nCuánto café necesitas por semana\n3 preguntas para hacerle a tu proveedor',
+  t2: 'Tostado fresco vs. café de supermercado',
+  i2: 'Cómo leer la fecha de tostado\nPor qué el café pierde sabor después de 4 semanas\nUn día en la tostadora',
+  t3: 'Cafeterías que se cambiaron',
+  i3: 'Café Puerto: qué notaron sus clientes\nCuánto bajaron los reclamos por sabor\nAntes y después de la carta de una cafetería',
 };
 
-function LeccionPropuesta() {
-  const [p] = useTextos(K.propuesta);
-  const negocio = useNegocio();
+function LeccionTemas() {
+  const [t] = useTextos(K.temas);
   const montado = useMontado();
-  const lleno = montado && !!p.cliente?.trim();
-  const lineas = () => [
-    `PARA: ${(p.cliente ?? '').trim()}`,
-    `DE: ${negocio.trim() || '[tu negocio]'}`,
-    '',
-    'LO QUE NOS CONTASTE',
-    (p.problema ?? '').trim(),
-    '',
-    'LO QUE PROPONEMOS',
-    ...(p.incluye ?? '').split('\n').filter(Boolean).map((x) => `- ${x.trim()}`),
-    '',
-    `PRECIO: ${(p.precio ?? '').trim()}`,
-    `PLAZO: ${(p.plazo ?? '').trim()}`,
-    `SIGUIENTE PASO: ${(p.siguiente ?? '').trim()}`,
-    `VIGENCIA: ${(p.vigencia ?? '').trim()}`,
-  ];
   return (
     <>
       <Explica>
         <p>
-          Una buena propuesta no se escribe en la oficina: se escribe en la <strong>primera reunión</strong>, haciendo las preguntas correctas. Son cinco:
+          Si cada vez que te sientas a publicar no sabes de qué hablar, no te falta creatividad: te faltan <strong>temas fijos</strong>. Todo lo que publicas sale de tres:
         </p>
-        <ListaCheck items={['¿Qué problema tienes hoy?', '¿Cuánto te cuesta ese problema (en plata, tiempo o clientes)?', '¿Qué has probado antes?', '¿Quién más decide?', '¿Para cuándo lo necesitas?']} />
-        <p>
-          Con esas respuestas armas una propuesta de <strong>una sola página</strong>. Si no cabe en una página, todavía no entiendes bien el problema o estás ofreciendo demasiado.
-        </p>
+        <ol className="list-decimal space-y-1 pl-5">
+          <li>
+            <strong>Lo que tu cliente quiere aprender.</strong> Sus dudas antes de comprar.
+          </li>
+          <li>
+            <strong>Lo que te diferencia.</strong> Por qué tú y no la alternativa de siempre.
+          </li>
+          <li>
+            <strong>La prueba.</strong> Casos, clientes y resultados que muestran que funciona.
+          </li>
+        </ol>
+        <p>De cada tema salen tres ideas. Con eso tienes nueve publicaciones antes de empezar.</p>
       </Explica>
-      <DiagramaPropuestaUnaPagina className="mt-6" />
-      <FotoBanda foto={APOYO.salaReunion} posicion="center 55%" />
-      <Subtitulo>Tu propuesta de una página</Subtitulo>
-      <Instruccion>Parte desde el «plan oficina» de Grano Norte o desde una conversación real tuya.</Instruccion>
-      <Campos clave={K.propuesta} campos={CAMPOS_PROPUESTA} ejemplo={EJEMPLO_PROPUESTA} />
-      <Freno>El precio y el plazo los decides tú, con tu lista vigente. Un asistente te puede ayudar a redactar, nunca a comprometer un descuento o una fecha.</Freno>
-      {lleno ? (
-        <Pantallita titulo="Vista previa · 1 página" className="mt-6">
-          <pre className="whitespace-pre-wrap break-words font-sans text-sm leading-relaxed">{lineas().join('\n')}</pre>
-        </Pantallita>
-      ) : null}
-      <div className="mt-4">
-        <BotonDescarga etiqueta="Descargar mi propuesta (.txt)" disabled={!lleno} onClick={() => descargarArchivo('propuesta-una-pagina.txt', armarTxt('Propuesta', lineas()))} />
-      </div>
-    </>
-  );
-}
-
-// ─── Lección 4 · Seguimiento de propuestas ────────────────────────────────
-
-const COLUMNAS_PROPUESTAS = [
-  { id: 'cliente', etiqueta: 'Cliente', placeholder: 'A quién se la enviaste' },
-  { id: 'enviada', etiqueta: 'Enviada el', tipo: 'fecha' as const },
-  { id: 'estado', etiqueta: 'Estado', placeholder: 'Esperando, ganada, perdida' },
-];
-
-const DIAS_SEGUIMIENTO = [3, 7, 14];
-
-function LeccionSeguimiento() {
-  const [props] = useFilas(K.propuestas);
-  const montado = useMontado();
-  const hoy = new Date();
-  hoy.setHours(0, 0, 0, 0);
-  const abiertas = props.filter((f) => f.cliente?.trim() && f.enviada && !/ganad|perdid|cerrad/i.test(f.estado ?? ''));
-  const proximos = abiertas
-    .map((f) => {
-      const fechas = DIAS_SEGUIMIENTO.map((d) => ({ d, f: sumarDias(f.enviada, d)! }));
-      const prox = fechas.find((x) => x.f >= hoy);
-      return { cliente: f.cliente, prox, fechas };
-    })
-    .sort((a, b) => (a.prox?.f.getTime() ?? Infinity) - (b.prox?.f.getTime() ?? Infinity));
-  return (
-    <>
-      <Explica>
-        <p>
-          «Quedó en responderme». Esa frase, sin una fecha al lado, es una propuesta perdida. La regla es simple: <strong>cada propuesta nace con tres fechas de seguimiento</strong>, a los 3, 7 y 14 días.
-        </p>
-        <p>
-          Ese día, el recordatorio te avisa y deja el mensaje listo en borrador: tú lo lees, lo ajustas y lo envías. Puede ser un recordatorio de tu calendario con el texto pegado o una tarea programada en tu asistente; lo importante es que la fecha exista.
-        </p>
-      </Explica>
-      <DiagramaSecuenciaSeguimiento className="mt-6" dias={[0, 3, 7, 14]} etiquetas={['Envías la propuesta', '¿Alcanzaste a verla?', 'Un dato o caso útil', '¿Lo dejamos para más adelante?']} />
-      <Pantallita titulo="Grano Norte · propuestas abiertas" className="mt-6">
-        <ul className="space-y-1 text-sm">
-          <li>Estudio Sur · enviada lun 2 · hoy toca el día 7</li>
-          <li>Cowork Cerro · enviada jue 5 · día 3 el domingo</li>
-          <li>Café Puerto · ganada el miércoles</li>
-        </ul>
-      </Pantallita>
-      <Subtitulo>Tus propuestas abiertas</Subtitulo>
-      <Instruccion>Anota las propuestas que enviaste. Calculamos los 3 seguimientos y puedes descargarlos a tu calendario.</Instruccion>
-      <TablaEditable clave={K.propuestas} columnas={COLUMNAS_PROPUESTAS} etiquetaFila="Propuesta" textoAgregar="Agregar propuesta" />
-      {montado && proximos.length > 0 ? (
-        <div className="mt-4 rounded-2xl border border-[#5fb2dd]/40 bg-[#2175a1]/10 p-4" aria-live="polite">
-          <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-[#5fb2dd]">Tus próximos seguimientos</p>
-          <ul className="mt-2 space-y-1.5 text-sm text-slate-200">
-            {proximos.map((x, i) => (
-              <li key={i}>
-                <strong className="text-white">{x.cliente}</strong> · {x.prox ? `día ${x.prox.d}: ${fechaCorta(x.prox.f)}` : 'pasaron los 14 días: márcala como ganada o perdida'}
-              </li>
-            ))}
-          </ul>
-        </div>
-      ) : null}
-      <Freno>Si en un seguimiento el cliente pide cambiar precio o plazo, ya no es un seguimiento: lo responde una persona.</Freno>
+      <DiagramaTresTemas className="mt-6" />
+      <FotoBanda foto={APOYO.granoCuchara} posicion="center 55%" />
+      <Subtitulo>Tus 3 temas y tus 9 ideas</Subtitulo>
+      <Campos clave={K.temas} campos={CAMPOS_TEMAS} ejemplo={EJEMPLO_TEMAS} />
       <div className="mt-4">
         <BotonDescarga
-          etiqueta="Descargar recordatorios (.ics)"
-          disabled={!montado || abiertas.length === 0}
+          etiqueta="Descargar mis temas (.txt)"
+          disabled={!montado || !t.t1?.trim()}
           onClick={() =>
             descargarArchivo(
-              'seguimientos-propuestas.ics',
-              armarIcs(
-                abiertas.flatMap((f) =>
-                  DIAS_SEGUIMIENTO.map((d) => ({
-                    fecha: sumarDias(f.enviada, d)!,
-                    titulo: `Seguimiento día ${d} · ${f.cliente}`,
-                    detalle: d === 3 ? '¿Alcanzaste a ver la propuesta?' : d === 7 ? 'Comparte un dato o un caso que le sirva.' : 'Cierre amable: ¿lo dejamos para más adelante?',
-                  })),
-                ),
+              'mis-3-temas.txt',
+              armarTxt(
+                'Tus 3 temas',
+                [1, 2, 3].flatMap((n) => [`TEMA ${n}: ${(t[`t${n}`] ?? '').trim() || '(sin escribir)'}`, ...(t[`i${n}`] ?? '').split('\n').filter(Boolean).map((x) => `  - ${x.trim()}`), '']),
               ),
-              'text/calendar',
             )
           }
         />
-        <p className="mt-2 text-xs text-slate-500">El archivo .ics se abre con Google Calendar, Outlook o el calendario del celular.</p>
       </div>
     </>
   );
 }
 
-// ─── Lección 5 · Embudo ───────────────────────────────────────────────────
+// ─── Lección 3 · Semana de contenido ──────────────────────────────────────
 
-const EJEMPLO_EMBUDO = { prospectos: '80', conversaciones: '20', propuestas: '8', cierres: '3', meta: '4' };
-
-function calcularEmbudo(e: Record<string, string>) {
-  const pr = numero(e.prospectos);
-  const co = numero(e.conversaciones);
-  const pp = numero(e.propuestas);
-  const ci = numero(e.cierres);
-  const meta = numero(e.meta);
-  const tasa = (a: number, b: number) => (a > 0 ? b / a : 0);
-  const tc = tasa(pr, co);
-  const tp = tasa(co, pp);
-  const tcierre = tasa(pp, ci);
-  const total = tc * tp * tcierre;
-  const necesarios = total > 0 && meta > 0 ? Math.ceil(meta / total) : 0;
-  return { pr, co, pp, ci, meta, tc, tp, tcierre, necesarios, porSemana: Math.ceil(necesarios / 4) };
-}
-
-const pct = (x: number) => `${Math.round(x * 100)} %`;
-
-function LeccionEmbudo() {
-  const [e, setE] = useTextos(K.embudo);
+function LeccionSemana() {
+  const [s, setS] = useTextos(K.semana);
+  const [temas] = useTextos(K.temas);
+  const frase = useFraseElegida();
+  const negocio = useNegocio();
   const montado = useMontado();
-  const datos = montado ? e : {};
-  const r = calcularEmbudo(datos);
-  const usaEjemplo = !r.pr;
-  const vista = usaEjemplo ? calcularEmbudo(EJEMPLO_EMBUDO) : r;
-  const tasas = [
-    { t: 'Prospecto → conversación', v: r.tc },
-    { t: 'Conversación → propuesta', v: r.tp },
-    { t: 'Propuesta → cierre', v: r.tcierre },
-  ];
-  const debil = r.pr ? [...tasas].sort((a, b) => a.v - b.v)[0] : null;
-  const campos = [
-    { id: 'prospectos', t: 'Prospectos contactados' },
-    { id: 'conversaciones', t: 'Conversaciones' },
-    { id: 'propuestas', t: 'Propuestas enviadas' },
-    { id: 'cierres', t: 'Cierres' },
-  ];
+  const idea = (s.idea ?? '').trim();
+  const prompt = [
+    `Ayúdame con el contenido de ${negocio.trim() || '[mi negocio]'}.`,
+    `Nuestro mensaje: ${frase || '[tu frase de la lección 1]'}`,
+    `Nuestros temas: ${[temas.t1, temas.t2, temas.t3].filter((x) => x?.trim()).join(' · ') || '[tus 3 temas de la lección 2]'}`,
+    '',
+    `Con esta idea: «${idea || '[la idea de la semana]'}», prepara 5 borradores:`,
+    '1. Un post para Instagram o LinkedIn (máximo 120 palabras, una sola pregunta al final).',
+    '2. Una historia de 3 pantallas (texto corto por pantalla).',
+    '3. Un carrusel de 6 láminas (título + una frase por lámina).',
+    '4. El guion de un reel de 30 segundos (gancho, 3 ideas, cierre).',
+    '5. Un correo corto para clientes (asunto + 4 líneas).',
+    '',
+    'Usa español de Chile, tuteo, frases cortas y sin promesas de precio ni de plazos.',
+    'Son borradores: una persona los revisa antes de publicar.',
+  ].join('\n');
+  const semanas = [1, 2, 3, 4];
   return (
     <>
       <Explica>
         <p>
-          ¿Cuántos mensajes necesitas mandar para cerrar una venta? Si no lo sabes, no sabes cuánto esfuerzo poner cada semana. Tu embudo tiene cuatro pisos: <strong>prospecto → conversación → propuesta → cierre</strong>. Entre piso y piso hay una tasa de paso.
+          Publicar todos los días no significa pensar todos los días. <strong>Una idea bien pensada te da la semana completa</strong>: la conviertes en cinco piezas y las repartes de lunes a viernes.
         </p>
-        <p>Con esas tasas haces la cuenta al revés: si quieres cierto número de clientes nuevos al mes, sabes cuántos prospectos necesitas por semana. Y ves en qué piso se te cae más gente.</p>
+        <p>
+          Una tarde al mes y tienes cuatro semanas listas. Lo haces a mano con la lista de abajo, o, si quieres, le pides a ChatGPT o Claude un primer borrador con tu frase, tus temas y la idea, y tú lo ajustas. Sin IA el resultado es el mismo: solo te toma un poco más.
+        </p>
       </Explica>
-      <DiagramaEmbudo
-        className="mt-6"
-        pisos={[
-          { t: 'Prospectos', n: vista.pr },
-          { t: 'Conversaciones', n: vista.co },
-          { t: 'Propuestas', n: vista.pp },
-          { t: 'Cierres', n: vista.ci },
-        ]}
+      <DiagramaUnaIdeaCincoPiezas className="mt-6" />
+      <Pantallita titulo="Grano Norte · semana 2" className="mt-6">
+        <p className="text-sm font-semibold">Idea: «Cómo saber si tu café está fresco»</p>
+        <ul className="mt-2 space-y-1 text-sm">
+          <li>Lun · Post: «Tu café tiene fecha de tostado. ¿La has mirado?»</li>
+          <li>Mar · Historia: foto de la etiqueta con la fecha marcada</li>
+          <li>Mié · Carrusel: 5 señales de un café añejo</li>
+          <li>Jue · Reel: Pedro tostando, «de la tostadora a tu barra en 48 horas»</li>
+          <li>Vie · Correo a cafeterías: «¿Cuántos días tiene el café que sirves hoy?»</li>
+        </ul>
+      </Pantallita>
+
+      <Subtitulo>1 · La idea de la semana y sus 5 piezas</Subtitulo>
+      <Instruccion>
+        Escribe la idea. Para cada pieza: un post de hasta 120 palabras con una pregunta al final, una historia de 3 pantallas, un carrusel de 6 láminas, el guion de un reel de 30 segundos y un correo corto a tus clientes.
+      </Instruccion>
+      <label className="mt-3 block text-sm text-slate-300">
+        <span className="font-medium text-slate-200">La idea de esta semana</span>
+        <input
+          value={s.idea ?? ''}
+          onChange={(e) => setS((p) => ({ ...p, idea: e.target.value }))}
+          placeholder="Ej.: cómo saber si tu café está fresco"
+          className="mt-1.5 min-h-[48px] w-full rounded-xl border border-white/15 bg-white/[0.03] px-4 text-[15px] text-slate-100 placeholder:text-slate-500 focus:border-[#5fb2dd] focus:outline-none"
+        />
+      </label>
+      <BloqueCopiar
+        titulo="Opcional · instrucciones para ChatGPT o Claude"
+        texto={montado ? prompt : ''}
+        nota="Si usas IA, pégalas tal cual: se arman con tu frase y tus temas. Si no, usa la lista de arriba y escribe cada pieza tú."
       />
-      {usaEjemplo ? <p className="mt-2 text-center text-xs text-slate-500">Números de un mes de Grano Norte. Pon los tuyos abajo y el embudo cambia.</p> : null}
-      <Subtitulo>Tu calculadora</Subtitulo>
-      <Instruccion>Usa los números del último mes (o de las últimas 4 semanas). Si no los tienes, estímalos y corrígelos con la planilla.</Instruccion>
-      <div className="mt-4 grid grid-cols-2 gap-3">
-        {campos.map((c) => (
-          <label key={c.id} className="block text-sm text-slate-300">
-            {c.t}
-            <input inputMode="numeric" value={datos[c.id] ?? ''} placeholder={EJEMPLO_EMBUDO[c.id as keyof typeof EJEMPLO_EMBUDO]} onChange={(ev) => setE((p) => ({ ...p, [c.id]: ev.target.value }))} className={claseInput} />
+      <Freno>Nada se publica a nombre del negocio sin que una persona lo lea. Si un borrador lo hizo la IA, tú decides qué sale (es la regla 15 de tus frenos).</Freno>
+
+      <Subtitulo>2 · Tu calendario de 4 semanas</Subtitulo>
+      <Instruccion>Una idea por semana, idealmente rotando tus 3 temas. Al descargar, se arma el calendario con las 5 piezas de cada semana para abrir en Google Sheets o Excel.</Instruccion>
+      <div className="mt-4 grid gap-3 sm:grid-cols-2">
+        {semanas.map((n) => (
+          <label key={n} className="block rounded-xl border border-white/10 bg-white/[0.02] p-3 text-sm text-slate-300">
+            <span className="font-mono text-[11px] uppercase tracking-wider text-[#5fb2dd]">Semana {n}</span>
+            <input
+              value={s[`s${n}`] ?? ''}
+              onChange={(e) => setS((p) => ({ ...p, [`s${n}`]: e.target.value }))}
+              placeholder={n === 1 ? temas.t1 || 'Idea de la semana' : 'Idea de la semana'}
+              className="mt-1.5 min-h-[44px] w-full rounded-lg border border-white/10 bg-[#0f172a] px-3 text-[15px] text-slate-100 placeholder:text-slate-600 focus:border-[#5fb2dd] focus:outline-none"
+            />
           </label>
         ))}
-        <label className="col-span-2 block text-sm text-slate-300">
-          Meta: clientes nuevos al mes
-          <input inputMode="numeric" value={datos.meta ?? ''} placeholder="4" onChange={(ev) => setE((p) => ({ ...p, meta: ev.target.value }))} className={claseInput} />
-        </label>
       </div>
-      {r.pr ? (
-        <div className="mt-4 rounded-2xl border border-[#5fb2dd]/40 bg-[#2175a1]/10 p-4" aria-live="polite">
-          <ul className="space-y-1 text-sm text-slate-200">
-            {tasas.map((t) => (
-              <li key={t.t} className="flex justify-between gap-3">
-                <span>{t.t}</span>
-                <span className="font-mono text-[#5fb2dd]">{pct(t.v)}</span>
-              </li>
-            ))}
-          </ul>
-          {r.necesarios ? (
-            <p className="mt-3 text-white">
-              Para {r.meta} {r.meta === 1 ? 'cliente nuevo' : 'clientes nuevos'} al mes necesitas contactar unos <strong>{r.necesarios} prospectos</strong>: <strong>{r.porSemana} por semana</strong>.
-            </p>
-          ) : (
-            <p className="mt-3 text-sm text-slate-400">Completa los 4 pisos y la meta para calcular cuántos prospectos necesitas.</p>
-          )}
-          {debil && debil.v > 0 ? <p className="mt-2 text-sm text-slate-300">Tu piso más débil: {debil.t.toLowerCase()} ({pct(debil.v)}). Arregla ese primero.</p> : null}
-        </div>
-      ) : null}
       <div className="mt-4">
         <BotonDescarga
-          etiqueta="Descargar planilla de embudo (.csv)"
+          etiqueta="Descargar calendario (.csv)"
+          disabled={!montado || !semanas.some((n) => s[`s${n}`]?.trim())}
           onClick={() =>
             descargarArchivo(
-              'embudo-semanal.csv',
+              'calendario-4-semanas.csv',
               armarCsv(
-                ['Semana', 'Prospectos', 'Conversaciones', 'Propuestas', 'Cierres', 'Prospecto→conversación', 'Conversación→propuesta', 'Propuesta→cierre'],
-                [
-                  r.pr ? ['Mes de referencia', r.pr, r.co, r.pp, r.ci, pct(r.tc), pct(r.tp), pct(r.tcierre)] : ['Mes de referencia', '', '', '', '', '', '', ''],
-                  ...[1, 2, 3, 4].map((s) => [`Semana ${s}`, '', '', '', '', '', '', '']),
-                  [],
-                  ['Cómo calcular cada tasa: conversaciones ÷ prospectos · propuestas ÷ conversaciones · cierres ÷ propuestas'],
-                  r.porSemana ? [`Meta: ${r.meta} clientes al mes = ${r.porSemana} prospectos por semana`] : [],
-                ],
+                ['Semana', 'Día', 'Pieza', 'Idea', 'Estado'],
+                semanas.flatMap((n) => DIAS.map((d) => [n, d.d, d.p, (s[`s${n}`] ?? '').trim(), 'Por preparar'])),
               ),
               'text/csv',
             )
@@ -491,65 +323,261 @@ function LeccionEmbudo() {
   );
 }
 
+// ─── Lección 4 · Comentarios y mensajes ───────────────────────────────────
+
+const CATEGORIAS_COMENTARIO = [
+  { id: 'plantilla', etiqueta: 'Plantilla' },
+  { id: 'ventas', etiqueta: 'Pasa a ventas' },
+  { id: 'persona', etiqueta: 'Una persona' },
+];
+
+const ITEMS_COMENTARIO = [
+  { id: 'c1', texto: '«¿Qué horario tienen para retirar?»', correcta: 'plantilla', porque: 'Se repite y tiene una respuesta fija.' },
+  { id: 'c2', texto: '«¿Venden por mayor? Tengo una cafetería en Viña.»', correcta: 'ventas', porque: 'Es un posible cliente: se le agradece, se le escribe por interno hoy mismo y entra a tu hoja Clientes con origen «Instagram».' },
+  { id: 'c3', texto: '«Me llegó el pedido incompleto y nadie me responde.»', correcta: 'persona', porque: 'Es un reclamo, y además en público. Lo toma una persona, siempre.' },
+  { id: 'c4', texto: '«¡Qué rico se ve! ¿Es el mismo que sirven en Café Puerto?»', correcta: 'plantilla', porque: 'Se agradece con tu tono; si quiere comprar, después se deriva.' },
+  { id: 'c5', texto: '«¿Me pueden cotizar 20 kilos al mes para mi oficina?»', correcta: 'ventas', porque: 'Pide una cotización: entra a tu hoja Clientes con nombre, contacto, origen y la fecha en que le respondes.' },
+  { id: 'c6', texto: '«Si me hacen 30 % de descuento les compro todos los meses.»', correcta: 'persona', porque: 'Un precio especial es una regla de freno: lo decide una persona.' },
+];
+
+const CAMPOS_PLANTILLAS: Campo[] = [
+  { id: 'gracias', etiqueta: 'Agradecer un comentario', filas: 2 },
+  { id: 'repetida', etiqueta: 'Responder una pregunta que se repite (horario, despacho, cómo comprar)', filas: 2 },
+  { id: 'interno', etiqueta: 'Pasar a interno a alguien que quiere comprar', filas: 2 },
+  { id: 'reclamo', etiqueta: 'Responder en público un reclamo (y llevarlo a interno)', filas: 2 },
+];
+
+const EJEMPLO_PLANTILLAS = {
+  gracias: '¡Gracias, [nombre]! Lo tostamos el martes, así que está en su mejor momento.',
+  repetida: 'Hola, [nombre]: despachamos de lunes a viernes en Valparaíso y Viña. Te dejo el detalle por interno.',
+  interno: '¡Qué bueno, [nombre]! Te escribo por interno para conocer tu cafetería y contarte cómo trabajamos con locales.',
+  reclamo: 'Hola, [nombre]. Lamentamos lo del pedido; ya te escribimos por interno para resolverlo hoy.',
+};
+
+function LeccionComentarios() {
+  const [pl] = useTextos(K.plantillas);
+  const montado = useMontado();
+  return (
+    <>
+      <Explica>
+        <p>
+          Un comentario sin respuesta es una venta que se enfría. Pero no todos se responden igual: algunos se contestan con una plantilla, otros tienen que pasar a ventas el mismo día y otros los ve siempre una persona.
+        </p>
+        <p>
+          Tus plantillas suenan como tú: <strong>cortas, cercanas y con una sola pregunta</strong>. Y una regla para no perder clientes: quien pregunta por precio o por compras grandes se lleva a interno ese mismo día, sin precios en público, y <strong>entra a tu hoja Clientes con su origen</strong>. Si no queda anotado, mañana nadie se acuerda.
+        </p>
+      </Explica>
+      <DiagramaDerivarComentario className="mt-6" />
+      <FotoBanda foto={APOYO.celularMensajes} posicion="center 40%" />
+      <Subtitulo>Práctica: ¿qué hacer con cada uno?</Subtitulo>
+      <Instruccion>Seis comentarios de una semana de Grano Norte. Elige qué harías con cada uno.</Instruccion>
+      <Clasificador clave={K.clasificar} categorias={CATEGORIAS_COMENTARIO} items={ITEMS_COMENTARIO} />
+      <Subtitulo>Tus 4 plantillas</Subtitulo>
+      <Instruccion>Escríbelas como hablas. Deja [nombre] donde va el nombre de la persona.</Instruccion>
+      <Campos clave={K.plantillas} campos={CAMPOS_PLANTILLAS} ejemplo={EJEMPLO_PLANTILLAS} />
+      <Freno>Precios especiales, descuentos y reclamos no se resuelven en un comentario: pasan a una persona, por interno, el mismo día.</Freno>
+      <div className="mt-4">
+        <BotonDescarga
+          etiqueta="Descargar mis plantillas (.txt)"
+          disabled={!montado || !CAMPOS_PLANTILLAS.some((c) => pl[c.id]?.trim())}
+          onClick={() =>
+            descargarArchivo(
+              'plantillas-comentarios.txt',
+              armarTxt('Plantillas de comentarios y mensajes', [
+                ...CAMPOS_PLANTILLAS.flatMap((c) => [c.etiqueta.toUpperCase(), (pl[c.id] ?? '').trim() || '(sin escribir)', '']),
+                'REGLA: quien quiere comprar o cotizar pasa a ventas el mismo día y entra a la hoja Clientes con su origen. Reclamos y precios especiales: siempre una persona.',
+              ]),
+            )
+          }
+        />
+      </div>
+    </>
+  );
+}
+
+// ─── Lección 5 · De dónde llegó cada cliente ──────────────────────────────
+
+type Conteo = { canal: string; contactos: number; clientes: number };
+
+/** Cuenta contactos y clientes por canal desde la hoja Clientes del módulo 1 (igual que la hoja Origen). */
+function contarDesdeHoja(filas: Record<string, string>[]): Conteo[] {
+  const conDatos = filas.filter((f) => (f.nombre ?? '').trim() || (f.empresa ?? '').trim());
+  const extras = Array.from(new Set(conDatos.map((f) => (f.origen ?? '').trim()).filter((o) => o && !CANALES.includes(o))));
+  return [...CANALES, ...extras].map((canal) => ({
+    canal,
+    contactos: conDatos.filter((f) => (f.origen ?? '').trim() === canal).length,
+    clientes: conDatos.filter((f) => (f.origen ?? '').trim() === canal && f.estado === 'Cliente').length,
+  }));
+}
+
+function useConteo() {
+  const [o, setO] = useTextos(K.origen);
+  const conteo: Conteo[] = CANALES.map((canal) => ({ canal, contactos: numero(o[`c_${canal}`]), clientes: numero(o[`k_${canal}`]) }));
+  return { o, setO, conteo };
+}
+
+const pctO = (a: number, b: number) => (b > 0 ? `${Math.round((a / b) * 100)} %` : '—');
+
+function LeccionOrigen() {
+  const [filasM1] = useFilas(K.clientesM1);
+  const { o, setO, conteo } = useConteo();
+  const montado = useMontado();
+  const desdeHoja = montado ? contarDesdeHoja(filasM1) : [];
+  const hayHoja = desdeHoja.some((c) => c.contactos > 0);
+  const usados = montado ? conteo.filter((c) => c.contactos > 0 || c.clientes > 0) : [];
+  const mejor = [...usados].sort((a, b) => b.clientes - a.clientes || b.contactos - a.contactos)[0];
+  const copiarDeHoja = () =>
+    setO((p) => {
+      const n: Record<string, string> = { ...p };
+      for (const c of desdeHoja) {
+        if (!CANALES.includes(c.canal)) continue;
+        n[`c_${c.canal}`] = c.contactos ? String(c.contactos) : '';
+        n[`k_${c.canal}`] = c.clientes ? String(c.clientes) : '';
+      }
+      return n;
+    });
+  const claseNum =
+    'mt-1 min-h-[44px] w-full min-w-0 rounded-lg border border-white/10 bg-[#0f172a] px-3 text-[15px] text-slate-100 placeholder:text-slate-600 focus:border-[#5fb2dd] focus:outline-none';
+  return (
+    <>
+      <Explica>
+        <p>
+          Mil reproducciones se sienten bien, pero no pagan las cuentas. La pregunta que importa es otra: <strong>¿de dónde llegaron tus clientes?</strong> ¿Por un referido, por Instagram, por Google, porque te vieron en una feria?
+        </p>
+        <p>
+          La respuesta ya cabe en tu CRM: la columna <strong>Origen</strong> de tu hoja Clientes. Cada contacto nuevo anota de dónde llegó, y la hoja Origen de tu planilla cuenta sola, por canal, cuántos contactos llegaron y cuántos se volvieron clientes. Te toma diez segundos por contacto y diez minutos el viernes para mirar.
+        </p>
+      </Explica>
+      <DiagramaOrigen className="mt-6" />
+      <Pantallita titulo="Grano Norte · hoja Origen, último trimestre" className="mt-6">
+        <ul className="space-y-1.5 text-sm">
+          <li>
+            <strong>Referido: 6 contactos · 4 clientes</strong>
+          </li>
+          <li>Instagram: 14 contactos · 2 clientes</li>
+          <li>Google: 3 contactos · 1 cliente</li>
+          <li>Visita o feria: 4 contactos · 0 clientes</li>
+        </ul>
+        <p className="mt-2 text-sm text-slate-400">Instagram trae más conversaciones, pero los referidos se vuelven clientes. Camila decide pedirle un referido a cada cliente contento, sin dejar de publicar.</p>
+      </Pantallita>
+      <Subtitulo>Tus canales</Subtitulo>
+      <Instruccion>Anota, por canal, cuántos contactos llegaron en los últimos 3 meses y cuántos se volvieron clientes. Si no lo sabes, parte desde hoy: es justo lo que esta hoja arregla.</Instruccion>
+      {hayHoja ? (
+        <button type="button" onClick={copiarDeHoja} className="mt-3 inline-flex min-h-[44px] items-center gap-2 text-sm text-[#5fb2dd] hover:text-white">
+          Contar desde mi hoja Clientes del módulo 1
+        </button>
+      ) : null}
+      <ul className="mt-3 space-y-2">
+        {CANALES.map((canal) => (
+          <li key={canal} className="grid grid-cols-[1fr_88px_88px] items-end gap-2 rounded-xl border border-white/10 bg-white/[0.02] p-3">
+            <span className="pb-3 text-sm text-slate-100">{canal}</span>
+            <label className="block min-w-0 text-xs text-slate-400">
+              Contactos
+              <input inputMode="numeric" value={montado ? (o[`c_${canal}`] ?? '') : ''} placeholder="0" onChange={(e) => setO((p) => ({ ...p, [`c_${canal}`]: e.target.value }))} className={claseNum} />
+            </label>
+            <label className="block min-w-0 text-xs text-slate-400">
+              Clientes
+              <input inputMode="numeric" value={montado ? (o[`k_${canal}`] ?? '') : ''} placeholder="0" onChange={(e) => setO((p) => ({ ...p, [`k_${canal}`]: e.target.value }))} className={claseNum} />
+            </label>
+          </li>
+        ))}
+      </ul>
+      {mejor && mejor.clientes > 0 ? (
+        <div className="mt-4 rounded-2xl border border-[#5fb2dd]/40 bg-[#2175a1]/10 p-4" aria-live="polite">
+          <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-[#5fb2dd]">El canal que más clientes te trae</p>
+          <p className="mt-1 text-white">{mejor.canal}</p>
+          <p className="text-sm text-slate-300">
+            {mejor.contactos} {mejor.contactos === 1 ? 'contacto' : 'contactos'} · {mejor.clientes} {mejor.clientes === 1 ? 'cliente' : 'clientes'} · {pctO(mejor.clientes, mejor.contactos)} de contacto a cliente. Dale más tiempo este mes.
+          </p>
+        </div>
+      ) : null}
+      <label className="mt-4 block text-sm text-slate-300">
+        <span className="font-medium text-slate-200">Qué vas a hacer este mes con tu mejor canal</span>
+        <input
+          value={montado ? (o.plan ?? '') : ''}
+          onChange={(e) => setO((p) => ({ ...p, plan: e.target.value }))}
+          placeholder="Ej.: pedirle un referido a cada cliente contento después de la entrega"
+          className="mt-1.5 min-h-[48px] w-full rounded-xl border border-white/15 bg-white/[0.03] px-4 text-[15px] text-slate-100 placeholder:text-slate-500 focus:border-[#5fb2dd] focus:outline-none"
+        />
+      </label>
+      <Freno>Ojo con los «me gusta»: un canal puede gustar mucho y no traer a nadie. Manda el que trae clientes que calzan con tu negocio, aunque se vea menos.</Freno>
+      <div className="mt-4">
+        <BotonDescarga
+          etiqueta="Descargar mi hoja Origen (.csv)"
+          onClick={() =>
+            descargarArchivo(
+              'hoja-origen.csv',
+              armarCsv(
+                ['Canal', 'Contactos', 'Clientes', 'De contacto a cliente', 'Qué vas a hacer este mes'],
+                conteo.map((c) => [c.canal, c.contactos || '', c.clientes || '', pctO(c.clientes, c.contactos), c === mejor ? (o.plan ?? '') : '']),
+              ),
+              'text/csv',
+            )
+          }
+        />
+        <p className="mt-2 text-xs text-slate-500">En tu planilla del sistema la hoja Origen se calcula sola desde la columna Origen de Clientes: este archivo te sirve para la primera foto.</p>
+      </div>
+    </>
+  );
+}
+
 // ─── Cierre ────────────────────────────────────────────────────────────────
 
 function Cierre() {
-  const [ideal] = useTextos(K.ideal);
-  const [lista] = useFilas(K.lista);
-  const [m] = useTextos(K.mensajes);
-  const [p] = useTextos(K.propuesta);
-  const [props] = useFilas(K.propuestas);
-  const [e] = useTextos(K.embudo);
+  const [f] = useTextos(K.frase);
+  const [t] = useTextos(K.temas);
+  const [s] = useTextos(K.semana);
+  const { o, conteo } = useConteo();
   const montado = useMontado();
   const negocio = useNegocio();
-  const r = calcularEmbudo(montado ? e : {});
-  const embudoTexto = r.pr ? `${r.pr} prospectos → ${r.co} conversaciones → ${r.pp} propuestas → ${r.ci} cierres${r.porSemana ? `\nMeta: ${r.meta} al mes = ${r.porSemana} prospectos por semana` : ''}` : '';
+  const frase = montado ? (f[f.elegida || 'v1'] ?? '').trim() : '';
+  const temas = montado ? [t.t1, t.t2, t.t3].filter((x) => x?.trim()) : [];
+  const semanas = montado ? [1, 2, 3, 4].map((n) => (s[`s${n}`] ?? '').trim()) : [];
+  const canales = montado ? conteo.filter((c) => c.contactos > 0 || c.clientes > 0) : [];
+  const origenTexto = canales.map((c) => `${c.canal}: ${c.contactos} contactos · ${c.clientes} clientes`).join('\n');
   return (
     <CierreModulo
       numero={2}
-      area="ventas"
+      area="marketing"
+      hoja="Origen"
       pruebaReal={[
-        { id: 'p1', texto: 'Día 1: 20 minutos de rutina.' },
-        { id: 'p2', texto: 'Día 2: 20 minutos de rutina.' },
-        { id: 'p3', texto: 'Día 3: 20 minutos de rutina.' },
-        { id: 'p4', texto: 'Día 4: 20 minutos de rutina.' },
-        { id: 'p5', texto: 'Día 5: 20 minutos de rutina.' },
-        { id: 'p6', texto: 'Envié 1 propuesta con el formato de una página y sus 3 fechas de seguimiento.' },
-        { id: 'p7', texto: 'Anoté los números reales de la semana en la planilla de embudo.' },
+        { id: 'p1', texto: 'Publiqué el post del lunes.' },
+        { id: 'p2', texto: 'Publiqué la historia del martes.' },
+        { id: 'p3', texto: 'Publiqué el carrusel del miércoles.' },
+        { id: 'p4', texto: 'Publiqué el reel del jueves.' },
+        { id: 'p5', texto: 'Envié el correo del viernes.' },
+        { id: 'p6', texto: 'Cada contacto nuevo de la semana quedó en mi hoja Clientes con su origen.' },
+        { id: 'p7', texto: 'El viernes miré la hoja Origen y elegí en qué canal pongo más tiempo.' },
       ]}
       resumen={
         <>
-          <FilaResumen etiqueta="Cliente ideal" valor={montado ? [ideal.rubro, ideal.senal].filter((x) => x?.trim()).join(' · ') : ''} leccion={1} />
-          <FilaResumen etiqueta="Lista de prospectos" valor={montado && lista.length ? `${lista.length} prospectos con fecha de contacto` : ''} leccion={1} />
-          <FilaResumen etiqueta="Plantillas de mensajes" valor={montado ? `${['m0', 'm3', 'm7', 'm14'].filter((k) => m[k]?.trim()).length || ''}${['m0', 'm3', 'm7', 'm14'].some((k) => m[k]?.trim()) ? ' de 4 escritas' : ''}` : ''} leccion={2} />
-          <FilaResumen etiqueta="Propuesta de una página" valor={montado ? (p.cliente ?? '').trim() : ''} leccion={3} />
-          <FilaResumen etiqueta="Propuestas con seguimiento" valor={montado && props.length ? `${props.length} anotadas` : ''} leccion={4} />
-          <FilaResumen etiqueta="Tu embudo" valor={montado ? embudoTexto : ''} leccion={5} />
+          <FilaResumen etiqueta="Tu frase" valor={frase} leccion={1} />
+          <FilaResumen etiqueta="Tus 3 temas" valor={temas.length ? temas.map((x, i) => `${i + 1}. ${x}`).join('\n') : ''} leccion={2} />
+          <FilaResumen etiqueta="Calendario de 4 semanas" valor={semanas.some(Boolean) ? semanas.map((x, i) => `Semana ${i + 1}: ${x || '—'}`).join('\n') : ''} leccion={3} />
+          <FilaResumen etiqueta="Tu hoja Origen" valor={origenTexto} leccion={5} />
         </>
       }
       descargar={() =>
         descargarArchivo(
-          'modulo-2-ventas.txt',
+          'modulo-2-marketing.txt',
           armarTxt(
-            'Módulo 2 · Ventas y prospección',
+            'Módulo 2 · Marketing y origen',
             [
-              'CLIENTE IDEAL',
-              ...CAMPOS_IDEAL.map((c) => `- ${c.etiqueta}: ${(ideal[c.id] ?? '').trim() || '(pendiente)'}`),
+              'TU FRASE',
+              frase || '(pendiente)',
               '',
-              `LISTA DEL DÍA: ${lista.length} prospectos`,
-              ...lista.map((f) => `- ${f.nombre ?? ''} · ${f.senal ?? ''} · próximo contacto ${f.proximo || '(sin fecha)'}`),
+              'TUS 3 TEMAS',
+              ...[1, 2, 3].flatMap((n) => [`${n}. ${(t[`t${n}`] ?? '').trim() || '(pendiente)'}`, ...(t[`i${n}`] ?? '').split('\n').filter(Boolean).map((x) => `   - ${x.trim()}`)]),
               '',
-              'PLANTILLAS',
-              ...CAMPOS_MENSAJES.map((c) => `- ${c.etiqueta}: ${(m[c.id] ?? '').trim() || '(pendiente)'}`),
+              'CALENDARIO DE 4 SEMANAS (lunes post · martes historia · miércoles carrusel · jueves reel · viernes correo)',
+              ...semanas.map((x, i) => `Semana ${i + 1}: ${x || '(pendiente)'}`),
               '',
-              'PROPUESTAS ABIERTAS',
-              ...props.map((f) => `- ${f.cliente ?? ''} · enviada ${f.enviada || '?'} · ${f.estado || 'esperando'}`),
+              'HOJA ORIGEN',
+              origenTexto || '(pendiente)',
+              `Este mes: ${(o.plan ?? '').trim() || '(pendiente)'}`,
               '',
-              'EMBUDO',
-              embudoTexto || '(pendiente)',
-              '',
-              'RUTINA DEL ÁREA: 20 minutos cada día hábil (5 buscar, 10 escribir, 5 anotar). Seguimientos de propuestas a los 3, 7 y 14 días.',
-              'NÚMERO SEMANAL: conversaciones nuevas (y propuestas enviadas).',
+              'RUTINA: una tarde al mes preparas 4 ideas; cada contacto nuevo se anota con su origen; cada viernes, 10 minutos para mirar la hoja Origen.',
+              'NÚMERO SEMANAL: contactos nuevos por canal, y cuántos se volvieron clientes.',
             ],
             negocio,
           ),
@@ -563,62 +591,61 @@ function Cierre() {
 
 const LECCIONES: LeccionDef[] = [
   {
-    id: 'ideal',
-    bajada: 'Tu cliente ideal en 5 datos y la lista del día con 20 minutos de rutina. Si ya hiciste la Guía 1, es un repaso.',
-    portada: FOTOS.cafe,
-    posicion: 'center 30%',
-    contenido: <LeccionIdeal />,
-    checklist: [
-      { id: 'l1a', texto: 'Completé mi cliente ideal en 5 datos.' },
-      { id: 'l1b', texto: 'Anoté 10 prospectos con fecha de contacto.' },
-      { id: 'l1c', texto: 'Bloqueé 20 minutos diarios en mi calendario.' },
-    ],
-  },
-  {
-    id: 'mensajes',
-    bajada: 'El primer mensaje y tres seguimientos, con plantillas listas para adaptar.',
-    portada: APOYO.celularMensajes,
-    posicion: 'center 45%',
-    contenido: <LeccionMensajes />,
-    checklist: [
-      { id: 'l2a', texto: 'Escribí mis 4 plantillas.' },
-      { id: 'l2b', texto: 'Cada una tiene máximo 3 frases y 1 pregunta.' },
-      { id: 'l2c', texto: 'Envié el primer mensaje a un prospecto real.' },
-    ],
-  },
-  {
-    id: 'propuesta',
-    bajada: 'Las 5 preguntas de la primera reunión y una propuesta de una página, con el «plan oficina» de Grano Norte como ejemplo.',
-    portada: FOTOS.oficina,
-    posicion: 'center 35%',
-    contenido: <LeccionPropuesta />,
-    checklist: [
-      { id: 'l3a', texto: 'Guardé las 5 preguntas para mi próxima reunión.' },
-      { id: 'l3b', texto: 'Armé una propuesta de una página.' },
-      { id: 'l3c', texto: 'El precio y el plazo salen de mi lista vigente.' },
-    ],
-  },
-  {
-    id: 'seguimiento',
-    bajada: 'Nadie queda «esperando respuesta» sin fecha: recordatorios a los 3, 7 y 14 días, con el mensaje en borrador.',
-    portada: APOYO.calendario,
-    contenido: <LeccionSeguimiento />,
-    checklist: [
-      { id: 'l4a', texto: 'Anoté mis propuestas abiertas.' },
-      { id: 'l4b', texto: 'Cargué los recordatorios en mi calendario.' },
-      { id: 'l4c', texto: 'Hice hoy el seguimiento que tocaba.' },
-    ],
-  },
-  {
-    id: 'embudo',
-    bajada: 'Prospecto → conversación → propuesta → cierre, con tasas de paso y la meta semanal.',
-    portada: FOTOS.analista,
+    id: 'frase',
+    bajada: 'Problema que resuelves + para quién + resultado. Escribes 3 versiones y eliges la que mejor se entiende.',
+    portada: FOTOS.explicando,
     posicion: 'center 25%',
-    contenido: <LeccionEmbudo />,
+    contenido: <LeccionFrase />,
     checklist: [
-      { id: 'l5a', texto: 'Puse mis números en la calculadora.' },
-      { id: 'l5b', texto: 'Sé cuántos prospectos necesito por semana.' },
-      { id: 'l5c', texto: 'Descargué la planilla y la dejé en mi carpeta.' },
+      { id: 'l1a', texto: 'Escribí 3 versiones de mi frase.' },
+      { id: 'l1b', texto: 'Elegí una y la revisé con las 3 preguntas.' },
+      { id: 'l1c', texto: 'Se la leí a alguien de mi equipo o a un cliente.' },
+    ],
+  },
+  {
+    id: 'temas',
+    bajada: 'Lo que tu cliente quiere aprender, lo que te diferencia y la prueba. De cada tema salen 3 ideas.',
+    portada: APOYO.contenidoTripode,
+    contenido: <LeccionTemas />,
+    checklist: [
+      { id: 'l2a', texto: 'Escribí mis 3 temas.' },
+      { id: 'l2b', texto: 'Anoté 3 ideas por tema (9 en total).' },
+      { id: 'l2c', texto: 'Descargué mis temas.' },
+    ],
+  },
+  {
+    id: 'semana',
+    bajada: 'De una idea a 5 piezas: post, historia, carrusel, reel con guion y correo, y tu calendario de 4 semanas. Si quieres, ChatGPT o Claude te arman el borrador.',
+    portada: FOTOS.tutorial,
+    posicion: 'center 35%',
+    contenido: <LeccionSemana />,
+    checklist: [
+      { id: 'l3a', texto: 'Preparé las 5 piezas de una idea (a mano o con un borrador que revisé).' },
+      { id: 'l3b', texto: 'Anoté una idea para cada una de las 4 semanas.' },
+      { id: 'l3c', texto: 'Descargué el calendario y lo abrí en mi planilla.' },
+    ],
+  },
+  {
+    id: 'comentarios',
+    bajada: 'Plantillas con tu tono para comentarios y mensajes, y la regla para pasar a tu hoja Clientes a quien quiere comprar.',
+    portada: APOYO.celularMensajes,
+    posicion: 'center 40%',
+    contenido: <LeccionComentarios />,
+    checklist: [
+      { id: 'l4a', texto: 'Hice la práctica de los 6 comentarios.' },
+      { id: 'l4b', texto: 'Escribí mis 4 plantillas.' },
+      { id: 'l4c', texto: 'Mi equipo sabe que quien quiere comprar entra a la hoja Clientes ese mismo día.' },
+    ],
+  },
+  {
+    id: 'origen',
+    bajada: 'La columna Origen de tu CRM y la hoja Origen: qué canal te trae clientes de verdad, no «me gusta».',
+    portada: APOYO.tableroLaptop,
+    contenido: <LeccionOrigen />,
+    checklist: [
+      { id: 'l5a', texto: 'Anoté el origen de mis clientes actuales en la hoja Clientes.' },
+      { id: 'l5b', texto: 'Sé qué canal me trae más clientes.' },
+      { id: 'l5c', texto: 'Elegí qué voy a hacer este mes con ese canal.' },
     ],
   },
 ];
@@ -627,8 +654,8 @@ export default function Modulo2Content() {
   return (
     <ModuloCurso
       numero={2}
-      intro="Ningún seguimiento se cae. Al terminar tienes tu cliente ideal, la lista del día, tus mensajes de seguimiento, una propuesta de una página y tu embudo en una planilla con datos reales."
-      portada={APOYO.cafeteria}
+      intro="De dónde llegan tus clientes. Al terminar tienes tu mensaje en una frase, tus 3 temas, un calendario de 4 semanas y la hoja Origen, que cuenta cuántos clientes te trae cada canal."
+      portada={APOYO.contenidoTripode}
       lecciones={LECCIONES}
       cierre={<Cierre />}
     />
