@@ -5,6 +5,8 @@ export const LINKS = {
   workshop: '/workshop',
   /** Grabación del último workshop, abierta y gratis (camino gratuito del ciclo). */
   workshopGrabacion: '/workshop/grabacion',
+  /** Página de venta (indexable) de la Guía 1. */
+  guiaVenta: '/guia',
   guiaProspeccionCompra: 'https://pay.hotmart.com/H108396355K',
   guiaProspeccion: '/guia/prospeccion',
   curso: '/curso',

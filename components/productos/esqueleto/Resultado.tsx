@@ -83,7 +83,6 @@ export default function Resultado({
     const t = window.setInterval(() => setAhora(Date.now()), 60_000);
     return () => window.clearInterval(t);
   }, []);
-  const quedan = tiempoRestante(terminadoEn, ahora);
 
   const descargar = () => {
     const blob = new Blob([textoDescarga(esqueleto)], { type: 'text/plain;charset=utf-8' });
@@ -211,8 +210,8 @@ export default function Resultado({
         logro="Ya armaste el esqueleto de tu agente"
         pago={{
           titulo: 'Guía 1 · Ventas y prospección',
-          descripcion: `${TEXTOS.cierreTitulo} ${TEXTOS.cierreGuia} Precio de lanzamiento por 48 horas${quedan ? `: te quedan ${quedan}.` : '.'}`,
-          href: LINKS.guiaProspeccionCompra,
+          descripcion: `${TEXTOS.cierreTitulo} ${TEXTOS.cierreGuia} $14.990, pago único, con garantía de 7 días.`,
+          href: LINKS.guiaVenta,
           cta: 'Quiero la guía',
           evento: 'esqueleto_click_guia',
         }}
