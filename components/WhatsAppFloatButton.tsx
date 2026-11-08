@@ -1,10 +1,26 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { usePathname } from 'next/navigation';
 import { MessageCircle } from 'lucide-react';
 import { useTranslation, getWhatsAppUrl } from '@/lib/i18n';
 
+// Mensaje prellenado por página de producto (análisis UX «Rodrigo», 8-nov-2026): el genérico «si un agente tiene
+// sentido para mi equipo» no tenía nada que ver con lo que la persona estaba mirando.
+const MENSAJE_POR_PAGINA: Record<string, string> = {
+  '/esqueleto': 'Hola Álvaro, estoy armando el esqueleto de mi asistente y tengo una duda',
+  '/guia': 'Hola Álvaro, tengo una pregunta sobre la Guía de clientes',
+  '/curso': 'Hola Álvaro, quiero saber más del curso El sistema de tu negocio',
+};
+
+function urlWhatsApp(pathname: string | null, porDefecto: string): string {
+  const ruta = (pathname || '').replace(/\/+$/, '') || '/';
+  const mensaje = MENSAJE_POR_PAGINA[ruta];
+  return mensaje ? `https://wa.me/56920115198?text=${encodeURIComponent(mensaje)}` : porDefecto;
+}
+
 export default function WhatsAppFloatButton() {
+  const pathname = usePathname();
   const { t, language } = useTranslation();
   // En móvil el botón flotante tapaba el botón de WhatsApp del hero: aparece recién al bajar.
   const [pastHero, setPastHero] = useState(false);
@@ -18,7 +34,7 @@ export default function WhatsAppFloatButton() {
 
   return (
     <a
-      href={getWhatsAppUrl(language)}
+      href={urlWhatsApp(pathname, getWhatsAppUrl(language))}
       target="_blank"
       rel="noopener noreferrer"
       aria-label={t.whatsapp.ariaLabel}

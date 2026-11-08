@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { ArrowUpRight, BookOpen, CalendarDays, Gift, GraduationCap, Instagram, Linkedin, PlayCircle, Table2 } from 'lucide-react';
+import { ArrowUpRight, BookOpen, CalendarDays, Gift, Instagram, Linkedin, Table2 } from 'lucide-react';
 import { LINKS } from '@/lib/productos/links';
 import { fraunces } from '@/lib/productos/fuente';
 
@@ -9,7 +9,7 @@ import { fraunces } from '@/lib/productos/fuente';
 
 export const metadata: Metadata = {
   title: { absolute: 'Álvaro Villena · Links' },
-  description: 'El esqueleto gratis de tu asistente, la guía para conseguir clientes y el curso para armar tu primer CRM y ERP.',
+  description: 'El esqueleto gratis de tu asistente de WhatsApp, la guía para conseguir clientes y el curso para ordenar clientes, pedidos y cobranza.',
   robots: { index: false, follow: true },
 };
 
@@ -22,6 +22,8 @@ const PRINCIPAL: Enlace = {
   Icono: Gift,
 };
 
+// 4 opciones (análisis UX «Rodrigo», 8-nov-2026): con 6, el dueño sin tiempo duda. La grabación del workshop y la
+// Academia Ewaffle (otra marca) quedan como links de texto chicos al final.
 const PRODUCTOS: Enlace[] = [
   {
     href: LINKS.guiaVenta,
@@ -31,15 +33,9 @@ const PRODUCTOS: Enlace[] = [
   },
   {
     href: LINKS.curso,
-    titulo: 'Curso: tu primer CRM y ERP',
-    bajada: 'Clientes, pedidos, cobranza y caja en una planilla que ya sabes usar',
+    titulo: 'Curso: ordena clientes, pedidos y cobranza en una planilla',
+    bajada: 'En preventa · una planilla que ya sabes usar, sin software nuevo',
     Icono: Table2,
-  },
-  {
-    href: LINKS.workshopGrabacion,
-    titulo: 'Workshop grabado, gratis',
-    bajada: 'Te muestro en vivo cómo tu WhatsApp responde con tus reglas',
-    Icono: PlayCircle,
   },
   {
     href: LINKS.agendar,
@@ -48,11 +44,13 @@ const PRODUCTOS: Enlace[] = [
     Icono: CalendarDays,
     externo: true,
   },
+];
+
+const SECUNDARIOS = [
+  { href: LINKS.workshopGrabacion, texto: 'Workshop grabado, gratis', externo: false },
   {
     href: 'https://academia.e-waffle.com/?utm_source=villelab.com&utm_medium=linkinbio&utm_campaign=links',
-    titulo: 'Cursos de agentes (Academia Ewaffle)',
-    bajada: 'Aprende a delegar tareas a agentes y coordinarlos',
-    Icono: GraduationCap,
+    texto: 'Academia Ewaffle',
     externo: true,
   },
 ];
@@ -126,7 +124,19 @@ export default function LinksPage() {
             <Linkedin className="h-5 w-5" aria-hidden />
           </a>
         </div>
-        <p className="mt-6 text-xs text-slate-500">villelab.com</p>
+        <p className="mt-6 flex flex-wrap justify-center gap-x-4 gap-y-1 text-sm text-slate-400">
+          {SECUNDARIOS.map((l) => (
+            <a
+              key={l.href}
+              href={l.href}
+              {...(l.externo ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+              className="underline decoration-slate-600 underline-offset-4 hover:text-[#5fb2dd]"
+            >
+              {l.texto}
+            </a>
+          ))}
+        </p>
+        <p className="mt-4 text-xs text-slate-500">villelab.com</p>
       </div>
     </main>
   );
