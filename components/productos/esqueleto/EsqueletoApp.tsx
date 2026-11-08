@@ -305,18 +305,9 @@ export default function EsqueletoApp() {
             <p className="inline-flex items-center gap-2 rounded-full border border-[#5fb2dd]/40 bg-[#5fb2dd]/10 px-3 py-1 text-xs font-medium uppercase tracking-[0.18em] text-[#5fb2dd]">
               <Gift className="h-3.5 w-3.5" /> {TEXTOS.kicker}
             </p>
-            <div className="md:grid md:grid-cols-[1fr_250px] md:items-center md:gap-8">
-              <div>
-                <h1 className="mt-5 font-serif text-[2.1rem] leading-[1.1] text-white sm:text-5xl lg:text-[3.1rem]">{TEXTOS.titular}</h1>
-                <p className="mt-6 max-w-2xl text-lg text-slate-200 sm:text-xl">{TEXTOS.bajada}</p>
-              </div>
-              <figure className="relative mt-6 md:mt-5">
-                <FotoApoyo foto="cafe" alto="h-60 sm:h-72 md:h-[360px]" prioridad />
-                <figcaption className="absolute inset-x-3 bottom-3 rounded-2xl bg-[#0f172a]/80 px-3 py-2 text-xs text-slate-200 backdrop-blur">
-                  <span className="font-medium text-white">Álvaro Villena</span> · te acompaño paso a paso
-                </figcaption>
-              </figure>
-            </div>
+            {/* Hero sin foto, solo el video (pedido de Álvaro, 8-nov-2026). */}
+            <h1 className="mt-5 font-serif text-[2.1rem] leading-[1.1] text-white sm:text-5xl lg:text-[3.1rem]">{TEXTOS.titular}</h1>
+            <p className="mt-6 max-w-2xl text-lg text-slate-200 sm:text-xl">{TEXTOS.bajada}</p>
 
             {/* Video 2 · bienvenida (8-nov-2026) */}
             <VideoMarco id="v02-esqueleto-bienvenida" titulo="Lo que vas a armar en los próximos 15 minutos" duracion="40 s" className="mt-8" />
