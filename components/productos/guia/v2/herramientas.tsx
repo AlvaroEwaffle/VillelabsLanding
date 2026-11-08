@@ -76,7 +76,7 @@ export function Diagnostico({
         {!ruta.esqueleto && (
           <Tarjeta className="mt-2 border-[#5fb2dd]/40">
             <p className="text-sm text-slate-200">
-              Te recomendamos armar <strong className="text-white">El esqueleto de tu agente de atención</strong> (gratis): tu agente va a conocer
+              Te recomendamos armar <strong className="text-white">El esqueleto de tu asistente de WhatsApp</strong> (gratis): tu asistente va a conocer
               tu negocio y los mensajes de esta guía te van a salir mejor.
             </p>
             <a href={LINKS.esqueleto} target="_blank" rel="noopener" className={`${btnSecundario} mt-3`}>
@@ -111,7 +111,7 @@ export function Diagnostico({
             </legend>
             {q.id === 'esqueleto' && (
               <p className="mb-2 text-sm text-slate-400">
-                Es el material gratis donde describes tu negocio para tu agente.{' '}
+                Es el material gratis donde describes tu negocio para tu asistente.{' '}
                 <a href={LINKS.esqueleto} target="_blank" rel="noopener" className="text-[#5fb2dd] underline underline-offset-2">
                   Míralo aquí
                 </a>

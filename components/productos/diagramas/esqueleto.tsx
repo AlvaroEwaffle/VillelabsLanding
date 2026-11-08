@@ -10,13 +10,13 @@ export function DiagramaRecorrido() {
   return (
     <Diagrama
       titulo="Lo que arma el esqueleto"
-      aria="Flujo: un cliente escribe, tu agente responde con lo que dice tu esqueleto, y lo que no sabe o no puede prometer te llega a ti."
+      aria="Flujo: un cliente escribe, tu asistente responde con lo que dice tu esqueleto, y lo que no sabe o no puede prometer te llega a ti."
       className="mt-8"
     >
       <Flujo
         pasos={[
           { titulo: 'Un cliente escribe', texto: '«¿Cuánto cuesta? ¿Despachan?»' },
-          { titulo: 'Tu agente lee tu esqueleto', texto: 'Lo que vendes, tus respuestas y tus reglas', tono: 'acento' },
+          { titulo: 'Tu asistente lee tu esqueleto', texto: 'Lo que vendes, tus respuestas y tus reglas', tono: 'acento' },
           { titulo: 'Responde lo de siempre', texto: 'Al tiro, con tu tono' },
           { titulo: 'Lo importante te llega a ti', texto: 'Descuentos, reclamos, lo que no sabe', tono: 'claro' },
         ]}
@@ -25,7 +25,7 @@ export function DiagramaRecorrido() {
   );
 }
 
-/** Paso 1: lo que sabe tu agente sale de cuatro bloques. */
+/** Paso 1: lo que sabe tu asistente sale de cuatro bloques. */
 export function DiagramaLoQueSabe() {
   const bloques = [
     { t: 'Quién eres', d: 'Negocio, zona, horario y canales' },
@@ -36,8 +36,8 @@ export function DiagramaLoQueSabe() {
   return (
     <Diagrama
       titulo="De dónde sale lo que responde"
-      aria="Cuatro bloques alimentan a tu agente: quién eres, qué vendes, para quién y cómo hablas. Si algo no está en el esqueleto, para tu agente no existe."
-      pie="Si no está en el esqueleto, para tu agente no existe. Por eso parte por tu negocio."
+      aria="Cuatro bloques alimentan a tu asistente: quién eres, qué vendes, para quién y cómo hablas. Si algo no está en el esqueleto, para tu asistente no existe."
+      pie="Si no está en el esqueleto, para tu asistente no existe. Por eso parte por tu negocio."
     >
       <div className="grid items-center gap-3 sm:grid-cols-[1fr_auto_200px]">
         <div className="grid grid-cols-2 gap-2">
@@ -54,7 +54,7 @@ export function DiagramaLoQueSabe() {
             <path d="M24 12V6" stroke="#5fb2dd" strokeWidth="3" strokeLinecap="round" />
             <circle cx="24" cy="5" r="3" fill="#5fb2dd" />
           </svg>
-          <p className="mt-2 font-serif text-lg text-white">Tu agente</p>
+          <p className="mt-2 font-serif text-lg text-white">Tu asistente</p>
           <p className="text-[13px] text-slate-300">Responde solo con esto</p>
         </motion.div>
       </div>
@@ -68,7 +68,7 @@ export function DiagramaPreguntasRepetidas() {
   return (
     <Diagrama
       titulo="6 de cada 10 mensajes son la misma pregunta"
-      aria="De cada 10 mensajes, 6 son la misma pregunta: precio, despacho u horario. Esas las responde el agente con tus respuestas de siempre; las otras 4 siguen pasando por ti."
+      aria="De cada 10 mensajes, 6 son la misma pregunta: precio, despacho u horario. Esas las responde el asistente con tus respuestas de siempre; las otras 4 siguen pasando por ti."
       pie="En Grano Norte, esas 6 preguntas se llevaban 48 minutos al día. Escribirlas una vez las saca de tu celular."
     >
       <div className="grid gap-4 sm:grid-cols-[1fr_auto_1fr] sm:items-center">
@@ -93,8 +93,8 @@ export function DiagramaPreguntasRepetidas() {
         </div>
         <Flecha />
         <div className="grid gap-2">
-          <Nodo tono="acento" titulo="6 repetidas → las responde tu agente" texto="Con la respuesta corta que escribes en este paso" />
-          <Nodo titulo="4 distintas → siguen pasando por ti" texto="O el agente te las deriva (paso 4)" />
+          <Nodo tono="acento" titulo="6 repetidas → las responde tu asistente" texto="Con la respuesta corta que escribes en este paso" />
+          <Nodo titulo="4 distintas → siguen pasando por ti" texto="O el asistente te las deriva (paso 4)" />
         </div>
       </div>
     </Diagrama>
@@ -107,7 +107,7 @@ export function DiagramaSinConReglas() {
   return (
     <Diagrama
       titulo="La misma pregunta, sin reglas y con reglas"
-      aria="Comparación. Sin reglas de freno, el agente regala un 20 % y promete despacho para mañana. Con reglas de freno, dice que los descuentos los ve Camila, le pasa el mensaje y sigue la conversación."
+      aria="Comparación. Sin reglas de freno, el asistente regala un 20 % y promete despacho para mañana. Con reglas de freno, dice que los descuentos los ve Camila, le pasa el mensaje y sigue la conversación."
     >
       <Comparacion
         izq={{
@@ -146,8 +146,8 @@ export function DiagramaSinConReglas() {
 export function DiagramaDerivacion() {
   return (
     <Diagrama
-      titulo="Cuándo responde el agente y cuándo pasa a una persona"
-      aria={`Flujo de decisión: llega un mensaje; si está en el esqueleto y no rompe una regla, responde el agente. Si es ${CASOS_DERIVACION.map((c) => c.etiqueta.toLowerCase()).join(', ')}, el agente avisa con tu frase de derivación y le pasa la conversación a una persona.`}
+      titulo="Cuándo responde el asistente y cuándo pasa a una persona"
+      aria={`Flujo de decisión: llega un mensaje; si está en el esqueleto y no rompe una regla, responde el asistente. Si es ${CASOS_DERIVACION.map((c) => c.etiqueta.toLowerCase()).join(', ')}, el asistente avisa con tu frase de derivación y le pasa la conversación a una persona.`}
     >
       <div className="flex flex-col items-center">
         <Nodo titulo="Llega un mensaje" className="w-full max-w-xs text-center" />
@@ -156,7 +156,7 @@ export function DiagramaDerivacion() {
         <div className="mt-2 grid w-full gap-3 sm:grid-cols-2">
           <div className="flex flex-col items-center">
             <Flecha vertical etiqueta="sí" />
-            <Nodo titulo="Responde el agente" texto="Precio de la lista, horario, cómo comprar" className="w-full" />
+            <Nodo titulo="Responde el asistente" texto="Precio de la lista, horario, cómo comprar" className="w-full" />
           </div>
           <div className="flex flex-col items-center">
             <Flecha vertical etiqueta="no" />
@@ -180,7 +180,7 @@ export function DiagramaDerivacion() {
 export function DiagramaProbarAjustar() {
   return (
     <Diagrama
-      titulo="Del esqueleto a tu agente funcionando"
+      titulo="Del esqueleto a tu asistente funcionando"
       aria="Ciclo de cuatro pasos alrededor de tu esqueleto: copiarlo, pegarlo en Claude o ChatGPT, probarlo con las 5 preguntas trampa y ajustar el paso que falló. Se repite hasta que responde bien."
       pie="Cada pregunta trampa que falla te dice qué paso reforzar. Dos o tres vueltas y queda listo para tus clientes."
     >

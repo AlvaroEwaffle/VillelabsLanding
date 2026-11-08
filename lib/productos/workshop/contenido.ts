@@ -5,7 +5,7 @@ import { CURSO, MODULOS } from '@/lib/productos/curso/curso';
 // VPM/Villelabs/productos-digitales/contenido-primeros-productos.html (Producto 2 y Entrada B).
 
 export const PROMESA =
-  'En 45 minutos te muestro cómo el esqueleto de tu agente de atención se convierte en un asistente que responde por WhatsApp las preguntas de siempre, sin inventar nada y pasándote lo importante.';
+  'En 45 minutos te muestro cómo el esqueleto de tu asistente se convierte en uno que responde por WhatsApp las preguntas de siempre, sin inventar nada y pasándote lo importante.';
 
 export const LO_QUE_TE_LLEVAS = [
   'Saber qué mensajes puede responder un asistente y cuáles siempre van a una persona.',
@@ -131,7 +131,7 @@ export const NOTAS: Nota[] = [
     guion: [],
     indicaciones: [
       'Paso 1 (3 min): el esqueleto de Grano Norte en pantalla, paso por paso, mostrando qué hace cada parte.',
-      'Paso 2 (3 min): pega la configuración del agente en Claude y haz 3 preguntas normales. Responde bien.',
+      'Paso 2 (3 min): pega la configuración del asistente en Claude y haz 3 preguntas normales. Responde bien.',
     ],
   },
   {
@@ -193,7 +193,7 @@ export const PASO_CURSO = {
 };
 
 export const GRATIS_ESQUELETO = {
-  titulo: 'Arma el esqueleto de tu agente',
+  titulo: 'Arma el esqueleto de tu asistente',
   descripcion: '4 pasos, 15 minutos. Llévalo listo y lo trabajamos en vivo con el tuyo.',
   href: LINKS.esqueleto,
   cta: 'Armar mi esqueleto',

@@ -17,18 +17,13 @@ function porConteo(hechos: number, total: number): Semaforo {
 
 /** Semáforo de completitud por paso (1 a 4). */
 export function completitud(e: Esqueleto): Record<number, Semaforo> {
-  const p1 =
-    [e.negocio, e.rubro, e.zona, e.horario, e.queHaces, e.comoSeCompra, e.noVendes, e.tiposCliente, e.palabras].filter((x) => limpio(x))
-      .length +
-    (e.canales.length ? 1 : 0) +
-    (productosValidos(e).length ? 1 : 0) +
-    (e.trato ? 1 : 0) +
-    (e.emojis ? 1 : 0);
+  // Paso 1: verde con los 5 campos esenciales; el resto es «más detalle (opcional)».
+  const p1 = [e.negocio, e.horario, e.queHaces].filter((x) => limpio(x)).length + (productosValidos(e).length ? 1 : 0) + (e.trato ? 1 : 0);
   const faqs = faqsCompletas(e).length;
   const p4 =
     [e.derivaNombre, e.derivaCanal, e.fraseDerivacion].filter((x) => limpio(x)).length + (e.derivaCasos.length ? 1 : 0);
   return {
-    1: porConteo(p1, 13),
+    1: porConteo(p1, 5),
     2: faqs >= MIN_FAQS ? 'verde' : faqs > 0 ? 'amarillo' : 'rojo',
     3: e.reglas.length ? 'verde' : limpio(e.otraRegla) ? 'amarillo' : 'rojo',
     4: porConteo(p4, 4),
@@ -52,7 +47,7 @@ function listar(xs: string[]) {
   return `${xs.slice(0, -1).join(', ')} y ${xs[xs.length - 1]}`;
 }
 
-/** Arma el esqueleto del agente con la estructura del documento, con lo que escribió la persona. */
+/** Arma el esqueleto del asistente con la estructura del documento, con lo que escribió la persona. */
 export function generarEsqueleto(e: Esqueleto): string {
   const negocio = limpio(e.negocio) || 'mi negocio';
   const quien = quienConfirma(e);
@@ -121,11 +116,11 @@ export function textoDescarga(e: Esqueleto): string {
   const nombre = { verde: 'completo', amarillo: 'a medias', rojo: 'falta' } as const;
   const raya = '==============================';
   return [
-    `EL ESQUELETO DEL AGENTE DE ATENCIÓN DE ${(limpio(e.negocio) || 'TU NEGOCIO').toUpperCase()}`,
+    `EL ESQUELETO DEL ASISTENTE DE WHATSAPP DE ${(limpio(e.negocio) || 'TU NEGOCIO').toUpperCase()}`,
     'Hecho en villelab.com/esqueleto',
     '',
     raya,
-    'LA CONFIGURACIÓN DE TU AGENTE',
+    'LA CONFIGURACIÓN DE TU ASISTENTE',
     'Cópiala y pégala como primer mensaje en Claude, ChatGPT o tu chatbot de WhatsApp.',
     raya,
     '',

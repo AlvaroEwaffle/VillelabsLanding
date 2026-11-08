@@ -1,4 +1,4 @@
-// «El esqueleto de tu agente de atención» (imán gratis, Entrada A). Ex «La ficha de tu negocio».
+// «El esqueleto de tu asistente de WhatsApp» (imán gratis, Entrada A). Ex «La ficha de tu negocio».
 // Base del contenido: VPM/Villelabs/productos-digitales/contenido-primeros-productos.html (PRODUCTO 1),
 // rehecho el 7-nov-2026 con el feedback de Álvaro: 4 pasos, pantallas «¿Te pasa esto?» entre pasos,
 // y en la interfaz nunca «ficha», «formulario» ni «prompt» (se dice esqueleto, estructura o configuración).
@@ -56,7 +56,7 @@ export const esqueletoVacio = (): Esqueleto => ({
   horario: '',
   canales: [],
   queHaces: '',
-  productos: [productoVacio()],
+  productos: [productoVacio(), productoVacio(), productoVacio()],
   comoSeCompra: '',
   noVendes: '',
   tiposCliente: '',
@@ -86,7 +86,7 @@ export const PASOS: PasoInfo[] = [
   {
     n: 1,
     etiqueta: 'Tu negocio',
-    titulo: 'Lo que tu agente tiene que saber de tu negocio',
+    titulo: 'Lo que tu asistente tiene que saber de tu negocio',
     bajada: 'Qué vendes, a quién y cómo hablas. Con esto responde como lo harías tú.',
     minutos: 5,
   },
@@ -129,9 +129,9 @@ export const IDENTIFICACIONES: Identificacion[] = [
     antesDePaso: 1,
     pregunta: '¿Contestas las mismas preguntas una y otra vez por WhatsApp o Instagram?',
     respuestas: {
-      si: 'Entonces tu agente tiene que partir sabiendo lo mismo que tú: qué vendes, a quién y cómo hablas. Eso armamos primero.',
-      aveces: 'Aunque sea a ratos, ese tiempo se va sumando. Partamos por lo que tu agente necesita saber de tu negocio.',
-      no: 'Bien. Igual tu agente necesita conocer tu negocio para responder como tú. Partamos por ahí.',
+      si: 'Entonces tu asistente tiene que partir sabiendo lo mismo que tú: qué vendes, a quién y cómo hablas. Eso armamos primero.',
+      aveces: 'Aunque sea a ratos, ese tiempo se va sumando. Partamos por lo que tu asistente necesita saber de tu negocio.',
+      no: 'Bien. Igual tu asistente necesita conocer tu negocio para responder como tú. Partamos por ahí.',
     },
   },
   {
@@ -139,7 +139,7 @@ export const IDENTIFICACIONES: Identificacion[] = [
     antesDePaso: 2,
     pregunta: '¿Te escriben a las 11 de la noche preguntando el precio y cuando respondes ya compraron en otro lado?',
     respuestas: {
-      si: 'Esa venta no se perdió por precio, se perdió por tiempo. Ahora dejas escritas las respuestas de siempre para que tu agente conteste al tiro, a cualquier hora.',
+      si: 'Esa venta no se perdió por precio, se perdió por tiempo. Ahora dejas escritas las respuestas de siempre para que tu asistente conteste al tiro, a cualquier hora.',
       aveces: 'Basta con que pase de vez en cuando para que duela. Ahora dejas escritas las respuestas de siempre para que nadie se quede esperando.',
       no: 'Buenísimo. Igual, tener las respuestas de siempre por escrito te ahorra tiempo todos los días. Vamos con eso.',
     },
@@ -149,9 +149,9 @@ export const IDENTIFICACIONES: Identificacion[] = [
     antesDePaso: 3,
     pregunta: '¿Alguna vez prometiste un plazo para no perder la venta y después no llegaste?',
     respuestas: {
-      si: 'Pasa cuando uno quiere cerrar rápido. Tu agente no puede caer en eso: ahora marcas lo que nunca debe prometer.',
-      aveces: 'Con una vez basta para perder a un buen cliente. Ahora marcas los frenos para que tu agente no prometa lo que no puedes cumplir.',
-      no: 'Bien ahí. Ahora le traspasas ese criterio a tu agente: marcas lo que nunca debe prometer.',
+      si: 'Pasa cuando uno quiere cerrar rápido. Tu asistente no puede caer en eso: ahora marcas lo que nunca debe prometer.',
+      aveces: 'Con una vez basta para perder a un buen cliente. Ahora marcas los frenos para que tu asistente no prometa lo que no puedes cumplir.',
+      no: 'Bien ahí. Ahora le traspasas ese criterio a tu asistente: marcas lo que nunca debe prometer.',
     },
   },
   {
@@ -159,9 +159,9 @@ export const IDENTIFICACIONES: Identificacion[] = [
     antesDePaso: 4,
     pregunta: '¿Tu equipo te pregunta todo porque solo tú sabes la respuesta?',
     respuestas: {
-      si: 'Entonces tu agente tiene que saber cuándo parar y a quién pasarle la conversación. Ese es el último paso.',
-      aveces: 'Ese ida y vuelta te quita más tiempo del que parece. Último paso: a quién le pasa la conversación tu agente y cuándo.',
-      no: 'Bien, ya tienes eso resuelto. Último paso: dejar escrito cuándo tu agente le pasa la conversación a una persona.',
+      si: 'Entonces tu asistente tiene que saber cuándo parar y a quién pasarle la conversación. Ese es el último paso.',
+      aveces: 'Ese ida y vuelta te quita más tiempo del que parece. Último paso: a quién le pasa la conversación tu asistente y cuándo.',
+      no: 'Bien, ya tienes eso resuelto. Último paso: dejar escrito cuándo tu asistente le pasa la conversación a una persona.',
     },
   },
 ];
@@ -208,6 +208,108 @@ export const FAQS_EJEMPLO: Faq[] = [
   { pregunta: '¿Cuánto demora?', respuesta: 'Pedidos antes de las 12:00 salen al día siguiente hábil.' },
   { pregunta: '¿Dan factura?', respuesta: 'Sí, factura o boleta electrónica.' },
 ];
+
+// Chips de rubro del paso 1 (análisis UX «Rodrigo», 8-nov-2026): precargan un ejemplo editable para no partir de cero
+// en el celular. Solo llenan los campos vacíos; nunca pisan lo que la persona ya escribió. Los precios son de ejemplo.
+export type EjemploRubro = Pick<
+  Esqueleto,
+  'rubro' | 'queHaces' | 'productos' | 'horario' | 'trato' | 'canales' | 'comoSeCompra' | 'noVendes' | 'tiposCliente' | 'emojis' | 'palabras'
+>;
+
+export const EJEMPLOS_RUBRO: { id: string; etiqueta: string; datos: EjemploRubro }[] = [
+  {
+    id: 'mantencion',
+    etiqueta: 'Mantención',
+    datos: {
+      rubro: 'Mantención para oficinas',
+      queHaces: 'Hacemos mantención de climatización, electricidad y gasfitería para oficinas y locales comerciales.',
+      productos: [
+        { nombre: 'Visita técnica de diagnóstico', precio: '$35.000', cotizar: false, paraQuien: 'Oficinas y locales' },
+        { nombre: 'Plan de mantención mensual', precio: 'desde $120.000/mes', cotizar: false, paraQuien: 'Oficinas' },
+        { nombre: 'Reparación urgente', precio: '', cotizar: true, paraQuien: 'Clientes con plan' },
+      ],
+      horario: 'Lunes a viernes, de 8:30 a 18:00',
+      trato: 'usted',
+      canales: ['WhatsApp', 'Correo'],
+      comoSeCompra: 'La visita se agenda por WhatsApp. Pago por transferencia; a empresas les emitimos factura.',
+      noVendes: 'No vendemos equipos sueltos. No atendemos casas particulares.',
+      tiposCliente:
+        'Administradores de oficina que necesitan que todo funcione sin estar encima. Locales que no pueden cerrar por una falla.',
+      emojis: 'no',
+      palabras: 'formal, claro, resolutivo',
+    },
+  },
+  {
+    id: 'distribuidora',
+    etiqueta: 'Distribuidora',
+    datos: {
+      rubro: 'Distribuidora de insumos de aseo',
+      queHaces: 'Distribuimos insumos de aseo y papelería a empresas, colegios y restaurantes.',
+      productos: [
+        { nombre: 'Papel higiénico jumbo, caja de 4 rollos', precio: '$14.990', cotizar: false, paraQuien: 'Empresas' },
+        { nombre: 'Detergente industrial 5 L', precio: '$9.990', cotizar: false, paraQuien: 'Restaurantes' },
+        { nombre: 'Pedido mensual programado', precio: '', cotizar: true, paraQuien: 'Colegios y empresas' },
+      ],
+      horario: 'Lunes a viernes, de 9:00 a 18:00',
+      trato: 'tuteo',
+      canales: ['WhatsApp', 'Correo'],
+      comoSeCompra: 'Pedido mínimo $50.000. Despacho en 48 horas hábiles. Pago por transferencia o con factura.',
+      noVendes: 'No vendemos al detalle a personas.',
+      tiposCliente:
+        'Encargados de compras que quieren precio estable y despacho puntual. Restaurantes que no pueden quedarse sin stock.',
+      emojis: 'no',
+      palabras: 'cercano, rápido, ordenado',
+    },
+  },
+  {
+    id: 'agencia',
+    etiqueta: 'Agencia',
+    datos: {
+      rubro: 'Agencia de marketing',
+      queHaces: 'Manejamos redes sociales y anuncios para pymes que quieren más consultas sin contratar a alguien interno.',
+      productos: [
+        { nombre: 'Plan redes (12 publicaciones al mes)', precio: '$290.000/mes', cotizar: false, paraQuien: 'Pymes' },
+        { nombre: 'Campaña de anuncios', precio: 'desde $180.000/mes + inversión', cotizar: false, paraQuien: 'Pymes con un producto claro' },
+        { nombre: 'Sesión de fotos de producto', precio: '', cotizar: true, paraQuien: 'Tiendas' },
+      ],
+      horario: 'Lunes a viernes, de 9:30 a 18:30',
+      trato: 'tuteo',
+      canales: ['WhatsApp', 'Instagram', 'Correo'],
+      comoSeCompra: 'Partimos con una reunión de 30 minutos. Plan mensual, pagas por transferencia a inicio de mes.',
+      noVendes: 'No hacemos páginas web desde cero. No compramos seguidores.',
+      tiposCliente: 'Dueños de pyme sin tiempo para las redes. Tiendas que quieren vender más por Instagram.',
+      emojis: 'si',
+      palabras: 'cercano, directo, creativo',
+    },
+  },
+  {
+    id: 'servicios',
+    etiqueta: 'Servicios profesionales',
+    datos: {
+      rubro: 'Estudio contable',
+      queHaces: 'Llevamos la contabilidad, los impuestos y las remuneraciones de pymes y profesionales independientes.',
+      productos: [
+        { nombre: 'Contabilidad mensual pyme', precio: 'desde $90.000/mes', cotizar: false, paraQuien: 'Pymes' },
+        { nombre: 'Declaración de renta', precio: '$45.000', cotizar: false, paraQuien: 'Independientes' },
+        { nombre: 'Remuneraciones', precio: '', cotizar: true, paraQuien: 'Empresas con equipo' },
+      ],
+      horario: 'Lunes a viernes, de 9:00 a 18:00',
+      trato: 'usted',
+      canales: ['WhatsApp', 'Correo'],
+      comoSeCompra: 'Primera reunión para revisar su caso. Plan mensual, pago por transferencia los primeros 5 días del mes.',
+      noVendes: 'No llevamos juicios tributarios. No hacemos auditorías.',
+      tiposCliente: 'Dueños de pyme que quieren olvidarse de los impuestos. Independientes que no saben qué boletas emitir.',
+      emojis: 'no',
+      palabras: 'formal, claro, confiable',
+    },
+  },
+];
+
+/** Campos del paso 1 que van plegados en «Agregar más detalle (opcional)». */
+export const tieneDetalleOpcional = (e: Esqueleto) =>
+  Boolean(
+    e.rubro.trim() || e.zona.trim() || e.canales.length || e.comoSeCompra.trim() || e.noVendes.trim() || e.tiposCliente.trim() || e.emojis || e.palabras.trim(),
+  );
 
 // Sugerencias de preguntas frecuentes por rubro: se agregan con un clic.
 export const SUGERENCIAS_FAQ: { rubro: string; preguntas: string[] }[] = [
@@ -303,12 +405,12 @@ export const PREGUNTAS_TRAMPA: { pregunta: string; esperado: string; paso: numbe
 
 export const TEXTOS = {
   kicker: 'Gratis · menos de 15 minutos',
-  titular: 'Te regalo el esqueleto de tu primer agente de atención al cliente.',
+  titular: 'Te regalo el esqueleto de tu asistente de WhatsApp: qué responde, qué nunca promete y cuándo te avisa.',
   bajada:
-    'Completa 4 pasos en 15 minutos y llévate gratis la base de tu agente: qué sabe, qué nunca promete y cuándo te avisa.',
+    '4 pasos desde el celular, unos 15 minutos. Al final copias tu asistente listo, con tus precios, tus respuestas de siempre y tus frenos.',
   boton: 'Armar mi esqueleto',
   guardar: 'Puedes guardar y seguir después.',
-  cierreTitulo: 'Tu negocio ya responde bien. Ahora falta que te escriban más clientes.',
+  cierreTitulo: 'Ya respondes bien. ¿Quieres que te escriban más clientes?',
   cierreGuia:
-    'La Guía 1 te deja en una tarde tu lista de posibles clientes, el primer mensaje y una rutina de 20 minutos al día para que nadie se te enfríe.',
+    'La Guía 1 · Tus próximos 20 clientes te deja en una tarde tu lista de posibles clientes, el primer mensaje y una rutina de 20 minutos al día para que nadie se te enfríe.',
 } as const;

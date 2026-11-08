@@ -6,7 +6,7 @@ import Diapositivas from '@/components/productos/workshop/Diapositivas';
 // Uso interno (se proyectan en el workshop): no se indexa, con canonical y descripción propios.
 export const metadata: Metadata = {
   title: 'Diapositivas · Workshop 1',
-  description: 'Diapositivas del workshop «Que ningún cliente se te quede sin respuesta»: cómo el esqueleto de tu agente de atención responde por WhatsApp las preguntas de siempre.',
+  description: 'Diapositivas del workshop «Que ningún cliente se te quede sin respuesta»: cómo el esqueleto de tu asistente responde por WhatsApp las preguntas de siempre.',
   robots: { index: false, follow: false },
   alternates: { canonical: `${SITE_URL}/workshop/diapositivas` },
   openGraph: {

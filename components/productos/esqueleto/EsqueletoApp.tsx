@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { ArrowLeft, ArrowRight, Check, Clock, Gift, RotateCcw, Save } from 'lucide-react';
 import {
   IDENTIFICACIONES,
+  MIN_FAQS,
   OPCIONES_RESPUESTA,
   PASOS,
   TEXTOS,
@@ -23,6 +24,7 @@ import {
   type Avance,
   type Lead,
 } from '@/lib/productos/esqueleto/estado';
+import { faqsCompletas } from '@/lib/productos/esqueleto/estructura';
 import { getLenis } from '@/lib/lenis';
 import { PASOS_UI } from './Bloques';
 import Resultado from './Resultado';
@@ -173,7 +175,7 @@ function DatosContacto({ onListo, onVolver }: { onListo: (l: Lead) => void; onVo
       <FotoApoyo foto="cafeCerca" alto="h-40 sm:h-56" />
       <div>
         <Kicker>Tu esqueleto está listo</Kicker>
-        <h1 className="mt-3 font-serif text-3xl leading-tight text-white sm:text-4xl">¿A quién le mando el esqueleto de tu agente?</h1>
+        <h1 className="mt-3 font-serif text-3xl leading-tight text-white sm:text-4xl">¿A quién le mando el esqueleto de tu asistente?</h1>
         <p className="mt-3 text-slate-300">Lo ves aquí mismo apenas sigas, listo para copiar o descargar.</p>
       </div>
       <div>
@@ -204,7 +206,7 @@ function DatosContacto({ onListo, onVolver }: { onListo: (l: Lead) => void; onVo
           <ArrowLeft className="h-4 w-4" /> Volver
         </button>
         <button type="submit" disabled={enviando} className={botonPrimario}>
-          Ver el esqueleto de mi agente <ArrowRight className="h-4 w-4" />
+          Ver el esqueleto de mi asistente <ArrowRight className="h-4 w-4" />
         </button>
       </div>
       <p className="text-xs text-slate-500">Usamos tu correo para mandarte contenido útil para tu negocio. Te puedes dar de baja cuando quieras.</p>
@@ -217,6 +219,8 @@ export default function EsqueletoApp() {
   const [lead, setLead] = useState<Lead | null>(null);
   const [cargado, setCargado] = useState(false);
   const [pidiendoDatos, setPidiendoDatos] = useState(false);
+  // Aviso del mínimo de preguntas frecuentes (paso 2): antes dejaba seguir con 1 de 5 y recién avisaba en el resultado.
+  const [avisoFaqs, setAvisoFaqs] = useState(false);
   // Pantalla donde quedó la persona al volver (se muestra la entrada con «Seguir donde quedé»).
   const [pantallaGuardada, setPantallaGuardada] = useState(0);
   const arriba = useRef<HTMLDivElement>(null);
@@ -250,6 +254,7 @@ export default function EsqueletoApp() {
   const irA = useCallback(
     (n: number) => {
       setPidiendoDatos(false);
+      setAvisoFaqs(false);
       if (n > 0) setPantallaGuardada(0);
       setAvance((a) => ({ ...a, pantalla: n }));
       requestAnimationFrame(subir);
@@ -273,7 +278,13 @@ export default function EsqueletoApp() {
 
   const actual = pantalla >= 1 && pantalla <= SECUENCIA.length ? SECUENCIA[pantalla - 1] : null;
 
+  const faltanFaqs = Math.max(0, MIN_FAQS - faqsCompletas(esqueleto).length);
+
   const siguiente = () => {
+    if (actual?.tipo === 'paso' && actual.paso === 2 && faltanFaqs > 0) {
+      setAvisoFaqs(true);
+      return;
+    }
     if (actual?.tipo === 'paso') eventos.paso(actual.paso);
     if (pantalla < SECUENCIA.length) return irA(pantalla + 1);
     if (lead) return mostrarResultado();
@@ -297,7 +308,7 @@ export default function EsqueletoApp() {
   const esUltimoPaso = pantalla === SECUENCIA.length;
 
   return (
-    <main className="relative w-full overflow-x-hidden bg-[#0f172a] text-slate-200" aria-label="El esqueleto de tu agente de atención">
+    <main className="relative w-full overflow-x-hidden bg-[#0f172a] text-slate-200" aria-label="El esqueleto de tu asistente de WhatsApp">
       <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-[480px] bg-[radial-gradient(ellipse_at_top,rgba(33,117,161,0.28),transparent_65%)]" />
       <div ref={arriba} className="relative mx-auto max-w-3xl scroll-mt-24 px-4 pb-24 pt-28 sm:px-6 md:pt-36">
         {pantalla === 0 ? (
@@ -345,7 +356,7 @@ export default function EsqueletoApp() {
             </p>
             <ul className="mt-10 space-y-2 border-t border-white/10 pt-6 text-sm text-slate-300">
               {[
-                'Te vas con la configuración de tu agente: lista para pegar en Claude, ChatGPT o un chatbot de WhatsApp.',
+                'Te vas con tu asistente escrito: lo pruebas gratis en Claude o ChatGPT y después lo conectas a tu WhatsApp (te muestro cómo).',
                 '5 preguntas trampa para probarlo antes de usarlo con clientes.',
                 'En cada campo, un ejemplo real armado: Grano Norte, una tostaduría de café de Valparaíso.',
               ].map((x) => (
@@ -376,9 +387,9 @@ export default function EsqueletoApp() {
                 <FotoApoyo foto="escritorioClaro" alto="h-44 sm:h-60" />
                 <header>
                   <Kicker>Tu resultado</Kicker>
-                  <h1 className="mt-3 font-serif text-3xl leading-tight text-white sm:text-4xl">El esqueleto de tu agente</h1>
+                  <h1 className="mt-3 font-serif text-3xl leading-tight text-white sm:text-4xl">El esqueleto de tu asistente</h1>
                   <p className="mt-3 text-slate-300">
-                    {lead ? `Listo, ${lead.nombre}. ` : ''}Esta es la estructura de tu agente de atención, armada con lo que sabes de tu negocio.
+                    {lead ? `Listo, ${lead.nombre}. ` : ''}Esta es la estructura de tu asistente de WhatsApp, armada con lo que sabes de tu negocio.
                   </p>
                 </header>
                 <DiagramaProbarAjustar />
@@ -422,8 +433,14 @@ export default function EsqueletoApp() {
                     <ArrowLeft className="h-4 w-4" /> Atrás
                   </button>
                   <div className="flex flex-col gap-2 sm:items-end">
+                    {avisoFaqs && infoPaso.n === 2 && faltanFaqs > 0 ? (
+                      <p role="alert" className="rounded-xl border border-orange-300/40 bg-orange-300/10 px-4 py-3 text-sm text-orange-100 sm:max-w-sm">
+                        Te {faltanFaqs === 1 ? 'falta 1 pregunta' : `faltan ${faltanFaqs} preguntas`} con su respuesta para llegar a {MIN_FAQS}. Con menos, tu
+                        asistente te va a pasar casi todo a ti. Toca las sugerencias de arriba: se agregan con un clic y solo escribes la respuesta.
+                      </p>
+                    ) : null}
                     <button type="button" onClick={siguiente} className={botonPrimario}>
-                      {esUltimoPaso ? 'Ver el esqueleto de mi agente' : 'Siguiente'} <ArrowRight className="h-4 w-4" />
+                      {esUltimoPaso ? 'Ver el esqueleto de mi asistente' : 'Siguiente'} <ArrowRight className="h-4 w-4" />
                     </button>
                     <span className="inline-flex items-center justify-center gap-1.5 text-xs text-slate-500">
                       <Save className="h-3.5 w-3.5" /> Tu avance se guarda solo en este navegador

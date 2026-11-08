@@ -142,7 +142,7 @@ function ContenidoParte({ n, irA }: { n: number; irA: (v: Vista) => void }) {
               <div>
                 <p className="font-semibold text-white">Crea la carpeta «Mi sistema de ventas»</p>
                 <p className="mt-1 text-sm text-slate-300">
-                  En tu computador o en Google Drive. Ahí guardas todo lo que descargues: tu planilla en Excel, el esqueleto de tu agente, tus
+                  En tu computador o en Google Drive. Ahí guardas todo lo que descargues: tu planilla en Excel, el esqueleto de tu asistente, tus
                   mensajes y tu certificado.
                 </p>
               </div>

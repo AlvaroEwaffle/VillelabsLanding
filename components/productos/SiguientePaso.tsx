@@ -26,7 +26,7 @@ export default function SiguientePaso({
   pago,
   gratis,
 }: {
-  /** Lo que la persona acaba de lograr, en una frase («Ya armaste el esqueleto de tu agente»). */
+  /** Lo que la persona acaba de lograr, en una frase («Ya armaste el esqueleto de tu asistente»). */
   logro: string;
   pago: OpcionPaso;
   gratis: OpcionPaso[];

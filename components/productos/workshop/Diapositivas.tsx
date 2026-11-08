@@ -130,7 +130,7 @@ const DIAPOSITIVAS: { id: string; render: () => React.ReactNode }[] = [
             {WORKSHOP_TITULO}
           </motion.h1>
           <p className="mt-[1.2em] max-w-[34em] text-[1.05em] text-slate-300">
-            Cómo el esqueleto de tu agente de atención responde por WhatsApp las preguntas de siempre, sin inventar nada y pasándote lo
+            Cómo el esqueleto de tu asistente responde por WhatsApp las preguntas de siempre, sin inventar nada y pasándote lo
             importante.
           </p>
           <p className="mt-[2em] text-[0.9em] text-slate-400">Álvaro Villena · Villelab</p>

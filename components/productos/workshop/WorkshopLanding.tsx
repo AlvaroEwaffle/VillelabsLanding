@@ -168,7 +168,7 @@ export default function WorkshopLanding() {
             <Foto foto={APOYO.escribir} className="aspect-[16/10] w-full" pos="50% 50%" sizes="(min-width: 768px) 320px, 100vw" />
             <div>
               <Kicker>Antes del workshop · gratis · 15 min</Kicker>
-              <h2 className="mt-3 font-serif text-3xl text-white sm:text-4xl">El esqueleto de tu agente de atención</h2>
+              <h2 className="mt-3 font-serif text-3xl text-white sm:text-4xl">El esqueleto de tu asistente de WhatsApp</h2>
               <p className="mt-3 max-w-2xl text-slate-300">
                 Cuatro pasos cortos: tu negocio, las preguntas de siempre, lo que nunca debe prometer y cuándo pasa a una persona. Ármalo
                 antes y en el workshop lo trabajamos en vivo con el tuyo: lo ves respondiendo a tus clientes.
@@ -269,7 +269,7 @@ export default function WorkshopLanding() {
           <Aparece className="grid items-center gap-6 rounded-3xl border border-white/10 bg-gradient-to-br from-[#2175a1]/25 via-slate-900 to-[#0f172a] p-6 sm:grid-cols-[1fr_auto] sm:p-10">
             <div>
               <h2 className="max-w-2xl font-serif text-3xl text-white sm:text-4xl">45 minutos, gratis y en vivo por YouTube.</h2>
-              <p className="mt-3 text-slate-300">Fecha: {fecha}. Te llevas de regalo el esqueleto de tu agente de atención.</p>
+              <p className="mt-3 text-slate-300">Fecha: {fecha}. Te llevas de regalo el esqueleto de tu asistente de WhatsApp.</p>
               <a
                 href="#inscripcion"
                 className="mt-6 inline-flex min-h-[48px] w-full items-center justify-center rounded-full bg-[#FF3D8B] px-6 text-sm font-semibold text-white hover:bg-[#ff5c9f] sm:w-auto"

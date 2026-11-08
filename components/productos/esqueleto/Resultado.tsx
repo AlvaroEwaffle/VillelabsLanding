@@ -1,12 +1,22 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Check, Copy, Download, ExternalLink, Pencil } from 'lucide-react';
+import { CalendarDays, Check, Copy, Download, ExternalLink, Pencil, PlayCircle } from 'lucide-react';
 import { PASOS, PREGUNTAS_TRAMPA, TEXTOS, type Esqueleto } from '@/lib/productos/esqueleto/datos';
 import { completitud, generarEsqueleto, textoDescarga, type Semaforo } from '@/lib/productos/esqueleto/estructura';
 import { LINKS } from '@/lib/productos/links';
 import SiguientePaso from '../SiguientePaso';
 import { botonPrimario, botonSecundario } from './ui';
+
+function empujar(event: string) {
+  if (typeof window === 'undefined') return;
+  try {
+    window.dataLayer = window.dataLayer ?? [];
+    window.dataLayer.push({ event });
+  } catch {
+    /* sin analítica no se rompe nada */
+  }
+}
 
 const VENTANA_LANZAMIENTO_MS = 48 * 60 * 60 * 1000;
 
@@ -95,7 +105,7 @@ export default function Resultado({
       .replace(/[^a-z0-9]+/g, '-')
       .replace(/^-|-$/g, '');
     a.href = url;
-    a.download = `esqueleto-agente-${base || 'mi-negocio'}.txt`;
+    a.download = `esqueleto-asistente-${base || 'mi-negocio'}.txt`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -137,9 +147,13 @@ export default function Resultado({
       {/* Prompt */}
       <section aria-labelledby="esqueleto-titulo">
         <h3 id="esqueleto-titulo" className="font-serif text-2xl text-white">
-          El esqueleto de tu agente
+          El esqueleto de tu asistente
         </h3>
-        <p className="mt-2 text-sm text-slate-400">Es la configuración de tu agente, hecha con tus datos. Pégala como primer mensaje en Claude, ChatGPT o tu chatbot de WhatsApp.</p>
+        <p className="mt-2 text-sm text-slate-400">
+          Es lo que tu asistente tiene que saber, escrito con tus datos: qué responde, qué nunca promete y cuándo te avisa. Antes de
+          conectarlo a tu WhatsApp, pruébalo gratis en Claude o ChatGPT: son chats parecidos a WhatsApp donde pegas este texto y le
+          escribes como si fueras un cliente.
+        </p>
         <pre className="mt-4 max-h-[420px] overflow-auto whitespace-pre-wrap break-words rounded-2xl border border-white/10 bg-black/40 p-4 font-mono text-[13px] leading-relaxed text-slate-200 sm:p-5">
           {texto}
         </pre>
@@ -158,7 +172,7 @@ export default function Resultado({
             }}
             className={botonSecundario}
           >
-            <ExternalLink className="h-4 w-4" /> Pruébalo ahora
+            <ExternalLink className="h-4 w-4" /> Probarlo gratis en Claude
           </a>
         </div>
       </section>
@@ -170,7 +184,9 @@ export default function Resultado({
             Las 5 preguntas trampa
           </h3>
           <p className="mt-2 text-sm text-slate-300">
-            Tu esqueleto ya quedó copiado: pégalo en Claude como primer mensaje. Después copia estas preguntas una a una y revisa qué responde tu agente.
+            Tu esqueleto ya quedó copiado. En la pestaña de Claude, pégalo como primer mensaje y envíalo (si te pide crear una cuenta, es
+            gratis; también sirve ChatGPT). Desde ahí te responde como lo haría tu asistente: copia estas preguntas una a una y revisa qué
+            contesta.
           </p>
           <ol className="mt-4 space-y-3">
             {PREGUNTAS_TRAMPA.map((p, i) => (
@@ -201,28 +217,48 @@ export default function Resultado({
         </section>
       ) : (
         <p className="text-sm text-slate-400">
-          Al tocar «Pruébalo ahora» se abre Claude en otra pestaña y aquí te aparecen 5 preguntas trampa para probarlo antes de usarlo con clientes.
+          Al tocar «Probarlo gratis en Claude» se abre Claude en otra pestaña con tu esqueleto ya copiado, y aquí te aparecen 5 preguntas
+          trampa para probarlo antes de usarlo con clientes.
         </p>
       )}
 
-      {/* Dos caminos al terminar: el siguiente nivel pagado o seguir gratis en el ciclo de aprendizaje. */}
+      {/* Puente al WhatsApp (análisis UX «Rodrigo», 8-nov-2026): el dueño quería que le contestaran el WhatsApp y el
+          resultado terminaba en «pégalo en Claude». Aquí se explica el paso que falta y se ofrecen dos caminos. */}
+      <section aria-labelledby="puente-titulo" className="rounded-2xl border border-[#2175a1] bg-[#2175a1]/15 p-5 sm:p-6">
+        <h3 id="puente-titulo" className="font-serif text-2xl leading-tight text-white">
+          ¿Lo quieres funcionando en tu WhatsApp?
+        </h3>
+        <p className="mt-2 text-base text-slate-200">
+          Este texto es lo que tu asistente necesita saber. Para que conteste solo en tu WhatsApp falta conectarlo. En la grabación del
+          workshop te muestro cómo se conecta, paso a paso y gratis. O lo vemos juntos en una llamada de 30 minutos.
+        </p>
+        <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+          <a href={LINKS.workshopGrabacion} onClick={() => empujar('esqueleto_click_grabacion')} className={botonPrimario}>
+            <PlayCircle className="h-4 w-4" /> Ver la grabación gratis
+          </a>
+          <a
+            href={LINKS.agendar}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => empujar('esqueleto_click_agendar')}
+            className={botonSecundario}
+          >
+            <CalendarDays className="h-4 w-4" /> Agendar 30 minutos
+          </a>
+        </div>
+      </section>
+
+      {/* Segundo paso: la Guía, con su puente (de responder bien a que te escriban más clientes). */}
       <SiguientePaso
-        logro="Ya armaste el esqueleto de tu agente"
+        logro="Ya armaste el esqueleto de tu asistente"
         pago={{
-          titulo: 'Guía 1 · Ventas y prospección',
-          descripcion: `${TEXTOS.cierreTitulo} ${TEXTOS.cierreGuia} $14.990, pago único, con garantía de 7 días.`,
+          titulo: TEXTOS.cierreTitulo,
+          descripcion: `${TEXTOS.cierreGuia} $14.990, pago único, con garantía de 7 días.`,
           href: LINKS.guiaVenta,
-          cta: 'Quiero la guía',
+          cta: 'Ver la guía',
           evento: 'esqueleto_click_guia',
         }}
         gratis={[
-          {
-            titulo: 'Mira la grabación del último workshop',
-            descripcion: 'Ve cómo se arma un agente de atención con un caso de ejemplo, de principio a fin.',
-            href: LINKS.workshopGrabacion,
-            cta: 'Ver la grabación',
-            evento: 'esqueleto_click_grabacion',
-          },
           {
             titulo: 'Trabájalo en vivo en el próximo workshop',
             descripcion: 'Trae tu esqueleto y lo revisamos juntos. 45 minutos, gratis.',

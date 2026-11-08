@@ -272,7 +272,7 @@ export const DIAGNOSTICO: PreguntaDiag[] = [
   },
   {
     id: 'esqueleto',
-    pregunta: '¿Ya armaste «El esqueleto de tu agente de atención» (el material gratis de Villelab)?',
+    pregunta: '¿Ya armaste «El esqueleto de tu asistente de WhatsApp» (el material gratis de Villelab)?',
     opciones: [
       { id: 'si', texto: 'Sí, lo tengo' },
       { id: 'no', texto: 'Todavía no' },
@@ -289,7 +289,7 @@ export const ETIQUETAS: Record<Etiqueta, string> = {
 
 // ---------- Instrucciones para Claude o ChatGPT (borrador que revisa el alumno) ----------
 export const PROMPTS = {
-  p1: `Te paso mi negocio: [pega el esqueleto de tu agente, si lo armaste, o descríbelo en 5 líneas].
+  p1: `Te paso mi negocio: [pega el esqueleto de tu asistente, si lo armaste, o descríbelo en 5 líneas].
 Mis 3 mejores clientes actuales son: [nombre o tipo + por qué son buenos].
 Con eso, arma la ficha de mi cliente ideal en este formato:
 1. Quién compra (tipo de empresa, tamaño, zona)

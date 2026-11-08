@@ -3,7 +3,7 @@
 /*
  * /curso/modulo-0 — Módulo 0 «El mapa» del curso «El sistema de tu negocio: tu primer CRM y ERP en Google Sheets».
  * Se entrega al tiro a quien compra en preventa. 4 lecciones + portada del sistema imprimible.
- * v1.1 (8-nov-2026): la lección 3 pasa del esqueleto del agente a la planilla base con la ficha del negocio.
+ * v1.1 (8-nov-2026): la lección 3 pasa del esqueleto del asistente a la planilla base con la ficha del negocio.
  * Todo el avance (diagnóstico, reglas, ficha, checklist, nombre del negocio) vive en localStorage.
  */
 
@@ -1010,7 +1010,7 @@ export default function Modulo0Content() {
                   cta: 'Ver la grabación',
                 },
                 {
-                  titulo: 'Arma el esqueleto de tu agente',
+                  titulo: 'Arma el esqueleto de tu asistente',
                   descripcion: 'En 4 pasos dejas lista la estructura que responde a tus clientes como tú.',
                   href: LINKS.esqueleto,
                   cta: 'Armar mi esqueleto',

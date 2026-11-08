@@ -1,12 +1,13 @@
 'use client';
 
 import { useState } from 'react';
-import { Check, Plus, Trash2, X } from 'lucide-react';
+import { Check, ChevronDown, Plus, Trash2, X } from 'lucide-react';
 import {
   CANALES,
   CASOS_DERIVACION,
   CASOS_EJEMPLO,
   EJEMPLO,
+  EJEMPLOS_RUBRO,
   FAQS_EJEMPLO,
   IDEAL_FAQS,
   JUEGO_FRENO,
@@ -17,6 +18,7 @@ import {
   REGLAS_FRENO,
   SUGERENCIAS_FAQ,
   productoVacio,
+  tieneDetalleOpcional,
   type Esqueleto,
   type Producto,
 } from '@/lib/productos/esqueleto/datos';
@@ -84,7 +86,7 @@ function FilaProducto({
           <Opcion activa={p.cotizar} onClick={() => actualizar({ ...p, cotizar: !p.cotizar })}>
             Precio a cotizar
           </Opcion>
-          {p.cotizar ? <p className="mt-2 text-sm text-slate-400">Tu agente dirá que el precio lo confirma una persona.</p> : null}
+          {p.cotizar ? <p className="mt-2 text-sm text-slate-400">Tu asistente dirá que el precio lo confirma una persona.</p> : null}
         </div>
       ) : null}
     </li>
@@ -92,39 +94,74 @@ function FilaProducto({
 }
 
 
-// ---------- Paso 1 · Tu negocio (lo básico + qué vendes + tu cliente + tu tono) ----------
+// ---------- Paso 1 · Tu negocio ----------
+// Análisis UX «Rodrigo» (8-nov-2026): en el celular eran ~15 campos con la etiqueta «5 min». Quedan 5 esenciales a la
+// vista (negocio, qué haces y para quién, productos con precio, horario, tuteo o usted) y el resto plegado. Los chips
+// de rubro precargan un ejemplo editable.
 export function Paso1({ esqueleto, cambiar }: PasoProps) {
   const setProducto = (i: number, p: Producto) => cambiar({ productos: esqueleto.productos.map((x, j) => (j === i ? p : x)) });
+  const [detalle, setDetalle] = useState(() => tieneDetalleOpcional(esqueleto));
+  const [cargado, setCargado] = useState<string | null>(null);
+
+  const cargarRubro = (id: string) => {
+    const ej = EJEMPLOS_RUBRO.find((x) => x.id === id);
+    if (!ej) return;
+    const d = ej.datos;
+    const vacio = (v: string) => !v.trim();
+    const sinProductos = esqueleto.productos.every((p) => !p.nombre.trim() && !p.precio.trim());
+    cambiar({
+      rubro: vacio(esqueleto.rubro) ? d.rubro : esqueleto.rubro,
+      queHaces: vacio(esqueleto.queHaces) ? d.queHaces : esqueleto.queHaces,
+      productos: sinProductos ? d.productos.map((x) => ({ ...x })) : esqueleto.productos,
+      horario: vacio(esqueleto.horario) ? d.horario : esqueleto.horario,
+      trato: esqueleto.trato || d.trato,
+      canales: esqueleto.canales.length ? esqueleto.canales : [...d.canales],
+      comoSeCompra: vacio(esqueleto.comoSeCompra) ? d.comoSeCompra : esqueleto.comoSeCompra,
+      noVendes: vacio(esqueleto.noVendes) ? d.noVendes : esqueleto.noVendes,
+      tiposCliente: vacio(esqueleto.tiposCliente) ? d.tiposCliente : esqueleto.tiposCliente,
+      emojis: esqueleto.emojis || d.emojis,
+      palabras: vacio(esqueleto.palabras) ? d.palabras : esqueleto.palabras,
+    });
+    setCargado(ej.etiqueta);
+  };
+
   return (
     <div className="space-y-6">
-      <Seccion titulo="Quién eres">
-        <div className="grid gap-5 sm:grid-cols-2">
-          <Campo etiqueta="Nombre del negocio" valor={esqueleto.negocio} onChange={(negocio) => cambiar({ negocio })} ejemplo={EJEMPLO.negocio} />
-          <Campo etiqueta="Rubro" valor={esqueleto.rubro} onChange={(rubro) => cambiar({ rubro })} ejemplo={EJEMPLO.rubro} placeholder="Ej.: pastelería, peluquería" />
-          <Campo etiqueta="Ciudad o zona" valor={esqueleto.zona} onChange={(zona) => cambiar({ zona })} ejemplo={EJEMPLO.zona} />
-          <Campo etiqueta="Horario de atención" valor={esqueleto.horario} onChange={(horario) => cambiar({ horario })} ejemplo={EJEMPLO.horario} />
-        </div>
-        <Grupo titulo="Canales de atención" ejemplo={EJEMPLO.canales}>
-          {CANALES.map((c) => (
-            <Opcion key={c} activa={esqueleto.canales.includes(c)} onClick={() => cambiar({ canales: alternar(esqueleto.canales, c) })}>
-              {c}
-            </Opcion>
+      <div>
+        <p className="text-base font-medium text-white">¿Qué tipo de negocio tienes?</p>
+        <p className="mt-1 text-sm text-slate-400">Toca uno y te cargamos un ejemplo para que lo cambies por tus datos. Es opcional.</p>
+        <div className="mt-3 flex flex-wrap gap-2">
+          {EJEMPLOS_RUBRO.map((r) => (
+            <button
+              key={r.id}
+              type="button"
+              onClick={() => cargarRubro(r.id)}
+              className="inline-flex min-h-[44px] items-center rounded-full border border-[#5fb2dd]/40 px-4 text-sm text-[#5fb2dd] hover:bg-[#5fb2dd]/10"
+            >
+              {r.etiqueta}
+            </button>
           ))}
-        </Grupo>
+        </div>
+        {cargado ? (
+          <p className="mt-3 rounded-xl border border-[#5fb2dd]/30 bg-[#5fb2dd]/[0.07] px-4 py-3 text-sm text-slate-100" aria-live="polite">
+            Cargamos un ejemplo de {cargado.toLowerCase()} en los campos que estaban vacíos. Cambia los precios y los datos por los tuyos.
+          </p>
+        ) : null}
+      </div>
+
+      <Seccion titulo="Lo esencial">
+        <Campo etiqueta="Nombre del negocio" valor={esqueleto.negocio} onChange={(negocio) => cambiar({ negocio })} ejemplo={EJEMPLO.negocio} />
         <Campo
-          etiqueta="En una frase: ¿qué haces y para quién?"
+          etiqueta="En una frase: ¿qué vendes y a quién?"
           valor={esqueleto.queHaces}
           onChange={(queHaces) => cambiar({ queHaces })}
           ejemplo={`«${EJEMPLO.queHaces}»`}
           multilinea
           filas={2}
         />
-      </Seccion>
-
-      <Seccion titulo="Qué vendes">
         <div>
           <div className="flex flex-wrap items-center justify-between gap-x-3">
-            <p className="py-2 text-base font-medium text-white">Hasta {MAX_PRODUCTOS} productos o servicios</p>
+            <p className="py-2 text-base font-medium text-white">Tus 3 productos o servicios principales, con precio</p>
             <VerEjemplo
               id="ej-productos"
               ejemplo={
@@ -157,61 +194,93 @@ export function Paso1({ esqueleto, cambiar }: PasoProps) {
             </button>
           ) : null}
         </div>
-        <Campo
-          etiqueta="¿Cómo se compra?"
-          ayuda="Pedido mínimo, despacho, plazos, medios de pago."
-          valor={esqueleto.comoSeCompra}
-          onChange={(comoSeCompra) => cambiar({ comoSeCompra })}
-          ejemplo={EJEMPLO.comoSeCompra}
-          multilinea
-          filas={2}
-        />
-        <Campo
-          etiqueta="Lo que NO vendes"
-          ayuda="Así tu agente no promete lo que no tienes."
-          valor={esqueleto.noVendes}
-          onChange={(noVendes) => cambiar({ noVendes })}
-          ejemplo={`«${EJEMPLO.noVendes}»`}
-          multilinea
-          filas={2}
-        />
+        <Campo etiqueta="Horario de atención" valor={esqueleto.horario} onChange={(horario) => cambiar({ horario })} ejemplo={EJEMPLO.horario} />
+        <Grupo titulo="¿Tuteo o usted?" ejemplo="Tuteo">
+          <Opcion rol="radio" activa={esqueleto.trato === 'tuteo'} onClick={() => cambiar({ trato: 'tuteo' })}>
+            Tuteo
+          </Opcion>
+          <Opcion rol="radio" activa={esqueleto.trato === 'usted'} onClick={() => cambiar({ trato: 'usted' })}>
+            Usted
+          </Opcion>
+        </Grupo>
       </Seccion>
 
-      <Seccion titulo="Quién te compra y cómo le hablas">
-        <Campo
-          etiqueta="Tus 2 o 3 tipos de cliente y qué buscan"
-          valor={esqueleto.tiposCliente}
-          onChange={(tiposCliente) => cambiar({ tiposCliente })}
-          ejemplo={EJEMPLO.tiposCliente}
-          multilinea
-          filas={3}
-        />
-        <div className="grid gap-5 sm:grid-cols-2">
-          <Grupo titulo="¿Tuteo o usted?" ejemplo="Tuteo">
-            <Opcion rol="radio" activa={esqueleto.trato === 'tuteo'} onClick={() => cambiar({ trato: 'tuteo' })}>
-              Tuteo
-            </Opcion>
-            <Opcion rol="radio" activa={esqueleto.trato === 'usted'} onClick={() => cambiar({ trato: 'usted' })}>
-              Usted
-            </Opcion>
-          </Grupo>
-          <Grupo titulo="¿Emojis?" ejemplo="Sí, uno como máximo">
-            <Opcion rol="radio" activa={esqueleto.emojis === 'si'} onClick={() => cambiar({ emojis: 'si' })}>
-              Sí
-            </Opcion>
-            <Opcion rol="radio" activa={esqueleto.emojis === 'no'} onClick={() => cambiar({ emojis: 'no' })}>
-              No
-            </Opcion>
-          </Grupo>
-        </div>
-        <Campo
-          etiqueta="3 palabras que describen tu trato"
-          valor={esqueleto.palabras}
-          onChange={(palabras) => cambiar({ palabras })}
-          ejemplo={EJEMPLO.tono}
-          placeholder="Ej.: cercano, rápido, claro"
-        />
-      </Seccion>
+      <div>
+        <button
+          type="button"
+          onClick={() => setDetalle(!detalle)}
+          aria-expanded={detalle}
+          aria-controls="paso1-detalle"
+          className="flex min-h-[52px] w-full items-center justify-between gap-3 rounded-2xl border border-white/15 bg-white/[0.03] px-4 text-left text-base text-white hover:border-[#5fb2dd]"
+        >
+          <span>
+            Agregar más detalle <span className="text-slate-400">(opcional)</span>
+          </span>
+          <ChevronDown className={`h-5 w-5 shrink-0 text-[#5fb2dd] transition-transform ${detalle ? 'rotate-180' : ''}`} aria-hidden />
+        </button>
+        {detalle ? (
+          <div id="paso1-detalle" className="mt-4 space-y-6">
+            <Seccion titulo="Dónde y por dónde atiendes">
+              <div className="grid gap-5 sm:grid-cols-2">
+                <Campo etiqueta="Rubro" valor={esqueleto.rubro} onChange={(rubro) => cambiar({ rubro })} ejemplo={EJEMPLO.rubro} placeholder="Ej.: pastelería, mantención" />
+                <Campo etiqueta="Ciudad o zona" valor={esqueleto.zona} onChange={(zona) => cambiar({ zona })} ejemplo={EJEMPLO.zona} />
+              </div>
+              <Grupo titulo="Canales de atención" ejemplo={EJEMPLO.canales}>
+                {CANALES.map((c) => (
+                  <Opcion key={c} activa={esqueleto.canales.includes(c)} onClick={() => cambiar({ canales: alternar(esqueleto.canales, c) })}>
+                    {c}
+                  </Opcion>
+                ))}
+              </Grupo>
+            </Seccion>
+            <Seccion titulo="Cómo se compra">
+              <Campo
+                etiqueta="¿Cómo se compra?"
+                ayuda="Pedido mínimo, despacho, plazos, medios de pago."
+                valor={esqueleto.comoSeCompra}
+                onChange={(comoSeCompra) => cambiar({ comoSeCompra })}
+                ejemplo={EJEMPLO.comoSeCompra}
+                multilinea
+                filas={2}
+              />
+              <Campo
+                etiqueta="Lo que NO vendes"
+                ayuda="Así tu asistente no promete lo que no tienes."
+                valor={esqueleto.noVendes}
+                onChange={(noVendes) => cambiar({ noVendes })}
+                ejemplo={`«${EJEMPLO.noVendes}»`}
+                multilinea
+                filas={2}
+              />
+            </Seccion>
+            <Seccion titulo="Quién te compra y cómo le hablas">
+              <Campo
+                etiqueta="Tus 2 o 3 tipos de cliente y qué buscan"
+                valor={esqueleto.tiposCliente}
+                onChange={(tiposCliente) => cambiar({ tiposCliente })}
+                ejemplo={EJEMPLO.tiposCliente}
+                multilinea
+                filas={3}
+              />
+              <Grupo titulo="¿Emojis?" ejemplo="Sí, uno como máximo">
+                <Opcion rol="radio" activa={esqueleto.emojis === 'si'} onClick={() => cambiar({ emojis: 'si' })}>
+                  Sí
+                </Opcion>
+                <Opcion rol="radio" activa={esqueleto.emojis === 'no'} onClick={() => cambiar({ emojis: 'no' })}>
+                  No
+                </Opcion>
+              </Grupo>
+              <Campo
+                etiqueta="3 palabras que describen tu trato"
+                valor={esqueleto.palabras}
+                onChange={(palabras) => cambiar({ palabras })}
+                ejemplo={EJEMPLO.tono}
+                placeholder="Ej.: cercano, rápido, claro"
+              />
+            </Seccion>
+          </div>
+        ) : null}
+      </div>
     </div>
   );
 }
@@ -339,7 +408,7 @@ function JuegoFreno() {
   return (
     <div className="rounded-2xl border border-[#5fb2dd]/30 bg-[#5fb2dd]/[0.05] p-4 sm:p-5">
       <p className="text-xs uppercase tracking-wider text-[#5fb2dd]">Mini juego · 30 segundos</p>
-      <p className="mt-1 text-base text-white">Estas son 4 respuestas de un agente. Marca las que rompen una regla.</p>
+      <p className="mt-1 text-base text-white">Estas son 4 respuestas de un asistente. Marca las que rompen una regla.</p>
       <ul className="mt-4 space-y-2">
         {JUEGO_FRENO.map((r, i) => {
           const marcada = marcadas.includes(i);
@@ -379,7 +448,7 @@ function JuegoFreno() {
         </button>
         {revisado ? (
           <p className="text-sm text-slate-300" aria-live="polite">
-            {aciertos === JUEGO_FRENO.length ? '¡Perfecto! Así se ve un agente con frenos.' : `${aciertos} de ${JUEGO_FRENO.length} bien.`}
+            {aciertos === JUEGO_FRENO.length ? '¡Perfecto! Así se ve un asistente con frenos.' : `${aciertos} de ${JUEGO_FRENO.length} bien.`}
           </p>
         ) : null}
       </div>
@@ -393,7 +462,7 @@ export function Paso3({ esqueleto, cambiar }: PasoProps) {
     .join(' · ');
   return (
     <div className="space-y-6">
-      <Grupo titulo="Tu agente nunca debe prometer…" ejemplo={ejemplo}>
+      <Grupo titulo="Tu asistente nunca debe prometer…" ejemplo={ejemplo}>
         {REGLAS_FRENO.map((r) => (
           <Opcion key={r.id} activa={esqueleto.reglas.includes(r.id)} onClick={() => cambiar({ reglas: alternar(esqueleto.reglas, r.id) })}>
             {r.etiqueta}
