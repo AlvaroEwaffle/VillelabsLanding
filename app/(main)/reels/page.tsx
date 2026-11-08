@@ -81,7 +81,7 @@ const REELS: Reel[] = [
     numero: 15,
     titulo: 'Tus próximos 20 clientes ya existen',
     destinoA: 'Perfil (link en la bio)',
-    destinoB: '/guia/prospeccion',
+    destinoB: '/guia',
     duracion: '21 s',
     guion: [
       'Si vendes solo cuando te llega un referido, escucha esto.',
