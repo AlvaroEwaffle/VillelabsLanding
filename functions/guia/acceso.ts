@@ -2,9 +2,21 @@
 //   GET  /guia/acceso            → formulario
 //   GET  /guia/acceso?c=CODIGO   → link de un clic desde Hotmart
 //   POST /guia/acceso (codigo)   → envío del formulario
-import { COOKIE, PROTEGIDO, cookieParaCodigo, tieneAcceso } from '../_lib/guia1';
+import { COOKIE, PROTEGIDO, canjear, tieneAcceso } from '../_lib/guia1';
 
-type Ctx = { request: Request };
+type Env = { SLACK_BOT_TOKEN?: string; SLACK_CANAL_PRODUCTOS?: string };
+type Ctx = { request: Request; env: Env; waitUntil: (p: Promise<unknown>) => void };
+
+// Aviso a #revenue-villelab cuando alguien entra con un código de regalo (para pedirle el testimonio).
+function avisarRegalo(ctx: Ctx, id: string) {
+  if (!ctx.env.SLACK_BOT_TOKEN) return;
+  const canal = ctx.env.SLACK_CANAL_PRODUCTOS || 'C0AMNEGL8BX';
+  ctx.waitUntil(fetch('https://slack.com/api/chat.postMessage', {
+    method: 'POST',
+    headers: { authorization: `Bearer ${ctx.env.SLACK_BOT_TOKEN}`, 'content-type': 'application/json; charset=utf-8' },
+    body: JSON.stringify({ channel: canal, text: `🎁 Guía 1 regalada: entró el código *${id}*. En 2-3 días toca pedirle feedback y testimonio.` }),
+  }).catch(() => null));
+}
 
 const UN_ANO = 60 * 60 * 24 * 365;
 
@@ -63,21 +75,25 @@ ${error ? '<div class="error">Ese código no corresponde. Revísalo en Hotmart y
   });
 }
 
-export const onRequestGet = async ({ request }: Ctx): Promise<Response> => {
+export const onRequestGet = async (ctx: Ctx): Promise<Response> => {
+  const { request } = ctx;
   const url = new URL(request.url);
   const destino = destinoSeguro(url.searchParams.get('d'));
   const codigo = url.searchParams.get('c');
   if (codigo) {
-    const cookie = await cookieParaCodigo(codigo);
-    return cookie ? entrar(cookie, destino) : pagina(destino, true);
+    const r = await canjear(codigo);
+    if (r?.regalo) avisarRegalo(ctx, r.regalo);
+    return r ? entrar(r.cookie, destino) : pagina(destino, true);
   }
   if (await tieneAcceso(request)) return Response.redirect(new URL(destino, url).toString(), 303);
   return pagina(destino);
 };
 
-export const onRequestPost = async ({ request }: Ctx): Promise<Response> => {
+export const onRequestPost = async (ctx: Ctx): Promise<Response> => {
+  const { request } = ctx;
   const form = await request.formData().catch(() => null);
   const destino = destinoSeguro(form?.get('d')?.toString() ?? null);
-  const cookie = await cookieParaCodigo(form?.get('codigo')?.toString() ?? '');
-  return cookie ? entrar(cookie, destino) : pagina(destino, true);
+  const r = await canjear(form?.get('codigo')?.toString() ?? '');
+  if (r?.regalo) avisarRegalo(ctx, r.regalo);
+  return r ? entrar(r.cookie, destino) : pagina(destino, true);
 };
