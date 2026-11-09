@@ -23,7 +23,7 @@ const PRINCIPAL: Enlace = {
 };
 
 // 4 opciones (análisis UX «Rodrigo», 8-nov-2026): con 6, el dueño sin tiempo duda. La grabación del workshop y la
-// Academia Ewaffle (otra marca) quedan como links de texto chicos al final.
+// Academia Ewaffle (otra marca) sale (Álvaro: «aplicar todo lo que menciona», 8-nov).
 const PRODUCTOS: Enlace[] = [
   {
     href: LINKS.guiaVenta,
@@ -48,11 +48,6 @@ const PRODUCTOS: Enlace[] = [
 
 const SECUNDARIOS = [
   { href: LINKS.workshopGrabacion, texto: 'Workshop grabado, gratis', externo: false },
-  {
-    href: 'https://academia.e-waffle.com/?utm_source=villelab.com&utm_medium=linkinbio&utm_campaign=links',
-    texto: 'Academia Ewaffle',
-    externo: true,
-  },
 ];
 
 const tarjeta =
