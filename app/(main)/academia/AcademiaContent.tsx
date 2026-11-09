@@ -137,7 +137,7 @@ function BotonAcademia({ href, children, primario = false }: { href: string; chi
       target="_blank"
       rel="noopener noreferrer"
       className={`inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full px-6 text-sm ${
-        primario ? 'bg-accent font-medium text-white hover:bg-[#2a8bbd]' : 'border border-white/15 text-slate-200 hover:border-white/30'
+        primario ? 'bg-rosa font-semibold text-white hover:bg-[#ff5c9f]' : 'border border-white/15 text-slate-200 hover:border-white/30'
       }`}
     >
       {children} <ArrowUpRight className="h-4 w-4" />

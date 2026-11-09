@@ -51,7 +51,7 @@ const PROPIOS: Cliente[] = [
 
 const COPY = {
   es: {
-    kicker: 'IA aplicada al trabajo · Agentes y workflows',
+    kicker: 'Ordeno ventas y atención de empresas',
     titulo: 'Agentes de IA que hacen el trabajo repetitivo de tu equipo.',
     bajada:
       'Los instalamos, los conectamos a tu información y los operamos contigo. Leen, ordenan, redactan y hacen seguimiento. Lo que compromete plata, alcance o fechas, te lo preguntan.',
@@ -201,7 +201,7 @@ function Kicker({ children }: { children: React.ReactNode }) {
 function Ctas({ c, catalogo = true }: { c: (typeof COPY)['es']; catalogo?: boolean }) {
   return (
     <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-      <Link href="/diagnostic" className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full bg-accent px-6 text-sm font-medium text-white hover:bg-[#2a8bbd]">
+      <Link href="/diagnostic" className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full bg-rosa px-6 text-sm font-semibold text-white hover:bg-[#ff5c9f]">
         {c.ctaPrincipal} <ArrowRight className="h-4 w-4" />
       </Link>
       {catalogo && (
@@ -274,6 +274,19 @@ export default function HomeContent() {
         <HeroFondo />
         <div className="mx-auto grid max-w-6xl gap-12 px-4 pb-24 pt-36 sm:px-6 md:pb-28 md:pt-44 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-10">
           <div className="min-w-0">
+            {/* Salida para el dueño de pyme (análisis UX «Rodrigo», 8-nov-2026): llega por Google o por el logo y se pierde. */}
+            {language !== 'en' && (
+              <Link
+                href="/esqueleto?utm_source=villelab.com&utm_medium=home&utm_campaign=franja-pyme"
+                className="mb-6 flex w-full max-w-2xl items-center gap-3 rounded-2xl border border-[#5fb2dd]/40 bg-[#5fb2dd]/10 px-4 py-3 text-sm text-slate-200 hover:border-[#5fb2dd]"
+              >
+                <MessageCircle className="h-5 w-5 shrink-0 text-[#5fb2dd]" aria-hidden />
+                <span className="min-w-0 flex-1">
+                  <strong className="text-white">¿Tienes una pyme y vendes por WhatsApp?</strong> Empieza por el esqueleto gratis de tu asistente
+                </span>
+                <ArrowRight className="h-4 w-4 shrink-0 text-[#5fb2dd]" aria-hidden />
+              </Link>
+            )}
             <Kicker>{c.kicker}</Kicker>
             <h1 className="mt-5 max-w-4xl font-serif text-4xl leading-tight text-white sm:text-5xl lg:text-[3.4rem]">{c.titulo}</h1>
             <p className="mt-6 max-w-2xl text-base text-slate-300 sm:text-lg">{c.bajada}</p>

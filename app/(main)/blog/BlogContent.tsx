@@ -100,7 +100,7 @@ function NewsletterCTA() {
         <button
           type="submit"
           disabled={isSubmitting}
-          className="inline-flex min-h-[48px] items-center justify-center whitespace-nowrap rounded-full bg-accent px-6 text-sm font-medium text-white hover:bg-[#2a8bbd] disabled:cursor-not-allowed disabled:opacity-50"
+          className="inline-flex min-h-[48px] items-center justify-center whitespace-nowrap rounded-full bg-rosa px-6 text-sm font-semibold text-white hover:bg-[#ff5c9f] disabled:cursor-not-allowed disabled:opacity-50"
         >
           {isSubmitting ? t.pages.blog.subscribing : t.pages.blog.subscribe}
         </button>

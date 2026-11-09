@@ -131,7 +131,7 @@ export default function IAParaEmpresasContent() {
           </Link>
           <button
             onClick={scrollToForm}
-            className="px-4 py-2 rounded-full bg-accent text-white text-sm font-medium hover:bg-accent/90 transition-colors"
+            className="px-4 py-2 rounded-full bg-rosa text-white text-sm font-semibold hover:bg-[#ff5c9f] transition-colors"
           >
             Solicita una Demo
           </button>
@@ -175,7 +175,7 @@ export default function IAParaEmpresasContent() {
           <motion.div variants={itemVariants} className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <button
               onClick={scrollToForm}
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-accent text-white font-medium text-base hover:bg-accent/90 transition-all duration-300 shadow-accent-lg group"
+              className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-rosa text-white font-semibold text-base hover:bg-[#ff5c9f] transition-all duration-300 shadow-rosa group"
             >
               Solicita una Demo Gratis
               <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />

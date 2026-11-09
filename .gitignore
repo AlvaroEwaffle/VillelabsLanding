@@ -43,3 +43,5 @@ next-env.d.ts
 
 # build output
 /dist
+.wrangler/
+public/videos/*.mp4
