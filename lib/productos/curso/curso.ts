@@ -4,17 +4,26 @@
 // investigaciones de demanda y de evidencia (VPM/Villelabs/productos-digitales/investigacion/). Ver versiones.ts.
 
 /**
- * Precio fundador de preventa. NO está ratificado: mientras sea null, la página
- * muestra solo «Precio fundador de preventa» y oculta la cifra.
- * Cuando Álvaro lo ratifique, poner el número (ej. 97) y la moneda.
+ * Precio ratificado por Álvaro el 8-nov-2026 («1 si ok 29990 59990»): fundador $29.990 para los primeros 20
+ * alumnos, después $59.990. Quien compró la Guía 1 tiene el cupón GUIA1CURSO (33,34 %, queda en ~$19.990).
+ * Hotmart: producto 8921667, garantía 7 días, pago único o en cuotas.
  */
-export const PRECIO_FUNDADOR: number | null = null;
-export const MONEDA_PRECIO = 'USD';
+export const PRECIO_FUNDADOR: number | null = 29990;
+export const PRECIO_NORMAL = 59990;
+export const CUPOS_FUNDADOR = 20;
+export const MONEDA_PRECIO = 'CLP';
+export const PRECIO_CURSO = { cuponGuia: 'GUIA1CURSO', precioConCupon: 19990, garantiaDias: 7 };
+
+const clp = (n: number) => '$' + n.toLocaleString('es-CL');
 
 export function textoPrecio(): string {
   return PRECIO_FUNDADOR === null
     ? 'Precio fundador de preventa'
-    : `${MONEDA_PRECIO} ${PRECIO_FUNDADOR} · precio fundador de preventa`;
+    : `${clp(PRECIO_FUNDADOR)} precio fundador · primeros ${CUPOS_FUNDADOR} alumnos`;
+}
+
+export function textoPrecioDetalle(): string {
+  return `Después sube a ${clp(PRECIO_NORMAL)}. Si compraste la guía, con el cupón ${PRECIO_CURSO.cuponGuia} te queda en ${clp(PRECIO_CURSO.precioConCupon)}.`;
 }
 
 export const CURSO = {

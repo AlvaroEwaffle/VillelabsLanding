@@ -229,21 +229,31 @@ export default function Resultado({
           ¿Lo quieres funcionando en tu WhatsApp?
         </h3>
         <p className="mt-2 text-base text-slate-200">
-          Este texto es lo que tu asistente necesita saber. Para que conteste solo en tu WhatsApp falta conectarlo. En la grabación del
-          workshop te muestro cómo se conecta, paso a paso y gratis. O lo vemos juntos en una llamada de 30 minutos.
+          Este texto es lo que tu asistente necesita saber. Para que conteste solo en tu WhatsApp hay que conectarlo, y eso lo hace
+          Fidelidapp: le cargas este mismo texto y responde por ti en tu número. Tiene un costo mensual; en 30 minutos vemos si te
+          conviene y cuánto sería para tu negocio.
         </p>
         <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-          <a href={LINKS.workshopGrabacion} onClick={() => empujar('esqueleto_click_grabacion')} className={botonPrimario}>
-            <PlayCircle className="h-4 w-4" /> Ver la grabación gratis
-          </a>
           <a
             href={LINKS.agendar}
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => empujar('esqueleto_click_agendar')}
+            className={botonPrimario}
+          >
+            <CalendarDays className="h-4 w-4" /> Conectarlo a mi WhatsApp (30 min)
+          </a>
+          <a
+            href={LINKS.fidelidappWhatsapp}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => empujar('esqueleto_click_fidelidapp')}
             className={botonSecundario}
           >
-            <CalendarDays className="h-4 w-4" /> Agendar 30 minutos
+            <ExternalLink className="h-4 w-4" /> Ver Fidelidapp
+          </a>
+          <a href={LINKS.workshopGrabacion} onClick={() => empujar('esqueleto_click_grabacion')} className={botonSecundario}>
+            <PlayCircle className="h-4 w-4" /> Ver la grabación gratis
           </a>
         </div>
       </section>

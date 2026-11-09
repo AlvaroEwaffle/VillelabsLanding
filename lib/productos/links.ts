@@ -17,5 +17,7 @@ export const LINKS = {
     'https://wa.me/56920115198?text=' +
     encodeURIComponent('Hola Álvaro, quiero el curso «El sistema de tu negocio» en preventa. ¿Me avisas cuando abra?'),
   cursoModulo0: '/curso/modulo-0',
+  /** Upsell Fidelidapp desde el puente a WhatsApp del esqueleto (Álvaro, 8-nov-2026). */
+  fidelidappWhatsapp: 'https://fidelidapp.cl/?utm_source=villelab.com&utm_medium=esqueleto&utm_campaign=puente-whatsapp',
   agendar: 'https://capu.villelab.com/schedule/reunion-descubrimiento-con-alvaro-villelabs',
 } as const;
