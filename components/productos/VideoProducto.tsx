@@ -1,11 +1,12 @@
 'use client';
 
 // Video de producto (8-nov-2026): mp4 + póster (cuadro del propio video, nunca una foto de la cara) + subtítulos VTT.
-// Los archivos viven en public/videos/<id>.{mp4,jpg,vtt}. Los 16:9 traen la pista activa por defecto;
+// .jpg y .vtt en public/videos/<id>; el .mp4 en GCS (lib/productos/media.ts). Los 16:9 traen la pista activa por defecto;
 // los verticales (reels) ya traen los subtítulos quemados, así que la pista queda disponible pero apagada.
 // La primera reproducción de cada video se avisa al Slack de Villelabs (lib/productos/eventos.ts).
 
 import { registrarEvento } from '@/lib/productos/eventos';
+import { mp4 } from '@/lib/productos/media';
 
 export type VideoId =
   | 'v01-reel-esqueleto'
@@ -83,7 +84,7 @@ export default function VideoProducto({
       }}
       className={`block w-full bg-[#0f172a] ${vertical ? 'aspect-[9/16]' : 'aspect-video'} ${className}`}
     >
-      <source src={`/videos/${id}.mp4`} type="video/mp4" />
+      <source src={mp4(id)} type="video/mp4" />
       <track kind="captions" src={`/videos/${id}.vtt`} srcLang="es" label="Español" default={!vertical} />
       Tu navegador no puede reproducir este video.
     </video>

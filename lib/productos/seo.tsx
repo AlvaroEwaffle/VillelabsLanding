@@ -1,5 +1,6 @@
 // Datos estructurados (JSON-LD) y metadatos comunes de las páginas públicas de productos.
 // Se renderizan en cada page.tsx; el sitio es export estático, así que el JSON queda en el HTML.
+import { mp4 } from './media';
 
 export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://villelab.com';
 
@@ -53,7 +54,7 @@ export function videoObject(v: { id: string; nombre: string; descripcion: string
     thumbnailUrl: [`${SITE_URL}/videos/${v.id}.jpg`],
     uploadDate: v.subida ?? '2026-11-08',
     duration: duracionIso(v.segundos),
-    contentUrl: `${SITE_URL}/videos/${v.id}.mp4`,
+    contentUrl: mp4(v.id),
     url: `${SITE_URL}${v.pagina}`,
     inLanguage: 'es',
     isFamilyFriendly: true,

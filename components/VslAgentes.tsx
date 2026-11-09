@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { mp4 } from '@/lib/productos/media';
 
 /*
  * VSL de /agentes (7-nov-2026, aprobado por Álvaro por WhatsApp).
@@ -35,7 +36,7 @@ export default function VslAgentes() {
     <div className="mt-8 w-full max-w-3xl overflow-hidden rounded-2xl border border-slate-800 bg-slate-900 shadow-2xl">
       <video
         className="block aspect-video w-full"
-        src="/videos/vsl-agentes.mp4"
+        src={mp4('vsl-agentes')}
         poster="/videos/vsl-agentes-poster.jpg"
         controls
         playsInline

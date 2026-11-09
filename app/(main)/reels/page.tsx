@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { fraunces } from '@/lib/productos/fuente';
 import { SITE_URL } from '@/lib/productos/seo';
 import VideoProducto, { type VideoId } from '@/components/productos/VideoProducto';
+import { mp4 } from '@/lib/productos/media';
 
 /*
  * /reels — vitrina interna de los reels verticales de los productos digitales (8-nov-2026).
@@ -184,7 +185,7 @@ export default function ReelsPage() {
                   </div>
                 </details>
                 <a
-                  href={`/videos/${r.id}.mp4`}
+                  href={mp4(r.id)}
                   download
                   className="mt-3 inline-flex min-h-[44px] items-center text-sm font-medium text-[#5fb2dd] underline-offset-4 hover:underline"
                 >
