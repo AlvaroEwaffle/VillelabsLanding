@@ -131,7 +131,7 @@ export default function CursoContent() {
         </dl>
         <p className="mt-4 max-w-3xl text-sm text-slate-400">{CURSO.noEsSoftware}</p>
         {/* Video 8 · venta de la preventa (regrabado con el enfoque CRM/ERP, 8-nov-2026). */}
-        <VideoMarco id="v08-curso-venta" titulo="Tu primer CRM y ERP, en 6 semanas" duracion="49 s" className="mt-10 max-w-3xl" />
+        <VideoMarco id="v08-curso-venta" titulo="Tu primer CRM y ERP, en 6 semanas" duracion="49 s" className="mt-10" />
       </section>
 
       {/* Para quién */}
