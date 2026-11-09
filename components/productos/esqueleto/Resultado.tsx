@@ -230,8 +230,8 @@ export default function Resultado({
         </h3>
         <p className="mt-2 text-base text-slate-200">
           Este texto es lo que tu asistente necesita saber. Para que conteste solo en tu WhatsApp hay que conectarlo, y eso lo hace
-          Fidelidapp: le cargas este mismo texto y responde por ti en tu número. Tiene un costo mensual: en 30 minutos vemos
-          cuánto sería para tu negocio y lo dejamos conectado contigo.
+          Fidelidapp: le cargas este mismo texto y responde por ti en tu número, desde $40.000 + IVA al mes. En 30 minutos lo
+          dejamos conectado contigo y vemos si te conviene.
         </p>
         <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
           <a
