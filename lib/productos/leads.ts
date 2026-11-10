@@ -19,7 +19,7 @@ const API = process.env.NEXT_PUBLIC_FIDELIDAPP_API_URL ?? 'https://api.fidelidap
 const CUENTA = process.env.NEXT_PUBLIC_FIDELIDAPP_CUENTA_PRODUCTOS ?? '678e4df080622b7c255a9220';
 const CLAVE_COLA = 'villelab_leads_pendientes';
 
-export type ProductoLead = 'esqueleto' | 'workshop' | 'guia-1' | 'curso';
+export type ProductoLead = 'esqueleto' | 'workshop' | 'guia-1' | 'curso' | 'regalo-fidelidapp';
 
 export interface DatosLead {
   nombre: string;
