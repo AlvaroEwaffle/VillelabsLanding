@@ -13,6 +13,10 @@ import { DISCOVERY_CALL_URL } from '@/lib/scheduling';
  * El clic al enlace de agenda emite booking_click (ConversionClickTracker) con ubicación exit_popup.
  */
 const SESSION_KEY = 'villelabs_exit_popup_shown';
+// 10-nov (Álvaro: «aparece demasiado rápido, a los 2 segundos»): el popup de salida no puede abrirse antes
+// de MIN_MS en la página (≈ tiempo medio de interacción en GA4). El timer de respaldo abre a TIMER_MS.
+const MIN_MS = 20_000;
+const TIMER_MS = 45_000;
 
 export default function ExitIntentPopup() {
   const [isOpen, setIsOpen] = useState(false);
@@ -22,6 +26,7 @@ export default function ExitIntentPopup() {
   const previousFocusRef = useRef<HTMLElement | null>(null);
   const { t } = useTranslation();
   const pathname = usePathname();
+  const mountedAt = useRef<number>(Date.now());
   // Sin popup en la asesoría ni en los productos digitales (esqueleto, workshop, curso): ya tienen su propia oferta.
   const isSuppressedRoute = ['/asesoria', '/esqueleto', '/workshop', '/curso', '/reels'].includes(pathname);
 
@@ -71,7 +76,7 @@ export default function ExitIntentPopup() {
     if (isTouchDevice()) return;
 
     const handleMouseLeave = (e: MouseEvent) => {
-      if (e.clientY <= 0) {
+      if (e.clientY <= 0 && Date.now() - mountedAt.current >= MIN_MS) {
         openPopup();
       }
     };
@@ -82,7 +87,7 @@ export default function ExitIntentPopup() {
     };
   }, [openPopup, isSuppressedRoute, isTouchDevice]);
 
-  // 45-second timer trigger
+  // Timer de respaldo (TIMER_MS)
   useEffect(() => {
     if (typeof window === 'undefined') return;
     if (isSuppressedRoute) return;
@@ -91,7 +96,7 @@ export default function ExitIntentPopup() {
 
     const timer = setTimeout(() => {
       openPopup();
-    }, 45000);
+    }, TIMER_MS);
 
     return () => clearTimeout(timer);
   }, [openPopup, isSuppressedRoute, isTouchDevice, alreadyShown]);
