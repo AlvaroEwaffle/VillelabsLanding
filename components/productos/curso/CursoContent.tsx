@@ -7,6 +7,8 @@
  * cabe en el primer viewport de escritorio y «El curso en corto» queda como franja bajo el hero.
  * Precio: PRECIO_FUNDADOR en lib/productos/curso/curso.ts (null = se oculta la cifra).
  * Medición: todo clic a la compra emite curso_click_compra al dataLayer.
+ * v1.2 (9-nov-2026) captura del correo antes del pago: bloque «¿Aún no?» (CursoLead) en el hero y antes de la preventa,
+ * y el link de Hotmart lleva src/sck con los UTM de la visita (lib/productos/utm.ts).
  */
 
 import Link from 'next/link';
@@ -16,6 +18,8 @@ import { LINKS } from '@/lib/productos/links';
 import { AREAS, CASO, CURSO, FAQ, HOJAS, IA_OPCIONAL, MODULOS, PARA_QUIEN, PREVENTA, PROYECTO_FINAL, PRECIO_CURSO, QUE_ES, textoPrecio, textoPrecioDetalle } from '@/lib/productos/curso/curso';
 import { VERSION_CURSO, VERSIONES_CURSO, fechaLarga } from '@/lib/productos/curso/versiones';
 import EnQueSeBasa from './EnQueSeBasa';
+import CursoLead from './CursoLead';
+import { hotmartConUtm } from '@/lib/productos/utm';
 import { trackCursoClickCompra } from '@/lib/productos/curso/tracking';
 import { FOTOS } from '@/lib/productos/fotos';
 import { APOYO, type ImagenApoyo } from '@/lib/productos/apoyo';
@@ -41,7 +45,11 @@ function BotonCompra({ ubicacion, texto = 'Quiero el curso en preventa' }: { ubi
       href={LINKS.cursoCompra}
       target="_blank"
       rel="noopener noreferrer"
-      onClick={() => trackCursoClickCompra(ubicacion)}
+      onClick={(e) => {
+        // Atribución: src/sck de Hotmart con los UTM de la visita (se arma al clic para no desalinear el HTML estático).
+        e.currentTarget.href = hotmartConUtm(LINKS.cursoCompra, ubicacion);
+        trackCursoClickCompra(ubicacion);
+      }}
       className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full bg-[#FF3D8B] px-6 text-sm font-semibold text-white shadow-rosa transition hover:bg-[#ff5c9f]"
     >
       {texto} <ArrowRight className="h-4 w-4" aria-hidden />
@@ -49,11 +57,11 @@ function BotonCompra({ ubicacion, texto = 'Quiero el curso en preventa' }: { ubi
   );
 }
 
-function BotonModulo0({ texto = 'Ver el módulo 0' }: { texto?: string }) {
+function BotonModulo0({ texto = 'Ver el módulo 0', className = 'inline-flex' }: { texto?: string; className?: string }) {
   return (
     <Link
       href={LINKS.cursoModulo0}
-      className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full border border-white/15 px-6 text-sm text-slate-200 transition hover:border-[#5fb2dd]/60 hover:text-white"
+      className={`${className} min-h-[48px] items-center justify-center gap-2 rounded-full border border-white/15 px-6 text-sm text-slate-200 transition hover:border-[#5fb2dd]/60 hover:text-white`}
     >
       <Eye className="h-4 w-4" aria-hidden /> {texto}
     </Link>
@@ -93,7 +101,7 @@ export default function CursoContent() {
       {/* Hero: dos columnas centradas que caben en el primer viewport de escritorio; foto acotada. */}
       <section className="mx-auto max-w-6xl px-4 pb-10 pt-28 sm:px-6 md:pt-32">
         <div className="grid items-center gap-8 lg:grid-cols-[1fr_400px] lg:gap-12">
-          <figure className="relative aspect-[16/10] max-h-[260px] w-full overflow-hidden rounded-3xl border border-white/10 sm:max-h-[340px] lg:order-last lg:aspect-[4/5] lg:max-h-[460px]">
+          <figure className="relative order-last aspect-[16/10] max-h-[260px] w-full overflow-hidden rounded-3xl border border-white/10 sm:max-h-[340px] lg:aspect-[4/5] lg:max-h-[460px]">
             <Foto foto={FOTOS.explicando} posicion="center 12%" prioridad />
             <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-[#0f172a]/50 via-transparent to-transparent" />
           </figure>
@@ -107,8 +115,10 @@ export default function CursoContent() {
             </p>
             <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               <BotonCompra ubicacion="hero" />
-              <BotonModulo0 texto="Ver el módulo 0 de muestra" />
+              {/* En celular se oculta aquí (se repite en el programa y al final) para que el bloque «¿Aún no?» suba al primer pantallazo. */}
+              <BotonModulo0 texto="Ver el módulo 0 de muestra" className="hidden sm:inline-flex" />
             </div>
+            <CursoLead ubicacion="hero" className="mt-6" />
             <p className="mt-4 text-xs text-slate-500">
               Versión {VERSION_CURSO.version} · actualizado el {fechaLarga(VERSION_CURSO.fecha)} ·{' '}
               <a href="#versiones" className="underline-offset-2 hover:text-slate-300 hover:underline">
@@ -361,6 +371,11 @@ export default function CursoContent() {
           </div>
         </div>
       </Seccion>
+
+      {/* Antes de la compra: segunda oportunidad de dejar el correo (bloque «¿Aún no?»). */}
+      <section aria-label="Parte gratis" className="mx-auto max-w-6xl px-4 sm:px-6">
+        <CursoLead ubicacion="antes_preventa" className="max-w-3xl" />
+      </section>
 
       {/* Preventa */}
       <Seccion
