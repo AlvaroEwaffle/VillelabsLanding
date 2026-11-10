@@ -10,7 +10,6 @@ import {
   EJEMPLOS_RUBRO,
   FAQS_EJEMPLO,
   IDEAL_FAQS,
-  JUEGO_FRENO,
   MAX_PRODUCTOS,
   MIN_FAQS,
   PRODUCTOS_EJEMPLO,
@@ -400,62 +399,6 @@ export function Paso2({ esqueleto, cambiar }: PasoProps) {
 }
 
 // ---------- Paso 3 · Lo que nunca debe prometer ----------
-function JuegoFreno() {
-  const [marcadas, setMarcadas] = useState<number[]>([]);
-  const [revisado, setRevisado] = useState(false);
-  const aciertos = JUEGO_FRENO.filter((r, i) => (r.rompe !== null) === marcadas.includes(i)).length;
-
-  return (
-    <div className="rounded-2xl border border-[#5fb2dd]/30 bg-[#5fb2dd]/[0.05] p-4 sm:p-5">
-      <p className="text-xs uppercase tracking-wider text-[#5fb2dd]">Mini juego · 30 segundos</p>
-      <p className="mt-1 text-base text-white">Estas son 4 respuestas de un asistente. Marca las que rompen una regla.</p>
-      <ul className="mt-4 space-y-2">
-        {JUEGO_FRENO.map((r, i) => {
-          const marcada = marcadas.includes(i);
-          const bien = (r.rompe !== null) === marcada;
-          return (
-            <li key={r.texto}>
-              <button
-                type="button"
-                role="checkbox"
-                aria-checked={marcada}
-                onClick={() => {
-                  setMarcadas((m) => (m.includes(i) ? m.filter((x) => x !== i) : [...m, i]));
-                  setRevisado(false);
-                }}
-                className={`flex min-h-[44px] w-full items-start gap-3 rounded-xl border px-4 py-3 text-left text-sm transition ${
-                  marcada ? 'border-[#5fb2dd] bg-[#2175a1]/25 text-white' : 'border-white/15 bg-[#0f172a]/60 text-slate-200 hover:border-white/30'
-                }`}
-              >
-                <span className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-md border ${marcada ? 'border-[#5fb2dd] bg-[#2175a1]' : 'border-white/30'}`}>
-                  {marcada ? <Check className="h-3.5 w-3.5" /> : null}
-                </span>
-                <span>«{r.texto}»</span>
-              </button>
-              {revisado ? (
-                <p className={`mt-1 px-1 text-sm ${bien ? 'text-emerald-300' : 'text-orange-300'}`}>
-                  {bien ? '✓ ' : '✗ '}
-                  {r.explicacion}
-                </p>
-              ) : null}
-            </li>
-          );
-        })}
-      </ul>
-      <div className="mt-4 flex flex-wrap items-center gap-3">
-        <button type="button" onClick={() => setRevisado(true)} className={botonSecundario}>
-          Revisar mis respuestas
-        </button>
-        {revisado ? (
-          <p className="text-sm text-slate-300" aria-live="polite">
-            {aciertos === JUEGO_FRENO.length ? '¡Perfecto! Así se ve un asistente con frenos.' : `${aciertos} de ${JUEGO_FRENO.length} bien.`}
-          </p>
-        ) : null}
-      </div>
-    </div>
-  );
-}
-
 export function Paso3({ esqueleto, cambiar }: PasoProps) {
   const ejemplo = REGLAS_FRENO.filter((r) => REGLAS_EJEMPLO.includes(r.id))
     .map((r) => r.etiqueta)
@@ -477,7 +420,6 @@ export function Paso3({ esqueleto, cambiar }: PasoProps) {
         multilinea
         filas={2}
       />
-      <JuegoFreno />
     </div>
   );
 }
