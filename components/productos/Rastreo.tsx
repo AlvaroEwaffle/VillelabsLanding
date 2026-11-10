@@ -7,12 +7,18 @@
 import { useEffect, useRef } from 'react';
 import { usePathname } from 'next/navigation';
 import { eventosActivos, registrarEvento } from '@/lib/productos/eventos';
+import { capturarUtm } from '@/lib/productos/utm';
 
 const IGNORAR = /^\/reels(\/|$)/;
 
 export default function Rastreo() {
   const ruta = usePathname();
   const primera = useRef(true);
+
+  // UTM de entrada → sessionStorage (viajan en los leads y en los links de Hotmart). Corre siempre, también en localhost.
+  useEffect(() => {
+    capturarUtm();
+  }, [ruta]);
 
   useEffect(() => {
     if (!eventosActivos() || IGNORAR.test(ruta ?? '')) return;

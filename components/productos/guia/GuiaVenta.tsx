@@ -34,18 +34,20 @@ import { Foto, Kicker } from '@/components/productos/curso/piezas';
 import { EstructuraMensaje, RutinaVeinte } from '@/components/productos/guia/v2/infografias';
 import { VideoMarco } from '@/components/productos/VideoProducto';
 import Evidencia from '@/components/productos/guia/Evidencia';
+import LinkHotmart from '@/components/productos/LinkHotmart';
 import OtrosRubros from '@/components/productos/guia/OtrosRubros';
 
 function BotonCompra({ texto = 'Quiero la guía', className = '' }: { texto?: string; className?: string }) {
   return (
-    <a
+    <LinkHotmart
       href={LINKS.guiaProspeccionCompra}
+      ubicacion="guia"
       target="_blank"
       rel="noopener noreferrer"
       className={`inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full bg-[#FF3D8B] px-6 text-sm font-semibold text-white shadow-rosa transition hover:bg-[#ff5c9f] ${className}`}
     >
       {texto} <ArrowRight className="h-4 w-4" aria-hidden />
-    </a>
+    </LinkHotmart>
   );
 }
 

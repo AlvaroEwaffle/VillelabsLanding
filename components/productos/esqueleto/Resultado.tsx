@@ -1,10 +1,12 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { CalendarDays, Check, Copy, Download, ExternalLink, Pencil, PlayCircle } from 'lucide-react';
+import Link from 'next/link';
+import { ArrowRight, CalendarDays, Check, Copy, Download, ExternalLink, LayoutDashboard, Pencil, PlayCircle } from 'lucide-react';
 import { PASOS, PREGUNTAS_TRAMPA, TEXTOS, type Esqueleto } from '@/lib/productos/esqueleto/datos';
 import { completitud, generarEsqueleto, textoDescarga, type Semaforo } from '@/lib/productos/esqueleto/estructura';
 import { LINKS } from '@/lib/productos/links';
+import { CURSO, textoPrecio } from '@/lib/productos/curso/curso';
 import SiguientePaso from '../SiguientePaso';
 import { botonPrimario, botonSecundario } from './ui';
 
@@ -278,6 +280,23 @@ export default function Resultado({
           },
         ]}
       />
+
+      {/* Tercer peldaño (9-nov-2026): el curso, para quien quiere ordenar el negocio entero y no solo el WhatsApp. */}
+      <section aria-labelledby="curso-titulo" className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 sm:p-6">
+        <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#5fb2dd]">
+          <LayoutDashboard className="h-4 w-4" aria-hidden /> Cuando quieras ordenar todo el negocio
+        </p>
+        <h3 id="curso-titulo" className="mt-2 font-serif text-2xl leading-tight text-white">
+          {CURSO.nombre}: {CURSO.apellido.charAt(0).toLowerCase() + CURSO.apellido.slice(1)}
+        </h3>
+        <p className="mt-2 text-base text-slate-300">
+          Clientes, ventas, pedidos, cobranza y caja en una sola planilla, un módulo por semana. Tu asistente responde mejor cuando lo
+          que sabe sale de ahí. {textoPrecio()}.
+        </p>
+        <Link href={LINKS.curso} onClick={() => empujar('esqueleto_click_curso')} className={`${botonSecundario} mt-5`}>
+          Ver el curso <ArrowRight className="h-4 w-4" aria-hidden />
+        </Link>
+      </section>
     </div>
   );
 }

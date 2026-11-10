@@ -13,13 +13,15 @@
 
 import { registrarEvento } from './eventos';
 import { eventoPixel } from './pixel';
+import { leerUtm } from './utm';
 
 const API = process.env.NEXT_PUBLIC_FIDELIDAPP_API_URL ?? 'https://api.fidelidapp.cl';
 /** Cuenta Fidelidapp «Alvaro Villena» (marca personal). Es un id público, como el de los otros formularios del sitio. */
 const CUENTA = process.env.NEXT_PUBLIC_FIDELIDAPP_CUENTA_PRODUCTOS ?? '678e4df080622b7c255a9220';
 const CLAVE_COLA = 'villelab_leads_pendientes';
 
-export type ProductoLead = 'esqueleto' | 'workshop' | 'guia-1' | 'curso' | 'regalo-fidelidapp';
+/** «curso-lead»: dejó el correo en /curso sin comprar y partió por el esqueleto gratis (9-nov-2026). */
+export type ProductoLead = 'esqueleto' | 'workshop' | 'guia-1' | 'curso' | 'curso-lead' | 'regalo-fidelidapp';
 
 export interface DatosLead {
   nombre: string;
@@ -92,6 +94,8 @@ function guardarCola(cola: Pendiente[]) {
 /** Registra un lead en Fidelidapp. Nunca lanza: si falla, lo deja en la cola local para reintentar. */
 export async function registrarLead(datos: DatosLead): Promise<boolean> {
   if (typeof window === 'undefined' || !datos.correo?.trim()) return false;
+  // Los UTM de la visita (lib/productos/utm.ts) viajan en los detalles de todo lead, para atribuir por canal.
+  datos = { ...datos, detalles: { ...leerUtm(), ...datos.detalles } };
   const cuerpo = armarCuerpo(datos);
   // Aviso al Slack de Villelabs (en el hilo de la visita), salga o no el registro en Fidelidapp.
   registrarEvento('lead', { detalle: datos.producto, nombre: datos.nombre, correo: datos.correo, datos: datos.detalles ?? {} });
