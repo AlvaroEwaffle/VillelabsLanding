@@ -2,14 +2,14 @@ import type { Metadata } from 'next';
 import { AUTOR, JsonLd, ORGANIZACION, SITE_URL, videoObject } from '@/lib/productos/seo';
 import EsqueletoApp from '@/components/productos/esqueleto/EsqueletoApp';
 import { fraunces } from '@/lib/productos/fuente';
-import { EXP09 } from '@/lib/productos/esqueleto/exp09';
+import { EXP11 } from '@/lib/productos/esqueleto/exp11';
 
 
 /*
  * /esqueleto — «El esqueleto de tu asistente de WhatsApp», imán gratis de la Entrada A (contenido → esqueleto → Guía 1).
  * Ex /ficha (rehecho el 7-nov-2026 con el feedback de Álvaro). Base: VPM/Villelabs/productos-digitales/contenido-primeros-productos.html.
- * Eventos dataLayer: esqueleto_inicio, esqueleto_paso, esqueleto_completo, esqueleto_click_guia, exp09_variante.
- * EXP-09 (10-nov-2026): tres heros A/B/C (lib/productos/esqueleto/exp09.ts) y correo a medias (lib/productos/esqueleto/parcial.ts).
+ * Eventos dataLayer: esqueleto_inicio, esqueleto_paso, esqueleto_completo, esqueleto_click_guia, exp11_variante.
+ * EXP-11 (12-nov-2026, ciclo diario): tres heros A/B/C (lib/productos/esqueleto/exp11.ts) y correo a medias (lib/productos/esqueleto/parcial.ts).
  */
 export const metadata: Metadata = {
   title: { absolute: 'Esqueleto de tu asistente de WhatsApp, gratis' },
@@ -56,7 +56,7 @@ export default function EsqueletoPage() {
   return (
     <div className={fraunces.variable}>
       {/* EXP-09: elige la variante del hero antes de pintarlo (constante propia del repo, sin datos de usuarios). */}
-      <script dangerouslySetInnerHTML={{ __html: EXP09.script }} />
+      <script dangerouslySetInnerHTML={{ __html: EXP11.script }} />
       <JsonLd data={JSON_LD} />
       <EsqueletoApp />
     </div>

@@ -33,6 +33,7 @@ import { FAQ_GUIA, PARA_QUIEN_GUIA, PRECIO_GUIA, PROBLEMAS, TESTIMONIOS } from '
 import { Foto, Kicker } from '@/components/productos/curso/piezas';
 import { EstructuraMensaje, RutinaVeinte } from '@/components/productos/guia/v2/infografias';
 import { VideoMarco } from '@/components/productos/VideoProducto';
+import AvisoExp12 from '@/components/productos/guia/AvisoExp12';
 import Evidencia from '@/components/productos/guia/Evidencia';
 import LinkHotmart from '@/components/productos/LinkHotmart';
 import OtrosRubros from '@/components/productos/guia/OtrosRubros';
@@ -118,24 +119,43 @@ export default function GuiaVenta() {
 
   return (
     <main className="relative w-full overflow-x-hidden bg-[#0f172a] text-slate-100">
+      <AvisoExp12 />
+      {/* Hero · EXP-12 (12-nov-2026, ciclo diario): A título actual (dolor) · B resultado · C video primero. El CSS muestra lo
+          que toca según <html data-exp12> (script en línea antes de pintar, app/(main)/guia/page.tsx). Sin JS se ve A. */}
       {/* Hero: problema → resultado → precio → CTA. Compacto (corrección de Álvaro, 8-nov-2026, igual que /curso):
           columnas centradas, foto acotada y «La guía en corto» como franja bajo el hero. */}
       <section className="mx-auto max-w-6xl px-4 pb-10 pt-28 sm:px-6 md:pt-32">
         <div className="grid items-center gap-8 lg:grid-cols-[1fr_380px] lg:gap-12">
-          <figure className="relative aspect-[16/10] max-h-[260px] w-full overflow-hidden rounded-3xl border border-white/10 sm:max-h-[340px] lg:order-last lg:aspect-[4/5] lg:max-h-[460px]">
+          <figure className="exp12-sin-C relative aspect-[16/10] max-h-[260px] w-full overflow-hidden rounded-3xl border border-white/10 sm:max-h-[340px] lg:order-last lg:aspect-[4/5] lg:max-h-[460px]">
             <Foto foto={FOTOS.pizarra} posicion="35% 30%" prioridad />
             <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-[#0f172a]/50 via-transparent to-transparent" />
           </figure>
           <div>
             <Kicker>{GUIA.etiqueta}</Kicker>
-            <h1 className="mt-4 max-w-4xl font-serif text-4xl leading-[1.08] text-white sm:text-5xl lg:text-[3.4rem]">
-              Deja de vender solo cuando te llega un referido.
-            </h1>
-            <p className="mt-5 max-w-2xl text-base text-slate-300 sm:text-lg">
-              En una tarde armas tu lista de 20 posibles clientes, el primer mensaje y los seguimientos con fecha. Después, 20 minutos cada mañana: tu
-              planilla te dice a quién escribirle y nadie se te enfría.
-            </p>
-            <ul className="mt-5 max-w-2xl space-y-2 text-sm text-slate-200 sm:text-base">
+            <div className="exp12-sin-B">
+              <h1 className="mt-4 max-w-4xl font-serif text-4xl leading-[1.08] text-white sm:text-5xl lg:text-[3.4rem]">
+                Deja de vender solo cuando te llega un referido.
+              </h1>
+              {/* En la C se oculta la bajada para que título, video, precio y botón quepan en el primer pantallazo. */}
+              <p className="exp12-sin-C mt-5 max-w-2xl text-base text-slate-300 sm:text-lg">
+                En una tarde armas tu lista de 20 posibles clientes, el primer mensaje y los seguimientos con fecha. Después, 20 minutos cada mañana:
+                tu planilla te dice a quién escribirle y nadie se te enfría.
+              </p>
+            </div>
+            {/* EXP-12 · B «resultado». */}
+            <div className="exp12-B">
+              <p role="heading" aria-level={1} className="mt-4 max-w-4xl font-serif text-4xl leading-[1.08] text-white sm:text-5xl lg:text-[3.4rem]">
+                Tus 20 posibles clientes y el primer mensaje para cada uno, en una tarde.
+              </p>
+              <p className="mt-5 max-w-2xl text-base text-slate-300 sm:text-lg">
+                Con tu primer CRM en Google Sheets y los seguimientos con fecha. Después, 20 minutos cada mañana y nadie se te enfría.
+              </p>
+            </div>
+            {/* EXP-12 · C «video primero»: la muestra de adentro (50 s) antes del precio y el botón. */}
+            <div className="exp12-C">
+              <VideoMarco id="v04-guia-primer-mensaje" titulo="El primer mensaje, a mano" duracion="50 s" className="mt-5" />
+            </div>
+            <ul className="exp12-sin-C mt-5 max-w-2xl space-y-2 text-sm text-slate-200 sm:text-base">
               <li className="flex gap-2">
                 <Check className="mt-0.5 h-5 w-5 shrink-0 text-[#5fb2dd]" aria-hidden />
                 Mensajes escritos por ti, uno a uno: sin envío masivo ni riesgo de que te bloqueen el WhatsApp.

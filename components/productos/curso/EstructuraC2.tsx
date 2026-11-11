@@ -2,7 +2,7 @@
 
 /*
  * EXP-08 · C2 «estructura» (11-nov-2026, pedido de Álvaro por WhatsApp): justo bajo el hero, en este orden,
- * por qué este curso y no otro → quién lo arma → módulo 0 gratis → en qué se basa. Solo se ve con data-exp08="C".
+ * por qué este curso y no otro → quién lo arma → módulo 0 gratis → en qué se basa. Solo se ve con data-exp10="B".
  * Sin testimonios inventados: la prueba es lo verificable (el autor lo usa en sus negocios, terminas con tu planilla,
  * módulo 0 gratis antes de pagar, garantía).
  */
@@ -22,7 +22,7 @@ const POR_QUE = [
 
 export default function EstructuraC2() {
   return (
-    <div className="exp08-C">
+    <div className="exp10-B">
       <section aria-label="Por qué este curso" className="mx-auto max-w-6xl px-4 pb-4 sm:px-6">
         <h2 className="font-serif text-2xl text-white sm:text-3xl">¿Por qué este curso y no otro?</h2>
         <ul className="mt-6 grid gap-3 sm:grid-cols-2">

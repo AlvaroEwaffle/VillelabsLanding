@@ -38,7 +38,7 @@ import {
   DiagramaSinConReglas,
 } from '@/components/productos/diagramas/esqueleto';
 import { Kicker, botonPrimario, botonSecundario, claseInput } from './ui';
-import { EXP09 } from '@/lib/productos/esqueleto/exp09';
+import { EXP11 } from '@/lib/productos/esqueleto/exp11';
 import QuienLoArma from '@/components/productos/estructura/QuienLoArma';
 import { cancelarParcial, campoParcial, correoValido, pasoParcial } from '@/lib/productos/esqueleto/parcial';
 import { VideoMarco } from '@/components/productos/VideoProducto';
@@ -231,9 +231,9 @@ export default function EsqueletoApp() {
   const arriba = useRef<HTMLDivElement>(null);
   const { esqueleto, pantalla } = avance;
 
-  // EXP-09: si se llegó navegando dentro del sitio el script en línea no corrió; se asigna aquí. Aviso a GA4 una vez.
+  // EXP-11: si se llegó navegando dentro del sitio el script en línea no corrió; se asigna aquí. Aviso a GA4 una vez.
   useEffect(() => {
-    EXP09.avisar(EXP09.asignar());
+    EXP11.avisar(EXP11.asignar());
   }, []);
 
   /* eslint-disable react-hooks/set-state-in-effect -- lectura única de localStorage al montar */
@@ -329,26 +329,17 @@ export default function EsqueletoApp() {
       <div ref={arriba} className="relative mx-auto max-w-3xl scroll-mt-24 px-4 pb-24 pt-28 sm:px-6 md:pt-36">
         {pantalla === 0 ? (
           <section className="py-6 sm:py-10">
-            {/* Hero · EXP-09: tres variantes (A resultado · B dolor · C demostración). Las tres van en el HTML y el CSS
-                muestra la que el script en línea dejó en <html data-exp09>, así no hay salto al hidratar. Sin JS se ve A.
-                El botón va justo bajo el título para que título, bajada y botón quepan en el primer pantallazo del celular. */}
+            {/* Hero · EXP-11 (12-nov-2026, ciclo diario): A ganadora de EXP-09 · B estructura · C video primero. Mismo título en
+                las tres; el CSS muestra lo que toca según <html data-exp11> (script en línea antes de pintar). Sin JS se ve A.
+                El botón va justo bajo el título (o bajo el video en la C) para que quepa en el primer pantallazo del celular. */}
             <p className="inline-flex items-center gap-2 rounded-full border border-[#5fb2dd]/40 bg-[#5fb2dd]/10 px-3 py-1 text-xs font-medium uppercase tracking-[0.18em] text-[#5fb2dd]">
               <Gift className="h-3.5 w-3.5" /> {TEXTOS.kicker}
             </p>
-            <div className="exp09-A">
-              <h1 className="mt-4 font-serif text-[2.1rem] leading-[1.1] text-white sm:text-5xl lg:text-[3.1rem]">Tu asistente de WhatsApp, escrito en 15 minutos</h1>
-              <p className="mt-4 max-w-2xl text-lg text-slate-200 sm:text-xl">Qué responde, qué nunca promete y cuándo te avisa. Gratis, sin tarjeta.</p>
-            </div>
-            <div className="exp09-B">
-              <p role="heading" aria-level={1} className="mt-4 font-serif text-[2.1rem] leading-[1.1] text-white sm:text-5xl lg:text-[3.1rem]">
-                ¿Respondes lo mismo 30 veces al día por WhatsApp?
-              </p>
-              <p className="mt-4 max-w-2xl text-lg text-slate-200 sm:text-xl">Deja escrito en 15 minutos qué responde tu asistente por ti. Gratis.</p>
-            </div>
-            {/* C2 (11-nov-2026): mismo título que A; cambia la estructura bajo el botón (por qué funciona + quién + qué trae). */}
-            <div className="exp09-C">
-              <p role="heading" aria-level={1} className="mt-4 font-serif text-[2.1rem] leading-[1.1] text-white sm:text-5xl lg:text-[3.1rem]">Tu asistente de WhatsApp, escrito en 15 minutos</p>
-              <p className="mt-4 max-w-2xl text-lg text-slate-200 sm:text-xl">Qué responde, qué nunca promete y cuándo te avisa. Gratis, sin tarjeta.</p>
+            <h1 className="mt-4 font-serif text-[2.1rem] leading-[1.1] text-white sm:text-5xl lg:text-[3.1rem]">Tu asistente de WhatsApp, escrito en 15 minutos</h1>
+            <p className="mt-4 max-w-2xl text-lg text-slate-200 sm:text-xl">Qué responde, qué nunca promete y cuándo te avisa. Gratis, sin tarjeta.</p>
+            {/* EXP-11 · C «video primero»: la bienvenida (40 s) antes del botón. */}
+            <div className="exp11-C">
+              <VideoMarco id="v02-esqueleto-bienvenida" titulo="Lo que vas a armar en los próximos 15 minutos" duracion="40 s" className="mt-6" />
             </div>
 
             <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
@@ -371,8 +362,8 @@ export default function EsqueletoApp() {
               <Save className="h-4 w-4" /> {TEXTOS.guardar}
             </p>
 
-            {/* EXP-09 · C2 «estructura» (11-nov-2026, pedido de Álvaro): por qué funciona + quién lo hizo + qué trae, arriba. */}
-            <div className="exp09-C">
+            {/* EXP-11 · B «estructura» (ex C2 de EXP-09): por qué funciona + quién lo hizo + qué trae, arriba. */}
+            <div className="exp11-B">
               <h2 className="mt-8 font-serif text-2xl text-white">¿Por qué este esqueleto y no un prompt suelto?</h2>
               <ul className="mt-4 space-y-2 text-sm text-slate-300">
                 {[
@@ -393,7 +384,9 @@ export default function EsqueletoApp() {
             </div>
 
             {/* Video 2 · bienvenida (8-nov-2026) */}
-            <VideoMarco id="v02-esqueleto-bienvenida" titulo="Lo que vas a armar en los próximos 15 minutos" duracion="40 s" className="mt-8" />
+            <div className="exp11-sin-C">
+              <VideoMarco id="v02-esqueleto-bienvenida" titulo="Lo que vas a armar en los próximos 15 minutos" duracion="40 s" className="mt-8" />
+            </div>
 
             <ol className="mt-8 grid gap-3 sm:grid-cols-2">
               {PASOS.map((p) => (
@@ -406,7 +399,7 @@ export default function EsqueletoApp() {
                 </li>
               ))}
             </ol>
-            <ul className="exp09-sin-C mt-10 space-y-2 border-t border-white/10 pt-6 text-sm text-slate-300">
+            <ul className="exp11-sin-B mt-10 space-y-2 border-t border-white/10 pt-6 text-sm text-slate-300">
               {[
                 'Te vas con tu asistente escrito: lo pruebas gratis en Claude o ChatGPT y después lo conectas a tu WhatsApp (te muestro cómo).',
                 '5 preguntas trampa para probarlo antes de usarlo con clientes.',

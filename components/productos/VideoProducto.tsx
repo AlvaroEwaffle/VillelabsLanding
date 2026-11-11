@@ -3,7 +3,8 @@
 // Video de producto (8-nov-2026): mp4 + póster (cuadro del propio video, nunca una foto de la cara) + subtítulos VTT.
 // .jpg y .vtt en public/videos/<id>; el .mp4 en GCS (lib/productos/media.ts). Los 16:9 traen la pista activa por defecto;
 // los verticales (reels) ya traen los subtítulos quemados, así que la pista queda disponible pero apagada.
-// La primera reproducción de cada video se avisa al Slack de Villelabs (lib/productos/eventos.ts).
+// La primera reproducción de cada video se avisa al Slack de Villelabs (lib/productos/eventos.ts), y desde el 12-nov-2026
+// también cuánto se vio: 25, 50 y 100 %, una vez por video y por visita (sessionStorage).
 
 import { registrarEvento } from '@/lib/productos/eventos';
 import { mp4 } from '@/lib/productos/media';
@@ -58,6 +59,28 @@ export type VideoId =
   | 'm6-l5'
   | 'm6-final';
 
+const HITOS_VIDEO = [25, 50, 100] as const;
+
+/** «vio el 50 % del video …»: una vez por video, hito y visita. Nunca rompe la página. */
+function avisarHitos(v: HTMLVideoElement, id: string, titulo: string) {
+  const d = v.duration;
+  if (!Number.isFinite(d) || d <= 0) return;
+  // El 100 % se marca al terminar o a medio segundo del final (algunos navegadores no llegan exacto).
+  const pct = v.ended || v.currentTime >= d - 0.5 ? 100 : (v.currentTime / d) * 100;
+  for (const h of HITOS_VIDEO) {
+    if (pct < h) continue;
+    const clave = `vl_video_${id}_${h}`;
+    try {
+      if (sessionStorage.getItem(clave)) continue;
+      sessionStorage.setItem(clave, '1');
+    } catch {
+      if (v.dataset[`h${h}`]) continue;
+      v.dataset[`h${h}`] = '1';
+    }
+    registrarEvento('video', { detalle: titulo, pct: h });
+  }
+}
+
 export default function VideoProducto({
   id,
   titulo,
@@ -82,6 +105,8 @@ export default function VideoProducto({
         v.dataset.avisado = '1';
         registrarEvento('video', { detalle: titulo });
       }}
+      onTimeUpdate={(e) => avisarHitos(e.currentTarget, id, titulo)}
+      onEnded={(e) => avisarHitos(e.currentTarget, id, titulo)}
       className={`block w-full bg-[#0f172a] ${vertical ? 'aspect-[9/16]' : 'aspect-video'} ${className}`}
     >
       <source src={mp4(id)} type="video/mp4" />

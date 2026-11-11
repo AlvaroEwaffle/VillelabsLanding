@@ -4,8 +4,9 @@
 // Solo corre en villelab.com y sus previews: en localhost no se envía nada (como GTM).
 // Nunca lanza ni bloquea la página: si falla, se pierde ese evento y listo.
 
-import { EXP08 } from './curso/exp08';
-import { EXP09 } from './esqueleto/exp09';
+import { EXP10 } from './curso/exp10';
+import { EXP11 } from './esqueleto/exp11';
+import { EXP12 } from './guia/exp12';
 
 type Tipo = 'visita' | 'pagina' | 'clic' | 'video' | 'lead' | 'scroll' | 'tiempo';
 
@@ -15,7 +16,11 @@ type Tipo = 'visita' | 'pagina' | 'clic' | 'video' | 'lead' | 'scroll' | 'tiempo
  */
 function experimento(): { exp?: string; variante?: string } {
   if (typeof window === 'undefined') return {};
-  const propio = /^\/esqueleto(\/|$)/.test(location.pathname) ? [EXP09, EXP08] : [EXP08, EXP09];
+  // 12-nov-2026: EXP-10 /curso · EXP-11 /esqueleto · EXP-12 /guia (ciclo diario). Primero el de la página actual.
+  const todos = [EXP10, EXP11, EXP12];
+  const p = location.pathname;
+  const actual = /^\/esqueleto(\/|$)/.test(p) ? EXP11 : /^\/guia(\/|$)/.test(p) ? EXP12 : EXP10;
+  const propio = [actual, ...todos.filter((e) => e !== actual)];
   for (const e of propio) {
     const v = e.variante();
     if (v) return { exp: e.id, variante: e.etiqueta(v) };

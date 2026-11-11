@@ -263,13 +263,13 @@ body {
 .pantallita [class*="bg-white/"],.pantallita [class*="bg-[#0"],.pantallita [class*="bg-[#1"]{background:#ffffff !important}
 .pantallita [class*="border-white/"],.pantallita [class*="border-[#2"]{border-color:#e2e8f0 !important}
 
-/* EXP-08 /curso (10-nov-2026): <html data-exp08="A|B|C"> lo pone un script en línea antes de pintar
-   (lib/productos/curso/exp08.ts). Sin atributo (sin JS) se ve A. .exp08-sin-C = todo menos C. */
-.exp08-B,.exp08-C{display:none}
-html[data-exp08="B"] .exp08-A,html[data-exp08="C"] .exp08-A,html[data-exp08="C"] .exp08-sin-C{display:none}
-html[data-exp08="B"] .exp08-B,html[data-exp08="C"] .exp08-C{display:block}
-
-/* EXP-09 /esqueleto (10-nov-2026): igual que EXP-08, con <html data-exp09> (lib/productos/esqueleto/exp09.ts). */
-.exp09-B,.exp09-C{display:none}
-html[data-exp09="B"] .exp09-A,html[data-exp09="C"] .exp09-A,html[data-exp09="C"] .exp09-sin-C{display:none}
-html[data-exp09="B"] .exp09-B,html[data-exp09="C"] .exp09-C{display:block}
+/* Experimentos diarios (12-nov-2026): <html data-expNN="A|B|C"> lo pone un script en línea antes de pintar
+   (lib/productos/experimento.ts). Sin atributo (sin JS) se ve A. .expNN-sin-B / .expNN-sin-C = todo menos esa variante.
+   EXP-10 /curso · EXP-11 /esqueleto · EXP-12 /guia. */
+.exp10-B,.exp10-C,.exp11-B,.exp11-C,.exp12-B,.exp12-C{display:none}
+html[data-exp10="B"] .exp10-A,html[data-exp10="C"] .exp10-A,html[data-exp10="B"] .exp10-sin-B,html[data-exp10="C"] .exp10-sin-C,
+html[data-exp11="B"] .exp11-A,html[data-exp11="C"] .exp11-A,html[data-exp11="B"] .exp11-sin-B,html[data-exp11="C"] .exp11-sin-C,
+html[data-exp12="B"] .exp12-A,html[data-exp12="C"] .exp12-A,html[data-exp12="B"] .exp12-sin-B,html[data-exp12="C"] .exp12-sin-C{display:none}
+html[data-exp10="B"] .exp10-B,html[data-exp10="C"] .exp10-C,
+html[data-exp11="B"] .exp11-B,html[data-exp11="C"] .exp11-C,
+html[data-exp12="B"] .exp12-B,html[data-exp12="C"] .exp12-C{display:block}

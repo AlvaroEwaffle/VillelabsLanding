@@ -180,7 +180,10 @@ export const onRequestPost = async ({ request, env }: Ctx): Promise<Response> =>
       texto = `🖱️ clic en «${limpio(d.detalle, 60)}» (\`${ruta}\`)`;
       break;
     case 'video':
-      texto = `▶️ reprodujo el video «${limpio(d.detalle, 80)}»`;
+      // 12-nov-2026: con pct (25 · 50 · 100) es cuánto vio; sin pct, el primer play.
+      texto = [25, 50, 100].includes(pctOk)
+        ? `👁 vio el ${pctOk} % del video «${limpio(d.detalle, 80)}»`
+        : `▶️ reprodujo el video «${limpio(d.detalle, 80)}»`;
       break;
     case 'scroll':
       if (!pctOk) return json({ ok: false }, 400, origen);
@@ -204,7 +207,7 @@ export const onRequestPost = async ({ request, env }: Ctx): Promise<Response> =>
     }
   }
 
-  // EXP-08/09 (10-nov-2026): la variante del hero, si viene, encabeza el mensaje → «[EXP-08 B] …», «[EXP-09 C] …».
+  // EXP-08/09 (10-nov-2026) → EXP-10/11/12 (12-nov-2026, diarios): la variante del hero, si viene, encabeza el mensaje → «[EXP-08 B] …», «[EXP-09 C] …».
   // Sin `exp` es EXP-08 (clientes de antes de EXP-09).
   const variante = limpio(d.variante, 2); // A · B · C · C2 (C2 = ronda 2 de la C, 11-nov-2026)
   const exp = /^\d{2}$/.test(limpio(d.exp, 2)) ? limpio(d.exp, 2) : '08';

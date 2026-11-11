@@ -5,6 +5,7 @@ import { FAQ_GUIA, PRECIO_GUIA } from '@/lib/productos/guia/venta';
 import { LINKS } from '@/lib/productos/links';
 import { fraunces } from '@/lib/productos/fuente';
 import GuiaVenta from '@/components/productos/guia/GuiaVenta';
+import { EXP12 } from '@/lib/productos/guia/exp12';
 
 // /guia — página de venta (indexable) de la Guía 1. El producto está en /guia/prospeccion (noindex).
 // Copy v1.2 (8-nov-2026) con las palabras que busca el comprador: «conseguir clientes», «CRM», «WhatsApp».
@@ -71,6 +72,8 @@ const JSON_LD = [
 export default function GuiaVentaPage() {
   return (
     <div className={fraunces.variable}>
+      {/* EXP-12 (12-nov-2026): la variante se fija antes de pintar el hero (lib/productos/guia/exp12.ts). */}
+      <script dangerouslySetInnerHTML={{ __html: EXP12.script }} />
       <JsonLd data={JSON_LD} />
       <GuiaVenta />
     </div>
