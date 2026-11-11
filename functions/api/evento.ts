@@ -206,9 +206,9 @@ export const onRequestPost = async ({ request, env }: Ctx): Promise<Response> =>
 
   // EXP-08/09 (10-nov-2026): la variante del hero, si viene, encabeza el mensaje → «[EXP-08 B] …», «[EXP-09 C] …».
   // Sin `exp` es EXP-08 (clientes de antes de EXP-09).
-  const variante = limpio(d.variante, 1);
+  const variante = limpio(d.variante, 2); // A · B · C · C2 (C2 = ronda 2 de la C, 11-nov-2026)
   const exp = /^\d{2}$/.test(limpio(d.exp, 2)) ? limpio(d.exp, 2) : '08';
-  const etiqueta = /^[ABC]$/.test(variante) ? `[EXP-${exp} ${variante}] ` : '';
+  const etiqueta = /^(A|B|C2?)$/.test(variante) ? `[EXP-${exp} ${variante}] ` : '';
   texto = etiqueta + texto;
 
   if (tipo === 'parcial') {

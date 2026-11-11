@@ -21,7 +21,8 @@ const CUENTA = process.env.NEXT_PUBLIC_FIDELIDAPP_CUENTA_PRODUCTOS ?? '678e4df08
 const CLAVE_COLA = 'villelab_leads_pendientes';
 
 /** «curso-lead»: dejó el correo en /curso sin comprar y partió por el esqueleto gratis (9-nov-2026). */
-export type ProductoLead = 'esqueleto' | 'workshop' | 'guia-1' | 'curso' | 'curso-lead';
+/** «curso-modulo0»: dejó el correo en /curso para ver el módulo 0 gratis (11-nov-2026). */
+export type ProductoLead = 'esqueleto' | 'workshop' | 'guia-1' | 'curso' | 'curso-lead' | 'curso-modulo0';
 
 export interface DatosLead {
   nombre: string;

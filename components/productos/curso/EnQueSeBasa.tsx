@@ -68,9 +68,9 @@ function fuentesDe(ids: string[]): FuenteEvidencia[] {
     .filter((f) => (vistas.has(f.url) ? false : (vistas.add(f.url), true)));
 }
 
-export default function EnQueSeBasa() {
+export default function EnQueSeBasa({ id = "en-que-se-basa" }: { id?: string }) {
   return (
-    <section id="en-que-se-basa" className="mx-auto max-w-6xl scroll-mt-24 px-4 py-14 sm:px-6">
+    <section id={id} className="mx-auto max-w-6xl scroll-mt-24 px-4 py-14 sm:px-6">
       <p className="font-mono text-xs uppercase tracking-[0.2em] text-[#5fb2dd]">En qué se basa</p>
       <h2 className="mt-3 max-w-3xl font-serif text-3xl text-white sm:text-4xl">Experiencia de terreno, contrastada con la investigación.</h2>
       <p className="mt-4 max-w-2xl text-slate-300">

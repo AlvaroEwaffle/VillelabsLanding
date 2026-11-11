@@ -21,6 +21,7 @@ import { AREAS, CASO, CUPOS_FUNDADOR, CURSO, FAQ, HOJAS, IA_OPCIONAL, MODULOS, P
 import { asignarVarianteExp08, avisarVarianteExp08 } from '@/lib/productos/curso/exp08';
 import { VERSION_CURSO, VERSIONES_CURSO, fechaLarga } from '@/lib/productos/curso/versiones';
 import EnQueSeBasa from './EnQueSeBasa';
+import EstructuraC2 from './EstructuraC2';
 import CursoLead from './CursoLead';
 import { hotmartConUtm } from '@/lib/productos/utm';
 import { trackCursoClickCompra } from '@/lib/productos/curso/tracking';
@@ -106,10 +107,11 @@ function BarraCompraMovil() {
   );
 }
 
+// 11-nov-2026: el módulo 0 se ve dejando el correo → los botones llevan a la puerta del hero (CursoLead).
 function BotonModulo0({ texto = 'Ver el módulo 0', className = 'inline-flex' }: { texto?: string; className?: string }) {
   return (
     <Link
-      href={LINKS.cursoModulo0}
+      href="#parte-gratis-hero"
       className={`${className} min-h-[48px] items-center justify-center gap-2 rounded-full border border-white/15 px-6 text-sm text-slate-200 transition hover:border-[#5fb2dd]/60 hover:text-white`}
     >
       <Eye className="h-4 w-4" aria-hidden /> {texto}
@@ -168,11 +170,6 @@ export default function CursoContent() {
             </div>
           </div>
           <div>
-            <div className="exp08-C">
-              <div className="mb-5 lg:hidden">
-                <TableroMock compacto />
-              </div>
-            </div>
             <Kicker>Curso · Preventa abierta</Kicker>
             <div className="exp08-A">
               <h1 className="mt-3 max-w-3xl font-serif text-[1.9rem] leading-[1.1] text-white sm:text-5xl lg:text-[3.1rem]">
@@ -186,11 +183,12 @@ export default function CursoContent() {
               </p>
               <p className="mt-3 max-w-xl text-base text-slate-300 sm:text-lg">Ordénalos en una planilla que ya sabes usar, en 6 semanas y sin programar.</p>
             </div>
+            {/* C2 (11-nov-2026): mismo título que A; lo que cambia es la estructura bajo el hero (EstructuraC2). */}
             <div className="exp08-C">
               <p role="heading" aria-level={1} className="mt-3 max-w-3xl font-serif text-[1.9rem] leading-[1.1] text-white sm:text-5xl lg:text-[3.1rem]">
-                Así se ve tu negocio ordenado
+                Ordena tu negocio en una planilla: clientes, pedidos y caja en un solo tablero
               </p>
-              <p className="mt-3 max-w-xl text-base text-slate-300 sm:text-lg">Un tablero que revisas los lunes en 10 minutos, en Google Sheets.</p>
+              <p className="mt-3 max-w-xl text-base text-slate-300 sm:text-lg">En 6 semanas y sin programar. El módulo 0 es gratis hoy.</p>
             </div>
             <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
               <BotonCompra ubicacion="hero" />
@@ -208,6 +206,9 @@ export default function CursoContent() {
           </div>
         </div>
       </section>
+
+      {/* EXP-08 · C2: por qué este curso + quién lo arma + módulo 0 + en qué se basa, arriba. */}
+      <EstructuraC2 />
 
       {/* El curso en corto: franja bajo el hero (5 datos en fila en escritorio, apilados en celular). */}
       <section aria-label="El curso en corto" className="mx-auto max-w-6xl px-4 sm:px-6">
@@ -503,6 +504,8 @@ export default function CursoContent() {
         </div>
       </Seccion>
 
+      {/* Quién lo enseña + En qué se basa: en C2 ya salieron arriba (EstructuraC2). */}
+      <div className="exp08-sin-C">
       {/* Quién lo enseña */}
       <Seccion kicker="Quién lo enseña" titulo="Álvaro Villena">
         <div className="mt-10 grid items-center gap-8 md:grid-cols-[360px_1fr]">
@@ -532,6 +535,7 @@ export default function CursoContent() {
       </Seccion>
 
       <EnQueSeBasa />
+      </div>
 
       {/* FAQ */}
       <Seccion kicker="Preguntas frecuentes" titulo="Lo que más nos preguntan.">

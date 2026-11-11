@@ -18,9 +18,11 @@ export interface Experimento {
   variante: () => Variante | undefined;
   /** dataLayer `expNN_variante`, una vez por visita (sessionStorage). */
   avisar: (v: Variante) => void;
+  /** Etiqueta que viaja a Slack/GA4: la variante, o su nombre de ronda (C2 desde el 11-nov-2026). */
+  etiqueta: (v: Variante) => string;
 }
 
-export function crearExperimento(id: string, clave: string): Experimento {
+export function crearExperimento(id: string, clave: string, etiquetas: Partial<Record<Variante, string>> = {}): Experimento {
   const atributo = `data-exp${id}`;
 
   const script = `(function(){var v='A';try{var q=(new URLSearchParams(location.search).get('v')||'').toUpperCase();if(/^[ABC]$/.test(q)){v=q}else{var s=localStorage.getItem('${clave}');if(s&&/^[ABC]$/.test(s)){v=s}else{var r='ABC'.charAt(Math.floor(Math.random()*3));localStorage.setItem('${clave}',r);if(localStorage.getItem('${clave}')===r)v=r}}}catch(e){v='A'}document.documentElement.setAttribute('${atributo}',v)})();`;
@@ -64,11 +66,15 @@ export function crearExperimento(id: string, clave: string): Experimento {
       }
       const w = window as typeof window & { dataLayer?: Record<string, unknown>[] };
       w.dataLayer = w.dataLayer ?? [];
-      w.dataLayer.push({ event: `exp${id}_variante`, variante: v });
+      w.dataLayer.push({ event: `exp${id}_variante`, variante: etiqueta(v) });
     } catch {
       /* nunca rompe la página */
     }
   }
 
-  return { id, script, asignar, variante, avisar };
+  function etiqueta(v: Variante): string {
+    return etiquetas[v] ?? v;
+  }
+
+  return { id, script, asignar, variante, avisar, etiqueta };
 }

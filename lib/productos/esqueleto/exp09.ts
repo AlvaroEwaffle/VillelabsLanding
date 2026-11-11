@@ -5,5 +5,7 @@
 
 import { crearExperimento } from '../experimento';
 
-export const CLAVE_EXP09 = 'vl_exp09';
-export const EXP09 = crearExperimento('09', CLAVE_EXP09);
+// 11-nov-2026 (Álvaro por WhatsApp): C «esqueleto lleno primero» se retira (0 de 14 visitas avanzaron) y entra C2,
+// la variante de ESTRUCTURA: por qué funciona + quién lo hizo + qué trae, arriba. Clave nueva vl_exp09b; Slack «[EXP-09 C2]».
+export const CLAVE_EXP09 = 'vl_exp09b';
+export const EXP09 = crearExperimento('09', CLAVE_EXP09, { C: 'C2' });

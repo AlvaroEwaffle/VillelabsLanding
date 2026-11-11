@@ -18,7 +18,7 @@ function experimento(): { exp?: string; variante?: string } {
   const propio = /^\/esqueleto(\/|$)/.test(location.pathname) ? [EXP09, EXP08] : [EXP08, EXP09];
   for (const e of propio) {
     const v = e.variante();
-    if (v) return { exp: e.id, variante: v };
+    if (v) return { exp: e.id, variante: e.etiqueta(v) };
   }
   return {};
 }
