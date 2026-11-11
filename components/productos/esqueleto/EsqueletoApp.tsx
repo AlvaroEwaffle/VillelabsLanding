@@ -38,6 +38,9 @@ import {
   DiagramaSinConReglas,
 } from '@/components/productos/diagramas/esqueleto';
 import { Kicker, botonPrimario, botonSecundario, claseInput } from './ui';
+import { EXP09 } from '@/lib/productos/esqueleto/exp09';
+import { cancelarParcial, campoParcial, correoValido, pasoParcial } from '@/lib/productos/esqueleto/parcial';
+import EsqueletoMock from './EsqueletoMock';
 import { VideoMarco } from '@/components/productos/VideoProducto';
 
 // Secuencia: antes de cada paso, una pantalla corta «¿Te pasa esto?».
@@ -69,7 +72,6 @@ const DIAGRAMA_PASO: Record<number, () => React.ReactNode> = {
 };
 
 const avanceInicial = (): Avance => ({ esqueleto: esqueletoVacio(), pantalla: 0, respuestas: {}, terminadoEn: null });
-const correoValido = (c: string) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(c.trim());
 
 function Progreso({ paso, antes }: { paso: number; antes?: boolean }) {
   const info = PASOS[paso - 1];
@@ -168,8 +170,11 @@ function DatosContacto({ onListo, onVolver }: { onListo: (l: Lead) => void; onVo
         if (!correoValido(correo)) return setError('Revisa tu correo: parece que le falta algo.');
         setError('');
         setEnviando(true);
+        cancelarParcial();
         onListo({ nombre: nombre.trim(), correo: correo.trim(), whatsapp: whatsapp.trim(), fecha: new Date().toISOString() });
       }}
+      // Correo a medias (EXP-09): al salir de cualquier campo, si ya hay un correo válido, se guarda lo escrito.
+      onBlur={() => campoParcial({ nombre, correo, whatsapp }, PASOS.length + 1)}
       className="space-y-5"
     >
       <FotoApoyo foto="cafeCerca" alto="h-40 sm:h-56" />
@@ -209,7 +214,7 @@ function DatosContacto({ onListo, onVolver }: { onListo: (l: Lead) => void; onVo
           Ver el esqueleto de mi asistente <ArrowRight className="h-4 w-4" />
         </button>
       </div>
-      <p className="text-xs text-slate-500">Usamos tu correo para mandarte contenido útil para tu negocio. Te puedes dar de baja cuando quieras.</p>
+      <p className="text-xs text-slate-500">Usamos tu correo para mandarte contenido útil para tu negocio. Te puedes dar de baja cuando quieras. Guardamos lo que escribes para no perder tu avance.</p>
     </form>
   );
 }
@@ -225,6 +230,11 @@ export default function EsqueletoApp() {
   const [pantallaGuardada, setPantallaGuardada] = useState(0);
   const arriba = useRef<HTMLDivElement>(null);
   const { esqueleto, pantalla } = avance;
+
+  // EXP-09: si se llegó navegando dentro del sitio el script en línea no corrió; se asigna aquí. Aviso a GA4 una vez.
+  useEffect(() => {
+    EXP09.avisar(EXP09.asignar());
+  }, []);
 
   /* eslint-disable react-hooks/set-state-in-effect -- lectura única de localStorage al montar */
   useEffect(() => {
@@ -278,6 +288,12 @@ export default function EsqueletoApp() {
 
   const actual = pantalla >= 1 && pantalla <= SECUENCIA.length ? SECUENCIA[pantalla - 1] : null;
 
+  // Correo a medias: cada cambio de paso actualiza el paso alcanzado (solo si ya dejó un correo válido en esta visita).
+  const pasoActual = pidiendoDatos ? PASOS.length + 1 : pantalla === RESULTADO ? PASOS.length + 2 : (actual?.paso ?? 0);
+  useEffect(() => {
+    if (pasoActual > 0) pasoParcial(pasoActual);
+  }, [pasoActual]);
+
   const faltanFaqs = Math.max(0, MIN_FAQS - faqsCompletas(esqueleto).length);
 
   const siguiente = () => {
@@ -313,29 +329,33 @@ export default function EsqueletoApp() {
       <div ref={arriba} className="relative mx-auto max-w-3xl scroll-mt-24 px-4 pb-24 pt-28 sm:px-6 md:pt-36">
         {pantalla === 0 ? (
           <section className="py-6 sm:py-10">
-            <p className="inline-flex items-center gap-2 rounded-full border border-[#5fb2dd]/40 bg-[#5fb2dd]/10 px-3 py-1 text-xs font-medium uppercase tracking-[0.18em] text-[#5fb2dd]">
+            {/* Hero · EXP-09: tres variantes (A resultado · B dolor · C demostración). Las tres van en el HTML y el CSS
+                muestra la que el script en línea dejó en <html data-exp09>, así no hay salto al hidratar. Sin JS se ve A.
+                El botón va justo bajo el título para que título, bajada y botón quepan en el primer pantallazo del celular. */}
+            <div className="exp09-C">
+              <EsqueletoMock className="mb-5" />
+            </div>
+            <p className="exp09-sin-C inline-flex items-center gap-2 rounded-full border border-[#5fb2dd]/40 bg-[#5fb2dd]/10 px-3 py-1 text-xs font-medium uppercase tracking-[0.18em] text-[#5fb2dd]">
               <Gift className="h-3.5 w-3.5" /> {TEXTOS.kicker}
             </p>
-            {/* Hero sin foto, solo el video (pedido de Álvaro, 8-nov-2026). */}
-            <h1 className="mt-5 font-serif text-[2.1rem] leading-[1.1] text-white sm:text-5xl lg:text-[3.1rem]">{TEXTOS.titular}</h1>
-            <p className="mt-6 max-w-2xl text-lg text-slate-200 sm:text-xl">{TEXTOS.bajada}</p>
+            <div className="exp09-A">
+              <h1 className="mt-4 font-serif text-[2.1rem] leading-[1.1] text-white sm:text-5xl lg:text-[3.1rem]">Tu asistente de WhatsApp, escrito en 15 minutos</h1>
+              <p className="mt-4 max-w-2xl text-lg text-slate-200 sm:text-xl">Qué responde, qué nunca promete y cuándo te avisa. Gratis, sin tarjeta.</p>
+            </div>
+            <div className="exp09-B">
+              <p role="heading" aria-level={1} className="mt-4 font-serif text-[2.1rem] leading-[1.1] text-white sm:text-5xl lg:text-[3.1rem]">
+                ¿Respondes lo mismo 30 veces al día por WhatsApp?
+              </p>
+              <p className="mt-4 max-w-2xl text-lg text-slate-200 sm:text-xl">Deja escrito en 15 minutos qué responde tu asistente por ti. Gratis.</p>
+            </div>
+            <div className="exp09-C">
+              <p role="heading" aria-level={1} className="font-serif text-[1.9rem] leading-[1.1] text-white sm:text-5xl lg:text-[3.1rem]">
+                Así queda el esqueleto de tu primer agente
+              </p>
+              <p className="mt-3 max-w-2xl text-lg text-slate-200 sm:text-xl">Lo completas en 15 minutos y te lo llevas gratis.</p>
+            </div>
 
-            {/* Video 2 · bienvenida (8-nov-2026) */}
-            <VideoMarco id="v02-esqueleto-bienvenida" titulo="Lo que vas a armar en los próximos 15 minutos" duracion="40 s" className="mt-8" />
-
-            <ol className="mt-8 grid gap-3 sm:grid-cols-2">
-              {PASOS.map((p) => (
-                <li key={p.n} className="flex gap-3 rounded-2xl border border-white/10 bg-white/[0.03] p-4">
-                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#2175a1] font-mono text-sm text-white">{p.n}</span>
-                  <span>
-                    <span className="block text-base font-medium text-white">{p.etiqueta}</span>
-                    <span className="mt-0.5 block text-sm text-slate-400">{p.bajada}</span>
-                  </span>
-                </li>
-              ))}
-            </ol>
-
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
+            <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
               {pantallaGuardada > 0 ? (
                 <>
                   <button type="button" onClick={() => irA(pantallaGuardada)} className={botonPrimario}>
@@ -354,6 +374,21 @@ export default function EsqueletoApp() {
             <p className="mt-3 inline-flex items-center gap-1.5 text-sm text-slate-400">
               <Save className="h-4 w-4" /> {TEXTOS.guardar}
             </p>
+
+            {/* Video 2 · bienvenida (8-nov-2026) */}
+            <VideoMarco id="v02-esqueleto-bienvenida" titulo="Lo que vas a armar en los próximos 15 minutos" duracion="40 s" className="mt-8" />
+
+            <ol className="mt-8 grid gap-3 sm:grid-cols-2">
+              {PASOS.map((p) => (
+                <li key={p.n} className="flex gap-3 rounded-2xl border border-white/10 bg-white/[0.03] p-4">
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#2175a1] font-mono text-sm text-white">{p.n}</span>
+                  <span>
+                    <span className="block text-base font-medium text-white">{p.etiqueta}</span>
+                    <span className="mt-0.5 block text-sm text-slate-400">{p.bajada}</span>
+                  </span>
+                </li>
+              ))}
+            </ol>
             <ul className="mt-10 space-y-2 border-t border-white/10 pt-6 text-sm text-slate-300">
               {[
                 'Te vas con tu asistente escrito: lo pruebas gratis en Claude o ChatGPT y después lo conectas a tu WhatsApp (te muestro cómo).',

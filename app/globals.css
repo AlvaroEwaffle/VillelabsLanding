@@ -268,3 +268,8 @@ body {
 .exp08-B,.exp08-C{display:none}
 html[data-exp08="B"] .exp08-A,html[data-exp08="C"] .exp08-A,html[data-exp08="C"] .exp08-sin-C{display:none}
 html[data-exp08="B"] .exp08-B,html[data-exp08="C"] .exp08-C{display:block}
+
+/* EXP-09 /esqueleto (10-nov-2026): igual que EXP-08, con <html data-exp09> (lib/productos/esqueleto/exp09.ts). */
+.exp09-B,.exp09-C{display:none}
+html[data-exp09="B"] .exp09-A,html[data-exp09="C"] .exp09-A,html[data-exp09="C"] .exp09-sin-C{display:none}
+html[data-exp09="B"] .exp09-B,html[data-exp09="C"] .exp09-C{display:block}

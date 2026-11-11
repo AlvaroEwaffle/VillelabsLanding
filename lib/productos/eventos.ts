@@ -4,9 +4,28 @@
 // Solo corre en villelab.com y sus previews: en localhost no se envía nada (como GTM).
 // Nunca lanza ni bloquea la página: si falla, se pierde ese evento y listo.
 
-import { varianteExp08 } from './curso/exp08';
+import { EXP08 } from './curso/exp08';
+import { EXP09 } from './esqueleto/exp09';
 
 type Tipo = 'visita' | 'pagina' | 'clic' | 'video' | 'lead' | 'scroll' | 'tiempo';
+
+/**
+ * Experimento de hero vigente → «[EXP-08 B]» / «[EXP-09 C]» en Slack. Manda el de la página actual; si la visita
+ * pasó antes por la página de otro experimento (navegación interna), sigue llevando esa variante.
+ */
+function experimento(): { exp?: string; variante?: string } {
+  if (typeof window === 'undefined') return {};
+  const propio = /^\/esqueleto(\/|$)/.test(location.pathname) ? [EXP09, EXP08] : [EXP08, EXP09];
+  for (const e of propio) {
+    const v = e.variante();
+    if (v) return { exp: e.id, variante: v };
+  }
+  return {};
+}
+
+// Correo a medias (EXP-09, 10-nov-2026): el ts del mensaje «✍️ dejó correo sin enviar» de esta visita, para
+// actualizarlo en vez de repetirlo y para marcarlo como completado cuando llega el registro real.
+const CLAVE_PARCIAL = 'vl_parcial_ts';
 
 const CLAVE_SID = 'vl_sid';
 const CLAVE_HILO = 'vl_hilo';
@@ -39,6 +58,14 @@ function escribir(k: string, v: string) {
   }
 }
 
+function borrar(k: string) {
+  try {
+    sessionStorage.removeItem(k);
+  } catch {
+    /* sin almacenamiento */
+  }
+}
+
 function sid(): string {
   let s = leer(CLAVE_SID);
   if (!s) {
@@ -60,13 +87,16 @@ export function registrarEvento(tipo: Tipo, extra: Record<string, unknown> = {})
       const hilo = leer(CLAVE_HILO) ?? undefined;
       // Sin hilo todavía, el primer evento de la visita abre el mensaje.
       const t: Tipo = !hilo && tipo === 'pagina' ? 'visita' : tipo;
+      // EXP-08/09: la variante del hero viaja en cada evento → «[EXP-08 B]» / «[EXP-09 C]» en Slack.
+      // Un registro lleva el ts del correo a medias de la visita (si hubo), para marcarlo como completado.
+      const parcial = tipo === 'lead' ? (leer(CLAVE_PARCIAL) ?? undefined) : undefined;
       const r = await fetch('/api/evento', {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
-        // EXP-08: la variante del hero de /curso viaja en cada evento → «[EXP-08 B]» en Slack.
-        body: JSON.stringify({ tipo: t, sid: sid(), hilo, ruta: location.pathname, variante: varianteExp08(), ...extra }),
+        body: JSON.stringify({ tipo: t, sid: sid(), hilo, ruta: location.pathname, ...experimento(), parcial, ...extra }),
         keepalive: true,
       });
+      if (parcial) borrar(CLAVE_PARCIAL);
       if (!r.ok) return;
       const d = (await r.json()) as { hilo?: string };
       if (!hilo && d.hilo) escribir(CLAVE_HILO, d.hilo);
@@ -94,7 +124,7 @@ export function registrarLectura(
   if (alSalir) {
     const hilo = leer(CLAVE_HILO);
     if (!hilo || !cupoLectura()) return;
-    const cuerpo = JSON.stringify({ tipo, sid: sid(), hilo, variante: varianteExp08(), ...datos });
+    const cuerpo = JSON.stringify({ tipo, sid: sid(), hilo, ...experimento(), ...datos });
     try {
       if (navigator.sendBeacon?.('/api/evento', new Blob([cuerpo], { type: 'text/plain' }))) return;
     } catch {
@@ -110,9 +140,57 @@ export function registrarLectura(
       await fetch('/api/evento', {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ tipo, sid: sid(), hilo, variante: varianteExp08(), ...datos }),
+        body: JSON.stringify({ tipo, sid: sid(), hilo, ...experimento(), ...datos }),
         keepalive: true,
       });
+    })
+    .catch(() => {});
+}
+
+export interface DatosParcial {
+  nombre: string;
+  correo: string;
+  whatsapp: string;
+  /** Paso al que llegó (en /esqueleto: 1-4 los pasos, 5 los datos de contacto). */
+  paso: number;
+  producto: string;
+  utm: Record<string, string | undefined>;
+}
+
+/**
+ * Correo a medias: la persona escribió un correo válido en el formulario y todavía no lo envía. Va al hilo de su
+ * visita como «✍️ dejó correo sin enviar (paso n)», con el correo enmascarado; los datos completos quedan en la
+ * metadata del mensaje de Slack (functions/api/evento.ts). Cada envío posterior de la misma visita actualiza ese
+ * mensaje. `alSalir` usa sendBeacon (cierre o cambio de pestaña): no hay respuesta, así que no guarda el ts.
+ */
+export function registrarParcial(datos: DatosParcial, alSalir = false): void {
+  if (!eventosActivos()) return;
+  const cuerpo = () =>
+    JSON.stringify({
+      tipo: 'parcial',
+      sid: sid(),
+      hilo: leer(CLAVE_HILO) ?? undefined,
+      ts: leer(CLAVE_PARCIAL) ?? undefined,
+      ruta: location.pathname,
+      ...experimento(),
+      ...datos,
+    });
+  if (alSalir) {
+    try {
+      if (navigator.sendBeacon?.('/api/evento', new Blob([cuerpo()], { type: 'text/plain' }))) return;
+    } catch {
+      /* cae al fetch */
+    }
+    fetch('/api/evento', { method: 'POST', body: cuerpo(), keepalive: true }).catch(() => {});
+    return;
+  }
+  cadena = cadena
+    .then(async () => {
+      const r = await fetch('/api/evento', { method: 'POST', headers: { 'content-type': 'application/json' }, body: cuerpo(), keepalive: true });
+      if (!r.ok) return;
+      const d = (await r.json()) as { hilo?: string; ts?: string };
+      if (d.ts) escribir(CLAVE_PARCIAL, d.ts);
+      if (!leer(CLAVE_HILO) && d.hilo) escribir(CLAVE_HILO, d.hilo);
     })
     .catch(() => {});
 }

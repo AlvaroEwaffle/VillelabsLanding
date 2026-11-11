@@ -18,12 +18,26 @@ interface Env {
 // Tipo mínimo del contexto de Pages Functions (sin depender de @cloudflare/workers-types, así Next también lo tipa).
 type Ctx = { request: Request; env: Env };
 
-type Tipo = 'visita' | 'pagina' | 'clic' | 'video' | 'lead' | 'scroll' | 'tiempo';
-const TIPOS: Tipo[] = ['visita', 'pagina', 'clic', 'video', 'lead', 'scroll', 'tiempo'];
+type Tipo = 'visita' | 'pagina' | 'clic' | 'video' | 'lead' | 'scroll' | 'tiempo' | 'parcial';
+const TIPOS: Tipo[] = ['visita', 'pagina', 'clic', 'video', 'lead', 'scroll', 'tiempo', 'parcial'];
 // Scroll y tiempo solo tienen sentido dentro del hilo de una visita ya abierta (10-nov-2026).
 const SOLO_HILO: Tipo[] = ['scroll', 'tiempo'];
 const HITOS = [25, 50, 75, 100];
 const CANAL_POR_DEFECTO = 'C0AMNEGL8BX';
+
+// Correo a medias (EXP-09 /esqueleto, 10-nov-2026): la persona escribió un correo válido y no envió el formulario.
+// En Slack el correo va enmascarado («a***@gmail.com»); los datos completos (nombre, correo, WhatsApp, paso, UTM,
+// variante) quedan en la metadata del mensaje (event_type villelab_parcial), que no se muestra en el canal y que
+// scripts/parciales.mjs lee con conversations.history. Va también al canal (reply_broadcast) porque es casi un lead.
+// Un mismo mensaje por visita: los envíos siguientes lo actualizan (chat.update) y el registro real lo marca ✅.
+const EVENTO_PARCIAL = 'villelab_parcial';
+const CORREO_OK = /^[^\s@<>]+@[^\s@<>]+\.[^\s@<>]{2,}$/;
+const TS_OK = /^\d{10}\.\d{6}$/;
+
+function enmascarar(correo: string): string {
+  const [u, d] = correo.split('@');
+  return `${u.charAt(0)}***@${d}`;
+}
 
 const ORIGEN_OK = /^https:\/\/((www\.)?villelab\.com|[a-z0-9-]+\.villelabs\.pages\.dev)$/;
 
@@ -82,8 +96,15 @@ async function slack(env: Env, metodo: string, cuerpo: Record<string, unknown>) 
   return (await r.json()) as { ok: boolean; ts?: string; error?: string };
 }
 
-async function publicar(env: Env, canal: string, texto: string, hilo?: string, alCanal = false) {
+async function actualizar(env: Env, canal: string, ts: string, texto: string, metadata?: Record<string, unknown>) {
+  const cuerpo: Record<string, unknown> = { channel: canal, ts, text: texto };
+  if (metadata) cuerpo.metadata = metadata;
+  return slack(env, 'chat.update', cuerpo);
+}
+
+async function publicar(env: Env, canal: string, texto: string, hilo?: string, alCanal = false, metadata?: Record<string, unknown>) {
   const cuerpo: Record<string, unknown> = { channel: canal, text: texto, unfurl_links: false, unfurl_media: false };
+  if (metadata) cuerpo.metadata = metadata;
   if (hilo) cuerpo.thread_ts = hilo;
   if (hilo && alCanal) cuerpo.reply_broadcast = true;
   let r = await slack(env, 'chat.postMessage', cuerpo);
@@ -115,7 +136,8 @@ export const onRequestPost = async ({ request, env }: Ctx): Promise<Response> =>
 
   let d: Record<string, unknown>;
   try {
-    d = (await request.json()) as Record<string, unknown>;
+    // request.text() + JSON.parse: los envíos con sendBeacon llegan como text/plain.
+    d = JSON.parse(await request.text()) as Record<string, unknown>;
   } catch {
     return json({ ok: false }, 400, origen);
   }
@@ -182,11 +204,61 @@ export const onRequestPost = async ({ request, env }: Ctx): Promise<Response> =>
     }
   }
 
-  // EXP-08 (10-nov-2026): la variante del hero de /curso, si viene, encabeza el mensaje → «[EXP-08 B] …».
+  // EXP-08/09 (10-nov-2026): la variante del hero, si viene, encabeza el mensaje → «[EXP-08 B] …», «[EXP-09 C] …».
+  // Sin `exp` es EXP-08 (clientes de antes de EXP-09).
   const variante = limpio(d.variante, 1);
-  if (/^[ABC]$/.test(variante)) texto = `[EXP-08 ${variante}] ${texto}`;
+  const exp = /^\d{2}$/.test(limpio(d.exp, 2)) ? limpio(d.exp, 2) : '08';
+  const etiqueta = /^[ABC]$/.test(variante) ? `[EXP-${exp} ${variante}] ` : '';
+  texto = etiqueta + texto;
+
+  if (tipo === 'parcial') {
+    const correo = limpio(d.correo, 120).toLowerCase();
+    if (!CORREO_OK.test(correo)) return json({ ok: false }, 400, origen);
+    const paso = Math.max(0, Math.min(9, Math.round(Number(d.paso)) || 0));
+    const nombre = limpio(d.nombre, 60);
+    const whatsapp = limpio(d.whatsapp, 20).replace(/[^\d+]/g, '');
+    const utm = (d.utm && typeof d.utm === 'object' ? d.utm : {}) as Record<string, unknown>;
+    const metadata = {
+      event_type: EVENTO_PARCIAL,
+      event_payload: {
+        estado: 'parcial',
+        correo,
+        nombre,
+        whatsapp,
+        paso,
+        producto: limpio(d.producto, 30),
+        ruta,
+        exp: etiqueta ? exp : '',
+        variante: etiqueta ? variante : '',
+        utm_source: limpio(utm.utm_source, 80),
+        utm_medium: limpio(utm.utm_medium, 80),
+        utm_campaign: limpio(utm.utm_campaign, 80),
+        sid,
+        fecha: new Date().toISOString(),
+      },
+    };
+    const nombreCorto = nombre.split(' ')[0];
+    const txt = `${etiqueta}✍️ dejó correo sin enviar (paso ${paso}) · ${enmascarar(correo)}${nombreCorto ? ` · ${nombreCorto}` : ''}${whatsapp ? ' · con WhatsApp' : ''} (\`${ruta}\`)`;
+    const ts = TS_OK.test(String(d.ts ?? '')) ? String(d.ts) : '';
+    if (ts) {
+      const u = await actualizar(env, canal, ts, txt, metadata);
+      if (u.ok) return json({ ok: true, hilo, ts }, 200, origen);
+    }
+    const r = await publicar(env, canal, txt, hilo, Boolean(hilo), metadata);
+    return json({ ok: r.ok, hilo, ts: r.ts }, r.ok ? 200 : 502, origen);
+  }
 
   // Un registro va en el hilo de su visita y además se muestra en el canal (reply_broadcast), para que no se pierda.
   const r = await publicar(env, canal, texto, hilo, tipo === 'lead');
+
+  // El registro real cierra el correo a medias de la misma visita: el mensaje queda ✅ y su metadata en «completo».
+  const parcialTs = String(d.parcial ?? '');
+  if (tipo === 'lead' && TS_OK.test(parcialTs)) {
+    const correo = limpio(d.correo, 120).toLowerCase();
+    await actualizar(env, canal, parcialTs, `${etiqueta}✅ dejó el correo a medias y después completó el registro (\`${ruta}\`)`, {
+      event_type: EVENTO_PARCIAL,
+      event_payload: { estado: 'completo', correo, sid, fecha: new Date().toISOString() },
+    }).catch(() => null);
+  }
   return json({ ok: r.ok, hilo: hilo ?? r.ts }, r.ok ? 200 : 502, origen);
 };
