@@ -113,7 +113,8 @@ export function DiagramaCiclo({ areas }: { areas: { nombre: string; hoja: string
 }
 
 /** Ilustración propia del proyecto final: el tablero de la planilla con los números del ejemplo Grano Norte. */
-export function TableroMock() {
+/** `compacto`: en celular muestra solo 3 filas (hero de EXP-08 C, para que el título quepa en el primer pantallazo). */
+export function TableroMock({ compacto = false }: { compacto?: boolean } = {}) {
   const filas: { area: string; dato: string; valor: string; antes: Semaforo; despues: Semaforo }[] = [
     { area: 'Clientes', dato: 'Propuestas abiertas', valor: '$174.000', antes: 'rojo', despues: 'verde' },
     { area: 'Origen', dato: 'Canal que más trae', valor: 'Referido', antes: 'amarillo', despues: 'verde' },
@@ -129,8 +130,8 @@ export function TableroMock() {
         <p className="font-mono text-[10px] uppercase tracking-wider text-[#5fb2dd]">Lunes</p>
       </div>
       <ul className="mt-3 space-y-2.5">
-        {filas.map((f) => (
-          <li key={f.area} className="grid grid-cols-[1fr_auto_auto] items-center gap-3 text-sm">
+        {filas.map((f, i) => (
+          <li key={f.area} className={`${compacto && i > 2 ? 'hidden sm:grid' : 'grid'} grid-cols-[1fr_auto_auto] items-center gap-3 text-sm`}>
             <span className="min-w-0">
               <span className="block text-slate-200">{f.area}</span>
               <span className="block truncate text-[11px] text-slate-500">{f.dato}</span>

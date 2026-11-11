@@ -4,6 +4,7 @@ import { CURSO, FAQ } from '@/lib/productos/curso/curso';
 import { VERSION_CURSO } from '@/lib/productos/curso/versiones';
 import CursoContent from '@/components/productos/curso/CursoContent';
 import { fraunces } from '@/lib/productos/fuente';
+import { SCRIPT_EXP08 } from '@/lib/productos/curso/exp08';
 
 
 const TITULO_OG = 'El sistema de tu negocio · tu primer CRM y ERP en Google Sheets';
@@ -55,6 +56,8 @@ const JSON_LD = [
 export default function CursoPage() {
   return (
     <div className={fraunces.variable}>
+      {/* EXP-08: elige la variante del hero antes de pintarlo (constante propia del repo, sin datos de usuarios). */}
+      <script dangerouslySetInnerHTML={{ __html: SCRIPT_EXP08 }} />
       <JsonLd data={JSON_LD} />
       <CursoContent />
     </div>

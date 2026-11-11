@@ -4,6 +4,8 @@
 // Solo corre en villelab.com y sus previews: en localhost no se envía nada (como GTM).
 // Nunca lanza ni bloquea la página: si falla, se pierde ese evento y listo.
 
+import { varianteExp08 } from './curso/exp08';
+
 type Tipo = 'visita' | 'pagina' | 'clic' | 'video' | 'lead' | 'scroll' | 'tiempo';
 
 const CLAVE_SID = 'vl_sid';
@@ -61,7 +63,8 @@ export function registrarEvento(tipo: Tipo, extra: Record<string, unknown> = {})
       const r = await fetch('/api/evento', {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ tipo: t, sid: sid(), hilo, ruta: location.pathname, ...extra }),
+        // EXP-08: la variante del hero de /curso viaja en cada evento → «[EXP-08 B]» en Slack.
+        body: JSON.stringify({ tipo: t, sid: sid(), hilo, ruta: location.pathname, variante: varianteExp08(), ...extra }),
         keepalive: true,
       });
       if (!r.ok) return;
@@ -91,7 +94,7 @@ export function registrarLectura(
   if (alSalir) {
     const hilo = leer(CLAVE_HILO);
     if (!hilo || !cupoLectura()) return;
-    const cuerpo = JSON.stringify({ tipo, sid: sid(), hilo, ...datos });
+    const cuerpo = JSON.stringify({ tipo, sid: sid(), hilo, variante: varianteExp08(), ...datos });
     try {
       if (navigator.sendBeacon?.('/api/evento', new Blob([cuerpo], { type: 'text/plain' }))) return;
     } catch {
@@ -107,7 +110,7 @@ export function registrarLectura(
       await fetch('/api/evento', {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ tipo, sid: sid(), hilo, ...datos }),
+        body: JSON.stringify({ tipo, sid: sid(), hilo, variante: varianteExp08(), ...datos }),
         keepalive: true,
       });
     })

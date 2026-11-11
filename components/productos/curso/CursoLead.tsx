@@ -49,7 +49,8 @@ export default function CursoLead({ ubicacion, className = '' }: { ubicacion: st
   const id = (campo: string) => `curso-lead-${ubicacion}-${campo}`;
 
   return (
-    <div className={`rounded-2xl border border-[#5fb2dd]/35 bg-[#2175a1]/[0.12] p-4 sm:p-5 ${className}`}>
+    // data-sin-barra: la barra fija de compra de /curso (EXP-08) se esconde mientras este bloque está a la vista.
+    <div data-sin-barra className={`rounded-2xl border border-[#5fb2dd]/35 bg-[#2175a1]/[0.12] p-4 sm:p-5 ${className}`}>
       <p className="flex items-center gap-2 font-serif text-lg leading-snug text-white sm:text-xl">
         <Gift className="h-5 w-5 shrink-0 text-[#5fb2dd]" aria-hidden /> ¿Aún no? Parte gratis con el esqueleto de tu primer agente
       </p>

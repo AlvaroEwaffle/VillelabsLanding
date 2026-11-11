@@ -262,3 +262,9 @@ body {
 .pantallita [class*="text-[#5fb2dd]"],.pantallita [class*="text-[#cfe8f5]"]{color:#1d5f85 !important}
 .pantallita [class*="bg-white/"],.pantallita [class*="bg-[#0"],.pantallita [class*="bg-[#1"]{background:#ffffff !important}
 .pantallita [class*="border-white/"],.pantallita [class*="border-[#2"]{border-color:#e2e8f0 !important}
+
+/* EXP-08 /curso (10-nov-2026): <html data-exp08="A|B|C"> lo pone un script en línea antes de pintar
+   (lib/productos/curso/exp08.ts). Sin atributo (sin JS) se ve A. .exp08-sin-C = todo menos C. */
+.exp08-B,.exp08-C{display:none}
+html[data-exp08="B"] .exp08-A,html[data-exp08="C"] .exp08-A,html[data-exp08="C"] .exp08-sin-C{display:none}
+html[data-exp08="B"] .exp08-B,html[data-exp08="C"] .exp08-C{display:block}

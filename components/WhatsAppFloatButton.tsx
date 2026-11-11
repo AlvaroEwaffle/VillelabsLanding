@@ -24,6 +24,8 @@ export default function WhatsAppFloatButton() {
   const { t, language } = useTranslation();
   // En móvil el botón flotante tapaba el botón de WhatsApp del hero: aparece recién al bajar.
   const [pastHero, setPastHero] = useState(false);
+  // EXP-08 (10-nov-2026): en /curso, en celular, sube sobre la barra fija de compra.
+  const enCurso = (pathname || '').replace(/\/+$/, '') === '/curso';
 
   useEffect(() => {
     const onScroll = () => setPastHero(window.scrollY > 480);
@@ -38,7 +40,9 @@ export default function WhatsAppFloatButton() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label={t.whatsapp.ariaLabel}
-      className={`fixed z-[9999] right-4 sm:right-6 inline-flex items-center gap-2 rounded-full border border-green-500/20 bg-green-500/10 px-4 py-3 text-green-400 backdrop-blur-md shadow-[0_18px_60px_rgba(0,0,0,0.3)] transition-all duration-300 hover:border-green-500/40 hover:bg-green-500/20 hover:text-green-300 touch-manipulation bottom-[calc(env(safe-area-inset-bottom)+1.5rem)] ${
+      className={`fixed z-[9999] right-4 sm:right-6 inline-flex items-center gap-2 rounded-full border border-green-500/20 bg-green-500/10 px-4 py-3 text-green-400 backdrop-blur-md shadow-[0_18px_60px_rgba(0,0,0,0.3)] transition-all duration-300 hover:border-green-500/40 hover:bg-green-500/20 hover:text-green-300 touch-manipulation ${
+        enCurso ? 'bottom-[calc(env(safe-area-inset-bottom)+5.5rem)] md:bottom-[calc(env(safe-area-inset-bottom)+1.5rem)]' : 'bottom-[calc(env(safe-area-inset-bottom)+1.5rem)]'
+      } ${
         pastHero ? 'opacity-100' : 'pointer-events-none opacity-0 sm:pointer-events-auto sm:opacity-100'
       }`}
     >

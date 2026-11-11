@@ -182,6 +182,10 @@ export const onRequestPost = async ({ request, env }: Ctx): Promise<Response> =>
     }
   }
 
+  // EXP-08 (10-nov-2026): la variante del hero de /curso, si viene, encabeza el mensaje → «[EXP-08 B] …».
+  const variante = limpio(d.variante, 1);
+  if (/^[ABC]$/.test(variante)) texto = `[EXP-08 ${variante}] ${texto}`;
+
   // Un registro va en el hilo de su visita y además se muestra en el canal (reply_broadcast), para que no se pierda.
   const r = await publicar(env, canal, texto, hilo, tipo === 'lead');
   return json({ ok: r.ok, hilo: hilo ?? r.ts }, r.ok ? 200 : 502, origen);
