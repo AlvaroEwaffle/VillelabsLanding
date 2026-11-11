@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { MessageCircle } from 'lucide-react';
 import { useTranslation, getWhatsAppUrl } from '@/lib/i18n';
+import { rutaConChat } from '@/lib/productos/chat';
 
 // Mensaje prellenado por página de producto (análisis UX «Rodrigo», 8-nov-2026): el genérico «si un agente tiene
 // sentido para mi equipo» no tenía nada que ver con lo que la persona estaba mirando.
@@ -33,6 +34,9 @@ export default function WhatsAppFloatButton() {
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
+
+  // 12-nov-2026: en /curso, /esqueleto y /guia el chat del chibi (ChatChibi) reemplaza a este botón.
+  if (rutaConChat(pathname)) return null;
 
   return (
     <a

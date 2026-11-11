@@ -8,13 +8,13 @@ import { EXP10 } from './curso/exp10';
 import { EXP11 } from './esqueleto/exp11';
 import { EXP12 } from './guia/exp12';
 
-type Tipo = 'visita' | 'pagina' | 'clic' | 'video' | 'lead' | 'scroll' | 'tiempo';
+type Tipo = 'visita' | 'pagina' | 'clic' | 'video' | 'lead' | 'scroll' | 'tiempo' | 'chat';
 
 /**
  * Experimento de hero vigente → «[EXP-08 B]» / «[EXP-09 C]» en Slack. Manda el de la página actual; si la visita
  * pasó antes por la página de otro experimento (navegación interna), sigue llevando esa variante.
  */
-function experimento(): { exp?: string; variante?: string } {
+export function experimento(): { exp?: string; variante?: string } {
   if (typeof window === 'undefined') return {};
   // 12-nov-2026: EXP-10 /curso · EXP-11 /esqueleto · EXP-12 /guia (ciclo diario). Primero el de la página actual.
   const todos = [EXP10, EXP11, EXP12];
@@ -71,7 +71,7 @@ function borrar(k: string) {
   }
 }
 
-function sid(): string {
+export function sid(): string {
   let s = leer(CLAVE_SID);
   if (!s) {
     s = (crypto.randomUUID?.() ?? `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 10)}`).slice(0, 36);

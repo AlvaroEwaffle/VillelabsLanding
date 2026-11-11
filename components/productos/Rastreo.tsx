@@ -49,7 +49,7 @@ export default function Rastreo() {
     const alClic = (e: MouseEvent) => {
       if (IGNORAR.test(location.pathname)) return;
       const el = (e.target as HTMLElement | null)?.closest('a, button') as HTMLElement | null;
-      if (!el) return;
+      if (!el || el.closest('[data-sin-rastreo]')) return; // el chat del chibi manda sus propios eventos
       const texto = (el.getAttribute('aria-label') || el.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 60);
       if (!texto) return;
       registrarEvento('clic', { detalle: texto });

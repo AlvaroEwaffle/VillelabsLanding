@@ -4,6 +4,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import WhatsAppFloatButton from "@/components/WhatsAppFloatButton";
 import ExitIntentPopup from "@/components/ExitIntentPopup";
+import ChatChibi from "@/components/productos/ChatChibi";
 import { LanguageProvider } from "@/lib/i18n";
 
 export default function MainLayout({
@@ -20,6 +21,7 @@ export default function MainLayout({
       </LenisProvider>
       <Footer />
       <WhatsAppFloatButton />
+      <ChatChibi />
       <ExitIntentPopup />
     </LanguageProvider>
   );
