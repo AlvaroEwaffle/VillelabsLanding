@@ -18,8 +18,11 @@ interface Env {
 // Tipo mínimo del contexto de Pages Functions (sin depender de @cloudflare/workers-types, así Next también lo tipa).
 type Ctx = { request: Request; env: Env };
 
-type Tipo = 'visita' | 'pagina' | 'clic' | 'video' | 'lead';
-const TIPOS: Tipo[] = ['visita', 'pagina', 'clic', 'video', 'lead'];
+type Tipo = 'visita' | 'pagina' | 'clic' | 'video' | 'lead' | 'scroll' | 'tiempo';
+const TIPOS: Tipo[] = ['visita', 'pagina', 'clic', 'video', 'lead', 'scroll', 'tiempo'];
+// Scroll y tiempo solo tienen sentido dentro del hilo de una visita ya abierta (10-nov-2026).
+const SOLO_HILO: Tipo[] = ['scroll', 'tiempo'];
+const HITOS = [25, 50, 75, 100];
 const CANAL_POR_DEFECTO = 'C0AMNEGL8BX';
 
 const ORIGEN_OK = /^https:\/\/((www\.)?villelab\.com|[a-z0-9-]+\.villelabs\.pages\.dev)$/;
@@ -132,13 +135,16 @@ export const onRequestPost = async ({ request, env }: Ctx): Promise<Response> =>
   const n = (conteo.get(sid) ?? 0) + 1;
   conteo.set(sid, n);
   if (conteo.size > 5000) conteo.clear();
-  if (n > 60) return json({ ok: false, error: 'limite' }, 429, origen);
+  if (n > 100) return json({ ok: false, error: 'limite' }, 429, origen);
 
   const ruta = limpio(d.ruta, 80) || '/';
   const hilo = /^\d{10}\.\d{6}$/.test(String(d.hilo ?? '')) ? String(d.hilo) : undefined;
   const cf = (request as unknown as { cf?: { city?: string; country?: string } }).cf ?? {};
   const lugar = [cf.city, cf.country].filter(Boolean).join(', ') || 'lugar desconocido';
   const canal = env.SLACK_CANAL_PRODUCTOS || CANAL_POR_DEFECTO;
+  if (SOLO_HILO.includes(tipo) && !hilo) return json({ ok: false, error: 'sin_hilo' }, 400, origen);
+  const pct = Number(d.pct);
+  const pctOk = HITOS.includes(pct) ? pct : 0;
 
   let texto = '';
   switch (tipo) {
@@ -154,6 +160,17 @@ export const onRequestPost = async ({ request, env }: Ctx): Promise<Response> =>
     case 'video':
       texto = `▶️ reprodujo el video «${limpio(d.detalle, 80)}»`;
       break;
+    case 'scroll':
+      if (!pctOk) return json({ ok: false }, 400, origen);
+      texto = `↓ scroll ${pctOk} % (\`${ruta}\`)`;
+      break;
+    case 'tiempo': {
+      const seg = Math.round(Number(d.seg));
+      if (!Number.isFinite(seg) || seg < 1 || seg > 6 * 3600) return json({ ok: false }, 400, origen);
+      const t = seg < 60 ? `${seg} s` : `${Math.floor(seg / 60)} min ${seg % 60} s`;
+      texto = `⏱ ${t} en \`${ruta}\`${pctOk ? ` · llegó al ${pctOk} %` : ' · sin scroll'}`;
+      break;
+    }
     case 'lead': {
       const det = (d.datos && typeof d.datos === 'object' ? d.datos : {}) as Record<string, unknown>;
       const partes = Object.entries(det)

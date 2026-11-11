@@ -4,12 +4,15 @@
 // Solo corre en villelab.com y sus previews: en localhost no se envía nada (como GTM).
 // Nunca lanza ni bloquea la página: si falla, se pierde ese evento y listo.
 
-type Tipo = 'visita' | 'pagina' | 'clic' | 'video' | 'lead';
+type Tipo = 'visita' | 'pagina' | 'clic' | 'video' | 'lead' | 'scroll' | 'tiempo';
 
 const CLAVE_SID = 'vl_sid';
 const CLAVE_HILO = 'vl_hilo';
 const CLAVE_N = 'vl_eventos';
 const MAX_EVENTOS = 40;
+// Scroll y tiempo llevan su propio cupo, para no comerse el de clics/páginas/registros.
+const CLAVE_N_LECTURA = 'vl_eventos_lectura';
+const MAX_LECTURA = 50;
 
 let cadena: Promise<unknown> = Promise.resolve();
 
@@ -64,6 +67,49 @@ export function registrarEvento(tipo: Tipo, extra: Record<string, unknown> = {})
       if (!r.ok) return;
       const d = (await r.json()) as { hilo?: string };
       if (!hilo && d.hilo) escribir(CLAVE_HILO, d.hilo);
+    })
+    .catch(() => {});
+}
+
+function cupoLectura(): boolean {
+  const n = Number(leer(CLAVE_N_LECTURA) ?? '0');
+  if (n >= MAX_LECTURA) return false;
+  escribir(CLAVE_N_LECTURA, String(n + 1));
+  return true;
+}
+
+/**
+ * Scroll y tiempo en página (10-nov-2026). Solo van en el hilo de una visita ya abierta: si el mensaje raíz no
+ * existe todavía, se descartan. `alSalir` usa sendBeacon, que sobrevive al cierre o cambio de pestaña.
+ */
+export function registrarLectura(
+  tipo: 'scroll' | 'tiempo',
+  datos: { ruta: string; pct?: number; seg?: number },
+  alSalir = false,
+): void {
+  if (!eventosActivos()) return;
+  if (alSalir) {
+    const hilo = leer(CLAVE_HILO);
+    if (!hilo || !cupoLectura()) return;
+    const cuerpo = JSON.stringify({ tipo, sid: sid(), hilo, ...datos });
+    try {
+      if (navigator.sendBeacon?.('/api/evento', new Blob([cuerpo], { type: 'text/plain' }))) return;
+    } catch {
+      /* cae al fetch */
+    }
+    fetch('/api/evento', { method: 'POST', body: cuerpo, keepalive: true }).catch(() => {});
+    return;
+  }
+  cadena = cadena
+    .then(async () => {
+      const hilo = leer(CLAVE_HILO);
+      if (!hilo || !cupoLectura()) return;
+      await fetch('/api/evento', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ tipo, sid: sid(), hilo, ...datos }),
+        keepalive: true,
+      });
     })
     .catch(() => {});
 }
