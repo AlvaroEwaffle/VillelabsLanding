@@ -20,7 +20,7 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { ArrowRight, Check, ChevronDown, ClipboardCheck, ClipboardList, Eye, FileSpreadsheet, FlaskConical, Handshake, LayoutDashboard, Map as MapIcon, Megaphone, MessageCircle, Sparkles, Wallet, X, type LucideIcon } from 'lucide-react';
 import { LINKS } from '@/lib/productos/links';
-import { AREAS, CASO, CUPOS_FUNDADOR, CURSO, FAQ, HOJAS, IA_OPCIONAL, MODULOS, PARA_QUIEN, PRECIO_FUNDADOR, PREVENTA, PROYECTO_FINAL, PRECIO_CURSO, QUE_ES, textoPrecio, textoPrecioDetalle, textoPrecioDetalleSinCupo, textoPrecioSinCupo } from '@/lib/productos/curso/curso';
+import { AREAS, CASO, CURSO, FAQ, HOJAS, IA_OPCIONAL, MODULOS, PARA_QUIEN, PRECIO_FUNDADOR, PREVENTA, PROYECTO_FINAL, PRECIO_CURSO, QUE_ES, textoPrecio, textoPrecioDetalle } from '@/lib/productos/curso/curso';
 import { EXP13 } from '@/lib/productos/curso/exp13';
 import { VERSION_CURSO, VERSIONES_CURSO, fechaLarga } from '@/lib/productos/curso/versiones';
 import EnQueSeBasa from './EnQueSeBasa';
@@ -65,7 +65,7 @@ function BotonCompra({ ubicacion, texto = 'Quiero el curso en preventa', enBarra
 }
 
 /**
- * EXP-08 · barra fija de compra en celular (<768 px): precio fundador + botón a Hotmart. Aparece cuando ningún botón de
+ * EXP-08 · barra fija de compra en celular (<768 px): precio de preventa + botón a Hotmart. Aparece cuando ningún botón de
  * compra de la página está a la vista, y se esconde sobre los formularios («¿Aún no?»), la preventa y el pie, para
  * no tapar nada.
  */
@@ -97,7 +97,7 @@ function BarraCompraMovil() {
           {PRECIO_FUNDADOR !== null ? (
             <>
               <p className="font-serif text-lg leading-tight text-white">${PRECIO_FUNDADOR.toLocaleString('es-CL')}</p>
-              <p className="text-[11px] leading-tight text-[#5fb2dd]">precio fundador · primeros {CUPOS_FUNDADOR}</p>
+              <p className="text-[11px] leading-tight text-[#5fb2dd]">precio de preventa</p>
             </>
           ) : (
             <p className="text-sm text-[#5fb2dd]">{textoPrecio()}</p>
@@ -190,8 +190,7 @@ function Acordeon({ abierto, onToggle, cabecera, children }: { abierto: boolean;
 
 const BAJADA_PREVENTA = (
   <>
-    Compras ahora con <span className="exp13-A">precio fundador</span>
-    <span className="exp13-B">precio de preventa</span>, empiezas hoy con el mapa, el diagnóstico y tu planilla base, y el resto llega semana a semana.
+    Compras ahora con precio de preventa, empiezas hoy con el mapa, el diagnóstico y tu planilla base, y el resto llega semana a semana.
   </>
 );
 
@@ -262,7 +261,7 @@ export default function CursoContent() {
                 >
                   Compra el curso en preventa
                 </a>{' '}
-                · {textoPrecioSinCupo()}
+                · {textoPrecio()}
               </p>
             </div>
             <p className="mt-4 text-xs text-slate-500">
@@ -552,12 +551,10 @@ export default function CursoContent() {
             <div className="p-6 pt-3">
             <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-[#5fb2dd]">Preventa</p>
             <p className="mt-3 font-serif text-2xl text-white">
-              <span className="exp13-A">{textoPrecio()}</span>
-              <span className="exp13-B">{textoPrecioSinCupo()}</span>
+              {textoPrecio()}
             </p>
             <p className="mt-2 text-sm text-slate-300">
-              <span className="exp13-A">{textoPrecioDetalle()}</span>
-              <span className="exp13-B">{textoPrecioDetalleSinCupo()}</span>
+              {textoPrecioDetalle()}
             </p>
             <ul className="mt-4 space-y-2 text-sm text-slate-300">
               <li className="flex gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-[#5fb2dd]" aria-hidden /> Módulo 0 y tu planilla base al tiro</li>
@@ -618,14 +615,7 @@ export default function CursoContent() {
               abierto={faqAbierta === i}
               onToggle={() => setFaqAbierta(faqAbierta === i ? null : i)}
               cabecera={
-                f.p.includes('precio fundador') ? (
-                  <p className="text-base text-white">
-                    ¿Por qué tiene <span className="exp13-A">precio fundador</span>
-                    <span className="exp13-B">precio de preventa</span>?
-                  </p>
-                ) : (
-                  <p className="text-base text-white">{f.p}</p>
-                )
+                <p className="text-base text-white">{f.p}</p>
               }
             >
               <p className="text-slate-300">{f.r}</p>

@@ -18,8 +18,8 @@ const clp = (n: number) => '$' + n.toLocaleString('es-CL');
 
 export function textoPrecio(): string {
   return PRECIO_FUNDADOR === null
-    ? 'Precio fundador de preventa'
-    : `${clp(PRECIO_FUNDADOR)} precio fundador · primeros ${CUPOS_FUNDADOR} alumnos`;
+    ? 'Precio de preventa'
+    : `${clp(PRECIO_FUNDADOR)} precio de preventa`; // 12-nov-2026: sin «primeros 20 alumnos» (cupo sin respaldo), en A y en B
 }
 
 /** Variante B de EXP-13 (12-nov-2026): sin «primeros 20 alumnos» (cupo sin respaldo verificable en la página). */
@@ -33,7 +33,7 @@ export function textoPrecioDetalleSinCupo(): string {
 }
 
 export function textoPrecioDetalle(): string {
-  return `Después sube a ${clp(PRECIO_NORMAL)}. Si compraste la guía, con el cupón ${PRECIO_CURSO.cuponGuia} te queda en ${clp(PRECIO_CURSO.precioConCupon)}.`;
+  return `Si compraste la guía, con el cupón ${PRECIO_CURSO.cuponGuia} te queda en ${clp(PRECIO_CURSO.precioConCupon)}.`;
 }
 
 export const CURSO = {
@@ -374,8 +374,8 @@ export const FAQ: { p: string; r: string }[] = [
     r: 'El caso es una tostaduría que le vende a empresas, pero las hojas son las mismas para una distribuidora, un servicio de mantención, una agencia o una consultora: clientes, pedidos o trabajos, atención, cobranza y caja. En cada lección la ajustas a tu negocio.',
   },
   {
-    p: '¿Por qué tiene precio fundador?',
-    r: 'Porque compras antes de que estén todos los módulos grabados. A cambio, pagas menos que el precio final y tus dudas ayudan a armar los módulos que vienen.',
+    p: '¿Por qué tiene precio de preventa?',
+    r: 'Porque compras antes de que estén todos los módulos grabados, y tus dudas ayudan a armar los módulos que vienen.',
   },
   {
     p: '¿Hay certificado?',

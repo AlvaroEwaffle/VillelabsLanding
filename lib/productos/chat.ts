@@ -2,7 +2,7 @@
 // (curso.ts, venta.ts de la guía, EsqueletoApp): si cambia un precio, un plazo o la garantía allá, cambiarlo aquí.
 // Nada de promesas que la página no haga.
 
-import { PRECIO_FUNDADOR, PRECIO_NORMAL, CUPOS_FUNDADOR, PRECIO_CURSO } from './curso/curso';
+import { PRECIO_FUNDADOR, PRECIO_NORMAL, PRECIO_CURSO } from './curso/curso';
 import { PRECIO_GUIA } from './guia/venta';
 
 export type Pregunta = { p: string; r: string };
@@ -13,7 +13,7 @@ const CURSO: Pregunta[] = [
   {
     p: '¿Cuánto cuesta?',
     r: PRECIO_FUNDADOR
-      ? `${clp(PRECIO_FUNDADOR)} precio fundador para los primeros ${CUPOS_FUNDADOR} alumnos; después sube a ${clp(PRECIO_NORMAL)}. Pago único o en cuotas en Hotmart, con ${PRECIO_CURSO.garantiaDias} días de garantía.`
+      ? `${clp(PRECIO_FUNDADOR)} precio de preventa. Pago único o en cuotas en Hotmart, con ${PRECIO_CURSO.garantiaDias} días de garantía.`
       : `${clp(PRECIO_NORMAL)}, pago único o en cuotas en Hotmart, con ${PRECIO_CURSO.garantiaDias} días de garantía.`,
   },
   {
