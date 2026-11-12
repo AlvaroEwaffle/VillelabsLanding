@@ -7,7 +7,7 @@ import { fraunces } from '@/lib/productos/fuente';
 import { EXP13 } from '@/lib/productos/curso/exp13';
 
 
-const TITULO_OG = 'Construye con IA tu sistema de gestión CRM y ERP para tu negocio, sin programar en 5 horas';
+const TITULO_OG = 'Construye con IA tu sistema de gestión CRM y ERP para tu negocio, sin programar';
 const DESCRIPCION_OG = 'Curso en preventa: armas tu CRM y tu ERP en una planilla con prompts para ChatGPT, Claude o Gemini: clientes, pedidos, cobranza, caja y un tablero. El módulo 0 lo recibes hoy.';
 
 export const metadata: Metadata = {
@@ -32,7 +32,7 @@ const JSON_LD = [
     '@context': 'https://schema.org',
     '@type': 'Course',
     name: CURSO.nombreCompleto,
-    alternateName: 'El sistema de tu negocio: tu primer CRM y ERP en Google Sheets',
+    alternateName: 'Construye con IA tu CRM y ERP, sin programar',
     description: `${CURSO.promesa} ${CURSO.noEsSoftware}`,
     url: `${SITE_URL}/curso`,
     inLanguage: 'es',

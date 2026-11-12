@@ -146,7 +146,7 @@ function ModalCelebracion({ onCerrar }: { onCerrar: () => void }) {
         <div className="mt-6 border-t border-white/10 pt-6">
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">Tu siguiente paso</p>
           <p className="mt-2 text-slate-200">
-            Tu planilla ya es tu primer CRM. En el curso <strong className="text-white">«El sistema de tu negocio»</strong> la extiendes al resto
+            Tu planilla ya es tu primer CRM. En el curso <strong className="text-white">«Construye con IA tu sistema de gestión CRM y ERP»</strong> la extiendes al resto
             del negocio: de dónde llegan tus clientes, los pedidos, la atención, la cobranza y la caja, todo en la misma planilla y con un tablero que
             miras los lunes. Tu lista de esta guía pasa sola a la hoja Clientes.
           </p>
@@ -156,7 +156,7 @@ function ModalCelebracion({ onCerrar }: { onCerrar: () => void }) {
           <SiguientePaso
             logro="Ya tienes tu sistema de ventas andando"
             pago={{
-              titulo: 'Curso «El sistema de tu negocio»',
+              titulo: 'Curso «Construye con IA tu sistema de gestión CRM y ERP»',
               descripcion: 'Tu primer CRM y ERP en Google Sheets: tu lista de esta guía sigue en la hoja Clientes y le sumas origen, pedidos, atención, cobranza, caja y un tablero.',
               href: LINKS.curso,
               cta: 'Conocer el curso',

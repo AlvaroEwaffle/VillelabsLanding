@@ -323,7 +323,7 @@ export default function CursoContent() {
       {/* Qué es un CRM y un ERP + el mapa del sistema */}
       <Seccion
         kicker="El sistema"
-        titulo="Tu primer CRM y ERP, hoja por hoja."
+        titulo="Tu CRM y ERP, hoja por hoja."
         bajada="Todo pasa por ti porque nada está anotado en un solo lugar. El curso junta tu negocio en una planilla: cada módulo le agrega una hoja y el tablero las lee todas."
       >
         <div className="mt-8 grid gap-3 md:grid-cols-2">

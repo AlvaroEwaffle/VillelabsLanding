@@ -359,7 +359,7 @@ export const FAQ: { p: string; r: string }[] = [
   },
   {
     p: '¿Tengo que saber de inteligencia artificial o de programación?',
-    r: 'No. Cada módulo trae prompts listos: textos para pegar en ChatGPT, Claude o Gemini (la versión gratis sirve) que recibes en tu área de miembros (los del módulo 0 hoy, y los de cada módulo junto con el módulo) y te ayudan a armar tu hoja, las fórmulas y tus mensajes. Cambias los datos por los de tu negocio y revisas lo que te devuelva antes de usarlo. Si prefieres no usar IA, la planilla y las plantillas funcionan igual.',
+    r: 'No. Cada módulo trae prompts listos: textos para pegar en ChatGPT, Claude o Gemini (la versión gratis sirve) que recibes en tu área de miembros (los de cada módulo, junto con el módulo) y te ayudan a armar tu hoja, las fórmulas y tus mensajes. Cambias los datos por los de tu negocio y revisas lo que te devuelva antes de usarlo. Si prefieres no usar IA, la planilla y las plantillas funcionan igual.',
   },
   {
     p: '¿Qué recibo al comprar en preventa?',
