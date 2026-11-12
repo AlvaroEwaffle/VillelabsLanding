@@ -40,7 +40,7 @@ export const CURSO = {
   nombre: 'El sistema de tu negocio',
   apellido: 'Tu primer CRM y ERP en Google Sheets',
   /** Nombre completo para metadata, certificado y referencias desde otros productos. */
-  nombreCompleto: 'El sistema de tu negocio: tu primer CRM y ERP en Google Sheets',
+  nombreCompleto: 'Construye con IA tu sistema de gestión CRM y ERP para tu negocio, sin programar en 5 horas',
   promesa:
     'En 6 semanas armas el sistema de tu negocio en una planilla que ya sabes usar: tus clientes y en qué va cada uno, de dónde llegan, los pedidos, la atención, la cobranza y la caja, conectados en un tablero que revisas los lunes en 10 minutos.',
   noEsSoftware:
@@ -67,9 +67,9 @@ export const QUE_ES = {
   aqui: 'En este curso los dos viven en una planilla de Google Sheets que armas tú, con las fórmulas listas. Si algún día necesitas un software, tu planilla ya está ordenada para pasarse.',
 } as const;
 
-/** La IA es una ayuda opcional, nunca el gancho (investigación de demanda, 8-nov-2026). */
+/** 12-nov-2026 (Álvaro, WA 18:03): el título del curso lleva «con IA»; la IA arma el sistema con los prompts de cada módulo. */
 export const IA_OPCIONAL =
-  'Si usas ChatGPT o Claude, algunas lecciones traen instrucciones listas para que te ayude a redactar un mensaje o a revisar tu planilla, siempre como borrador que revisas tú. Sin IA, el curso funciona igual.';
+  'La IA te ayuda a armarlo: cada módulo trae prompts listos para pegar en ChatGPT, Claude o Gemini (tu hoja, las fórmulas, tus mensajes), y los recibes junto con el módulo. No necesitas programar ni saber de IA, y lo que te devuelva lo revisas tú antes de usarlo.';
 
 export const CASO = {
   nombre: 'Grano Norte',
@@ -358,8 +358,8 @@ export const FAQ: { p: string; r: string }[] = [
     r: 'Entre 2 y 3 horas mientras haces el curso: unos 45 minutos de lecciones y el resto para llenar la hoja con tu negocio. Después, el sistema se mantiene con 20 minutos al día y una revisión de 10 minutos los lunes. Lo puedes llenar desde el celular, entre una cosa y otra.',
   },
   {
-    p: '¿Tengo que usar inteligencia artificial?',
-    r: 'No. El curso funciona completo sin IA. Si ya usas ChatGPT o Claude, algunas lecciones traen instrucciones listas para que te ayude a redactar o a revisar tu planilla, siempre como borrador que revisas tú antes de usarlo.',
+    p: '¿Tengo que saber de inteligencia artificial o de programación?',
+    r: 'No. Cada módulo trae prompts listos: textos para pegar en ChatGPT, Claude o Gemini (la versión gratis sirve) que recibes junto con el módulo (el 0 hoy, uno nuevo cada semana) y te ayudan a armar tu hoja, las fórmulas y tus mensajes. Cambias los datos por los de tu negocio y revisas lo que te devuelva antes de usarlo. Si prefieres no usar IA, la planilla y las plantillas funcionan igual.',
   },
   {
     p: '¿Qué recibo al comprar en preventa?',

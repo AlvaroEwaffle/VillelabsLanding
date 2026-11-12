@@ -219,11 +219,11 @@ export default function CursoContent() {
           <div>
             <Kicker>Curso · Preventa abierta</Kicker>
             <h1 className="mt-3 max-w-3xl font-serif text-[1.9rem] leading-[1.1] text-white sm:text-5xl lg:text-[3.1rem]">
-              Ordena tu negocio en una planilla: clientes, pedidos y caja en un solo tablero
+              Construye con IA tu sistema de gestión CRM y ERP para tu negocio, sin programar en 5 horas
             </h1>
             {/* A · control */}
             <div className="exp13-A">
-              <p className="mt-3 max-w-xl text-base text-slate-300 sm:text-lg">En 6 semanas y sin programar. El módulo 0 es gratis hoy.</p>
+              <p className="mt-3 max-w-xl text-base text-slate-300 sm:text-lg">5 horas de lecciones en 7 módulos con prompts listos para tu IA; tú armas tu hoja a tu ritmo (2 a 3 h por semana). El módulo 0 es gratis hoy.</p>
               <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
                 <BotonCompra ubicacion="hero" />
                 {/* En celular se oculta aquí (se repite en el programa y al final): un solo botón en el primer pantallazo. */}
@@ -233,7 +233,7 @@ export default function CursoContent() {
             </div>
             {/* B · «módulo 0 primero»: el botón principal es gratis; abajo, el formulario a la vista. */}
             <div className="exp13-B">
-              <p className="mt-3 max-w-xl text-base text-slate-300 sm:text-lg">7 módulos, unas 5 horas de lecciones y sin programar. El módulo 0 es gratis.</p>
+              <p className="mt-3 max-w-xl text-base text-slate-300 sm:text-lg">5 horas de lecciones en 7 módulos con prompts listos para tu IA; tú armas tu hoja a tu ritmo (2 a 3 h por semana). El módulo 0 es gratis.</p>
               <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
                 <Link
                   href="#parte-gratis-hero"

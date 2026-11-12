@@ -366,7 +366,7 @@ function LeccionCaja() {
       </Pantallita>
       <details className="group mt-6 rounded-2xl border border-white/10 bg-white/[0.02] p-4">
         <summary className="flex min-h-[44px] cursor-pointer list-none items-center text-sm text-slate-200 [&::-webkit-details-marker]:hidden">
-          Opcional · si usas ChatGPT o Claude, pasa una boleta sin digitarla
+          Prompt para ChatGPT o Claude: pasa una boleta sin digitarla
         </summary>
         <p className="mt-2 text-sm text-slate-300">Le mandas la foto de la boleta con este texto y te devuelve la fila lista. Revisa siempre el monto antes de pegarlo. Sin IA, la anotas a mano: son diez segundos.</p>
         <BloqueCopiar titulo="Texto para copiar · de la boleta a la hoja Caja" texto={PROMPT_BOLETA} className="mt-3" />

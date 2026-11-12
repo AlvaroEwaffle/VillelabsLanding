@@ -523,7 +523,7 @@ function PlanillaLeccion({ negocio, setNegocio }: { negocio: string; setNegocio:
         texto="Sale con tu ficha en la hoja Inicio y tus productos en la hoja Productos. Trae todas las hojas del curso ya conectadas: las vas a ir llenando módulo a módulo. Si quieres ver cómo queda llena, baja el ejemplo de Grano Norte."
       />
       <div className="mt-4 rounded-2xl border border-white/10 p-4 text-sm text-slate-300">
-        <p className="font-medium text-white">Ayuda opcional</p>
+        <p className="font-medium text-white">Con ayuda de la IA</p>
         <p className="mt-1">{IA_OPCIONAL}</p>
         <p className="mt-2">
           Si además quieres que un asistente responda tu WhatsApp, el{' '}

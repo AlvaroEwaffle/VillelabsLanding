@@ -273,7 +273,7 @@ function LeccionPedidos() {
       <Freno>Ninguna fecha de entrega se confirma sin revisar stock o capacidad. Si no estás seguro, se anota «por confirmar» y lo decide una persona.</Freno>
       <details className="group mt-6 rounded-2xl border border-white/10 bg-white/[0.02]">
         <summary className="flex min-h-[48px] cursor-pointer list-none items-center justify-between gap-3 px-4 text-sm text-slate-300 hover:text-white">
-          <span>Opcional · si usas ChatGPT o Claude</span>
+          <span>Prompt para ChatGPT o Claude</span>
           <span className="font-mono text-xs text-slate-500 group-open:hidden">ver</span>
         </summary>
         <div className="border-t border-white/10 px-4 pb-4">

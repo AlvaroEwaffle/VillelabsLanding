@@ -36,8 +36,8 @@ const PUNTOS: Punto[] = [
     veredicto: 'fuerte',
   },
   {
-    texto: 'ChatGPT o Claude ayudan a redactar más rápido cuando los usas como borrador que revisas tú. Por eso en el curso la IA es opcional y nunca decide.',
-    donde: 'Lecciones con ayuda opcional',
+    texto: 'ChatGPT o Claude ayudan a redactar más rápido cuando los usas como borrador que revisas tú. Por eso en el curso la IA te ayuda con prompts y nunca decide.',
+    donde: 'Lecciones con prompts',
     ids: ['C31', 'C32'],
     veredicto: 'fuerte',
   },

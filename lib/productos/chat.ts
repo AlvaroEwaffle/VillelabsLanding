@@ -26,7 +26,7 @@ const CURSO: Pregunta[] = [
   },
   {
     p: '¿Sirve si no sé de tecnología?',
-    r: 'Sí. Todo se arma en Google Sheets (gratis) o en Excel, sin programar ni instalar nada. La IA es opcional: si usas ChatGPT o Claude, algunas lecciones traen instrucciones listas.',
+    r: 'Sí. Todo se arma en Google Sheets (gratis) o en Excel, sin programar ni instalar nada. Cada módulo trae prompts listos para que ChatGPT, Claude o Gemini te ayuden a armar tu hoja (los recibes con el módulo); no necesitas saber de IA.',
   },
 ];
 

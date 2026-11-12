@@ -7,13 +7,13 @@ import { fraunces } from '@/lib/productos/fuente';
 import { EXP13 } from '@/lib/productos/curso/exp13';
 
 
-const TITULO_OG = 'El sistema de tu negocio · tu primer CRM y ERP en Google Sheets';
-const DESCRIPCION_OG = 'Curso en preventa: en 6 semanas armas tu CRM y tu ERP en una planilla, con clientes, pedidos, cobranza, caja y un tablero. El módulo 0 lo recibes hoy.';
+const TITULO_OG = 'Construye con IA tu sistema de gestión CRM y ERP para tu negocio, sin programar en 5 horas';
+const DESCRIPCION_OG = 'Curso en preventa: armas tu CRM y tu ERP en una planilla con prompts para ChatGPT, Claude o Gemini: clientes, pedidos, cobranza, caja y un tablero. El módulo 0 lo recibes hoy.';
 
 export const metadata: Metadata = {
-  title: { absolute: 'Curso: construye tu primer CRM y ERP en Google Sheets' },
+  title: { absolute: 'Construye con IA tu CRM y ERP, sin programar' },
   description:
-    'Curso online para pymes: en 6 semanas armas el sistema de tu negocio en Google Sheets. Clientes y ventas (CRM), origen, pedidos, atención, cobranza, caja y un tablero, sin pagar software.',
+    'Curso online para pymes: construyes con IA el sistema de tu negocio en Google Sheets, sin programar. Con prompts para ChatGPT, Claude o Gemini. Clientes y ventas (CRM), origen, pedidos, atención, cobranza, caja y un tablero, sin pagar software.',
   alternates: { canonical: `${SITE_URL}/curso` },
   openGraph: {
     type: 'website',
@@ -32,7 +32,7 @@ const JSON_LD = [
     '@context': 'https://schema.org',
     '@type': 'Course',
     name: CURSO.nombreCompleto,
-    alternateName: 'Construye tu primer CRM y ERP en Google Sheets',
+    alternateName: 'El sistema de tu negocio: tu primer CRM y ERP en Google Sheets',
     description: `${CURSO.promesa} ${CURSO.noEsSoftware}`,
     url: `${SITE_URL}/curso`,
     inLanguage: 'es',
@@ -40,7 +40,7 @@ const JSON_LD = [
     author: AUTOR,
     version: VERSION_CURSO.version,
     dateModified: VERSION_CURSO.fecha,
-    teaches: ['CRM en Google Sheets', 'ERP para pymes en una planilla', 'Seguimiento de clientes y propuestas', 'Control de pedidos', 'Cobranza y flujo de caja', 'Tablero de indicadores'],
+    teaches: ['Armar un CRM y un ERP con prompts para ChatGPT, Claude o Gemini', 'CRM en Google Sheets', 'ERP para pymes en una planilla', 'Seguimiento de clientes y propuestas', 'Control de pedidos', 'Cobranza y flujo de caja', 'Tablero de indicadores'],
     hasCourseInstance: { '@type': 'CourseInstance', courseMode: 'online' },
   },
   faqPage(FAQ.map((f) => ({ q: f.p, a: f.r }))),

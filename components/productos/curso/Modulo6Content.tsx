@@ -479,7 +479,7 @@ function LeccionCuandoNoBasta() {
       <Pantallita titulo="Grano Norte · por ahora, planilla" className="mt-6">
         <p className="text-sm">Camila marcó una señal: quiere que los pedidos generen la factura sola. Por ahora sigue con la planilla y anota qué le falta; lo vuelve a mirar en tres meses, con números.</p>
       </Pantallita>
-      <Subtitulo>Opcional · la IA como segunda mirada</Subtitulo>
+      <Subtitulo>La IA como segunda mirada</Subtitulo>
       <p className="mt-3 text-slate-300">{IA_OPCIONAL} Un uso que sirve: pegarle una hoja y pedirle que te diga qué está incompleto.</p>
       <BloqueCopiar titulo="Texto para copiar · revisar tu hoja Clientes" texto={PROMPT_REVISAR} nota="Funciona en ChatGPT, Claude o Gemini. Revisa lo que te responde contra tu planilla: tú decides." />
       <Freno>No le pegues a una IA datos que no compartirías: teléfonos, correos, RUT ni datos bancarios de tus clientes. Y la decisión de comprar un software, con su costo mensual, la toma una persona con números, no con una demo.</Freno>
