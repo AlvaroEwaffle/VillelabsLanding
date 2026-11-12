@@ -223,7 +223,7 @@ export default function CursoContent() {
             </h1>
             {/* A · control */}
             <div className="exp13-A">
-              <p className="mt-3 max-w-xl text-base text-slate-300 sm:text-lg">5 horas de lecciones en 7 módulos con prompts listos para tu IA; tú armas tu hoja a tu ritmo (2 a 3 h por semana). El módulo 0 es gratis hoy.</p>
+              <p className="mt-3 max-w-xl text-base text-slate-300 sm:text-lg">5 horas de lecciones en 7 módulos con textos listos para pegar en tu IA (prompts); tú armas tu hoja a tu ritmo (2 a 3 h por semana). El módulo 0 es gratis hoy.</p>
               <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
                 <BotonCompra ubicacion="hero" />
                 {/* En celular se oculta aquí (se repite en el programa y al final): un solo botón en el primer pantallazo. */}
@@ -233,7 +233,7 @@ export default function CursoContent() {
             </div>
             {/* B · «módulo 0 primero»: el botón principal es gratis; abajo, el formulario a la vista. */}
             <div className="exp13-B">
-              <p className="mt-3 max-w-xl text-base text-slate-300 sm:text-lg">5 horas de lecciones en 7 módulos con prompts listos para tu IA; tú armas tu hoja a tu ritmo (2 a 3 h por semana). El módulo 0 es gratis.</p>
+              <p className="mt-3 max-w-xl text-base text-slate-300 sm:text-lg">5 horas de lecciones en 7 módulos con textos listos para pegar en tu IA (prompts); tú armas tu hoja a tu ritmo (2 a 3 h por semana). El módulo 0 es gratis.</p>
               <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
                 <Link
                   href="#parte-gratis-hero"
@@ -287,7 +287,7 @@ export default function CursoContent() {
         <p className="mt-6 max-w-3xl text-slate-300">{CURSO.promesa}</p>
         <p className="mt-3 max-w-3xl text-sm text-slate-400">{CURSO.noEsSoftware}</p>
         {/* Video 8 · venta de la preventa (regrabado con el enfoque CRM/ERP, 8-nov-2026). */}
-        <VideoMarco id="v08-curso-venta" titulo="Tu primer CRM y ERP, en 6 semanas" duracion="49 s" className="mt-10" />
+        <VideoMarco id="v08-curso-venta" titulo="Construye con IA tu sistema CRM y ERP" duracion="49 s" className="mt-10" />
       </section>
 
       {/* Para quién */}

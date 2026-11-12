@@ -354,7 +354,7 @@ const CRUDOS: Record<string, { titulo: string; escenas: Escena[] }> = {
   // ─── Videos de la v1.0 regrabados con el enfoque v1.1 (8-nov-2026) ─────────────
   // v10 no se regrabó (fuera de alcance): su entrada, si existe, es solo guion.
   'v08-curso-venta': {
-    titulo: 'Tu primer CRM y ERP, en 6 semanas',
+    titulo: 'Construye con IA tu sistema CRM y ERP',
     escenas: [
       A('Álvaro a cámara (oficina de noche, camisa azul); sigue en gráficos', '¿Tus clientes viven en el WhatsApp y los pedidos en tu cabeza? No es desorden: nada está anotado en un solo lugar.'),
       G('Una planilla vacía; aparecen dos tarjetas: CRM y ERP', 'En este curso armas tu primer CRM y ERP en Google Sheets. El CRM es el lugar donde ves a todos tus clientes y en qué va cada uno. El ERP es donde se juntan ventas, pedidos, cobranza y caja.'),

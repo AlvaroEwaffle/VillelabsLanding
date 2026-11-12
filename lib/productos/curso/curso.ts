@@ -42,7 +42,7 @@ export const CURSO = {
   /** Nombre completo para metadata, certificado y referencias desde otros productos. */
   nombreCompleto: 'Construye con IA tu sistema de gestión CRM y ERP para tu negocio, sin programar en 5 horas',
   promesa:
-    'En 6 semanas armas el sistema de tu negocio en una planilla que ya sabes usar: tus clientes y en qué va cada uno, de dónde llegan, los pedidos, la atención, la cobranza y la caja, conectados en un tablero que revisas los lunes en 10 minutos.',
+    'En 6 semanas, con 5 horas de lecciones y tu hoja a tu ritmo, armas con IA (con prompts listos para pegar) el sistema de tu negocio en una planilla que ya sabes usar: tus clientes y en qué va cada uno, de dónde llegan, los pedidos, la atención, la cobranza y la caja, conectados en un tablero que revisas los lunes en 10 minutos.',
   noEsSoftware:
     'No es un software ni una suscripción: es una planilla bien armada, con las fórmulas listas, y rutinas cortas para que el negocio no dependa de tu memoria.',
   formato: [
@@ -69,7 +69,7 @@ export const QUE_ES = {
 
 /** 12-nov-2026 (Álvaro, WA 18:03): el título del curso lleva «con IA»; la IA arma el sistema con los prompts de cada módulo. */
 export const IA_OPCIONAL =
-  'La IA te ayuda a armarlo: cada módulo trae prompts listos para pegar en ChatGPT, Claude o Gemini (tu hoja, las fórmulas, tus mensajes), y los recibes junto con el módulo. No necesitas programar ni saber de IA, y lo que te devuelva lo revisas tú antes de usarlo.';
+  'La IA te ayuda a armarlo: cada módulo trae prompts listos para pegar en ChatGPT, Claude o Gemini (tu hoja, las fórmulas, tus mensajes), y los recibes en tu área de miembros. No necesitas programar ni saber de IA, y lo que te devuelva lo revisas tú antes de usarlo.';
 
 export const CASO = {
   nombre: 'Grano Norte',
@@ -359,7 +359,7 @@ export const FAQ: { p: string; r: string }[] = [
   },
   {
     p: '¿Tengo que saber de inteligencia artificial o de programación?',
-    r: 'No. Cada módulo trae prompts listos: textos para pegar en ChatGPT, Claude o Gemini (la versión gratis sirve) que recibes junto con el módulo (el 0 hoy, uno nuevo cada semana) y te ayudan a armar tu hoja, las fórmulas y tus mensajes. Cambias los datos por los de tu negocio y revisas lo que te devuelva antes de usarlo. Si prefieres no usar IA, la planilla y las plantillas funcionan igual.',
+    r: 'No. Cada módulo trae prompts listos: textos para pegar en ChatGPT, Claude o Gemini (la versión gratis sirve) que recibes en tu área de miembros (los del módulo 0 hoy, y los de cada módulo junto con el módulo) y te ayudan a armar tu hoja, las fórmulas y tus mensajes. Cambias los datos por los de tu negocio y revisas lo que te devuelva antes de usarlo. Si prefieres no usar IA, la planilla y las plantillas funcionan igual.',
   },
   {
     p: '¿Qué recibo al comprar en preventa?',

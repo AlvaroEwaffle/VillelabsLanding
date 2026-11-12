@@ -110,13 +110,13 @@ const REELS: Reel[] = [
   {
     id: 'v17-anuncio-curso',
     numero: 17,
-    titulo: 'Tu primer CRM y ERP en Google Sheets',
+    titulo: 'Construye con IA tu sistema CRM y ERP',
     destinoA: 'Perfil (link en la bio)',
     destinoB: '/curso',
     duracion: '26 s',
     guion: [
       '¿Tus clientes viven en el WhatsApp y los pedidos en tu cabeza? No es desorden: nada está anotado en un solo lugar.',
-      'En 6 semanas armas tu primer CRM y ERP en Google Sheets: clientes, pedidos, cobranza y caja en una planilla, con un tablero que miras los lunes. Sin pagar software.',
+      'En 6 semanas, con 5 horas de lecciones y tu hoja a tu ritmo, armas con IA tu CRM y ERP en Google Sheets: clientes, pedidos, cobranza y caja en una planilla, con un tablero que miras los lunes. Sin pagar software.',
       'Está en preventa a precio fundador. Link en mi perfil.',
     ],
   },

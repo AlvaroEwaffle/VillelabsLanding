@@ -278,7 +278,7 @@ function LeccionPedidos() {
         </summary>
         <div className="border-t border-white/10 px-4 pb-4">
           <p className="mt-3 text-sm text-slate-300">
-            Si se te juntaron mensajes sin anotar, puedes pegarlos en un chat de IA y pedirle las filas. Revisa cada fila antes de pegarla en la hoja: la IA puede inventar una cantidad o una fecha. Sin IA, el método funciona igual.
+            Con tu IA: si se te juntaron mensajes sin anotar, pégalos en un chat y pídele las filas. Revisa cada fila antes de pegarla en la hoja: la IA puede inventar una cantidad o una fecha. Sin IA, el método funciona igual.
           </p>
           <BloqueCopiar titulo="Instrucción · mensajes a filas" texto={montado ? prompt : ''} className="mt-3" nota="Donde diga «FALTA», le preguntas al cliente." />
         </div>
@@ -586,7 +586,7 @@ function LeccionResumen() {
       ) : null}
       <Freno>El resumen ordena; no responde ni cambia nada solo. Las decisiones del día las toma una persona.</Freno>
       <p className="mt-4 text-sm text-slate-400">
-        Opcional: si usas ChatGPT o Claude, puedes pegarle tus filas y pedirle el resumen en las tres preguntas. Lo revisas tú antes de avisarle a nadie. Leerlo directo en la hoja toma lo mismo.
+        Con tu IA: pega tus filas y pídele el resumen en las tres preguntas. Lo revisas tú antes de avisarle a nadie. Leerlo directo en la hoja toma lo mismo.
       </p>
       <div className="mt-4">
         <BotonDescarga
