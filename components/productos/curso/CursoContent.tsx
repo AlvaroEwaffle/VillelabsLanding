@@ -617,7 +617,16 @@ export default function CursoContent() {
               key={f.p}
               abierto={faqAbierta === i}
               onToggle={() => setFaqAbierta(faqAbierta === i ? null : i)}
-              cabecera={<p className="text-base text-white">{f.p}</p>}
+              cabecera={
+                f.p.includes('precio fundador') ? (
+                  <p className="text-base text-white">
+                    ¿Por qué tiene <span className="exp13-A">precio fundador</span>
+                    <span className="exp13-B">precio de preventa</span>?
+                  </p>
+                ) : (
+                  <p className="text-base text-white">{f.p}</p>
+                )
+              }
             >
               <p className="text-slate-300">{f.r}</p>
             </Acordeon>

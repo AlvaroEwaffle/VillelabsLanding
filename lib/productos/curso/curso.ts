@@ -46,7 +46,7 @@ export const CURSO = {
   noEsSoftware:
     'No es un software ni una suscripción: es una planilla bien armada, con las fórmulas listas, y rutinas cortas para que el negocio no dependa de tu memoria.',
   formato: [
-    { etiqueta: 'Formato', valor: '7 módulos, 33 lecciones, unas 5 horas de lecciones' },
+    { etiqueta: 'Formato', valor: '7 módulos, 33 lecciones, unas 5 horas' },
     { etiqueta: 'Ritmo sugerido', valor: '1 módulo por semana, 2 a 3 h' },
     { etiqueta: 'Herramienta', valor: 'Google Sheets (gratis) o Excel' },
     { etiqueta: 'Cada lección', valor: 'idea → ejemplo → tu hoja → prueba real' },
