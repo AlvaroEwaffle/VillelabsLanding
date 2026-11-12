@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     title: 'Módulo 4 · Responder a tiempo y que vuelvan a comprar',
     description: 'Módulo 4 del curso «Construye con IA tu sistema de gestión CRM y ERP»: los 3 tipos de mensaje, respuestas listas en WhatsApp Business, la hoja Atención con cada caso hasta cerrarlo, cuándo pasa a una persona y la postventa.',
     url: `${SITE_URL}/curso/modulo-4`,
-    images: [{ url: `${SITE_URL}/og/curso.jpg`, width: 1200, height: 630, alt: 'El sistema de tu negocio · módulo 4' }],
+    images: [{ url: `${SITE_URL}/og/curso.jpg`, width: 1200, height: 630, alt: 'Construye con IA tu CRM y ERP · módulo 4' }],
   },
 };
 

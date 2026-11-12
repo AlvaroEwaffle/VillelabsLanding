@@ -11,7 +11,7 @@ import { rutaConChat } from '@/lib/productos/chat';
 const MENSAJE_POR_PAGINA: Record<string, string> = {
   '/esqueleto': 'Hola Álvaro, estoy armando el esqueleto de mi asistente y tengo una duda',
   '/guia': 'Hola Álvaro, tengo una pregunta sobre la Guía de clientes',
-  '/curso': 'Hola Álvaro, quiero saber más del curso El sistema de tu negocio',
+  '/curso': 'Hola Álvaro, quiero saber más del curso Construye con IA tu sistema de gestión CRM y ERP',
 };
 
 function urlWhatsApp(pathname: string | null, porDefecto: string): string {

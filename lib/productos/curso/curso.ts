@@ -37,8 +37,8 @@ export function textoPrecioDetalle(): string {
 }
 
 export const CURSO = {
-  nombre: 'El sistema de tu negocio',
-  apellido: 'Tu primer CRM y ERP en Google Sheets',
+  nombre: 'Construye con IA tu CRM y ERP',
+  apellido: 'Sin programar, en Google Sheets',
   /** Nombre completo para metadata, certificado y referencias desde otros productos. */
   nombreCompleto: 'Construye con IA tu sistema de gestión CRM y ERP para tu negocio, sin programar en 5 horas',
   promesa:

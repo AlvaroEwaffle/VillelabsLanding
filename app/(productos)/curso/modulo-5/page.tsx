@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     title: 'Módulo 5 · Cobrar a tiempo y saber cuánta plata tienes',
     description: 'Módulo 5 del curso «Construye con IA tu sistema de gestión CRM y ERP»: la hoja Cobranza con recordatorios, la hoja Caja con el saldo al día, tu caja de las próximas 4 semanas y el margen de tus productos.',
     url: `${SITE_URL}/curso/modulo-5`,
-    images: [{ url: `${SITE_URL}/og/curso.jpg`, width: 1200, height: 630, alt: 'El sistema de tu negocio · módulo 5' }],
+    images: [{ url: `${SITE_URL}/og/curso.jpg`, width: 1200, height: 630, alt: 'Construye con IA tu CRM y ERP · módulo 5' }],
   },
 };
 

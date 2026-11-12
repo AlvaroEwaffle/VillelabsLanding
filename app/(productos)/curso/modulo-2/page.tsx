@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     title: 'Módulo 2 · De dónde llegan tus clientes',
     description: 'Módulo 2 del curso «Construye con IA tu sistema de gestión CRM y ERP»: tu mensaje en una frase, tus 3 temas, un calendario de contenido de 4 semanas y la hoja Origen, que cuenta cuántos clientes te trae cada canal.',
     url: `${SITE_URL}/curso/modulo-2`,
-    images: [{ url: `${SITE_URL}/og/curso.jpg`, width: 1200, height: 630, alt: 'El sistema de tu negocio · módulo 2' }],
+    images: [{ url: `${SITE_URL}/og/curso.jpg`, width: 1200, height: 630, alt: 'Construye con IA tu CRM y ERP · módulo 2' }],
   },
 };
 

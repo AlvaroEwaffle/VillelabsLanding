@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     title: 'Módulo 0 · El sistema de tu negocio en una planilla',
     description: 'Qué es un CRM y un ERP, el diagnóstico con semáforo, tu planilla base en Google Sheets y las reglas de freno. Módulo de muestra del curso.',
     url: `${SITE_URL}/curso/modulo-0`,
-    images: [{ url: `${SITE_URL}/og/curso.jpg`, width: 1200, height: 630, alt: 'El sistema de tu negocio · módulo 0' }],
+    images: [{ url: `${SITE_URL}/og/curso.jpg`, width: 1200, height: 630, alt: 'Construye con IA tu CRM y ERP · módulo 0' }],
   },
 };
 

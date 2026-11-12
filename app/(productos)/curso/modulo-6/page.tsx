@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     title: 'Módulo 6 · El tablero que lo junta todo',
     description: 'Módulo 6 del curso «Construye con IA tu sistema de gestión CRM y ERP»: tus números del lunes, cómo se conectan las hojas, compartir la planilla con tu equipo, tus rutinas y cuándo pasar a un software. Proyecto final: tu ERP en Google Sheets con su tablero.',
     url: `${SITE_URL}/curso/modulo-6`,
-    images: [{ url: `${SITE_URL}/og/curso.jpg`, width: 1200, height: 630, alt: 'El sistema de tu negocio · módulo 6' }],
+    images: [{ url: `${SITE_URL}/og/curso.jpg`, width: 1200, height: 630, alt: 'Construye con IA tu CRM y ERP · módulo 6' }],
   },
 };
 

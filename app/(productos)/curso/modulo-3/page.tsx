@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     title: 'Módulo 3 · Cada pedido, en una fila',
     description: 'Módulo 3 del curso «Construye con IA tu sistema de gestión CRM y ERP»: tus procesos escritos en pasos, la hoja Pedidos con cada pedido en una fila, el checklist de entrega, el estado de cada pedido y el resumen del día en 5 minutos.',
     url: `${SITE_URL}/curso/modulo-3`,
-    images: [{ url: `${SITE_URL}/og/curso.jpg`, width: 1200, height: 630, alt: 'El sistema de tu negocio · módulo 3' }],
+    images: [{ url: `${SITE_URL}/og/curso.jpg`, width: 1200, height: 630, alt: 'Construye con IA tu CRM y ERP · módulo 3' }],
   },
 };
 
