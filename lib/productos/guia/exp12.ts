@@ -7,4 +7,5 @@
 import { crearExperimento } from '../experimento';
 
 export const CLAVE_EXP12 = 'vl_exp12';
-export const EXP12 = crearExperimento('12', CLAVE_EXP12);
+// 12-nov-2026 17:00: /guia queda en UNA sola versión (A) hasta tener tráfico (método aprobado por Álvaro 12-nov 00:10). B y C quedan en el código, apagadas.
+export const EXP12 = crearExperimento('12', CLAVE_EXP12, {}, 'A');

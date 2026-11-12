@@ -22,6 +22,16 @@ export function textoPrecio(): string {
     : `${clp(PRECIO_FUNDADOR)} precio fundador · primeros ${CUPOS_FUNDADOR} alumnos`;
 }
 
+/** Variante B de EXP-13 (12-nov-2026): sin «primeros 20 alumnos» (cupo sin respaldo verificable en la página). */
+export function textoPrecioSinCupo(): string {
+  return PRECIO_FUNDADOR === null ? 'Precio de preventa' : `${clp(PRECIO_FUNDADOR)} precio de preventa`;
+}
+
+/** Variante B de EXP-13: solo el cupón (el «después sube» va atado al cupo, que en B no se muestra). */
+export function textoPrecioDetalleSinCupo(): string {
+  return `Si compraste la guía, con el cupón ${PRECIO_CURSO.cuponGuia} te queda en ${clp(PRECIO_CURSO.precioConCupon)}.`;
+}
+
 export function textoPrecioDetalle(): string {
   return `Después sube a ${clp(PRECIO_NORMAL)}. Si compraste la guía, con el cupón ${PRECIO_CURSO.cuponGuia} te queda en ${clp(PRECIO_CURSO.precioConCupon)}.`;
 }
@@ -36,7 +46,7 @@ export const CURSO = {
   noEsSoftware:
     'No es un software ni una suscripción: es una planilla bien armada, con las fórmulas listas, y rutinas cortas para que el negocio no dependa de tu memoria.',
   formato: [
-    { etiqueta: 'Formato', valor: '7 módulos, 33 lecciones de 5 a 8 min' },
+    { etiqueta: 'Formato', valor: '7 módulos, 33 lecciones, unas 5 horas de lecciones' },
     { etiqueta: 'Ritmo sugerido', valor: '1 módulo por semana, 2 a 3 h' },
     { etiqueta: 'Herramienta', valor: 'Google Sheets (gratis) o Excel' },
     { etiqueta: 'Cada lección', valor: 'idea → ejemplo → tu hoja → prueba real' },

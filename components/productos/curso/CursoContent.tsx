@@ -10,18 +10,20 @@
  * v1.2 (9-nov-2026) captura del correo antes del pago: bloque «¿Aún no?» (CursoLead) en el hero y antes de la preventa,
  * y el link de Hotmart lleva src/sck con los UTM de la visita (lib/productos/utm.ts).
  * v1.3 (10-nov-2026) EXP-08: tres heros (A resultado · B dolor · C demostración con el tablero primero), párrafo largo
- * fuera del hero y barra fija de compra en celular. Variante y medición en lib/productos/curso/exp10.ts.
+ * fuera del hero y barra fija de compra en celular.
+ * v1.4 (12-nov-2026, 17:00) EXP-13: dos variantes (método de 2-4 días). A = control; B = «módulo 0 primero» (botón principal
+ * «Mira gratis el módulo 0», compra como enlace secundario, barra fija de celular al módulo 0, sin «primeros 20 alumnos»).
+ * Variante y medición en lib/productos/curso/exp13.ts. Las B/C de EXP-10 (estructura, video primero) se retiraron sin ganador.
  */
 
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { ArrowRight, Check, ChevronDown, ClipboardCheck, ClipboardList, Eye, FileSpreadsheet, FlaskConical, Handshake, LayoutDashboard, Map as MapIcon, Megaphone, MessageCircle, Sparkles, Wallet, X, type LucideIcon } from 'lucide-react';
 import { LINKS } from '@/lib/productos/links';
-import { AREAS, CASO, CUPOS_FUNDADOR, CURSO, FAQ, HOJAS, IA_OPCIONAL, MODULOS, PARA_QUIEN, PRECIO_FUNDADOR, PREVENTA, PROYECTO_FINAL, PRECIO_CURSO, QUE_ES, textoPrecio, textoPrecioDetalle } from '@/lib/productos/curso/curso';
-import { asignarVarianteExp10, avisarVarianteExp10 } from '@/lib/productos/curso/exp10';
+import { AREAS, CASO, CUPOS_FUNDADOR, CURSO, FAQ, HOJAS, IA_OPCIONAL, MODULOS, PARA_QUIEN, PRECIO_FUNDADOR, PREVENTA, PROYECTO_FINAL, PRECIO_CURSO, QUE_ES, textoPrecio, textoPrecioDetalle, textoPrecioDetalleSinCupo, textoPrecioSinCupo } from '@/lib/productos/curso/curso';
+import { EXP13 } from '@/lib/productos/curso/exp13';
 import { VERSION_CURSO, VERSIONES_CURSO, fechaLarga } from '@/lib/productos/curso/versiones';
 import EnQueSeBasa from './EnQueSeBasa';
-import EstructuraC2 from './EstructuraC2';
 import CursoLead from './CursoLead';
 import { hotmartConUtm } from '@/lib/productos/utm';
 import { trackCursoClickCompra } from '@/lib/productos/curso/tracking';
@@ -107,6 +109,50 @@ function BarraCompraMovil() {
   );
 }
 
+/**
+ * EXP-13 · B · barra fija de celular que lleva al módulo 0 gratis (en vez de a la compra). Misma lógica de aparición que
+ * BarraCompraMovil: se esconde cuando hay un botón de compra, el formulario del módulo 0 o el pie a la vista.
+ */
+function BarraModulo0Movil() {
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const objetivos = Array.from(document.querySelectorAll('[data-compra], [data-sin-barra], #preventa, footer'));
+    if (!objetivos.length || typeof IntersectionObserver === 'undefined') return;
+    const aLaVista = new Set<Element>();
+    const io = new IntersectionObserver((entradas) => {
+      for (const e of entradas) {
+        if (e.isIntersecting) aLaVista.add(e.target);
+        else aLaVista.delete(e.target);
+      }
+      setVisible(aLaVista.size === 0);
+    });
+    objetivos.forEach((o) => io.observe(o));
+    return () => io.disconnect();
+  }, []);
+  return (
+    <div
+      aria-hidden={!visible}
+      className={`fixed inset-x-0 bottom-0 z-[9998] border-t border-white/10 bg-[#0f172a]/95 px-4 pb-[calc(env(safe-area-inset-bottom)+0.75rem)] pt-3 backdrop-blur-md transition-transform duration-300 md:hidden ${
+        visible ? 'translate-y-0' : 'pointer-events-none translate-y-full'
+      }`}
+    >
+      <div className="mx-auto flex max-w-md items-center justify-between gap-3">
+        <div className="min-w-0">
+          <p className="font-serif text-sm leading-tight text-white">Módulo 0 gratis</p>
+          <p className="text-[11px] leading-tight text-[#5fb2dd]">sin tarjeta</p>
+        </div>
+        <Link
+          href="#parte-gratis-hero"
+          tabIndex={visible ? 0 : -1}
+          className="inline-flex min-h-[48px] shrink-0 items-center justify-center gap-2 rounded-full bg-[#FF3D8B] px-5 text-sm font-semibold text-white shadow-rosa transition hover:bg-[#ff5c9f]"
+        >
+          Ver módulo 0 <ArrowRight className="h-4 w-4" aria-hidden />
+        </Link>
+      </div>
+    </div>
+  );
+}
+
 // 11-nov-2026: el módulo 0 se ve dejando el correo → los botones llevan a la puerta del hero (CursoLead).
 function BotonModulo0({ texto = 'Ver el módulo 0', className = 'inline-flex' }: { texto?: string; className?: string }) {
   return (
@@ -119,7 +165,7 @@ function BotonModulo0({ texto = 'Ver el módulo 0', className = 'inline-flex' }:
   );
 }
 
-function Seccion({ id, kicker, titulo, bajada, children }: { id?: string; kicker: string; titulo: string; bajada?: string; children: React.ReactNode }) {
+function Seccion({ id, kicker, titulo, bajada, children }: { id?: string; kicker: string; titulo: string; bajada?: React.ReactNode; children: React.ReactNode }) {
   return (
     <section id={id} className="mx-auto max-w-6xl scroll-mt-24 px-4 py-14 sm:px-6">
       <Kicker>{kicker}</Kicker>
@@ -142,23 +188,30 @@ function Acordeon({ abierto, onToggle, cabecera, children }: { abierto: boolean;
   );
 }
 
+const BAJADA_PREVENTA = (
+  <>
+    Compras ahora con <span className="exp13-A">precio fundador</span>
+    <span className="exp13-B">precio de preventa</span>, empiezas hoy con el mapa, el diagnóstico y tu planilla base, y el resto llega semana a semana.
+  </>
+);
+
 export default function CursoContent() {
   const [moduloAbierto, setModuloAbierto] = useState<number | null>(0);
   const [faqAbierta, setFaqAbierta] = useState<number | null>(null);
   const totalLecciones = MODULOS.reduce((s, m) => s + m.lecciones.length, 0);
 
-  // EXP-10: si se llegó navegando dentro del sitio el script en línea no corrió; se asigna aquí. Aviso a GA4 una vez.
+  // EXP-13: si se llegó navegando dentro del sitio el script en línea no corrió; se asigna aquí. Aviso a GA4 una vez.
   useEffect(() => {
-    avisarVarianteExp10(asignarVarianteExp10());
+    EXP13.avisar(EXP13.asignar());
   }, []);
 
   return (
     <main className="relative w-full overflow-x-hidden bg-[#0f172a] text-slate-100">
-      {/* Hero · EXP-10 (12-nov-2026, ciclo diario): A ganadora de EXP-08 · B estructura · C video primero. Mismo título en las
-          tres; el CSS muestra lo que toca según <html data-exp10> (script en línea antes de pintar). Sin JS se ve A. */}
+      {/* Hero · EXP-13 (12-nov-2026, 17:00): A control (ex A de EXP-10) · B «módulo 0 primero». Mismo título en las dos;
+          el CSS muestra lo que toca según <html data-exp13> (script en línea antes de pintar). Sin JS se ve A. */}
       <section className="mx-auto max-w-6xl px-4 pb-10 pt-24 sm:px-6 md:pt-32">
         <div className="grid items-center gap-8 lg:grid-cols-[1fr_400px] lg:gap-12">
-          <div className="exp10-sin-C order-last">
+          <div className="order-last">
             <figure className="relative aspect-[16/10] max-h-[260px] w-full overflow-hidden rounded-3xl border border-white/10 sm:max-h-[340px] lg:aspect-[4/5] lg:max-h-[460px]">
               <Foto foto={FOTOS.explicando} posicion="center 12%" prioridad />
               <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-[#0f172a]/50 via-transparent to-transparent" />
@@ -169,18 +222,49 @@ export default function CursoContent() {
             <h1 className="mt-3 max-w-3xl font-serif text-[1.9rem] leading-[1.1] text-white sm:text-5xl lg:text-[3.1rem]">
               Ordena tu negocio en una planilla: clientes, pedidos y caja en un solo tablero
             </h1>
-            <p className="mt-3 max-w-xl text-base text-slate-300 sm:text-lg">En 6 semanas y sin programar. El módulo 0 es gratis hoy.</p>
-            {/* EXP-10 · C «video primero»: el video de venta en el primer pantallazo, antes del botón. */}
-            <div className="exp10-C">
-              <VideoMarco id="v08-curso-venta" titulo="Tu primer CRM y ERP, en 6 semanas" duracion="49 s" className="mt-5" />
+            {/* A · control */}
+            <div className="exp13-A">
+              <p className="mt-3 max-w-xl text-base text-slate-300 sm:text-lg">En 6 semanas y sin programar. El módulo 0 es gratis hoy.</p>
+              <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
+                <BotonCompra ubicacion="hero" />
+                {/* En celular se oculta aquí (se repite en el programa y al final): un solo botón en el primer pantallazo. */}
+                <BotonModulo0 texto="Ver el módulo 0 de muestra" className="hidden sm:inline-flex" />
+              </div>
+              <p className="mt-3 text-sm text-[#5fb2dd]">{textoPrecio()}</p>
             </div>
-            <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
-              <BotonCompra ubicacion="hero" />
-              {/* En celular se oculta aquí (se repite en el programa y al final): un solo botón en el primer pantallazo. */}
-              <BotonModulo0 texto="Ver el módulo 0 de muestra" className="hidden sm:inline-flex" />
+            {/* B · «módulo 0 primero»: el botón principal es gratis; abajo, el formulario a la vista. */}
+            <div className="exp13-B">
+              <p className="mt-3 max-w-xl text-base text-slate-300 sm:text-lg">7 módulos, unas 5 horas de lecciones y sin programar. El módulo 0 es gratis.</p>
+              <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
+                <Link
+                  href="#parte-gratis-hero"
+                  data-sin-barra
+                  className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full bg-[#FF3D8B] px-6 text-sm font-semibold text-white shadow-rosa transition hover:bg-[#ff5c9f]"
+                >
+                  Mira gratis el módulo 0 <ArrowRight className="h-4 w-4" aria-hidden />
+                </Link>
+              </div>
             </div>
-            <p className="mt-3 text-sm text-[#5fb2dd]">{textoPrecio()}</p>
             <CursoLead ubicacion="hero" className="mt-6" />
+            <div className="exp13-B">
+              <p className="mt-4 py-1 text-sm leading-7 text-slate-400">
+                ¿Prefieres comprarlo ya?{' '}
+                <a
+                  href={LINKS.cursoCompra}
+                  data-compra="hero_secundario"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={(e) => {
+                    e.currentTarget.href = hotmartConUtm(LINKS.cursoCompra, 'hero_secundario');
+                    trackCursoClickCompra('hero_secundario');
+                  }}
+                  className="py-2 text-[#5fb2dd] underline underline-offset-2 hover:text-white"
+                >
+                  Compra el curso en preventa
+                </a>{' '}
+                · {textoPrecioSinCupo()}
+              </p>
+            </div>
             <p className="mt-4 text-xs text-slate-500">
               Versión {VERSION_CURSO.version} · actualizado el {fechaLarga(VERSION_CURSO.fecha)} ·{' '}
               <a href="#versiones" className="underline-offset-2 hover:text-slate-300 hover:underline">
@@ -190,9 +274,6 @@ export default function CursoContent() {
           </div>
         </div>
       </section>
-
-      {/* EXP-10 · B «estructura»: por qué este curso + quién lo arma + módulo 0 + en qué se basa, arriba. */}
-      <EstructuraC2 />
 
       {/* El curso en corto: franja bajo el hero (5 datos en fila en escritorio, apilados en celular). */}
       <section aria-label="El curso en corto" className="mx-auto max-w-6xl px-4 sm:px-6">
@@ -207,9 +288,7 @@ export default function CursoContent() {
         <p className="mt-6 max-w-3xl text-slate-300">{CURSO.promesa}</p>
         <p className="mt-3 max-w-3xl text-sm text-slate-400">{CURSO.noEsSoftware}</p>
         {/* Video 8 · venta de la preventa (regrabado con el enfoque CRM/ERP, 8-nov-2026). */}
-        <div className="exp10-sin-C">
-          <VideoMarco id="v08-curso-venta" titulo="Tu primer CRM y ERP, en 6 semanas" duracion="49 s" className="mt-10" />
-        </div>
+        <VideoMarco id="v08-curso-venta" titulo="Tu primer CRM y ERP, en 6 semanas" duracion="49 s" className="mt-10" />
       </section>
 
       {/* Para quién */}
@@ -450,7 +529,7 @@ export default function CursoContent() {
         id="preventa"
         kicker="Cómo funciona la preventa"
         titulo="El módulo 0 hoy. Un módulo nuevo cada semana."
-        bajada="Compras ahora con precio fundador, empiezas hoy con el mapa, el diagnóstico y tu planilla base, y el resto llega semana a semana."
+        bajada={BAJADA_PREVENTA}
       >
         <div className="mt-10 grid gap-8 lg:grid-cols-[1fr_360px]">
           <ol className="relative space-y-3 border-l border-white/10 pl-6">
@@ -472,8 +551,14 @@ export default function CursoContent() {
             </div>
             <div className="p-6 pt-3">
             <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-[#5fb2dd]">Preventa</p>
-            <p className="mt-3 font-serif text-2xl text-white">{textoPrecio()}</p>
-            <p className="mt-2 text-sm text-slate-300">{textoPrecioDetalle()}</p>
+            <p className="mt-3 font-serif text-2xl text-white">
+              <span className="exp13-A">{textoPrecio()}</span>
+              <span className="exp13-B">{textoPrecioSinCupo()}</span>
+            </p>
+            <p className="mt-2 text-sm text-slate-300">
+              <span className="exp13-A">{textoPrecioDetalle()}</span>
+              <span className="exp13-B">{textoPrecioDetalleSinCupo()}</span>
+            </p>
             <ul className="mt-4 space-y-2 text-sm text-slate-300">
               <li className="flex gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-[#5fb2dd]" aria-hidden /> Módulo 0 y tu planilla base al tiro</li>
               <li className="flex gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-[#5fb2dd]" aria-hidden /> Los 7 módulos y la planilla completa del sistema</li>
@@ -490,8 +575,8 @@ export default function CursoContent() {
         </div>
       </Seccion>
 
-      {/* Quién lo enseña + En qué se basa: en la B ya salieron arriba (EstructuraC2). */}
-      <div className="exp10-sin-B">
+      {/* Quién lo enseña + En qué se basa */}
+      <div>
       {/* Quién lo enseña */}
       <Seccion kicker="Quién lo enseña" titulo="Álvaro Villena">
         <div className="mt-10 grid items-center gap-8 md:grid-cols-[360px_1fr]">
@@ -580,7 +665,12 @@ export default function CursoContent() {
           </ol>
         </div>
       </section>
-      <BarraCompraMovil />
+      <div className="exp13-A">
+        <BarraCompraMovil />
+      </div>
+      <div className="exp13-B">
+        <BarraModulo0Movil />
+      </div>
     </main>
   );
 }

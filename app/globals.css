@@ -273,3 +273,10 @@ html[data-exp12="B"] .exp12-A,html[data-exp12="C"] .exp12-A,html[data-exp12="B"]
 html[data-exp10="B"] .exp10-B,html[data-exp10="C"] .exp10-C,
 html[data-exp11="B"] .exp11-B,html[data-exp11="C"] .exp11-C,
 html[data-exp12="B"] .exp12-B,html[data-exp12="C"] .exp12-C{display:block}
+
+/* Rondas de DOS variantes (método desde el 12-nov-2026): EXP-13 /curso · EXP-14 /esqueleto. Mismo mecanismo con
+   <html data-exp13|14="A|B">. .expNN-A = solo en A; .expNN-B = solo en B (display:revert la devuelve a su tipo: div=block,
+   span=inline; por eso estos envoltorios no llevan clases de layout). Sin JS se ve A. */
+.exp13-B,.exp14-B{display:none}
+html[data-exp13="B"] .exp13-A,html[data-exp14="B"] .exp14-A{display:none}
+html[data-exp13="B"] .exp13-B,html[data-exp14="B"] .exp14-B{display:revert}

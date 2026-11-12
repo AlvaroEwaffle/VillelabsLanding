@@ -4,7 +4,7 @@ import { CURSO, FAQ } from '@/lib/productos/curso/curso';
 import { VERSION_CURSO } from '@/lib/productos/curso/versiones';
 import CursoContent from '@/components/productos/curso/CursoContent';
 import { fraunces } from '@/lib/productos/fuente';
-import { SCRIPT_EXP10 } from '@/lib/productos/curso/exp10';
+import { EXP13 } from '@/lib/productos/curso/exp13';
 
 
 const TITULO_OG = 'El sistema de tu negocio · tu primer CRM y ERP en Google Sheets';
@@ -41,7 +41,7 @@ const JSON_LD = [
     version: VERSION_CURSO.version,
     dateModified: VERSION_CURSO.fecha,
     teaches: ['CRM en Google Sheets', 'ERP para pymes en una planilla', 'Seguimiento de clientes y propuestas', 'Control de pedidos', 'Cobranza y flujo de caja', 'Tablero de indicadores'],
-    hasCourseInstance: { '@type': 'CourseInstance', courseMode: 'online', courseWorkload: 'PT18H' },
+    hasCourseInstance: { '@type': 'CourseInstance', courseMode: 'online' },
   },
   faqPage(FAQ.map((f) => ({ q: f.p, a: f.r }))),
   videoObject({
@@ -56,8 +56,8 @@ const JSON_LD = [
 export default function CursoPage() {
   return (
     <div className={fraunces.variable}>
-      {/* EXP-08: elige la variante del hero antes de pintarlo (constante propia del repo, sin datos de usuarios). */}
-      <script dangerouslySetInnerHTML={{ __html: SCRIPT_EXP10 }} />
+      {/* EXP-13: elige la variante del hero antes de pintarlo (constante propia del repo, sin datos de usuarios). */}
+      <script dangerouslySetInnerHTML={{ __html: EXP13.script }} />
       <JsonLd data={JSON_LD} />
       <CursoContent />
     </div>

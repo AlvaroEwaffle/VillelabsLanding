@@ -74,7 +74,16 @@ export default function CursoLead({ ubicacion, className = '' }: { ubicacion: st
     // data-sin-barra: la barra fija de compra de /curso (EXP-08) se esconde mientras este bloque está a la vista.
     <div id={`parte-gratis-${ubicacion}`} data-sin-barra className={`scroll-mt-28 rounded-2xl border border-[#5fb2dd]/35 bg-[#2175a1]/[0.12] p-4 sm:p-5 ${className}`}>
       <p className="flex items-center gap-2 font-serif text-lg leading-snug text-white sm:text-xl">
-        <Eye className="h-5 w-5 shrink-0 text-[#5fb2dd]" aria-hidden /> ¿Aún no? Mira gratis el módulo 0
+        <Eye className="h-5 w-5 shrink-0 text-[#5fb2dd]" aria-hidden />
+        {/* EXP-13 · B: en el hero, con el botón principal ya gratis, «¿Aún no?» no tiene sentido. */}
+        {ubicacion === 'hero' ? (
+          <>
+            <span className="exp13-A">¿Aún no? Mira gratis el módulo 0</span>
+            <span className="exp13-B">Deja tu correo y mira el módulo 0</span>
+          </>
+        ) : (
+          <span>¿Aún no? Mira gratis el módulo 0</span>
+        )}
       </p>
       <p className="mt-1.5 text-sm text-slate-300">
         El mapa de tu negocio, el diagnóstico y tu planilla base, completos. Deja tu correo y entras al tiro, sin tarjeta.

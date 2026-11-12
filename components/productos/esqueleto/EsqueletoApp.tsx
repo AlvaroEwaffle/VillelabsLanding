@@ -38,8 +38,7 @@ import {
   DiagramaSinConReglas,
 } from '@/components/productos/diagramas/esqueleto';
 import { Kicker, botonPrimario, botonSecundario, claseInput } from './ui';
-import { EXP11 } from '@/lib/productos/esqueleto/exp11';
-import QuienLoArma from '@/components/productos/estructura/QuienLoArma';
+import { EXP14 } from '@/lib/productos/esqueleto/exp14';
 import { cancelarParcial, campoParcial, correoValido, pasoParcial } from '@/lib/productos/esqueleto/parcial';
 import { VideoMarco } from '@/components/productos/VideoProducto';
 
@@ -219,6 +218,63 @@ function DatosContacto({ onListo, onVolver }: { onListo: (l: Lead) => void; onVo
   );
 }
 
+/**
+ * EXP-14 · B · correo en la primera pantalla (12-nov-2026). Nombre + correo bajo el título; al enviar, el lead se registra
+ * ahí mismo (Fidelidapp + Slack) y la persona entra al paso 1. Quien ya lo dejó antes no lo vuelve a ver.
+ * Correo a medias: si escribe un correo válido y no toca el botón, se guarda igual (paso 0 = portada).
+ */
+function PortadaCorreo({ onListo, deshabilitado }: { onListo: (l: Lead) => void; deshabilitado: boolean }) {
+  const [nombre, setNombre] = useState('');
+  const [correo, setCorreo] = useState('');
+  const [error, setError] = useState('');
+  const [enviando, setEnviando] = useState(false);
+  return (
+    <form
+      noValidate
+      onSubmit={(e) => {
+        e.preventDefault();
+        if (!nombre.trim()) return setError('Escribe tu nombre.');
+        if (!correoValido(correo)) return setError('Revisa tu correo: parece que le falta algo.');
+        setError('');
+        setEnviando(true);
+        cancelarParcial();
+        onListo({ nombre: nombre.trim(), correo: correo.trim(), whatsapp: '', fecha: new Date().toISOString() });
+      }}
+      onBlur={() => campoParcial({ nombre, correo, whatsapp: '' }, 0)}
+      className="mt-4 grid gap-3 sm:max-w-md"
+    >
+      <label htmlFor="portada-nombre" className="sr-only">
+        Tu nombre
+      </label>
+      <input id="portada-nombre" autoComplete="given-name" placeholder="Tu nombre" value={nombre} onChange={(e) => setNombre(e.target.value)} className={claseInput} />
+      <label htmlFor="portada-correo" className="sr-only">
+        Tu correo
+      </label>
+      <input
+        id="portada-correo"
+        type="email"
+        inputMode="email"
+        autoComplete="email"
+        placeholder="Tu correo"
+        value={correo}
+        onChange={(e) => setCorreo(e.target.value)}
+        className={claseInput}
+      />
+      {error ? (
+        <p role="alert" className="text-sm text-orange-300">
+          {error}
+        </p>
+      ) : null}
+      <button type="submit" disabled={deshabilitado || enviando} className={botonPrimario}>
+        {TEXTOS.boton} <ArrowRight className="h-4 w-4" />
+      </button>
+      <p className="text-xs text-slate-400">
+        Gratis, sin tarjeta. Lo armas aquí mismo, en unos 15 minutos, y lo copias o descargas. Usamos tu correo para mandarte contenido útil para tu negocio; te puedes dar de baja cuando quieras. Guardamos lo que escribes para no perder tu avance.
+      </p>
+    </form>
+  );
+}
+
 export default function EsqueletoApp() {
   const [avance, setAvance] = useState<Avance>(avanceInicial);
   const [lead, setLead] = useState<Lead | null>(null);
@@ -231,9 +287,9 @@ export default function EsqueletoApp() {
   const arriba = useRef<HTMLDivElement>(null);
   const { esqueleto, pantalla } = avance;
 
-  // EXP-11: si se llegó navegando dentro del sitio el script en línea no corrió; se asigna aquí. Aviso a GA4 una vez.
+  // EXP-14: si se llegó navegando dentro del sitio el script en línea no corrió; se asigna aquí. Aviso a GA4 una vez.
   useEffect(() => {
-    EXP11.avisar(EXP11.asignar());
+    EXP14.avisar(EXP14.asignar());
   }, []);
 
   /* eslint-disable react-hooks/set-state-in-effect -- lectura única de localStorage al montar */
@@ -319,6 +375,34 @@ export default function EsqueletoApp() {
     setPantallaGuardada(0);
   };
 
+  // EXP-14 · B: el correo se deja en la portada → se registra ahí y se entra al paso 1 (siguiente() ya no lo vuelve a pedir).
+  const alDejarCorreoEnPortada = (l: Lead) => {
+    guardarLead(l);
+    setLead(l);
+    void enviarLead(l, esqueleto);
+    eventos.inicio();
+    irA(1);
+  };
+
+  const botonesPortada = (
+    <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
+      {pantallaGuardada > 0 ? (
+        <>
+          <button type="button" onClick={() => irA(pantallaGuardada)} className={botonPrimario}>
+            Seguir donde quedé <ArrowRight className="h-4 w-4" />
+          </button>
+          <button type="button" onClick={deCero} className={botonSecundario}>
+            <RotateCcw className="h-4 w-4" /> Empezar de cero
+          </button>
+        </>
+      ) : (
+        <button type="button" onClick={empezar} disabled={!cargado} className={botonPrimario}>
+          {TEXTOS.boton} <ArrowRight className="h-4 w-4" />
+        </button>
+      )}
+    </div>
+  );
+
   const Paso = actual?.tipo === 'paso' ? PASOS_UI[actual.paso - 1] : null;
   const infoPaso = actual?.tipo === 'paso' ? PASOS[actual.paso - 1] : null;
   const esUltimoPaso = pantalla === SECUENCIA.length;
@@ -329,64 +413,23 @@ export default function EsqueletoApp() {
       <div ref={arriba} className="relative mx-auto max-w-3xl scroll-mt-24 px-4 pb-24 pt-28 sm:px-6 md:pt-36">
         {pantalla === 0 ? (
           <section className="py-6 sm:py-10">
-            {/* Hero · EXP-11 (12-nov-2026, ciclo diario): A ganadora de EXP-09 · B estructura · C video primero. Mismo título en
-                las tres; el CSS muestra lo que toca según <html data-exp11> (script en línea antes de pintar). Sin JS se ve A.
-                El botón va justo bajo el título (o bajo el video en la C) para que quepa en el primer pantallazo del celular. */}
+            {/* Hero · EXP-14 (12-nov-2026, 17:00): A control (ex A de EXP-11, botón «Armar mi esqueleto»; el correo al final) ·
+                B correo en la primera pantalla. Mismo título en las dos; el CSS muestra lo que toca según <html data-exp14>
+                (script en línea antes de pintar). Sin JS se ve A. */}
             <p className="inline-flex items-center gap-2 rounded-full border border-[#5fb2dd]/40 bg-[#5fb2dd]/10 px-3 py-1 text-xs font-medium uppercase tracking-[0.18em] text-[#5fb2dd]">
               <Gift className="h-3.5 w-3.5" /> {TEXTOS.kicker}
             </p>
             <h1 className="mt-4 font-serif text-[2.1rem] leading-[1.1] text-white sm:text-5xl lg:text-[3.1rem]">Tu asistente de WhatsApp, escrito en 15 minutos</h1>
             <p className="mt-4 max-w-2xl text-lg text-slate-200 sm:text-xl">Qué responde, qué nunca promete y cuándo te avisa. Gratis, sin tarjeta.</p>
-            {/* EXP-11 · C «video primero»: la bienvenida (40 s) antes del botón. */}
-            <div className="exp11-C">
-              <VideoMarco id="v02-esqueleto-bienvenida" titulo="Lo que vas a armar en los próximos 15 minutos" duracion="40 s" className="mt-6" />
-            </div>
-
-            <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
-              {pantallaGuardada > 0 ? (
-                <>
-                  <button type="button" onClick={() => irA(pantallaGuardada)} className={botonPrimario}>
-                    Seguir donde quedé <ArrowRight className="h-4 w-4" />
-                  </button>
-                  <button type="button" onClick={deCero} className={botonSecundario}>
-                    <RotateCcw className="h-4 w-4" /> Empezar de cero
-                  </button>
-                </>
-              ) : (
-                <button type="button" onClick={empezar} disabled={!cargado} className={botonPrimario}>
-                  {TEXTOS.boton} <ArrowRight className="h-4 w-4" />
-                </button>
-              )}
-            </div>
+            {/* A · control; en la B solo si ya dejó su correo antes o tiene un avance guardado. */}
+            <div className="exp14-A">{botonesPortada}</div>
+            <div className="exp14-B">{lead || pantallaGuardada > 0 ? botonesPortada : <PortadaCorreo deshabilitado={!cargado} onListo={alDejarCorreoEnPortada} />}</div>
             <p className="mt-3 inline-flex items-center gap-1.5 text-sm text-slate-400">
               <Save className="h-4 w-4" /> {TEXTOS.guardar}
             </p>
 
-            {/* EXP-11 · B «estructura» (ex C2 de EXP-09): por qué funciona + quién lo hizo + qué trae, arriba. */}
-            <div className="exp11-B">
-              <h2 className="mt-8 font-serif text-2xl text-white">¿Por qué este esqueleto y no un prompt suelto?</h2>
-              <ul className="mt-4 space-y-2 text-sm text-slate-300">
-                {[
-                  'Te obliga a decidir lo que un prompt suelto deja al azar: qué nunca promete tu asistente y cuándo te pasa la conversación.',
-                  'Cada campo trae un ejemplo real armado (Grano Norte, una tostaduría de Valparaíso), así no partes de la hoja en blanco.',
-                  'Te vas con 5 preguntas trampa para probarlo antes de usarlo con clientes.',
-                  'Funciona en Claude o ChatGPT gratis, y después lo conectas a tu WhatsApp.',
-                ].map((x) => (
-                  <li key={x} className="flex items-start gap-2">
-                    <Check className="mt-0.5 h-4 w-4 shrink-0 text-[#5fb2dd]" /> {x}
-                  </li>
-                ))}
-              </ul>
-              <QuienLoArma
-                className="mt-5"
-                texto="Lo armó para sus propios negocios (Ewaffle y Fidelidapp), donde los asistentes de WhatsApp atienden clientes de verdad. Ingeniero industrial (U. de Chile), 8 años liderando equipos de producto."
-              />
-            </div>
-
             {/* Video 2 · bienvenida (8-nov-2026) */}
-            <div className="exp11-sin-C">
-              <VideoMarco id="v02-esqueleto-bienvenida" titulo="Lo que vas a armar en los próximos 15 minutos" duracion="40 s" className="mt-8" />
-            </div>
+            <VideoMarco id="v02-esqueleto-bienvenida" titulo="Lo que vas a armar en los próximos 15 minutos" duracion="40 s" className="mt-8" />
 
             <ol className="mt-8 grid gap-3 sm:grid-cols-2">
               {PASOS.map((p) => (
@@ -399,7 +442,7 @@ export default function EsqueletoApp() {
                 </li>
               ))}
             </ol>
-            <ul className="exp11-sin-B mt-10 space-y-2 border-t border-white/10 pt-6 text-sm text-slate-300">
+            <ul className="mt-10 space-y-2 border-t border-white/10 pt-6 text-sm text-slate-300">
               {[
                 'Te vas con tu asistente escrito: lo pruebas gratis en Claude o ChatGPT y después lo conectas a tu WhatsApp (te muestro cómo).',
                 '5 preguntas trampa para probarlo antes de usarlo con clientes.',

@@ -4,8 +4,8 @@
 // Solo corre en villelab.com y sus previews: en localhost no se envía nada (como GTM).
 // Nunca lanza ni bloquea la página: si falla, se pierde ese evento y listo.
 
-import { EXP10 } from './curso/exp10';
-import { EXP11 } from './esqueleto/exp11';
+import { EXP13 } from './curso/exp13';
+import { EXP14 } from './esqueleto/exp14';
 import { EXP12 } from './guia/exp12';
 
 type Tipo = 'visita' | 'pagina' | 'clic' | 'video' | 'lead' | 'scroll' | 'tiempo' | 'chat';
@@ -16,10 +16,11 @@ type Tipo = 'visita' | 'pagina' | 'clic' | 'video' | 'lead' | 'scroll' | 'tiempo
  */
 export function experimento(): { exp?: string; variante?: string } {
   if (typeof window === 'undefined') return {};
-  // 12-nov-2026: EXP-10 /curso · EXP-11 /esqueleto · EXP-12 /guia (ciclo diario). Primero el de la página actual.
-  const todos = [EXP10, EXP11, EXP12];
+  // 12-nov-2026 17:00: EXP-13 /curso · EXP-14 /esqueleto (dos variantes, 2-4 días) · EXP-12 /guia (versión única en curso).
+  // Primero el de la página actual.
+  const todos = [EXP13, EXP14, EXP12];
   const p = location.pathname;
-  const actual = /^\/esqueleto(\/|$)/.test(p) ? EXP11 : /^\/guia(\/|$)/.test(p) ? EXP12 : EXP10;
+  const actual = /^\/esqueleto(\/|$)/.test(p) ? EXP14 : /^\/guia(\/|$)/.test(p) ? EXP12 : EXP13;
   const propio = [actual, ...todos.filter((e) => e !== actual)];
   for (const e of propio) {
     const v = e.variante();
