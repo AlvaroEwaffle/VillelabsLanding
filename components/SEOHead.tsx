@@ -39,7 +39,8 @@ export default function SEOHead() {
     contactPoint: {
       '@type': 'ContactPoint',
       contactType: 'customer service',
-      email: 'alvaro.villena@gmail.com',
+      // WhatsApp que muestra el sitio (botón flotante y /contact).
+      telephone: '+56 9 2011 5198',
       availableLanguage: ['Spanish', 'English'],
     },
   };

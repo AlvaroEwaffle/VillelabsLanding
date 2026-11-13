@@ -44,7 +44,8 @@ export default function BlogPostPage({ post }: BlogPostPageProps) {
   // Split content roughly in half for mid-article CTA
   const contentParts = splitContentAtMidpoint(post.content);
 
-  const fecha = post.date.startsWith('Octubre') ? '2026-10-26' : '2026-03-01';
+  // Octubre: 26-oct-2026. Marzo: el blog solo dice «Marzo 2026», así que va año-mes (ISO 8601), sin inventar el día.
+  const fecha = post.date.startsWith('Octubre') ? '2026-10-26' : '2026-03';
   const articleSchema = {
     '@context': 'https://schema.org',
     '@type': 'Article',

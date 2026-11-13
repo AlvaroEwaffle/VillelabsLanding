@@ -16,7 +16,8 @@ const entry = (path: string, priority: number, changeFrequency: Freq = 'monthly'
   changeFrequency,
   priority,
 });
-const fechaNota = (fecha: string) => (fecha.startsWith('Octubre') ? '2026-10-26' : '2026-03-01');
+// Las notas de octubre se publicaron el 26-oct-2026; las de marzo solo dicen «Marzo 2026» (sin día confirmado): van sin lastmod.
+const fechaNota = (fecha: string) => (fecha.startsWith('Octubre') ? '2026-10-26' : undefined);
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
