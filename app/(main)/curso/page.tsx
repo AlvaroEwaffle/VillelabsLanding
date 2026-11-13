@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { AUTOR, faqPage, JsonLd, ORGANIZACION, SITE_URL, videoObject } from '@/lib/productos/seo';
-import { CURSO, FAQ } from '@/lib/productos/curso/curso';
+import { CURSO, FAQ, PROMESA_AGENTE } from '@/lib/productos/curso/curso';
 import { VERSION_CURSO } from '@/lib/productos/curso/versiones';
 import CursoContent from '@/components/productos/curso/CursoContent';
 import { fraunces } from '@/lib/productos/fuente';
@@ -10,13 +10,15 @@ import { SCRIPT_ANCLA } from '@/lib/productos/ancla';
 
 // 12-nov-2026 23:10 · el título social repite el H1 (el LinkedIn de las 18:30 lo comparte a diario); el nombre largo del curso
 // (CURSO.nombreCompleto) queda en el h2 bajo el hero y en el JSON-LD.
-const TITULO_OG = 'Ordena tu negocio en una planilla: clientes, pedidos y caja en un solo tablero, con ayuda de la IA';
-const DESCRIPCION_OG = 'El módulo 0 es gratis. Paso a paso y sin programar: tú armas la planilla y la IA te ayuda con las fórmulas y los mensajes.';
+// 13-nov-2026 · promesa del módulo 7 (OK de Álvaro): H1, <title> y OG = PROMESA_AGENTE.titulo; imagen og/curso-agente.jpg.
+const TITULO_OG = PROMESA_AGENTE.titulo;
+const DESCRIPCION_OG =
+  'El módulo 0 es gratis. Armas con IA tu sistema en Google Sheets, sin programar, y terminas con tu primer agente: un asistente en un proyecto de Claude que usa tu planilla como memoria. Tú revisas y tú envías.';
 
 export const metadata: Metadata = {
-  title: { absolute: 'Construye con IA tu CRM y ERP, sin programar' },
+  title: { absolute: PROMESA_AGENTE.titulo },
   description:
-    'Curso online para pymes: construyes con IA el sistema de tu negocio en Google Sheets, sin programar, con prompts listos para ChatGPT o Claude. Clientes y ventas (CRM), origen, pedidos, atención, cobranza, caja y un tablero, sin pagar software.',
+    'Curso online para pymes: construyes con IA el sistema de tu negocio en Google Sheets, sin programar (clientes y ventas, origen, pedidos, atención, cobranza, caja y un tablero), y terminas con tu primer agente: un asistente en un proyecto de Claude que usa tu planilla como memoria. Tú revisas y tú envías.',
   alternates: { canonical: `${SITE_URL}/curso` },
   openGraph: {
     type: 'website',
@@ -25,9 +27,9 @@ export const metadata: Metadata = {
     title: TITULO_OG,
     description: DESCRIPCION_OG,
     url: `${SITE_URL}/curso`,
-    images: [{ url: `${SITE_URL}/og/curso-planilla.jpg`, width: 1200, height: 630, alt: TITULO_OG }],
+    images: [{ url: `${SITE_URL}/og/curso-agente.jpg`, width: 1200, height: 630, alt: TITULO_OG }],
   },
-  twitter: { card: 'summary_large_image', title: TITULO_OG, description: DESCRIPCION_OG, images: [`${SITE_URL}/og/curso-planilla.jpg`] },
+  twitter: { card: 'summary_large_image', title: TITULO_OG, description: DESCRIPCION_OG, images: [`${SITE_URL}/og/curso-agente.jpg`] },
 };
 
 const JSON_LD = [
@@ -43,7 +45,7 @@ const JSON_LD = [
     author: AUTOR,
     version: VERSION_CURSO.version,
     dateModified: VERSION_CURSO.fecha,
-    teaches: ['Armar un CRM y un ERP con prompts para ChatGPT o Claude', 'CRM en Google Sheets', 'ERP para pymes en una planilla', 'Seguimiento de clientes y propuestas', 'Control de pedidos', 'Cobranza y flujo de caja', 'Tablero de indicadores'],
+    teaches: ['Armar un CRM y un ERP con prompts para ChatGPT o Claude', 'CRM en Google Sheets', 'ERP para pymes en una planilla', 'Seguimiento de clientes y propuestas', 'Control de pedidos', 'Cobranza y flujo de caja', 'Tablero de indicadores', 'Configurar un asistente de IA con tu planilla como memoria'],
     hasCourseInstance: { '@type': 'CourseInstance', courseMode: 'online' },
   },
   faqPage(FAQ.map((f) => ({ q: f.p, a: f.r }))),

@@ -1001,8 +1001,8 @@ export default function Modulo0Content() {
             <SiguientePaso
               logro="Ya tienes el mapa, tu planilla base y la portada de tu sistema"
               pago={{
-                titulo: 'El curso completo: los 7 módulos están listos',
-                descripcion: `Entras hoy a los 6 módulos que siguen y avanzas a tu ritmo, cada uno con su hoja y sus prompts: clientes y ventas (tu CRM), marketing y origen, pedidos, atención, cobranza y caja, y el tablero. ${textoPrecio()}.`,
+                titulo: 'El curso completo: los 8 módulos están listos',
+                descripcion: `Entras hoy a los 7 módulos que siguen y avanzas a tu ritmo, cada uno con sus prompts: clientes y ventas (tu CRM), marketing y origen, pedidos, atención, cobranza y caja, el tablero y, al final, tu primer agente trabajando con tu planilla. ${textoPrecio()}.`,
                 href: LINKS.cursoCompra,
                 cta: 'Quiero el curso',
               }}
@@ -1026,7 +1026,7 @@ export default function Modulo0Content() {
                 <ArrowLeft className="h-4 w-4" aria-hidden /> Volver a la lección 4
               </button>
               {/* 12-nov-2026: antes «Ya tengo el curso: ir al módulo 1» abría el curso pagado sin pedir nada. Ahora compra en
-                  Hotmart (con UTM); los módulos 1–6 piden el código del comprador en /curso/acceso. */}
+                  Hotmart (con UTM); los módulos 1–7 piden el código del comprador en /curso/acceso. */}
               <a
                 href={LINKS.cursoCompra}
                 data-compra="modulo0_cierre"

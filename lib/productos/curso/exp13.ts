@@ -7,6 +7,9 @@
 // Cambios comunes a A y B a mitad de ronda: 18:25, 21:23, el de «promesas verdaderas» (12-nov noche) y el del ancla con
 // fbclid + píxel QA + barra (13-nov ~09:30; hora exacta en experimentos.md): desde ese deploy el tráfico de Meta con #parte-gratis-hero?fbclid aterriza en el
 // formulario en A y B (antes abría arriba). Contar desde ese deploy.
+// 13-nov-2026 · rama feat/curso-modulo-7 (solo vista previa, NO en producción): H1/bajada/title/OG nuevos con la promesa del
+// módulo 7, iguales en A y B. Si se publica antes del cierre de EXP-13, es un cambio común a mitad de ronda: anotar la hora
+// del deploy en experimentos.md y contar desde ahí.
 // Hipótesis: si la primera acción que se ofrece es gratis (módulo 0 con el correo), en vez de pagar, suben los registros
 // por visita real, porque hoy el tráfico frío de Meta no llega al botón de compra (0 clics a Hotmart reales el 11-nov).
 // Mecánica en lib/productos/experimento.ts: localStorage vl_exp13, ?v=A|B, <html data-exp13>, «[EXP-13 X]» en Slack.

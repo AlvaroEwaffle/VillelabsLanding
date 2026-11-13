@@ -8,6 +8,15 @@ export type VersionCurso = { version: string; fecha: string; cambios: string[] }
 
 export const VERSIONES_CURSO: VersionCurso[] = [
   {
+    version: '1.3',
+    fecha: '2026-11-13',
+    cambios: [
+      'Nuevo módulo 7: tu primer agente, un asistente en un proyecto de Claude que usa tu planilla como memoria, pasa pedidos de WhatsApp a tu hoja Pedidos y te arma la cobranza del lunes. Tú revisas y tú envías.',
+      'Ahora son 8 módulos, 38 lecciones y 34 prompts. Duración: cerca de 1 h 45 de lecciones cortas y unas 7 a 8 horas de práctica.',
+      'El Tablero cuenta cada pedido una vez por su N°, aunque tenga varias filas.',
+    ],
+  },
+  {
     version: '1.2',
     fecha: '2026-11-12',
     cambios: [

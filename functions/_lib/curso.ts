@@ -1,7 +1,7 @@
 // Candado del curso «Construye con IA tu sistema de gestión CRM y ERP para tu negocio, sin programar» (Hotmart 8921667).
 // Mismo mecanismo que la Guía 1 (functions/_lib/guia1.ts), 12-nov-2026.
 //
-// El módulo 0 (/curso/modulo-0) sigue abierto (se llega dejando el correo en /curso). Los módulos 1 a 6 solo se ven con la
+// El módulo 0 (/curso/modulo-0) sigue abierto (se llega dejando el correo en /curso). Los módulos 1 a 7 solo se ven con la
 // cookie `vl_curso`, que se obtiene en /curso/acceso con el código que reciben los compradores dentro del área de miembros
 // de Hotmart (o con el link de un clic `/curso/acceso?c=CODIGO&d=/curso/modulo-N`).
 //
@@ -19,12 +19,12 @@ export const HASH_CODIGO_CURSO = '249324b1132cc6597976050ca31e6c7ef759aedf60a7d5
 export const HASH_COOKIE_CURSO = 'abf840b9283cfa02848771d983fda9032c7d9db95d849dbe7b7acd1e1daac3b6';
 export const COOKIE_CURSO = 'vl_curso';
 
-/** /curso/modulo-1 … /curso/modulo-6, con o sin barra final, y sus archivos (.txt de RSC, subrutas). */
-export const PROTEGIDO_CURSO = /^\/curso\/modulo-[1-6](\/|\.|$)/;
+/** /curso/modulo-1 … /curso/modulo-7 (el 7 desde el 13-nov-2026), con o sin barra final, y sus archivos (.txt de RSC, subrutas). */
+export const PROTEGIDO_CURSO = /^\/curso\/modulo-[1-7](\/|\.|$)/;
 
 /** Ruta del módulo (sin .txt ni subrutas) a la que se vuelve después de entrar; si no calza, el módulo 1. */
 export function destinoCurso(d: string | null | undefined): string {
-  const m = d && !d.includes('//') ? /^\/curso\/modulo-[1-6]/.exec(d) : null;
+  const m = d && !d.includes('//') ? /^\/curso\/modulo-[1-7]/.exec(d) : null;
   return m ? m[0] : '/curso/modulo-1';
 }
 

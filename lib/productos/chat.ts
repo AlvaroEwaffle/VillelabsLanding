@@ -19,11 +19,11 @@ const CURSO: Pregunta[] = [
   },
   {
     p: '¿Qué recibo al comprar?',
-    r: 'Los 7 módulos completos desde el primer día: 33 lecciones cortas con su ejercicio, 27 prompts listos para la IA y la planilla del sistema con las fórmulas listas. Avanzas a tu ritmo.',
+    r: 'Los 8 módulos completos desde el primer día: 38 lecciones cortas con su ejercicio, 34 prompts listos para la IA, la planilla del sistema con las fórmulas listas y, en el módulo 7, tu primer agente. Avanzas a tu ritmo.',
   },
   {
     p: '¿Cuánto tiempo necesito?',
-    r: 'Cerca de 1 h 30 de lecciones cortas y unas 6 horas de práctica con tu negocio, a tu ritmo. Los módulos no se cierran: retomas cuando puedas.',
+    r: 'Cerca de 1 h 45 de lecciones cortas y unas 7 a 8 horas de práctica con tu negocio, a tu ritmo. Los módulos no se cierran: retomas cuando puedas.',
   },
   {
     p: '¿Sirve si no sé de tecnología?',
