@@ -15,7 +15,9 @@ import {
   CLAVE_DATOS_NEGOCIO,
   DATOS_VACIOS,
   aTexto,
+  caberPorLineas,
   camposFaltantes,
+  corchetesEnDatos,
   limpiarAlEscribir,
   rellenar,
   sanearDatos,
@@ -67,6 +69,8 @@ function irATarjeta(campo?: CampoNegocioId): boolean {
 function CampoDato({ campo, valor, onCambio }: { campo: CampoNegocio; valor: string; onCambio: (v: string) => void }) {
   const id = useId();
   if (campo.opciones) {
+    // Radios y no <button>: el rastreo de clics (Rastreo.tsx) y el píxel de Meta leen el texto de los botones, y aquí el
+    // texto ES el dato del alumno («Tuteo» / «Trato de usted»).
     return (
       <fieldset className="block text-sm text-slate-300">
         <legend className="font-medium text-slate-200">{campo.etiqueta}</legend>
@@ -74,19 +78,23 @@ function CampoDato({ campo, valor, onCambio }: { campo: CampoNegocio; valor: str
           {campo.opciones.map((op, i) => {
             const elegida = valor === op;
             return (
-              <button
+              <label
                 key={op}
-                type="button"
-                data-campo={i === 0 ? campo.id : undefined}
-                aria-pressed={elegida}
-                onClick={() => onCambio(elegida ? '' : op)}
-                className={`inline-flex min-h-[44px] items-center gap-1.5 rounded-full border px-4 text-sm transition ${
+                className={`inline-flex min-h-[44px] cursor-pointer items-center gap-2 rounded-full border px-4 text-sm transition has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-[#5fb2dd]/50 ${
                   elegida ? 'border-[#5fb2dd] bg-[#5fb2dd]/15 text-white' : 'border-white/15 text-slate-300 hover:border-white/30'
                 }`}
               >
-                {elegida ? <Check className="h-4 w-4" aria-hidden /> : null}
+                <input
+                  type="radio"
+                  name={id}
+                  value={op}
+                  checked={elegida}
+                  data-campo={i === 0 ? campo.id : undefined}
+                  onChange={() => onCambio(op)}
+                  className="h-4 w-4 accent-[#5fb2dd]"
+                />
                 {op}
-              </button>
+              </label>
             );
           })}
         </div>
@@ -138,6 +146,7 @@ export function TarjetaDatosNegocio({ principal = true, className = 'mt-6' }: { 
   const [datos, setDatos, borrar] = useDatosNegocio();
   const m0 = useDelModulo0();
   const [confirmar, setConfirmar] = useState(false);
+  const [reglasFuera, setReglasFuera] = useState(0);
   const temporizador = useRef<ReturnType<typeof setTimeout> | null>(null);
   useEffect(() => () => {
     if (temporizador.current) clearTimeout(temporizador.current);
@@ -156,6 +165,7 @@ export function TarjetaDatosNegocio({ principal = true, className = 'mt-6' }: { 
       return;
     }
     setConfirmar(false);
+    setReglasFuera(0);
     borrar();
   };
 
@@ -166,6 +176,7 @@ export function TarjetaDatosNegocio({ principal = true, className = 'mt-6' }: { 
     <section
       id={principal ? ID_TARJETA_DATOS : undefined}
       aria-label="Los datos de tu negocio"
+      data-sin-rastreo
       className={`scroll-mt-24 rounded-2xl border border-[#5fb2dd]/30 bg-[#5fb2dd]/[0.05] p-4 sm:p-5 ${className}`}
     >
       <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
@@ -192,7 +203,11 @@ export function TarjetaDatosNegocio({ principal = true, className = 'mt-6' }: { 
           {traerReglas ? (
             <button
               type="button"
-              onClick={() => cambiar(campoPorId('reglas'), m0.reglas.join('\n'))}
+              onClick={() => {
+                const { valor, fuera } = caberPorLineas(campoPorId('reglas'), m0.reglas);
+                cambiar(campoPorId('reglas'), valor);
+                setReglasFuera(fuera);
+              }}
               className="inline-flex min-h-[44px] items-center gap-2 text-left text-sm text-[#5fb2dd] hover:text-white"
             >
               <Plus className="h-4 w-4 shrink-0" aria-hidden /> Traer las reglas de freno que elegiste en el módulo 0
@@ -205,10 +220,15 @@ export function TarjetaDatosNegocio({ principal = true, className = 'mt-6' }: { 
           <CampoDato key={c.id} campo={c} valor={visibles[c.id] ?? ''} onCambio={(v) => cambiar(c, v)} />
         ))}
       </div>
+      {reglasFuera > 0 ? (
+        <p className="mt-2 text-xs text-amber-100" role="status">
+          {reglasFuera === 1 ? 'No cupo 1 regla del módulo 0' : `No cupieron ${reglasFuera} reglas del módulo 0`}: elige las más importantes y cambia las que quieras.
+        </p>
+      ) : null}
       <div className="mt-5 flex flex-col gap-3 border-t border-white/10 pt-4 sm:flex-row sm:items-center sm:justify-between">
         <p className="flex items-start gap-2 text-xs text-slate-400">
           <Lock className="mt-0.5 h-3.5 w-3.5 shrink-0" aria-hidden />
-          <span>Se guarda solo en este navegador: no se envía a ningún lado, ni siquiera a nosotros.</span>
+          <span>Se guarda solo en este navegador: no lo guardamos en ningún servidor.</span>
         </p>
         {llenos > 0 ? (
           <button
@@ -271,6 +291,7 @@ export function BloquePrompt({
   const trozos = useMemo(() => rellenar(texto, datos, huecos), [texto, datos, huecos]);
   const faltan = useMemo(() => camposFaltantes(texto, datos, huecos), [texto, datos, huecos]);
   const usaDatos = useMemo(() => camposFaltantes(texto, DATOS_VACIOS, huecos).length > 0, [texto, huecos]);
+  const sueltos = useMemo(() => corchetesEnDatos(trozos), [trozos]);
   const [copiado, setCopiado] = useState(false);
   const [abierta, setAbierta] = useState(false);
 
@@ -284,14 +305,25 @@ export function BloquePrompt({
     }
   };
   const completar = () => {
-    if (!irATarjeta(faltan[0])) setAbierta((a) => !a);
+    if (abierta) setAbierta(false);
+    else if (!irATarjeta(faltan[0] ?? 'reglas')) setAbierta(true);
   };
+  const botonCompletar = (
+    <button
+      type="button"
+      onClick={completar}
+      aria-expanded={abierta ? true : undefined}
+      className="inline-flex min-h-[44px] items-center text-[#5fb2dd] underline-offset-2 hover:text-white hover:underline"
+    >
+      {abierta ? 'Cerrar' : 'Completar'}
+    </button>
+  );
 
   return (
     <div className={`overflow-hidden rounded-2xl border border-white/10 bg-[#131c31] ${className}`}>
       <div className="flex items-center justify-between gap-3 border-b border-white/10 px-4 py-2.5">
         <p className="min-w-0 font-mono text-[11px] uppercase tracking-[0.18em] text-[#5fb2dd]">{titulo}</p>
-        <button type="button" onClick={copiar} className="inline-flex min-h-[40px] shrink-0 items-center gap-1.5 rounded-full border border-white/15 px-3 text-xs text-slate-200 hover:border-white/30">
+        <button type="button" onClick={copiar} className="inline-flex min-h-[44px] shrink-0 items-center gap-1.5 rounded-full border border-white/15 px-3 text-xs text-slate-200 hover:border-white/30">
           {copiado ? <Check className="h-3.5 w-3.5" aria-hidden /> : <ClipboardCopy className="h-3.5 w-3.5" aria-hidden />}
           {copiado ? 'Copiado' : 'Copiar'}
         </button>
@@ -299,17 +331,15 @@ export function BloquePrompt({
       {usaDatos ? (
         <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1 border-b border-white/10 bg-white/[0.02] px-4 py-2 text-xs">
           {faltan.length ? (
-            <>
-              <span className="text-amber-100">{faltan.length === 1 ? 'Te falta 1 dato de tu negocio' : `Te faltan ${faltan.length} datos de tu negocio`}</span>
-              <button type="button" onClick={completar} aria-expanded={abierta} className="inline-flex min-h-[36px] items-center text-[#5fb2dd] underline-offset-2 hover:text-white hover:underline">
-                {abierta ? 'Cerrar' : 'Completar'}
-              </button>
-            </>
+            <span className="text-amber-100">{faltan.length === 1 ? 'Te falta 1 dato de tu negocio' : `Te faltan ${faltan.length} datos de tu negocio`}</span>
+          ) : sueltos ? (
+            <span className="text-amber-100">{sueltos === 1 ? 'Te queda 1 parte entre [corchetes] en tus datos' : `Te quedan ${sueltos} partes entre [corchetes] en tus datos`}</span>
           ) : (
-            <span className="inline-flex items-center gap-1.5 text-emerald-200">
+            <span className="inline-flex min-h-[44px] items-center gap-1.5 text-emerald-200">
               <Check className="h-3.5 w-3.5" aria-hidden /> Listo con los datos de tu negocio
             </span>
           )}
+          {faltan.length || sueltos || abierta ? botonCompletar : null}
         </div>
       ) : null}
       {abierta ? <TarjetaDatosNegocio principal={false} className="m-3" /> : null}

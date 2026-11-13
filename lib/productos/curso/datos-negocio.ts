@@ -30,7 +30,13 @@ export const DATOS_VACIOS: DatosNegocio = {};
 export const CAMPOS_NEGOCIO: CampoNegocio[] = [
   { id: 'nombre', etiqueta: 'Tu nombre', placeholder: 'Ej.: Camila', max: 40 },
   { id: 'negocio', etiqueta: 'Nombre de tu negocio', placeholder: 'Ej.: Grano Norte', max: 60 },
-  { id: 'queHace', etiqueta: 'Qué hace tu negocio, en una frase', placeholder: 'Ej.: una tostaduría de café de especialidad en Valparaíso', max: 120 },
+  {
+    id: 'queHace',
+    etiqueta: 'Qué es tu negocio, en pocas palabras',
+    placeholder: 'Ej.: una tostaduría de café de especialidad en Valparaíso',
+    ayuda: 'Empieza con «una» o «un». Va justo después del nombre de tu negocio.',
+    max: 120,
+  },
   {
     id: 'despacho',
     etiqueta: 'Despacho: dónde, qué días y cómo se llama en tu lista de productos',
@@ -45,10 +51,10 @@ export const CAMPOS_NEGOCIO: CampoNegocio[] = [
   {
     id: 'reglas',
     etiqueta: 'Tus reglas de freno, una por línea',
-    placeholder: 'Ej.: Cambios y devoluciones de producto los decido yo. No ofrezcas muestras ni regalos.',
+    placeholder: 'Ej.:\nCambios y devoluciones de producto los decido yo.\nNo ofrezcas muestras ni regalos.',
     ayuda: 'Las que elegiste en el módulo 0 o en el esqueleto. Van como regla 7 de tu agente.',
-    max: 600,
-    lineas: 8,
+    max: 1800,
+    lineas: 20,
   },
 ];
 
@@ -133,8 +139,15 @@ export function rellenar(texto: string, datos: DatosNegocio, huecos: Record<stri
       trozos.push(id ? { tipo: 'hueco', v: token, campo: id } : { tipo: 'hueco', v: token });
       continue;
     }
-    // «Despacho: [..].» con un valor que ya termina en punto: no dejar «..».
-    if (v.endsWith('.') && texto[ultimo] === '.') v = v.slice(0, -1);
+    // «Despacho: [..].» con un valor que ya termina en signo: no dejar «..» ni «;.».
+    if (texto[ultimo] === '.') v = v.replace(/[.,;:]+$/, '');
+    // «[qué hace tu negocio…]» va después de «Grano Norte,»: «Una tostaduría» → «una tostaduría» (no toca siglas: «ONG»).
+    if (id === 'queHace' && /^\p{Lu}\p{Ll}/u.test(v)) v = v[0].toLocaleLowerCase('es-CL') + v.slice(1);
+    // «vencen a [30] días» con 1: «a 1 día».
+    if (id === 'plazo' && v === '1' && texto.startsWith(' días', ultimo)) {
+      v = '1 día';
+      ultimo += ' días'.length;
+    }
     // Varias reglas en la regla 7: las líneas siguientes quedan con sangría, bajo el número.
     if (id === 'reglas') v = v.replace(/\n/g, '\n   ');
     trozos.push({ tipo: 'dato', v, campo: id! });
@@ -144,6 +157,24 @@ export function rellenar(texto: string, datos: DatosNegocio, huecos: Record<stri
 }
 
 export const aTexto = (trozos: Trozo[]) => trozos.map((t) => t.v).join('');
+
+/** Corchetes que quedan dentro de lo que escribió el alumno (p. ej. reglas del módulo 0 sin completar). */
+export function corchetesEnDatos(trozos: Trozo[]): number {
+  return trozos.reduce((n, t) => n + (t.tipo === 'dato' ? (t.v.match(RE_HUECO) ?? []).filter((m) => !NO_HUECOS.has(m)).length : 0), 0);
+}
+
+/** Recorta líneas enteras para que quepan en el campo (nunca a mitad de una regla). Devuelve cuántas no cupieron. */
+export function caberPorLineas(campo: CampoNegocio, lineas: string[]): { valor: string; fuera: number } {
+  const dentro: string[] = [];
+  let largo = 0;
+  for (const l of lineas.map((x) => limpiarAlEscribir({ ...campo, lineas: undefined }, x).trim()).filter(Boolean)) {
+    const extra = (dentro.length ? 1 : 0) + Array.from(l).length;
+    if (dentro.length >= (campo.lineas ?? 1) || largo + extra > campo.max) break;
+    dentro.push(l);
+    largo += extra;
+  }
+  return { valor: dentro.join('\n'), fuera: lineas.filter((x) => x.trim()).length - dentro.length };
+}
 
 /** Campos de datos que este texto usa y que siguen vacíos (para «Te faltan N datos»). */
 export function camposFaltantes(texto: string, datos: DatosNegocio, huecos: Record<string, CampoNegocioId> = {}): CampoNegocioId[] {
