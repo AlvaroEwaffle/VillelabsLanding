@@ -474,6 +474,15 @@ export async function construirPlantillaSistema(datos: DatosPlantilla = {}): Pro
 
   const R = (hoja: string, col: string, fin = FIN) => `'${hoja}'!$${col}$2:$${col}$${fin}`;
   const inicioMes = 'DATE(YEAR(TODAY()),MONTH(TODAY()),1)';
+  /**
+   * Cuántos pedidos distintos (por N°, columna A de Pedidos) tienen al menos una fila que cumple `cumple` (arreglo de 0/1).
+   * `criterios` = los pares rango,criterio que definen «cumple», para contar cuántas filas del mismo N° cumplen.
+   */
+  const pedidosUnicos = (cumple: string, criterios: string[]) => {
+    const n = R('Pedidos', 'A');
+    const mismoN = criterios.map((c) => `COUNTIFS(${n},${n}&"",${c})`).join('+');
+    return `SUMPRODUCT(${cumple}*(${n}<>"")/(${mismoN}+1-${cumple}))+SUMPRODUCT(${cumple}*(${n}="")*(${R('Pedidos', 'D')}<>""))`;
+  };
   type Metrica = { label: string; f: string; fmt?: string; alerta?: (celda: string) => string };
   const secciones: { titulo: string; metricas: Metrica[] }[] = [
     {
@@ -512,8 +521,11 @@ export async function construirPlantillaSistema(datos: DatosPlantilla = {}): Pro
           f: `SUMIFS(${R('Pedidos', 'G')},${R('Pedidos', 'B')},">="&${inicioMes},${R('Pedidos', 'B')},"<="&EOMONTH(TODAY(),0),${R('Pedidos', 'J')},"<>Cancelado")`,
           fmt: FMT_PESOS,
         },
-        { label: 'Pedidos por entregar', f: `COUNTIF(${R('Pedidos', 'J')},"Por hacer")+COUNTIF(${R('Pedidos', 'J')},"En curso")` },
-        { label: 'Pedidos atrasados', f: `COUNTIF(${R('Pedidos', 'K')},"Sí")`, alerta: (c) => `IF(${c}>0,"Revisar hoy","Al día")` },
+        // 13-nov-2026 (módulo 7): cuenta pedidos por su N°, no filas. Un pedido con 2 productos + despacho son 3 filas con
+        // el mismo N° y suma 1. Las filas sin N° cuentan una por una (como antes). Patrón SUMPRODUCT(x/COUNTIFS(...)),
+        // sin fórmulas matriciales: funciona igual en Excel 2010+ y Google Sheets. El «+1-cumple» evita dividir por 0 en las filas que no cumplen.
+        { label: 'Pedidos por entregar', f: pedidosUnicos(`((${R('Pedidos', 'J')}="Por hacer")+(${R('Pedidos', 'J')}="En curso"))`, [`${R('Pedidos', 'J')},"Por hacer"`, `${R('Pedidos', 'J')},"En curso"`]) },
+        { label: 'Pedidos atrasados', f: pedidosUnicos(`(${R('Pedidos', 'K')}="Sí")`, [`${R('Pedidos', 'K')},"Sí"`]), alerta: (c) => `IF(${c}>0,"Revisar hoy","Al día")` },
       ],
     },
     {

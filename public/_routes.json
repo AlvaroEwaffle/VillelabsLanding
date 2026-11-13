@@ -24,6 +24,9 @@
     "/curso/modulo-6",
     "/curso/modulo-6.*",
     "/curso/modulo-6/*",
+    "/curso/modulo-7",
+    "/curso/modulo-7.*",
+    "/curso/modulo-7/*",
     "/curso/acceso"
   ],
   "exclude": []

@@ -16,13 +16,17 @@
  * Variante y medición en lib/productos/curso/exp13.ts. Las B/C de EXP-10 (estructura, video primero) se retiraron sin ganador.
  * v1.5 (12-nov-2026, noche, OK de Álvaro «haz todos los ajustes»): común a A y B. Duración medida (1 h 30 + 6 h de práctica),
  * sin «preventa» (precio de lanzamiento; los 7 módulos listos), sin certificado, prompts dentro de las lecciones.
+ * v1.6 (13-nov-2026, OK de Álvaro a la promesa del módulo 7): común a A y B. H1 = «Tu CRM y ERP en una planilla, y un agente
+ * de IA que trabaja con ella» (PROMESA_AGENTE en curso.ts), bajada con la definición de «agente», línea de condiciones
+ * honestas (probado en Claude con cuenta pagada; ChatGPT y cuentas gratis sin probar; configuración regional Chile),
+ * 8 módulos · 38 lecciones · 34 prompts y la duración recalculada (cerca de 1 h 45 + unas 7 a 8 h de práctica).
  */
 
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { ArrowRight, Check, ChevronDown, ClipboardCheck, ClipboardList, Eye, FileSpreadsheet, FlaskConical, Handshake, LayoutDashboard, Map as MapIcon, Megaphone, MessageCircle, Sparkles, Wallet, X, type LucideIcon } from 'lucide-react';
+import { ArrowRight, Bot, Check, ChevronDown, ClipboardCheck, ClipboardList, Eye, FileSpreadsheet, FlaskConical, Handshake, LayoutDashboard, Map as MapIcon, Megaphone, MessageCircle, Sparkles, Wallet, X, type LucideIcon } from 'lucide-react';
 import { LINKS } from '@/lib/productos/links';
-import { ACCESO, AREAS, CASO, CURSO, FAQ, HOJAS, IA_OPCIONAL, MODULOS, PARA_QUIEN, PRECIO_FUNDADOR, PROYECTO_FINAL, PRECIO_CURSO, QUE_ES, textoPrecio, textoPrecioDetalle } from '@/lib/productos/curso/curso';
+import { ACCESO, AREAS, CASO, CURSO, FAQ, HOJAS, IA_OPCIONAL, MODULOS, PARA_QUIEN, PRECIO_FUNDADOR, PROMESA_AGENTE, PROYECTO_FINAL, PRECIO_CURSO, QUE_ES, textoPrecio, textoPrecioDetalle } from '@/lib/productos/curso/curso';
 import { EXP13 } from '@/lib/productos/curso/exp13';
 import { bajarAlAncla } from '@/lib/productos/ancla';
 import { VERSION_CURSO, VERSIONES_CURSO, fechaLarga } from '@/lib/productos/curso/versiones';
@@ -46,6 +50,7 @@ const IMAGEN_MODULO: Record<number, { foto: ImagenApoyo; icono: LucideIcon; posi
   4: { foto: APOYO.celularMensajes, icono: MessageCircle },
   5: { foto: APOYO.finanzas, icono: Wallet },
   6: { foto: APOYO.tableroLaptop, icono: LayoutDashboard },
+  7: { foto: APOYO.escritorioManos, icono: Bot },
 };
 
 function BotonCompra({ ubicacion, texto = 'Quiero el curso', enBarra = false }: { ubicacion: string; texto?: string; enBarra?: boolean }) {
@@ -209,7 +214,7 @@ function Acordeon({ abierto, onToggle, cabecera, children }: { abierto: boolean;
   );
 }
 
-const BAJADA_ACCESO = <>Compras hoy, entras con tu código a los 7 módulos y la planilla completa, y avanzas a tu ritmo.</>;
+const BAJADA_ACCESO = <>Compras hoy, entras con tu código a los 8 módulos y la planilla completa, y avanzas a tu ritmo.</>;
 
 export default function CursoContent() {
   const [moduloAbierto, setModuloAbierto] = useState<number | null>(0);
@@ -237,13 +242,12 @@ export default function CursoContent() {
             </figure>
           </div>
           <div>
-            <Kicker>Curso · Los 7 módulos listos</Kicker>
-            <h1 className="mt-3 max-w-3xl font-serif text-[1.9rem] leading-[1.1] text-white sm:text-5xl lg:text-[3.1rem]">
-              Ordena tu negocio en una planilla: clientes, pedidos y caja en un solo tablero, con ayuda de la IA
-            </h1>
-            {/* 12-nov-2026 ~21:10 (OK de Álvaro): el H1 vuelve a las palabras del anuncio de Meta (v17 «Ordena tu negocio en una
-                planilla») y a lenguaje llano; el nombre del curso pasa a la primera sección bajo el hero. Común a A y B. */}
-            <p className="mt-3 max-w-xl text-base text-slate-300 sm:text-lg">Paso a paso y sin programar: tú armas la planilla y la IA te ayuda con las fórmulas y los mensajes.</p>
+            <Kicker>Curso · Los 8 módulos listos</Kicker>
+            <h1 className="mt-3 max-w-3xl font-serif text-[1.9rem] leading-[1.1] text-white sm:text-5xl lg:text-[3.1rem]">{PROMESA_AGENTE.titulo}</h1>
+            {/* 13-nov-2026 (OK de Álvaro a la promesa del módulo 7, redacción B): H1 y bajada nuevos, comunes a A y B. La bajada
+                lleva la definición de «agente» (primera vez que aparece) y la línea de abajo, las condiciones que salen de la
+                prueba real (~/.claude/marca-alvaro/curso/modulo-7/prueba.md). El nombre del curso sigue en la sección bajo el hero. */}
+            <p className="mt-3 max-w-xl text-base text-slate-300 sm:text-lg">{PROMESA_AGENTE.bajada}</p>
             <a href="#quien-lo-ensena" className="mt-3 inline-flex min-h-[44px] items-center gap-2.5 text-sm text-slate-400 hover:text-white">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={FOTOS.podcasterCerca.src} alt="" width={32} height={32} className="h-8 w-8 shrink-0 rounded-full object-cover" />
@@ -259,6 +263,8 @@ export default function CursoContent() {
                 <BotonModulo0 texto="Ver el módulo 0 de muestra" className="hidden sm:inline-flex" />
               </div>
               <p className="mt-3 text-sm text-[#5fb2dd]">{textoPrecio()}</p>
+              {/* Revisor 13-nov: las condiciones van bajo el botón (arriba lo empujaban fuera del primer pantallazo a 360×640). */}
+              <p className="mt-2 max-w-xl text-xs leading-relaxed text-slate-400 sm:text-sm">{PROMESA_AGENTE.condiciones}</p>
             </div>
             {/* B · «módulo 0 primero»: el botón principal es gratis; abajo, el formulario a la vista. */}
             <div className="exp13-B">
@@ -271,6 +277,7 @@ export default function CursoContent() {
                   Mira gratis el módulo 0 <ArrowRight className="h-4 w-4" aria-hidden />
                 </Link>
               </div>
+              <p className="mt-3 max-w-xl text-xs leading-relaxed text-slate-400 sm:text-sm">{PROMESA_AGENTE.condiciones}</p>
             </div>
             <CursoLead ubicacion="hero" className="mt-6" />
             <div className="exp13-B">
@@ -394,7 +401,7 @@ export default function CursoContent() {
         id="modulos"
         kicker="El programa"
         titulo={`${MODULOS.length} módulos, ${totalLecciones} lecciones cortas.`}
-        bajada="Cada módulo cierra con una prueba real en tu negocio y suma una hoja a tu planilla."
+        bajada="Cada módulo cierra con una prueba real en tu negocio. Del 1 al 6 sumas una hoja a tu planilla; en el 7, tu primer agente la pone a trabajar."
       >
         <div className="mt-10 space-y-3">
           {MODULOS.map((m) => (
@@ -554,11 +561,11 @@ export default function CursoContent() {
         <CursoLead ubicacion="antes_compra" className="max-w-3xl" />
       </section>
 
-      {/* Compra · 12-nov-2026: ya no es preventa (los 7 módulos están grabados y abiertos para quien compra). */}
+      {/* Compra · 12-nov-2026: ya no es preventa (los módulos están grabados y abiertos para quien compra; 8 desde el 13-nov). */}
       <Seccion
         id="comprar"
         kicker="Qué recibes"
-        titulo="Los 7 módulos están listos: entras hoy y avanzas a tu ritmo."
+        titulo="Los 8 módulos están listos: entras hoy y avanzas a tu ritmo."
         bajada={BAJADA_ACCESO}
       >
         <div className="mt-10 grid gap-8 lg:grid-cols-[1fr_360px]">
@@ -588,7 +595,7 @@ export default function CursoContent() {
               {textoPrecioDetalle()}
             </p>
             <ul className="mt-4 space-y-2 text-sm text-slate-300">
-              <li className="flex gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-[#5fb2dd]" aria-hidden /> Los 7 módulos y la planilla completa del sistema, desde hoy</li>
+              <li className="flex gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-[#5fb2dd]" aria-hidden /> Los 8 módulos y la planilla completa del sistema, desde hoy</li>
               <li className="flex gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-[#5fb2dd]" aria-hidden /> Cada módulo trae prompts listos para copiar en ChatGPT o Claude</li>
               <li className="flex gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-[#5fb2dd]" aria-hidden /> Avanzas a tu ritmo: los módulos no se cierran</li>
               <li className="flex gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-[#5fb2dd]" aria-hidden /> Pago único o en cuotas, con {PRECIO_CURSO.garantiaDias} días de garantía</li>
@@ -668,7 +675,7 @@ export default function CursoContent() {
           <div className="p-6 sm:p-10">
           <h2 className="max-w-2xl font-serif text-3xl text-white sm:text-4xl">Empieza hoy con el mapa y tu planilla base.</h2>
           <p className="mt-4 max-w-2xl text-slate-300">
-            En 30 minutos sabes qué pieza de tu negocio está en rojo, por dónde partir y qué decisiones no deberían salir de tus manos, y te llevas la planilla donde vas a armar tu sistema. Los otros 6 módulos ya están listos para seguir a tu ritmo.
+            En 30 minutos sabes qué pieza de tu negocio está en rojo, por dónde partir y qué decisiones no deberían salir de tus manos, y te llevas la planilla donde vas a armar tu sistema. Los otros 7 módulos, con tu primer agente al final, ya están listos para seguir a tu ritmo.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
             <BotonCompra ubicacion="cta_final" />
