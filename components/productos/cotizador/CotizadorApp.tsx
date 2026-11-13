@@ -79,6 +79,8 @@ function leer(): Estado {
 }
 
 const nombres = (ids: TrabajoId[]) => ids.map((id) => trabajo(id).nombre).join(', ');
+/** «WhatsApp» conserva la mayúscula; correo, planilla y otro van en minúscula dentro de la frase. */
+const uso = (u: UsoId) => (u === 'whatsapp' ? 'WhatsApp' : etiqueta(USOS, u).toLowerCase());
 const lista = (xs: string[]) => (xs.length < 2 ? xs.join('') : `${xs.slice(0, -1).join(', ')} y ${xs[xs.length - 1]}`);
 
 function Chip({ activa, onClick, children, rol = 'radio' }: { activa: boolean; onClick: () => void; children: React.ReactNode; rol?: 'radio' | 'checkbox' }) {
@@ -300,7 +302,7 @@ export default function CotizadorApp() {
                 ];
               })}
             </div>
-            <p className="mt-5 text-sm text-slate-400">Uso agentes como estos en mis propios negocios, todos los días. — Álvaro Villena</p>
+            <p className="mt-5 text-sm text-slate-400">Ewaffle y Fidelidapp, mis negocios, funcionan con agentes como estos todos los días. — Álvaro Villena</p>
           </section>
         )}
 
@@ -316,7 +318,7 @@ export default function CotizadorApp() {
 
             <div className="mt-6 space-y-7">
               <div role="radiogroup" aria-labelledby="q-personas">
-                <p id="q-personas" className="text-base font-medium text-white">¿Cuántas personas son en tu negocio?</p>
+                <p id="q-personas" className="text-base font-medium text-white">¿Cuántas personas trabajan en tu negocio?</p>
                 <div className="mt-3 grid grid-cols-3 gap-2">
                   {PERSONAS.map((o) => (
                     <Chip key={o.id} activa={e.personas === o.id} onClick={() => cambiar((x) => ({ ...x, personas: o.id }))}>
@@ -370,7 +372,7 @@ export default function CotizadorApp() {
               Tu cotización
             </h1>
             <p className="mt-2 text-sm text-slate-400">
-              {etiqueta(PERSONAS, e.personas)} personas · usan {lista(e.usos.map((u) => etiqueta(USOS, u).toLowerCase()))}
+              {etiqueta(PERSONAS, e.personas)} personas · usan {lista(e.usos.map(uso))}
             </p>
 
             <ul className="mt-5 space-y-2">
@@ -381,7 +383,7 @@ export default function CotizadorApp() {
                   <li key={id} className="flex gap-3 rounded-2xl border border-white/10 bg-white/[0.03] p-3">
                     <Icono className="mt-0.5 h-5 w-5 shrink-0 text-[#5fb2dd]" aria-hidden="true" />
                     <div>
-                      <p className="font-semibold text-white">Agente de {t.nombre.toLowerCase()}</p>
+                      <p className="font-semibold text-white">{id === 'otro' ? 'Tu caso' : `Agente de ${t.nombre.toLowerCase()}`}</p>
                       <p className="text-sm text-slate-300">{id === 'otro' && e.otro.trim() ? `«${e.otro.trim()}». En la reunión vemos si un agente tiene sentido para eso.` : id === 'otro' ? t.diario : `Cada día: ${t.diario.charAt(0).toLowerCase()}${t.diario.slice(1)}`}</p>
                     </div>
                   </li>
@@ -398,11 +400,9 @@ export default function CotizadorApp() {
                 <div className="py-3">
                   <div className="flex items-baseline justify-between gap-3">
                     <dt className="text-slate-200">Implementación <span className="text-sm text-slate-400">(una vez)</span></dt>
-                    <dd className="text-right text-lg font-semibold text-white">desde {uf(PRECIOS_AGENTES.implementacionUF)}</dd>
+                    <dd className="shrink-0 whitespace-nowrap text-right text-lg font-semibold text-white">desde {uf(PRECIOS_AGENTES.implementacionUF)}</dd>
                   </div>
-                  {varios ? (
-                    <p className="mt-1 text-sm text-slate-300">El valor final por varios agentes lo vemos en la reunión.</p>
-                  ) : soloOtro ? (
+                  {soloOtro ? (
                     <p className="mt-1 text-sm text-slate-300">Para tu caso, el valor lo vemos en la reunión.</p>
                   ) : null}
                 </div>
@@ -411,23 +411,27 @@ export default function CotizadorApp() {
                   <dd className="mt-2 space-y-2">
                     <p className={`flex items-baseline justify-between gap-3 rounded-xl px-3 py-2 ${e.licencia === 'si' ? 'bg-white/10 ring-1 ring-[#5fb2dd]' : ''}`}>
                       <span className="text-sm text-slate-300">Con tu licencia de Claude</span>
-                      <span className="font-semibold text-white">{uf(PRECIOS_AGENTES.mantenimientoUF)}/mes</span>
+                      <span className="shrink-0 whitespace-nowrap font-semibold text-white">{uf(PRECIOS_AGENTES.mantenimientoUF)}/mes</span>
                     </p>
                     <p className={`flex items-baseline justify-between gap-3 rounded-xl px-3 py-2 ${e.licencia === 'no' ? 'bg-white/10 ring-1 ring-[#5fb2dd]' : ''}`}>
-                      <span className="text-sm text-slate-300">Licencia incluida (la ponemos nosotros)</span>
-                      <span className="shrink-0 font-semibold text-white">{uf(PRECIOS_AGENTES.mantenimientoConLicenciaUF)}/mes</span>
+                      <span className="text-sm text-slate-300">Con una licencia de Claude incluida (la ponemos nosotros)</span>
+                      <span className="shrink-0 whitespace-nowrap font-semibold text-white">{uf(PRECIOS_AGENTES.mantenimientoConLicenciaUF)}/mes</span>
                     </p>
                     {e.licencia === 'nose' ? <p className="px-3 text-sm text-slate-400">Si no sabes si tienen licencia, lo vemos en la reunión.</p> : null}
+                    {e.personas && e.personas !== '1-2' ? (
+                      <p className="px-3 text-sm text-slate-400">Las licencias para más personas del equipo van aparte; lo vemos en la reunión.</p>
+                    ) : null}
                   </dd>
                 </div>
               </dl>
-              <p className="mt-4 text-xs text-slate-400">{NOTA_IVA.es}</p>
+              {varios ? <p className="mt-4 text-sm text-slate-200">El valor final por varios agentes lo vemos en la reunión.</p> : null}
+              <p className="mt-3 text-sm text-slate-300">Son valores de referencia; el precio final lo cerramos en la reunión.</p>
+              <p className="mt-2 text-xs text-slate-400">{NOTA_IVA.es}</p>
             </div>
 
             {e.usos.some((u) => u !== 'otro') ? (
               <p className="mt-4 text-sm text-slate-300">
-                El agente trabaja con lo que ya usas ({lista(e.usos.filter((u) => u !== 'otro').map((u) => etiqueta(USOS, u).toLowerCase()))}). En la reunión vemos cómo
-                conectarlo.
+                Nos contaste que usan {lista(e.usos.filter((u) => u !== 'otro').map(uso))}. En la reunión vemos cómo conectarlo a eso.
               </p>
             ) : null}
 
@@ -506,13 +510,13 @@ export default function CotizadorApp() {
                 <p className="flex items-center gap-2 font-medium text-emerald-200">
                   <Check className="h-5 w-5" /> Listo, {nombre.trim().split(' ')[0]}.
                 </p>
-                <p className="mt-1 text-sm text-emerald-100/90">Quedó guardada. Álvaro te la manda por {whatsapp && !correo ? 'WhatsApp' : correo && !whatsapp ? 'correo' : 'WhatsApp o correo'}.</p>
+                <p className="mt-1 text-sm text-emerald-100/90">Quedó guardada. Álvaro la revisa y te escribe por {whatsapp && !correo ? 'WhatsApp' : correo && !whatsapp ? 'correo' : 'WhatsApp o correo'}. Si prefieres no esperar, agenda los 30 min aquí arriba.</p>
               </div>
             ) : null}
 
             <p className="mt-8 flex items-start gap-2 text-sm text-slate-400">
-              <BriefcaseBusiness className="mt-0.5 h-4 w-4 shrink-0" /> Uso agentes como estos en mis propios negocios, todos los días. Lo que compromete plata, alcance o
-              fechas, el agente te lo pregunta antes. — Álvaro Villena
+              <BriefcaseBusiness className="mt-0.5 h-4 w-4 shrink-0" /> Ewaffle y Fidelidapp, mis negocios, funcionan con agentes como estos todos los días. Lo dejamos configurado
+              para que lo que compromete plata, alcance o fechas te lo pregunte antes. — Álvaro Villena
             </p>
           </section>
         )}

@@ -182,7 +182,7 @@ export const onRequestPost = async ({ request, env }: Ctx): Promise<Response> =>
       break;
     case 'paso':
       // 12-nov-2026: avance dentro de una herramienta (/cotizador: eligió trabajo, llegó al resultado, tocó agendar).
-      texto = `🧭 ${limpio(d.detalle, 110)} (\`${ruta}\`)`;
+      texto = `🧭 ${limpio(d.detalle, 170)} (\`${ruta}\`)`;
       break;
     case 'clic':
       texto = `🖱️ clic en «${limpio(d.detalle, 60)}» (\`${ruta}\`)`;

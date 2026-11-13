@@ -14,6 +14,8 @@ export const metadata: Metadata = {
   title: { absolute: 'Cotiza tu agente · Villelab' },
   description:
     'Elige qué trabajo le pasarías a un agente y ve al tiro qué haría cada día y cuánto cuesta: reunión de 30 minutos gratis, implementación desde 12 UF.',
+  // BORRADOR: noindex mientras sea preview. Al publicar en producción, borrar esta línea.
+  robots: { index: false, follow: false },
   alternates: { canonical: `${SITE_URL}/cotizador` },
   openGraph: {
     type: 'website',

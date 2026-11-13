@@ -239,7 +239,9 @@ export default function ChatChibi() {
     }
   };
 
-  const abajo = enCurso
+  const abajo = ruta === '/cotizador'
+    ? 'bottom-[calc(env(safe-area-inset-bottom)+5.5rem)]'
+    : enCurso
     ? 'bottom-[calc(env(safe-area-inset-bottom)+5.5rem)] md:bottom-[calc(env(safe-area-inset-bottom)+1.5rem)]'
     : 'bottom-[calc(env(safe-area-inset-bottom)+1.5rem)]';
 

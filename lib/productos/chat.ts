@@ -77,15 +77,15 @@ const COTIZADOR: Pregunta[] = [
   },
   {
     p: '¿Qué es un agente?',
-    r: 'Un asistente que hace una tarea completa por ti todos los días: revisa, ordena, redacta y te avisa. Lo que compromete plata, alcance o fechas te lo pregunta antes.',
+    r: 'Un asistente que hace una tarea completa por ti todos los días: revisa, ordena, redacta y te avisa. Lo dejamos configurado para que lo que compromete plata, alcance o fechas te lo pregunte antes.',
   },
   {
     p: '¿Tengo que saber de tecnología?',
-    r: 'No. Álvaro lo instala, lo conecta a lo que ya usas y acompaña a cada persona hasta que lo usa en una tarea real.',
+    r: 'No. Álvaro lo arma contigo y lo deja funcionando en una tarea real de tu negocio.',
   },
   {
     p: '¿Qué pasa en la reunión?',
-    r: 'Son 30 minutos por videollamada con Álvaro. Ven en qué se te va el tiempo y te dice con qué agente partiría, o si un agente no tiene sentido para ti. Sin compromiso.',
+    r: 'Son 30 minutos por videollamada con Álvaro. Revisan juntos en qué se te va el tiempo y Álvaro te dice con qué agente partiría, o si un agente no tiene sentido para ti. Sin compromiso.',
   },
 ];
 

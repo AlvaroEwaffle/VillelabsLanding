@@ -69,7 +69,7 @@ export const TRABAJOS: Trabajo[] = [
     diario: 'Responde las preguntas de siempre y te pasa las que son para ti.',
     ejemplo: [
       { de: 'cliente', texto: 'Hola, ¿hacen despacho a Maipú?' },
-      { de: 'agente', texto: 'Hola, sí despachamos a Maipú de lunes a viernes. ¿Me das tu dirección para decirte el valor?' },
+      { de: 'agente', texto: 'Hola, sí despachamos a Maipú. ¿Me das tu dirección para decirte el valor y el día?' },
       { de: 'nota', texto: 'A ti: una clienta pide precio especial por una compra grande. Esa te la dejo a ti.' },
     ],
   },
