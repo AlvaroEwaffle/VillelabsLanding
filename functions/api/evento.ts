@@ -18,8 +18,8 @@ interface Env {
 // Tipo mínimo del contexto de Pages Functions (sin depender de @cloudflare/workers-types, así Next también lo tipa).
 type Ctx = { request: Request; env: Env };
 
-type Tipo = 'visita' | 'pagina' | 'clic' | 'video' | 'lead' | 'scroll' | 'tiempo' | 'parcial' | 'chat';
-const TIPOS: Tipo[] = ['visita', 'pagina', 'clic', 'video', 'lead', 'scroll', 'tiempo', 'parcial', 'chat'];
+type Tipo = 'visita' | 'pagina' | 'clic' | 'video' | 'lead' | 'scroll' | 'tiempo' | 'parcial' | 'chat' | 'paso';
+const TIPOS: Tipo[] = ['visita', 'pagina', 'clic', 'video', 'lead', 'scroll', 'tiempo', 'parcial', 'chat', 'paso'];
 // Scroll y tiempo solo tienen sentido dentro del hilo de una visita ya abierta (10-nov-2026).
 const SOLO_HILO: Tipo[] = ['scroll', 'tiempo'];
 const HITOS = [25, 50, 75, 100];
@@ -179,6 +179,10 @@ export const onRequestPost = async ({ request, env }: Ctx): Promise<Response> =>
     case 'chat':
       // 12-nov-2026: chat del chibi (abrió, tocó una pregunta lista, escribió). El texto del chat va en /api/chat.
       texto = `💬 ${limpio(d.detalle, 90)}`;
+      break;
+    case 'paso':
+      // 12-nov-2026: avance dentro de una herramienta (/cotizador: eligió trabajo, llegó al resultado, tocó agendar).
+      texto = `🧭 ${limpio(d.detalle, 110)} (\`${ruta}\`)`;
       break;
     case 'clic':
       texto = `🖱️ clic en «${limpio(d.detalle, 60)}» (\`${ruta}\`)`;

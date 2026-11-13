@@ -28,7 +28,7 @@ export default function ExitIntentPopup() {
   const pathname = usePathname();
   const mountedAt = useRef<number>(Date.now());
   // Sin popup en la asesoría ni en los productos digitales (esqueleto, workshop, curso): ya tienen su propia oferta.
-  const isSuppressedRoute = ['/asesoria', '/esqueleto', '/workshop', '/curso', '/reels'].includes(pathname);
+  const isSuppressedRoute = ['/asesoria', '/esqueleto', '/workshop', '/curso', '/reels', '/cotizador'].includes(pathname);
 
   const alreadyShown = useCallback(() => {
     try {

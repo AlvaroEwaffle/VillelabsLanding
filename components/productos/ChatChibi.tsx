@@ -69,7 +69,8 @@ export default function ChatChibi() {
       window.removeEventListener('resize', f);
     };
   }, []);
-  const enCurso = ruta === '/curso';
+  // En /cotizador también sube: ahí hay una barra fija abajo («Seguir»).
+  const enCurso = ruta === '/curso' || ruta === '/cotizador';
 
   useEffect(() => {
     setEstado(leerEstado());

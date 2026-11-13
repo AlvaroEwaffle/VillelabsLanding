@@ -8,7 +8,8 @@ import { EXP13 } from './curso/exp13';
 import { EXP14 } from './esqueleto/exp14';
 import { EXP12 } from './guia/exp12';
 
-type Tipo = 'visita' | 'pagina' | 'clic' | 'video' | 'lead' | 'scroll' | 'tiempo' | 'chat';
+// «paso»: avance dentro de una herramienta (12-nov-2026, /cotizador: eligió trabajo, llegó al resultado, tocó agendar).
+type Tipo = 'visita' | 'pagina' | 'clic' | 'video' | 'lead' | 'scroll' | 'tiempo' | 'chat' | 'paso';
 
 /**
  * Experimento de hero vigente → «[EXP-08 B]» / «[EXP-09 C]» en Slack. Manda el de la página actual; si la visita

@@ -4,6 +4,7 @@
 
 import { PRECIO_FUNDADOR, PRECIO_NORMAL, PRECIO_CURSO } from './curso/curso';
 import { PRECIO_GUIA } from './guia/venta';
+import { NOTA_IVA, PRECIOS_AGENTES, uf } from '../precios';
 
 export type Pregunta = { p: string; r: string };
 
@@ -68,7 +69,28 @@ const ESQUELETO: Pregunta[] = [
   },
 ];
 
+// /cotizador (borrador 12-nov-2026). Precios desde lib/precios.ts (espejo del price book de Villelabs).
+const COTIZADOR: Pregunta[] = [
+  {
+    p: '¿Cuánto cuesta?',
+    r: `La reunión de 30 minutos es gratis. La implementación parte desde ${uf(PRECIOS_AGENTES.implementacionUF)} y el mantenimiento es de ${uf(PRECIOS_AGENTES.mantenimientoUF)} al mes si ya tienes licencia de Claude, o ${uf(PRECIOS_AGENTES.mantenimientoConLicenciaUF)} al mes con la licencia incluida. ${NOTA_IVA.es}`,
+  },
+  {
+    p: '¿Qué es un agente?',
+    r: 'Un asistente que hace una tarea completa por ti todos los días: revisa, ordena, redacta y te avisa. Lo que compromete plata, alcance o fechas te lo pregunta antes.',
+  },
+  {
+    p: '¿Tengo que saber de tecnología?',
+    r: 'No. Álvaro lo instala, lo conecta a lo que ya usas y acompaña a cada persona hasta que lo usa en una tarea real.',
+  },
+  {
+    p: '¿Qué pasa en la reunión?',
+    r: 'Son 30 minutos por videollamada con Álvaro. Ven en qué se te va el tiempo y te dice con qué agente partiría, o si un agente no tiene sentido para ti. Sin compromiso.',
+  },
+];
+
 export const PREGUNTAS_CHAT: Record<string, Pregunta[]> = {
+  '/cotizador': COTIZADOR,
   '/curso': CURSO,
   '/guia': GUIA,
   '/esqueleto': ESQUELETO,
