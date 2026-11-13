@@ -28,7 +28,12 @@ export { orden };
  * se dibuja la flecha de cada una hacia el tablero, un punto «viaja» por cada flecha (el dato pasa de la hoja al tablero) y
  * el tablero pulsa al final (lo lee todo).
  */
-export function DiagramaCiclo({ areas }: { areas: { nombre: string; hoja: string; modulo: number }[] }) {
+/*
+ * 13-nov-2026 (módulo 7, «Estructura tu negocio y delega a tu agente»): con `agente`, el centro pasa a ser «Tu planilla»
+ * (los datos de cada hoja entran a ella) y abajo aparece el agente del módulo 7, que toma esos datos (un punto viaja de la
+ * planilla al agente) y devuelve borradores que revisas tú. Sin `agente` queda igual que antes.
+ */
+export function DiagramaCiclo({ areas, agente = false }: { areas: { nombre: string; hoja: string; modulo: number }[]; agente?: boolean }) {
   const ref = useRef<SVGSVGElement>(null);
   useArmado(ref);
   const cx = 180;
@@ -40,19 +45,42 @@ export function DiagramaCiclo({ areas }: { areas: { nombre: string; hoja: string
   });
   const corto = (h: string) => (h === 'Cobranza y Caja' ? 'Cobranza' : h);
   const n = puntos.length;
+  const hojas = areas.map((a) => `${a.hoja} (módulo ${a.modulo})`).join(', ');
+  // Agente: debajo del círculo, entre las dos hojas de abajo (x 141–219 libre), con su flecha desde la planilla.
+  const ag = { y1: cy + 62, y2: 384, caja: 392 };
   return (
     <svg
       ref={ref}
-      viewBox="0 0 360 360"
+      viewBox={agente ? '0 0 360 470' : '0 0 360 360'}
       role="img"
-      aria-label={`Las hojas de tu sistema alrededor del tablero: ${areas.map((a) => `${a.hoja} (módulo ${a.modulo})`).join(', ')}. Todas alimentan el tablero del módulo 6.`}
+      aria-label={
+        agente
+          ? `Las hojas de tu sistema alrededor de tu planilla: ${hojas}. Los datos de cada hoja entran a la planilla, con su tablero del módulo 6. Abajo, tu agente del módulo 7 toma esos datos y te prepara borradores; tú revisas y envías.`
+          : `Las hojas de tu sistema alrededor del tablero: ${hojas}. Todas alimentan el tablero del módulo 6.`
+      }
       className="h-auto w-full"
     >
       <g className="a-pulso" style={orden(n * 2 + 2)}>
         <circle cx={cx} cy={cy} r="58" fill="#2175a1" fillOpacity="0.22" stroke="#5fb2dd" strokeDasharray="4 4" />
-        <text x={cx} y={cy - 4} textAnchor="middle" fill="#f1f5f9" fontSize="15">Tablero</text>
-        <text x={cx} y={cy + 14} textAnchor="middle" fill="#cbd5e1" fontSize="11">módulo 6</text>
+        <text x={cx} y={cy - 4} textAnchor="middle" fill="#f1f5f9" fontSize="15">{agente ? 'Tu planilla' : 'Tablero'}</text>
+        <text x={cx} y={cy + 14} textAnchor="middle" fill="#cbd5e1" fontSize="11">{agente ? 'con su tablero' : 'módulo 6'}</text>
       </g>
+      {agente ? (
+        <g>
+          <line x1={cx} y1={ag.y1} x2={cx} y2={ag.y2} pathLength={1} className="a-trazo" style={orden(n * 2 + 3)} stroke="#FF3D8B" strokeOpacity="0.7" strokeWidth="2" />
+          <g transform={`translate(${cx} ${ag.y2}) rotate(90)`}>
+            <path d="M -5 -4.5 L 3 0 L -5 4.5 z" fill="#FF3D8B" className="a-escala" style={orden(n * 2 + 5)} />
+          </g>
+          {/* El agente toma los datos de la planilla: el punto viaja hacia abajo. */}
+          <circle cx={cx} cy={ag.y1} r="4" fill="#FF3D8B" className="a-viaja" style={{ ...orden(n * 2 + 4), '--dx': '0px', '--dy': `${ag.y2 - ag.y1}px` } as CSSProperties} />
+          <g className="a-escala" style={orden(n * 2 + 6)}>
+            <rect x={cx - 112} y={ag.caja} width="224" height="70" rx="16" fill="#2a1630" stroke="#FF3D8B" strokeOpacity="0.7" strokeWidth="2" />
+            <text x={cx} y={ag.caja + 22} textAnchor="middle" fill="#ff8fbd" fontSize="10" fontFamily="ui-monospace, monospace">M7 · TU AGENTE</text>
+            <text x={cx} y={ag.caja + 41} textAnchor="middle" fill="#f1f5f9" fontSize="12">toma tus datos y te prepara</text>
+            <text x={cx} y={ag.caja + 57} textAnchor="middle" fill="#cbd5e1" fontSize="11">pedidos y cobranza · tú revisas</text>
+          </g>
+        </g>
+      ) : null}
       {puntos.map((p, i) => {
         const dx = cx - p.x;
         const dy = cy - p.y;

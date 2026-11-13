@@ -7,9 +7,11 @@
  * Precio ratificado por Álvaro el 8-nov-2026: $29.990. Quien compró la Guía 1 tiene el cupón GUIA1CURSO (33,34 %,
  * queda en ~$19.990). Hotmart: producto 8921667, garantía 7 días, pago único o en cuotas.
  * 12-nov-2026 (Álvaro, «haz todos los ajustes»): se dice «precio de lanzamiento», sin fecha, sin cupos y sin «sube
- * después». Ya no se dice «preventa»: los 7 módulos están grabados y abiertos para quien compra.
+ * después». Ya no se dice «preventa»: los módulos están grabados y abiertos para quien compra (8 desde el módulo 7).
  */
-export const PRECIO_FUNDADOR: number | null = 29990;
+// 13-nov-2026: vive en ./precio (módulo chico) para que el píxel lo lea sin cargar este archivo en todas las páginas.
+import { PRECIO_FUNDADOR } from './precio';
+export { PRECIO_FUNDADOR };
 export const PRECIO_NORMAL = 59990;
 export const CUPOS_FUNDADOR = 20;
 export const MONEDA_PRECIO = 'CLP';
@@ -36,34 +38,96 @@ export function textoPrecioDetalle(): string {
 }
 
 /**
- * Duración medida en la auditoría del 12-nov-2026 (~/.claude/marca-alvaro/curso/auditoria-2026-11-12.md): 28 min de
- * video (ffprobe) + ~70 min de lectura = cerca de 1 h 30 de lecciones; práctica estimada 6 a 7,5 h. Nada de «5 horas»
+ * Duración medida en la auditoría del 12-nov-2026 (~/.claude/marca-alvaro/curso/auditoria-2026-11-12.md): 28,3 min de
+ * video (ffprobe) + ~70 min de lectura = cerca de 1 h 30 de lecciones; práctica estimada 6 h 20 a 7 h 30. Nada de «5 horas»
  * ni «6 semanas»: si cambia el contenido, se vuelve a medir antes de cambiar estas frases.
+ * 13-nov-2026, módulo 7: +3 min 16 s de video (ffprobe de m7-l1…l5 v2, con cortina de cierre; antes 3 min 14 s) + ~6 min de lectura → 31,5 + ~76 ≈ 107 min = «cerca de
+ * 1 h 45» (redondeado al múltiplo de 5 más cercano, no hacia arriba). Práctica del módulo 7: 50 a 67 min (criterio de la prueba,
+ * sin medición con personas) → 7 h 10 a 8 h 37 = «unas 7 a 8 horas». Nada de «4 a 5 horas» (exige ruta rápida cronometrada).
  */
 export const DURACION_CURSO =
-  'Cerca de 1 h 30 de lecciones cortas y unas 6 horas de práctica, a tu ritmo. Sales con tu negocio en una planilla y un tablero que se calcula solo.';
+  'Menos de 2 horas de contenido (cerca de 1 h 45 de lecciones cortas) y unas 7 a 8 horas de práctica, a tu ritmo. Sales con tu negocio en una planilla, un tablero que se calcula solo y un agente de IA que trabaja con esa planilla.';
+
+/**
+ * 13-nov-2026 (OK de Álvaro a la promesa del módulo 7, redacción B de ~/.claude/marca-alvaro/curso/modulo-7/promesa.md).
+ * Lo que se dice del agente sale de prueba.md: probado en un proyecto de Claude (cuenta pagada); ChatGPT y cuentas gratis,
+ * sin probar. La planilla necesita configuración regional Chile (con «Estados Unidos», 12-11 entra como 11 de diciembre).
+ */
+// 13-nov-2026 (integración final, rama feat/curso-m7-final): el H1 de /curso NO cambia (lo mide EXP-15 y el revisor objetó
+// «automatizar tu negocio» a secas). De aquí se usan la definición y las condiciones; la sección del sistema y el proyecto
+// final usan SISTEMA_AGENTE y PROYECTO_AGENTE (abajo).
+export const PROMESA_AGENTE = {
+  condiciones:
+    'Lo probamos en un proyecto de Claude con cuenta pagada y Google Sheets; en ChatGPT, en cuentas gratis y en Excel, todavía no. Tu planilla necesita la configuración regional Chile.',
+  definicion:
+    'Tu primer agente: un asistente en un proyecto de Claude con las reglas de tu negocio y tu planilla como memoria. Hace tareas cuando se las pides; tú revisas y tú envías.',
+} as const;
+
+/**
+ * Sección del sistema en /curso (13-nov-2026, pedido de Álvaro: «Estructura y delega a tu agente la gestión de clientes y
+ * operación»). Dos pasos visibles. «Gestión de clientes y operación» se describe SOLO con lo que el agente hizo en la prueba
+ * (~/.claude/marca-alvaro/curso/modulo-7/prueba.md: 6 de 6 y 5 de 5 correctas en un proyecto de Claude): arma la fila del
+ * pedido desde un WhatsApp, arma la cobranza del lunes y avisa de pedidos abiertos o facturas vencidas del mismo cliente.
+ * Nada de «atiende solo», «se conecta a tu WhatsApp» ni «actualiza tu planilla solo» (promesa.md, «Lo que NO se puede decir»).
+ */
+export const SISTEMA_AGENTE = {
+  titulo: 'Estructura tu negocio y delega a tu agente.',
+  bajada: 'Dos pasos. Primero ordenas tu negocio en una planilla; después, un agente de IA trabaja con ella y te prepara el trabajo que más se repite.',
+  pasos: [
+    {
+      n: '1',
+      nombre: 'Estructura',
+      modulos: 'Módulos 0 a 6',
+      texto: 'Clientes, pedidos, cobranza y caja en tu planilla: tu CRM y tu ERP, hoja por hoja, con un tablero que se calcula solo.',
+    },
+    {
+      n: '2',
+      nombre: 'Delega',
+      modulos: 'Módulo 7',
+      texto: 'Un agente de IA que trabaja con esa planilla: la usa como memoria para prepararte pedidos y cobranza.',
+    },
+  ],
+  gestion: {
+    titulo: 'Gestión de clientes y operación',
+    items: [
+      { nombre: 'Te arma el pedido', texto: 'Le pegas el WhatsApp del cliente y te devuelve la fila para tu hoja Pedidos y la respuesta sugerida, sin confirmar fechas ni descuentos que no decidiste.' },
+      { nombre: 'Te avisa qué cobrar', texto: 'Le pegas tu hoja Cobranza y te dice a quién escribir, a quién llamas tú y el mensaje listo, con el total vencido y lo que vence esta semana.' },
+      { nombre: 'Cruza lo que ya sabes', texto: 'Si el cliente que te escribe tiene un pedido abierto o una factura vencida según la planilla que le subiste, te lo avisa.' },
+    ],
+    cierre: 'El agente prepara; tú revisas y envías. No se conecta a tu WhatsApp ni escribe solo en tu planilla.',
+  },
+} as const;
+
+/** Cierre de «El programa» en /curso: el módulo 7 como proyecto final (pedido de Álvaro del 13-nov). */
+export const PROYECTO_AGENTE = {
+  kicker: 'Proyecto final',
+  titulo: 'Tu agente operando tu negocio a través de un tablero',
+  texto:
+    'Juntas lo que armaste: tu planilla con sus hojas y su tablero, y un agente que trabaja con ella. Le pegas un WhatsApp y te arma el pedido; el lunes le pegas tu cobranza y te dice a quién cobrar. Tú revisas el tablero, decides y envías.',
+  nota: 'Lo probamos en un proyecto de Claude con cuenta pagada y la planilla en Google Sheets; en ChatGPT, en cuentas gratis y con Excel, todavía no (detalle en las preguntas frecuentes).',
+} as const;
 
 export const CURSO = {
   nombre: 'Construye con IA tu sistema de gestión CRM y ERP para tu negocio',
   apellido: 'Sin programar, en Google Sheets',
   /** Nombre completo (igual en Hotmart) para metadata y referencias desde otros productos. */
   nombreCompleto: 'Construye con IA tu sistema de gestión CRM y ERP para tu negocio, sin programar',
-  promesa: `${DURACION_CURSO} Ahí quedan tus clientes y en qué va cada uno, de dónde llegan, los pedidos, la atención, la cobranza y la caja, y cada módulo trae prompts listos para copiar en ChatGPT o Claude.`,
+  promesa: `${DURACION_CURSO} Ahí quedan tus clientes y en qué va cada uno, de dónde llegan, los pedidos, la atención, la cobranza y la caja, y cada módulo trae prompts listos para copiar en ChatGPT o Claude (los del agente, probados en Claude).`,
   noEsSoftware:
     'No es un software ni una suscripción: es una planilla bien armada, con las fórmulas listas, y rutinas cortas para que el negocio no dependa de tu memoria.',
   formato: [
-    { etiqueta: 'Formato', valor: '7 módulos y 33 lecciones cortas, todos listos' },
-    { etiqueta: 'Duración', valor: 'cerca de 1 h 30 de lecciones + unas 6 h de práctica' },
-    { etiqueta: 'Herramienta', valor: 'Google Sheets (gratis) o Excel' },
+    { etiqueta: 'Formato', valor: '8 módulos y 38 lecciones cortas, todos listos' },
+    { etiqueta: 'Duración', valor: 'menos de 2 h de contenido + unas 7 a 8 h de práctica' },
+    { etiqueta: 'Herramienta', valor: 'Google Sheets (gratis) o Excel; el agente, en un proyecto de Claude' },
     { etiqueta: 'Cada lección', valor: 'idea → ejemplo → tu hoja → prueba real' },
-    { etiqueta: 'Proyecto final', valor: 'tu sistema en una planilla, con su tablero' },
+    { etiqueta: 'Proyecto final', valor: 'tu agente operando tu negocio a través de un tablero' },
   ],
   comoFunciona: [
     'Lecciones cortas con el caso Grano Norte en pantalla: ves la hoja llena antes de llenar la tuya.',
     'Cada módulo llena una hoja de la misma planilla, ya conectada con las anteriores. No empiezas de cero en cada módulo.',
-    'Las lecciones donde armas algo traen su prompt listo para copiar en ChatGPT o Claude (27 en total): la IA te arma el primer borrador y tú lo revisas.',
+    'Las lecciones donde armas algo traen su prompt listo para copiar (34 en total): la IA te arma el primer borrador y tú lo revisas. Los de los módulos 0 a 6 sirven en ChatGPT o Claude; los 7 del módulo 7 los probamos solo en un proyecto de Claude con cuenta pagada.',
     'Prueba real al cierre de cada módulo: usas la hoja con tu negocio unos días antes de seguir.',
-    'Semáforo de cada pieza (rojo, naranja, verde) antes y después, y al final el tablero que lo junta todo.',
+    'Semáforo de cada pieza (rojo, naranja, verde) antes y después, el tablero que lo junta todo y, al cierre, tu primer agente trabajando con tu planilla.',
   ],
 } as const;
 
@@ -76,10 +140,10 @@ export const QUE_ES = {
 
 /**
  * 12-nov-2026 (Álvaro, WA 18:03): el título del curso lleva «con IA»; la IA arma el sistema con los prompts de cada módulo.
- * 12-nov-2026 noche: los 27 prompts quedan DENTRO de las lecciones (lib/productos/curso/prompts.ts), con botón copiar.
+ * 12-nov-2026 noche: los prompts (27; 34 con el módulo 7) quedan DENTRO de las lecciones (lib/productos/curso/prompts.ts), con botón copiar.
  */
 export const IA_OPCIONAL =
-  'La IA te ayuda a armarlo: cada módulo trae prompts listos para copiar en ChatGPT o Claude, dentro de cada lección (tu hoja, las fórmulas, tus mensajes). No necesitas programar ni saber de IA, y lo que te devuelva lo revisas tú antes de usarlo.';
+  'La IA te ayuda a armarlo: cada módulo trae prompts listos para copiar en ChatGPT o Claude, dentro de cada lección (tu hoja, las fórmulas, tus mensajes; los del agente del módulo 7, probados en Claude). No necesitas programar ni saber de IA, y lo que te devuelva lo revisas tú antes de usarlo.';
 
 export const CASO = {
   nombre: 'Grano Norte',
@@ -288,7 +352,7 @@ export const MODULOS: Modulo[] = [
     numero: 6,
     area: 'El tablero',
     titulo: 'El tablero que lo junta todo',
-    duracion: '5 lecciones · ~17 min de video y lectura + proyecto final',
+    duracion: '5 lecciones · ~17 min de video y lectura + cierre: antes y después',
     lecciones: [
       { titulo: 'Tus números del lunes', detalle: 'Ventas del mes, propuestas abiertas, pedidos atrasados, casos abiertos, por cobrar y caja: el tablero los calcula solo desde tus hojas.' },
       { titulo: 'Cómo se conectan las hojas', detalle: 'Qué lee cada número del tablero y qué pasa si una hoja queda sin actualizar. Cada dato se anota en un solo lugar.' },
@@ -298,6 +362,22 @@ export const MODULOS: Modulo[] = [
     ],
     pruebaReal: 'Una semana con tus rutinas y el tablero revisado el lunes con tu equipo.',
     entregable: 'Tu ERP en Google Sheets con su tablero, compartido con tu equipo, y tus rutinas escritas.',
+  },
+  {
+    // 13-nov-2026 · lote 3. Fuente: ~/.claude/marca-alvaro/curso/modulo-7/modulo-7.md (probado en Claude, ver prueba.md).
+    numero: 7,
+    area: 'Tu primer agente',
+    titulo: 'Tu primer agente, trabajando con tu planilla',
+    duracion: '5 lecciones · ~9 min de video y lectura',
+    lecciones: [
+      { titulo: 'Crea tu asistente con sus instrucciones', detalle: 'Un proyecto de Claude con sus instrucciones: qué hace, qué nunca hace y cuándo te pasa la pelota. Tus reglas de freno del módulo 0 van adentro.' },
+      { titulo: 'Dale tu planilla: la memoria de tu agente', detalle: 'Subes tu planilla al proyecto (con la configuración regional Chile) y le haces una pregunta de prueba para ver que usa tus productos y tus clientes.' },
+      { titulo: 'Tarea uno: del WhatsApp a la fila de Pedidos', detalle: 'Pegas el mensaje del cliente y te devuelve la fila para tu hoja Pedidos y la respuesta sugerida. Tú revisas, pegas y envías.' },
+      { titulo: 'Tarea dos: el lunes de cobranza', detalle: 'Pegas tu hoja Cobranza y te dice a quién escribir, a quién llamas tú y el mensaje listo, sin intereses ni amenazas.' },
+      { titulo: 'Gestiona y mejora tu agente', detalle: '5 preguntas trampa, una regla por cada error y 2 números para medir si te ahorra tiempo.' },
+    ],
+    pruebaReal: 'Una semana: pasa todos tus pedidos de WhatsApp por la Tarea 1 y haz un lunes de cobranza con la Tarea 2. Anota tus minutos.',
+    entregable: 'Tu proyecto con las instrucciones y la planilla subida, tus 5 trampas aprobadas y tu línea base (minutos de cobranza y pedidos corregidos), anotados en tu hoja Inicio.',
   },
 ];
 
@@ -314,10 +394,11 @@ export const PROYECTO_FINAL = {
   cierre: [
     'Video final (52 s): «Tu negocio, antes y después», con el semáforo comparado.',
     'Siguiente paso opcional: una sesión de 90 min para armar contigo lo que quedó pendiente.',
+    'Y en el módulo 7, tu primer agente: un proyecto de Claude con tus reglas y tu planilla como memoria, probado con 5 trampas y un lunes de cobranza.',
   ],
 } as const;
 
-/** Qué recibe quien compra (12-nov-2026: los 7 módulos están grabados y abiertos; el acceso es con código, ver /curso/acceso). */
+/** Qué recibe quien compra (12-nov-2026: los módulos están grabados y abiertos; el 7, desde el 13-nov; el acceso es con código, ver /curso/acceso). */
 export const ACCESO = {
   pasos: [
     { cuando: 'Listo', modulo: 0, texto: 'Módulo 0 · El mapa y tu planilla base' },
@@ -326,9 +407,10 @@ export const ACCESO = {
     { cuando: 'Listo', modulo: 3, texto: 'Módulo 3 · Pedidos y operación' },
     { cuando: 'Listo', modulo: 4, texto: 'Módulo 4 · Atención y postventa' },
     { cuando: 'Listo', modulo: 5, texto: 'Módulo 5 · Cobranza y caja' },
-    { cuando: 'Listo', modulo: 6, texto: 'Módulo 6 · El tablero + proyecto final' },
+    { cuando: 'Listo', modulo: 6, texto: 'Módulo 6 · El tablero + cierre: antes y después' },
+    { cuando: 'Listo', modulo: 7, texto: 'Módulo 7 · Tu primer agente, trabajando con tu planilla' },
   ],
-  nota: 'Al comprar, tu código de acceso está en tu área de miembros de Hotmart. Lo pegas una vez en este navegador y entras a los 7 módulos.',
+  nota: 'Al comprar, tu código de acceso está en tu área de miembros de Hotmart. Lo pegas una vez en este navegador y entras a los 8 módulos.',
 } as const;
 
 export const PARA_QUIEN = {
@@ -361,19 +443,23 @@ export const FAQ: { p: string; r: string }[] = [
   },
   {
     p: '¿Necesito pagar un CRM o un software?',
-    r: 'No. Todo se arma en Google Sheets, que es gratis con una cuenta de Google, o en Excel si ya lo tienes. Si algún día tu negocio necesita un software pagado, el módulo 6 te ayuda a ver cuándo, y tu planilla queda ordenada para pasarse.',
+    r: 'No. Todo se arma en Google Sheets, que es gratis con una cuenta de Google, o en Excel si ya lo tienes. Si algún día tu negocio necesita un software pagado, el módulo 6 te ayuda a ver cuándo, y tu planilla queda ordenada para pasarse. Para el agente del módulo 7 necesitas una cuenta de Claude: lo probamos con una cuenta pagada; según Claude, la cuenta gratis también tiene proyectos, pero ahí todavía no lo probamos (más abajo, en «¿Qué es el agente…?»).',
   },
   {
     p: '¿Cuánto tiempo me toma?',
-    r: 'Cerca de 1 h 30 de lecciones cortas (videos de un minuto y textos breves) y unas 6 horas de práctica llenando la planilla con tu negocio, a tu ritmo: en una semana o en un mes, como te acomode. Después, el sistema se mantiene con 20 minutos al día y una revisión de 10 minutos los lunes.',
+    r: 'Menos de 2 horas de contenido (cerca de 1 h 45 de videos de un minuto y textos breves) y unas 7 a 8 horas de práctica llenando la planilla con tu negocio y armando tu agente, a tu ritmo: en una semana o en un mes, como te acomode. Después, el sistema se mantiene con 20 minutos al día y una revisión de 10 minutos los lunes.',
   },
   {
     p: '¿Tengo que saber de inteligencia artificial o de programación?',
-    r: 'No. Las lecciones donde armas algo traen su prompt listo para copiar en ChatGPT o Claude (la versión gratis sirve): te ayuda a armar tu hoja, las fórmulas y tus mensajes. Cambias lo que está entre [corchetes] por los datos de tu negocio y revisas lo que te devuelva antes de usarlo.',
+    r: 'No. Las lecciones donde armas algo traen su prompt listo para copiar: te ayuda a armar tu hoja, las fórmulas y tus mensajes, y revisas lo que te devuelva antes de usarlo. Los de los módulos 0 a 6 los usas en ChatGPT o Claude (la versión gratis sirve) y cambias lo que está entre [corchetes] por los datos de tu negocio. Los 7 del módulo 7, los de tu agente, se rellenan solos con los datos que anotas una vez, y los probamos solo en un proyecto de Claude con cuenta pagada: en ChatGPT y en cuentas gratis, todavía no.',
   },
   {
     p: '¿Qué recibo al comprar?',
-    r: 'Los 7 módulos completos desde el primer día: 33 lecciones cortas con su video y su ejercicio, 27 prompts listos para la IA y la planilla del sistema (Excel o Google Sheets) con las fórmulas listas y el ejemplo de Grano Norte. Tu código de acceso está en tu área de miembros de Hotmart.',
+    r: 'Los 8 módulos completos desde el primer día: 38 lecciones cortas con su video y su ejercicio, 34 prompts listos para la IA, la planilla del sistema (Excel o Google Sheets) con las fórmulas listas y el ejemplo de Grano Norte, y el módulo 7 para armar tu primer agente. Tu código de acceso está en tu área de miembros de Hotmart.',
+  },
+  {
+    p: '¿Qué es el agente del módulo 7 y con qué IA funciona?',
+    r: `${PROMESA_AGENTE.definicion} Hace dos tareas: pasa un pedido de WhatsApp a una fila de tu hoja Pedidos y te arma la cobranza del lunes, con los mensajes listos. No se conecta a tu WhatsApp ni escribe solo en tu planilla: tú copias, revisas y envías. Requisitos: lo probamos en un proyecto de Claude con cuenta pagada y con la planilla en Google Sheets; en ChatGPT, en cuentas gratis y con Excel todavía no lo probamos. Tu planilla tiene que estar con la configuración regional Chile (en Google Sheets: Archivo › Configuración), para que las fechas entren bien. Se hace en el computador.`,
   },
   {
     p: '¿Qué pasa si me atraso?',

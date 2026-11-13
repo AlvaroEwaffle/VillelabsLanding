@@ -186,7 +186,7 @@ export const NOTAS: Nota[] = [
 export const PASO_CURSO = {
   titulo: `Curso «${CURSO.nombre}»`,
   descripcion:
-    'Tu primer CRM y ERP en Google Sheets: juntas tus clientes, pedidos, atención, cobranza y caja en una planilla, con un tablero que revisas los lunes. Cerca de 1 h 30 de lecciones y unas 6 horas de práctica, a tu ritmo. Sin pagar software.',
+    'Tu primer CRM y ERP en Google Sheets: juntas tus clientes, pedidos, atención, cobranza y caja en una planilla, con un tablero que revisas los lunes. Cerca de 1 h 45 de lecciones y unas 7 a 8 horas de práctica, a tu ritmo. Sin pagar software.',
   href: LINKS.curso,
   cta: 'Ver el curso',
   evento: 'siguiente_paso_curso',
