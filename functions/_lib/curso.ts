@@ -19,12 +19,15 @@ export const HASH_CODIGO_CURSO = '249324b1132cc6597976050ca31e6c7ef759aedf60a7d5
 export const HASH_COOKIE_CURSO = 'abf840b9283cfa02848771d983fda9032c7d9db95d849dbe7b7acd1e1daac3b6';
 export const COOKIE_CURSO = 'vl_curso';
 
-/** /curso/modulo-1 … /curso/modulo-7 (el 7 desde el 13-nov-2026), con o sin barra final, y sus archivos (.txt de RSC, subrutas). */
-export const PROTEGIDO_CURSO = /^\/curso\/modulo-[1-7](\/|\.|$)/;
+/**
+ * /curso/modulo-1 … /curso/modulo-7 (el 7 desde el 13-nov-2026) y /curso/bonos (pack, 13-nov-2026: «Tus bonos», la descarga
+ * de la planilla lista y el paso a la Guía), con o sin barra final, y sus archivos (.txt de RSC, subrutas, el .xlsx).
+ */
+export const PROTEGIDO_CURSO = /^\/curso\/(modulo-[1-7]|bonos)(\/|\.|$)/;
 
-/** Ruta del módulo (sin .txt ni subrutas) a la que se vuelve después de entrar; si no calza, el módulo 1. */
+/** Ruta del módulo o de «Tus bonos» (sin .txt ni subrutas) a la que se vuelve después de entrar; si no calza, el módulo 1. */
 export function destinoCurso(d: string | null | undefined): string {
-  const m = d && !d.includes('//') ? /^\/curso\/modulo-[1-7]/.exec(d) : null;
+  const m = d && !d.includes('//') ? /^\/curso\/(modulo-[1-7]|bonos)(?=\/|\.|$)/.exec(d) : null;
   return m ? m[0] : '/curso/modulo-1';
 }
 
@@ -36,9 +39,14 @@ export async function canjearCurso(codigo: string): Promise<string | null> {
   return sha256(`vl-curso:${norm}`);
 }
 
-export async function tieneAccesoCurso(request: Request): Promise<boolean> {
+/** Valor de la cookie del curso si es válida; si no, null. */
+export async function cookieCursoValida(request: Request): Promise<string | null> {
   const cookies = request.headers.get('cookie') ?? '';
   const m = cookies.match(new RegExp(`(?:^|;\\s*)${COOKIE_CURSO}=([a-f0-9]{64})`));
-  if (!m) return false;
-  return (await sha256(m[1])) === HASH_COOKIE_CURSO;
+  if (!m) return null;
+  return (await sha256(m[1])) === HASH_COOKIE_CURSO ? m[1] : null;
+}
+
+export async function tieneAccesoCurso(request: Request): Promise<boolean> {
+  return (await cookieCursoValida(request)) !== null;
 }

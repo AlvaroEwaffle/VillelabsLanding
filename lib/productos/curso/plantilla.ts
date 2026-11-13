@@ -3,6 +3,12 @@
 // planilla de la Guía 1 (lib/productos/guia/planilla.ts), y continúa desde ella: la hoja Clientes usa los mismos
 // estados y, si la persona hizo la guía en este navegador, trae su lista de posibles clientes.
 //
+// «La planilla lista» (bono del pack del curso, 13-nov-2026): `lista: true` arma la MISMA planilla (mismas hojas, mismas
+// fórmulas, mismo Tablero) en blanco, con lo que necesita quien la usa sin esperar a terminar las lecciones: 5 pasos en
+// Inicio, cómo leerla, celda amarilla para el nombre del negocio (el Tablero lo lee), columnas calculadas en gris con nota,
+// avisos de fecha y monto (no bloquean) y filtros. Sale como archivo estático detrás del candado del curso:
+// public/curso/bonos/planilla-lista.xlsx, generado con scripts/curso/planilla-lista.mts (si cambia esta planilla, regenerarlo).
+//
 // Hojas: Inicio · Clientes (CRM) · Origen · Productos · Pedidos · Atención · Cobranza · Caja · Tablero.
 // Solo fórmulas que funcionan igual en Excel 2010+ y Google Sheets (COUNTIFS, SUMIFS, INDEX/MATCH, EOMONTH):
 // nada de FILTER, UNIQUE, MAXIFS ni matrices dinámicas. Las celdas vacías se escriben como null, no '' (COUNTA
@@ -28,6 +34,9 @@ const CELESTE = 'FF5FB2DD';
 const NOCHE = 'FF0F172A';
 const GRIS = 'FF475569';
 const FONDO_SUAVE = 'FFEAF4FA';
+const GRIS_CAB = 'FF64748B';
+const GRIS_CELDA = 'FFF1F5F9';
+const AMARILLO = 'FFFFF4CC';
 
 export type ProductoFicha = { nombre: string; precio: string; costo?: string };
 export type FichaNegocio = { negocio: string; queVendes: string; aQuien: string; productos: ProductoFicha[] };
@@ -41,7 +50,11 @@ export type DatosPlantilla = {
   ejemplo?: boolean;
   /** Fecha de referencia del ejemplo (para pruebas); por defecto, hoy. */
   hoy?: Date;
+  /** «La planilla lista» (bono del curso): en blanco, con los 5 pasos de Inicio, columnas calculadas en gris, avisos y filtros. */
+  lista?: boolean;
 };
+
+export const ARCHIVO_PLANILLA_LISTA = 'planilla-lista.xlsx';
 
 const GUIA_KEY = 'vl-guia-prospeccion-v2';
 
@@ -114,6 +127,54 @@ function lista(ws: Worksheet, col: string, valores: string[] | string, estricta 
 
 function formato(ws: Worksheet, col: string, fmt: string, hasta = FILAS + 1) {
   for (let n = 2; n <= hasta; n++) ws.getCell(`${col}${n}`).numFmt = fmt;
+}
+
+// ─── Solo «La planilla lista» ─────────────────────────────────────────────
+
+/** Columna calculada: cabecera y celdas en gris, con nota. `reemplazable` = trae fórmula pero se puede escribir encima (celeste). */
+function calculada(ws: Worksheet, col: string, reemplazable = false, hasta = FILAS + 1) {
+  const h = ws.getCell(`${col}1`);
+  h.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: GRIS_CAB } };
+  h.note = reemplazable
+    ? 'Se completa sola, pero puedes escribir encima si en este caso es otro valor.'
+    : 'Se calcula sola. No escribas encima: si la borras sin querer, deshaz (Ctrl+Z) o copia la celda de la fila de arriba.';
+  for (let n = 2; n <= hasta; n++) {
+    const c = ws.getCell(`${col}${n}`);
+    c.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: reemplazable ? FONDO_SUAVE : GRIS_CELDA } };
+    if (!reemplazable) c.font = { color: { argb: GRIS } };
+  }
+}
+
+/** Fecha con aviso (no bloquea): evita «15/11» escrito como texto, que no entra en el Tablero. */
+function validarFecha(ws: Worksheet, col: string, hasta = FILAS + 1) {
+  for (let n = 2; n <= hasta; n++) {
+    ws.getCell(`${col}${n}`).dataValidation = {
+      type: 'date',
+      operator: 'greaterThan',
+      allowBlank: true,
+      formulae: [new Date(Date.UTC(2000, 0, 1))],
+      showErrorMessage: true,
+      errorStyle: 'warning',
+      errorTitle: 'Fecha',
+      error: 'Escribe una fecha, por ejemplo 15-11-2026. Si queda como texto, no entra en el Tablero.',
+    };
+  }
+}
+
+/** Número mayor o igual a cero, con aviso (no bloquea). */
+function validarNumero(ws: Worksheet, col: string, hasta = FILAS + 1) {
+  for (let n = 2; n <= hasta; n++) {
+    ws.getCell(`${col}${n}`).dataValidation = {
+      type: 'decimal',
+      operator: 'greaterThanOrEqual',
+      allowBlank: true,
+      formulae: [0],
+      showErrorMessage: true,
+      errorStyle: 'warning',
+      errorTitle: 'Número',
+      error: 'Escribe solo el número, sin puntos ni signo $ (por ejemplo 16000).',
+    };
+  }
 }
 
 /** Escribe filas desde la fila 2 y completa hasta FILAS con las fórmulas de la hoja. */
@@ -191,7 +252,8 @@ export async function construirPlantillaSistema(datos: DatosPlantilla = {}): Pro
   // En el navegador llega como default; en Node (pruebas con jiti) a veces como el módulo mismo.
   const ExcelJS = (mod.default ?? mod) as typeof mod.default;
   const wb = new ExcelJS.Workbook();
-  wb.creator = 'Villelab · El sistema de tu negocio';
+  const L = !!datos.lista && !datos.ejemplo;
+  wb.creator = L ? 'Villelab · La planilla lista' : 'Villelab · El sistema de tu negocio';
   wb.created = new Date();
   wb.calcProperties.fullCalcOnLoad = true;
 
@@ -208,49 +270,88 @@ export async function construirPlantillaSistema(datos: DatosPlantilla = {}): Pro
   // --- Inicio ---
   const wi = wb.addWorksheet('Inicio', { properties: { tabColor: { argb: NOCHE } } });
   wi.columns = [{ width: 24 }, { width: 70 }, { width: 34 }];
-  wi.getCell('A1').value = `El sistema de ${nombre}`;
+  wi.getCell('A1').value = L ? 'El sistema de tu negocio' : `El sistema de ${nombre}`;
   wi.getCell('A1').font = { bold: true, size: 18, color: { argb: NOCHE } };
-  wi.getCell('A2').value = 'Tu primer CRM y ERP en una planilla. Curso «El sistema de tu negocio» · Villelab.';
+  wi.getCell('A2').value = L
+    ? 'La planilla lista: tu CRM y ERP en una planilla, para usarla hoy. Bono del curso «Construye con IA tu CRM y ERP» · Villelab.'
+    : 'Tu primer CRM y ERP en una planilla. Curso «El sistema de tu negocio» · Villelab.';
   wi.getCell('A2').font = { italic: true, color: { argb: GRIS } };
-  wi.getCell('A4').value = 'CRM';
-  wi.getCell('B4').value = `Es ${QUE_ES.crm} Aquí: la hoja Clientes.`;
-  wi.getCell('A5').value = 'ERP';
-  wi.getCell('B5').value = `Es ${QUE_ES.erp} Aquí: todas las hojas juntas, y el Tablero las resume.`;
-  wi.getCell('B6').value = 'No es un software: es esta planilla, con las fórmulas listas, más 20 minutos al día. Tú llenas filas; los totales se calculan solos.';
-  wi.getCell('B6').font = { italic: true, color: { argb: GRIS } };
-  for (const c of ['A4', 'A5']) wi.getCell(c).font = { bold: true, color: { argb: AZUL } };
 
-  wi.getCell('A8').value = 'Ficha del negocio';
-  wi.getCell('A8').font = { bold: true, size: 13, color: { argb: NOCHE } };
+  // «La planilla lista»: 5 pasos y cómo leerla, arriba de todo. El resto de Inicio baja `o` filas.
+  const o = L ? 13 : 0;
+  const fichaFila = 9 + o; // fila de «Negocio» (el Tablero de la planilla lista lee su nombre de aquí)
+  if (L) {
+    wi.getCell('A4').value = 'Empieza aquí';
+    wi.getCell('A4').font = { bold: true, size: 15, color: { argb: NOCHE } };
+    const pasos = [
+      `Escribe el nombre de tu negocio en la celda amarilla de «Ficha del negocio», más abajo (B${fichaFila}). Aparece en el Tablero.`,
+      'Hoja Productos: lo que vendes, con su precio y, si lo sabes, su costo. Así ves cuánto te deja cada uno.',
+      'Hoja Clientes: tus clientes y posibles clientes, aunque partas con 3. A cada uno, un próximo paso y una fecha.',
+      'Hoja Pedidos: cada pedido, una fila; si lleva varios productos, usa el mismo N° en todas sus filas. Eliges el producto de la lista y el precio y el total salen solos. Lo que facturas va en Cobranza; lo que entra y sale de tu cuenta, en Caja.',
+      'Los lunes, abre el Tablero: se calcula solo y te dice qué revisar esa semana.',
+    ];
+    pasos.forEach((p, i) => {
+      wi.getCell(`A${5 + i}`).value = `Paso ${i + 1}`;
+      wi.getCell(`A${5 + i}`).font = { bold: true, color: { argb: AZUL } };
+      wi.getCell(`A${5 + i}`).alignment = { vertical: 'top' };
+      wi.getCell(`B${5 + i}`).value = p;
+      wi.getCell(`B${5 + i}`).alignment = { wrapText: true, vertical: 'top' };
+    });
+    wi.getCell('A11').value = 'Cómo leerla';
+    wi.getCell('A11').font = { bold: true, size: 13, color: { argb: NOCHE } };
+    const leer: [string, string, string?][] = [
+      ['Celdas blancas', 'Las escribes tú. Donde hay una flechita, eliges de una lista.'],
+      ['Celdas grises', 'Se calculan solas: no escribas encima. Si borraste una, copia la celda de la fila de arriba (o Ctrl+Z / Cmd+Z).', GRIS_CELDA],
+      ['Celdas celestes', 'Se completan solas, pero puedes escribir encima: el precio unitario en Pedidos y el vencimiento en Cobranza.', FONDO_SUAVE],
+    ];
+    leer.forEach(([k, v, color], i) => {
+      wi.getCell(`A${12 + i}`).value = k;
+      wi.getCell(`A${12 + i}`).font = { bold: true };
+      if (color) wi.getCell(`A${12 + i}`).fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: color } };
+      wi.getCell(`B${12 + i}`).value = v;
+      wi.getCell(`B${12 + i}`).alignment = { wrapText: true, vertical: 'top' };
+    });
+  }
+
+  wi.getCell(`A${4 + o}`).value = 'CRM';
+  wi.getCell(`B${4 + o}`).value = `Es ${QUE_ES.crm} Aquí: la hoja Clientes.`;
+  wi.getCell(`A${5 + o}`).value = 'ERP';
+  wi.getCell(`B${5 + o}`).value = `Es ${QUE_ES.erp} Aquí: todas las hojas juntas, y el Tablero las resume.`;
+  wi.getCell(`B${6 + o}`).value = 'No es un software: es esta planilla, con las fórmulas listas, más 20 minutos al día. Tú llenas filas; los totales se calculan solos.';
+  wi.getCell(`B${6 + o}`).font = { italic: true, color: { argb: GRIS } };
+  for (const c of [`A${4 + o}`, `A${5 + o}`]) wi.getCell(c).font = { bold: true, color: { argb: AZUL } };
+
+  wi.getCell(`A${8 + o}`).value = 'Ficha del negocio';
+  wi.getCell(`A${8 + o}`).font = { bold: true, size: 13, color: { argb: NOCHE } };
   const filasFicha: [string, string][] = [
     ['Negocio', ficha.negocio],
     ['Qué vendes', ficha.queVendes],
     ['A quién le vendes', ficha.aQuien],
   ];
   filasFicha.forEach(([k, v], i) => {
-    wi.getCell(`A${9 + i}`).value = k;
-    wi.getCell(`B${9 + i}`).value = t(v);
-    wi.getCell(`B${9 + i}`).fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: FONDO_SUAVE } };
+    wi.getCell(`A${fichaFila + i}`).value = k;
+    wi.getCell(`B${fichaFila + i}`).value = t(v);
+    wi.getCell(`B${fichaFila + i}`).fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: L && i === 0 ? AMARILLO : FONDO_SUAVE } };
   });
-  wi.getCell('B12').value = 'Tu lista de precios va en la hoja Productos.';
-  wi.getCell('B12').font = { italic: true, color: { argb: GRIS } };
+  wi.getCell(`B${12 + o}`).value = 'Tu lista de precios va en la hoja Productos.';
+  wi.getCell(`B${12 + o}`).font = { italic: true, color: { argb: GRIS } };
 
-  wi.getCell('A14').value = 'Las hojas';
-  wi.getCell('A14').font = { bold: true, size: 13, color: { argb: NOCHE } };
+  wi.getCell(`A${14 + o}`).value = 'Las hojas';
+  wi.getCell(`A${14 + o}`).font = { bold: true, size: 13, color: { argb: NOCHE } };
   ['Hoja', 'Qué guarda', 'Quién la actualiza y cuándo'].forEach((h, i) => {
-    const c = wi.getRow(15).getCell(i + 1);
+    const c = wi.getRow(15 + o).getCell(i + 1);
     c.value = h;
     c.font = { bold: true, color: { argb: 'FFFFFFFF' } };
     c.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: AZUL } };
   });
   HOJAS.forEach((h, i) => {
-    const r = wi.getRow(16 + i);
+    const r = wi.getRow(16 + o + i);
     r.getCell(1).value = `${h.nombre} · módulo ${h.modulo}`;
     r.getCell(2).value = h.guarda;
     r.getCell(3).value = h.quien;
     r.alignment = { wrapText: true, vertical: 'top' };
   });
-  const finHojas = 16 + HOJAS.length;
+  const finHojas = 16 + o + HOJAS.length;
   wi.getCell(`A${finHojas + 1}`).value = 'Tus rutinas';
   wi.getCell(`A${finHojas + 1}`).font = { bold: true, size: 13, color: { argb: NOCHE } };
   const rutinas: [string, string][] = [
@@ -268,7 +369,8 @@ export async function construirPlantillaSistema(datos: DatosPlantilla = {}): Pro
   wi.getCell(`A${finRutinas + 1}`).value = 'Para Google Sheets';
   wi.getCell(`A${finRutinas + 1}`).font = { bold: true };
   wi.getCell(`B${finRutinas + 1}`).value =
-    'Sube este archivo a Google Drive, haz clic derecho y elige «Abrir con» → Google Sheets. Después, «Archivo» → «Guardar como Hojas de cálculo de Google». Las fórmulas y las listas desplegables se mantienen.';
+    'Sube este archivo a Google Drive, haz clic derecho y elige «Abrir con» → Google Sheets. Después, «Archivo» → «Guardar como Hojas de cálculo de Google». Las fórmulas y las listas desplegables se mantienen.' +
+    (L ? ' Revisa en «Archivo» → «Configuración» que la configuración regional sea Chile y la zona horaria Santiago: así las fechas entran bien.' : '');
   wi.getCell(`B${finRutinas + 1}`).alignment = { wrapText: true };
   wi.getCell(`A${finRutinas + 2}`).value = 'Con IA';
   wi.getCell(`A${finRutinas + 2}`).font = { bold: true };
@@ -315,6 +417,12 @@ export async function construirPlantillaSistema(datos: DatosPlantilla = {}): Pro
   formato(wcl, 'H', FMT_FECHA);
   formato(wcl, 'I', FMT_PESOS);
   formato(wcl, 'J', FMT_FECHA);
+  if (L) {
+    wcl.autoFilter = 'A1:K1';
+    validarFecha(wcl, 'H');
+    validarNumero(wcl, 'I');
+    validarFecha(wcl, 'J');
+  }
 
   // --- Origen (se calcula sola desde Clientes) ---
   const wo = wb.addWorksheet('Origen');
@@ -339,6 +447,7 @@ export async function construirPlantillaSistema(datos: DatosPlantilla = {}): Pro
     FIN_ORIGEN,
   );
   formato(wo, 'D', '0%', FIN_ORIGEN);
+  if (L) for (const c of ['B', 'C', 'D']) calculada(wo, c, false, FIN_ORIGEN);
   wo.getCell(`A${FIN_ORIGEN + 2}`).value = 'Se llena sola con la columna Origen de tu hoja Clientes. Puedes cambiar o agregar canales en la columna A.';
   wo.getCell(`A${FIN_ORIGEN + 2}`).font = { italic: true, color: { argb: GRIS } };
 
@@ -364,6 +473,13 @@ export async function construirPlantillaSistema(datos: DatosPlantilla = {}): Pro
   );
   for (const c of ['C', 'D', 'E']) formato(wp, c, FMT_PESOS, FIN_PRODUCTOS);
   formato(wp, 'F', '0%', FIN_PRODUCTOS);
+  if (L) {
+    wp.autoFilter = 'A1:F1';
+    calculada(wp, 'E', false, FIN_PRODUCTOS);
+    calculada(wp, 'F', false, FIN_PRODUCTOS);
+    validarNumero(wp, 'C', FIN_PRODUCTOS);
+    validarNumero(wp, 'D', FIN_PRODUCTOS);
+  }
   wp.getCell(`A${FIN_PRODUCTOS + 2}`).value = 'El costo y el margen se trabajan en el módulo 5. Si un margen sale negativo, ese producto te hace perder plata.';
   wp.getCell(`A${FIN_PRODUCTOS + 2}`).font = { italic: true, color: { argb: GRIS } };
 
@@ -395,6 +511,15 @@ export async function construirPlantillaSistema(datos: DatosPlantilla = {}): Pro
   formato(wpe, 'H', FMT_FECHA);
   formato(wpe, 'F', FMT_PESOS);
   formato(wpe, 'G', FMT_PESOS);
+  if (L) {
+    wpe.autoFilter = 'A1:K1';
+    calculada(wpe, 'F', true);
+    calculada(wpe, 'G');
+    calculada(wpe, 'K');
+    validarFecha(wpe, 'B');
+    validarNumero(wpe, 'E');
+    validarFecha(wpe, 'H');
+  }
 
   // --- Atención ---
   const wa = wb.addWorksheet('Atención');
@@ -418,6 +543,12 @@ export async function construirPlantillaSistema(datos: DatosPlantilla = {}): Pro
   formato(wa, 'A', FMT_FECHA);
   formato(wa, 'H', FMT_FECHA);
   formato(wa, 'I', '0');
+  if (L) {
+    wa.autoFilter = 'A1:I1';
+    calculada(wa, 'I');
+    validarFecha(wa, 'A');
+    validarFecha(wa, 'H');
+  }
 
   // --- Cobranza ---
   const wco = wb.addWorksheet('Cobranza');
@@ -443,6 +574,14 @@ export async function construirPlantillaSistema(datos: DatosPlantilla = {}): Pro
   formato(wco, 'D', FMT_PESOS);
   for (const c of ['E', 'F', 'H']) formato(wco, c, FMT_FECHA);
   formato(wco, 'I', '0');
+  if (L) {
+    wco.autoFilter = 'A1:J1';
+    calculada(wco, 'F', true);
+    calculada(wco, 'I');
+    validarNumero(wco, 'D');
+    validarFecha(wco, 'E');
+    validarFecha(wco, 'H');
+  }
 
   // --- Caja ---
   const wca = wb.addWorksheet('Caja');
@@ -461,13 +600,23 @@ export async function construirPlantillaSistema(datos: DatosPlantilla = {}): Pro
   lista(wca, 'C', CATEGORIAS_CAJA, false);
   formato(wca, 'A', FMT_FECHA);
   for (const c of ['D', 'E', 'F']) formato(wca, c, FMT_PESOS);
+  if (L) {
+    wca.autoFilter = 'A1:F1';
+    calculada(wca, 'F');
+    validarFecha(wca, 'A');
+    validarNumero(wca, 'D');
+    validarNumero(wca, 'E');
+  }
   wca.getCell(`H2`).value = 'La primera fila es el saldo de tu cuenta el día que empiezas (categoría «Saldo inicial»).';
   wca.getCell(`H2`).font = { italic: true, color: { argb: GRIS } };
 
   // --- Tablero ---
   const wt = wb.addWorksheet('Tablero', { properties: { tabColor: { argb: CELESTE } } });
   wt.columns = [{ width: 44 }, { width: 18 }, { width: 22 }];
-  wt.getCell('A1').value = `Tablero de ${nombre}`;
+  // En la planilla lista el nombre se lee de la celda amarilla de Inicio (la persona lo escribe ahí).
+  wt.getCell('A1').value = L
+    ? { formula: `"Tablero de "&IF(Inicio!$B$${fichaFila}="","tu negocio",Inicio!$B$${fichaFila})` }
+    : `Tablero de ${nombre}`;
   wt.getCell('A1').font = { bold: true, size: 18, color: { argb: NOCHE } };
   wt.getCell('A2').value = 'Se calcula solo desde tus hojas. Revísalo los lunes, 10 minutos, con tu equipo.';
   wt.getCell('A2').font = { italic: true, color: { argb: GRIS } };
@@ -588,6 +737,7 @@ export async function construirPlantillaSistema(datos: DatosPlantilla = {}): Pro
 
 export function nombreArchivoPlantilla(d: DatosPlantilla) {
   if (d.ejemplo) return 'sistema-grano-norte-ejemplo.xlsx';
+  if (d.lista) return ARCHIVO_PLANILLA_LISTA;
   const base = (d.ficha?.negocio ?? '')
     .normalize('NFD')
     .replace(/[̀-ͯ]/g, '')

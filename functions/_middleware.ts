@@ -1,6 +1,6 @@
 // Middleware global de Pages Functions. `public/_routes.json` limita qué rutas pasan por aquí
-// (/api/*, /guia/prospeccion*, /guia/acceso, /curso/modulo-1…7 y /curso/acceso), así que el resto del sitio sigue
-// sirviéndose estático. Dos candados con el mismo patrón: la Guía 1 (guia1.ts) y los módulos 1–7 del curso (curso.ts).
+// (/api/*, /guia/prospeccion*, /guia/acceso, /curso/modulo-1…7, /curso/bonos* y /curso/acceso), así que el resto del sitio sigue
+// sirviéndose estático. Dos candados con el mismo patrón: la Guía 1 (guia1.ts) y los módulos 1–7 + «Tus bonos» del curso (curso.ts).
 import { PROTEGIDO, tieneAcceso } from './_lib/guia1';
 import { PROTEGIDO_CURSO, destinoCurso, tieneAccesoCurso } from './_lib/curso';
 

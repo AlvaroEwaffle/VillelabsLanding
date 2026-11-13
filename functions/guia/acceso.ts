@@ -2,7 +2,10 @@
 //   GET  /guia/acceso            → formulario
 //   GET  /guia/acceso?c=CODIGO   → link de un clic desde Hotmart
 //   POST /guia/acceso (codigo)   → envío del formulario
+// Pack (13-nov-2026): el código del curso también sirve aquí (la Guía es bono del curso; ver functions/_lib/pack.ts).
 import { COOKIE, PROTEGIDO, canjear, tieneAcceso } from '../_lib/guia1';
+import { canjearCurso } from '../_lib/curso';
+import { cookieGuiaDesdeCurso } from '../_lib/pack';
 
 type Env = { SLACK_BOT_TOKEN?: string; SLACK_CANAL_PRODUCTOS?: string };
 type Ctx = { request: Request; env: Env; waitUntil: (p: Promise<unknown>) => void };
@@ -19,6 +22,14 @@ function avisarRegalo(ctx: Ctx, id: string) {
 }
 
 const UN_ANO = 60 * 60 * 24 * 365;
+
+/** Código de la Guía o de regalo vigente (guia1.ts) y, si no, el código del curso (bono del pack). */
+async function canjearConCurso(codigo: string): Promise<{ cookie: string; regalo?: string } | null> {
+  const r = await canjear(codigo);
+  if (r) return r;
+  const cursoCookie = await canjearCurso(codigo);
+  return cursoCookie ? { cookie: await cookieGuiaDesdeCurso(cursoCookie) } : null;
+}
 
 function destinoSeguro(d: string | null): string {
   return d && PROTEGIDO.test(d) && !d.includes('//') ? d : '/guia/prospeccion';
@@ -59,7 +70,7 @@ color:#fff;cursor:pointer;box-shadow:0 8px 28px rgba(255,61,139,.35)}button:hove
 </style></head><body><main class="card">
 <p class="eyebrow">Villelab · Guía 1</p>
 <h1>Entra a tu guía</h1>
-<p>Escribe tu código: el que te llegó por mensaje o el de la clase «Empieza aquí» en Hotmart. Solo te lo pide una vez en este navegador.</p>
+<p>Escribe tu código: el que te llegó por mensaje, el de la clase «Empieza aquí» en Hotmart o, si compraste el curso, el código de tu curso (la Guía viene incluida). Solo te lo pide una vez en este navegador.</p>
 ${error ? '<div class="error">Ese código no corresponde o ya venció. Revísalo y vuelve a intentarlo.</div>' : ''}
 <form method="post" action="/guia/acceso">
 <input type="hidden" name="d" value="${escapar(destino)}">
@@ -81,7 +92,7 @@ export const onRequestGet = async (ctx: Ctx): Promise<Response> => {
   const destino = destinoSeguro(url.searchParams.get('d'));
   const codigo = url.searchParams.get('c');
   if (codigo) {
-    const r = await canjear(codigo);
+    const r = await canjearConCurso(codigo);
     if (r?.regalo) avisarRegalo(ctx, r.regalo);
     return r ? entrar(r.cookie, destino) : pagina(destino, true);
   }
@@ -93,7 +104,7 @@ export const onRequestPost = async (ctx: Ctx): Promise<Response> => {
   const { request } = ctx;
   const form = await request.formData().catch(() => null);
   const destino = destinoSeguro(form?.get('d')?.toString() ?? null);
-  const r = await canjear(form?.get('codigo')?.toString() ?? '');
+  const r = await canjearConCurso(form?.get('codigo')?.toString() ?? '');
   if (r?.regalo) avisarRegalo(ctx, r.regalo);
   return r ? entrar(r.cookie, destino) : pagina(destino, true);
 };

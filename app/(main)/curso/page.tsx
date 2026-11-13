@@ -6,6 +6,9 @@ import CursoContent from '@/components/productos/curso/CursoContent';
 import { fraunces } from '@/lib/productos/fuente';
 import { EXP15 } from '@/lib/productos/curso/exp15';
 import { SCRIPT_ANCLA } from '@/lib/productos/ancla';
+import { PACK } from '@/lib/productos/curso/llevas';
+
+const PACK_DESCRIPCION = `${PACK.titulo}. ${PACK.bonos.map((b) => `${b.clave}: ${b.titulo}. ${b.texto}`).join(' ')}`;
 
 
 // 12-nov-2026 23:10 · el título social repite el H1 (el LinkedIn de las 18:30 lo comparte a diario); el nombre largo del curso
@@ -55,6 +58,8 @@ const JSON_LD = [
           offers: {
             '@type': 'Offer',
             category: 'Paid',
+            // Pack (13-nov-2026): mismo producto y precio, con dos bonos (el valor de la Guía, tal cual se vende sola).
+            description: PACK_DESCRIPCION,
             price: PRECIO_FUNDADOR,
             priceCurrency: MONEDA_PRECIO,
             availability: 'https://schema.org/InStock',

@@ -15,6 +15,12 @@ export const HASH_CODIGO = '410f5d18536b3ccfe6fdd82e266d3536d94cccc21c0446c0f7e1
 export const HASH_COOKIE = 'e12e26bee9f1e0546a00a60759cc4ea8bb6f2f6a52d39f0982dea0e01c4df592';
 export const COOKIE = 'vl_g1';
 
+// Bono del curso (pack, 13-nov-2026): quien compró el curso (Hotmart 8921667) también abre la Guía, sin código de regalo
+// ni vencimiento. La cookie de la Guía para compradores del curso se DERIVA de su cookie del curso (functions/_lib/pack.ts):
+//   cookieGuia = sha256('vl-g1-pack:' + cookieCurso)      HASH_COOKIE_PACK = sha256(cookieGuia)
+// Aquí solo va el hash. Si cambia el código del curso (functions/_lib/curso.ts), hay que recalcular este hash.
+export const HASH_COOKIE_PACK = 'bf75e10687740c8944b88dac67ba09253d23e2810af29722f640fcde6a4374cb';
+
 // Códigos de regalo (9-nov-2026, Álvaro por WA): la guía se regala por DM a cambio de feedback, sin
 // pasar por Hotmart. Un código por persona, así sabemos quién la abrió y a quién pedirle testimonio.
 // Aquí solo va un id opaco (R001…) y los hashes; el nombre de cada persona vive fuera del repo
@@ -100,5 +106,5 @@ export async function tieneAcceso(request: Request): Promise<boolean> {
   const m = cookies.match(new RegExp(`(?:^|;\\s*)${COOKIE}=([a-f0-9]{64})`));
   if (!m) return false;
   const hk = await sha256(m[1]);
-  return hk === HASH_COOKIE || REGALOS.some((x) => x.hk === hk);
+  return hk === HASH_COOKIE || hk === HASH_COOKIE_PACK || REGALOS.some((x) => x.hk === hk);
 }

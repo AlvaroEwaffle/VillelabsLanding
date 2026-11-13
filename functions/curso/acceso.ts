@@ -45,7 +45,7 @@ color:#fff;cursor:pointer;box-shadow:0 8px 28px rgba(255,61,139,.35)}button:hove
 </style></head><body><main class="card">
 <p class="eyebrow">Villelab · Curso</p>
 <h1>Entra a tu curso</h1>
-<p>Escribe el código que está en la clase «Tu acceso al curso» (módulo «Empieza aquí») de tu área de miembros en Hotmart. Lo pides una sola vez en este navegador y quedas con los módulos 1 a 7 abiertos.</p>
+<p>Escribe el código que está en la clase «Tu acceso al curso» (módulo «Empieza aquí») de tu área de miembros en Hotmart. Lo pides una sola vez en este navegador y quedas con los módulos 1 a 7 y tus bonos abiertos.</p>
 ${error ? '<div class="error">Ese código no corresponde. Revísalo en Hotmart y vuelve a intentarlo.</div>' : ''}
 <form method="post" action="/curso/acceso">
 <input type="hidden" name="d" value="${escapar(destino)}">

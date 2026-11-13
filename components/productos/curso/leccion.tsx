@@ -617,6 +617,7 @@ export function PieModulos({ actual }: { actual: number }) {
   const anterior = MODULOS.find((m) => m.numero === actual - 1);
   const siguiente = MODULOS.find((m) => m.numero === actual + 1);
   return (
+    <>
     <div className="mt-10 flex flex-col-reverse gap-3 border-t border-white/10 pt-6 sm:flex-row sm:items-center sm:justify-between">
       {anterior ? (
         <Link href={rutaModulo(anterior.numero)} className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full border border-white/15 px-5 text-center text-sm text-slate-300 hover:border-white/30">
@@ -631,6 +632,15 @@ export function PieModulos({ actual }: { actual: number }) {
         </Link>
       ) : null}
     </div>
+    {/* Pack (13-nov-2026): los módulos 1–7 son solo de compradores; desde aquí, sus bonos (planilla lista y Guía). */}
+    {actual >= 1 ? (
+      <p className="mt-4 text-center text-sm sm:text-right">
+        <Link href="/curso/bonos" className="inline-flex min-h-[44px] items-center text-[#5fb2dd] underline underline-offset-2 hover:text-white">
+          Tus bonos: la planilla lista y la Guía
+        </Link>
+      </p>
+    ) : null}
+    </>
   );
 }
 
