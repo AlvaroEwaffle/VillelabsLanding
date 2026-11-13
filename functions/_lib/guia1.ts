@@ -64,7 +64,6 @@ export const REGALOS: Regalo[] = [
   { id: 'R039', hc: '0d498ec5d856e33e02ed680f4ac278e01a1827eeb1a9b319b280389366b0f398', hk: 'ac51687dcd6822439ce214d5aa2051ac694850988061465cd0a19261f3370aa1', vence: '2026-11-27' },
   { id: 'R040', hc: '52e26ab747ba52b0a7350b7ae7747eb23cb7c5876d1c9ff82b77957059d63601', hk: '57e5caac91fced7b552b72e841652414c3a89c1d6f937df40c6c15693b35c66a', vence: '2026-11-27' },
   { id: 'R041', hc: 'a269169c9d2f02fdfb85b78c028d858341c337833bc234b743182bbda6c13c3f', hk: '76a18d532d30c94e1c3484bf667dcf63be1cee9f8e05b8a834430aedb0986bba', vence: '2026-11-27' },
-  { id: 'R042', hc: 'b3694aae95b40b4bc0154510e836e0654ddf4885982297db234ff02ec4cd82f1', hk: '2d71ac779c83de824b596809dbb6d10457cec6d4cd814b9090e97b6e87243aef', vence: '2026-11-27' },
   // REGALOS-FIN
 ];
 export const PROTEGIDO = /^\/guia\/prospeccion(\/|\.|$)/;
