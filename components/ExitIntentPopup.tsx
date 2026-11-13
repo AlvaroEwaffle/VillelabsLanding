@@ -13,6 +13,10 @@ import { DISCOVERY_CALL_URL } from '@/lib/scheduling';
  * El clic al enlace de agenda emite booking_click (ConversionClickTracker) con ubicación exit_popup.
  */
 const SESSION_KEY = 'villelabs_exit_popup_shown';
+// 10-nov (Álvaro: «aparece demasiado rápido, a los 2 segundos»): el popup de salida no puede abrirse antes
+// de MIN_MS en la página (≈ tiempo medio de interacción en GA4). El timer de respaldo abre a TIMER_MS.
+const MIN_MS = 20_000;
+const TIMER_MS = 45_000;
 
 export default function ExitIntentPopup() {
   const [isOpen, setIsOpen] = useState(false);
@@ -22,7 +26,9 @@ export default function ExitIntentPopup() {
   const previousFocusRef = useRef<HTMLElement | null>(null);
   const { t } = useTranslation();
   const pathname = usePathname();
-  const isSuppressedRoute = pathname === '/asesoria';
+  const mountedAt = useRef<number>(Date.now());
+  // Sin popup en la asesoría ni en los productos digitales (esqueleto, workshop, curso): ya tienen su propia oferta.
+  const isSuppressedRoute = ['/asesoria', '/esqueleto', '/workshop', '/curso', '/reels', '/cotizador'].includes(pathname);
 
   const alreadyShown = useCallback(() => {
     try {
@@ -70,7 +76,7 @@ export default function ExitIntentPopup() {
     if (isTouchDevice()) return;
 
     const handleMouseLeave = (e: MouseEvent) => {
-      if (e.clientY <= 0) {
+      if (e.clientY <= 0 && Date.now() - mountedAt.current >= MIN_MS) {
         openPopup();
       }
     };
@@ -81,7 +87,7 @@ export default function ExitIntentPopup() {
     };
   }, [openPopup, isSuppressedRoute, isTouchDevice]);
 
-  // 45-second timer trigger
+  // Timer de respaldo (TIMER_MS)
   useEffect(() => {
     if (typeof window === 'undefined') return;
     if (isSuppressedRoute) return;
@@ -90,7 +96,7 @@ export default function ExitIntentPopup() {
 
     const timer = setTimeout(() => {
       openPopup();
-    }, 45000);
+    }, TIMER_MS);
 
     return () => clearTimeout(timer);
   }, [openPopup, isSuppressedRoute, isTouchDevice, alreadyShown]);
@@ -221,7 +227,7 @@ export default function ExitIntentPopup() {
                   rel="noopener noreferrer"
                   data-track-location="exit_popup"
                   onClick={closePopup}
-                  className="flex w-full items-center justify-center gap-2 bg-accent hover:bg-accent/90 text-white px-6 py-3 rounded-xl font-semibold text-sm transition-all duration-200 border border-accent/30 hover:border-accent/50"
+                  className="flex w-full items-center justify-center gap-2 bg-rosa hover:bg-[#ff5c9f] text-white px-6 py-3 rounded-xl font-semibold text-sm transition-all duration-200 border border-rosa/30 hover:border-rosa/50"
                 >
                   <Calendar className="w-4 h-4" /> {t.exitPopup.ctaButton}
                 </a>

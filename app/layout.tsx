@@ -2,6 +2,8 @@ import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
 import ConversionClickTracker from "@/components/ConversionClickTracker";
+import Rastreo from "@/components/productos/Rastreo";
+import PixelMeta from "@/components/productos/PixelMeta";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -30,30 +32,21 @@ export const metadata: Metadata = {
   },
   description:
     "Instalamos y operamos agentes de IA que hacen el trabajo repetitivo de tu equipo: correo, propuestas, seguimientos y reportes. Con frenos: lo que compromete plata, alcance o fechas pasa por una persona.",
+  // 9-nov-2026: palabras del comprador pyme (antes: keywords en inglés de la época de agencia web).
   keywords: [
-    "web design agency",
-    "revenue systems",
-    "landing pages",
-    "custom platforms",
-    "conversion optimization",
-    "strategic websites",
-    "sales funnels",
-    "process automation",
-    "AI chatbots",
-    "web development Chile",
-    "agencia chatbot IA Chile",
-    "automatizacion de procesos empresa Chile",
-    "desarrollo plataforma SaaS Santiago",
-    "agencia diseno web Chile",
-    "desarrollo MVP Chile",
-    "Villelabs",
-    "Alvaro Villena",
-    "digital strategy",
-    "business growth",
-    "Agile PM LATAM",
-    "AI consulting Chile",
-    "product management LATAM",
-    "villelab",
+    "cómo conseguir clientes para mi pyme",
+    "clientes nuevos sin envíos masivos",
+    "CRM en Google Sheets",
+    "primer CRM para pymes",
+    "ordenar ventas por WhatsApp",
+    "asistente de WhatsApp para pymes",
+    "chatbot de WhatsApp para negocios",
+    "seguimiento de clientes",
+    "agentes de IA para pymes",
+    "automatizar atención de clientes",
+    "ERP simple en Google Sheets",
+    "Álvaro Villena",
+    "Villelab",
   ],
   authors: [{ name: "Alvaro Villena", url: siteUrl }],
   creator: "Alvaro Villena",
@@ -141,7 +134,8 @@ export default function RootLayout({
           id="gtm-script"
           strategy="afterInteractive"
           dangerouslySetInnerHTML={{
-            __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            // Solo en villelab.com: localhost y previews no deben ensuciar GA4 (8-nov-2026, las pruebas locales aparecían como visitas).
+            __html: `if(/(^|\\.)villelab\\.com$/.test(location.hostname))(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
@@ -164,6 +158,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         </noscript>
         {/* End Google Tag Manager (noscript) */}
         <ConversionClickTracker />
+        <Rastreo />
+        <PixelMeta />
         {children}
       </body>
     </html>

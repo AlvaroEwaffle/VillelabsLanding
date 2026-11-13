@@ -104,7 +104,7 @@ export default function Navigation() {
               <LanguageSwitcher />
               <Link
                 href="/diagnostic"
-                className="inline-flex items-center whitespace-nowrap px-4 lg:px-5 py-2.5 rounded-full bg-accent text-white text-sm font-medium hover:bg-accent/90 transition-colors duration-300 shadow-accent"
+                className="inline-flex items-center whitespace-nowrap px-4 lg:px-5 py-2.5 rounded-full bg-rosa text-white text-sm font-semibold hover:bg-[#ff5c9f] transition-colors duration-300 shadow-rosa"
               >
                 {t.nav.bookACall}
               </Link>
@@ -177,7 +177,7 @@ export default function Navigation() {
                 </div>
                 <Link
                   href="/diagnostic"
-                  className="flex items-center justify-center w-full px-5 py-3 rounded-full bg-accent text-white text-sm font-medium hover:bg-accent/90 transition-colors duration-300"
+                  className="flex items-center justify-center w-full px-5 py-3 rounded-full bg-rosa text-white text-sm font-semibold hover:bg-[#ff5c9f] transition-colors duration-300"
                 >
                   {t.nav.bookACall}
                 </Link>

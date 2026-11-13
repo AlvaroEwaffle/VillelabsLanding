@@ -18,6 +18,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     entry('', 1, 'weekly'),
     // Navbar (26-oct-2026): Catálogo · Servicios · Proyectos · Academia · Blog · Sobre mí · Contacto
     entry('/agentes', 1),
+    // 12-nov-2026: cotizador de agentes (herramienta que arma tu cotización), enlazado desde /agentes.
+    entry('/cotizador', 0.9),
     entry('/catalogo', 0.9),
     entry('/services', 0.9),
     entry('/work', 0.8),
@@ -27,6 +29,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     entry('/contact', 0.9),
     entry('/diagnostic', 0.8),
     entry('/asesoria', 0.7),
+    // Productos digitales (8-nov-2026): imán gratis, venta de la Guía 1, workshop y curso. La guía (/guia/prospeccion), el módulo 0, las diapositivas y /reels van con noindex.
+    entry('/esqueleto', 0.9),
+    entry('/guia', 0.9),
+    entry('/workshop', 0.9, 'weekly'),
+    entry('/workshop/grabacion', 0.7),
+    entry('/curso', 0.9),
     // Productos propios (el índice /products redirige al catálogo)
     entry('/products/moca', 0.5),
     entry('/products/capu', 0.5),

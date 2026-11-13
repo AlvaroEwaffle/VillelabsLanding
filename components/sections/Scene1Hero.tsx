@@ -103,7 +103,7 @@ export default function Scene1Hero() {
           <button
             type="button"
             onClick={scrollToNext}
-            className="inline-flex items-center justify-center px-8 py-3.5 rounded-full bg-accent hover:bg-accent/90 text-white font-semibold text-sm md:text-base border border-accent/30 hover:shadow-[0_0_24px_rgba(33,117,161,0.3)] transition-all duration-300"
+            className="inline-flex items-center justify-center px-8 py-3.5 rounded-full bg-rosa hover:bg-[#ff5c9f] text-white font-semibold text-sm md:text-base border border-rosa/30 hover:shadow-rosa transition-all duration-300"
           >
             Sigue para ver las tres formas de crecer
           </button>

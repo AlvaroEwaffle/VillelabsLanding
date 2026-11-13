@@ -249,3 +249,34 @@ body {
     transition: none;
   }
 }
+
+/* Pantallita: ejemplos del caso Grano Norte en fondo claro (ver components/productos/Pantallita.tsx). */
+.pantallita{background:#f8fafc;color:#0f172a;border:1px solid #cbd5e1;border-radius:14px;overflow:hidden;box-shadow:0 18px 40px -18px rgba(0,0,0,.65)}
+.pantallita__barra{display:flex;align-items:center;gap:6px;padding:8px 12px;background:#e2e8f0;border-bottom:1px solid #cbd5e1;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#475569;font-weight:600}
+.pantallita__barra i{width:9px;height:9px;border-radius:9999px;background:#94a3b8;display:inline-block}
+.pantallita__barra i:first-child{background:#2175a1}
+.pantallita__barra span{margin-left:6px}
+.pantallita__cuerpo{padding:14px 16px}
+.pantallita .text-white,.pantallita .text-slate-100,.pantallita .text-slate-200,.pantallita strong{color:#0f172a !important}
+.pantallita .text-slate-300,.pantallita .text-slate-400,.pantallita .text-slate-500{color:#475569 !important}
+.pantallita [class*="text-[#5fb2dd]"],.pantallita [class*="text-[#cfe8f5]"]{color:#1d5f85 !important}
+.pantallita [class*="bg-white/"],.pantallita [class*="bg-[#0"],.pantallita [class*="bg-[#1"]{background:#ffffff !important}
+.pantallita [class*="border-white/"],.pantallita [class*="border-[#2"]{border-color:#e2e8f0 !important}
+
+/* Experimentos diarios (12-nov-2026): <html data-expNN="A|B|C"> lo pone un script en línea antes de pintar
+   (lib/productos/experimento.ts). Sin atributo (sin JS) se ve A. .expNN-sin-B / .expNN-sin-C = todo menos esa variante.
+   EXP-10 /curso · EXP-11 /esqueleto · EXP-12 /guia. */
+.exp10-B,.exp10-C,.exp11-B,.exp11-C,.exp12-B,.exp12-C{display:none}
+html[data-exp10="B"] .exp10-A,html[data-exp10="C"] .exp10-A,html[data-exp10="B"] .exp10-sin-B,html[data-exp10="C"] .exp10-sin-C,
+html[data-exp11="B"] .exp11-A,html[data-exp11="C"] .exp11-A,html[data-exp11="B"] .exp11-sin-B,html[data-exp11="C"] .exp11-sin-C,
+html[data-exp12="B"] .exp12-A,html[data-exp12="C"] .exp12-A,html[data-exp12="B"] .exp12-sin-B,html[data-exp12="C"] .exp12-sin-C{display:none}
+html[data-exp10="B"] .exp10-B,html[data-exp10="C"] .exp10-C,
+html[data-exp11="B"] .exp11-B,html[data-exp11="C"] .exp11-C,
+html[data-exp12="B"] .exp12-B,html[data-exp12="C"] .exp12-C{display:block}
+
+/* Rondas de DOS variantes (método desde el 12-nov-2026): EXP-13 /curso · EXP-14 /esqueleto. Mismo mecanismo con
+   <html data-exp13|14="A|B">. .expNN-A = solo en A; .expNN-B = solo en B (display:revert la devuelve a su tipo: div=block,
+   span=inline; por eso estos envoltorios no llevan clases de layout). Sin JS se ve A. */
+.exp13-B,.exp14-B{display:none}
+html[data-exp13="B"] .exp13-A,html[data-exp14="B"] .exp14-A{display:none}
+html[data-exp13="B"] .exp13-B,html[data-exp14="B"] .exp14-B{display:revert}

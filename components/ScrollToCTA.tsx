@@ -38,7 +38,7 @@ export default function ScrollToCTA({ className = '', children }: ScrollToCTAPro
   return (
     <button
       onClick={handleClick}
-      className={`inline-block bg-accent hover:bg-accent/90 text-white rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl hover:shadow-accent/30 text-base sm:text-lg md:text-xl px-6 py-3 md:px-8 md:py-4 ${className}`}
+      className={`inline-block bg-rosa hover:bg-[#ff5c9f] text-white rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl hover:shadow-rosa text-base sm:text-lg md:text-xl px-6 py-3 md:px-8 md:py-4 ${className}`}
     >
       {children || 'Hablemos'}
     </button>

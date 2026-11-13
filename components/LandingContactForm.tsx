@@ -290,7 +290,7 @@ export default function LandingContactForm({
         <button
           type="submit"
           disabled={isSubmitting}
-          className="w-full px-6 py-4 rounded-xl font-semibold text-base transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed bg-accent hover:bg-accent/90 text-white border border-accent/30 hover:border-accent/50 hover:shadow-[0_0_20px_rgba(33,117,161,0.25)] flex items-center justify-center gap-3"
+          className="w-full px-6 py-4 rounded-xl font-semibold text-base transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed bg-rosa hover:bg-[#ff5c9f] text-white border border-rosa/30 hover:border-rosa/50 hover:shadow-rosa flex items-center justify-center gap-3"
         >
           {isSubmitting ? (
             <>

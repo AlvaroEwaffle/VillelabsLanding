@@ -3,7 +3,9 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import {
+  ArrowRight,
   BarChart3,
+  Calculator,
   Calendar,
   CalendarCheck,
   Check,
@@ -141,7 +143,7 @@ function CtaReunion({ ubicacion, texto = 'Agenda tu reunión de descubrimiento' 
         target="_blank"
         rel="noopener noreferrer"
         data-track-location={`agentes_${ubicacion}`}
-        className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full bg-accent px-6 text-center text-sm font-medium text-white hover:bg-[#2a8bbd]"
+        className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full bg-rosa px-6 text-center text-sm font-semibold text-white hover:bg-[#ff5c9f]"
       >
         <Calendar className="h-4 w-4 shrink-0" /> {texto}
       </a>
@@ -197,6 +199,14 @@ export default function AgentesContent() {
         <p className="mt-3 text-xs text-slate-400">{NOTA_IVA.es}</p>
         <VslAgentes />
         <CtaReunion ubicacion="hero" />
+        {/* 12-nov-2026: enlace al cotizador (para la gente y para que Google lo encuentre). */}
+        <Link
+          href="/cotizador"
+          data-track-location="agentes_hero_cotizador"
+          className="mt-4 inline-flex min-h-[44px] items-center gap-2 text-sm font-medium text-[#5fb2dd] underline-offset-4 hover:underline"
+        >
+          <Calculator className="h-4 w-4" /> Cotiza tu agente en 1 minuto <ArrowRight className="h-4 w-4" />
+        </Link>
       </section>
 
       {/* 3 pasos */}

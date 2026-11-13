@@ -71,7 +71,7 @@ function Btn({ onClick, children, kind = 'primary', disabled }: { onClick: () =>
       onClick={onClick}
       disabled={disabled}
       className={`inline-flex min-h-[44px] items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium transition-colors touch-manipulation disabled:opacity-40 ${
-        kind === 'primary' ? 'bg-accent text-white hover:bg-[#2a8bbd]' : 'border border-white/15 text-slate-300 hover:border-white/30 hover:text-white'
+        kind === 'primary' ? 'bg-rosa text-white hover:bg-[#ff5c9f]' : 'border border-white/15 text-slate-300 hover:border-white/30 hover:text-white'
       }`}
     >
       {children}
@@ -548,7 +548,7 @@ function Cotizador() {
         </ul>
         <p className="mt-4 text-xs text-slate-400">Agentes como servicio en UF; CTO fraccional en dólares. {NOTA_IVA.es} El valor final se cierra por escrito antes de partir.</p>
         <div className="mt-5 flex flex-col gap-3 sm:flex-row">
-          <Link href="/agentes" className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full bg-accent px-5 text-sm font-medium text-white hover:bg-[#2a8bbd]">
+          <Link href="/agentes" className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full bg-rosa px-5 text-sm font-semibold text-white hover:bg-[#ff5c9f]">
             Ver la oferta en 3 pasos <ArrowRight className="h-4 w-4" />
           </Link>
           <a href={`${WHATSAPP}?text=${mensaje}`} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full border border-green-500/30 px-5 text-sm text-green-300 hover:border-green-500/60">
@@ -679,7 +679,7 @@ export default function CatalogoContent() {
             En 30 minutos revisamos qué tareas se repiten en tu equipo y si un agente tiene sentido. Si no lo tiene, te lo decimos.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <Link href="/contact" className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full bg-accent px-6 text-sm font-medium text-white hover:bg-[#2a8bbd]">
+            <Link href="/contact" className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full bg-rosa px-6 text-sm font-semibold text-white hover:bg-[#ff5c9f]">
               Agenda una llamada <ArrowRight className="h-4 w-4" />
             </Link>
             <Link href="/diagnostic" className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full border border-white/15 px-6 text-sm text-slate-200 hover:border-white/30">

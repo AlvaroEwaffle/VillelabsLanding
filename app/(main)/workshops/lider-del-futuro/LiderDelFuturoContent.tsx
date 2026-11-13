@@ -207,7 +207,7 @@ export default function LiderDelFuturoContent() {
                   href={DISCOVERY_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 rounded-full bg-accent px-7 py-4 text-sm font-medium text-white transition-all duration-300 hover:bg-accent/90 shadow-accent-lg"
+                  className="inline-flex items-center justify-center gap-2 rounded-full bg-rosa px-7 py-4 text-sm font-semibold text-white transition-all duration-300 hover:bg-[#ff5c9f] shadow-rosa"
                 >
                   Agendar llamada
                   <ArrowRight className="h-4 w-4" />
@@ -516,7 +516,7 @@ export default function LiderDelFuturoContent() {
               href={DISCOVERY_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-accent px-8 py-4 text-sm font-medium text-white transition-all duration-300 hover:bg-accent/90 shadow-accent-lg"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-rosa px-8 py-4 text-sm font-semibold text-white transition-all duration-300 hover:bg-[#ff5c9f] shadow-rosa"
             >
               Agendar llamada de descubrimiento
               <ArrowRight className="h-4 w-4" />

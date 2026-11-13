@@ -120,7 +120,7 @@ function ReservaConfirmadaInner() {
             </a>
             <Link
               href="/"
-              className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-accent text-white text-sm font-medium hover:bg-accent/90 transition-colors group"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-rosa text-white text-sm font-semibold hover:bg-[#ff5c9f] transition-colors group"
             >
               Volver al inicio
               <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />

@@ -892,7 +892,7 @@ export default function SistemasAMedidaContent() {
             </button>
             <button
               onClick={() => scrollToSection('contact-form')}
-              className="rounded-full bg-accent px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-accent/90"
+              className="rounded-full bg-rosa px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-[#ff5c9f]"
             >
               Hablemos
             </button>
@@ -934,7 +934,7 @@ export default function SistemasAMedidaContent() {
             <motion.div variants={itemVariants} className="mt-8 flex flex-col gap-4 sm:flex-row">
               <button
                 onClick={() => scrollToSection('contact-form')}
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-accent px-7 py-4 text-base font-medium text-white transition-all duration-300 hover:bg-accent/90"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-rosa px-7 py-4 text-base font-semibold text-white transition-all duration-300 hover:bg-[#ff5c9f]"
               >
                 Quiero una propuesta para mi operacion
                 <ArrowRight className="h-4 w-4" />

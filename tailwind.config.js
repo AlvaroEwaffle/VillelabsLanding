@@ -15,6 +15,8 @@ module.exports = {
         // Colores premium del proyecto
         main: "#0f172a", // dark blue (slate-900)
         accent: "#2175a1", // azul destacado del hero
+        // Rosa de realce (8-nov-2026, Álvaro): CTA principal y una marca de realce por pieza, nunca de fondo.
+        rosa: "#FF3D8B",
         foreground: "#ededed",
       },
       borderRadius: {
@@ -27,6 +29,7 @@ module.exports = {
         soft: "0 4px 20px rgba(0, 0, 0, 0.1)",
         accent: "0 0 30px rgba(33, 117, 161, 0.3)",
         'accent-lg': "0 10px 40px rgba(33, 117, 161, 0.3)",
+        rosa: "0 8px 28px rgba(255, 61, 139, 0.35)",
       },
       spacing: {
         'safe-top': 'env(safe-area-inset-top)',
