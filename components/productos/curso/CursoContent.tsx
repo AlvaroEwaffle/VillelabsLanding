@@ -219,12 +219,21 @@ export default function CursoContent() {
           <div>
             <Kicker>Curso · Preventa abierta</Kicker>
             <h1 className="mt-3 max-w-3xl font-serif text-[1.9rem] leading-[1.1] text-white sm:text-5xl lg:text-[3.1rem]">
-              Construye con IA tu sistema de gestión CRM y ERP para tu negocio, sin programar en 5 horas
+              Ordena tu negocio en una planilla: clientes, pedidos y caja en un solo tablero, con ayuda de la IA
             </h1>
+            {/* 12-nov-2026 ~21:10 (OK de Álvaro): el H1 vuelve a las palabras del anuncio de Meta (v17 «Ordena tu negocio en una
+                planilla») y a lenguaje llano; el nombre del curso pasa a la primera sección bajo el hero. Común a A y B. */}
+            <p className="mt-3 max-w-xl text-base text-slate-300 sm:text-lg">Paso a paso y sin programar: tú armas la planilla y la IA te ayuda con las fórmulas y los mensajes.</p>
+            <a href="#quien-lo-ensena" className="mt-3 inline-flex min-h-[44px] items-center gap-2.5 text-sm text-slate-400 hover:text-white">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={FOTOS.podcasterCerca.src} alt="" width={32} height={32} className="h-8 w-8 shrink-0 rounded-full object-cover" />
+              <span>
+                Te lo enseña <span className="text-slate-200 underline decoration-white/30 underline-offset-2">Álvaro Villena</span>, que usa este mismo orden en sus propios negocios
+              </span>
+            </a>
             {/* A · control */}
             <div className="exp13-A">
-              <p className="mt-3 max-w-xl text-base text-slate-300 sm:text-lg">5 horas de lecciones en 7 módulos con textos listos para pegar en tu IA (prompts); tú armas tu hoja a tu ritmo (2 a 3 h por semana). El módulo 0 es gratis hoy.</p>
-              <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
+              <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
                 <BotonCompra ubicacion="hero" />
                 {/* En celular se oculta aquí (se repite en el programa y al final): un solo botón en el primer pantallazo. */}
                 <BotonModulo0 texto="Ver el módulo 0 de muestra" className="hidden sm:inline-flex" />
@@ -233,8 +242,7 @@ export default function CursoContent() {
             </div>
             {/* B · «módulo 0 primero»: el botón principal es gratis; abajo, el formulario a la vista. */}
             <div className="exp13-B">
-              <p className="mt-3 max-w-xl text-base text-slate-300 sm:text-lg">5 horas de lecciones en 7 módulos con textos listos para pegar en tu IA (prompts); tú armas tu hoja a tu ritmo (2 a 3 h por semana). El módulo 0 es gratis.</p>
-              <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
+              <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
                 <Link
                   href="#parte-gratis-hero"
                   data-sin-barra
@@ -276,6 +284,9 @@ export default function CursoContent() {
 
       {/* El curso en corto: franja bajo el hero (5 datos en fila en escritorio, apilados en celular). */}
       <section aria-label="El curso en corto" className="mx-auto max-w-6xl px-4 sm:px-6">
+        {/* Nombre del curso elegido por Álvaro (11-nov), igual que en <title>, OG, JSON-LD y Hotmart. */}
+        <Kicker>El curso</Kicker>
+        <h2 className="mb-6 mt-3 max-w-3xl font-serif text-2xl leading-snug text-white sm:text-3xl">{CURSO.nombreCompleto}</h2>
         <dl className="grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-white/10 bg-white/10 sm:grid-cols-3 lg:grid-cols-5">
           {CURSO.formato.map((f, i) => (
             <div key={f.etiqueta} className={`bg-[#111a2e] p-4 sm:p-5 ${i === CURSO.formato.length - 1 ? 'col-span-2 sm:col-span-1' : ''}`}>
@@ -575,7 +586,7 @@ export default function CursoContent() {
       {/* Quién lo enseña + En qué se basa */}
       <div>
       {/* Quién lo enseña */}
-      <Seccion kicker="Quién lo enseña" titulo="Álvaro Villena">
+      <Seccion id="quien-lo-ensena" kicker="Quién lo enseña" titulo="Álvaro Villena">
         <div className="mt-10 grid items-center gap-8 md:grid-cols-[360px_1fr]">
           <div className="mx-auto grid w-full max-w-[360px] grid-cols-[1.4fr_1fr] grid-rows-2 gap-2">
             <figure className="relative row-span-2 aspect-[3/4] overflow-hidden rounded-2xl border border-white/10">
