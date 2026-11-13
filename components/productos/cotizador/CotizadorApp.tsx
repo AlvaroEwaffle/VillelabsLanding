@@ -26,6 +26,7 @@ import {
   USOS,
   etiqueta,
   trabajo,
+  usoCorto,
   type LicenciaId,
   type PersonasId,
   type TrabajoId,
@@ -77,18 +78,18 @@ function leer(): Estado {
 }
 
 const nombres = (ids: TrabajoId[]) => ids.map((id) => trabajo(id).nombre).join(', ');
-/** «WhatsApp» conserva la mayúscula; correo, planilla y otro van en minúscula dentro de la frase. */
-const uso = (u: UsoId) => (u === 'whatsapp' ? 'WhatsApp' : etiqueta(USOS, u).toLowerCase());
+/** Nombre corto de cada herramienta para las frases (lib/productos/cotizador/datos.ts). */
+const uso = usoCorto;
 const lista = (xs: string[]) => (xs.length < 2 ? xs.join('') : `${xs.slice(0, -1).join(', ')} y ${xs[xs.length - 1]}`);
 
-function Chip({ activa, onClick, children, rol = 'radio' }: { activa: boolean; onClick: () => void; children: React.ReactNode; rol?: 'radio' | 'checkbox' }) {
+function Chip({ activa, onClick, children, rol = 'radio', ancho }: { activa: boolean; onClick: () => void; children: React.ReactNode; rol?: 'radio' | 'checkbox'; ancho?: boolean }) {
   return (
     <button
       type="button"
       role={rol}
       aria-checked={activa}
       onClick={onClick}
-      className={`flex min-h-[52px] items-center justify-center gap-1.5 rounded-2xl border px-2 text-base font-medium transition ${
+      className={`flex min-h-[52px] items-center justify-center gap-1.5 rounded-2xl border px-2 text-base font-medium transition ${ancho ? 'col-span-2' : ''} ${
         activa ? 'border-[#5fb2dd] bg-[#2175a1]/30 text-white' : 'border-white/15 bg-white/[0.03] text-slate-200 hover:border-white/30'
       }`}
     >
@@ -152,7 +153,7 @@ export default function CotizadorApp() {
   };
 
   const verCotizacion = () => {
-    const resumen = `${nombres(e.elegidos)} · ${etiqueta(PERSONAS, e.personas)} personas · usa ${e.usos.map((u) => etiqueta(USOS, u)).join('/')} · licencia: ${etiqueta(LICENCIAS, e.licencia)}`;
+    const resumen = `${nombres(e.elegidos)} · ${etiqueta(PERSONAS, e.personas)} personas · usa ${lista(e.usos.map(usoCorto))} · licencia: ${etiqueta(LICENCIAS, e.licencia)}`;
     paso(`llegó a su cotización · ${resumen}`, 'cotizador_resultado');
     ir('resultado');
   };
@@ -169,7 +170,7 @@ export default function CotizadorApp() {
     setEnviando(true);
     const detalles: Record<string, string> = {
       trabajos: nombres(e.elegidos),
-      equipo: `${etiqueta(PERSONAS, e.personas)} personas · usa ${e.usos.map((u) => etiqueta(USOS, u)).join('/')} · licencia ${etiqueta(LICENCIAS, e.licencia)}`,
+      equipo: `${etiqueta(PERSONAS, e.personas)} personas · usa ${lista(e.usos.map(usoCorto))} · licencia ${etiqueta(LICENCIAS, e.licencia)}`,
     };
     if (e.otro.trim()) detalles.otro = e.otro.trim().slice(0, 120);
     detalles.personas = e.personas ?? '';
@@ -279,9 +280,10 @@ export default function CotizadorApp() {
                     return (
                       <Chip
                         key={o.id}
+                        ancho={o.ancho}
                         rol="checkbox"
                         activa={activa}
-                        onClick={() => cambiar((x) => ({ ...x, usos: activa ? x.usos.filter((u) => u !== o.id) : [...x.usos, o.id] }))}
+                        onClick={() => cambiar((x) => ({ ...x, usos: USOS.map((u) => u.id).filter((u) => (u === o.id ? !activa : x.usos.includes(u))) }))}
                       >
                         {o.etiqueta}
                       </Chip>

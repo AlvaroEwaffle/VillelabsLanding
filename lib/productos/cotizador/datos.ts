@@ -79,7 +79,9 @@ export const TRABAJOS: Trabajo[] = [
 export const trabajo = (id: TrabajoId) => TRABAJOS.find((t) => t.id === id)!;
 
 export type PersonasId = '1-2' | '3-15' | '15+';
-export type UsoId = 'whatsapp' | 'correo' | 'planilla' | 'otro';
+// 12-nov-2026 (Álvaro): se suman Google (Workspace), Teams y Slack. «correo» y «planilla» se pisaban con Google:
+// quedan como «Otro correo» y «Excel o planilla». Los ids viejos se mantienen (sessionStorage y etiquetas de leads).
+export type UsoId = 'google' | 'whatsapp' | 'teams' | 'slack' | 'correo' | 'planilla' | 'otro';
 export type LicenciaId = 'si' | 'no' | 'nose';
 
 export const PERSONAS: { id: PersonasId; etiqueta: string }[] = [
@@ -88,12 +90,18 @@ export const PERSONAS: { id: PersonasId; etiqueta: string }[] = [
   { id: '15+', etiqueta: 'Más de 15' },
 ];
 
-export const USOS: { id: UsoId; etiqueta: string }[] = [
-  { id: 'whatsapp', etiqueta: 'WhatsApp' },
-  { id: 'correo', etiqueta: 'Correo' },
-  { id: 'planilla', etiqueta: 'Planilla' },
-  { id: 'otro', etiqueta: 'Otro' },
+/** `corto` es como sale en frases y en Slack/leads («usan Teams y Google»); `ancho` ocupa las 2 columnas a 360 px. */
+export const USOS: { id: UsoId; etiqueta: string; corto: string; ancho?: boolean }[] = [
+  { id: 'google', etiqueta: 'Google (Gmail, Drive, Calendar)', corto: 'Google', ancho: true },
+  { id: 'whatsapp', etiqueta: 'WhatsApp', corto: 'WhatsApp' },
+  { id: 'teams', etiqueta: 'Teams', corto: 'Teams' },
+  { id: 'slack', etiqueta: 'Slack', corto: 'Slack' },
+  { id: 'correo', etiqueta: 'Otro correo', corto: 'otro correo' },
+  { id: 'planilla', etiqueta: 'Excel o planilla', corto: 'Excel o planilla' },
+  { id: 'otro', etiqueta: 'Otro', corto: 'otra herramienta' },
 ];
+
+export const usoCorto = (id: UsoId) => USOS.find((u) => u.id === id)?.corto ?? '';
 
 export const LICENCIAS: { id: LicenciaId; etiqueta: string }[] = [
   { id: 'si', etiqueta: 'Sí' },
