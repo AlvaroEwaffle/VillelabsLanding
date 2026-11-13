@@ -1,5 +1,5 @@
 // Videos de las lecciones de los módulos 1 a 6 del curso v1.1 (lote 2, 8-nov-2026) y del módulo 7 (lote 3, 13-nov-2026,
-// duraciones medidas con ffprobe: 3 min 14 s en total).
+// duraciones medidas con ffprobe: 3 min 16 s en total tras la cortina de cierre v2).
 // Archivos en public/videos/<id>.{mp4,jpg,vtt}; Álvaro (avatar HeyGen) solo abre y cierra, el resto son gráficos con su voz.
 // Generado por alvaro-reels/src/productos/tools/videos-ts-l2.mjs: si una lección no está aquí, muestra «Video próximamente».
 import type { VideoId } from '@/components/productos/VideoProducto';
@@ -37,8 +37,8 @@ export const VIDEOS_CURSO: Partial<Record<string, VideoCurso>> = {
   'm6-l4': { id: 'm6-l4', duracion: '44 s', segundos: 44 },
   'm6-l5': { id: 'm6-l5', duracion: '46 s', segundos: 46 },
   'm6-final': { id: 'm6-final', duracion: '52 s', segundos: 52 },
-  'm7-l1': { id: 'm7-l1', duracion: '42 s', segundos: 42 },
-  'm7-l2': { id: 'm7-l2', duracion: '34 s', segundos: 34 },
+  'm7-l1': { id: 'm7-l1', duracion: '43 s', segundos: 43 },
+  'm7-l2': { id: 'm7-l2', duracion: '35 s', segundos: 35 },
   'm7-l3': { id: 'm7-l3', duracion: '37 s', segundos: 37 },
   'm7-l4': { id: 'm7-l4', duracion: '41 s', segundos: 41 },
   'm7-l5': { id: 'm7-l5', duracion: '40 s', segundos: 40 },

@@ -39,7 +39,7 @@ export function textoPrecioDetalle(): string {
  * Duración medida en la auditoría del 12-nov-2026 (~/.claude/marca-alvaro/curso/auditoria-2026-11-12.md): 28,3 min de
  * video (ffprobe) + ~70 min de lectura = cerca de 1 h 30 de lecciones; práctica estimada 6 h 20 a 7 h 30. Nada de «5 horas»
  * ni «6 semanas»: si cambia el contenido, se vuelve a medir antes de cambiar estas frases.
- * 13-nov-2026, módulo 7: +3 min 14 s de video (ffprobe de m7-l1…l5) + ~6 min de lectura → 31,5 + ~76 ≈ 107 min = «cerca de
+ * 13-nov-2026, módulo 7: +3 min 16 s de video (ffprobe de m7-l1…l5 v2, con cortina de cierre; antes 3 min 14 s) + ~6 min de lectura → 31,5 + ~76 ≈ 107 min = «cerca de
  * 1 h 45» (redondeado al múltiplo de 5 más cercano, no hacia arriba). Práctica del módulo 7: 50 a 67 min (criterio de la prueba,
  * sin medición con personas) → 7 h 10 a 8 h 37 = «unas 7 a 8 horas». Nada de «4 a 5 horas» (exige ruta rápida cronometrada).
  */
