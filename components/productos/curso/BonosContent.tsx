@@ -29,7 +29,7 @@ export default function BonosContent() {
         </p>
         <h2 id="bono-planilla" className="mt-2 font-serif text-2xl text-white sm:text-3xl">La planilla lista</h2>
         <p className="mt-3 text-slate-300">
-          La planilla completa del curso, ya armada y en blanco, para usarla hoy sin esperar a terminar las lecciones: las 9 hojas conectadas (Inicio, Clientes, Origen, Productos, Pedidos, Atención, Cobranza, Caja y Tablero) y el Tablero que se calcula solo.
+          La planilla completa del curso, en blanco y con instrucciones adentro, para usarla sola desde hoy aunque no hayas visto las lecciones: las 9 hojas conectadas (Inicio, Clientes, Origen, Productos, Pedidos, Atención, Cobranza, Caja y Tablero) y el Tablero que se calcula solo.
         </p>
         <ul className="mt-4 space-y-2 text-sm text-slate-300">
           <li>· En la hoja Inicio, 5 pasos para partir y cómo leerla.</li>
@@ -41,7 +41,7 @@ export default function BonosContent() {
           download="planilla-lista.xlsx"
           className="mt-6 inline-flex min-h-[48px] w-full items-center justify-center gap-2 rounded-full bg-[#2175a1] px-6 text-sm font-semibold text-white transition hover:bg-[#2a86b6] sm:w-auto"
         >
-          <Download className="h-4 w-4" aria-hidden /> Descargar la planilla lista (.xlsx)
+          <Download className="h-4 w-4" aria-hidden /> Descargar la planilla lista (Excel)
         </a>
         <p className="mt-4 text-xs text-slate-400">
           Para Google Sheets: súbela a Google Drive, ábrela con Google Sheets y revisa en Archivo › Configuración que la configuración regional sea Chile y la zona horaria Santiago.

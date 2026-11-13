@@ -19,7 +19,7 @@ const CURSO: Pregunta[] = [
   },
   {
     p: '¿Qué recibo al comprar?',
-    r: `Los 8 módulos completos desde el primer día: 38 lecciones cortas con su ejercicio, 34 prompts listos para la IA, la planilla del sistema con las fórmulas listas y, en el módulo 7, un agente de IA que trabaja con tu planilla: te arma los pedidos de WhatsApp y la cobranza del lunes, y tú revisas y envías. Además, dos bonos incluidos: la planilla lista (ya armada, para usarla hoy) y la Guía «Tus próximos 20 clientes», que se vende sola a ${PRECIO_GUIA.texto} CLP. Avanzas a tu ritmo.`,
+    r: `Los 8 módulos completos desde el primer día: 38 lecciones cortas con su ejercicio, 34 prompts listos para la IA, la planilla del sistema con las fórmulas listas y, en el módulo 7, un agente de IA que trabaja con tu planilla: te arma los pedidos de WhatsApp y la cobranza del lunes, y tú revisas y envías. Además, dos bonos incluidos: la planilla lista (la misma planilla, con 5 pasos y avisos adentro para usarla sola desde hoy) y la Guía «Tus próximos 20 clientes», que se vende sola a ${PRECIO_GUIA.texto} CLP. Avanzas a tu ritmo.`,
   },
   {
     p: '¿Cuánto tiempo necesito?',

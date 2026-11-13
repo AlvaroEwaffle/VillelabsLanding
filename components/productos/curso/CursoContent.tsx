@@ -668,7 +668,17 @@ export default function CursoContent() {
             <p className="mt-2 text-sm text-slate-300">
               {textoPrecioDetalle()}
             </p>
-            {/* Pack (13-nov-2026): mismo producto y precio, con dos bonos. Sin precio tachado, sin «por tiempo limitado». */}
+            <ul className="mt-4 space-y-2 text-sm text-slate-300">
+              <li className="flex gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-[#5fb2dd]" aria-hidden /> Los 8 módulos y la planilla completa del sistema, desde hoy</li>
+              <li className="flex gap-2"><Gift className="mt-0.5 h-4 w-4 shrink-0 text-[#ff8fbd]" aria-hidden /> Más 2 bonos incluidos: la planilla lista y la Guía «Tus próximos 20 clientes»</li>
+              <li className="flex gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-[#5fb2dd]" aria-hidden /> Cada módulo trae prompts listos para copiar en ChatGPT o Claude (los del agente, probados en Claude)</li>
+              <li className="flex gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-[#5fb2dd]" aria-hidden /> Avanzas a tu ritmo: los módulos no se cierran</li>
+              <li className="flex gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-[#5fb2dd]" aria-hidden /> Pago único o en cuotas, con {PRECIO_CURSO.garantiaDias} días de garantía</li>
+            </ul>
+            <div className="mt-6 flex flex-col gap-3">
+              <BotonCompra ubicacion="comprar" />
+            </div>
+            {/* Pack (13-nov-2026): mismo producto y precio, con dos bonos. Sin precio tachado, sin «por tiempo limitado». Va bajo el botón para no alejarlo del precio a 360 px. */}
             <div className="mt-4 rounded-2xl border border-[#FF3D8B]/40 bg-[#FF3D8B]/[0.07] p-4">
               <p className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.18em] text-[#ff8fbd]">
                 <Gift className="h-4 w-4" aria-hidden /> Incluye
@@ -684,15 +694,6 @@ export default function CursoContent() {
                   </li>
                 ))}
               </ul>
-            </div>
-            <ul className="mt-4 space-y-2 text-sm text-slate-300">
-              <li className="flex gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-[#5fb2dd]" aria-hidden /> Los 8 módulos y la planilla completa del sistema, desde hoy</li>
-              <li className="flex gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-[#5fb2dd]" aria-hidden /> Cada módulo trae prompts listos para copiar en ChatGPT o Claude (los del agente, probados en Claude)</li>
-              <li className="flex gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-[#5fb2dd]" aria-hidden /> Avanzas a tu ritmo: los módulos no se cierran</li>
-              <li className="flex gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-[#5fb2dd]" aria-hidden /> Pago único o en cuotas, con {PRECIO_CURSO.garantiaDias} días de garantía</li>
-            </ul>
-            <div className="mt-6 flex flex-col gap-3">
-              <BotonCompra ubicacion="comprar" />
             </div>
             <p className="mt-4 text-xs text-slate-500">{ACCESO.nota}</p>
             </div>

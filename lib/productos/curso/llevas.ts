@@ -40,13 +40,13 @@ export const PACK = {
     {
       clave: 'Bono 1',
       titulo: 'La planilla lista',
-      texto: 'La misma planilla del curso, ya armada y en blanco, con 5 pasos para usarla hoy sin esperar a terminar las lecciones.',
-      corto: 'Ya armada, para usarla hoy sin esperar a terminar las lecciones.',
+      texto: 'La misma planilla del curso, en blanco y con instrucciones adentro: 5 pasos para partir, las celdas que se calculan solas en gris y avisos si una fecha o un monto quedan mal escritos. Para usarla sola desde hoy, aunque no hayas visto las lecciones.',
+      corto: 'La misma planilla, con 5 pasos y avisos adentro para usarla sola desde hoy.',
     },
     {
       clave: 'Bono 2',
       titulo: 'La Guía «Tus próximos 20 clientes»',
-      texto: `Tu lista de 20 posibles clientes, el primer mensaje y los seguimientos con fecha. Se vende sola a ${PRECIO_GUIA.texto} CLP; con el curso viene incluida.`,
+      texto: `En una tarde armas tu lista de 20 posibles clientes, el primer mensaje y los seguimientos con fecha. Se vende sola a ${PRECIO_GUIA.texto} CLP; con el curso viene incluida.`,
       corto: `Se vende sola a ${PRECIO_GUIA.texto} CLP; aquí viene incluida.`,
     },
   ],

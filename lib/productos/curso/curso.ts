@@ -464,7 +464,7 @@ export const FAQ: { p: string; r: string }[] = [
   },
   {
     p: '¿Qué recibo al comprar?',
-    r: `Los 8 módulos completos desde el primer día: 38 lecciones cortas con su video y su ejercicio, 34 prompts listos para la IA, la planilla del sistema (Excel o Google Sheets) con las fórmulas listas y el ejemplo de Grano Norte, y el módulo 7 para armar tu primer agente. Además, dos bonos incluidos: la planilla lista (la misma planilla, ya armada y en blanco, para usarla hoy sin esperar a terminar las lecciones) y la Guía «Tus próximos 20 clientes», que se vende sola a ${PRECIO_GUIA.texto} CLP. Los dos te esperan en «Tus bonos», dentro del curso. Tu código de acceso está en tu área de miembros de Hotmart.`,
+    r: `Los 8 módulos completos desde el primer día: 38 lecciones cortas con su video y su ejercicio, 34 prompts listos para la IA, la planilla del sistema (Excel o Google Sheets) con las fórmulas listas y el ejemplo de Grano Norte, y el módulo 7 para armar tu primer agente. Además, dos bonos incluidos: la planilla lista (la misma planilla, en blanco y con 5 pasos y avisos adentro para usarla sola desde hoy) y la Guía «Tus próximos 20 clientes», que se vende sola a ${PRECIO_GUIA.texto} CLP. Los dos te esperan en «Tus bonos», dentro del curso. Tu código de acceso está en tu área de miembros de Hotmart.`,
   },
   {
     p: '¿Qué es el agente del módulo 7 y con qué IA funciona?',
