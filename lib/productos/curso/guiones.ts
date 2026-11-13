@@ -1,5 +1,5 @@
 // Guiones de los videos del curso «El sistema de tu negocio: tu primer CRM y ERP en Google Sheets» (v1.1, 8-nov-2026).
-// Módulos 1–6 (claves m{N}-l{i}): grabados el 8-nov-2026; si a una lección le falta el mp4, muestra «Video próximamente»
+// Módulos 1–6 (claves m{N}-l{i}): grabados el 8-nov-2026; módulo 7 (m7-l1…l5): 13-nov-2026; si a una lección le falta el mp4, muestra «Video próximamente»
 // y el guion se puede leer debajo.
 // Al final, los guiones de los videos de la v1.0 regrabados el 8-nov-2026 (claves v05, v08, v09, v11, v12, v13, v17).
 // Los módulos 1–6 y esos videos se grabaron el 8-nov-2026: este archivo dice exactamente lo que dice cada video.
@@ -351,6 +351,62 @@ const CRUDOS: Record<string, { titulo: string; escenas: Escena[] }> = {
     ],
   },
 
+  // ─── Módulo 7 · Tu primer agente (lote 3, 13-nov-2026) ─────────────────────
+  // Tal como quedaron grabados (~/.claude/marca-alvaro/curso/modulo-7/modulo-7.md, «Guion del video 7.N»).
+  'm7-l1': {
+    titulo: 'Crea tu asistente con sus instrucciones',
+    escenas: [
+      A('Álvaro a cámara, oficina creativa con notebook', 'Hasta ahora usaste la IA para armar tu planilla. Ahora vamos a darle un puesto de trabajo: tu primer agente.'),
+      G('Tarjetas: Un agente, en este curso', 'Un agente, en este curso, es un asistente con tres cosas: instrucciones fijas, una memoria, que es tu planilla, y tareas que repite igual cada vez.'),
+      G('Lista: Su inducción, en 5 partes', 'Las instrucciones son su inducción, en cinco partes: quién es, su memoria, los datos de tu negocio, sus tareas y sus reglas de freno.'),
+      G('Ícono de freno: Lo que decide siempre una persona', 'Las reglas de freno ya las tienes del módulo cero: lo que decide siempre una persona.'),
+      G('Ventana de un proyecto, sin logos: Las pegas en un proyecto', 'Las pegas en un proyecto de Claude o de ChatGPT, en la parte que dice instrucciones. Se escriben una vez.'),
+      A('Álvaro a cámara, oficina creativa con notebook', 'Él prepara. Tú decides qué sale.'),
+    ],
+  },
+  'm7-l2': {
+    titulo: 'Dale tu planilla: la memoria de tu agente',
+    escenas: [
+      A('Álvaro a cámara, oficina creativa con notebook', 'Un asistente sin memoria inventa. El tuyo va a usar tu planilla como memoria.'),
+      G('Flujo: De tu planilla a su memoria', 'En Google Sheets la descargas como Excel y la subes a tu proyecto. Un solo archivo trae todas tus hojas.'),
+      G('La planilla: Escribe igual que tus hojas (Grano Norte, ejemplo)', 'Así escribe tus productos y tus clientes igual que en tus hojas, y lo que te devuelve calza con tus fórmulas.'),
+      G('Dos columnas: Ojo: es una foto', 'Ojo: es una foto. Lo que cambia todos los días se lo pegas en el chat. El resto, lo subes de nuevo cada lunes.'),
+      G('El ejercicio de la lección: La pregunta de prueba', 'Hazle la pregunta de prueba. Si nombra tus productos de verdad, tiene memoria.'),
+    ],
+  },
+  'm7-l3': {
+    titulo: 'Tarea uno: del WhatsApp a la fila de Pedidos',
+    escenas: [
+      A('Álvaro a cámara, oficina creativa con notebook', 'Te llega un pedido por WhatsApp. Antes lo anotabas tú. Ahora se lo pasas a tu agente.'),
+      G('Ventana de un proyecto, sin logos: Copias, escribes, pegas', 'Copias el mensaje, escribes «Tarea uno» y lo pegas en tu proyecto.'),
+      G('Ventana de un proyecto, sin logos: La fila y la respuesta', 'En unos segundos te dice qué es, te da la fila para tu hoja Pedidos y la respuesta para tu cliente.'),
+      G('La planilla: Dos bloques, B y H (Grano Norte, ejemplo)', 'Viene en dos bloques para no borrar tus fórmulas: uno va en la columna B y el otro en la H. El precio y el total se calculan solos.'),
+      G('Chat de WhatsApp: Descuento o día sin despacho (Grano Norte, ejemplo)', '¿Y si piden un descuento o un día sin despacho? No lo acepta ni lo rechaza: te avisa a ti.'),
+      A('Álvaro a cámara, oficina creativa con notebook', 'Tú revisas, tú pegas, tú envías.'),
+    ],
+  },
+  'm7-l4': {
+    titulo: 'Tarea dos: el lunes de cobranza',
+    escenas: [
+      A('Álvaro a cámara, oficina creativa con notebook', 'El lunes es el día más incómodo: revisar quién te debe. Que lo prepare tu agente.'),
+      G('La planilla: Copias, escribes «Tarea 2», pegas (Grano Norte, ejemplo)', 'Copias tu hoja Cobranza, escribes «Tarea dos» y la pegas.'),
+      G('Lista: La lista, ordenada (Grano Norte, ejemplo)', 'Te devuelve la lista ordenada. Arriba, a quién llamas tú: quince días de atraso o más, o quien no contesta. Abajo, los mensajes listos, amables o firmes según la fecha.'),
+      G('Totales (Grano Norte, ejemplo)', 'Y al final, cuánto tienes vencido y cuánto vence esta semana.'),
+      G('Ícono de freno: Cuotas, intereses y datos bancarios: tú', 'Si alguien pide cuotas, no lo acepta ni lo rechaza: te lo marca a ti. Y nunca cobra intereses ni pide datos bancarios.'),
+      A('Álvaro a cámara, oficina creativa con notebook', 'Tú envías. Y anotas cuántos minutos te tomó.'),
+    ],
+  },
+  'm7-l5': {
+    titulo: 'Gestiona y mejora tu agente',
+    escenas: [
+      A('Álvaro a cámara, oficina creativa con notebook', 'Tu agente ya trabaja. Ahora lo vas a gestionar como a cualquier persona de tu equipo: con reglas, revisión y números.'),
+      G('Tarjetas: Cinco trampas', 'Primero, pruébalo con cinco trampas. Si cae en una, no lo retes: agrégale una regla.'),
+      G('Frase en pantalla: Escribe en primera persona, como si la mandara yo', 'Una regla por error. En nuestra prueba se arregló con una línea: escribe en primera persona, como si la mandara yo.'),
+      G('Lista: 20 segundos', 'Antes de enviar, veinte segundos: mis datos, ninguna promesa, mi tono.'),
+      G('Tarjetas: Y lo mides', 'Y lo mides: minutos de tu lunes de cobranza, pedidos corregidos, y en tu tablero, lo vencido y lo atrasado.'),
+      A('Álvaro a cámara, oficina creativa con notebook', 'Si no te ahorra tiempo, se ajusta. Eso es optimizar.'),
+    ],
+  },
   // ─── Videos de la v1.0 regrabados con el enfoque v1.1 (8-nov-2026) ─────────────
   // v10 no se regrabó (fuera de alcance): su entrada, si existe, es solo guion.
   'v08-curso-venta': {

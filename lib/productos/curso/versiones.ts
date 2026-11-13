@@ -13,9 +13,16 @@ export const VERSIONES_CURSO: VersionCurso[] = [
     version: '1.3',
     fecha: '2026-11-13',
     cambios: [
+<<<<<<< HEAD
       'La planilla se descarga una vez, en el módulo 0, y en los módulos siguientes sigues trabajando la misma: cada módulo llena una hoja.',
     ],
     porque: 'Cada módulo volvía a ofrecerte bajar la planilla vacía, como si partieras de cero. Ahora la bajas una vez, en el módulo 0, y la vas llenando.',
+=======
+      'Nuevo módulo 7: tu primer agente, un asistente en un proyecto de Claude que usa tu planilla como memoria, pasa pedidos de WhatsApp a tu hoja Pedidos y te arma la cobranza del lunes. Tú revisas y tú envías.',
+      'Ahora son 8 módulos, 38 lecciones y 34 prompts. Duración: cerca de 1 h 45 de lecciones cortas y unas 7 a 8 horas de práctica.',
+      'El Tablero cuenta cada pedido una vez por su N°, aunque tenga varias filas.',
+    ],
+>>>>>>> origin/feat/curso-m7-autollenado
   },
   {
     version: '1.2',

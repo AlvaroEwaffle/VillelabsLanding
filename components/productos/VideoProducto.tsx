@@ -59,7 +59,13 @@ export type VideoId =
   | 'm6-l3'
   | 'm6-l4'
   | 'm6-l5'
-  | 'm6-final';
+  | 'm6-final'
+  // Módulo 7 «Tu primer agente, trabajando con tu planilla» (lote 3, 13-nov-2026)
+  | 'm7-l1'
+  | 'm7-l2'
+  | 'm7-l3'
+  | 'm7-l4'
+  | 'm7-l5';
 
 const HITOS_VIDEO = [25, 50, 100] as const;
 
