@@ -61,7 +61,7 @@ export const CURSO = {
   comoFunciona: [
     'Lecciones cortas con el caso Grano Norte en pantalla: ves la hoja llena antes de llenar la tuya.',
     'Cada módulo agrega una hoja a la misma planilla, ya conectada con las anteriores. No empiezas de cero en cada módulo.',
-    'Cada lección trae su prompt listo para copiar en ChatGPT o Claude: la IA te arma el primer borrador y tú lo revisas.',
+    'Las lecciones donde armas algo traen su prompt listo para copiar en ChatGPT o Claude (27 en total): la IA te arma el primer borrador y tú lo revisas.',
     'Prueba real al cierre de cada módulo: usas la hoja con tu negocio unos días antes de seguir.',
     'Semáforo de cada pieza (rojo, naranja, verde) antes y después, y al final el tablero que lo junta todo.',
   ],
@@ -369,11 +369,11 @@ export const FAQ: { p: string; r: string }[] = [
   },
   {
     p: '¿Tengo que saber de inteligencia artificial o de programación?',
-    r: 'No. Cada lección trae su prompt listo para copiar en ChatGPT o Claude (la versión gratis sirve): te ayuda a armar tu hoja, las fórmulas y tus mensajes. Cambias lo que está entre [corchetes] por los datos de tu negocio y revisas lo que te devuelva antes de usarlo.',
+    r: 'No. Las lecciones donde armas algo traen su prompt listo para copiar en ChatGPT o Claude (la versión gratis sirve): te ayuda a armar tu hoja, las fórmulas y tus mensajes. Cambias lo que está entre [corchetes] por los datos de tu negocio y revisas lo que te devuelva antes de usarlo.',
   },
   {
     p: '¿Qué recibo al comprar?',
-    r: 'Los 7 módulos completos desde el primer día: 33 lecciones cortas con su video, su ejercicio y su prompt para la IA, y la planilla del sistema (Excel o Google Sheets) con las fórmulas listas y el ejemplo de Grano Norte. Tu código de acceso está en tu área de miembros de Hotmart.',
+    r: 'Los 7 módulos completos desde el primer día: 33 lecciones cortas con su video y su ejercicio, 27 prompts listos para la IA y la planilla del sistema (Excel o Google Sheets) con las fórmulas listas y el ejemplo de Grano Norte. Tu código de acceso está en tu área de miembros de Hotmart.',
   },
   {
     p: '¿Qué pasa si me atraso?',

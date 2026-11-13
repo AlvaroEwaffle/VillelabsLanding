@@ -282,7 +282,7 @@ function LeccionSemana() {
         />
       </label>
       <BloqueCopiar
-        titulo="Prompt para ChatGPT o Claude"
+        titulo="Prompt con tu frase y tus temas (se arma solo)"
         texto={montado ? prompt : ''}
         nota="Pégalas tal cual en ChatGPT o Claude: se arman con tu frase y tus temas. Revisa cada pieza antes de publicarla."
       />

@@ -16,7 +16,6 @@ import { Pantallita } from '@/components/productos/Pantallita';
 import { DiagramaChecklistEntrega, DiagramaProcesoPasos } from '@/components/productos/diagramas/modulos';
 import { DiagramaEstadosPedido, DiagramaMensajeAFila, DiagramaResumenPlanilla } from '@/components/productos/diagramas/sistema-m34';
 import {
-  BloqueCopiar,
   BotonDescarga,
   Campos,
   CierreModulo,
@@ -228,19 +227,9 @@ const CAMPOS_CONFIRMACION: Campo[] = [{ id: 'texto', etiqueta: 'Tu mensaje de co
 function LeccionPedidos() {
   const [filas] = useFilas(K.pedidos);
   const montado = useMontado();
-  const negocio = useNegocio();
   const ejemplo = useMemo(() => ejemploPedidos(), []);
   const lista = montado ? filas.filter(conDatos) : [];
   const total = lista.reduce((s, f) => s + totalDe(f), 0);
-  const prompt = [
-    `Te paso los mensajes de pedidos que le llegaron esta semana a ${negocio.trim() || '[mi negocio]'} por WhatsApp y correo.`,
-    'Devuélveme una fila por pedido, con estas columnas y en este orden, separadas por punto y coma:',
-    'Fecha; Cliente; Producto; Cantidad; Fecha de entrega; Responsable',
-    'Si un dato no está en el mensaje, escribe «FALTA». No inventes cantidades ni fechas.',
-    '',
-    'MENSAJES:',
-    '[pega aquí los mensajes]',
-  ].join('\n');
   return (
     <>
       <Explica>
@@ -271,18 +260,7 @@ function LeccionPedidos() {
         <BotonDescarga etiqueta="Descargar para la hoja Pedidos (.csv)" disabled={!montado || lista.length === 0} onClick={() => descargarPedidos(filas)} />
       </div>
       <Freno>Ninguna fecha de entrega se confirma sin revisar stock o capacidad. Si no estás seguro, se anota «por confirmar» y lo decide una persona.</Freno>
-      <details className="group mt-6 rounded-2xl border border-white/10 bg-white/[0.02]">
-        <summary className="flex min-h-[48px] cursor-pointer list-none items-center justify-between gap-3 px-4 text-sm text-slate-300 hover:text-white">
-          <span>Prompt para ChatGPT o Claude</span>
-          <span className="font-mono text-xs text-slate-500 group-open:hidden">ver</span>
-        </summary>
-        <div className="border-t border-white/10 px-4 pb-4">
-          <p className="mt-3 text-sm text-slate-300">
-            Con tu IA: si se te juntaron mensajes sin anotar, pégalos en un chat y pídele las filas. Revisa cada fila antes de pegarla en la hoja: la IA puede inventar una cantidad o una fecha.
-          </p>
-          <BloqueCopiar titulo="Instrucción · mensajes a filas" texto={montado ? prompt : ''} className="mt-3" nota="Donde diga «FALTA», le preguntas al cliente." />
-        </div>
-      </details>
+      {/* 12-nov-2026: el prompt «mensajes a filas» pasó a ser el 3.3 «Del WhatsApp a una fila» (bloque «Prompt para tu IA»). */}
     </>
   );
 }

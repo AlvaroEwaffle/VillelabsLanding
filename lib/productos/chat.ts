@@ -19,7 +19,7 @@ const CURSO: Pregunta[] = [
   },
   {
     p: '¿Qué recibo al comprar?',
-    r: 'Los 7 módulos completos desde el primer día: 33 lecciones cortas con su ejercicio y su prompt para la IA, y la planilla del sistema con las fórmulas listas. Avanzas a tu ritmo.',
+    r: 'Los 7 módulos completos desde el primer día: 33 lecciones cortas con su ejercicio, 27 prompts listos para la IA y la planilla del sistema con las fórmulas listas. Avanzas a tu ritmo.',
   },
   {
     p: '¿Cuánto tiempo necesito?',

@@ -45,7 +45,7 @@ color:#fff;cursor:pointer;box-shadow:0 8px 28px rgba(255,61,139,.35)}button:hove
 </style></head><body><main class="card">
 <p class="eyebrow">Villelab · Curso</p>
 <h1>Entra a tu curso</h1>
-<p>Escribe el código que está en la clase «Empieza aquí» de tu área de miembros en Hotmart. Lo pides una sola vez en este navegador y quedas con los módulos 1 a 6 abiertos.</p>
+<p>Escribe el código que está en la clase «Tu acceso al curso» (módulo «Empieza aquí») de tu área de miembros en Hotmart. Lo pides una sola vez en este navegador y quedas con los módulos 1 a 6 abiertos.</p>
 ${error ? '<div class="error">Ese código no corresponde. Revísalo en Hotmart y vuelve a intentarlo.</div>' : ''}
 <form method="post" action="/curso/acceso">
 <input type="hidden" name="d" value="${escapar(destino)}">
@@ -53,7 +53,7 @@ ${error ? '<div class="error">Ese código no corresponde. Revísalo en Hotmart y
 <input id="codigo" name="codigo" autocomplete="off" autocapitalize="characters" spellcheck="false" required placeholder="CURSO-XXXX-XXXX-XXXX-XXXX">
 <button type="submit">Entrar al curso</button>
 </form>
-<p class="pie">¿Aún no lo tienes? <a href="${COMPRA}" target="_blank" rel="noopener noreferrer">Comprar el curso</a> · <a href="/curso/modulo-0">Ver el módulo 0</a><br>¿Problemas para entrar? Escríbeme por Instagram a @alvarovillena.ia.</p>
+<p class="pie">¿Aún no lo tienes? <a href="${COMPRA}" target="_blank" rel="noopener noreferrer">Comprar el curso</a> · <a href="/curso/modulo-0">Ver el módulo 0</a><br>¿Problemas para entrar? Escríbeme por WhatsApp al +56 9 2011 5198.</p>
 </main></body></html>`;
   return new Response(html, {
     status: error ? 401 : 200,

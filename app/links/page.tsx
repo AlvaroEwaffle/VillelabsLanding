@@ -34,7 +34,7 @@ const PRODUCTOS: Enlace[] = [
   {
     href: LINKS.curso,
     titulo: 'Curso: ordena clientes, pedidos y cobranza en una planilla',
-    bajada: 'En preventa · una planilla que ya sabes usar, sin software nuevo',
+    bajada: 'Los 7 módulos listos · una planilla que ya sabes usar, sin software nuevo',
     Icono: Table2,
   },
   {
