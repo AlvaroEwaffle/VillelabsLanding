@@ -24,6 +24,8 @@ import { useMontado, usePersistido } from '@/lib/productos/curso/persistencia';
 import { Pantallita } from '@/components/productos/Pantallita';
 import { Kicker, PuntoSemaforo } from './piezas';
 import { DescargaPlantilla } from './Plantilla';
+import { BloquePrompt, TarjetaDatosNegocio } from './DatosNegocio';
+import { HUECOS_POR_MODULO } from '@/lib/productos/curso/datos-negocio';
 import {
   BloqueCopiar,
   BotonDescarga,
@@ -49,6 +51,9 @@ import {
   type Campo,
   type LeccionDef,
 } from './leccion';
+
+/** Huecos del módulo 7 que se autollenan con «Los datos de tu negocio» (13-nov-2026). */
+const HUECOS = HUECOS_POR_MODULO.m7;
 
 const K = {
   minutos: claveModulo(7, 'minutos'),
@@ -89,6 +94,7 @@ function Pasos({ items, className = 'mt-4' }: { items: ReactNode[]; className?: 
 function LeccionInstrucciones() {
   return (
     <>
+      <TarjetaDatosNegocio />
       <Aviso titulo="Lo que probamos">
         <p>
           En el video digo «Claude o ChatGPT». Este módulo lo probamos en un <strong className="text-white">proyecto de Claude</strong>, con cuenta pagada, y funcionó en las dos tareas. En ChatGPT y en cuentas gratis todavía no lo probamos.
@@ -109,7 +115,7 @@ function LeccionInstrucciones() {
           <>
             En Claude: <strong className="text-white">Proyectos</strong> (Projects) › <strong className="text-white">Nuevo proyecto</strong> (New project) › <strong className="text-white">Instrucciones</strong> (Instructions › Edit).
           </>,
-          'Copia la plantilla de abajo (prompt 7.1), cambia todo lo que está entre [corchetes] y pega tus reglas de freno del módulo 0 en la regla 7.',
+          'Copia la plantilla de abajo (prompt 7.1): sale con los datos de tu negocio que anotaste arriba. Si algo sigue marcado entre [corchetes], cámbialo antes de pegar; tus reglas de freno van en la regla 7.',
           'No borres las reglas 1 a 6: son las que evitan que prometa algo por ti. Guarda las instrucciones.',
         ]}
       />
@@ -176,7 +182,7 @@ function LeccionMemoria() {
             Si tu plan no te deja subir archivos o se te acabaron los mensajes con adjuntos: copia tus hojas Productos y Clientes (solo nombre, empresa y estado, sin teléfonos ni correos) y pégalas al final de tus instrucciones, bajo el título MI PLANILLA.
           </p>
           <p>Abre un chat nuevo, escribe primero esta frase y después pega todo el texto. Sin esa frase, el asistente puede tratar lo pegado como un documento para revisar.</p>
-          <BloqueCopiar titulo="Frase de arranque" texto={FRASE_ARRANQUE} className="mt-2" nota="Escríbela o pégala sola, como primer mensaje; recién después pega tus instrucciones con MI PLANILLA." />
+          <BloquePrompt titulo="Frase de arranque" texto={FRASE_ARRANQUE} huecos={HUECOS} className="mt-2" nota="Escríbela o pégala sola, como primer mensaje; recién después pega tus instrucciones con MI PLANILLA." />
           <p className="text-slate-400">Este camino no ve tus hojas Pedidos ni Cobranza, así que no te avisa de pedidos abiertos ni facturas vencidas.</p>
         </div>
       </details>
@@ -344,7 +350,7 @@ function LeccionGestiona() {
         <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-[#5fb2dd]">Prompt 7.5 · Las 5 trampas</p>
         <p className="mt-2 text-sm text-slate-300">Envíalas de a una, en un chat nuevo de tu proyecto; cada una tiene su botón de copiar. Cambia lo que está entre [corchetes].</p>
         {TRAMPAS_75.map((t, i) => (
-          <BloqueCopiar key={i} titulo={`Trampa ${i + 1}`} texto={t} className="mt-3" />
+          <BloquePrompt key={i} titulo={`Trampa ${i + 1}`} texto={t} huecos={HUECOS} className="mt-3" />
         ))}
         <div className="mt-3 rounded-2xl border border-white/10 bg-[#131c31] p-4 text-sm text-slate-200">
           <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-[#5fb2dd]">Trampa 5 · no es un prompt para copiar</p>
