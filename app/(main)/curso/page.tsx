@@ -5,6 +5,7 @@ import { VERSION_CURSO } from '@/lib/productos/curso/versiones';
 import CursoContent from '@/components/productos/curso/CursoContent';
 import { fraunces } from '@/lib/productos/fuente';
 import { EXP13 } from '@/lib/productos/curso/exp13';
+import { SCRIPT_ANCLA } from '@/lib/productos/ancla';
 
 
 // 12-nov-2026 23:10 · el título social repite el H1 (el LinkedIn de las 18:30 lo comparte a diario); el nombre largo del curso
@@ -61,6 +62,8 @@ export default function CursoPage() {
     <div className={fraunces.variable}>
       {/* EXP-13: elige la variante del hero antes de pintarlo (constante propia del repo, sin datos de usuarios). */}
       <script dangerouslySetInnerHTML={{ __html: EXP13.script }} />
+      {/* 13-nov-2026: ancla resistente a fbclid (#parte-gratis-hero?fbclid=…): limpia la URL antes del píxel (lib/productos/ancla.ts). */}
+      <script dangerouslySetInnerHTML={{ __html: SCRIPT_ANCLA }} />
       <JsonLd data={JSON_LD} />
       <CursoContent />
     </div>

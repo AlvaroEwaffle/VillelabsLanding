@@ -24,6 +24,7 @@ import { ArrowRight, Check, ChevronDown, ClipboardCheck, ClipboardList, Eye, Fil
 import { LINKS } from '@/lib/productos/links';
 import { ACCESO, AREAS, CASO, CURSO, FAQ, HOJAS, IA_OPCIONAL, MODULOS, PARA_QUIEN, PRECIO_FUNDADOR, PROYECTO_FINAL, PRECIO_CURSO, QUE_ES, textoPrecio, textoPrecioDetalle } from '@/lib/productos/curso/curso';
 import { EXP13 } from '@/lib/productos/curso/exp13';
+import { bajarAlAncla } from '@/lib/productos/ancla';
 import { VERSION_CURSO, VERSIONES_CURSO, fechaLarga } from '@/lib/productos/curso/versiones';
 import EnQueSeBasa from './EnQueSeBasa';
 import CursoLead from './CursoLead';
@@ -67,30 +68,62 @@ function BotonCompra({ ubicacion, texto = 'Quiero el curso', enBarra = false }: 
 }
 
 /**
- * EXP-08 · barra fija de compra en celular (<768 px): precio de lanzamiento + botón a Hotmart. Aparece cuando ningún botón de
- * compra de la página está a la vista, y se esconde sobre los formularios («¿Aún no?»), la sección de compra y el pie, para
- * no tapar nada.
+ * Cuándo se muestran las barras fijas de celular (A y B por igual). Se esconden si hay a la vista un botón de compra, el
+ * formulario del módulo 0 ([data-sin-barra]), la sección de compra o el pie.
+ * 13-nov-2026: la «pantalla» que se vigila se alarga 140 px hacia abajo (alto de la barra + margen), así la barra se va
+ * ANTES de que el formulario o el pie (con su logo) entren por debajo de ella, y no alcanza a taparlos ni un instante.
+ * También se esconde mientras se escribe en el formulario (con el teclado abierto).
  */
-function BarraCompraMovil() {
+function useBarraVisible(): boolean {
   const [visible, setVisible] = useState(false);
   useEffect(() => {
     const objetivos = Array.from(document.querySelectorAll('[data-compra], [data-sin-barra], #comprar, footer'));
     if (!objetivos.length || typeof IntersectionObserver === 'undefined') return;
     const aLaVista = new Set<Element>();
-    const io = new IntersectionObserver((entradas) => {
-      for (const e of entradas) {
-        if (e.isIntersecting) aLaVista.add(e.target);
-        else aLaVista.delete(e.target);
-      }
-      setVisible(aLaVista.size === 0);
-    });
+    let escribiendo = false;
+    const actualizar = () => setVisible(aLaVista.size === 0 && !escribiendo);
+    const io = new IntersectionObserver(
+      (entradas) => {
+        for (const e of entradas) {
+          if (e.isIntersecting) aLaVista.add(e.target);
+          else aLaVista.delete(e.target);
+        }
+        actualizar();
+      },
+      { rootMargin: '0px 0px 140px 0px' },
+    );
     objetivos.forEach((o) => io.observe(o));
-    return () => io.disconnect();
+    const enFormulario = (t: EventTarget | null) => !!(t as Element | null)?.closest?.('[data-sin-barra]');
+    const alEntrar = (e: FocusEvent) => {
+      escribiendo = enFormulario(e.target);
+      actualizar();
+    };
+    const alSalir = (e: FocusEvent) => {
+      escribiendo = enFormulario(e.relatedTarget);
+      actualizar();
+    };
+    document.addEventListener('focusin', alEntrar);
+    document.addEventListener('focusout', alSalir);
+    return () => {
+      io.disconnect();
+      document.removeEventListener('focusin', alEntrar);
+      document.removeEventListener('focusout', alSalir);
+    };
   }, []);
+  return visible;
+}
+
+/**
+ * EXP-08 · barra fija de compra en celular (<768 px): precio de lanzamiento + botón a Hotmart. Aparece cuando ningún botón de
+ * compra de la página está a la vista, y se esconde sobre los formularios («¿Aún no?»), la sección de compra y el pie, para
+ * no tapar nada.
+ */
+function BarraCompraMovil() {
+  const visible = useBarraVisible();
   return (
     <div
       aria-hidden={!visible}
-      className={`fixed inset-x-0 bottom-0 z-[9998] border-t border-white/10 bg-[#0f172a]/95 px-4 pb-[calc(env(safe-area-inset-bottom)+0.75rem)] pt-3 backdrop-blur-md transition-transform duration-300 md:hidden ${
+      className={`fixed inset-x-0 bottom-0 z-[9990] border-t border-white/10 bg-[#0f172a]/95 px-4 pb-[calc(env(safe-area-inset-bottom)+0.75rem)] pt-3 backdrop-blur-md transition-transform duration-300 md:hidden ${
         visible ? 'translate-y-0' : 'pointer-events-none translate-y-full'
       }`}
     >
@@ -116,25 +149,11 @@ function BarraCompraMovil() {
  * BarraCompraMovil: se esconde cuando hay un botón de compra, el formulario del módulo 0 o el pie a la vista.
  */
 function BarraModulo0Movil() {
-  const [visible, setVisible] = useState(false);
-  useEffect(() => {
-    const objetivos = Array.from(document.querySelectorAll('[data-compra], [data-sin-barra], #comprar, footer'));
-    if (!objetivos.length || typeof IntersectionObserver === 'undefined') return;
-    const aLaVista = new Set<Element>();
-    const io = new IntersectionObserver((entradas) => {
-      for (const e of entradas) {
-        if (e.isIntersecting) aLaVista.add(e.target);
-        else aLaVista.delete(e.target);
-      }
-      setVisible(aLaVista.size === 0);
-    });
-    objetivos.forEach((o) => io.observe(o));
-    return () => io.disconnect();
-  }, []);
+  const visible = useBarraVisible();
   return (
     <div
       aria-hidden={!visible}
-      className={`fixed inset-x-0 bottom-0 z-[9998] border-t border-white/10 bg-[#0f172a]/95 px-4 pb-[calc(env(safe-area-inset-bottom)+0.75rem)] pt-3 backdrop-blur-md transition-transform duration-300 md:hidden ${
+      className={`fixed inset-x-0 bottom-0 z-[9990] border-t border-white/10 bg-[#0f172a]/95 px-4 pb-[calc(env(safe-area-inset-bottom)+0.75rem)] pt-3 backdrop-blur-md transition-transform duration-300 md:hidden ${
         visible ? 'translate-y-0' : 'pointer-events-none translate-y-full'
       }`}
     >
@@ -201,6 +220,9 @@ export default function CursoContent() {
   useEffect(() => {
     EXP13.avisar(EXP13.asignar());
   }, []);
+
+  // 13-nov-2026: si el anuncio llegó con el fbclid pegado al ancla (#parte-gratis-hero?fbclid=…), baja al formulario.
+  useEffect(() => bajarAlAncla(), []);
 
   return (
     <main className="relative w-full overflow-x-hidden bg-[#0f172a] text-slate-100">

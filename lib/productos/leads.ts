@@ -101,6 +101,7 @@ export async function registrarLead(datos: DatosLead): Promise<boolean> {
   const cuerpo = armarCuerpo(datos);
   // Aviso al Slack de Villelabs (en el hilo de la visita), salga o no el registro en Fidelidapp.
   registrarEvento('lead', { detalle: datos.producto, nombre: datos.nombre, correo: datos.correo, datos: datos.detalles ?? {} });
+  // Con utm_source=qa o navegador automatizado, eventoPixel no manda el Lead a Meta (lib/productos/pixel.ts).
   eventoPixel('Lead', { content_name: datos.producto });
   const ok = await enviar(cuerpo);
   if (!ok) guardarCola([...leerCola(), { cuerpo, intentos: 1, fecha: new Date().toISOString() }]);
