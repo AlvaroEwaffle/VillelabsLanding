@@ -40,7 +40,7 @@ export const CAMPOS_NEGOCIO: CampoNegocio[] = [
   {
     id: 'despacho',
     etiqueta: 'Despacho: dónde, qué días y cómo se llama en tu lista de productos',
-    placeholder: 'Ej.: solo en Valparaíso, martes y jueves. En mi lista se llama «Despacho Valparaíso»',
+    placeholder: 'Ej.: Valparaíso, martes y jueves. En mi lista: «Despacho Valparaíso»',
     ayuda: 'Si no despachas, escribe «no despachamos».',
     max: 200,
   },
@@ -51,7 +51,7 @@ export const CAMPOS_NEGOCIO: CampoNegocio[] = [
   {
     id: 'reglas',
     etiqueta: 'Tus reglas de freno, una por línea',
-    placeholder: 'Ej.:\nCambios y devoluciones de producto los decido yo.\nNo ofrezcas muestras ni regalos.',
+    placeholder: 'Ej.: Cambios y devoluciones los decido yo.\nNo ofrezcas muestras ni regalos.',
     ayuda: 'Las que elegiste en el módulo 0 o en el esqueleto. Van como regla 7 de tu agente.',
     max: 1800,
     lineas: 20,
