@@ -11,6 +11,7 @@
  */
 // 13-nov-2026: vive en ./precio (módulo chico) para que el píxel lo lea sin cargar este archivo en todas las páginas.
 import { PRECIO_FUNDADOR } from './precio';
+import { PRECIO_GUIA } from '../guia/venta';
 export { PRECIO_FUNDADOR };
 export const PRECIO_NORMAL = 59990;
 export const CUPOS_FUNDADOR = 20;
@@ -418,7 +419,7 @@ export const ACCESO = {
     { cuando: 'Listo', modulo: 6, texto: 'Módulo 6 · El tablero + cierre: antes y después' },
     { cuando: 'Listo', modulo: 7, texto: 'Módulo 7 · Tu primer agente, trabajando con tu planilla' },
   ],
-  nota: 'Al comprar, tu código de acceso está en tu área de miembros de Hotmart. Lo pegas una vez en este navegador y entras a los 8 módulos.',
+  nota: 'Al comprar, tu código de acceso está en tu área de miembros de Hotmart. Lo pegas una vez en este navegador y entras a los 8 módulos y a «Tus bonos» (la planilla lista y la Guía).',
 } as const;
 
 export const PARA_QUIEN = {
@@ -463,7 +464,7 @@ export const FAQ: { p: string; r: string }[] = [
   },
   {
     p: '¿Qué recibo al comprar?',
-    r: 'Los 8 módulos completos desde el primer día: 38 lecciones cortas con su video y su ejercicio, 34 prompts listos para la IA, la planilla del sistema (Excel o Google Sheets) con las fórmulas listas y el ejemplo de Grano Norte, y el módulo 7 para armar tu primer agente. Tu código de acceso está en tu área de miembros de Hotmart.',
+    r: `Los 8 módulos completos desde el primer día: 38 lecciones cortas con su video y su ejercicio, 34 prompts listos para la IA, la planilla del sistema (Excel o Google Sheets) con las fórmulas listas y el ejemplo de Grano Norte, y el módulo 7 para armar tu primer agente. Además, dos bonos incluidos: la planilla lista (la misma planilla, en blanco y con 5 pasos y avisos adentro para usarla sola desde hoy) y la Guía «Tus próximos 20 clientes», que se vende sola a ${PRECIO_GUIA.texto} CLP. Los dos te esperan en «Tus bonos», dentro del curso. Tu código de acceso está en tu área de miembros de Hotmart.`,
   },
   {
     p: '¿Qué es el agente del módulo 7 y con qué IA funciona?',

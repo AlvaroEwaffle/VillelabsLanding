@@ -4,6 +4,8 @@
 // describe con lo que hizo en la prueba (~/.claude/marca-alvaro/curso/modulo-7/prueba.md). Fuentes: HOJAS y CURSO.comoFunciona (curso.ts), FAQ «¿Qué recibo?», y el outline
 // del 13-nov (~/.claude/marca-alvaro/planes/pdf/Outline-curso-2026-11-13.html: 33 lecciones, 27 prompts, ~28 min de video).
 
+import { PRECIO_GUIA } from '../guia/venta';
+
 export const LLEVAS = [
   {
     clave: '9 hojas',
@@ -26,6 +28,30 @@ export const LLEVAS = [
     texto: 'Al comprar entras a los 8 módulos completos. No se cierran: avanzas cuando puedes y retomas donde quedaste.',
   },
 ] as const;
+
+/**
+ * Pack del curso (13-nov-2026, decisión de Álvaro): el mismo producto de Hotmart (8921667), al mismo precio, incluye dos bonos.
+ * Se entregan solos dentro del curso, en «Tus bonos» (/curso/bonos). La Guía se sigue vendiendo sola: su precio se dice tal
+ * cual, sin precio tachado ni «valor total» inventado, sin «por tiempo limitado», cupos ni fechas.
+ */
+export const PACK = {
+  titulo: 'Curso (8 módulos) + la planilla lista + la Guía «Tus próximos 20 clientes»',
+  bonos: [
+    {
+      clave: 'Bono 1',
+      titulo: 'La planilla lista',
+      texto: 'La misma planilla del curso, en blanco y con instrucciones adentro: 5 pasos para partir, las celdas que se calculan solas en gris y avisos si una fecha o un monto quedan mal escritos. Para usarla sola desde hoy, aunque no hayas visto las lecciones.',
+      corto: 'La misma planilla, con 5 pasos y avisos adentro para usarla sola desde hoy.',
+    },
+    {
+      clave: 'Bono 2',
+      titulo: 'La Guía «Tus próximos 20 clientes»',
+      texto: `En una tarde armas tu lista de 20 posibles clientes, el primer mensaje y los seguimientos con fecha. Se vende sola a ${PRECIO_GUIA.texto} CLP; con el curso viene incluida.`,
+      corto: `Se vende sola a ${PRECIO_GUIA.texto} CLP; aquí viene incluida.`,
+    },
+  ],
+  entrega: 'Los dos bonos te esperan dentro del curso, en «Tus bonos», apenas entras con tu código.',
+} as const;
 
 /** Una por módulo (0–7), del objetivo real de cada uno, en lenguaje llano. */
 export const APRENDES = [

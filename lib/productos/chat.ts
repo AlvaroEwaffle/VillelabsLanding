@@ -19,7 +19,7 @@ const CURSO: Pregunta[] = [
   },
   {
     p: '¿Qué recibo al comprar?',
-    r: 'Los 8 módulos completos desde el primer día: 38 lecciones cortas con su ejercicio, 34 prompts listos para la IA, la planilla del sistema con las fórmulas listas y, en el módulo 7, un agente de IA que trabaja con tu planilla: te arma los pedidos de WhatsApp y la cobranza del lunes, y tú revisas y envías. Avanzas a tu ritmo.',
+    r: `Los 8 módulos completos desde el primer día: 38 lecciones cortas con su ejercicio, 34 prompts listos para la IA, la planilla del sistema con las fórmulas listas y, en el módulo 7, un agente de IA que trabaja con tu planilla: te arma los pedidos de WhatsApp y la cobranza del lunes, y tú revisas y envías. Además, dos bonos incluidos: la planilla lista (la misma planilla, con 5 pasos y avisos adentro para usarla sola desde hoy) y la Guía «Tus próximos 20 clientes», que se vende sola a ${PRECIO_GUIA.texto} CLP. Avanzas a tu ritmo.`,
   },
   {
     p: '¿Cuánto tiempo necesito?',
@@ -38,7 +38,7 @@ const GUIA: Pregunta[] = [
   },
   {
     p: '¿Qué incluye?',
-    r: 'Una guía interactiva (diagnóstico + 6 partes), tu primer CRM en Google Sheets o Excel, tus mensajes listos para escribirle a cada posible cliente uno a uno, y el certificado. Toma 2,5 a 3 horas, más 5 días de prueba real.',
+    r: 'Una guía interactiva (diagnóstico + 6 partes), tu primer CRM en Google Sheets o Excel, tus mensajes listos para escribirle a cada posible cliente uno a uno, y el certificado. Toma 2,5 a 3 horas, más 5 días de prueba real. También viene incluida en el curso, si quieres los dos.',
   },
   {
     p: '¿Y si no me sirve?',

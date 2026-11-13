@@ -5,14 +5,15 @@
 // Slack, una vez, sin datos personales: «🧭 vio Qué te llevas».
 import Link from 'next/link';
 import { useCallback, useRef } from 'react';
-import { ArrowRight, BookOpen, Bot, ClipboardList, FileSpreadsheet, Handshake, LayoutDashboard, Map as MapIcon, Megaphone, MessageCircle, Sparkles, Wallet, type LucideIcon } from 'lucide-react';
-import { APRENDES, LLEVAS, TIEMPO } from '@/lib/productos/curso/llevas';
+import { ArrowRight, BookOpen, Bot, ClipboardList, FileSpreadsheet, Gift, Handshake, LayoutDashboard, Map as MapIcon, Megaphone, MessageCircle, Sparkles, Wallet, type LucideIcon } from 'lucide-react';
+import { APRENDES, LLEVAS, PACK, TIEMPO } from '@/lib/productos/curso/llevas';
 import { MODULOS } from '@/lib/productos/curso/curso';
 import { useAparecer } from '@/lib/productos/aparecer';
 import { registrarEvento } from '@/lib/productos/eventos';
 import { Kicker } from './piezas';
 
 const ICONO_LLEVAS: LucideIcon[] = [FileSpreadsheet, Sparkles, BookOpen, LayoutDashboard];
+const ICONO_BONO: LucideIcon[] = [FileSpreadsheet, BookOpen];
 const ICONO_MODULO: Record<number, LucideIcon> = { 0: MapIcon, 1: Handshake, 2: Megaphone, 3: ClipboardList, 4: MessageCircle, 5: Wallet, 6: LayoutDashboard, 7: Bot };
 
 export default function QueTeLlevas() {
@@ -47,6 +48,32 @@ export default function QueTeLlevas() {
           );
         })}
       </ul>
+      {/* Pack (13-nov-2026): el curso incluye dos bonos, en el mismo producto y al mismo precio. Común a A y B de EXP-15. */}
+      <div data-aparece className="relative mt-6 overflow-hidden rounded-2xl border border-[#FF3D8B]/40 bg-gradient-to-br from-[#FF3D8B]/10 via-[#111a2e] to-[#0f172a] p-5 sm:p-6">
+        <p className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.18em] text-[#ff8fbd]">
+          <Gift className="h-4 w-4" aria-hidden /> Incluido en el curso
+        </p>
+        <p className="mt-2 font-serif text-xl text-white sm:text-2xl">{PACK.titulo}</p>
+        <ul className="mt-4 grid gap-3 sm:grid-cols-2">
+          {PACK.bonos.map((b, i) => {
+            const Icono = ICONO_BONO[i];
+            return (
+              <li key={b.clave} data-aparece className="flex gap-3 rounded-xl border border-white/10 bg-white/[0.03] p-4">
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#FF3D8B]/15 ring-1 ring-[#FF3D8B]/30">
+                  <Icono className="h-5 w-5 text-[#ff8fbd]" aria-hidden />
+                </span>
+                <div className="min-w-0">
+                  <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-[#ff8fbd]">{b.clave}</p>
+                  <p className="mt-1 font-semibold text-slate-100">{b.titulo}</p>
+                  <p className="mt-1 text-sm text-slate-300">{b.texto}</p>
+                </div>
+              </li>
+            );
+          })}
+        </ul>
+        <p className="mt-3 text-xs text-slate-400">{PACK.entrega}</p>
+      </div>
+
       {/* CRM y ERP explicados una sola vez por página: en la B de EXP-15 ya lo dicen los chips del hero. */}
       <p data-aparece className="exp15-A mt-4 text-sm text-slate-400">
         En simple: <span className="font-mono text-[#9fd3ee]">CRM</span> = tus clientes y lo que les vendes ·{' '}

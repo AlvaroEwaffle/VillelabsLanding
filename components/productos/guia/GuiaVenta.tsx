@@ -269,6 +269,13 @@ export default function GuiaVenta() {
               {PRECIO_GUIA.texto} CLP · o {PRECIO_GUIA.cuotas}
             </p>
           </div>
+          {/* Pack (13-nov-2026): la Guía es bono del curso. Una línea; no cambia el precio ni el botón de la Guía. */}
+          <p className="mt-4 text-sm text-slate-300">
+            ¿Quieres también el curso? La Guía viene incluida.{' '}
+            <Link href="/curso" className="inline-flex min-h-[44px] items-center text-[#5fb2dd] underline underline-offset-2 hover:text-white">
+              Ver el curso
+            </Link>
+          </p>
         </div>
       </Seccion>
 
