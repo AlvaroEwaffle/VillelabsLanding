@@ -4,7 +4,7 @@ import { CURSO, FAQ } from '@/lib/productos/curso/curso';
 import { VERSION_CURSO } from '@/lib/productos/curso/versiones';
 import CursoContent from '@/components/productos/curso/CursoContent';
 import { fraunces } from '@/lib/productos/fuente';
-import { EXP13 } from '@/lib/productos/curso/exp13';
+import { EXP15 } from '@/lib/productos/curso/exp15';
 import { SCRIPT_ANCLA } from '@/lib/productos/ancla';
 
 
@@ -60,8 +60,8 @@ const JSON_LD = [
 export default function CursoPage() {
   return (
     <div className={fraunces.variable}>
-      {/* EXP-13: elige la variante del hero antes de pintarlo (constante propia del repo, sin datos de usuarios). */}
-      <script dangerouslySetInnerHTML={{ __html: EXP13.script }} />
+      {/* EXP-15: elige la variante del hero antes de pintarlo (constante propia del repo, sin datos de usuarios). */}
+      <script dangerouslySetInnerHTML={{ __html: EXP15.script }} />
       {/* 13-nov-2026: ancla resistente a fbclid (#parte-gratis-hero?fbclid=…): limpia la URL antes del píxel (lib/productos/ancla.ts). */}
       <script dangerouslySetInnerHTML={{ __html: SCRIPT_ANCLA }} />
       <JsonLd data={JSON_LD} />

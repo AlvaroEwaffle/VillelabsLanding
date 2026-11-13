@@ -16,5 +16,7 @@ export const FOTOS = {
   casual: { src: '/fotos/alvaro-casual.webp', alt: 'Álvaro Villena de pie con un café', w: 0, h: 'vertical' },
   retrato: { src: '/fotos/alvaro-portrait.webp', alt: 'Retrato de Álvaro Villena', w: 0, h: 'vertical' },
   trabajando: { src: '/fotos/alvaro-working.webp', alt: 'Álvaro Villena trabajando en su notebook', w: 0, h: 'vertical' },
+  // 13-nov-2026: foto REAL (iPhone, su living; original en AlvaroVillenaLanding/public/gallery). «trabajando» también es real.
+  sonrisa: { src: '/fotos/alvaro-sonrisa.jpg', alt: 'Álvaro Villena sonriendo, en su casa', w: 834, h: 'cuadrada' },
   ciudad: { src: '/fotos/alvaro-ciudad.jpg', alt: 'Álvaro Villena en una terraza con la ciudad de fondo', w: 0, h: 'vertical' },
 } as const;

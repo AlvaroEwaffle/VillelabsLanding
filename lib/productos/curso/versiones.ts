@@ -4,9 +4,19 @@
 
 export { fechaLarga } from '@/lib/productos/guia/versiones';
 
-export type VersionCurso = { version: string; fecha: string; cambios: string[] };
+// 13-nov-2026: `porque` = la razón verdadera (lo que se midió o se corrigió), en primera persona. Si no consta, no va.
+// Cuando se publique el módulo 7, su entrada va arriba y pasa a ser la destacada en /curso (sección «Reviso este curso…»).
+export type VersionCurso = { version: string; fecha: string; cambios: string[]; porque?: string };
 
 export const VERSIONES_CURSO: VersionCurso[] = [
+  {
+    version: '1.3',
+    fecha: '2026-11-13',
+    cambios: [
+      'La planilla se descarga una vez, en el módulo 0, y en los módulos siguientes sigues trabajando la misma: cada módulo llena una hoja.',
+    ],
+    porque: 'Cada módulo volvía a ofrecerte bajar la planilla vacía, como si partieras de cero. Ahora la bajas una vez, en el módulo 0, y la vas llenando.',
+  },
   {
     version: '1.2',
     fecha: '2026-11-12',
@@ -15,6 +25,8 @@ export const VERSIONES_CURSO: VersionCurso[] = [
       'Los 27 prompts para tu IA quedan dentro de las lecciones, con botón copiar, en los 7 módulos.',
       'Duración medida: cerca de 1 h 30 de lecciones cortas y unas 6 horas de práctica.',
     ],
+    porque:
+      'Medí cuánto duran de verdad los videos y la lectura y ajusté la duración que dice la página. Dejé los 27 prompts dentro de las lecciones, y como los 7 módulos ya estaban grabados, dejó de ser preventa.',
   },
   {
     version: '1.1',

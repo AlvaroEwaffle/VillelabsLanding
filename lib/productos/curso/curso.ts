@@ -56,11 +56,11 @@ export const CURSO = {
     { etiqueta: 'Duración', valor: 'cerca de 1 h 30 de lecciones + unas 6 h de práctica' },
     { etiqueta: 'Herramienta', valor: 'Google Sheets (gratis) o Excel' },
     { etiqueta: 'Cada lección', valor: 'idea → ejemplo → tu hoja → prueba real' },
-    { etiqueta: 'Proyecto final', valor: 'tu ERP en Google Sheets con su tablero' },
+    { etiqueta: 'Proyecto final', valor: 'tu sistema en una planilla, con su tablero' },
   ],
   comoFunciona: [
     'Lecciones cortas con el caso Grano Norte en pantalla: ves la hoja llena antes de llenar la tuya.',
-    'Cada módulo agrega una hoja a la misma planilla, ya conectada con las anteriores. No empiezas de cero en cada módulo.',
+    'Cada módulo llena una hoja de la misma planilla, ya conectada con las anteriores. No empiezas de cero en cada módulo.',
     'Las lecciones donde armas algo traen su prompt listo para copiar en ChatGPT o Claude (27 en total): la IA te arma el primer borrador y tú lo revisas.',
     'Prueba real al cierre de cada módulo: usas la hoja con tu negocio unos días antes de seguir.',
     'Semáforo de cada pieza (rojo, naranja, verde) antes y después, y al final el tablero que lo junta todo.',
