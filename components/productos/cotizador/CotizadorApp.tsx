@@ -16,7 +16,6 @@ import {
   Send,
   UserSearch,
   Workflow,
-  X,
 } from 'lucide-react';
 import { DISCOVERY_CALL_URL } from '@/lib/scheduling';
 import { NOTA_IVA, PRECIOS_AGENTES, uf } from '@/lib/precios';
@@ -34,13 +33,12 @@ import {
 } from '@/lib/productos/cotizador/datos';
 import { enviarCotizacion, paso } from '@/lib/productos/cotizador/enviar';
 import { reintentarPendientes } from '@/lib/productos/leads';
-import { Pantallita } from '@/components/productos/Pantallita';
 import { botonPrimario, botonSecundario, claseInput } from '@/components/productos/esqueleto/ui';
 
 /*
  * /cotizador — «Cotiza tu agente» (borrador 12-nov-2026, solo preview). Vende el servicio de agentes con una
  * herramienta que te arma algo (como /esqueleto) en vez de una página para leer.
- * Pasos: 1) elegir trabajos (tarjetas, más de una) → 2) tres preguntas de un toque → 3) la cotización en pantalla,
+ * Pasos: 1) elegir trabajos (tarjetas, más de una; tocar solo marca/desmarca, sin ejemplo desplegable desde el 12-nov) → 2) tres preguntas de un toque → 3) la cotización en pantalla,
  * sin pedir correo. Acciones: agendar 30 min (DISCOVERY_CALL_URL, la misma de /agentes) o «Mándame esta cotización».
  * Slack: cada avance va al hilo de la visita como «🧭 cotizador · …» (lib/productos/cotizador/enviar.ts). Los botones
  * de la herramienta llevan data-sin-rastreo para no duplicar el clic genérico de Rastreo.
@@ -100,69 +98,9 @@ function Chip({ activa, onClick, children, rol = 'radio' }: { activa: boolean; o
   );
 }
 
-function Ejemplo({ id, cerrar, otro, setOtro }: { id: TrabajoId; cerrar: () => void; otro: string; setOtro: (v: string) => void }) {
-  const t = trabajo(id);
-  if (id === 'otro') {
-    return (
-      <div className="col-span-2 rounded-2xl border border-[#5fb2dd]/30 bg-[#5fb2dd]/[0.06] p-4">
-        <label htmlFor="cot-otro" className="text-base font-medium text-white">
-          Cuéntame qué tarea se repite en tu negocio
-        </label>
-        <textarea
-          id="cot-otro"
-          rows={3}
-          value={otro}
-          onChange={(e) => setOtro(e.target.value.slice(0, 300))}
-          placeholder="Ej.: cada lunes paso a mano los pedidos de la semana a una planilla"
-          className={`${claseInput} mt-2`}
-        />
-      </div>
-    );
-  }
-  return (
-    <div className="col-span-2" aria-live="polite">
-      <div className="mb-2 flex items-start justify-between gap-3">
-        <p className="text-sm text-slate-300">
-          <span className="font-medium text-white">Cada día:</span> {t.diario}
-        </p>
-        <button
-          type="button"
-          onClick={cerrar}
-          aria-label="Cerrar ejemplo"
-          className="-mr-2 -mt-2 inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-slate-400 hover:bg-white/5"
-        >
-          <X className="h-4 w-4" />
-        </button>
-      </div>
-      <Pantallita titulo={`Ejemplo · ${t.nombre}`}>
-        <div className="space-y-2 text-sm leading-snug">
-          {t.ejemplo.map((l, i) => (
-            <p
-              key={i}
-              className={`whitespace-pre-line rounded-xl px-3 py-2 ${
-                l.de === 'cliente'
-                  ? 'mr-8 bg-[#e2e8f0]'
-                  : l.de === 'nota'
-                    ? 'border border-dashed border-[#94a3b8] bg-[#fff7ed]'
-                    : 'ml-4 bg-[#dbeafe]'
-              }`}
-            >
-              {l.de === 'cliente' ? <span className="block text-[11px] font-semibold uppercase tracking-wide text-[#475569]">Cliente</span> : null}
-              {l.de === 'agente' && i === 0 ? <span className="block text-[11px] font-semibold uppercase tracking-wide text-[#1d5f85]">Tu agente</span> : null}
-              {l.texto}
-            </p>
-          ))}
-        </div>
-      </Pantallita>
-      <p className="mt-2 text-xs text-slate-500">Mensaje de ejemplo, no es un caso real.</p>
-    </div>
-  );
-}
-
 export default function CotizadorApp() {
   const [e, setE] = useState<Estado>(vacio);
   const [etapa, setEtapa] = useState<Etapa>('trabajos');
-  const [abierto, setAbierto] = useState<TrabajoId | null>(null);
   const [form, setForm] = useState(false);
   const [nombre, setNombre] = useState('');
   const [correo, setCorreo] = useState('');
@@ -203,10 +141,7 @@ export default function CotizadorApp() {
       paso('empezó', 'cotizador_inicio');
     }
     cambiar((x) => ({ ...x, elegidos: ya ? x.elegidos.filter((y) => y !== id) : [...x.elegidos, id] }));
-    if (ya) {
-      if (abierto === id) setAbierto(null);
-    } else {
-      setAbierto(id);
+    if (!ya) {
       paso(`eligió «${trabajo(id).nombre}»`, 'cotizador_trabajo', { cotizador_trabajo: id });
     }
   };
@@ -263,11 +198,11 @@ export default function CotizadorApp() {
               Toca uno o más. Te muestro qué haría cada día y cuánto cuesta, sin pedirte el correo.
             </p>
 
-            <div className="mt-4 grid grid-flow-row-dense grid-cols-2 gap-2 sm:gap-3" role="group" aria-label="Trabajos para tu agente">
+            <div className="mt-4 grid grid-cols-2 gap-2 sm:gap-3" role="group" aria-label="Trabajos para tu agente">
               {TRABAJOS.map((t) => {
                 const Icono = ICONO[t.id];
                 const activo = e.elegidos.includes(t.id);
-                return [
+                return (
                   <button
                     key={t.id}
                     type="button"
@@ -275,7 +210,7 @@ export default function CotizadorApp() {
                     aria-checked={activo}
                     onClick={() => tocarTrabajo(t.id)}
                     className={`relative flex min-h-[108px] flex-col items-start rounded-2xl border p-3 text-left transition ${
-                      activo ? 'border-[#5fb2dd] bg-[#2175a1]/25' : 'border-white/12 bg-white/[0.03] hover:border-white/30'
+                      activo ? 'border-[#5fb2dd] bg-[#2175a1]/25' : 'border-white/15 bg-white/[0.03] hover:border-white/30'
                     }`}
                   >
                     <span className="flex w-full items-center justify-between">
@@ -289,19 +224,26 @@ export default function CotizadorApp() {
                     </span>
                     <span className="mt-2 text-[0.95rem] font-semibold leading-tight text-white">{t.nombre}</span>
                     <span className="mt-1 text-[0.8rem] leading-snug text-slate-400">{t.corto}</span>
-                  </button>,
-                  abierto === t.id && activo ? (
-                    <Ejemplo
-                      key={`${t.id}-ej`}
-                      id={t.id}
-                      cerrar={() => setAbierto(null)}
-                      otro={e.otro}
-                      setOtro={(v) => cambiar((x) => ({ ...x, otro: v }))}
-                    />
-                  ) : null,
-                ];
+                  </button>
+                );
               })}
             </div>
+            {/* «Otro»: el texto libre va debajo de la grilla, para no mover ni tapar las tarjetas (pedido de Álvaro, 12-nov). */}
+            {e.elegidos.includes('otro') ? (
+              <div className="mt-4">
+                <label htmlFor="cot-otro" className="text-base font-medium text-white">
+                  Cuéntame qué tarea se repite en tu negocio
+                </label>
+                <textarea
+                  id="cot-otro"
+                  rows={3}
+                  value={e.otro}
+                  onChange={(ev) => cambiar((x) => ({ ...x, otro: ev.target.value.slice(0, 300) }))}
+                  placeholder="Ej.: cada lunes paso a mano los pedidos de la semana a una planilla"
+                  className={`${claseInput} mt-2`}
+                />
+              </div>
+            ) : null}
             <p className="mt-5 text-sm text-slate-400">Ewaffle y Fidelidapp, mis negocios, funcionan con agentes como estos todos los días. — Álvaro Villena</p>
           </section>
         )}
