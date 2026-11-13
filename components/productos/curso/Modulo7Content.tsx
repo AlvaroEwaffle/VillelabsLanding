@@ -24,6 +24,7 @@ import { useMontado, usePersistido } from '@/lib/productos/curso/persistencia';
 import { Pantallita } from '@/components/productos/Pantallita';
 import { Kicker, PuntoSemaforo } from './piezas';
 import { DescargaPlantilla } from './Plantilla';
+import { FECHA_PUBLICACION_M7, fechaLarga } from '@/lib/productos/curso/versiones';
 import { BloquePrompt, TarjetaDatosNegocio } from './DatosNegocio';
 import { HUECOS_POR_MODULO } from '@/lib/productos/curso/datos-negocio';
 import {
@@ -231,7 +232,7 @@ function LeccionTareaUno() {
           <strong className="text-white">En el computador, no en el celular.</strong> Copia el bloque con su botón de copiar, haz clic en la celda B de la primera fila vacía y pega. Haz lo mismo con el bloque 2 en la columna H de esa fila.
         </p>
         <p>
-          <strong className="text-white">El N° lo escribes tú:</strong> el siguiente de tu lista, el mismo en todas las filas de ese pedido. El Tablero cuenta cada pedido una vez por su N°: un pedido con 2 productos y despacho son 3 filas, pero suma 1 en «Pedidos por entregar». (Si bajaste tu planilla antes del 13 de noviembre, tu Tablero todavía cuenta filas.)
+          <strong className="text-white">El N° lo escribes tú:</strong> el siguiente de tu lista, el mismo en todas las filas de ese pedido. El Tablero cuenta cada pedido una vez por su N°: un pedido con 2 productos y despacho son 3 filas, pero suma 1 en «Pedidos por entregar». (Si bajaste tu planilla antes del {fechaLarga(FECHA_PUBLICACION_M7)}, tu Tablero todavía cuenta filas: baja una planilla nueva en el módulo 0 y copia su hoja Tablero en la tuya.)
         </p>
         <p>
           Si pegaste en la columna equivocada, lo vas a notar: aparecen <strong className="text-white">triángulos rojos</strong> («Elige un valor de la lista»). Deshaz con Ctrl+Z (Cmd+Z en Mac) y vuelve a pegar.

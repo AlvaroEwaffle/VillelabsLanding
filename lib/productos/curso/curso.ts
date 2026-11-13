@@ -9,7 +9,9 @@
  * 12-nov-2026 (Álvaro, «haz todos los ajustes»): se dice «precio de lanzamiento», sin fecha, sin cupos y sin «sube
  * después». Ya no se dice «preventa»: los módulos están grabados y abiertos para quien compra (8 desde el módulo 7).
  */
-export const PRECIO_FUNDADOR: number | null = 29990;
+// 13-nov-2026: vive en ./precio (módulo chico) para que el píxel lo lea sin cargar este archivo en todas las páginas.
+import { PRECIO_FUNDADOR } from './precio';
+export { PRECIO_FUNDADOR };
 export const PRECIO_NORMAL = 59990;
 export const CUPOS_FUNDADOR = 20;
 export const MONEDA_PRECIO = 'CLP';
@@ -88,9 +90,9 @@ export const SISTEMA_AGENTE = {
   gestion: {
     titulo: 'Gestión de clientes y operación',
     items: [
-      { nombre: 'Registra pedidos', texto: 'Le pegas el WhatsApp del cliente y te devuelve la fila para tu hoja Pedidos y la respuesta sugerida, sin confirmar fechas ni descuentos que no decidiste.' },
+      { nombre: 'Te arma el pedido', texto: 'Le pegas el WhatsApp del cliente y te devuelve la fila para tu hoja Pedidos y la respuesta sugerida, sin confirmar fechas ni descuentos que no decidiste.' },
       { nombre: 'Te avisa qué cobrar', texto: 'Le pegas tu hoja Cobranza y te dice a quién escribir, a quién llamas tú y el mensaje listo, con el total vencido y lo que vence esta semana.' },
-      { nombre: 'Cruza lo que ya sabes', texto: 'Si el cliente que te escribe tiene un pedido abierto o una factura vencida, te lo avisa.' },
+      { nombre: 'Cruza lo que ya sabes', texto: 'Si el cliente que te escribe tiene un pedido abierto o una factura vencida según la planilla que le subiste, te lo avisa.' },
     ],
     cierre: 'El agente prepara; tú revisas y envías. No se conecta a tu WhatsApp ni escribe solo en tu planilla.',
   },
@@ -110,7 +112,7 @@ export const CURSO = {
   apellido: 'Sin programar, en Google Sheets',
   /** Nombre completo (igual en Hotmart) para metadata y referencias desde otros productos. */
   nombreCompleto: 'Construye con IA tu sistema de gestión CRM y ERP para tu negocio, sin programar',
-  promesa: `${DURACION_CURSO} Ahí quedan tus clientes y en qué va cada uno, de dónde llegan, los pedidos, la atención, la cobranza y la caja, y cada módulo trae prompts listos para copiar en ChatGPT o Claude.`,
+  promesa: `${DURACION_CURSO} Ahí quedan tus clientes y en qué va cada uno, de dónde llegan, los pedidos, la atención, la cobranza y la caja, y cada módulo trae prompts listos para copiar en ChatGPT o Claude (los del agente, probados en Claude).`,
   noEsSoftware:
     'No es un software ni una suscripción: es una planilla bien armada, con las fórmulas listas, y rutinas cortas para que el negocio no dependa de tu memoria.',
   formato: [
@@ -350,7 +352,7 @@ export const MODULOS: Modulo[] = [
     numero: 6,
     area: 'El tablero',
     titulo: 'El tablero que lo junta todo',
-    duracion: '5 lecciones · ~17 min de video y lectura + proyecto final',
+    duracion: '5 lecciones · ~17 min de video y lectura + cierre: antes y después',
     lecciones: [
       { titulo: 'Tus números del lunes', detalle: 'Ventas del mes, propuestas abiertas, pedidos atrasados, casos abiertos, por cobrar y caja: el tablero los calcula solo desde tus hojas.' },
       { titulo: 'Cómo se conectan las hojas', detalle: 'Qué lee cada número del tablero y qué pasa si una hoja queda sin actualizar. Cada dato se anota en un solo lugar.' },
@@ -405,7 +407,7 @@ export const ACCESO = {
     { cuando: 'Listo', modulo: 3, texto: 'Módulo 3 · Pedidos y operación' },
     { cuando: 'Listo', modulo: 4, texto: 'Módulo 4 · Atención y postventa' },
     { cuando: 'Listo', modulo: 5, texto: 'Módulo 5 · Cobranza y caja' },
-    { cuando: 'Listo', modulo: 6, texto: 'Módulo 6 · El tablero + proyecto final' },
+    { cuando: 'Listo', modulo: 6, texto: 'Módulo 6 · El tablero + cierre: antes y después' },
     { cuando: 'Listo', modulo: 7, texto: 'Módulo 7 · Tu primer agente, trabajando con tu planilla' },
   ],
   nota: 'Al comprar, tu código de acceso está en tu área de miembros de Hotmart. Lo pegas una vez en este navegador y entras a los 8 módulos.',

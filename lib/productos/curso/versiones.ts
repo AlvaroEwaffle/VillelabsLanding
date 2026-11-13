@@ -25,7 +25,7 @@ export const VERSIONES_CURSO: VersionCurso[] = [
       'Ahora son 8 módulos, 38 lecciones y 34 prompts: menos de 2 horas de contenido (cerca de 1 h 45) y unas 7 a 8 horas de práctica.',
     ],
     porque:
-      'Incluí un agente que trabaja con tu planilla porque una planilla ordenada igual hay que llenarla y leerla, y lo que más se repite es pasar pedidos de WhatsApp y cobrar el lunes. Lo probé en un proyecto de Claude con el caso Grano Norte: hizo bien las dos tareas en todas las pruebas y no se saltó las reglas de freno (no aceptó un descuento ni confirmó una fecha sin despacho).',
+      'Incluí un agente que trabaja con tu planilla porque una planilla ordenada igual hay que llenarla y leerla, y pasar pedidos de WhatsApp y cobrar el lunes son dos de las tareas que más se repiten. Lo probamos en un proyecto de Claude con el caso Grano Norte: hizo bien las dos tareas en todas las pruebas dentro del proyecto, y no se saltó las reglas de freno (no aceptó un descuento ni confirmó una fecha sin despacho).',
   },
   {
     version: '1.3',
