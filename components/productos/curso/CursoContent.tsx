@@ -16,18 +16,21 @@
  * Variante y medición en lib/productos/curso/exp13.ts. Las B/C de EXP-10 (estructura, video primero) se retiraron sin ganador.
  * v1.5 (12-nov-2026, noche, OK de Álvaro «haz todos los ajustes»): común a A y B. Duración medida (1 h 30 + 6 h de práctica),
  * sin «preventa» (precio de lanzamiento; los 7 módulos listos), sin certificado, prompts dentro de las lecciones.
+ * v1.6 (13-nov-2026) cierre de EXP-13 (gana B sin potencia: queda «módulo 0 primero» para todos) y EXP-15 «promesa automatizar»
+ * (lib/productos/curso/exp15.ts). Hero sin la foto grande y sección «Qué te llevas / Qué vas a aprender» bajo el hero (QueTeLlevas).
  */
 
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { ArrowRight, Check, ChevronDown, ClipboardCheck, ClipboardList, Eye, FileSpreadsheet, FlaskConical, Handshake, LayoutDashboard, Map as MapIcon, Megaphone, MessageCircle, Sparkles, Wallet, X, type LucideIcon } from 'lucide-react';
 import { LINKS } from '@/lib/productos/links';
-import { ACCESO, AREAS, CASO, CURSO, FAQ, HOJAS, IA_OPCIONAL, MODULOS, PARA_QUIEN, PRECIO_FUNDADOR, PROYECTO_FINAL, PRECIO_CURSO, QUE_ES, textoPrecio, textoPrecioDetalle } from '@/lib/productos/curso/curso';
-import { EXP13 } from '@/lib/productos/curso/exp13';
+import { ACCESO, AREAS, CASO, CURSO, FAQ, HOJAS, IA_OPCIONAL, MODULOS, PARA_QUIEN, PROYECTO_FINAL, PRECIO_CURSO, QUE_ES, textoPrecio, textoPrecioDetalle } from '@/lib/productos/curso/curso';
+import { EXP15, PROMESA_EXP15 } from '@/lib/productos/curso/exp15';
 import { bajarAlAncla } from '@/lib/productos/ancla';
 import { VERSION_CURSO, VERSIONES_CURSO, fechaLarga } from '@/lib/productos/curso/versiones';
 import EnQueSeBasa from './EnQueSeBasa';
 import CursoLead from './CursoLead';
+import QueTeLlevas from './QueTeLlevas';
 import { hotmartConUtm } from '@/lib/productos/utm';
 import { trackCursoClickCompra } from '@/lib/productos/curso/tracking';
 import { FOTOS } from '@/lib/productos/fotos';
@@ -113,40 +116,10 @@ function useBarraVisible(): boolean {
   return visible;
 }
 
-/**
- * EXP-08 · barra fija de compra en celular (<768 px): precio de lanzamiento + botón a Hotmart. Aparece cuando ningún botón de
- * compra de la página está a la vista, y se esconde sobre los formularios («¿Aún no?»), la sección de compra y el pie, para
- * no tapar nada.
- */
-function BarraCompraMovil() {
-  const visible = useBarraVisible();
-  return (
-    <div
-      aria-hidden={!visible}
-      className={`fixed inset-x-0 bottom-0 z-[9990] border-t border-white/10 bg-[#0f172a]/95 px-4 pb-[calc(env(safe-area-inset-bottom)+0.75rem)] pt-3 backdrop-blur-md transition-transform duration-300 md:hidden ${
-        visible ? 'translate-y-0' : 'pointer-events-none translate-y-full'
-      }`}
-    >
-      <div className="mx-auto flex max-w-md items-center justify-between gap-3">
-        <div className="min-w-0">
-          {PRECIO_FUNDADOR !== null ? (
-            <>
-              <p className="font-serif text-lg leading-tight text-white">${PRECIO_FUNDADOR.toLocaleString('es-CL')}</p>
-              <p className="text-[11px] leading-tight text-[#5fb2dd]">precio de lanzamiento</p>
-            </>
-          ) : (
-            <p className="text-sm text-[#5fb2dd]">{textoPrecio()}</p>
-          )}
-        </div>
-        <BotonCompra ubicacion="barra_movil" texto="Comprar" enBarra />
-      </div>
-    </div>
-  );
-}
+// 13-nov-2026: BarraCompraMovil (EXP-08, barra fija de compra en celular) se retiró al cerrar EXP-13: ganó la barra al módulo 0.
 
 /**
- * EXP-13 · B · barra fija de celular que lleva al módulo 0 gratis (en vez de a la compra). Misma lógica de aparición que
- * BarraCompraMovil: se esconde cuando hay un botón de compra, el formulario del módulo 0 o el pie a la vista.
+ * Barra fija de celular que lleva al módulo 0 gratis (B de EXP-13, ganadora; desde EXP-15 la ven todos). Se esconde cuando hay un botón de compra, el formulario del módulo 0 o el pie a la vista.
  */
 function BarraModulo0Movil() {
   const visible = useBarraVisible();
@@ -216,9 +189,9 @@ export default function CursoContent() {
   const [faqAbierta, setFaqAbierta] = useState<number | null>(null);
   const totalLecciones = MODULOS.reduce((s, m) => s + m.lecciones.length, 0);
 
-  // EXP-13: si se llegó navegando dentro del sitio el script en línea no corrió; se asigna aquí. Aviso a GA4 una vez.
+  // EXP-15: si se llegó navegando dentro del sitio el script en línea no corrió; se asigna aquí. Aviso a GA4 una vez.
   useEffect(() => {
-    EXP13.avisar(EXP13.asignar());
+    EXP15.avisar(EXP15.asignar());
   }, []);
 
   // 13-nov-2026: si el anuncio llegó con el fbclid pegado al ancla (#parte-gratis-hero?fbclid=…), baja al formulario.
@@ -226,24 +199,28 @@ export default function CursoContent() {
 
   return (
     <main className="relative w-full overflow-x-hidden bg-[#0f172a] text-slate-100">
-      {/* Hero · EXP-13 (12-nov-2026, 17:00): A control (ex A de EXP-10) · B «módulo 0 primero». Mismo título en las dos;
-          el CSS muestra lo que toca según <html data-exp13> (script en línea antes de pintar). Sin JS se ve A. */}
+      {/* Hero · EXP-15 (13-nov-2026) «promesa automatizar». Base = la B de EXP-13 («módulo 0 primero», ganó sin potencia:
+          2 de 6 visitas bajaron ≥25 % contra 0 de 8 en A). A = control (H1 del anuncio v17 «Ordena tu negocio en una planilla»).
+          B = H1 «Aprende a automatizar…» con CRM y ERP como palabras clave. El CSS muestra lo que toca según <html data-exp15>
+          (script en línea antes de pintar). Sin JS se ve A. */}
       <section className="mx-auto max-w-6xl px-4 pb-10 pt-24 sm:px-6 md:pt-32">
-        <div className="grid items-center gap-8 lg:grid-cols-[1fr_400px] lg:gap-12">
-          <div className="order-last">
-            <figure className="relative aspect-[16/10] max-h-[260px] w-full overflow-hidden rounded-3xl border border-white/10 sm:max-h-[340px] lg:aspect-[4/5] lg:max-h-[460px]">
-              <Foto foto={FOTOS.explicando} posicion="center 12%" prioridad />
-              <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-[#0f172a]/50 via-transparent to-transparent" />
-            </figure>
-          </div>
+        {/* 13-nov-2026 (Álvaro: «quitando la foto grande en el Hero, ya que hay un mini avatar»): sin foto, una sola columna centrada
+            (sin hueco a la derecha en escritorio). Común a A y B. */}
+        <div className="mx-auto max-w-3xl">
           <div>
-            <Kicker>Curso · Los 7 módulos listos</Kicker>
-            <h1 className="mt-3 max-w-3xl font-serif text-[1.9rem] leading-[1.1] text-white sm:text-5xl lg:text-[3.1rem]">
-              Ordena tu negocio en una planilla: clientes, pedidos y caja en un solo tablero, con ayuda de la IA
-            </h1>
-            {/* 12-nov-2026 ~21:10 (OK de Álvaro): el H1 vuelve a las palabras del anuncio de Meta (v17 «Ordena tu negocio en una
-                planilla») y a lenguaje llano; el nombre del curso pasa a la primera sección bajo el hero. Común a A y B. */}
-            <p className="mt-3 max-w-xl text-base text-slate-300 sm:text-lg">Paso a paso y sin programar: tú armas la planilla y la IA te ayuda con las fórmulas y los mensajes.</p>
+            <div className="exp15-A">
+              <Kicker>Curso · Los 7 módulos listos</Kicker>
+              <h1 className="mt-3 max-w-3xl font-serif text-[1.9rem] leading-[1.1] text-white sm:text-5xl lg:text-[3.1rem]">
+                Ordena tu negocio en una planilla: clientes, pedidos y caja en un solo tablero, con ayuda de la IA
+              </h1>
+              <p className="mt-3 max-w-xl text-base text-slate-300 sm:text-lg">Paso a paso y sin programar: tú armas la planilla y la IA te ayuda con las fórmulas y los mensajes.</p>
+            </div>
+            {/* B · el antetítulo repite la pregunta del anuncio de Meta para que se sienta continuación. */}
+            <div className="exp15-B">
+              <p className="text-sm text-[#5fb2dd] sm:text-base">{PROMESA_EXP15.antetitulo}</p>
+              <h1 className="mt-3 max-w-3xl font-serif text-[1.9rem] leading-[1.1] text-white sm:text-5xl lg:text-[3.1rem]">{PROMESA_EXP15.titulo}</h1>
+              <p className="mt-3 max-w-xl text-base text-slate-300 sm:text-lg">{PROMESA_EXP15.bajada}</p>
+            </div>
             <a href="#quien-lo-ensena" className="mt-3 inline-flex min-h-[44px] items-center gap-2.5 text-sm text-slate-400 hover:text-white">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={FOTOS.podcasterCerca.src} alt="" width={32} height={32} className="h-8 w-8 shrink-0 rounded-full object-cover" />
@@ -251,29 +228,28 @@ export default function CursoContent() {
                 Te lo enseña <span className="text-slate-200 underline decoration-white/30 underline-offset-2">Álvaro Villena</span>, que usa este mismo orden en sus propios negocios
               </span>
             </a>
-            {/* A · control */}
-            <div className="exp13-A">
-              <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
-                <BotonCompra ubicacion="hero" />
-                {/* En celular se oculta aquí (se repite en el programa y al final): un solo botón en el primer pantallazo. */}
-                <BotonModulo0 texto="Ver el módulo 0 de muestra" className="hidden sm:inline-flex" />
-              </div>
-              <p className="mt-3 text-sm text-[#5fb2dd]">{textoPrecio()}</p>
+            {/* Botón principal gratis (ganó en EXP-13); abajo, el formulario a la vista. Común a A y B de EXP-15. */}
+            <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
+              <Link
+                href="#parte-gratis-hero"
+                data-sin-barra
+                className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full bg-[#FF3D8B] px-6 text-sm font-semibold text-white shadow-rosa transition hover:bg-[#ff5c9f]"
+              >
+                Mira gratis el módulo 0 <ArrowRight className="h-4 w-4" aria-hidden />
+              </Link>
             </div>
-            {/* B · «módulo 0 primero»: el botón principal es gratis; abajo, el formulario a la vista. */}
-            <div className="exp13-B">
-              <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
-                <Link
-                  href="#parte-gratis-hero"
-                  data-sin-barra
-                  className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full bg-[#FF3D8B] px-6 text-sm font-semibold text-white shadow-rosa transition hover:bg-[#ff5c9f]"
-                >
-                  Mira gratis el módulo 0 <ArrowRight className="h-4 w-4" aria-hidden />
-                </Link>
-              </div>
+            {/* B · CRM y ERP como palabras clave, bajo el botón para que el botón quepa en 360×560 (navegador de Instagram). */}
+            <div className="exp15-B">
+              <ul aria-label="Palabras clave" className="mt-4 flex flex-wrap gap-2">
+                {PROMESA_EXP15.chips.map((c) => (
+                  <li key={c.clave} className="rounded-full border border-[#5fb2dd]/40 bg-[#2175a1]/15 px-3 py-1 text-xs text-slate-200">
+                    <span className="font-mono font-semibold tracking-[0.12em] text-[#9fd3ee]">{c.clave}</span> = {c.texto}
+                  </li>
+                ))}
+              </ul>
             </div>
             <CursoLead ubicacion="hero" className="mt-6" />
-            <div className="exp13-B">
+            <div>
               <p className="mt-4 py-1 text-sm leading-7 text-slate-400">
                 ¿Prefieres comprarlo ya?{' '}
                 <a
@@ -301,6 +277,9 @@ export default function CursoContent() {
           </div>
         </div>
       </section>
+
+      {/* 13-nov-2026 · segunda sección (Álvaro: «QUÉ TE VAS A LLEVAR y QUÉ VAS A APRENDER… bien destacados, bien animados»). */}
+      <QueTeLlevas />
 
       {/* El curso en corto: franja bajo el hero (5 datos en fila en escritorio, apilados en celular). */}
       <section aria-label="El curso en corto" className="mx-auto max-w-6xl px-4 sm:px-6">
@@ -694,12 +673,8 @@ export default function CursoContent() {
           </ol>
         </div>
       </section>
-      <div className="exp13-A">
-        <BarraCompraMovil />
-      </div>
-      <div className="exp13-B">
-        <BarraModulo0Movil />
-      </div>
+      {/* Barra fija de celular: la de la B de EXP-13 (módulo 0), ganadora. BarraCompraMovil queda sin uso hasta otra ronda. */}
+      <BarraModulo0Movil />
     </main>
   );
 }

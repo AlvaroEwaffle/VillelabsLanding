@@ -75,12 +75,9 @@ export default function CursoLead({ ubicacion, className = '' }: { ubicacion: st
     <div id={`parte-gratis-${ubicacion}`} data-sin-barra className={`scroll-mt-28 rounded-2xl border border-[#5fb2dd]/35 bg-[#2175a1]/[0.12] p-4 sm:p-5 ${className}`}>
       <p className="flex items-center gap-2 font-serif text-lg leading-snug text-white sm:text-xl">
         <Eye className="h-5 w-5 shrink-0 text-[#5fb2dd]" aria-hidden />
-        {/* EXP-13 · B: en el hero, con el botón principal ya gratis, «¿Aún no?» no tiene sentido. */}
+        {/* Desde el cierre de EXP-13 (13-nov, ganó B): en el hero, con el botón principal ya gratis, «¿Aún no?» no tiene sentido. */}
         {ubicacion === 'hero' ? (
-          <>
-            <span className="exp13-A">¿Aún no? Mira gratis el módulo 0</span>
-            <span className="exp13-B">Deja tu correo y mira el módulo 0</span>
-          </>
+          <span>Deja tu correo y mira el módulo 0</span>
         ) : (
           <span>¿Aún no? Mira gratis el módulo 0</span>
         )}
