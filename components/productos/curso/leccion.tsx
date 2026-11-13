@@ -32,6 +32,8 @@ import { VideoMarco } from '@/components/productos/VideoProducto';
 import { VIDEOS_CURSO } from '@/lib/productos/curso/videos';
 import { DescargaPlantilla } from './Plantilla';
 import { AVISO_PROMPTS, PROMPTS_CURSO, PROMPTS_POR_LECCION } from '@/lib/productos/curso/prompts';
+import { HUECOS_POR_MODULO } from '@/lib/productos/curso/datos-negocio';
+import { BloquePrompt } from './DatosNegocio';
 
 // ─── Tipos y constantes ───────────────────────────────────────────────────
 
@@ -248,6 +250,8 @@ export function PromptsIA({ leccion, className = 'mt-8' }: { leccion: string; cl
   const ids = PROMPTS_POR_LECCION[leccion] ?? [];
   if (!ids.length) return null;
   const aviso = AVISO_PROMPTS[leccion.split('-')[0]];
+  // 13-nov-2026: si el módulo tiene mapa de huecos (hoy solo el 7), los prompts salen rellenados con «Los datos de tu negocio».
+  const huecos = HUECOS_POR_MODULO[leccion.split('-')[0]];
   return (
     <section aria-label="Prompt para tu IA" className={className}>
       <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-[#5fb2dd]">Prompt para tu IA</p>
@@ -256,6 +260,18 @@ export function PromptsIA({ leccion, className = 'mt-8' }: { leccion: string; cl
       </p>
       {ids.map((id) => {
         const pr = PROMPTS_CURSO[id];
+        if (pr && huecos) {
+          return (
+            <BloquePrompt
+              key={id}
+              titulo={`Prompt ${pr.id} · ${pr.titulo}`}
+              texto={pr.texto}
+              huecos={huecos}
+              className="mt-3"
+              nota={pr.nota ?? 'No pegues datos sensibles (RUT, claves, cuentas bancarias). Si no te sirve, escribe «hazlo más corto» o «hazlo más simple».'}
+            />
+          );
+        }
         return pr ? (
           <BloqueCopiar
             key={id}
