@@ -5,7 +5,7 @@
  * (curso v1.1, «El sistema de tu negocio: tu primer CRM y ERP en Google Sheets», 8-nov-2026).
  * 5 lecciones: tus números del lunes, cómo se conectan las hojas, compartirlo con tu equipo, las rutinas y cuándo
  * una planilla ya no basta. Página final: prueba real, semáforo de las 5 piezas antes/después, la hoja del proyecto
- * (imprimible), la planilla, certificado y siguiente paso. Lee lo guardado en los módulos 0–5 (mismas claves).
+ * (imprimible), la planilla y siguiente paso (sin certificado desde el 12-nov-2026: no hay cómo entregarlo todavía). Lee lo guardado en los módulos 0–5 (mismas claves).
  * Los números del tablero de Grano Norte salen del ejemplo de lib/productos/curso/plantilla.ts.
  */
 
@@ -563,7 +563,7 @@ function ProyectoFinal() {
           {PROYECTO_FINAL.texto} Aquí juntas lo que armaste en los 7 módulos: compruebas que cada hoja tenga datos reales, comparas tu semáforo con el del módulo 0 y dejas escrito quién actualiza qué y cuándo.
         </p>
         <div className="mt-6">
-          <VideoPendiente titulo={guion?.titulo ?? 'Tu negocio en 6 semanas: antes y después'} guion={guion} portada={FOTOS.retrato} posicion="center 20%" clave="m6-final" />
+          <VideoPendiente titulo={guion?.titulo ?? 'Tu negocio, antes y después'} guion={guion} portada={FOTOS.retrato} posicion="center 20%" clave="m6-final" />
         </div>
 
         <Subtitulo>1 · La prueba real: una semana con tu sistema</Subtitulo>
@@ -690,8 +690,8 @@ function ProyectoFinal() {
         <DescargaPlantilla className="mt-8" titulo="Tu planilla del sistema" />
 
         <div className="mt-8 rounded-2xl border border-[#5fb2dd]/40 bg-[#2175a1]/10 p-5">
-          <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-[#5fb2dd]">Certificado de finalización</p>
-          <p className="mt-2 text-slate-200">Guarda esta hoja en PDF y tenla junto a tu planilla con datos reales: eso es tu proyecto final, y al entregarlo recibes tu certificado de finalización del curso.</p>
+          <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-[#5fb2dd]">Tu proyecto final</p>
+          <p className="mt-2 text-slate-200">Guarda esta hoja en PDF y tenla junto a tu planilla con datos reales: eso es tu proyecto final, la foto de tu sistema para volver a mirarla en unos meses.</p>
         </div>
 
         <div className="mt-6 grid gap-5 overflow-hidden rounded-2xl border border-white/10 sm:grid-cols-[200px_1fr]">

@@ -6,7 +6,7 @@
  * 4 lecciones, una por hoja de la planilla del sistema: Cobranza, Caja, la caja de las próximas 4 semanas y
  * Productos (precio y margen). Cierre con prueba real, semáforo antes/después y entregable.
  * Columnas iguales a las de lib/productos/curso/plantilla.ts. Los montos de Grano Norte son ficticios, en pesos.
- * La IA es opcional: el módulo funciona completo sin ella.
+ * La IA ayuda con prompts listos en cada lección (lib/productos/curso/prompts.ts); lo que devuelve se revisa antes de usarlo.
  */
 
 import { APOYO } from '@/lib/productos/apoyo';
@@ -368,7 +368,7 @@ function LeccionCaja() {
         <summary className="flex min-h-[44px] cursor-pointer list-none items-center text-sm text-slate-200 [&::-webkit-details-marker]:hidden">
           Prompt para ChatGPT o Claude: pasa una boleta sin digitarla
         </summary>
-        <p className="mt-2 text-sm text-slate-300">Le mandas la foto de la boleta con este texto y te devuelve la fila lista. Revisa siempre el monto antes de pegarlo. Sin IA, la anotas a mano: son diez segundos.</p>
+        <p className="mt-2 text-sm text-slate-300">Le mandas la foto de la boleta con este texto y te devuelve la fila lista. Revisa siempre el monto antes de pegarlo.</p>
         <BloqueCopiar titulo="Texto para copiar · de la boleta a la hoja Caja" texto={PROMPT_BOLETA} className="mt-3" />
       </details>
       <Freno>La hoja Caja la lleva una persona. Los pagos los hace una persona, y a un asistente le pasas la boleta, nunca tus claves ni los datos de tu cuenta bancaria.</Freno>

@@ -14,20 +14,20 @@ const CURSO: Pregunta[] = [
   {
     p: '¿Cuánto cuesta?',
     r: PRECIO_FUNDADOR
-      ? `${clp(PRECIO_FUNDADOR)} precio de preventa. Pago único o en cuotas en Hotmart, con ${PRECIO_CURSO.garantiaDias} días de garantía.`
+      ? `${clp(PRECIO_FUNDADOR)} precio de lanzamiento. Pago único o en cuotas en Hotmart, con ${PRECIO_CURSO.garantiaDias} días de garantía.`
       : `${clp(PRECIO_NORMAL)}, pago único o en cuotas en Hotmart, con ${PRECIO_CURSO.garantiaDias} días de garantía.`,
   },
   {
     p: '¿Qué recibo al comprar?',
-    r: 'El módulo 0 al tiro: el mapa de tu sistema, el diagnóstico con semáforo, la planilla base y tus reglas de freno. Después se libera un módulo por semana hasta completar los 7.',
+    r: 'Los 7 módulos completos desde el primer día: 33 lecciones cortas con su ejercicio y su prompt para la IA, y la planilla del sistema con las fórmulas listas. Avanzas a tu ritmo.',
   },
   {
     p: '¿Cuánto tiempo necesito?',
-    r: 'Entre 2 y 3 horas a la semana mientras haces el curso: unos 45 minutos de lecciones y el resto para llenar la hoja con tu negocio. Si te atrasas no pasa nada, los módulos quedan disponibles.',
+    r: 'Cerca de 1 h 30 de lecciones cortas y unas 6 horas de práctica con tu negocio, a tu ritmo. Los módulos no se cierran: retomas cuando puedas.',
   },
   {
     p: '¿Sirve si no sé de tecnología?',
-    r: 'Sí. Todo se arma en Google Sheets (gratis) o en Excel, sin programar ni instalar nada. Cada módulo trae prompts listos para que ChatGPT, Claude o Gemini te ayuden a armar tu hoja (los recibes en tu área de miembros); no necesitas saber de IA.',
+    r: 'Sí. Todo se arma en Google Sheets (gratis) o en Excel, sin programar ni instalar nada. Cada módulo trae prompts listos para copiar en ChatGPT o Claude y armar tu hoja; no necesitas saber de IA.',
   },
 ];
 

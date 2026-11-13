@@ -8,18 +8,27 @@ export type VersionCurso = { version: string; fecha: string; cambios: string[] }
 
 export const VERSIONES_CURSO: VersionCurso[] = [
   {
+    version: '1.2',
+    fecha: '2026-11-12',
+    cambios: [
+      'Los 7 módulos están listos: entras hoy y avanzas a tu ritmo.',
+      'Los 27 prompts para tu IA quedan dentro de las lecciones, con botón copiar, en los 7 módulos.',
+      'Duración medida: cerca de 1 h 30 de lecciones cortas y unas 6 horas de práctica.',
+    ],
+  },
+  {
     version: '1.1',
     fecha: '2026-11-08',
     cambios: [
       'Nuevo enfoque: «El sistema de tu negocio», tu primer CRM y ERP en Google Sheets. Cada módulo agrega una hoja a la misma planilla, y el módulo 6 la junta en un tablero.',
       'Planilla del sistema descargable (Excel o Google Sheets) con las hojas conectadas y las fórmulas del tablero listas, con o sin el ejemplo de Grano Norte.',
-      'La IA pasa a ser una ayuda opcional: el curso funciona completo sin ella. Por WhatsApp, solo a quien ya te conoce.',
+      'La IA entra como ayuda para redactar y armar fórmulas. Por WhatsApp, solo a quien ya te conoce.',
     ],
   },
   {
     version: '1.0',
     fecha: '2026-11-07',
-    cambios: ['Lanzamiento en preventa como «Tu negocio de punta a punta»: módulo 0 con mapa, diagnóstico, esqueleto y reglas de freno.'],
+    cambios: ['Primera versión como «Tu negocio de punta a punta»: módulo 0 con mapa, diagnóstico, esqueleto y reglas de freno.'],
   },
 ];
 

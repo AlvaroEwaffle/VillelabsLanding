@@ -41,11 +41,12 @@ const JSON_LD = [
     pagina: '/workshop/grabacion',
   }),
   videoObject({
-    id: 'v08-curso-venta',
+    id: 'v08b-curso-venta',
     nombre: 'Construye con IA tu sistema CRM y ERP',
-    descripcion: 'Álvaro Villena presenta el curso en preventa: en 6 semanas, con 5 horas de lecciones y tu hoja a tu ritmo, armas con IA tu CRM y ERP en Google Sheets, una hoja por semana con las fórmulas listas, hasta un tablero con lo que vendiste, lo que te deben y cuánta caja tienes.',
-    segundos: 49,
+    descripcion: 'Álvaro Villena presenta el curso: armas con IA tu CRM y ERP en Google Sheets, una hoja a la vez con las fórmulas listas, hasta un tablero con lo que vendiste, lo que te deben y cuánta caja tienes. No es un software: es una planilla bien armada y rutinas cortas.',
+    segundos: 40,
     pagina: '/workshop/grabacion',
+    subida: '2026-11-12',
   }),
 ];
 

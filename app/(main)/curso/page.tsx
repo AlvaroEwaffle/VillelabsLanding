@@ -8,12 +8,12 @@ import { EXP13 } from '@/lib/productos/curso/exp13';
 
 
 const TITULO_OG = 'Construye con IA tu sistema de gestión CRM y ERP para tu negocio, sin programar';
-const DESCRIPCION_OG = 'Curso en preventa: armas tu CRM y tu ERP en una planilla con prompts para ChatGPT, Claude o Gemini: clientes, pedidos, cobranza, caja y un tablero. El módulo 0 lo recibes hoy.';
+const DESCRIPCION_OG = 'Curso online con los 7 módulos listos: armas tu CRM y tu ERP en una planilla con prompts para ChatGPT o Claude. Cerca de 1 h 30 de lecciones y unas 6 horas de práctica, a tu ritmo.';
 
 export const metadata: Metadata = {
   title: { absolute: 'Construye con IA tu CRM y ERP, sin programar' },
   description:
-    'Curso online para pymes: construyes con IA el sistema de tu negocio en Google Sheets, sin programar. Con prompts para ChatGPT, Claude o Gemini. Clientes y ventas (CRM), origen, pedidos, atención, cobranza, caja y un tablero, sin pagar software.',
+    'Curso online para pymes: construyes con IA el sistema de tu negocio en Google Sheets, sin programar, con prompts listos para ChatGPT o Claude. Clientes y ventas (CRM), origen, pedidos, atención, cobranza, caja y un tablero, sin pagar software.',
   alternates: { canonical: `${SITE_URL}/curso` },
   openGraph: {
     type: 'website',
@@ -40,16 +40,17 @@ const JSON_LD = [
     author: AUTOR,
     version: VERSION_CURSO.version,
     dateModified: VERSION_CURSO.fecha,
-    teaches: ['Armar un CRM y un ERP con prompts para ChatGPT, Claude o Gemini', 'CRM en Google Sheets', 'ERP para pymes en una planilla', 'Seguimiento de clientes y propuestas', 'Control de pedidos', 'Cobranza y flujo de caja', 'Tablero de indicadores'],
+    teaches: ['Armar un CRM y un ERP con prompts para ChatGPT o Claude', 'CRM en Google Sheets', 'ERP para pymes en una planilla', 'Seguimiento de clientes y propuestas', 'Control de pedidos', 'Cobranza y flujo de caja', 'Tablero de indicadores'],
     hasCourseInstance: { '@type': 'CourseInstance', courseMode: 'online' },
   },
   faqPage(FAQ.map((f) => ({ q: f.p, a: f.r }))),
   videoObject({
-    id: 'v08-curso-venta',
+    id: 'v08b-curso-venta',
     nombre: 'Construye con IA tu sistema CRM y ERP',
-    descripcion: 'Álvaro Villena presenta el curso en preventa: en 6 semanas, con 5 horas de lecciones y tu hoja a tu ritmo, armas con IA tu CRM y ERP en Google Sheets, una hoja por semana con las fórmulas listas, hasta un tablero con lo que vendiste, lo que te deben y cuánta caja tienes.',
-    segundos: 49,
+    descripcion: 'Álvaro Villena presenta el curso: armas con IA tu CRM y ERP en Google Sheets, una hoja a la vez con las fórmulas listas, hasta un tablero con lo que vendiste, lo que te deben y cuánta caja tienes. No es un software: es una planilla bien armada y rutinas cortas.',
+    segundos: 40,
     pagina: '/curso',
+    subida: '2026-11-12',
   }),
 ];
 

@@ -7,7 +7,7 @@ import { SITE_URL } from '@/lib/productos/seo';
 // para que al compartir el link no herede la tarjeta ni la URL de la portada del sitio.
 export const metadata: Metadata = {
   title: 'Módulo 4 · Responder a tiempo y que vuelvan a comprar',
-  description: 'Módulo 4 del curso «Construye con IA tu sistema de gestión CRM y ERP»: los 3 tipos de mensaje, respuestas listas en WhatsApp Business, la hoja Atención con cada caso hasta cerrarlo, cuándo pasa a una persona y la postventa.',
+  description: 'Módulo 4 del curso «Construye con IA tu sistema de gestión CRM y ERP para tu negocio, sin programar»: los 3 tipos de mensaje, respuestas listas en WhatsApp Business, la hoja Atención con cada caso hasta cerrarlo, cuándo pasa a una persona y la postventa.',
   robots: { index: false, follow: false },
   alternates: { canonical: `${SITE_URL}/curso/modulo-4` },
   openGraph: {
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     locale: 'es_CL',
     siteName: 'Villelab',
     title: 'Módulo 4 · Responder a tiempo y que vuelvan a comprar',
-    description: 'Módulo 4 del curso «Construye con IA tu sistema de gestión CRM y ERP»: los 3 tipos de mensaje, respuestas listas en WhatsApp Business, la hoja Atención con cada caso hasta cerrarlo, cuándo pasa a una persona y la postventa.',
+    description: 'Módulo 4 del curso «Construye con IA tu sistema de gestión CRM y ERP para tu negocio, sin programar»: los 3 tipos de mensaje, respuestas listas en WhatsApp Business, la hoja Atención con cada caso hasta cerrarlo, cuándo pasa a una persona y la postventa.',
     url: `${SITE_URL}/curso/modulo-4`,
     images: [{ url: `${SITE_URL}/og/curso.jpg`, width: 1200, height: 630, alt: 'Construye con IA tu CRM y ERP · módulo 4' }],
   },

@@ -253,7 +253,7 @@ function LeccionSemana() {
           Publicar todos los días no significa pensar todos los días. <strong>Una idea bien pensada te da la semana completa</strong>: la conviertes en cinco piezas y las repartes de lunes a viernes.
         </p>
         <p>
-          Una tarde al mes y tienes cuatro semanas listas. Lo haces a mano con la lista de abajo, o, si quieres, le pides a ChatGPT o Claude un primer borrador con tu frase, tus temas y la idea, y tú lo ajustas. Sin IA el resultado es el mismo: solo te toma un poco más.
+          Una tarde al mes y tienes cuatro semanas listas. Le pides a ChatGPT o Claude un primer borrador con tu frase, tus temas y la idea, y tú lo ajustas con la lista de abajo.
         </p>
       </Explica>
       <DiagramaUnaIdeaCincoPiezas className="mt-6" />
@@ -284,7 +284,7 @@ function LeccionSemana() {
       <BloqueCopiar
         titulo="Prompt para ChatGPT o Claude"
         texto={montado ? prompt : ''}
-        nota="Si usas IA, pégalas tal cual: se arman con tu frase y tus temas. Si no, usa la lista de arriba y escribe cada pieza tú."
+        nota="Pégalas tal cual en ChatGPT o Claude: se arman con tu frase y tus temas. Revisa cada pieza antes de publicarla."
       />
       <Freno>Nada se publica a nombre del negocio sin que una persona lo lea. Si un borrador lo hizo la IA, tú decides qué sale (es la regla 15 de tus frenos).</Freno>
 

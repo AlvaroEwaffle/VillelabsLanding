@@ -278,7 +278,7 @@ function LeccionPedidos() {
         </summary>
         <div className="border-t border-white/10 px-4 pb-4">
           <p className="mt-3 text-sm text-slate-300">
-            Con tu IA: si se te juntaron mensajes sin anotar, pégalos en un chat y pídele las filas. Revisa cada fila antes de pegarla en la hoja: la IA puede inventar una cantidad o una fecha. Sin IA, el método funciona igual.
+            Con tu IA: si se te juntaron mensajes sin anotar, pégalos en un chat y pídele las filas. Revisa cada fila antes de pegarla en la hoja: la IA puede inventar una cantidad o una fecha.
           </p>
           <BloqueCopiar titulo="Instrucción · mensajes a filas" texto={montado ? prompt : ''} className="mt-3" nota="Donde diga «FALTA», le preguntas al cliente." />
         </div>

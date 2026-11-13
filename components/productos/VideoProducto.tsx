@@ -18,6 +18,8 @@ export type VideoId =
   | 'v06-reel-workshop'
   | 'v07-workshop-grabacion-intro'
   | 'v08-curso-venta'
+  // 12-nov-2026: v08 cortado en 40 s (sin «Está en preventa a precio fundador» ni la tarjeta «CURSO EN PREVENTA»)
+  | 'v08b-curso-venta'
   | 'v09-m0-l1'
   | 'v10-m0-l2'
   | 'v11-m0-l3'

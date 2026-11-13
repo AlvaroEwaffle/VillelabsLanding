@@ -2,7 +2,7 @@
 
 /*
  * /curso/modulo-0 — Módulo 0 «El mapa» del curso «El sistema de tu negocio: tu primer CRM y ERP en Google Sheets».
- * Se entrega al tiro a quien compra en preventa. 4 lecciones + portada del sistema imprimible.
+ * Módulo de muestra (gratis con el correo) y primer módulo de quien compra. 4 lecciones + portada del sistema imprimible.
  * v1.1 (8-nov-2026): la lección 3 pasa del esqueleto del asistente a la planilla base con la ficha del negocio.
  * Todo el avance (diagnóstico, reglas, ficha, checklist, nombre del negocio) vive en localStorage.
  */
@@ -41,6 +41,8 @@ import { VideoMarco, type VideoId } from '@/components/productos/VideoProducto';
 import { Pantallita } from '@/components/productos/Pantallita';
 import { VERSION_CURSO, fechaLarga } from '@/lib/productos/curso/versiones';
 import { DescargaPlantilla, useFicha } from './Plantilla';
+import { PromptsIA } from './leccion';
+import { hotmartConUtm } from '@/lib/productos/utm';
 import type { ProductoFicha } from '@/lib/productos/curso/plantilla';
 
 // Foto de apoyo por lección (portada del video mientras se graba). Rotan looks; sin polera blanca.
@@ -411,7 +413,7 @@ function Diagnostico({
               </li>
             </ol>
             <p className="mt-4 text-sm text-slate-400">
-              Los módulos se liberan uno por semana y cada uno suma una hoja a la misma planilla. Haz todos, pero cuando llegue tu pieza más roja, dale más tiempo y haz su prueba real primero.
+              Cada módulo suma una hoja a la misma planilla. Haz todos, pero cuando llegues a tu pieza más roja, dale más tiempo y haz su prueba real primero.
             </p>
             <button type="button" onClick={onReiniciar} className="mt-5 inline-flex min-h-[44px] items-center gap-2 text-sm text-slate-400 hover:text-white">
               <RotateCcw className="h-4 w-4" aria-hidden /> Volver a responder
@@ -974,6 +976,7 @@ export default function Modulo0Content() {
             ) : null}
             {leccion.id === 'planilla' ? <PlanillaLeccion negocio={montado ? negocio : NEGOCIO_INICIAL} setNegocio={setNegocio} /> : null}
             {leccion.id === 'reglas' ? <ReglasFreno estado={montado ? reglas : REGLAS_INICIALES} setEstado={setReglas} negocio={negocio} /> : null}
+            <PromptsIA leccion={`m0-l${leccion.numero}`} />
             <Checklist leccion={leccion} checks={checksVisibles} onToggle={toggle} />
             <NavLeccion pagina={pagina} ir={ir} />
           </section>
@@ -987,8 +990,9 @@ export default function Modulo0Content() {
             className="m0-no-print mx-auto max-w-3xl px-4 pb-24 sm:px-6"
             onClickCapture={(e) => {
               // SiguientePaso no admite cta_location; el clic a la compra se mide aquí como curso_click_compra.
+              // El botón «Comprar el curso» del pie (data-compra) se mide solo, con su propia ubicación.
               const a = (e.target as HTMLElement).closest('a');
-              if (a?.getAttribute('href') === LINKS.cursoCompra) trackCursoClickCompra('modulo0');
+              if (a && !a.hasAttribute('data-compra') && a.getAttribute('href') === LINKS.cursoCompra) trackCursoClickCompra('modulo0');
             }}
           >
             {/* Video 13 · cierre del módulo 0, sobre el siguiente paso (8-nov-2026) */}
@@ -997,8 +1001,8 @@ export default function Modulo0Content() {
             <SiguientePaso
               logro="Ya tienes el mapa, tu planilla base y la portada de tu sistema"
               pago={{
-                titulo: 'El curso completo en preventa',
-                descripcion: `Los 6 módulos que faltan, uno por semana, cada uno con su hoja: clientes y ventas (tu CRM), marketing y origen, pedidos, atención, cobranza y caja, y el tablero. ${textoPrecio()}.`,
+                titulo: 'El curso completo: los 7 módulos están listos',
+                descripcion: `Entras hoy a los 6 módulos que siguen y avanzas a tu ritmo, cada uno con su hoja y sus prompts: clientes y ventas (tu CRM), marketing y origen, pedidos, atención, cobranza y caja, y el tablero. ${textoPrecio()}.`,
                 href: LINKS.cursoCompra,
                 cta: 'Quiero el curso',
               }}
@@ -1021,11 +1025,28 @@ export default function Modulo0Content() {
               <button type="button" onClick={() => ir(PAGINA_PORTADA - 1)} className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full border border-white/15 px-5 text-sm text-slate-300 hover:border-white/30">
                 <ArrowLeft className="h-4 w-4" aria-hidden /> Volver a la lección 4
               </button>
-              {/* Al módulo 1 (alumnos del curso). La página de venta /curso no enlaza a los módulos pagados. */}
-              <Link href="/curso/modulo-1" className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full border border-[#2175a1] bg-[#2175a1]/20 px-5 text-sm text-white hover:bg-[#2175a1]/35">
-                Ya tengo el curso: ir al módulo 1 <ArrowRight className="h-4 w-4" aria-hidden />
-              </Link>
+              {/* 12-nov-2026: antes «Ya tengo el curso: ir al módulo 1» abría el curso pagado sin pedir nada. Ahora compra en
+                  Hotmart (con UTM); los módulos 1–6 piden el código del comprador en /curso/acceso. */}
+              <a
+                href={LINKS.cursoCompra}
+                data-compra="modulo0_cierre"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={(e) => {
+                  e.currentTarget.href = hotmartConUtm(LINKS.cursoCompra, 'modulo0_cierre');
+                  trackCursoClickCompra('modulo0_cierre');
+                }}
+                className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full bg-[#FF3D8B] px-6 text-sm font-semibold text-white shadow-rosa transition hover:bg-[#ff5c9f]"
+              >
+                Comprar el curso <ArrowRight className="h-4 w-4" aria-hidden />
+              </a>
             </div>
+            <p className="mt-4 text-sm text-slate-400 sm:text-right">
+              ¿Ya lo compraste?{' '}
+              <a href="/curso/acceso?d=/curso/modulo-1" className="inline-block py-2 text-[#5fb2dd] underline underline-offset-2 hover:text-white">
+                Entra con tu código
+              </a>
+            </p>
           </div>
         </>
       )}

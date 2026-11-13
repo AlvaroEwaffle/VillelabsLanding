@@ -339,7 +339,7 @@ const CRUDOS: Record<string, { titulo: string; escenas: Escena[] }> = {
     ],
   },
   'm6-final': {
-    titulo: 'Tu negocio en 6 semanas: antes y después',
+    titulo: 'Tu negocio, antes y después',
     escenas: [
       A('Álvaro, plano medio, tono de cierre', 'Llegaste al final. Hace seis semanas tus clientes vivían en el WhatsApp y en tu memoria. Veamos qué cambió.'),
       G('El semáforo del módulo 0 al lado del semáforo de hoy, pieza por pieza', 'Este es tu semáforo de antes y el de hoy. Cada pieza que pasó de rojo a naranja, o de naranja a verde, es tiempo que recuperaste.'),

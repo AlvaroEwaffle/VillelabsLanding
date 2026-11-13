@@ -1,7 +1,7 @@
 'use client';
 
 /*
- * /curso — página de venta del curso «El sistema de tu negocio: tu primer CRM y ERP en Google Sheets» en preventa.
+ * /curso — página de venta del curso «Construye con IA tu sistema de gestión CRM y ERP para tu negocio, sin programar».
  * v1.0 (7-nov-2026) «Tu negocio de punta a punta»; v1.1 (8-nov-2026) reposicionado como «construye tu primer CRM y ERP»
  * con la investigación de demanda (persona Rodrigo) y la base de evidencia. Hero compacto (corrección de Álvaro, 8-nov):
  * cabe en el primer viewport de escritorio y «El curso en corto» queda como franja bajo el hero.
@@ -14,13 +14,15 @@
  * v1.4 (12-nov-2026, 17:00) EXP-13: dos variantes (método de 2-4 días). A = control; B = «módulo 0 primero» (botón principal
  * «Mira gratis el módulo 0», compra como enlace secundario, barra fija de celular al módulo 0, sin «primeros 20 alumnos»).
  * Variante y medición en lib/productos/curso/exp13.ts. Las B/C de EXP-10 (estructura, video primero) se retiraron sin ganador.
+ * v1.5 (12-nov-2026, noche, OK de Álvaro «haz todos los ajustes»): común a A y B. Duración medida (1 h 30 + 6 h de práctica),
+ * sin «preventa» (precio de lanzamiento; los 7 módulos listos), sin certificado, prompts dentro de las lecciones.
  */
 
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { ArrowRight, Check, ChevronDown, ClipboardCheck, ClipboardList, Eye, FileSpreadsheet, FlaskConical, Handshake, LayoutDashboard, Map as MapIcon, Megaphone, MessageCircle, Sparkles, Wallet, X, type LucideIcon } from 'lucide-react';
 import { LINKS } from '@/lib/productos/links';
-import { AREAS, CASO, CURSO, FAQ, HOJAS, IA_OPCIONAL, MODULOS, PARA_QUIEN, PRECIO_FUNDADOR, PREVENTA, PROYECTO_FINAL, PRECIO_CURSO, QUE_ES, textoPrecio, textoPrecioDetalle } from '@/lib/productos/curso/curso';
+import { ACCESO, AREAS, CASO, CURSO, FAQ, HOJAS, IA_OPCIONAL, MODULOS, PARA_QUIEN, PRECIO_FUNDADOR, PROYECTO_FINAL, PRECIO_CURSO, QUE_ES, textoPrecio, textoPrecioDetalle } from '@/lib/productos/curso/curso';
 import { EXP13 } from '@/lib/productos/curso/exp13';
 import { VERSION_CURSO, VERSIONES_CURSO, fechaLarga } from '@/lib/productos/curso/versiones';
 import EnQueSeBasa from './EnQueSeBasa';
@@ -45,7 +47,7 @@ const IMAGEN_MODULO: Record<number, { foto: ImagenApoyo; icono: LucideIcon; posi
   6: { foto: APOYO.tableroLaptop, icono: LayoutDashboard },
 };
 
-function BotonCompra({ ubicacion, texto = 'Quiero el curso en preventa', enBarra = false }: { ubicacion: string; texto?: string; enBarra?: boolean }) {
+function BotonCompra({ ubicacion, texto = 'Quiero el curso', enBarra = false }: { ubicacion: string; texto?: string; enBarra?: boolean }) {
   return (
     <a
       href={LINKS.cursoCompra}
@@ -65,14 +67,14 @@ function BotonCompra({ ubicacion, texto = 'Quiero el curso en preventa', enBarra
 }
 
 /**
- * EXP-08 · barra fija de compra en celular (<768 px): precio de preventa + botón a Hotmart. Aparece cuando ningún botón de
- * compra de la página está a la vista, y se esconde sobre los formularios («¿Aún no?»), la preventa y el pie, para
+ * EXP-08 · barra fija de compra en celular (<768 px): precio de lanzamiento + botón a Hotmart. Aparece cuando ningún botón de
+ * compra de la página está a la vista, y se esconde sobre los formularios («¿Aún no?»), la sección de compra y el pie, para
  * no tapar nada.
  */
 function BarraCompraMovil() {
   const [visible, setVisible] = useState(false);
   useEffect(() => {
-    const objetivos = Array.from(document.querySelectorAll('[data-compra], [data-sin-barra], #preventa, footer'));
+    const objetivos = Array.from(document.querySelectorAll('[data-compra], [data-sin-barra], #comprar, footer'));
     if (!objetivos.length || typeof IntersectionObserver === 'undefined') return;
     const aLaVista = new Set<Element>();
     const io = new IntersectionObserver((entradas) => {
@@ -97,7 +99,7 @@ function BarraCompraMovil() {
           {PRECIO_FUNDADOR !== null ? (
             <>
               <p className="font-serif text-lg leading-tight text-white">${PRECIO_FUNDADOR.toLocaleString('es-CL')}</p>
-              <p className="text-[11px] leading-tight text-[#5fb2dd]">precio de preventa</p>
+              <p className="text-[11px] leading-tight text-[#5fb2dd]">precio de lanzamiento</p>
             </>
           ) : (
             <p className="text-sm text-[#5fb2dd]">{textoPrecio()}</p>
@@ -116,7 +118,7 @@ function BarraCompraMovil() {
 function BarraModulo0Movil() {
   const [visible, setVisible] = useState(false);
   useEffect(() => {
-    const objetivos = Array.from(document.querySelectorAll('[data-compra], [data-sin-barra], #preventa, footer'));
+    const objetivos = Array.from(document.querySelectorAll('[data-compra], [data-sin-barra], #comprar, footer'));
     if (!objetivos.length || typeof IntersectionObserver === 'undefined') return;
     const aLaVista = new Set<Element>();
     const io = new IntersectionObserver((entradas) => {
@@ -188,11 +190,7 @@ function Acordeon({ abierto, onToggle, cabecera, children }: { abierto: boolean;
   );
 }
 
-const BAJADA_PREVENTA = (
-  <>
-    Compras ahora con precio de preventa, empiezas hoy con el mapa, el diagnóstico y tu planilla base, y el resto llega semana a semana.
-  </>
-);
+const BAJADA_ACCESO = <>Compras hoy, entras con tu código a los 7 módulos y la planilla completa, y avanzas a tu ritmo.</>;
 
 export default function CursoContent() {
   const [moduloAbierto, setModuloAbierto] = useState<number | null>(0);
@@ -217,7 +215,7 @@ export default function CursoContent() {
             </figure>
           </div>
           <div>
-            <Kicker>Curso · Preventa abierta</Kicker>
+            <Kicker>Curso · Los 7 módulos listos</Kicker>
             <h1 className="mt-3 max-w-3xl font-serif text-[1.9rem] leading-[1.1] text-white sm:text-5xl lg:text-[3.1rem]">
               Ordena tu negocio en una planilla: clientes, pedidos y caja en un solo tablero, con ayuda de la IA
             </h1>
@@ -267,7 +265,7 @@ export default function CursoContent() {
                   }}
                   className="py-2 text-[#5fb2dd] underline underline-offset-2 hover:text-white"
                 >
-                  Compra el curso en preventa
+                  Compra el curso
                 </a>{' '}
                 · {textoPrecio()}
               </p>
@@ -297,8 +295,8 @@ export default function CursoContent() {
         </dl>
         <p className="mt-6 max-w-3xl text-slate-300">{CURSO.promesa}</p>
         <p className="mt-3 max-w-3xl text-sm text-slate-400">{CURSO.noEsSoftware}</p>
-        {/* Video 8 · venta de la preventa (regrabado con el enfoque CRM/ERP, 8-nov-2026). */}
-        <VideoMarco id="v08-curso-venta" titulo="Construye con IA tu sistema CRM y ERP" duracion="49 s" className="mt-10" />
+        {/* Video 8 · venta del curso (enfoque CRM/ERP, 8-nov-2026; 12-nov sin la frase de preventa: v08b). */}
+        <VideoMarco id="v08b-curso-venta" titulo="Construye con IA tu sistema CRM y ERP" duracion="40 s" className="mt-10" />
       </section>
 
       {/* Para quién */}
@@ -531,25 +529,25 @@ export default function CursoContent() {
 
       {/* Antes de la compra: segunda oportunidad de dejar el correo (bloque «¿Aún no?»). */}
       <section aria-label="Parte gratis" className="mx-auto max-w-6xl px-4 sm:px-6">
-        <CursoLead ubicacion="antes_preventa" className="max-w-3xl" />
+        <CursoLead ubicacion="antes_compra" className="max-w-3xl" />
       </section>
 
-      {/* Preventa */}
+      {/* Compra · 12-nov-2026: ya no es preventa (los 7 módulos están grabados y abiertos para quien compra). */}
       <Seccion
-        id="preventa"
-        kicker="Cómo funciona la preventa"
-        titulo="El módulo 0 hoy. Un módulo nuevo cada semana."
-        bajada={BAJADA_PREVENTA}
+        id="comprar"
+        kicker="Qué recibes"
+        titulo="Los 7 módulos están listos: entras hoy y avanzas a tu ritmo."
+        bajada={BAJADA_ACCESO}
       >
         <div className="mt-10 grid gap-8 lg:grid-cols-[1fr_360px]">
           <ol className="relative space-y-3 border-l border-white/10 pl-6">
-            {PREVENTA.pasos.map((p) => (
-              <li key={p.cuando} className="relative">
+            {ACCESO.pasos.map((p) => (
+              <li key={p.modulo} className="relative">
                 <span
                   aria-hidden
-                  className={`absolute -left-[31px] top-1.5 h-3 w-3 rounded-full ${p.modulo === 0 ? 'bg-[#5fb2dd] ring-4 ring-[#5fb2dd]/20' : 'border border-white/30 bg-[#0f172a]'}`}
+                  className="absolute -left-[31px] top-1.5 h-3 w-3 rounded-full bg-[#5fb2dd] ring-4 ring-[#5fb2dd]/20"
                 />
-                <p className={`font-mono text-xs uppercase tracking-wider ${p.modulo === 0 ? 'text-[#5fb2dd]' : 'text-slate-500'}`}>{p.cuando}</p>
+                <p className="font-mono text-xs uppercase tracking-wider text-[#5fb2dd]">{p.cuando}</p>
                 <p className="mt-0.5 text-slate-200">{p.texto}</p>
               </li>
             ))}
@@ -560,7 +558,7 @@ export default function CursoContent() {
               <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-[#13213a] via-transparent to-transparent" />
             </div>
             <div className="p-6 pt-3">
-            <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-[#5fb2dd]">Preventa</p>
+            <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-[#5fb2dd]">Precio de lanzamiento</p>
             <p className="mt-3 font-serif text-2xl text-white">
               {textoPrecio()}
             </p>
@@ -568,16 +566,15 @@ export default function CursoContent() {
               {textoPrecioDetalle()}
             </p>
             <ul className="mt-4 space-y-2 text-sm text-slate-300">
-              <li className="flex gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-[#5fb2dd]" aria-hidden /> Módulo 0 y tu planilla base al tiro</li>
-              <li className="flex gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-[#5fb2dd]" aria-hidden /> Los 7 módulos y la planilla completa del sistema</li>
+              <li className="flex gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-[#5fb2dd]" aria-hidden /> Los 7 módulos y la planilla completa del sistema, desde hoy</li>
+              <li className="flex gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-[#5fb2dd]" aria-hidden /> Cada módulo trae prompts listos para copiar en ChatGPT o Claude</li>
               <li className="flex gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-[#5fb2dd]" aria-hidden /> Avanzas a tu ritmo: los módulos no se cierran</li>
-              <li className="flex gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-[#5fb2dd]" aria-hidden /> Certificado al entregar tu proyecto final</li>
               <li className="flex gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-[#5fb2dd]" aria-hidden /> Pago único o en cuotas, con {PRECIO_CURSO.garantiaDias} días de garantía</li>
             </ul>
             <div className="mt-6 flex flex-col gap-3">
-              <BotonCompra ubicacion="preventa" texto="Comprar en preventa" />
+              <BotonCompra ubicacion="comprar" />
             </div>
-            <p className="mt-4 text-xs text-slate-500">{PREVENTA.nota}</p>
+            <p className="mt-4 text-xs text-slate-500">{ACCESO.nota}</p>
             </div>
           </div>
         </div>
@@ -649,7 +646,7 @@ export default function CursoContent() {
           <div className="p-6 sm:p-10">
           <h2 className="max-w-2xl font-serif text-3xl text-white sm:text-4xl">Empieza hoy con el mapa y tu planilla base.</h2>
           <p className="mt-4 max-w-2xl text-slate-300">
-            En 30 minutos sabes qué pieza de tu negocio está en rojo, por dónde partir y qué decisiones no deberían salir de tus manos, y te llevas la planilla donde vas a armar tu sistema. Lo demás llega semana a semana.
+            En 30 minutos sabes qué pieza de tu negocio está en rojo, por dónde partir y qué decisiones no deberían salir de tus manos, y te llevas la planilla donde vas a armar tu sistema. Los otros 6 módulos ya están listos para seguir a tu ritmo.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
             <BotonCompra ubicacion="cta_final" />

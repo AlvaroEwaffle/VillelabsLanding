@@ -5,7 +5,7 @@
  * (curso v1.1 «El sistema de tu negocio»). Agrega la hoja Atención a la planilla del sistema
  * (lib/productos/curso/plantilla.ts), con las mismas columnas.
  * 5 lecciones + cierre (prueba real, semáforo antes/después, entregable: respuestas listas + reglas de derivación +
- * hoja Atención + mensaje de postventa). La IA o un chatbot quedan como ayuda opcional, nunca como el centro.
+ * hoja Atención + mensaje de postventa). La IA ayuda con los prompts de cada lección; un chatbot queda como paso opcional, nunca como el centro.
  */
 
 import { useMemo } from 'react';
