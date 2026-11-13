@@ -6,6 +6,7 @@
 // La primera reproducción de cada video se avisa al Slack de Villelabs (lib/productos/eventos.ts), y desde el 12-nov-2026
 // también cuánto se vio: 25, 50 y 100 %, una vez por video y por visita (sessionStorage).
 
+import { useEffect, useState } from 'react';
 import { registrarEvento } from '@/lib/productos/eventos';
 import { mp4 } from '@/lib/productos/media';
 
@@ -94,12 +95,26 @@ export default function VideoProducto({
   vertical?: boolean;
   className?: string;
 }) {
+  // 13-nov-2026 (velocidad en celular): el video no se descarga mientras carga la página. Antes, preload="metadata" bajaba
+  // 160–190 KB del mp4 en paralelo con el CSS y las fuentes del primer pantallazo. Ahora parte en "none" y pasa a "metadata"
+  // cuando la página terminó de cargar (así la duración se ve igual que antes). Si se toca play antes, el navegador lo baja igual.
+  const [precarga, setPrecarga] = useState<'none' | 'metadata'>('none');
+  useEffect(() => {
+    if (document.readyState === 'complete') {
+      setPrecarga('metadata');
+      return;
+    }
+    const alCargar = () => setPrecarga('metadata');
+    window.addEventListener('load', alCargar, { once: true });
+    return () => window.removeEventListener('load', alCargar);
+  }, []);
   return (
     <video
       controls
       playsInline
-      preload="metadata"
-      poster={`/videos/${id}.jpg`}
+      preload={precarga}
+      // Póster en WebP (1280 px, ~4× más liviano que el .jpg de 1920 px; el .jpg queda para OG y JSON-LD).
+      poster={`/videos/${id}.webp`}
       aria-label={titulo}
       onPlay={(e) => {
         const v = e.currentTarget;

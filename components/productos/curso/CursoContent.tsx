@@ -34,7 +34,6 @@ import QuienLoEnsena from './QuienLoEnsena';
 import { TIEMPO } from '@/lib/productos/curso/llevas';
 import { hotmartConUtm } from '@/lib/productos/utm';
 import { trackCursoClickCompra } from '@/lib/productos/curso/tracking';
-import { FOTOS } from '@/lib/productos/fotos';
 import { APOYO, type ImagenApoyo } from '@/lib/productos/apoyo';
 import { DiagramaComoSeAprende, DiagramaCuelloBotella } from '@/components/productos/diagramas/curso';
 import { Foto, Kicker } from './piezas';
@@ -248,8 +247,9 @@ export default function CursoContent() {
               <p className="mt-3 max-w-xl text-base text-slate-300 sm:text-lg">{PROMESA_EXP15.bajada}</p>
             </div>
             <a href="#quien-lo-ensena" className="mt-3 inline-flex min-h-[44px] items-center gap-2.5 text-sm text-slate-400 hover:text-white">
+              {/* 13-nov-2026 (velocidad): miniatura de 96 px (2,3 KB) en vez de la foto de 1080 px (292 KB), que React precargaba con prioridad alta. */}
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={FOTOS.podcasterCerca.src} alt="" width={32} height={32} className="h-8 w-8 shrink-0 rounded-full object-cover" />
+              <img src="/fotos/alvaro-podcast-96.webp" alt="" width={32} height={32} className="h-8 w-8 shrink-0 rounded-full object-cover" />
               <span>
                 Te lo enseña <span className="text-slate-200 underline decoration-white/30 underline-offset-2">Álvaro Villena</span>, que usa este mismo orden en sus propios negocios
               </span>

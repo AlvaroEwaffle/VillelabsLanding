@@ -1,0 +1,4 @@
+# 13-nov-2026 (velocidad): los archivos de /_next/static llevan hash en el nombre (cambian de nombre en cada build),
+# así que se pueden guardar un año en el celular. El resto de las rutas sigue con la caché por defecto de Cloudflare Pages.
+/_next/static/*
+  Cache-Control: public, max-age=31536000, immutable
