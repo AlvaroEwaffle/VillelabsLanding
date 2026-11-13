@@ -225,7 +225,7 @@ function MapaAreas() {
           <p className="mt-1 text-sm text-slate-400">En tu planilla: todas las hojas juntas, con el tablero (módulo 6).</p>
         </div>
       </div>
-      <p className="mt-3 text-sm text-slate-400">No vas a instalar un software: es una planilla de Google Sheets bien armada, más rutinas cortas. Cada módulo le agrega una hoja.</p>
+      <p className="mt-3 text-sm text-slate-400">No vas a instalar un software: es una planilla de Google Sheets bien armada, más rutinas cortas. Cada módulo llena una hoja.</p>
 
       <p className="mt-8 text-sm text-slate-400">Toca cada pieza para ver qué se ordena ahí, qué hoja le toca y qué pasa si no.</p>
       <div className="mt-3 grid grid-cols-3 grid-rows-2 gap-2 sm:gap-3">
@@ -413,7 +413,7 @@ function Diagnostico({
               </li>
             </ol>
             <p className="mt-4 text-sm text-slate-400">
-              Cada módulo suma una hoja a la misma planilla. Haz todos, pero cuando llegues a tu pieza más roja, dale más tiempo y haz su prueba real primero.
+              Cada módulo llena una hoja de la misma planilla. Haz todos, pero cuando llegues a tu pieza más roja, dale más tiempo y haz su prueba real primero.
             </p>
             <button type="button" onClick={onReiniciar} className="mt-5 inline-flex min-h-[44px] items-center gap-2 text-sm text-slate-400 hover:text-white">
               <RotateCcw className="h-4 w-4" aria-hidden /> Volver a responder
@@ -794,7 +794,7 @@ function Portada({
         <h3 className="mt-6 text-xs uppercase tracking-wider text-slate-400">{montado && completo ? '3' : '2'} · Tu planilla base</h3>
         <p className="mt-2 text-sm text-slate-200">
           {montado && planillaLista
-            ? `Descargada y abierta${productos.length ? `, con ${productos.length} ${productos.length === 1 ? 'producto' : 'productos'} en tu lista de precios` : ''}. Cada módulo le suma una hoja.`
+            ? `Descargada y abierta${productos.length ? `, con ${productos.length} ${productos.length === 1 ? 'producto' : 'productos'} en tu lista de precios` : ''}. Cada módulo llena una hoja.`
             : 'Pendiente: descargar tu planilla y llenar la ficha del negocio (lección 3).'}
         </p>
 

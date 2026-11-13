@@ -30,7 +30,7 @@ import type { ImagenApoyo } from '@/lib/productos/apoyo';
 import { Foto, Kicker, PuntoSemaforo, VideoProximamente } from './piezas';
 import { VideoMarco } from '@/components/productos/VideoProducto';
 import { VIDEOS_CURSO } from '@/lib/productos/curso/videos';
-import { DescargaPlantilla } from './Plantilla';
+import { SigueConTuPlanilla } from './Plantilla';
 import { PROMPTS_CURSO, PROMPTS_POR_LECCION } from '@/lib/productos/curso/prompts';
 
 // ─── Tipos y constantes ───────────────────────────────────────────────────
@@ -747,9 +747,9 @@ export function CierreModulo({
         <>
           <Subtitulo>4 · Tu planilla: {hoja}</Subtitulo>
           <p className="mt-2 text-slate-300">
-            Lo de esta semana vive en tu planilla del sistema, la misma que abriste en el módulo 0. Si todavía no la tienes, o te falta una hoja, descárgala aquí y copia la hoja que necesitas.
+            Lo de esta semana vive en tu planilla del sistema, la del módulo 0. Aquí llenas: {hoja}.
           </p>
-          <DescargaPlantilla className="mt-4" titulo="La planilla de tu sistema" />
+          <SigueConTuPlanilla className="mt-3" />
         </>
       ) : null}
       <PieModulos actual={numero} />

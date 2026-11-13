@@ -19,7 +19,7 @@ import { GUIONES } from '@/lib/productos/curso/guiones';
 import { Pantallita } from '@/components/productos/Pantallita';
 import { DiagramaPlanillaOSoftware, DiagramaQuienEdita, DiagramaRutinasSistema, DiagramaTableroLee } from '@/components/productos/diagramas/sistema-m56';
 import { Kicker, PuntoSemaforo } from './piezas';
-import { DescargaPlantilla } from './Plantilla';
+import { DescargaPlantilla, SigueConTuPlanilla } from './Plantilla';
 import {
   BloqueCopiar,
   BotonDescarga,
@@ -184,7 +184,7 @@ function LeccionLunes() {
       <Subtitulo>Tu primer lunes con el tablero</Subtitulo>
       <Instruccion>Abre la hoja Tablero de tu planilla (o el ejemplo de Grano Norte, si todavía no tienes datos) y responde.</Instruccion>
       <Campos clave={K.lunes} campos={CAMPOS_LUNES} ejemplo={EJEMPLO_LUNES} />
-      <DescargaPlantilla titulo="Abre tu tablero" texto="La hoja Tablero ya viene armada en la planilla del sistema, con las fórmulas listas. Si todavía no tienes datos, mira el ejemplo de Grano Norte: los números de arriba salen de ahí." />
+      <DescargaPlantilla continuar titulo="Abre tu tablero" texto="La hoja Tablero ya viene en tu planilla, con las fórmulas listas. Si todavía no tienes datos, abre el ejemplo de Grano Norte: los números de arriba salen de ahí." />
       <Freno>El tablero muestra; no decide. Lo que se hace con un número (cobrar, dar un plazo, cambiar un precio) lo decide una persona.</Freno>
     </>
   );
@@ -687,7 +687,7 @@ function ProyectoFinal() {
           <BotonDescarga etiqueta="Descargar proyecto final (.txt)" onClick={() => descargarArchivo('proyecto-final-mi-sistema.txt', armarTxt(PROYECTO_FINAL.titulo, lineasTxt, negocio))} />
         </div>
 
-        <DescargaPlantilla className="mt-8" titulo="Tu planilla del sistema" />
+        <SigueConTuPlanilla className="mt-8" />
 
         <div className="mt-8 rounded-2xl border border-[#5fb2dd]/40 bg-[#2175a1]/10 p-5">
           <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-[#5fb2dd]">Tu proyecto final</p>

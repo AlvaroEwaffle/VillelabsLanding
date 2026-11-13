@@ -280,3 +280,34 @@ html[data-exp12="B"] .exp12-B,html[data-exp12="C"] .exp12-C{display:block}
 .exp13-B,.exp14-B,.exp15-B{display:none}
 html[data-exp13="B"] .exp13-A,html[data-exp14="B"] .exp14-A,html[data-exp15="B"] .exp15-A{display:none}
 html[data-exp13="B"] .exp13-B,html[data-exp14="B"] .exp14-B,html[data-exp15="B"] .exp15-B{display:revert}
+
+/* Animaciones de /curso (13-nov-2026, segundo paquete; patrón del landing de Fidelidapp: y 18 px, 0,6 s,
+   cubic-bezier(.2,.7,.2,1), una vez). Las pone useArmado (lib/productos/aparecer.ts) con data-anim en el contenedor:
+   «listo» = estado inicial (solo si está bajo el pantallazo y hay movimiento permitido) → «ver» al entrar en pantalla.
+   Sin JS o con reduced-motion no hay data-anim y todo queda en su estado final. Solo opacity, transform y stroke. */
+[data-anim] .a-pieza,[data-anim] .a-trazo,[data-anim] .a-encender{transition-timing-function:cubic-bezier(.2,.7,.2,1);transition-delay:calc(var(--i,0) * 90ms)}
+[data-anim="listo"] .a-pieza{opacity:0;transform:translateY(18px)}
+[data-anim="ver"] .a-pieza{opacity:1;transform:none;transition-property:opacity,transform;transition-duration:.6s}
+[data-anim="listo"] .a-trazo{stroke-dasharray:1;stroke-dashoffset:1}
+[data-anim="ver"] .a-trazo{stroke-dasharray:1;stroke-dashoffset:0;transition-property:stroke-dashoffset;transition-duration:.7s}
+[data-anim="listo"] .a-aparece{opacity:0}
+[data-anim="ver"] .a-aparece{opacity:1;transition:opacity .5s ease-out calc(var(--i,0) * 90ms)}
+[data-anim="listo"] .a-encender{opacity:.22}
+[data-anim="ver"] .a-encender{opacity:1;transition-property:opacity;transition-duration:.5s}
+[data-anim="listo"] .a-escala{opacity:0;transform:scale(.6)}
+[data-anim="ver"] .a-escala{opacity:1;transform:none;transition:opacity .45s cubic-bezier(.2,.7,.2,1) calc(var(--i,0) * 90ms),transform .45s cubic-bezier(.2,.7,.2,1) calc(var(--i,0) * 90ms)}
+.a-escala{transform-box:fill-box;transform-origin:center}
+@keyframes a-pulso{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.06);opacity:.85}}
+[data-anim="ver"] .a-pulso{animation:a-pulso 1.6s ease-in-out calc(var(--i,0) * 90ms) 1;transform-box:fill-box;transform-origin:center}
+@media (prefers-reduced-motion:reduce){[data-anim] *{transition:none!important;animation:none!important}}
+/* El dato que viaja de una hoja al tablero (DiagramaCiclo): visible solo durante el armado, una vez. */
+.a-viaja{opacity:0}
+@keyframes a-viaja{0%{opacity:0;transform:translate(0,0)}15%{opacity:1}85%{opacity:1}100%{opacity:0;transform:translate(var(--dx),var(--dy))}}
+[data-anim="ver"] .a-viaja{animation:a-viaja .9s cubic-bezier(.2,.7,.2,1) calc(var(--i,0) * 90ms + .3s) 1 both}
+/* Cascada: los hijos directos de .a-cascada entran escalonados (el propio contenedor o un ancestro lleva data-anim). */
+.a-linea{transform-origin:top}
+[data-anim="listo"] .a-linea{transform:scaleY(0)}
+[data-anim="ver"] .a-linea{transform:scaleY(1);transition:transform 1.4s cubic-bezier(.2,.7,.2,1) .1s}
+[data-anim="listo"].a-cascada>*,[data-anim="listo"] .a-cascada>*{opacity:0;transform:translateY(18px)}
+[data-anim="ver"].a-cascada>*,[data-anim="ver"] .a-cascada>*{opacity:1;transform:none;transition:opacity .6s cubic-bezier(.2,.7,.2,1),transform .6s cubic-bezier(.2,.7,.2,1)}
+.a-cascada>:nth-child(2){transition-delay:90ms!important}.a-cascada>:nth-child(3){transition-delay:180ms!important}.a-cascada>:nth-child(4){transition-delay:270ms!important}.a-cascada>:nth-child(5){transition-delay:360ms!important}.a-cascada>:nth-child(6){transition-delay:450ms!important}.a-cascada>:nth-child(n+7){transition-delay:540ms!important}
