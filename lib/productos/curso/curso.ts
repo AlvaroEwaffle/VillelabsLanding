@@ -23,6 +23,14 @@ export function textoPrecio(): string {
   return PRECIO_FUNDADOR === null ? 'Precio de lanzamiento' : `${clp(PRECIO_FUNDADOR)} precio de lanzamiento`;
 }
 
+/**
+ * 13-nov-2026 (auditoría AI SEO, arreglo 5): la misma cifra con la moneda escrita («$29.990 CLP»), para que un asistente
+ * no la lea como dólares. Solo en la tarjeta de precio, fuera del primer pantallazo: el hero (EXP-15) sigue con textoPrecio().
+ */
+export function textoPrecioConMoneda(): string {
+  return PRECIO_FUNDADOR === null ? 'Precio de lanzamiento' : `${clp(PRECIO_FUNDADOR)} ${MONEDA_PRECIO} precio de lanzamiento`;
+}
+
 /** Variante B de EXP-13 (12-nov-2026): sin «primeros 20 alumnos» (cupo sin respaldo verificable en la página). */
 export function textoPrecioSinCupo(): string {
   return textoPrecio();

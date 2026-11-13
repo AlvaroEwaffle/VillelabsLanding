@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { AUTOR, faqPage, JsonLd, ORGANIZACION, SITE_URL, videoObject } from '@/lib/productos/seo';
-import { CURSO, FAQ } from '@/lib/productos/curso/curso';
+import { CURSO, FAQ, MONEDA_PRECIO, PRECIO_FUNDADOR } from '@/lib/productos/curso/curso';
 import { VERSION_CURSO } from '@/lib/productos/curso/versiones';
 import CursoContent from '@/components/productos/curso/CursoContent';
 import { fraunces } from '@/lib/productos/fuente';
@@ -48,6 +48,19 @@ const JSON_LD = [
     dateModified: VERSION_CURSO.fecha,
     teaches: ['Armar un CRM y un ERP con prompts para ChatGPT o Claude', 'CRM en Google Sheets', 'ERP para pymes en una planilla', 'Seguimiento de clientes y propuestas', 'Control de pedidos', 'Cobranza y flujo de caja', 'Tablero de indicadores', 'Configurar un asistente de IA con tu planilla como memoria'],
     hasCourseInstance: { '@type': 'CourseInstance', courseMode: 'online' },
+    // 13-nov-2026 (AI SEO): la oferta con el mismo precio y moneda que la tarjeta de precio («$29.990 CLP»). Sin precio tachado ni fechas.
+    ...(PRECIO_FUNDADOR === null
+      ? {}
+      : {
+          offers: {
+            '@type': 'Offer',
+            category: 'Paid',
+            price: PRECIO_FUNDADOR,
+            priceCurrency: MONEDA_PRECIO,
+            availability: 'https://schema.org/InStock',
+            url: `${SITE_URL}/curso`,
+          },
+        }),
   },
   faqPage(FAQ.map((f) => ({ q: f.p, a: f.r }))),
   videoObject({

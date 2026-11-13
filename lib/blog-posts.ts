@@ -233,55 +233,55 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: 'shape-up-metodologia-agencia',
-    title: 'Por Que Trabajamos con Shape Up y No con Scrum',
-    date: 'March 2026',
+    title: 'Por Qué Trabajamos con Shape Up y No con Scrum',
+    date: 'Marzo 2026',
     excerpt:
-      'Scrum funciona para equipos grandes. Para una agencia que necesita entregar resultados reales en semanas, Shape Up es mejor. Te explicamos por que.',
-    category: 'Methodology',
-    readTime: '5 min read',
+      'Scrum funciona para equipos grandes. Para una agencia que necesita entregar resultados reales en semanas, Shape Up es mejor. Te explicamos por qué.',
+    category: 'Metodología',
+    readTime: '5 min de lectura',
     keywords: [
-      'Shape Up metodologia',
+      'Shape Up metodología',
       'Shape Up vs Scrum',
-      'gestion de proyectos agencia',
-      'metodologia agil Chile',
+      'gestión de proyectos agencia',
+      'metodología ágil Chile',
       'ciclos de desarrollo',
     ],
     language: 'es',
     content: `
-<p>Cuando un cliente nos pregunta como trabajamos, la respuesta corta es: en ciclos de dos semanas con alcance variable. La respuesta larga tiene un nombre: Shape Up.</p>
+<p>Cuando un cliente nos pregunta cómo trabajamos, la respuesta corta es: en ciclos de dos semanas con alcance variable. La respuesta larga tiene un nombre: Shape Up.</p>
 
-<p>Shape Up es la metodologia que creo Basecamp (la empresa detras de Hey y Ruby on Rails) y que nosotros adaptamos para el contexto de agencia. No es Scrum. No es Kanban. Y eso es intencional.</p>
+<p>Shape Up es la metodología que creó Basecamp (la empresa detrás de Hey y Ruby on Rails) y que nosotros adaptamos para el contexto de agencia. No es Scrum. No es Kanban. Y eso es intencional.</p>
 
 <h2>El problema con Scrum en agencias</h2>
 
-<p>Scrum fue disenado para equipos de producto grandes que trabajan en un mismo software durante meses o anos. Tiene ceremonias, roles y artefactos que hacen sentido en ese contexto. Pero cuando lo aplicas a una agencia que trabaja con multiples clientes en proyectos de 2 a 8 semanas, empiezan los problemas.</p>
+<p>Scrum fue diseñado para equipos de producto grandes que trabajan en un mismo software durante meses o años. Tiene ceremonias, roles y artefactos que hacen sentido en ese contexto. Pero cuando lo aplicas a una agencia que trabaja con múltiples clientes en proyectos de 2 a 8 semanas, empiezan los problemas.</p>
 
-<p>Los daily standups se vuelven un ritual vacio. Los sprints de dos semanas terminan siendo una lista de tareas disfrazada. El product owner es el cliente, pero el cliente no sabe lo que es un backlog refinement. Y al final, el equipo pasa mas tiempo en reuniones que construyendo.</p>
+<p>Los daily standups se vuelven un ritual vacío. Los sprints de dos semanas terminan siendo una lista de tareas disfrazada. El product owner es el cliente, pero el cliente no sabe lo que es un backlog refinement. Y al final, el equipo pasa más tiempo en reuniones que construyendo.</p>
 
-<h2>Como funciona Shape Up en Villelabs</h2>
+<h2>Cómo funciona Shape Up en Villelabs</h2>
 
-<p><strong>Tiempo fijo, alcance variable.</strong> Cada proyecto tiene un apetito de tiempo definido antes de empezar: dos semanas, cuatro semanas, o seis semanas. Ese tiempo no se negocia. Lo que si se negocia es el alcance. Si algo no cabe en el ciclo, se recorta inteligentemente, no se agrega tiempo.</p>
+<p><strong>Tiempo fijo, alcance variable.</strong> Cada proyecto tiene un apetito de tiempo definido antes de empezar: dos semanas, cuatro semanas, o seis semanas. Ese tiempo no se negocia. Lo que sí se negocia es el alcance. Si algo no cabe en el ciclo, se recorta inteligentemente, no se agrega tiempo.</p>
 
-<p><strong>Shaping antes de construir.</strong> Antes de que el equipo toque una linea de codigo, el proyecto se "shapea": se define el problema, se bocetean las soluciones a nivel macro, y se identifican los riesgos. Esto no es un wireframe pixel-perfect. Es un mapa lo suficientemente claro para que el equipo tenga direccion pero suficiente libertad para resolver los detalles.</p>
+<p><strong>Shaping antes de construir.</strong> Antes de que el equipo toque una línea de código, el proyecto se "shapea": se define el problema, se bocetean las soluciones a nivel macro, y se identifican los riesgos. Esto no es un wireframe pixel-perfect. Es un mapa lo suficientemente claro para que el equipo tenga dirección pero suficiente libertad para resolver los detalles.</p>
 
-<p><strong>Sin interrupciones.</strong> Durante un ciclo, el equipo trabaja enfocado en un solo proyecto. No hay tickets que llegan de la nada, no hay cambios de prioridad a mitad de camino. Esto parece un lujo, pero es lo que permite entregar rapido y con calidad.</p>
+<p><strong>Sin interrupciones.</strong> Durante un ciclo, el equipo trabaja enfocado en un solo proyecto. No hay tickets que llegan de la nada, no hay cambios de prioridad a mitad de camino. Esto parece un lujo, pero es lo que permite entregar rápido y con calidad.</p>
 
-<p><strong>Cool-down entre ciclos.</strong> Despues de cada ciclo hay un periodo corto de enfriamiento. El equipo arregla bugs menores, explora ideas, o simplemente respira. Esto previene el burnout y mantiene la calidad a largo plazo.</p>
+<p><strong>Cool-down entre ciclos.</strong> Después de cada ciclo hay un periodo corto de enfriamiento. El equipo arregla bugs menores, explora ideas, o simplemente respira. Esto previene el burnout y mantiene la calidad a largo plazo.</p>
 
 <h2>Los beneficios que ven nuestros clientes</h2>
 
 <ul>
-<li><strong>Entregas predecibles.</strong> Sabes exactamente cuando vas a tener algo funcionando. No hay sprints que se alargan indefinidamente.</li>
+<li><strong>Entregas predecibles.</strong> Sabes exactamente cuándo vas a tener algo funcionando. No hay sprints que se alargan indefinidamente.</li>
 <li><strong>Decisiones inteligentes de alcance.</strong> En vez de agregar semanas al proyecto, priorizamos lo que realmente importa. El resultado es un producto enfocado que sale a tiempo.</li>
-<li><strong>Menos reuniones, mas avance.</strong> No hay dailys, no hay sprint planning de 3 horas. Hay comunicacion asincrona, check-ins semanales cortos, y demos cuando hay algo real que mostrar.</li>
-<li><strong>Un equipo que no esta quemado.</strong> Los cool-downs no son un extra. Son parte del sistema. Un equipo descansado produce mejor trabajo.</li>
+<li><strong>Menos reuniones, más avance.</strong> No hay dailys, no hay sprint planning de 3 horas. Hay comunicación asíncrona, check-ins semanales cortos, y demos cuando hay algo real que mostrar.</li>
+<li><strong>Un equipo que no está quemado.</strong> Los cool-downs no son un extra. Son parte del sistema. Un equipo descansado produce mejor trabajo.</li>
 </ul>
 
 <h2>No es para todos</h2>
 
-<p>Shape Up funciona mejor cuando hay confianza entre el cliente y el equipo. Si necesitas controlar cada hora de trabajo o aprobar cada decision de diseno, probablemente Scrum con un project manager tradicional sea mejor opcion para ti. Pero si quieres resultados rapidos con un equipo que sabe lo que hace, Shape Up es dificil de superar.</p>
+<p>Shape Up funciona mejor cuando hay confianza entre el cliente y el equipo. Si necesitas controlar cada hora de trabajo o aprobar cada decisión de diseño, probablemente Scrum con un project manager tradicional sea mejor opción para ti. Pero si quieres resultados rápidos con un equipo que sabe lo que hace, Shape Up es difícil de superar.</p>
 
-<p>En Villelabs trabajamos asi porque nos permite entregar productos reales, no presentaciones de avance. Si quieres saber como seria tu proyecto bajo esta metodologia, conversemos.</p>
+<p>En Villelabs trabajamos así porque nos permite entregar productos reales, no presentaciones de avance. Si quieres saber cómo sería tu proyecto bajo esta metodología, conversemos.</p>
 `,
   },
   {
@@ -339,52 +339,52 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: 'chatbot-ia-chile-costo-2026',
-    title: 'Cuanto Cuesta un Chatbot con IA en Chile en 2026',
-    date: 'March 2026',
+    title: 'Cuánto Cuesta un Chatbot con IA en Chile en 2026',
+    date: 'Marzo 2026',
     excerpt:
-      'WhatsApp, Instagram, sitio web: los chatbots con IA estan en todos lados. Pero cuanto cuestan realmente y que opciones tienes en Chile? Aca lo desglosamos.',
-    category: 'AI & Automation',
-    readTime: '5 min read',
+      'WhatsApp, Instagram, sitio web: los chatbots con IA están en todos lados. Pero ¿cuánto cuestan realmente y qué opciones tienes en Chile? Acá lo desglosamos.',
+    category: 'IA y automatización',
+    readTime: '5 min de lectura',
     keywords: [
       'chatbot IA Chile',
       'costo chatbot inteligencia artificial',
       'bot WhatsApp empresa',
       'chatbot Instagram Chile',
-      'automatizacion IA 2026',
+      'automatización IA 2026',
     ],
     language: 'es',
     content: `
-<p>En 2026, los chatbots con inteligencia artificial dejaron de ser un experimento y se convirtieron en una herramienta real de negocio. Pero el mercado esta lleno de opciones que van desde bots gratuitos que apenas funcionan hasta soluciones enterprise que cuestan miles de dolares al mes. Entonces, cuanto cuesta realmente implementar un chatbot con IA para tu negocio en Chile?</p>
+<p>En 2026, los chatbots con inteligencia artificial dejaron de ser un experimento y se convirtieron en una herramienta real de negocio. Pero el mercado está lleno de opciones que van desde bots gratuitos que apenas funcionan hasta soluciones enterprise que cuestan miles de dólares al mes. Entonces, ¿cuánto cuesta realmente implementar un chatbot con IA para tu negocio en Chile?</p>
 
 <h2>Los tres tipos de chatbot que importan</h2>
 
-<p><strong>Chatbot para sitio web.</strong> Es el clasico widget que aparece en la esquina de tu pagina. En su version basica es un arbol de decisiones con respuestas predefinidas. En su version con IA, puede entender preguntas en lenguaje natural, consultar tu base de conocimiento, y responder de forma conversacional. El rango va desde gratis (Tidio, Crisp en plan basico) hasta $200-$500 USD/mes para soluciones con IA real como Intercom o Drift.</p>
+<p><strong>Chatbot para sitio web.</strong> Es el clásico widget que aparece en la esquina de tu página. En su versión básica es un árbol de decisiones con respuestas predefinidas. En su versión con IA, puede entender preguntas en lenguaje natural, consultar tu base de conocimiento, y responder de forma conversacional. El rango va desde gratis (Tidio, Crisp en plan básico) hasta $200-$500 USD/mes para soluciones con IA real como Intercom o Drift.</p>
 
-<p><strong>Bot para WhatsApp Business.</strong> Este es el canal que mas importa en Chile. Con la API de WhatsApp Business puedes automatizar respuestas, calificar leads, y derivar conversaciones a un humano cuando es necesario. El costo tiene dos partes: la plataforma (entre $50 y $300 USD/mes) y el costo por conversacion de WhatsApp (alrededor de $0.05 USD por mensaje iniciado por el negocio). Para un volumen de 500 conversaciones al mes, estas hablando de $150-$400 USD mensuales en total.</p>
+<p><strong>Bot para WhatsApp Business.</strong> Este es el canal que más importa en Chile. Con la API de WhatsApp Business puedes automatizar respuestas, calificar leads, y derivar conversaciones a un humano cuando es necesario. El costo tiene dos partes: la plataforma (entre $50 y $300 USD/mes) y el costo por conversación de WhatsApp (alrededor de $0.05 USD por mensaje iniciado por el negocio). Para un volumen de 500 conversaciones al mes, estás hablando de $150-$400 USD mensuales en total.</p>
 
-<p><strong>Bot para Instagram DMs.</strong> Menos comun pero cada vez mas relevante, especialmente si tu negocio depende de redes sociales. Un bot de Instagram puede responder mensajes directos, calificar leads, y manejar consultas frecuentes de forma automatica. Las soluciones van desde $100 hasta $500 USD/mes dependiendo del volumen y la complejidad de las respuestas.</p>
+<p><strong>Bot para Instagram DMs.</strong> Menos común pero cada vez más relevante, especialmente si tu negocio depende de redes sociales. Un bot de Instagram puede responder mensajes directos, calificar leads, y manejar consultas frecuentes de forma automática. Las soluciones van desde $100 hasta $500 USD/mes dependiendo del volumen y la complejidad de las respuestas.</p>
 
 <h2>Construir vs comprar</h2>
 
-<p>Esta es la decision clave. Las plataformas SaaS (ManyChat, Respond.io, Botpress) te permiten tener un bot funcionando en dias. El costo mensual es predecible y no necesitas un equipo tecnico. La desventaja: estas limitado a lo que la plataforma permite y tus datos viven en sus servidores.</p>
+<p>Esta es la decisión clave. Las plataformas SaaS (ManyChat, Respond.io, Botpress) te permiten tener un bot funcionando en días. El costo mensual es predecible y no necesitas un equipo técnico. La desventaja: estás limitado a lo que la plataforma permite y tus datos viven en sus servidores.</p>
 
-<p>Construir un chatbot custom con IA (usando OpenAI, Anthropic, o modelos open source) te da control total. Puedes integrar con tus sistemas internos, personalizar la logica de negocio, y ser dueno de tus datos. El costo inicial es mayor — entre $2,000 y $8,000 USD para un MVP funcional — pero el costo mensual baja significativamente (basicamente el consumo de API de IA, que puede ser $50-$200 USD/mes dependiendo del volumen).</p>
+<p>Construir un chatbot custom con IA (usando OpenAI, Anthropic, o modelos open source) te da control total. Puedes integrar con tus sistemas internos, personalizar la lógica de negocio, y ser dueño de tus datos. El costo inicial es mayor — entre $2,000 y $8,000 USD para un MVP funcional — pero el costo mensual baja significativamente (básicamente el consumo de API de IA, que puede ser $50-$200 USD/mes dependiendo del volumen).</p>
 
-<h2>Que preguntas hacerte antes de invertir</h2>
+<h2>Qué preguntas hacerte antes de invertir</h2>
 
 <ul>
-<li>Cuantas conversaciones al mes necesitas automatizar? Si son menos de 50, probablemente no necesitas IA.</li>
-<li>Tu equipo puede manejar la configuracion inicial o necesitas ayuda tecnica?</li>
-<li>Necesitas integracion con tu CRM, sistema de reservas, o e-commerce?</li>
-<li>Que pasa cuando el bot no sabe la respuesta? El handoff a humano es critico.</li>
-<li>Tus clientes prefieren WhatsApp, Instagram, o tu sitio web?</li>
+<li>¿Cuántas conversaciones al mes necesitas automatizar? Si son menos de 50, probablemente no necesitas IA.</li>
+<li>¿Tu equipo puede manejar la configuración inicial o necesitas ayuda técnica?</li>
+<li>¿Necesitas integración con tu CRM, sistema de reservas, o e-commerce?</li>
+<li>¿Qué pasa cuando el bot no sabe la respuesta? El handoff a humano es crítico.</li>
+<li>¿Tus clientes prefieren WhatsApp, Instagram, o tu sitio web?</li>
 </ul>
 
-<h2>El error mas comun</h2>
+<h2>El error más común</h2>
 
-<p>El peor chatbot es el que frustra a tus clientes. Un bot que no entiende las preguntas, que da vueltas en circulos, o que no tiene opcion de hablar con una persona real hace mas dano que no tener bot. La tecnologia es importante, pero el diseno de la conversacion es lo que determina si el bot ayuda o estorba.</p>
+<p>El peor chatbot es el que frustra a tus clientes. Un bot que no entiende las preguntas, que da vueltas en círculos, o que no tiene opción de hablar con una persona real hace más daño que no tener bot. La tecnología es importante, pero el diseño de la conversación es lo que determina si el bot ayuda o estorba.</p>
 
-<p>En Villelabs construimos chatbots con IA que realmente entienden a tus clientes, califican leads, y saben cuando pasar la conversacion a tu equipo. Si quieres explorar que tipo de bot tiene sentido para tu negocio, hablemos.</p>
+<p>En Villelabs construimos chatbots con IA que realmente entienden a tus clientes, califican leads, y saben cuándo pasar la conversación a tu equipo. Si quieres explorar qué tipo de bot tiene sentido para tu negocio, hablemos.</p>
 `,
   },
   {
@@ -439,60 +439,60 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: 'caso-puchacay-duplicar-ventas',
-    title: 'Como Puchacay Duplico Sus Ventas Online con un Funnel de E-commerce',
-    date: 'March 2026',
+    title: 'Cómo Puchacay Duplicó Sus Ventas Online con un Funnel de E-commerce',
+    date: 'Marzo 2026',
     excerpt:
-      'Una cerveceria artesanal que pasó de cero ventas online a un funnel completo de e-commerce. +120% leads, +35% ventas online. Esta es la historia.',
-    category: 'Case Study',
-    readTime: '5 min read',
+      'Una cervecería artesanal que pasó de cero ventas online a un funnel completo de e-commerce. +120% leads, +35% ventas online. Esta es la historia.',
+    category: 'Caso de estudio',
+    readTime: '5 min de lectura',
     keywords: [
-      'caso de exito e-commerce',
-      'cerveceria artesanal online',
+      'caso de éxito e-commerce',
+      'cervecería artesanal online',
       'funnel de ventas Chile',
       'aumentar ventas online',
-      'Puchacay cerveceria',
+      'Puchacay cervecería',
     ],
     language: 'es',
     content: `
-<p>Cuando Puchacay nos contacto, tenian un problema que suena familiar: una cerveceria artesanal con un producto excelente, clientes fieles en su taproom, y absolutamente cero presencia digital que generara ventas. Su sitio web era una pagina estatica con un menu en PDF y un link a Google Maps. Eso era todo.</p>
+<p>Cuando Puchacay nos contactó, tenían un problema que suena familiar: una cervecería artesanal con un producto excelente, clientes fieles en su taproom, y absolutamente cero presencia digital que generara ventas. Su sitio web era una página estática con un menú en PDF y un link a Google Maps. Eso era todo.</p>
 
 <h2>El punto de partida</h2>
 
-<p>Puchacay es una cerveceria artesanal del sur de Chile con una reputacion solida en su comunidad local. Pero su negocio dependia 100% del trafico fisico. Si llovía mucho (y en el sur llueve mucho), las ventas caian. Si habia un fin de semana largo y la gente viajaba, las ventas caian. No tenian forma de vender fuera de su radio de 5 kilometros.</p>
+<p>Puchacay es una cervecería artesanal del sur de Chile con una reputación sólida en su comunidad local. Pero su negocio dependía 100% del tráfico físico. Si llovía mucho (y en el sur llueve mucho), las ventas caían. Si había un fin de semana largo y la gente viajaba, las ventas caían. No tenían forma de vender fuera de su radio de 5 kilómetros.</p>
 
-<p>El dueno sabia que necesitaba vender online, pero habia intentado con un Shopify basico que no genero ni una sola venta en tres meses. La conclusion a la que llego — "el e-commerce no funciona para cerveza artesanal" — era equivocada. El problema no era el canal. Era la ejecucion.</p>
+<p>El dueño sabía que necesitaba vender online, pero había intentado con un Shopify básico que no generó ni una sola venta en tres meses. La conclusión a la que llegó — "el e-commerce no funciona para cerveza artesanal" — era equivocada. El problema no era el canal. Era la ejecución.</p>
 
 <h2>Lo que construimos</h2>
 
-<p>No empezamos por el sitio. Empezamos por entender el recorrido del cliente. Quien compra cerveza artesanal online? Por que lo haria en vez de ir al super? Que lo convenceria de probar una marca que no conoce?</p>
+<p>No empezamos por el sitio. Empezamos por entender el recorrido del cliente. ¿Quién compra cerveza artesanal online? ¿Por qué lo haría en vez de ir al súper? ¿Qué lo convencería de probar una marca que no conoce?</p>
 
-<p>Con esas respuestas disenamos un funnel completo:</p>
+<p>Con esas respuestas diseñamos un funnel completo:</p>
 
 <ul>
-<li><strong>Landing de captura.</strong> Una pagina enfocada en un solo producto: un pack de degustacion de 6 cervezas con despacho incluido. Sin catalogo completo, sin distracciones. Un producto, una oferta, un boton.</li>
-<li><strong>Secuencia de emails.</strong> Los visitantes que no compraban de inmediato dejaban su email a cambio de un descuento. Una secuencia de 4 emails los llevaba de "interesado" a "comprador" en 7 dias.</li>
-<li><strong>Pagina de producto optimizada.</strong> Fotos profesionales, descripciones que contaban la historia de cada cerveza, y reviews reales de clientes del taproom.</li>
-<li><strong>Sistema de despacho.</strong> Integracion con un courier local para despacho en 24-48 horas dentro de la region, y envio nacional en 3-5 dias.</li>
+<li><strong>Landing de captura.</strong> Una página enfocada en un solo producto: un pack de degustación de 6 cervezas con despacho incluido. Sin catálogo completo, sin distracciones. Un producto, una oferta, un botón.</li>
+<li><strong>Secuencia de emails.</strong> Los visitantes que no compraban de inmediato dejaban su email a cambio de un descuento. Una secuencia de 4 emails los llevaba de "interesado" a "comprador" en 7 días.</li>
+<li><strong>Página de producto optimizada.</strong> Fotos profesionales, descripciones que contaban la historia de cada cerveza, y reviews reales de clientes del taproom.</li>
+<li><strong>Sistema de despacho.</strong> Integración con un courier local para despacho en 24-48 horas dentro de la región, y envío nacional en 3-5 días.</li>
 </ul>
 
 <h2>Los resultados</h2>
 
-<p>En los primeros 90 dias despues del lanzamiento:</p>
+<p>En los primeros 90 días después del lanzamiento:</p>
 
 <ul>
-<li><strong>+120% en leads capturados</strong> comparado con el periodo anterior (que era practicamente cero, asi que la barra estaba baja, pero el volumen fue real).</li>
+<li><strong>+120% en leads capturados</strong> comparado con el periodo anterior (que era prácticamente cero, así que la barra estaba baja, pero el volumen fue real).</li>
 <li><strong>+35% en ventas online</strong> como porcentaje del revenue total. Pasaron de 0% a que un tercio de sus ingresos viniera de pedidos online.</li>
-<li><strong>Ticket promedio 40% mayor</strong> en ventas online vs. ventas en taproom. La gente que compra online tiende a llevar packs mas grandes.</li>
-<li><strong>Tasa de recompra del 28%</strong> en los primeros 3 meses. Casi un tercio de los compradores volvio a pedir.</li>
+<li><strong>Ticket promedio 40% mayor</strong> en ventas online vs. ventas en taproom. La gente que compra online tiende a llevar packs más grandes.</li>
+<li><strong>Tasa de recompra del 28%</strong> en los primeros 3 meses. Casi un tercio de los compradores volvió a pedir.</li>
 </ul>
 
 <h2>Lo que aprendimos</h2>
 
-<p>El e-commerce no falla por el canal. Falla porque la mayoria de los negocios ponen un catalogo online y esperan que la gente aparezca. Sin un embudo claro, sin una propuesta de valor definida, y sin seguimiento post-visita, es como abrir una tienda en una calle sin trafico y sin vitrina.</p>
+<p>El e-commerce no falla por el canal. Falla porque la mayoría de los negocios ponen un catálogo online y esperan que la gente aparezca. Sin un embudo claro, sin una propuesta de valor definida, y sin seguimiento post-visita, es como abrir una tienda en una calle sin tráfico y sin vitrina.</p>
 
-<p>Puchacay funciono porque tratamos el e-commerce como un sistema de ventas, no como un sitio web. Cada pieza tenia un proposito: atraer, convencer, convertir, y retener.</p>
+<p>Puchacay funcionó porque tratamos el e-commerce como un sistema de ventas, no como un sitio web. Cada pieza tenía un propósito: atraer, convencer, convertir, y retener.</p>
 
-<p>En Villelabs construimos sistemas de venta digital para negocios que tienen un buen producto pero no estan capturando la demanda que existe online. Si tu negocio esta en una situacion parecida, hablemos.</p>
+<p>En Villelabs construimos sistemas de venta digital para negocios que tienen un buen producto pero no están capturando la demanda que existe online. Si tu negocio está en una situación parecida, hablemos.</p>
 `,
   },
   {
@@ -555,58 +555,58 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: 'mvp-startup-chile-costo',
-    title: 'Cuanto Cuesta Desarrollar un MVP en Chile en 2026',
-    date: 'March 2026',
+    title: 'Cuánto Cuesta Desarrollar un MVP en Chile en 2026',
+    date: 'Marzo 2026',
     excerpt:
-      'Quieres lanzar tu startup pero no sabes cuanto invertir en el primer producto? Aca desglosamos costos reales de MVPs en Chile segun tipo de proyecto.',
-    category: 'Development',
-    readTime: '5 min read',
+      '¿Quieres lanzar tu startup pero no sabes cuánto invertir en el primer producto? Acá desglosamos costos reales de MVPs en Chile según tipo de proyecto.',
+    category: 'Desarrollo',
+    readTime: '5 min de lectura',
     keywords: [
       'costo MVP Chile',
       'desarrollo MVP startup',
-      'cuanto cuesta app Chile',
-      'MVP producto minimo viable',
+      'cuánto cuesta app Chile',
+      'MVP producto mínimo viable',
       'startup Chile desarrollo',
     ],
     language: 'es',
     content: `
-<p>Tienes una idea de negocio. Tal vez ya validaste que hay demanda. Ahora necesitas construir algo: un producto minimo viable que te permita salir al mercado, conseguir tus primeros usuarios, y aprender rapido. La pregunta inevitable es: cuanto va a costar?</p>
+<p>Tienes una idea de negocio. Tal vez ya validaste que hay demanda. Ahora necesitas construir algo: un producto mínimo viable que te permita salir al mercado, conseguir tus primeros usuarios, y aprender rápido. La pregunta inevitable es: ¿cuánto va a costar?</p>
 
-<p>Despues de construir MVPs para startups y pymes en Chile durante anos, aca va la respuesta honesta: depende del tipo de producto, pero hay rangos reales que puedes usar para planificar.</p>
+<p>Después de construir MVPs para startups y pymes en Chile durante años, acá va la respuesta honesta: depende del tipo de producto, pero hay rangos reales que puedes usar para planificar.</p>
 
 <h2>Tipos de MVP y sus costos reales</h2>
 
-<p><strong>Landing page + formulario + proceso manual (1-2 semanas).</strong> Costo: $500-$1,500 USD. Este es el MVP mas barato y mas subestimado. En vez de construir una plataforma, creas una landing page que vende tu servicio y manejas el proceso manualmente detras de escena. Si no validas demanda con esto, una app de $50,000 tampoco lo va a resolver.</p>
+<p><strong>Landing page + formulario + proceso manual (1-2 semanas).</strong> Costo: $500-$1,500 USD. Este es el MVP más barato y más subestimado. En vez de construir una plataforma, creas una landing page que vende tu servicio y manejas el proceso manualmente detrás de escena. Si no validas demanda con esto, una app de $50,000 tampoco lo va a resolver.</p>
 
-<p><strong>Web app simple — CRUD con autenticacion (4-6 semanas).</strong> Costo: $3,000-$8,000 USD. Un dashboard donde los usuarios se registran, cargan datos, y ven resultados. Sin integraciones complejas, sin logica de negocio sofisticada. Piensa en un sistema de gestion simple, un directorio, o una herramienta interna.</p>
+<p><strong>Web app simple — CRUD con autenticación (4-6 semanas).</strong> Costo: $3,000-$8,000 USD. Un dashboard donde los usuarios se registran, cargan datos, y ven resultados. Sin integraciones complejas, sin lógica de negocio sofisticada. Piensa en un sistema de gestión simple, un directorio, o una herramienta interna.</p>
 
-<p><strong>Plataforma SaaS con integraciones (6-10 semanas).</strong> Costo: $8,000-$20,000 USD. Aca entran los productos que se conectan con APIs externas (pagos, email, WhatsApp, CRMs), tienen logica de negocio compleja, y necesitan manejar multiples tipos de usuario. Es el tipo de MVP que construimos mas frecuentemente.</p>
+<p><strong>Plataforma SaaS con integraciones (6-10 semanas).</strong> Costo: $8,000-$20,000 USD. Acá entran los productos que se conectan con APIs externas (pagos, email, WhatsApp, CRMs), tienen lógica de negocio compleja, y necesitan manejar múltiples tipos de usuario. Es el tipo de MVP que construimos más frecuentemente.</p>
 
-<p><strong>App movil nativa (8-14 semanas).</strong> Costo: $12,000-$30,000 USD. Si necesitas una app nativa para iOS y Android, el costo sube significativamente. Nuestra recomendacion: a menos que tu producto requiera hardware del telefono (camara, GPS en tiempo real, notificaciones push criticas), empieza con una web app responsiva y migra a nativa cuando tengas traccion.</p>
+<p><strong>App móvil nativa (8-14 semanas).</strong> Costo: $12,000-$30,000 USD. Si necesitas una app nativa para iOS y Android, el costo sube significativamente. Nuestra recomendación: a menos que tu producto requiera hardware del teléfono (cámara, GPS en tiempo real, notificaciones push críticas), empieza con una web app responsiva y migra a nativa cuando tengas tracción.</p>
 
-<h2>Donde se va la plata realmente</h2>
+<h2>Dónde se va la plata realmente</h2>
 
-<p>El codigo es solo una parte del costo. Esto es lo que muchos fundadores no anticipan:</p>
+<p>El código es solo una parte del costo. Esto es lo que muchos fundadores no anticipan:</p>
 
 <ul>
-<li><strong>Diseno UX/UI.</strong> Un MVP feo puede funcionar, pero uno confuso no. Necesitas al menos un flujo de usuario claro y un diseno limpio. Esto puede ser el 20-30% del presupuesto.</li>
+<li><strong>Diseño UX/UI.</strong> Un MVP feo puede funcionar, pero uno confuso no. Necesitas al menos un flujo de usuario claro y un diseño limpio. Esto puede ser el 20-30% del presupuesto.</li>
 <li><strong>Infraestructura.</strong> Servidores, base de datos, dominio, SSL, almacenamiento. Para un MVP son $30-$100 USD/mes, pero hay que planificarlo.</li>
 <li><strong>Iteraciones post-lanzamiento.</strong> El MVP no termina cuando lanzas. Los primeros usuarios van a encontrar bugs y pedir cambios. Reserva al menos un 20% del presupuesto para las primeras 4 semanas post-launch.</li>
 </ul>
 
 <h2>Los errores que salen caros</h2>
 
-<p><strong>Construir demasiado.</strong> El error mas comun. Tu MVP no necesita 15 features. Necesita una que funcione tan bien que la gente pague por ella. Todo lo demas es distraccion.</p>
+<p><strong>Construir demasiado.</strong> El error más común. Tu MVP no necesita 15 features. Necesita una que funcione tan bien que la gente pague por ella. Todo lo demás es distracción.</p>
 
-<p><strong>Elegir la tecnologia equivocada.</strong> No necesitas microservicios, Kubernetes, ni una arquitectura para un millon de usuarios cuando tienes cero. Usa tecnologia probada, un stack simple, y escala cuando tengas el problema de escala.</p>
+<p><strong>Elegir la tecnología equivocada.</strong> No necesitas microservicios, Kubernetes, ni una arquitectura para un millón de usuarios cuando tienes cero. Usa tecnología probada, un stack simple, y escala cuando tengas el problema de escala.</p>
 
-<p><strong>No definir que vas a medir.</strong> Si lanzas tu MVP sin saber que metricas importan, vas a tomar decisiones basadas en opiniones en vez de datos. Define tus KPIs antes de escribir la primera linea de codigo.</p>
+<p><strong>No definir qué vas a medir.</strong> Si lanzas tu MVP sin saber qué métricas importan, vas a tomar decisiones basadas en opiniones en vez de datos. Define tus KPIs antes de escribir la primera línea de código.</p>
 
 <h2>La pregunta correcta</h2>
 
-<p>En vez de "cuanto cuesta un MVP", la mejor pregunta es "cual es la forma mas barata de validar mi hipotesis de negocio". A veces la respuesta es un MVP de $15,000. A veces es una landing page de $800 y 50 llamadas en frio.</p>
+<p>En vez de "cuánto cuesta un MVP", la mejor pregunta es "cuál es la forma más barata de validar mi hipótesis de negocio". A veces la respuesta es un MVP de $15,000. A veces es una landing page de $800 y 50 llamadas en frío.</p>
 
-<p>En Villelabs ayudamos a startups y pymes a definir el alcance correcto de su MVP y construirlo en ciclos cortos con presupuesto claro. Si tienes una idea y quieres saber cual seria el camino mas inteligente para llevarla al mercado, conversemos.</p>
+<p>En Villelabs ayudamos a startups y pymes a definir el alcance correcto de su MVP y construirlo en ciclos cortos con presupuesto claro. Si tienes una idea y quieres saber cuál sería el camino más inteligente para llevarla al mercado, conversemos.</p>
 `,
   },
   {
@@ -667,14 +667,14 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: 'automatizacion-ia-2026',
-    title: 'Automatizacion con IA en 2026: Que Funciona y Que Es Puro Humo',
-    date: 'March 2026',
+    title: 'Automatización con IA en 2026: Qué Funciona y Qué Es Puro Humo',
+    date: 'Marzo 2026',
     excerpt:
-      'La IA esta en todos lados, pero no todo lo que brilla es oro. Aca separamos los casos de uso reales de automatizacion con IA de los que son pura moda.',
-    category: 'AI & Automation',
-    readTime: '5 min read',
+      'La IA está en todos lados, pero no todo lo que brilla es oro. Acá separamos los casos de uso reales de automatización con IA de los que son pura moda.',
+    category: 'IA y automatización',
+    readTime: '5 min de lectura',
     keywords: [
-      'automatizacion inteligencia artificial',
+      'automatización inteligencia artificial',
       'IA para empresas 2026',
       'automatizar procesos IA',
       'chatbot IA empresas',
@@ -682,42 +682,42 @@ export const blogPosts: BlogPost[] = [
     ],
     language: 'es',
     content: `
-<p>En 2026 es imposible abrir LinkedIn sin que alguien te diga que la IA va a transformar tu negocio. Y tienen razon — parcialmente. La inteligencia artificial esta cambiando como operan las empresas, pero no de la forma en que la mayoria de los vendedores de humo te quieren hacer creer.</p>
+<p>En 2026 es imposible abrir LinkedIn sin que alguien te diga que la IA va a transformar tu negocio. Y tienen razón — parcialmente. La inteligencia artificial está cambiando cómo operan las empresas, pero no de la forma en que la mayoría de los vendedores de humo te quieren hacer creer.</p>
 
-<p>Despues de implementar soluciones de IA para pymes y startups durante el ultimo ano, aca va nuestra perspectiva honesta sobre que funciona, que no, y donde esta la linea.</p>
+<p>Después de implementar soluciones de IA para pymes y startups durante el último año, acá va nuestra perspectiva honesta sobre qué funciona, qué no, y dónde está la línea.</p>
 
 <h2>Lo que realmente funciona</h2>
 
-<p><strong>Atencion al cliente automatizada.</strong> Este es el caso de uso mas maduro. Un chatbot con IA que entiende lenguaje natural, accede a tu base de conocimiento, y puede resolver el 60-80% de las consultas sin intervencion humana. La clave es el diseno del handoff: el bot tiene que saber cuando no puede resolver algo y derivar a una persona. Esto funciona bien en WhatsApp, Instagram DMs, y widgets de sitio web.</p>
+<p><strong>Atención al cliente automatizada.</strong> Este es el caso de uso más maduro. Un chatbot con IA que entiende lenguaje natural, accede a tu base de conocimiento, y puede resolver el 60-80% de las consultas sin intervención humana. La clave es el diseño del handoff: el bot tiene que saber cuándo no puede resolver algo y derivar a una persona. Esto funciona bien en WhatsApp, Instagram DMs, y widgets de sitio web.</p>
 
-<p><strong>Calificacion automatica de leads.</strong> En vez de que tu equipo de ventas pase horas leyendo cada consulta para determinar si vale la pena, un sistema de IA puede analizar el mensaje, extraer informacion relevante (presupuesto, urgencia, tipo de necesidad), y asignar un puntaje. Tu equipo solo atiende los leads calientes. Esto reduce el tiempo de respuesta y aumenta la tasa de conversion.</p>
+<p><strong>Calificación automática de leads.</strong> En vez de que tu equipo de ventas pase horas leyendo cada consulta para determinar si vale la pena, un sistema de IA puede analizar el mensaje, extraer información relevante (presupuesto, urgencia, tipo de necesidad), y asignar un puntaje. Tu equipo solo atiende los leads calientes. Esto reduce el tiempo de respuesta y aumenta la tasa de conversión.</p>
 
-<p><strong>Procesamiento de documentos.</strong> Facturas, contratos, informes, emails. Si tu equipo pasa horas extrayendo datos de documentos para ingresarlos a un sistema, la IA puede hacer eso en segundos con una precision del 95%+. No es glamoroso, pero el ROI es inmediato.</p>
+<p><strong>Procesamiento de documentos.</strong> Facturas, contratos, informes, emails. Si tu equipo pasa horas extrayendo datos de documentos para ingresarlos a un sistema, la IA puede hacer eso en segundos con una precisión del 95%+. No es glamoroso, pero el ROI es inmediato.</p>
 
-<p><strong>Generacion de borradores.</strong> Emails de seguimiento, propuestas iniciales, informes rutinarios. La IA no reemplaza al humano aca, pero le ahorra el 70% del tiempo de redaccion. Tu equipo revisa y ajusta en vez de empezar de cero.</p>
+<p><strong>Generación de borradores.</strong> Emails de seguimiento, propuestas iniciales, informes rutinarios. La IA no reemplaza al humano acá, pero le ahorra el 70% del tiempo de redacción. Tu equipo revisa y ajusta en vez de empezar de cero.</p>
 
-<h2>Lo que todavia no funciona bien</h2>
+<h2>Lo que todavía no funciona bien</h2>
 
-<p><strong>IA como reemplazo total de personas.</strong> Si alguien te promete que un bot va a reemplazar a tu equipo de ventas completo, esta mintiendo. La IA es excelente como asistente y filtro, pero las ventas complejas, las negociaciones, y las relaciones de confianza siguen requiriendo humanos.</p>
+<p><strong>IA como reemplazo total de personas.</strong> Si alguien te promete que un bot va a reemplazar a tu equipo de ventas completo, está mintiendo. La IA es excelente como asistente y filtro, pero las ventas complejas, las negociaciones, y las relaciones de confianza siguen requiriendo humanos.</p>
 
-<p><strong>Automatizacion sin datos.</strong> La IA necesita datos para funcionar bien. Si tu negocio no tiene historico de conversaciones, no tiene un CRM actualizado, o no tiene procesos documentados, la IA va a inventar cosas. Basura entra, basura sale.</p>
+<p><strong>Automatización sin datos.</strong> La IA necesita datos para funcionar bien. Si tu negocio no tiene histórico de conversaciones, no tiene un CRM actualizado, o no tiene procesos documentados, la IA va a inventar cosas. Basura entra, basura sale.</p>
 
-<p><strong>"Agentes" autonomos para tareas criticas.</strong> Los agentes de IA que toman decisiones sin supervision humana son una promesa interesante, pero en 2026 todavia no son confiables para decisiones que afectan dinero, reputacion, o relaciones con clientes. Usamos IA para sugerir, no para decidir.</p>
+<p><strong>"Agentes" autónomos para tareas críticas.</strong> Los agentes de IA que toman decisiones sin supervisión humana son una promesa interesante, pero en 2026 todavía no son confiables para decisiones que afectan dinero, reputación, o relaciones con clientes. Usamos IA para sugerir, no para decidir.</p>
 
-<h2>Como evaluar si la IA tiene sentido para tu negocio</h2>
+<h2>Cómo evaluar si la IA tiene sentido para tu negocio</h2>
 
 <ul>
-<li>Identifica las tareas repetitivas que consumen mas tiempo de tu equipo.</li>
-<li>Preguntate: si esta tarea se hiciera mal el 5% de las veces, cual seria el impacto? Si el costo del error es bajo, es buen candidato para IA.</li>
-<li>Calcula el costo actual de hacer esa tarea manualmente (horas x costo por hora). Si la automatizacion cuesta menos que eso en 6 meses, vale la pena.</li>
+<li>Identifica las tareas repetitivas que consumen más tiempo de tu equipo.</li>
+<li>Pregúntate: si esta tarea se hiciera mal el 5% de las veces, ¿cuál sería el impacto? Si el costo del error es bajo, es buen candidato para IA.</li>
+<li>Calcula el costo actual de hacer esa tarea manualmente (horas x costo por hora). Si la automatización cuesta menos que eso en 6 meses, vale la pena.</li>
 <li>Empieza con UN proceso. No intentes automatizar todo al mismo tiempo.</li>
 </ul>
 
 <h2>El enfoque correcto</h2>
 
-<p>La IA no es magia. Es una herramienta que amplifica lo que ya funciona y automatiza lo que es repetitivo. El error es usarla como solucion a problemas que son de estrategia, no de ejecucion. Si tu proceso de ventas no funciona con humanos, no va a funcionar con IA.</p>
+<p>La IA no es magia. Es una herramienta que amplifica lo que ya funciona y automatiza lo que es repetitivo. El error es usarla como solución a problemas que son de estrategia, no de ejecución. Si tu proceso de ventas no funciona con humanos, no va a funcionar con IA.</p>
 
-<p>En Villelabs implementamos automatizaciones con IA que resuelven problemas reales: chatbots que atienden clientes, sistemas que califican leads, y herramientas que eliminan trabajo manual. Sin humo, sin promesas imposibles. Si quieres explorar que se puede automatizar en tu negocio, hablemos.</p>
+<p>En Villelabs implementamos automatizaciones con IA que resuelven problemas reales: chatbots que atienden clientes, sistemas que califican leads, y herramientas que eliminan trabajo manual. Sin humo, sin promesas imposibles. Si quieres explorar qué se puede automatizar en tu negocio, hablemos.</p>
 `,
   },
   {
@@ -777,70 +777,70 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: 'disenar-plataformas-shape-up',
-    title: 'Como Disenar y Construir Plataformas Complejas con Shape Up',
-    date: 'March 2026',
+    title: 'Cómo Diseñar y Construir Plataformas Complejas con Shape Up',
+    date: 'Marzo 2026',
     excerpt:
-      'SaaS, herramientas internas, plataformas de gestion: los proyectos complejos necesitan una metodologia que funcione. Asi usamos Shape Up para construirlos.',
-    category: 'Methodology',
-    readTime: '5 min read',
+      'SaaS, herramientas internas, plataformas de gestión: los proyectos complejos necesitan una metodología que funcione. Así usamos Shape Up para construirlos.',
+    category: 'Metodología',
+    readTime: '5 min de lectura',
     keywords: [
       'Shape Up plataformas',
-      'desarrollo SaaS metodologia',
+      'desarrollo SaaS metodología',
       'construir plataforma software',
       'Shape Up hill charts',
-      'gestion proyectos software',
+      'gestión proyectos software',
     ],
     language: 'es',
     content: `
-<p>Construir una plataforma compleja — un SaaS, una herramienta interna, un sistema de gestion — es un ejercicio de manejo de incertidumbre. No sabes exactamente cuanto va a tomar, no sabes todos los problemas que vas a encontrar, y las especificaciones iniciales siempre cambian cuando la realidad aparece. La pregunta es: como manejas eso sin que el proyecto se descontrole?</p>
+<p>Construir una plataforma compleja — un SaaS, una herramienta interna, un sistema de gestión — es un ejercicio de manejo de incertidumbre. No sabes exactamente cuánto va a tomar, no sabes todos los problemas que vas a encontrar, y las especificaciones iniciales siempre cambian cuando la realidad aparece. La pregunta es: ¿cómo manejas eso sin que el proyecto se descontrole?</p>
 
-<p>En Villelabs usamos Shape Up para construir plataformas complejas. No es la unica forma de hacerlo, pero es la que mejor nos ha funcionado. Aca te explico como.</p>
+<p>En Villelabs usamos Shape Up para construir plataformas complejas. No es la única forma de hacerlo, pero es la que mejor nos ha funcionado. Acá te explico cómo.</p>
 
 <h2>El concepto de apetito</h2>
 
-<p>En Shape Up no estimamos cuanto va a tomar un proyecto. En vez de eso, definimos cuanto estamos dispuestos a invertir: el apetito. Es un cambio sutil pero fundamental.</p>
+<p>En Shape Up no estimamos cuánto va a tomar un proyecto. En vez de eso, definimos cuánto estamos dispuestos a invertir: el apetito. Es un cambio sutil pero fundamental.</p>
 
 <p>Cuando dices "este feature va a tomar 6 semanas", empiezas a negociar tiempo. Cuando dices "le vamos a dar 2 semanas a este feature", empiezas a negociar alcance. Y negociar alcance es exactamente lo que necesitas cuando construyes algo complejo, porque te obliga a separar lo esencial de lo accesorio.</p>
 
-<p>Para una plataforma SaaS tipica, dividimos el desarrollo en ciclos de 2 semanas. Cada ciclo tiene un apetito claro y un entregable definido. El primer ciclo podria ser "autenticacion + dashboard basico". El segundo "el flujo principal del usuario". El tercero "integraciones con APIs externas". Cada uno es independiente y cada uno entrega valor.</p>
+<p>Para una plataforma SaaS típica, dividimos el desarrollo en ciclos de 2 semanas. Cada ciclo tiene un apetito claro y un entregable definido. El primer ciclo podría ser "autenticación + dashboard básico". El segundo "el flujo principal del usuario". El tercero "integraciones con APIs externas". Cada uno es independiente y cada uno entrega valor.</p>
 
 <h2>Shaping: el trabajo invisible que hace la diferencia</h2>
 
-<p>Antes de que el equipo de desarrollo empiece a trabajar, el proyecto pasa por una fase de shaping. Esto no es un documento de requerimientos de 50 paginas. Es un proceso donde definimos:</p>
+<p>Antes de que el equipo de desarrollo empiece a trabajar, el proyecto pasa por una fase de shaping. Esto no es un documento de requerimientos de 50 páginas. Es un proceso donde definimos:</p>
 
 <ul>
-<li><strong>El problema real</strong> que estamos resolviendo (no la solucion que el cliente imagina, sino el problema detras de esa solucion).</li>
-<li><strong>Los limites</strong> del ciclo: que esta dentro del alcance y que explicitamente no lo esta.</li>
-<li><strong>Los riesgos tecnicos</strong> que podrian hacer que el ciclo falle. Si identificamos un riesgo grande, lo atacamos primero.</li>
-<li><strong>Bocetos gruesos</strong> de la solucion: no wireframes pixel-perfect, sino diagramas de flujo y bocetos en pizarra que dan direccion sin limitar la creatividad del equipo.</li>
+<li><strong>El problema real</strong> que estamos resolviendo (no la solución que el cliente imagina, sino el problema detrás de esa solución).</li>
+<li><strong>Los límites</strong> del ciclo: qué está dentro del alcance y qué explícitamente no lo está.</li>
+<li><strong>Los riesgos técnicos</strong> que podrían hacer que el ciclo falle. Si identificamos un riesgo grande, lo atacamos primero.</li>
+<li><strong>Bocetos gruesos</strong> de la solución: no wireframes pixel-perfect, sino diagramas de flujo y bocetos en pizarra que dan dirección sin limitar la creatividad del equipo.</li>
 </ul>
 
-<p>El shaping consume entre medio dia y dos dias por ciclo. Parece poco, pero ese tiempo previene semanas de retrabajo.</p>
+<p>El shaping consume entre medio día y dos días por ciclo. Parece poco, pero ese tiempo previene semanas de retrabajo.</p>
 
-<h2>Hill charts: saber donde estas realmente</h2>
+<h2>Hill charts: saber dónde estás realmente</h2>
 
-<p>Uno de los conceptos mas utiles de Shape Up son los hill charts. Imagina una colina: la subida es la fase de "averiguar como hacerlo" (incertidumbre alta), y la bajada es la fase de "ejecutar lo que ya sabemos" (incertidumbre baja).</p>
+<p>Uno de los conceptos más útiles de Shape Up son los hill charts. Imagina una colina: la subida es la fase de "averiguar cómo hacerlo" (incertidumbre alta), y la bajada es la fase de "ejecutar lo que ya sabemos" (incertidumbre baja).</p>
 
-<p>Cada pieza del proyecto se ubica en la colina. Si algo lleva dias en la cuesta de subida sin moverse, es una senal de que hay un problema no resuelto — y es mejor atacarlo ahora que en la ultima semana del ciclo. Esto reemplaza los "estamos al 60%" que no dicen nada con informacion real sobre donde esta la incertidumbre.</p>
+<p>Cada pieza del proyecto se ubica en la colina. Si algo lleva días en la cuesta de subida sin moverse, es una señal de que hay un problema no resuelto — y es mejor atacarlo ahora que en la última semana del ciclo. Esto reemplaza los "estamos al 60%" que no dicen nada con información real sobre dónde está la incertidumbre.</p>
 
 <h2>Cool-down: el secreto para no quebrar al equipo</h2>
 
-<p>Despues de cada ciclo hay un cool-down de unos dias. El equipo arregla bugs menores, explora ideas para el siguiente ciclo, o simplemente descansa. En proyectos de plataforma que duran meses, esto no es un lujo — es lo que mantiene la calidad constante. Un equipo agotado en el ciclo 5 va a producir codigo fragil que va a costar el doble de arreglar despues.</p>
+<p>Después de cada ciclo hay un cool-down de unos días. El equipo arregla bugs menores, explora ideas para el siguiente ciclo, o simplemente descansa. En proyectos de plataforma que duran meses, esto no es un lujo — es lo que mantiene la calidad constante. Un equipo agotado en el ciclo 5 va a producir código frágil que va a costar el doble de arreglar después.</p>
 
-<h2>Ejemplo real: sistema de gestion de leads</h2>
+<h2>Ejemplo real: sistema de gestión de leads</h2>
 
-<p>Un cliente necesitaba un sistema para gestionar leads desde multiples canales (web, WhatsApp, Instagram). En vez de planificar 12 semanas de desarrollo, lo dividimos asi:</p>
+<p>Un cliente necesitaba un sistema para gestionar leads desde múltiples canales (web, WhatsApp, Instagram). En vez de planificar 12 semanas de desarrollo, lo dividimos así:</p>
 
 <ul>
-<li><strong>Ciclo 1 (2 semanas):</strong> Ingesta de leads desde formulario web + vista de lista con filtros basicos.</li>
-<li><strong>Ciclo 2 (2 semanas):</strong> Integracion con WhatsApp Business API + asignacion automatica a vendedores.</li>
-<li><strong>Ciclo 3 (2 semanas):</strong> Dashboard de metricas + pipeline visual tipo Kanban.</li>
-<li><strong>Ciclo 4 (2 semanas):</strong> Integracion con Instagram DMs + calificacion automatica con IA.</li>
+<li><strong>Ciclo 1 (2 semanas):</strong> Ingesta de leads desde formulario web + vista de lista con filtros básicos.</li>
+<li><strong>Ciclo 2 (2 semanas):</strong> Integración con WhatsApp Business API + asignación automática a vendedores.</li>
+<li><strong>Ciclo 3 (2 semanas):</strong> Dashboard de métricas + pipeline visual tipo Kanban.</li>
+<li><strong>Ciclo 4 (2 semanas):</strong> Integración con Instagram DMs + calificación automática con IA.</li>
 </ul>
 
-<p>Al final del ciclo 2, el cliente ya estaba usando el sistema en produccion. Los ciclos 3 y 4 se ajustaron segun lo que aprendimos con usuarios reales. Eso no hubiera sido posible con un plan rigido de 3 meses.</p>
+<p>Al final del ciclo 2, el cliente ya estaba usando el sistema en producción. Los ciclos 3 y 4 se ajustaron según lo que aprendimos con usuarios reales. Eso no hubiera sido posible con un plan rígido de 3 meses.</p>
 
-<p>En Villelabs usamos Shape Up para construir plataformas que se entregan por partes funcionales, no como un big bang al final. Si tienes un proyecto complejo y quieres saber como lo abordariamos, hablemos.</p>
+<p>En Villelabs usamos Shape Up para construir plataformas que se entregan por partes funcionales, no como un big bang al final. Si tienes un proyecto complejo y quieres saber cómo lo abordaríamos, hablemos.</p>
 `,
   },
   {

@@ -28,7 +28,7 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { ArrowRight, Bot, Check, ChevronDown, ClipboardCheck, ClipboardList, Eye, FileSpreadsheet, FlaskConical, Handshake, LayoutDashboard, Map as MapIcon, Megaphone, MessageCircle, Sparkles, Wallet, X, type LucideIcon } from 'lucide-react';
 import { LINKS } from '@/lib/productos/links';
-import { ACCESO, AREAS, CASO, CURSO, FAQ, HOJAS, IA_OPCIONAL, MODULOS, PARA_QUIEN, PROYECTO_AGENTE, PROYECTO_FINAL, PRECIO_CURSO, QUE_ES, SISTEMA_AGENTE, textoPrecio, textoPrecioDetalle } from '@/lib/productos/curso/curso';
+import { ACCESO, AREAS, CASO, CURSO, FAQ, HOJAS, IA_OPCIONAL, MODULOS, PARA_QUIEN, PROYECTO_AGENTE, PROYECTO_FINAL, PRECIO_CURSO, QUE_ES, SISTEMA_AGENTE, textoPrecio, textoPrecioConMoneda, textoPrecioDetalle } from '@/lib/productos/curso/curso';
 import { EXP15, PROMESA_EXP15 } from '@/lib/productos/curso/exp15';
 import { bajarAlAncla } from '@/lib/productos/ancla';
 import { VERSION_CURSO, VERSIONES_CURSO, fechaLarga } from '@/lib/productos/curso/versiones';
@@ -663,7 +663,7 @@ export default function CursoContent() {
             <div className="p-6 pt-3">
             <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-[#5fb2dd]">Precio de lanzamiento</p>
             <p className="mt-3 font-serif text-2xl text-white">
-              {textoPrecio()}
+              {textoPrecioConMoneda()}
             </p>
             <p className="mt-2 text-sm text-slate-300">
               {textoPrecioDetalle()}
