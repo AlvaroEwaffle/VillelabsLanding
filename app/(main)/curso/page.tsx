@@ -7,8 +7,10 @@ import { fraunces } from '@/lib/productos/fuente';
 import { EXP13 } from '@/lib/productos/curso/exp13';
 
 
-const TITULO_OG = 'Construye con IA tu sistema de gestión CRM y ERP para tu negocio, sin programar';
-const DESCRIPCION_OG = 'Curso online con los 7 módulos listos: armas tu CRM y tu ERP en una planilla con prompts para ChatGPT o Claude. Cerca de 1 h 30 de lecciones y unas 6 horas de práctica, a tu ritmo.';
+// 12-nov-2026 23:10 · el título social repite el H1 (el LinkedIn de las 18:30 lo comparte a diario); el nombre largo del curso
+// (CURSO.nombreCompleto) queda en el h2 bajo el hero y en el JSON-LD.
+const TITULO_OG = 'Ordena tu negocio en una planilla: clientes, pedidos y caja en un solo tablero, con ayuda de la IA';
+const DESCRIPCION_OG = 'El módulo 0 es gratis. Paso a paso y sin programar: tú armas la planilla y la IA te ayuda con las fórmulas y los mensajes.';
 
 export const metadata: Metadata = {
   title: { absolute: 'Construye con IA tu CRM y ERP, sin programar' },
@@ -22,9 +24,9 @@ export const metadata: Metadata = {
     title: TITULO_OG,
     description: DESCRIPCION_OG,
     url: `${SITE_URL}/curso`,
-    images: [{ url: `${SITE_URL}/og/curso.jpg`, width: 1200, height: 630, alt: TITULO_OG }],
+    images: [{ url: `${SITE_URL}/og/curso-planilla.jpg`, width: 1200, height: 630, alt: TITULO_OG }],
   },
-  twitter: { card: 'summary_large_image', title: TITULO_OG, description: DESCRIPCION_OG, images: [`${SITE_URL}/og/curso.jpg`] },
+  twitter: { card: 'summary_large_image', title: TITULO_OG, description: DESCRIPCION_OG, images: [`${SITE_URL}/og/curso-planilla.jpg`] },
 };
 
 const JSON_LD = [

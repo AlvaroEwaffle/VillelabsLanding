@@ -7,18 +7,18 @@ import Grabacion from '@/components/productos/workshop/Grabacion';
 export const metadata: Metadata = {
   title: { absolute: 'Grabación gratis: responde WhatsApp sin perder clientes' },
   description:
-    'Mira gratis la grabación del workshop: cómo responder por WhatsApp las preguntas de siempre sin inventar nada, con el esqueleto de tu agente y un caso real.',
+    'Mira gratis la grabación del workshop: cómo responder por WhatsApp las preguntas de siempre sin inventar nada, con el esqueleto de tu agente y un negocio de ejemplo.',
   alternates: { canonical: `${SITE_URL}/workshop/grabacion` },
   openGraph: {
     type: 'website',
     locale: 'es_CL',
     siteName: 'Villelab',
     title: 'Grabación del workshop: que ningún cliente se te quede sin respuesta',
-    description: '45 minutos, gratis y a tu ritmo, con el caso de una tostaduría de café de Valparaíso.',
+    description: '45 minutos, gratis y a tu ritmo, con una tostaduría de café inventada como ejemplo.',
     url: `${SITE_URL}/workshop/grabacion`,
     images: [{ url: `${SITE_URL}/og/grabacion.jpg`, width: 1200, height: 630, alt: 'Grabación del workshop: que ningún cliente se te quede sin respuesta' }],
   },
-  twitter: { card: 'summary_large_image', title: 'Grabación del workshop: que ningún cliente se te quede sin respuesta', description: '45 minutos, gratis y a tu ritmo, con el caso de una tostaduría de café de Valparaíso.', images: [`${SITE_URL}/og/grabacion.jpg`] },
+  twitter: { card: 'summary_large_image', title: 'Grabación del workshop: que ningún cliente se te quede sin respuesta', description: '45 minutos, gratis y a tu ritmo, con una tostaduría de café inventada como ejemplo.', images: [`${SITE_URL}/og/grabacion.jpg`] },
 };
 
 // TODO: cuando esté la grabación publicada, sumar su VideoObject (embedUrl de YouTube + duración real de 45 min).

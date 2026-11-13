@@ -65,7 +65,7 @@ const ESQUELETO: Pregunta[] = [
   },
   {
     p: '¿Sirve si no sé de tecnología?',
-    r: 'Sí. Son preguntas sobre tu negocio, con un ejemplo real armado en cada campo. No hay que programar nada.',
+    r: 'Sí. Son preguntas sobre tu negocio y cada campo trae un ejemplo de un negocio inventado. No hay que programar nada.',
   },
 ];
 

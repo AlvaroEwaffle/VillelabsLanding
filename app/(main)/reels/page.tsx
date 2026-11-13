@@ -103,7 +103,7 @@ const REELS: Reel[] = [
     duracion: '18 s',
     guion: [
       'Armo en vivo un asistente que responde tu WhatsApp sin inventar nada.',
-      '45 minutos, gratis. Lo armamos con un caso real y lo probamos con preguntas trampa. Te llevas el esqueleto de regalo.',
+      '45 minutos, gratis. Lo armamos con un negocio de ejemplo y lo probamos con preguntas trampa. Te llevas el esqueleto de regalo.',
       'Reserva tu cupo en el link de mi perfil.',
     ],
   },

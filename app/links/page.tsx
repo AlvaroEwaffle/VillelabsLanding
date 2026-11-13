@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { ArrowUpRight, BookOpen, CalendarDays, Gift, Instagram, Linkedin, Table2 } from 'lucide-react';
+import { ArrowUpRight, BookOpen, Calculator, CalendarDays, Gift, Instagram, Linkedin, PlayCircle } from 'lucide-react';
 import { LINKS } from '@/lib/productos/links';
 import { fraunces } from '@/lib/productos/fuente';
 
@@ -15,27 +15,40 @@ export const metadata: Metadata = {
 
 type Enlace = { href: string; titulo: string; bajada: string; Icono: typeof Gift; externo?: boolean };
 
+// UTM de bio (12-nov-2026): cada fila lleva utm_source=instagram&utm_medium=bio y su propia campaña, para que el registro
+// de visitas, los leads (Fidelidapp) y las ventas (Hotmart, vía src/sck) digan que llegaron desde la bio y desde qué fila.
+const bio = (ruta: string, fila: string, ancla = '') =>
+  `${ruta}?utm_source=instagram&utm_medium=bio&utm_campaign=links-${fila}${ancla}`;
+
 const PRINCIPAL: Enlace = {
-  href: LINKS.esqueleto,
+  href: bio(LINKS.esqueleto, 'esqueleto'),
   titulo: 'Gratis: el esqueleto de tu asistente',
   bajada: 'En 15 minutos dejas escrito qué responde, qué nunca promete y cuándo te pasa la conversación',
   Icono: Gift,
 };
 
-// 4 opciones (análisis UX «Rodrigo», 8-nov-2026): con 6, el dueño sin tiempo duda. La grabación del workshop y la
-// Academia Ewaffle (otra marca) sale (Álvaro: «aplicar todo lo que menciona», 8-nov).
+// Opciones cortas (análisis UX «Rodrigo», 8-nov-2026): con 6, el dueño sin tiempo duda. La grabación del workshop va
+// abajo como enlace secundario y la Academia Ewaffle (otra marca) sale (Álvaro: «aplicar todo lo que menciona», 8-nov).
+// 12-nov-2026 23:10: orden Esqueleto gratis · Módulo 0 gratis · Guía · Cotiza tu agente · llamada. El curso entra por lo
+// gratis (el módulo 0), igual que el retador B de EXP-13, y /cotizador suma la puerta al servicio de agentes.
 const PRODUCTOS: Enlace[] = [
   {
-    href: LINKS.guiaVenta,
+    href: bio(LINKS.curso, 'modulo0', '#parte-gratis-hero'), // cae en el formulario del módulo 0 (A y B de EXP-13)
+    titulo: 'Gratis: el módulo 0 del curso',
+    bajada: 'Tu diagnóstico y tu planilla base. Con tu correo entras al tiro',
+    Icono: PlayCircle,
+  },
+  {
+    href: bio(LINKS.guiaVenta, 'guia'),
     titulo: 'Guía: tus próximos 20 clientes',
     bajada: 'Tu lista, el primer mensaje y los seguimientos, en una tarde · $14.990',
     Icono: BookOpen,
   },
   {
-    href: LINKS.curso,
-    titulo: 'Curso: ordena clientes, pedidos y cobranza en una planilla',
-    bajada: 'Los 7 módulos listos · una planilla que ya sabes usar, sin software nuevo',
-    Icono: Table2,
+    href: bio('/cotizador', 'cotizador'),
+    titulo: 'Cotiza tu agente de IA',
+    bajada: 'Elige qué trabajo le pasarías y ve tu cotización al tiro',
+    Icono: Calculator,
   },
   {
     href: LINKS.agendar,
