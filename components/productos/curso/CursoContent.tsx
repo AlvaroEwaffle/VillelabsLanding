@@ -215,7 +215,7 @@ function Acordeon({ id, abierto, onToggle, cabecera, children }: { id: string; a
   );
 }
 
-const BAJADA_ACCESO = <>Compras hoy, entras con tu código a los 8 módulos y la planilla completa, y avanzas a tu ritmo.</>;
+const BAJADA_ACCESO = <>Compras hoy, entras con tu código a los 8 módulos, la planilla completa y tus 2 bonos, y avanzas a tu ritmo.</>;
 
 export default function CursoContent() {
   const [moduloAbierto, setModuloAbierto] = useState<number | null>(0);
