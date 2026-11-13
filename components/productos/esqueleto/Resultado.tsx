@@ -290,7 +290,7 @@ export default function Resultado({
           {CURSO.nombre}: {CURSO.apellido.charAt(0).toLowerCase() + CURSO.apellido.slice(1)}
         </h3>
         <p className="mt-2 text-base text-slate-300">
-          Clientes, ventas, pedidos, cobranza y caja en una sola planilla, un módulo por semana. Tu asistente responde mejor cuando lo
+          Clientes, ventas, pedidos, cobranza y caja en una sola planilla, a tu ritmo. Tu asistente responde mejor cuando lo
           que sabe sale de ahí. {textoPrecio()}.
         </p>
         <Link href={LINKS.curso} onClick={() => empujar('esqueleto_click_curso')} className={`${botonSecundario} mt-5`}>

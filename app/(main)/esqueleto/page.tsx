@@ -46,7 +46,7 @@ const JSON_LD = [
   videoObject({
     id: 'v02-esqueleto-bienvenida',
     nombre: 'Lo que vas a armar en los próximos 15 minutos',
-    descripcion: 'Álvaro Villena muestra los 4 pasos del esqueleto de tu asistente de WhatsApp y cómo queda listo para copiar, con el caso de la tostaduría Grano Norte.',
+    descripcion: 'Álvaro Villena muestra los 4 pasos del esqueleto de tu asistente de WhatsApp y cómo queda listo para copiar, con Grano Norte, una tostaduría de ejemplo.',
     segundos: 38,
     pagina: '/esqueleto',
   }),

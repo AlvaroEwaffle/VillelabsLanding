@@ -31,6 +31,7 @@ import { Foto, Kicker, PuntoSemaforo, VideoProximamente } from './piezas';
 import { VideoMarco } from '@/components/productos/VideoProducto';
 import { VIDEOS_CURSO } from '@/lib/productos/curso/videos';
 import { DescargaPlantilla } from './Plantilla';
+import { PROMPTS_CURSO, PROMPTS_POR_LECCION } from '@/lib/productos/curso/prompts';
 
 // ─── Tipos y constantes ───────────────────────────────────────────────────
 
@@ -234,6 +235,35 @@ export function BloqueCopiar({ titulo, texto, nota, className = 'mt-6' }: { titu
       <pre className="max-h-80 overflow-auto whitespace-pre-wrap break-words px-4 py-3 font-sans text-[14px] leading-relaxed text-slate-200">{texto}</pre>
       {nota ? <p className="border-t border-white/10 px-4 py-2.5 text-xs text-slate-400">{nota}</p> : null}
     </div>
+  );
+}
+
+/**
+ * «Prompt para tu IA» (12-nov-2026): los prompts del curso dentro de cada lección, con botón copiar.
+ * `leccion` = «m1-l1» (módulo 1, lección 1); los textos viven en lib/productos/curso/prompts.ts.
+ */
+export function PromptsIA({ leccion, className = 'mt-8' }: { leccion: string; className?: string }) {
+  const ids = PROMPTS_POR_LECCION[leccion] ?? [];
+  if (!ids.length) return null;
+  return (
+    <section aria-label="Prompt para tu IA" className={className}>
+      <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-[#5fb2dd]">Prompt para tu IA</p>
+      <p className="mt-2 text-sm text-slate-300">
+        Cópialo en ChatGPT o Claude (la versión gratis sirve) y cambia lo que está entre [corchetes] por los datos de tu negocio. Lo que te devuelva es un borrador: léelo y corrígelo antes de usarlo.
+      </p>
+      {ids.map((id) => {
+        const pr = PROMPTS_CURSO[id];
+        return pr ? (
+          <BloqueCopiar
+            key={id}
+            titulo={`Prompt ${pr.id} · ${pr.titulo}`}
+            texto={pr.texto}
+            className="mt-3"
+            nota="No pegues datos sensibles (RUT, claves, cuentas bancarias). Si no te sirve, escribe «hazlo más corto» o «hazlo más simple»."
+          />
+        ) : null;
+      })}
+    </section>
   );
 }
 
@@ -901,6 +931,7 @@ export function ModuloCurso({
               <VideoPendiente titulo={titulo(pagina)} guion={GUIONES[`m${numero}-l${pagina + 1}`]} portada={leccion.portada} posicion={leccion.posicion} clave={`m${numero}-l${pagina + 1}`} />
             </div>
             {leccion.contenido}
+            <PromptsIA leccion={`m${numero}-l${pagina + 1}`} />
             <Checklist items={leccion.checklist} checks={checksVisibles} onToggle={toggle} />
             <div className="mt-10 flex flex-col-reverse gap-3 border-t border-white/10 pt-6 sm:flex-row sm:items-center sm:justify-between">
               {pagina > 0 ? (

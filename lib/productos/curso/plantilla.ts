@@ -270,10 +270,10 @@ export async function construirPlantillaSistema(datos: DatosPlantilla = {}): Pro
   wi.getCell(`B${finRutinas + 1}`).value =
     'Sube este archivo a Google Drive, haz clic derecho y elige «Abrir con» → Google Sheets. Después, «Archivo» → «Guardar como Hojas de cálculo de Google». Las fórmulas y las listas desplegables se mantienen.';
   wi.getCell(`B${finRutinas + 1}`).alignment = { wrapText: true };
-  wi.getCell(`A${finRutinas + 2}`).value = 'Con IA (opcional)';
+  wi.getCell(`A${finRutinas + 2}`).value = 'Con IA';
   wi.getCell(`A${finRutinas + 2}`).font = { bold: true };
   wi.getCell(`B${finRutinas + 2}`).value =
-    'Si usas ChatGPT o Claude, puedes pegarle una hoja y pedirle que te diga qué está incompleto o qué cliente se está enfriando. Revisa siempre lo que te responde: tú decides. La planilla funciona igual sin IA.';
+    'Pégale una hoja a ChatGPT o Claude y pídele que te diga qué está incompleto o qué cliente se está enfriando. Revisa siempre lo que te responde: tú decides.';
   wi.getCell(`B${finRutinas + 2}`).alignment = { wrapText: true };
   if (datos.ejemplo) {
     wi.getCell('C1').value = 'Ejemplo: Grano Norte (caso ficticio del curso)';

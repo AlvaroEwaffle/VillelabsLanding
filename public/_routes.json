@@ -1,5 +1,30 @@
 {
   "version": 1,
-  "include": ["/api/*", "/guia/prospeccion", "/guia/prospeccion.*", "/guia/prospeccion/*", "/guia/acceso"],
+  "include": [
+    "/api/*",
+    "/guia/prospeccion",
+    "/guia/prospeccion.*",
+    "/guia/prospeccion/*",
+    "/guia/acceso",
+    "/curso/modulo-1",
+    "/curso/modulo-1.*",
+    "/curso/modulo-1/*",
+    "/curso/modulo-2",
+    "/curso/modulo-2.*",
+    "/curso/modulo-2/*",
+    "/curso/modulo-3",
+    "/curso/modulo-3.*",
+    "/curso/modulo-3/*",
+    "/curso/modulo-4",
+    "/curso/modulo-4.*",
+    "/curso/modulo-4/*",
+    "/curso/modulo-5",
+    "/curso/modulo-5.*",
+    "/curso/modulo-5/*",
+    "/curso/modulo-6",
+    "/curso/modulo-6.*",
+    "/curso/modulo-6/*",
+    "/curso/acceso"
+  ],
   "exclude": []
 }

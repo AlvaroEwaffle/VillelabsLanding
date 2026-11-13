@@ -7,7 +7,7 @@ import { SITE_URL } from '@/lib/productos/seo';
 // no herede la tarjeta ni la URL de la portada del sitio.
 export const metadata: Metadata = {
   title: 'Módulo 0 · El sistema de tu negocio en una planilla',
-  description: 'Módulo 0 del curso «Construye con IA tu sistema de gestión CRM y ERP»: el mapa de tu sistema, el diagnóstico con semáforo, tu planilla base con la ficha del negocio y las reglas de freno.',
+  description: 'Módulo 0 del curso «Construye con IA tu sistema de gestión CRM y ERP para tu negocio, sin programar»: el mapa de tu sistema, el diagnóstico con semáforo, tu planilla base con la ficha del negocio y las reglas de freno.',
   robots: { index: false, follow: false },
   alternates: { canonical: `${SITE_URL}/curso/modulo-0` },
   openGraph: {

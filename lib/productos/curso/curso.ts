@@ -4,9 +4,10 @@
 // investigaciones de demanda y de evidencia (VPM/Villelabs/productos-digitales/investigacion/). Ver versiones.ts.
 
 /**
- * Precio ratificado por Álvaro el 8-nov-2026 («1 si ok 29990 59990»): fundador $29.990 para los primeros 20
- * alumnos, después $59.990. Quien compró la Guía 1 tiene el cupón GUIA1CURSO (33,34 %, queda en ~$19.990).
- * Hotmart: producto 8921667, garantía 7 días, pago único o en cuotas.
+ * Precio ratificado por Álvaro el 8-nov-2026: $29.990. Quien compró la Guía 1 tiene el cupón GUIA1CURSO (33,34 %,
+ * queda en ~$19.990). Hotmart: producto 8921667, garantía 7 días, pago único o en cuotas.
+ * 12-nov-2026 (Álvaro, «haz todos los ajustes»): se dice «precio de lanzamiento», sin fecha, sin cupos y sin «sube
+ * después». Ya no se dice «preventa»: los 7 módulos están grabados y abiertos para quien compra.
  */
 export const PRECIO_FUNDADOR: number | null = 29990;
 export const PRECIO_NORMAL = 59990;
@@ -17,14 +18,12 @@ export const PRECIO_CURSO = { cuponGuia: 'GUIA1CURSO', precioConCupon: 19990, ga
 const clp = (n: number) => '$' + n.toLocaleString('es-CL');
 
 export function textoPrecio(): string {
-  return PRECIO_FUNDADOR === null
-    ? 'Precio de preventa'
-    : `${clp(PRECIO_FUNDADOR)} precio de preventa`; // 12-nov-2026: sin «primeros 20 alumnos» (cupo sin respaldo), en A y en B
+  return PRECIO_FUNDADOR === null ? 'Precio de lanzamiento' : `${clp(PRECIO_FUNDADOR)} precio de lanzamiento`;
 }
 
 /** Variante B de EXP-13 (12-nov-2026): sin «primeros 20 alumnos» (cupo sin respaldo verificable en la página). */
 export function textoPrecioSinCupo(): string {
-  return PRECIO_FUNDADOR === null ? 'Precio de preventa' : `${clp(PRECIO_FUNDADOR)} precio de preventa`;
+  return textoPrecio();
 }
 
 /** Variante B de EXP-13: solo el cupón (el «después sube» va atado al cupo, que en B no se muestra). */
@@ -36,26 +35,34 @@ export function textoPrecioDetalle(): string {
   return `Si compraste la guía, con el cupón ${PRECIO_CURSO.cuponGuia} te queda en ${clp(PRECIO_CURSO.precioConCupon)}.`;
 }
 
+/**
+ * Duración medida en la auditoría del 12-nov-2026 (~/.claude/marca-alvaro/curso/auditoria-2026-11-12.md): 28 min de
+ * video (ffprobe) + ~70 min de lectura = cerca de 1 h 30 de lecciones; práctica estimada 6 a 7,5 h. Nada de «5 horas»
+ * ni «6 semanas»: si cambia el contenido, se vuelve a medir antes de cambiar estas frases.
+ */
+export const DURACION_CURSO =
+  'Cerca de 1 h 30 de lecciones cortas y unas 6 horas de práctica, a tu ritmo. Sales con tu negocio en una planilla y un tablero que se calcula solo.';
+
 export const CURSO = {
-  nombre: 'Construye con IA tu CRM y ERP',
+  nombre: 'Construye con IA tu sistema de gestión CRM y ERP para tu negocio',
   apellido: 'Sin programar, en Google Sheets',
-  /** Nombre completo para metadata, certificado y referencias desde otros productos. */
-  nombreCompleto: 'Construye con IA tu sistema de gestión CRM y ERP para tu negocio, sin programar en 5 horas',
-  promesa:
-    'En 6 semanas, con 5 horas de lecciones y tu hoja a tu ritmo, armas con IA (con prompts listos para pegar) el sistema de tu negocio en una planilla que ya sabes usar: tus clientes y en qué va cada uno, de dónde llegan, los pedidos, la atención, la cobranza y la caja, conectados en un tablero que revisas los lunes en 10 minutos.',
+  /** Nombre completo (igual en Hotmart) para metadata y referencias desde otros productos. */
+  nombreCompleto: 'Construye con IA tu sistema de gestión CRM y ERP para tu negocio, sin programar',
+  promesa: `${DURACION_CURSO} Ahí quedan tus clientes y en qué va cada uno, de dónde llegan, los pedidos, la atención, la cobranza y la caja, y cada módulo trae prompts listos para copiar en ChatGPT o Claude.`,
   noEsSoftware:
     'No es un software ni una suscripción: es una planilla bien armada, con las fórmulas listas, y rutinas cortas para que el negocio no dependa de tu memoria.',
   formato: [
-    { etiqueta: 'Formato', valor: '7 módulos, 33 lecciones, unas 5 horas' },
-    { etiqueta: 'Ritmo sugerido', valor: '1 módulo por semana, 2 a 3 h' },
+    { etiqueta: 'Formato', valor: '7 módulos y 33 lecciones cortas, todos listos' },
+    { etiqueta: 'Duración', valor: 'cerca de 1 h 30 de lecciones + unas 6 h de práctica' },
     { etiqueta: 'Herramienta', valor: 'Google Sheets (gratis) o Excel' },
     { etiqueta: 'Cada lección', valor: 'idea → ejemplo → tu hoja → prueba real' },
     { etiqueta: 'Proyecto final', valor: 'tu ERP en Google Sheets con su tablero' },
   ],
   comoFunciona: [
     'Lecciones cortas con el caso Grano Norte en pantalla: ves la hoja llena antes de llenar la tuya.',
-    'Cada módulo agrega una hoja a la misma planilla, ya conectada con las anteriores. No empiezas de cero cada semana.',
-    'Prueba real al cierre de cada módulo: usas la hoja con tu negocio durante la semana.',
+    'Cada módulo agrega una hoja a la misma planilla, ya conectada con las anteriores. No empiezas de cero en cada módulo.',
+    'Las lecciones donde armas algo traen su prompt listo para copiar en ChatGPT o Claude (27 en total): la IA te arma el primer borrador y tú lo revisas.',
+    'Prueba real al cierre de cada módulo: usas la hoja con tu negocio unos días antes de seguir.',
     'Semáforo de cada pieza (rojo, naranja, verde) antes y después, y al final el tablero que lo junta todo.',
   ],
 } as const;
@@ -67,9 +74,12 @@ export const QUE_ES = {
   aqui: 'En este curso los dos viven en una planilla de Google Sheets que armas tú, con las fórmulas listas. Si algún día necesitas un software, tu planilla ya está ordenada para pasarse.',
 } as const;
 
-/** 12-nov-2026 (Álvaro, WA 18:03): el título del curso lleva «con IA»; la IA arma el sistema con los prompts de cada módulo. */
+/**
+ * 12-nov-2026 (Álvaro, WA 18:03): el título del curso lleva «con IA»; la IA arma el sistema con los prompts de cada módulo.
+ * 12-nov-2026 noche: los 27 prompts quedan DENTRO de las lecciones (lib/productos/curso/prompts.ts), con botón copiar.
+ */
 export const IA_OPCIONAL =
-  'La IA te ayuda a armarlo: cada módulo trae prompts listos para pegar en ChatGPT, Claude o Gemini (tu hoja, las fórmulas, tus mensajes), y los recibes en tu área de miembros. No necesitas programar ni saber de IA, y lo que te devuelva lo revisas tú antes de usarlo.';
+  'La IA te ayuda a armarlo: cada módulo trae prompts listos para copiar en ChatGPT o Claude, dentro de cada lección (tu hoja, las fórmulas, tus mensajes). No necesitas programar ni saber de IA, y lo que te devuelva lo revisas tú antes de usarlo.';
 
 export const CASO = {
   nombre: 'Grano Norte',
@@ -190,7 +200,7 @@ export const MODULOS: Modulo[] = [
     numero: 0,
     area: 'El mapa',
     titulo: 'El sistema de tu negocio en una planilla',
-    duracion: '4 lecciones · 30 min',
+    duracion: '4 lecciones · ~11 min de video y lectura',
     lecciones: [
       { titulo: 'Por qué todo pasa por ti', detalle: 'Nada está anotado en un solo lugar. Qué es un CRM, qué es un ERP y las hojas de tu sistema.' },
       { titulo: 'Diagnóstico de 15 preguntas', detalle: 'Interactivo: devuelve un semáforo por pieza del sistema y el orden sugerido para hacer el curso.' },
@@ -204,7 +214,7 @@ export const MODULOS: Modulo[] = [
     numero: 1,
     area: 'Clientes y ventas',
     titulo: 'Tu primer CRM: ningún cliente se te pierde',
-    duracion: '5 lecciones · 45 min',
+    duracion: '5 lecciones · ~15 min de video y lectura',
     lecciones: [
       { titulo: 'De la Guía 1 a tu hoja Clientes', detalle: 'Una fila por cliente o posible cliente, con su estado, su próximo paso y la fecha. Si hiciste la Guía 1, traes tu lista; si no, partes con tus clientes de hoy.' },
       { titulo: 'Primer mensaje y seguimientos', detalle: 'Plantillas listas para adaptar. Por WhatsApp, solo a quien ya te conoce o te dio su número.' },
@@ -219,11 +229,11 @@ export const MODULOS: Modulo[] = [
     numero: 2,
     area: 'Marketing y origen',
     titulo: 'De dónde llegan tus clientes',
-    duracion: '5 lecciones · 45 min',
+    duracion: '5 lecciones · ~14 min de video y lectura',
     lecciones: [
       { titulo: 'Tu mensaje en una frase', detalle: 'Problema que resuelves + para quién + resultado. Ejercicio con 3 versiones y elegir.' },
       { titulo: 'Tus 3 temas', detalle: 'Lo que tu cliente quiere aprender, lo que te diferencia y la prueba (casos, clientes). Ejemplo Grano Norte: «cómo elegir café para tu cafetería», «tostado fresco vs. de supermercado», «clientes que cambiaron».' },
-      { titulo: 'Una semana de contenido en una tarde', detalle: 'De una idea a 5 piezas (post, historia, carrusel, reel con guion, correo) y un calendario. Si quieres, ChatGPT o Claude te arman el borrador.' },
+      { titulo: 'Una semana de contenido en una tarde', detalle: 'De una idea a 5 piezas (post, historia, carrusel, reel con guion, correo) y un calendario. Con el prompt de la lección, ChatGPT o Claude te arman el borrador.' },
       { titulo: 'Responder comentarios y mensajes con tu tono', detalle: 'Plantillas y la regla de pasar a tu hoja Clientes a quien quiere comprar.' },
       { titulo: 'De dónde llegó cada cliente', detalle: 'La columna Origen de tu CRM y la hoja Origen: qué canal te trae clientes de verdad, no «me gusta».' },
     ],
@@ -234,7 +244,7 @@ export const MODULOS: Modulo[] = [
     numero: 3,
     area: 'Pedidos y operación',
     titulo: 'Cada pedido, en una fila',
-    duracion: '5 lecciones · 45 min',
+    duracion: '5 lecciones · ~14 min de video y lectura',
     lecciones: [
       { titulo: 'Lo que se repite se escribe', detalle: 'Elegir 3 procesos (ej.: nuevo cliente, pedido, despacho) y escribirlos en 7 pasos o menos.' },
       { titulo: 'Del WhatsApp a la hoja Pedidos', detalle: 'Cada pedido que llega por WhatsApp, correo o teléfono se anota en una fila: cliente, qué pidió, para cuándo y quién lo entrega.' },
@@ -249,10 +259,10 @@ export const MODULOS: Modulo[] = [
     numero: 4,
     area: 'Atención y postventa',
     titulo: 'Responder a tiempo y que vuelvan a comprar',
-    duracion: '5 lecciones · 50 min',
+    duracion: '5 lecciones · ~15 min de video y lectura',
     lecciones: [
       { titulo: 'Los 3 tipos de mensaje', detalle: 'Repetidos, con decisión y nuevos. Cuenta los tuyos durante 2 días.' },
-      { titulo: 'Respuestas listas para lo repetido', detalle: 'Escribes una vez las respuestas de siempre y las dejas como respuestas rápidas de WhatsApp Business. Si usas IA, el mismo texto le sirve.' },
+      { titulo: 'Respuestas listas para lo repetido', detalle: 'Escribes una vez las respuestas de siempre y las dejas como respuestas rápidas de WhatsApp Business. Con el prompt de la lección, la IA te arma el primer borrador.' },
       { titulo: 'La hoja Atención: cada caso hasta cerrarlo', detalle: 'Reclamos, cambios y pedidos especiales en una fila, con responsable y fecha. Ninguno se pierde entre los mensajes.' },
       { titulo: 'Cuándo pasa a una persona', detalle: 'Qué casos van siempre a ti o a tu equipo, cómo se avisa y el tiempo máximo de respuesta.' },
       { titulo: 'Postventa: que vuelvan a comprar', detalle: 'El mensaje después de la entrega, cuándo pedir un referido y a quién le toca volver a comprar, desde tu hoja Clientes.' },
@@ -264,7 +274,7 @@ export const MODULOS: Modulo[] = [
     numero: 5,
     area: 'Cobranza y caja',
     titulo: 'Cobrar a tiempo y saber cuánta plata tienes',
-    duracion: '4 lecciones · 40 min',
+    duracion: '4 lecciones · ~11 min de video y lectura',
     lecciones: [
       { titulo: 'Cobranza sin perseguir a nadie', detalle: 'La hoja Cobranza: cada factura con su vencimiento, los días de atraso calculados solos y 3 recordatorios con tu tono.' },
       { titulo: 'Lo que entra y lo que sale: la hoja Caja', detalle: 'Entradas y salidas con categorías mínimas y el saldo al día, sin digitar todo a mano.' },
@@ -278,7 +288,7 @@ export const MODULOS: Modulo[] = [
     numero: 6,
     area: 'El tablero',
     titulo: 'El tablero que lo junta todo',
-    duracion: '5 lecciones · 50 min',
+    duracion: '5 lecciones · ~17 min de video y lectura + proyecto final',
     lecciones: [
       { titulo: 'Tus números del lunes', detalle: 'Ventas del mes, propuestas abiertas, pedidos atrasados, casos abiertos, por cobrar y caja: el tablero los calcula solo desde tus hojas.' },
       { titulo: 'Cómo se conectan las hojas', detalle: 'Qué lee cada número del tablero y qué pasa si una hoja queda sin actualizar. Cada dato se anota en un solo lugar.' },
@@ -302,23 +312,23 @@ export const PROYECTO_FINAL = {
     'Tus rutinas de la semana y el semáforo antes y después',
   ],
   cierre: [
-    'Lección final (5 min): «Tu negocio en 6 semanas: antes y después», con el semáforo comparado.',
-    'Certificado de finalización al entregar tu proyecto final.',
+    'Video final (52 s): «Tu negocio, antes y después», con el semáforo comparado.',
     'Siguiente paso opcional: una sesión de 90 min para armar contigo lo que quedó pendiente.',
   ],
 } as const;
 
-export const PREVENTA = {
+/** Qué recibe quien compra (12-nov-2026: los 7 módulos están grabados y abiertos; el acceso es con código, ver /curso/acceso). */
+export const ACCESO = {
   pasos: [
-    { cuando: 'Hoy', modulo: 0, texto: 'Módulo 0 · El mapa y tu planilla base: lo recibes al tiro, apenas compras.' },
-    { cuando: 'Semana 1', modulo: 1, texto: 'Módulo 1 · Clientes y ventas (tu CRM)' },
-    { cuando: 'Semana 2', modulo: 2, texto: 'Módulo 2 · Marketing y origen' },
-    { cuando: 'Semana 3', modulo: 3, texto: 'Módulo 3 · Pedidos y operación' },
-    { cuando: 'Semana 4', modulo: 4, texto: 'Módulo 4 · Atención y postventa' },
-    { cuando: 'Semana 5', modulo: 5, texto: 'Módulo 5 · Cobranza y caja' },
-    { cuando: 'Semana 6', modulo: 6, texto: 'Módulo 6 · El tablero + proyecto final' },
+    { cuando: 'Listo', modulo: 0, texto: 'Módulo 0 · El mapa y tu planilla base' },
+    { cuando: 'Listo', modulo: 1, texto: 'Módulo 1 · Clientes y ventas (tu CRM)' },
+    { cuando: 'Listo', modulo: 2, texto: 'Módulo 2 · Marketing y origen' },
+    { cuando: 'Listo', modulo: 3, texto: 'Módulo 3 · Pedidos y operación' },
+    { cuando: 'Listo', modulo: 4, texto: 'Módulo 4 · Atención y postventa' },
+    { cuando: 'Listo', modulo: 5, texto: 'Módulo 5 · Cobranza y caja' },
+    { cuando: 'Listo', modulo: 6, texto: 'Módulo 6 · El tablero + proyecto final' },
   ],
-  nota: 'Las semanas se cuentan desde la apertura de la preventa. Cada módulo queda disponible: si te atrasas, lo retomas cuando puedas.',
+  nota: 'Al comprar, tu código de acceso está en tu área de miembros de Hotmart. Lo pegas una vez en este navegador y entras a los 7 módulos.',
 } as const;
 
 export const PARA_QUIEN = {
@@ -354,32 +364,28 @@ export const FAQ: { p: string; r: string }[] = [
     r: 'No. Todo se arma en Google Sheets, que es gratis con una cuenta de Google, o en Excel si ya lo tienes. Si algún día tu negocio necesita un software pagado, el módulo 6 te ayuda a ver cuándo, y tu planilla queda ordenada para pasarse.',
   },
   {
-    p: '¿Cuánto tiempo necesito a la semana?',
-    r: 'Entre 2 y 3 horas mientras haces el curso: unos 45 minutos de lecciones y el resto para llenar la hoja con tu negocio. Después, el sistema se mantiene con 20 minutos al día y una revisión de 10 minutos los lunes. Lo puedes llenar desde el celular, entre una cosa y otra.',
+    p: '¿Cuánto tiempo me toma?',
+    r: 'Cerca de 1 h 30 de lecciones cortas (videos de un minuto y textos breves) y unas 6 horas de práctica llenando la planilla con tu negocio, a tu ritmo: en una semana o en un mes, como te acomode. Después, el sistema se mantiene con 20 minutos al día y una revisión de 10 minutos los lunes.',
   },
   {
     p: '¿Tengo que saber de inteligencia artificial o de programación?',
-    r: 'No. Cada módulo trae prompts listos: textos para pegar en ChatGPT, Claude o Gemini (la versión gratis sirve) que recibes en tu área de miembros (los de cada módulo, junto con el módulo) y te ayudan a armar tu hoja, las fórmulas y tus mensajes. Cambias los datos por los de tu negocio y revisas lo que te devuelva antes de usarlo. Si prefieres no usar IA, la planilla y las plantillas funcionan igual.',
+    r: 'No. Las lecciones donde armas algo traen su prompt listo para copiar en ChatGPT o Claude (la versión gratis sirve): te ayuda a armar tu hoja, las fórmulas y tus mensajes. Cambias lo que está entre [corchetes] por los datos de tu negocio y revisas lo que te devuelva antes de usarlo.',
   },
   {
-    p: '¿Qué recibo al comprar en preventa?',
-    r: 'El módulo 0 al tiro: el mapa de tu sistema, el diagnóstico con semáforo, la planilla base y tus reglas de freno. Desde ahí se libera un módulo por semana hasta completar los 7.',
+    p: '¿Qué recibo al comprar?',
+    r: 'Los 7 módulos completos desde el primer día: 33 lecciones cortas con su video y su ejercicio, 27 prompts listos para la IA y la planilla del sistema (Excel o Google Sheets) con las fórmulas listas y el ejemplo de Grano Norte. Tu código de acceso está en tu área de miembros de Hotmart.',
   },
   {
     p: '¿Qué pasa si me atraso?',
-    r: 'Nada. Los módulos quedan disponibles y puedes avanzar a tu ritmo. El ritmo de un módulo por semana es una sugerencia para que veas resultados rápido.',
+    r: 'Nada. Los módulos no se cierran: avanzas a tu ritmo y retomas donde quedaste. Tu avance se guarda en el navegador donde trabajas.',
   },
   {
     p: '¿Sirve para mi rubro?',
     r: 'El caso es una tostaduría que le vende a empresas, pero las hojas son las mismas para una distribuidora, un servicio de mantención, una agencia o una consultora: clientes, pedidos o trabajos, atención, cobranza y caja. En cada lección la ajustas a tu negocio.',
   },
   {
-    p: '¿Por qué tiene precio de preventa?',
-    r: 'Porque compras antes de que estén todos los módulos grabados, y tus dudas ayudan a armar los módulos que vienen.',
-  },
-  {
-    p: '¿Hay certificado?',
-    r: 'Sí. Al entregar tu proyecto final (tu planilla con su tablero) recibes el certificado de finalización.',
+    p: '¿Y si no me sirve?',
+    r: `Tienes ${PRECIO_CURSO.garantiaDias} días de garantía: si sientes que no es para ti, pides la devolución desde Hotmart.`,
   },
 ];
 

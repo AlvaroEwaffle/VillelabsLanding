@@ -446,7 +446,7 @@ export default function EsqueletoApp() {
               {[
                 'Te vas con tu asistente escrito: lo pruebas gratis en Claude o ChatGPT y después lo conectas a tu WhatsApp (te muestro cómo).',
                 '5 preguntas trampa para probarlo antes de usarlo con clientes.',
-                'En cada campo, un ejemplo real armado: Grano Norte, una tostaduría de café de Valparaíso.',
+                'En cada campo, un ejemplo listo: Grano Norte, una tostaduría de café inventada.',
               ].map((x) => (
                 <li key={x} className="flex items-start gap-2">
                   <Check className="mt-0.5 h-4 w-4 shrink-0 text-[#5fb2dd]" /> {x}

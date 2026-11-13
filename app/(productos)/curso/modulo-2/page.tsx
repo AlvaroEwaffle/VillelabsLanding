@@ -7,7 +7,7 @@ import { SITE_URL } from '@/lib/productos/seo';
 // para que al compartir el link no herede la tarjeta ni la URL de la portada del sitio.
 export const metadata: Metadata = {
   title: 'Módulo 2 · De dónde llegan tus clientes',
-  description: 'Módulo 2 del curso «Construye con IA tu sistema de gestión CRM y ERP»: tu mensaje en una frase, tus 3 temas, un calendario de contenido de 4 semanas y la hoja Origen, que cuenta cuántos clientes te trae cada canal.',
+  description: 'Módulo 2 del curso «Construye con IA tu sistema de gestión CRM y ERP para tu negocio, sin programar»: tu mensaje en una frase, tus 3 temas, un calendario de contenido de 4 semanas y la hoja Origen, que cuenta cuántos clientes te trae cada canal.',
   robots: { index: false, follow: false },
   alternates: { canonical: `${SITE_URL}/curso/modulo-2` },
   openGraph: {
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     locale: 'es_CL',
     siteName: 'Villelab',
     title: 'Módulo 2 · De dónde llegan tus clientes',
-    description: 'Módulo 2 del curso «Construye con IA tu sistema de gestión CRM y ERP»: tu mensaje en una frase, tus 3 temas, un calendario de contenido de 4 semanas y la hoja Origen, que cuenta cuántos clientes te trae cada canal.',
+    description: 'Módulo 2 del curso «Construye con IA tu sistema de gestión CRM y ERP para tu negocio, sin programar»: tu mensaje en una frase, tus 3 temas, un calendario de contenido de 4 semanas y la hoja Origen, que cuenta cuántos clientes te trae cada canal.',
     url: `${SITE_URL}/curso/modulo-2`,
     images: [{ url: `${SITE_URL}/og/curso.jpg`, width: 1200, height: 630, alt: 'Construye con IA tu CRM y ERP · módulo 2' }],
   },

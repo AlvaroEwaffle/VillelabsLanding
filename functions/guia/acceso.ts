@@ -59,12 +59,12 @@ color:#fff;cursor:pointer;box-shadow:0 8px 28px rgba(255,61,139,.35)}button:hove
 </style></head><body><main class="card">
 <p class="eyebrow">Villelab · Guía 1</p>
 <h1>Entra a tu guía</h1>
-<p>Escribe el código que está en la clase «Empieza aquí» de tu área de miembros en Hotmart. Lo pides una sola vez en este navegador.</p>
-${error ? '<div class="error">Ese código no corresponde. Revísalo en Hotmart y vuelve a intentarlo.</div>' : ''}
+<p>Escribe tu código: el que te llegó por mensaje o el de la clase «Empieza aquí» en Hotmart. Solo te lo pide una vez en este navegador.</p>
+${error ? '<div class="error">Ese código no corresponde o ya venció. Revísalo y vuelve a intentarlo.</div>' : ''}
 <form method="post" action="/guia/acceso">
 <input type="hidden" name="d" value="${escapar(destino)}">
 <label for="codigo">Código de acceso</label>
-<input id="codigo" name="codigo" autocomplete="off" autocapitalize="characters" spellcheck="false" required placeholder="GUIA1-XXXX-XXXX-XXXX-XXXX">
+<input id="codigo" name="codigo" autocomplete="off" autocapitalize="characters" spellcheck="false" required placeholder="Pega aquí tu código">
 <button type="submit">Entrar a la guía</button>
 </form>
 <p class="pie">¿Aún no la tienes? <a href="/guia">Mira qué incluye la Guía 1</a>.<br>¿Problemas para entrar? Escríbeme por Instagram a @alvarovillena.ia.</p>

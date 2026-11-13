@@ -10,7 +10,7 @@
  * correo (+ WhatsApp opcional) antes del pago, registra el lead en Fidelidapp como «curso-lead» (lib/productos/leads.ts,
  * con los UTM de la visita) y lleva al esqueleto. El lead queda guardado también como lead del esqueleto, así el
  * esqueleto no lo vuelve a pedir al final.
- * Medición: dataLayer `curso_lead` (cta_location = hero | antes_preventa) + Lead del pixel (lo emite registrarLead).
+ * Medición: dataLayer `curso_lead` (cta_location = hero | antes_compra) + Lead del pixel (lo emite registrarLead).
  */
 
 import { useEffect, useState } from 'react';

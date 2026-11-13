@@ -116,10 +116,10 @@ export default function Grabacion() {
         </section>
 
         <section className="mx-auto max-w-5xl px-4 pb-32 sm:px-6">
-          {/* Video 8 · venta de la preventa: la oferta del workshop (8-nov-2026) */}
+          {/* Video 8 · venta del curso: la oferta del workshop (8-nov-2026; v08b sin la frase de preventa, 12-nov) */}
           <div className="mb-10 max-w-3xl">
             <p className="font-mono text-xs uppercase tracking-[0.2em] text-[#5fb2dd]">Si quieres ir más allá del workshop</p>
-            <VideoMarco id="v08-curso-venta" titulo="Construye con IA tu sistema CRM y ERP" duracion="49 s" className="mt-3" />
+            <VideoMarco id="v08b-curso-venta" titulo="Construye con IA tu sistema CRM y ERP" duracion="40 s" className="mt-3" />
           </div>
           <SiguientePaso logro="Ya sabes de qué se trata" pago={PASO_CURSO} gratis={[GRATIS_PROXIMO_WORKSHOP, GRATIS_ESQUELETO]} />
         </section>
