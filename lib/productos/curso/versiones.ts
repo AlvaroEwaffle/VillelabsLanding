@@ -8,21 +8,32 @@ export { fechaLarga } from '@/lib/productos/guia/versiones';
 // Cuando se publique el módulo 7, su entrada va arriba y pasa a ser la destacada en /curso (sección «Reviso este curso…»).
 export type VersionCurso = { version: string; fecha: string; cambios: string[]; porque?: string };
 
+/**
+ * Fecha de la versión 1.4 (módulo 7) = el día en que se publique en producción. Si se publica otro día, cambiar SOLO esta
+ * constante (formato ISO). La muestran /curso («Producto vivo») y el módulo 0.
+ */
+export const FECHA_PUBLICACION_M7 = '2026-11-13';
+
 export const VERSIONES_CURSO: VersionCurso[] = [
+  {
+    version: '1.4',
+    fecha: FECHA_PUBLICACION_M7,
+    cambios: [
+      'Nuevo módulo 7, el proyecto final: un agente de IA que trabaja con tu planilla. Le pegas un WhatsApp y te arma la fila del pedido; el lunes le pegas tu cobranza y te dice a quién cobrar. Tú revisas y envías.',
+      'Los prompts del agente se rellenan solos con los datos de tu negocio, que anotas una vez.',
+      'El Tablero cuenta cada pedido una vez por su N°, aunque tenga varias filas.',
+      'Ahora son 8 módulos, 38 lecciones y 34 prompts: menos de 2 horas de contenido (cerca de 1 h 45) y unas 7 a 8 horas de práctica.',
+    ],
+    porque:
+      'Incluí un agente que trabaja con tu planilla porque una planilla ordenada igual hay que llenarla y leerla, y lo que más se repite es pasar pedidos de WhatsApp y cobrar el lunes. Lo probé en un proyecto de Claude con el caso Grano Norte: hizo bien las dos tareas en todas las pruebas y no se saltó las reglas de freno (no aceptó un descuento ni confirmó una fecha sin despacho).',
+  },
   {
     version: '1.3',
     fecha: '2026-11-13',
     cambios: [
-<<<<<<< HEAD
       'La planilla se descarga una vez, en el módulo 0, y en los módulos siguientes sigues trabajando la misma: cada módulo llena una hoja.',
     ],
     porque: 'Cada módulo volvía a ofrecerte bajar la planilla vacía, como si partieras de cero. Ahora la bajas una vez, en el módulo 0, y la vas llenando.',
-=======
-      'Nuevo módulo 7: tu primer agente, un asistente en un proyecto de Claude que usa tu planilla como memoria, pasa pedidos de WhatsApp a tu hoja Pedidos y te arma la cobranza del lunes. Tú revisas y tú envías.',
-      'Ahora son 8 módulos, 38 lecciones y 34 prompts. Duración: cerca de 1 h 45 de lecciones cortas y unas 7 a 8 horas de práctica.',
-      'El Tablero cuenta cada pedido una vez por su N°, aunque tenga varias filas.',
-    ],
->>>>>>> origin/feat/curso-m7-autollenado
   },
   {
     version: '1.2',

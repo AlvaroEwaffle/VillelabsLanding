@@ -5,14 +5,15 @@
 // Slack, una vez, sin datos personales: «🧭 vio Qué te llevas».
 import Link from 'next/link';
 import { useCallback, useRef } from 'react';
-import { ArrowRight, BookOpen, ClipboardList, FileSpreadsheet, Handshake, LayoutDashboard, Map as MapIcon, Megaphone, MessageCircle, Sparkles, Wallet, type LucideIcon } from 'lucide-react';
+import { ArrowRight, BookOpen, Bot, ClipboardList, FileSpreadsheet, Handshake, LayoutDashboard, Map as MapIcon, Megaphone, MessageCircle, Sparkles, Wallet, type LucideIcon } from 'lucide-react';
 import { APRENDES, LLEVAS, TIEMPO } from '@/lib/productos/curso/llevas';
+import { MODULOS } from '@/lib/productos/curso/curso';
 import { useAparecer } from '@/lib/productos/aparecer';
 import { registrarEvento } from '@/lib/productos/eventos';
 import { Kicker } from './piezas';
 
 const ICONO_LLEVAS: LucideIcon[] = [FileSpreadsheet, Sparkles, BookOpen, LayoutDashboard];
-const ICONO_MODULO: Record<number, LucideIcon> = { 0: MapIcon, 1: Handshake, 2: Megaphone, 3: ClipboardList, 4: MessageCircle, 5: Wallet, 6: LayoutDashboard };
+const ICONO_MODULO: Record<number, LucideIcon> = { 0: MapIcon, 1: Handshake, 2: Megaphone, 3: ClipboardList, 4: MessageCircle, 5: Wallet, 6: LayoutDashboard, 7: Bot };
 
 export default function QueTeLlevas() {
   const ref = useRef<HTMLElement>(null);
@@ -59,7 +60,9 @@ export default function QueTeLlevas() {
           <p className="mt-3 font-serif text-4xl leading-tight text-white sm:text-5xl">{TIEMPO.grande}</p>
           <p className="mt-2 max-w-md text-slate-300">{TIEMPO.detalle}</p>
           <p className="mt-4 max-w-md text-sm text-slate-400">{TIEMPO.apoyo}</p>
-          <p className="mt-2 text-xs text-slate-500">7 módulos · 33 lecciones</p>
+          <p className="mt-2 text-xs text-slate-500">
+            {MODULOS.length} módulos · {MODULOS.reduce((n, m) => n + m.lecciones.length, 0)} lecciones
+          </p>
         </div>
         <ol className="space-y-3">
           {APRENDES.map((a) => {
@@ -73,6 +76,7 @@ export default function QueTeLlevas() {
                   <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-[#5fb2dd]">
                     Módulo {a.modulo}
                     {a.modulo === 0 ? <span className="ml-2 rounded-full bg-[#FF3D8B]/15 px-2 py-0.5 text-[10px] text-[#ff8fbd]">gratis</span> : null}
+                    {a.modulo === 7 ? <span className="ml-2 rounded-full bg-[#5fb2dd]/15 px-2 py-0.5 text-[10px] text-[#9fd3ee]">proyecto final</span> : null}
                   </p>
                   <p className="mt-1 text-slate-100">{a.texto}</p>
                 </div>

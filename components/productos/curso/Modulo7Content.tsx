@@ -122,7 +122,7 @@ function LeccionInstrucciones() {
       <p className="mt-3 text-sm text-slate-400">
         En ChatGPT no lo hemos probado. Según su centro de ayuda, también tiene proyectos con instrucciones (Nuevo proyecto en la barra lateral › menú ••• › Configuración del proyecto), pero esa ruta no la verificamos en su pantalla. Según las páginas oficiales de los dos, los proyectos están también en la cuenta gratis, con límites de uso: si en tu cuenta algo no aparece, usa el camino de respaldo de la lección 2.
       </p>
-      <p className="mt-3 text-sm text-slate-400">¿No sabes qué poner en los [corchetes]? Usa primero el prompt 7.1b en un chat normal: te hace las preguntas de una en una.</p>
+      <p className="mt-3 text-sm text-slate-400">¿No sabes qué anotar en «Los datos de tu negocio»? Usa primero el prompt 7.1b en un chat normal: te hace las preguntas de una en una. Anota tus respuestas arriba y el prompt 7.1 se rellena solo.</p>
       <Freno>Nunca pongas en las instrucciones claves, datos bancarios ni RUT de clientes.</Freno>
       <Subtitulo>Ejercicio</Subtitulo>
       <Instruccion>Crea tu proyecto con el nombre de tu negocio y pega tus instrucciones.</Instruccion>
@@ -186,9 +186,12 @@ function LeccionMemoria() {
           <p className="text-slate-400">Este camino no ve tus hojas Pedidos ni Cobranza, así que no te avisa de pedidos abiertos ni facturas vencidas.</p>
         </div>
       </details>
+      {/* 13-nov-2026 (planilla única desde el módulo 0): como en los módulos 1–6, solo la línea «Sigue con la planilla del
+          módulo 0…» (con descarga de respaldo) y el ejemplo de Grano Norte, rotulado ejemplo, para probar con datos de muestra. */}
       <DescargaPlantilla
-        titulo="¿Todavía no tienes tu planilla?"
-        texto="Descarga la tuya o el ejemplo de Grano Norte para probar tu agente con datos de muestra. Si ya tienes tu planilla, usa la tuya."
+        continuar
+        titulo="Tu planilla"
+        texto="Tu agente usa la planilla que vienes llenando desde el módulo 0. Si quieres probarlo antes con datos de muestra, abre el ejemplo de Grano Norte."
       />
       <Subtitulo>Ejercicio</Subtitulo>
       <Instruccion>Sube tu planilla y hazle la pregunta de prueba. Si te responde con tus productos y tus clientes reales, tu agente ya tiene memoria.</Instruccion>
@@ -493,7 +496,7 @@ const LECCIONES: LeccionDef[] = [
     contenido: <LeccionInstrucciones />,
     checklist: [
       { id: 'l1a', texto: 'Creé el proyecto.' },
-      { id: 'l1b', texto: 'Cambié todos los [corchetes].' },
+      { id: 'l1b', texto: 'Anoté los datos de mi negocio y revisé que no quedara nada entre [corchetes].' },
       { id: 'l1c', texto: 'Pegué mis reglas de freno en la regla 7.' },
       { id: 'l1d', texto: 'Guardé las instrucciones.' },
     ],

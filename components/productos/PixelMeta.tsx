@@ -36,7 +36,10 @@ export default function PixelMeta() {
       const a = (e.target as HTMLElement | null)?.closest('a') as HTMLAnchorElement | null;
       if (!a || !/pay\.hotmart\.com/.test(a.href)) return;
       const producto = /H108396355K/.test(a.href) ? 'Guía 1' : 'Curso';
-      eventoPixel('InitiateCheckout', { content_name: producto, currency: 'CLP' });
+      // 13-nov-2026 (pedido de ads-villelab para la campaña de ventas): el curso lleva su valor en CLP (= PRECIO_FUNDADOR de
+      // lib/productos/curso/curso.ts; literal para no cargar curso.ts en todas las páginas). Si cambia el precio, cambiarlo
+      // aquí también. Con utm_source=qa o navegador automatizado no sale (eventoPixel, lib/productos/pixel.ts).
+      eventoPixel('InitiateCheckout', producto === 'Curso' ? { content_name: producto, currency: 'CLP', value: 29990 } : { content_name: producto, currency: 'CLP' });
     };
     document.addEventListener('click', alClic, { capture: true, passive: true });
     return () => document.removeEventListener('click', alClic, { capture: true });
