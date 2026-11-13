@@ -56,7 +56,7 @@ export const PRACTICAS = [
 export const EMPRESAS = [
   { nombre: 'Ewaffle', que: 'cursos e-learning para empresas', logo: '/logos/ewaffle.png', ancho: 120, alto: 32 },
   { nombre: 'Fidelidapp', que: 'fidelización de clientes por WhatsApp', logo: '/logos/fidelidapp.png', ancho: 40, alto: 36 },
-  { nombre: 'Villelab', que: 'agentes de IA a medida', logo: '/icono.png', ancho: 36, alto: 36 },
+  { nombre: 'Villelab', que: 'agentes de IA a medida', logo: '/icono-128.webp', ancho: 36, alto: 36 },
 ] as const;
 
 /** Clientes (PepsiCo, Kimberly-Clark, LATAM…): NO se muestran hasta que Álvaro confirme por escrito que se puede y cómo

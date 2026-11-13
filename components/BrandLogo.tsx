@@ -28,8 +28,9 @@ export default function BrandLogo({
 
   const LogoComponent = (
     <div className={`${sizeClasses[size]} ${className} relative`}>
+      {/* 13-nov-2026 (velocidad): 128 px en WebP (3 KB) en vez del PNG de 674 px (37 KB); se precarga en todas las páginas. */}
       <Image
-        src="/icono.png"
+        src="/icono-128.webp"
         alt="Álvaro Villena"
         fill
         className="object-contain"
