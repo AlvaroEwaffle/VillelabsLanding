@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
 import AgentesContent from './AgentesContent';
+import { FAQ_AGENTES } from '@/lib/faq';
+import { faqPage, JsonLd } from '@/lib/productos/seo';
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://villelab.com';
 
@@ -17,5 +19,11 @@ export const metadata: Metadata = {
 };
 
 export default function AgentesPage() {
-  return <AgentesContent />;
+  // 13-nov-2026 (AI SEO): FAQPage con el mismo texto de las preguntas visibles.
+  return (
+    <>
+      <JsonLd data={faqPage(FAQ_AGENTES)} />
+      <AgentesContent />
+    </>
+  );
 }

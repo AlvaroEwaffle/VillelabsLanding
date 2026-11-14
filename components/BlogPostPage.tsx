@@ -44,17 +44,22 @@ export default function BlogPostPage({ post }: BlogPostPageProps) {
   // Split content roughly in half for mid-article CTA
   const contentParts = splitContentAtMidpoint(post.content);
 
+  // Octubre: 26-oct-2026. Marzo: el blog solo dice «Marzo 2026», así que va año-mes (ISO 8601), sin inventar el día.
+  const fecha = post.date.startsWith('Octubre') ? '2026-10-26' : '2026-03';
   const articleSchema = {
     '@context': 'https://schema.org',
     '@type': 'Article',
     headline: post.title,
     description: post.excerpt,
-    datePublished: '2026-03-01',
-    dateModified: '2026-03-01',
+    // 13-nov-2026 (AI SEO): fecha real (las notas de octubre decían marzo), idioma del artículo y autor enlazado a /sobre-mi.
+    datePublished: fecha,
+    dateModified: fecha,
+    inLanguage: post.language === 'en' ? 'en' : 'es-CL',
     author: {
       '@type': 'Person',
-      name: 'Alvaro Villena',
-      url: SITE_URL,
+      '@id': `${SITE_URL}/#alvaro`,
+      name: 'Álvaro Villena',
+      url: `${SITE_URL}/sobre-mi`,
     },
     publisher: {
       '@type': 'Organization',
@@ -79,7 +84,8 @@ export default function BlogPostPage({ post }: BlogPostPageProps) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
       />
 
-      <main className="pt-24 md:pt-32 pb-16 md:pb-24">
+      {/* El <html> dice «es» en todo el sitio (export estático): las notas en inglés declaran su idioma aquí. */}
+      <main lang={post.language === 'en' ? 'en' : 'es'} className="pt-24 md:pt-32 pb-16 md:pb-24">
         {/* Header */}
         <motion.div
           className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8"

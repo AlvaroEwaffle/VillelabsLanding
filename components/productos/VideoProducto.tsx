@@ -59,7 +59,13 @@ export type VideoId =
   | 'm6-l3'
   | 'm6-l4'
   | 'm6-l5'
-  | 'm6-final';
+  | 'm6-final'
+  // Módulo 7 «Tu primer agente, trabajando con tu planilla» (lote 3, 13-nov-2026)
+  | 'm7-l1'
+  | 'm7-l2'
+  | 'm7-l3'
+  | 'm7-l4'
+  | 'm7-l5';
 
 const HITOS_VIDEO = [25, 50, 100] as const;
 
@@ -94,12 +100,16 @@ export default function VideoProducto({
   vertical?: boolean;
   className?: string;
 }) {
+  // 13-nov-2026 (velocidad en celular): el mp4 no se baja hasta que la persona toca play. Con preload="metadata" el navegador
+  // bajaba 160 KB del mp4 en paralelo con el primer pantallazo y, ya cargada la página, seguía hasta 2–4 MB (medido con
+  // Lighthouse, throttling aplicado): datos móviles gastados en un video que la mayoría no reproduce. El póster se ve igual.
   return (
     <video
       controls
       playsInline
-      preload="metadata"
-      poster={`/videos/${id}.jpg`}
+      preload="none"
+      // Póster en WebP (1280 px, ~4× más liviano que el .jpg de 1920 px; el .jpg queda para OG y JSON-LD).
+      poster={`/videos/${id}.webp`}
       aria-label={titulo}
       onPlay={(e) => {
         const v = e.currentTarget;

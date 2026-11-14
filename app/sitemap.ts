@@ -1,17 +1,23 @@
 import type { MetadataRoute } from 'next';
 import { blogPosts } from '@/lib/blog-posts';
+import { VERSION_CURSO } from '@/lib/productos/curso/versiones';
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://villelab.com';
 
 export const dynamic = 'force-static';
 
 type Freq = MetadataRoute.Sitemap[number]['changeFrequency'];
-const entry = (path: string, priority: number, changeFrequency: Freq = 'monthly') => ({
+// 13-nov-2026 (auditoría AI SEO, arreglo 7): antes todas las URL llevaban la hora del build como fecha, así que el sitemap
+// no distinguía lo nuevo de lo viejo. Ahora la fecha va solo donde se conoce de verdad (versión del curso, fecha de cada
+// nota del blog); el resto sale sin <lastmod>, que es mejor que una fecha falsa.
+const entry = (path: string, priority: number, changeFrequency: Freq = 'monthly', lastModified?: string) => ({
   url: `${baseUrl}${path}`,
-  lastModified: new Date(),
+  ...(lastModified ? { lastModified } : {}),
   changeFrequency,
   priority,
 });
+// Las notas de octubre se publicaron el 26-oct-2026; las de marzo solo dicen «Marzo 2026» (sin día confirmado): van sin lastmod.
+const fechaNota = (fecha: string) => (fecha.startsWith('Octubre') ? '2026-10-26' : undefined);
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
@@ -34,7 +40,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     entry('/guia', 0.9),
     entry('/workshop', 0.9, 'weekly'),
     entry('/workshop/grabacion', 0.7),
-    entry('/curso', 0.9),
+    entry('/curso', 0.9, 'weekly', VERSION_CURSO.fecha),
     // Productos propios (el índice /products redirige al catálogo)
     entry('/products/moca', 0.5),
     entry('/products/capu', 0.5),
@@ -54,7 +60,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     entry('/workshops/vibe-coding', 0.4),
     entry('/workshops/lider-del-futuro', 0.5),
     // Blog
-    ...blogPosts.map((p) => entry(`/blog/${p.slug}`, 0.6)),
+    ...blogPosts.map((p) => entry(`/blog/${p.slug}`, 0.6, 'monthly', fechaNota(p.date))),
     // Legales
     entry('/privacidad', 0.2, 'yearly'),
     entry('/privacy', 0.2, 'yearly'),

@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import BrandLogo from './BrandLogo';
 import { useTranslation, getWhatsAppUrl } from '@/lib/i18n';
+import { MARCA_PERSONAL, PERFILES_ALVARO } from '@/lib/perfiles';
 
 export default function Footer() {
   const { t, language } = useTranslation();
@@ -44,7 +45,11 @@ export default function Footer() {
       title: t.footer.connect,
       links: [
         { label: t.footer.whatsappLink, href: getWhatsAppUrl(language), external: true },
-        { label: t.footer.linkedinLink, href: 'https://www.linkedin.com/in/alvarovillena', external: true },
+        { label: t.footer.linkedinLink, href: PERFILES_ALVARO.linkedin, external: true },
+        // 13-nov-2026 (AI SEO): las redes de «Álvaro Villena IA» a la vista, para unir el sitio con sus perfiles.
+        { label: 'Instagram', href: PERFILES_ALVARO.instagram, external: true },
+        { label: 'YouTube', href: PERFILES_ALVARO.youtube, external: true },
+        { label: 'TikTok', href: PERFILES_ALVARO.tiktok, external: true },
         { label: t.footer.bookACallLink, href: '/diagnostic' },
       ],
     },
@@ -65,6 +70,13 @@ export default function Footer() {
             </Link>
             <p className="text-white/40 text-sm font-light leading-relaxed max-w-xs">
               {t.footer.brandDescription}
+            </p>
+            {/* 13-nov-2026 (AI SEO): el nombre de la marca personal en texto, en todas las páginas del sitio principal. */}
+            <p className="mt-3 text-white/40 text-sm font-light leading-relaxed max-w-xs">
+              <span className="text-white/70">{MARCA_PERSONAL.nombre}</span>
+              {language === 'en'
+                ? ': I teach you to build, manage and optimize AI agents.'
+                : `: ${MARCA_PERSONAL.promesa}.`}
             </p>
           </div>
 

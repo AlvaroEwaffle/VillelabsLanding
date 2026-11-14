@@ -1,42 +1,37 @@
-# VilleLab — Revenue Systems for Growing Companies
+# Villelab · Álvaro Villena IA
 
-> Digital product studio specializing in revenue-generating web systems for tech startups and SMEs in Chile and LATAM. We build conversion infrastructure, not just websites.
+> Villelab instala y opera agentes de IA que hacen el trabajo repetitivo de un equipo: correo, propuestas, seguimientos y reportes. Lo que compromete plata, alcance o fechas pasa por una persona. «Álvaro Villena IA» es la marca personal de Álvaro Villena: te enseño a crear, gestionar y optimizar agentes de IA. Desde Santiago de Chile, para empresas de todo LATAM.
 
-VilleLab is a digital consulting studio led by Álvaro Villena (Top 3% Toptal PM). We design and build web systems that directly drive revenue — from high-converting landing pages to full growth platforms with integrated analytics and automation.
+Actualizado el 13 de noviembre de 2026. Los precios de abajo son los que muestra cada página hoy; si hay diferencia, manda la página.
 
-**Site:** https://villelab.com
-**WhatsApp:** +56 9 2011 5198
-**Location:** Santiago, Chile (remote-first, serves LATAM + US)
+- Sitio: https://villelab.com
+- Quién está detrás: Álvaro Villena, ingeniero industrial de la Universidad de Chile, más de 8 años liderando equipos de producto (ex-LATAM Airlines, ex-PepsiCo vía Toptal). Dirige Villelab y dos negocios propios, Ewaffle y Fidelidapp, que operan con los mismos agentes. Más en https://villelab.com/sobre-mi
+- WhatsApp: +56 9 2011 5198
+- Redes: Instagram https://www.instagram.com/alvarovillena.ia/ · YouTube https://www.youtube.com/@alvarovillenai · TikTok https://www.tiktok.com/@alvarovillena.ia · LinkedIn https://www.linkedin.com/in/alvarovillena
 
-## Services
+## Para aprender (pymes y profesionales)
 
-- [Conversion Landing Pages](/#servicios): Single-purpose pages engineered to convert. From $780 USD. Delivered in 2-3 weeks.
-- [Revenue Website Systems](/#servicios): Full website + funnel + CRM integration. From $3,500 USD. For companies that need their site to sell.
-- [Growth Platforms](/#servicios): End-to-end digital infrastructure — product, marketing, analytics. From $5,000 USD.
-- [Growth Retainers](/#servicios): Monthly engagement for continuous iteration and optimization. From $800/month.
-- [Agile Consulting](/#servicios): Fractional PM and product leadership for scaling teams.
+- [Esqueleto de tu asistente de WhatsApp](https://villelab.com/esqueleto): gratis, sin tarjeta, en unos 15 minutos. Dejas escrito qué responde tu asistente, qué nunca promete y cuándo te avisa; lo copias o lo descargas y lo pruebas en Claude o ChatGPT.
+- [Curso «Construye con IA tu CRM y ERP, sin programar»](https://villelab.com/curso): ordenas tu negocio en una planilla de Google Sheets (o Excel) con ayuda de la IA: clientes, pedidos, cobranza, caja y un tablero; como proyecto final, tu primer agente en un proyecto de Claude que trabaja con tu planilla (requiere cuenta pagada de Claude; los módulos 0 a 6 sirven con ChatGPT o Claude gratis). 8 módulos, 38 lecciones cortas, 34 prompts. El módulo 0 es gratis con tu correo. Precio de lanzamiento: $29.990 CLP, pago único o en cuotas en Hotmart, con 7 días de garantía.
+- [Guía «Tus próximos 20 clientes»](https://villelab.com/guia): en una tarde armas tu lista de 20 posibles clientes, el primer mensaje y los seguimientos con fecha, con tu primer CRM en Google Sheets o Excel. Uno a uno, sin envío masivo. $14.990 CLP, pago único o 12 cuotas de $1.249, con 7 días de garantía.
+- [Workshop grabado](https://villelab.com/workshop/grabacion): gratis. 45 minutos, de las preguntas de siempre a un asistente que responde por WhatsApp sin inventar nada.
+- [Academia](https://villelab.com/academia): Academia by Ewaffle, la academia de Álvaro Villena. Cursos de una hora para delegar tareas a agentes de IA ($19.990 CLP) y coordinar varios agentes ($39.990 CLP); los dos en pack, $49.990 CLP.
 
-## Process
+## Para que lo hagamos por ti (empresas)
 
-1. Strategic diagnostic (free, 45 min)
-2. Proposal + fixed scope in 48 hours
-3. Build in 2-4 week cycles
-4. Launch + measure + iterate
+- [Cotizador de agentes](https://villelab.com/cotizador): gratis y sin pedir correo. Eliges qué trabajo le pasarías a un agente (licitaciones, prospección, marketing, atención por WhatsApp, correo y agenda, administración u operación) y ves qué haría cada día y cuánto cuesta.
+- [Agentes como servicio](https://villelab.com/agentes): un agente que conoce tu negocio, tus herramientas y sus límites; lo implementamos y lo mantenemos funcionando cada mes.
+  - Reunión de descubrimiento: gratis, 30 minutos.
+  - Implementación: desde 12 UF, una vez.
+  - Mantenimiento: 3 UF al mes si ya tienes tu licencia de Claude, o 6 UF al mes con la licencia incluida.
+  - Valores exentos de IVA (factura exenta). El valor final se acuerda en la reunión y se deja por escrito antes de partir.
+- [CTO fraccional](https://villelab.com/services): dirección técnica para un proyecto propio, desde USD $3.500 al mes.
+- [Catálogo con demos](https://villelab.com/catalogo): demos de agentes que se usan sin registrarse y una calculadora con los precios de lista.
 
-## Case Studies
+## Más
 
-- **Ewaffle** — E-learning platform (B2B SaaS)
-- **Fidelidapp** — Loyalty SaaS for restaurants and retail
-- **Puchacay** — Tourism booking system
-
-## For Whom
-
-- Tech startups that need a web presence that converts, not just looks good
-- SMEs scaling past their first revenue milestone
-- Founders who want a senior PM + dev partner, not a vendor
-
-## Optional
-
-- [Diagnostic Quiz](/#diagnostico): 7-question self-assessment to identify your growth bottleneck.
-- [Blog](/#blog): Articles on product strategy, conversion optimization, and AI tools for business.
-- [Sitemap](/sitemap.xml): Full site map.
+- [Sobre mí](https://villelab.com/sobre-mi): formación, trayectoria y equipo.
+- [Proyectos](https://villelab.com/work)
+- [Blog](https://villelab.com/blog)
+- [Contacto](https://villelab.com/contact)
+- [Mapa del sitio](https://villelab.com/sitemap.xml)

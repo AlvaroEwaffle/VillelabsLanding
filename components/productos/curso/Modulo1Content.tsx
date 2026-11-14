@@ -19,7 +19,7 @@ import { CANALES, ESTADOS_CLIENTE, leerClientesGuia } from '@/lib/productos/curs
 import { Pantallita } from '@/components/productos/Pantallita';
 import { DiagramaEmbudo, DiagramaPropuestaUnaPagina, DiagramaSecuenciaSeguimiento } from '@/components/productos/diagramas/modulos';
 import { DiagramaCanalPrimerMensaje, DiagramaHojaClientes, DiagramaRutinaCRM } from '@/components/productos/diagramas/sistema-m12';
-import { DescargaPlantilla } from './Plantilla';
+import { SigueConTuPlanilla } from './Plantilla';
 import {
   BotonDescarga,
   Campos,
@@ -321,10 +321,7 @@ function LeccionClientes() {
         />
         <p className="mt-2 text-xs text-slate-500">Las columnas vienen en el mismo orden que la hoja Clientes de tu planilla: abres el archivo, copias las filas y las pegas.</p>
       </div>
-      <DescargaPlantilla
-        titulo="Tu planilla del sistema, con tu hoja Clientes"
-        texto="Si todavía no la tienes, descárgala aquí. Si hiciste la Guía 1 en este navegador, tu lista entra sola a la hoja Clientes."
-      />
+      <SigueConTuPlanilla className="mt-4" />
       <DiagramaRutinaCRM className="mt-6" />
     </>
   );

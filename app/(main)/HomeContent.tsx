@@ -1,11 +1,11 @@
 'use client';
 
 import Link from 'next/link';
-import { useState } from 'react';
 import { ArrowRight, Calendar, Compass, FileText, Inbox, Megaphone, MessageCircle, Search, Shield, Users, ChevronDown, Quote } from 'lucide-react';
 import { useTranslation } from '@/lib/i18n';
 import { NOTA_IVA, PRECIOS_AGENTES, PRECIO_CTO_USD, TEXTO_PRECIO_AGENTES, uf, usd } from '@/lib/precios';
 import HeroFondo from '@/components/HeroFondo';
+import { FAQ_HOME } from '@/lib/faq';
 import AgenteTrabajando from '@/components/AgenteTrabajando';
 
 /*
@@ -123,13 +123,7 @@ const COPY = {
     propios: 'Mis propios negocios, operados con agentes',
     faqKicker: 'Preguntas',
     faqTitulo: 'Lo que suelen preguntarnos.',
-    faq: [
-      { q: '¿Es un chatbot?', a: 'No. Un chatbot conversa. Un agente hace tareas completas: lee, ordena, redacta y hace seguimiento, dentro de los límites que tú defines.' },
-      { q: '¿Mi equipo tiene que saber programar?', a: 'No. Está pensado para equipos no técnicos. En la instalación acompañamos a cada persona hasta que usa su agente en un flujo real.' },
-      { q: '¿Qué pasa con la información de mi empresa?', a: 'Cada persona tiene permisos según su rol, y el agente solo ve lo que necesita para su tarea. Lo definimos juntos en el diagnóstico.' },
-      { q: '¿Cuánto cuesta?', a: `La reunión de descubrimiento es gratis. La implementación parte en ${uf(PRECIOS_AGENTES.implementacionUF)} y el mantenimiento parte en ${uf(PRECIOS_AGENTES.mantenimientoUF)} al mes. Valores exentos de IVA (factura exenta). Las licencias de Claude las contrata tu empresa aparte.` },
-      { q: '¿Y si un agente no tiene sentido para mi equipo?', a: 'Te lo decimos en la primera llamada. Preferimos eso a venderte algo que no van a usar.' },
-    ],
+    faq: FAQ_HOME.es,
     finalTitulo: 'Partimos por entender tu operación, no por vender un agente.',
     finalBajada: 'En 30 minutos vemos qué tareas se repiten en tu equipo y si un agente tiene sentido.',
   },
@@ -182,13 +176,7 @@ const COPY = {
     propios: 'My own businesses, run with agents',
     faqKicker: 'Questions',
     faqTitulo: 'What people usually ask.',
-    faq: [
-      { q: 'Is it a chatbot?', a: 'No. A chatbot chats. An agent does complete tasks: reads, sorts, drafts and follows up, within limits you define.' },
-      { q: 'Does my team need to code?', a: 'No. It’s built for non-technical teams. During setup we walk each person through until they use their agent on a real flow.' },
-      { q: 'What about my company’s information?', a: 'Each person has role-based permissions, and the agent only sees what its task needs. We define it together in the diagnostic.' },
-      { q: 'How much does it cost?', a: `The discovery call is free. Setup starts at ${uf(PRECIOS_AGENTES.implementacionUF)} and upkeep starts at ${uf(PRECIOS_AGENTES.mantenimientoUF)} per month (UF is Chile’s inflation-indexed unit). Prices are VAT-exempt. Claude licenses are paid separately by your company.` },
-      { q: 'What if an agent doesn’t make sense for my team?', a: 'We’ll tell you on the first call. We’d rather do that than sell you something you won’t use.' },
-    ],
+    faq: FAQ_HOME.en,
     finalTitulo: 'We start by understanding your operation, not by selling an agent.',
     finalBajada: 'In 30 minutes we look at which tasks repeat in your team and whether an agent makes sense.',
   },
@@ -245,20 +233,16 @@ function Grupo({ titulo, children }: { titulo: string; children: React.ReactNode
 }
 
 function Pregunta({ q, a }: { q: string; a: string }) {
-  const [abierta, setAbierta] = useState(false);
+  // 13-nov-2026 (AI SEO): <details> nativo. Se ve igual (cerrada, se abre al tocar), pero la respuesta queda en el HTML
+  // prerenderizado para buscadores y asistentes de IA, que antes solo veían la pregunta.
   return (
-    <div className="border-b border-white/10">
-      <button
-        type="button"
-        onClick={() => setAbierta(!abierta)}
-        className="flex min-h-[56px] w-full items-center justify-between gap-4 py-4 text-left text-base text-white sm:text-lg"
-        aria-expanded={abierta}
-      >
+    <details className="group border-b border-white/10">
+      <summary className="flex min-h-[56px] w-full cursor-pointer list-none items-center justify-between gap-4 py-4 text-left text-base text-white sm:text-lg [&::-webkit-details-marker]:hidden">
         {q}
-        <ChevronDown className={`h-5 w-5 shrink-0 text-slate-400 transition-transform ${abierta ? 'rotate-180' : ''}`} />
-      </button>
-      {abierta ? <p className="pb-5 pr-8 text-slate-300">{a}</p> : null}
-    </div>
+        <ChevronDown className="h-5 w-5 shrink-0 text-slate-400 transition-transform group-open:rotate-180" aria-hidden />
+      </summary>
+      <p className="pb-5 pr-8 text-slate-300">{a}</p>
+    </details>
   );
 }
 

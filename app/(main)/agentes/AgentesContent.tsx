@@ -1,7 +1,6 @@
 'use client';
 
 import Link from 'next/link';
-import { useState } from 'react';
 import {
   ArrowRight,
   BarChart3,
@@ -20,6 +19,7 @@ import {
 import { DISCOVERY_CALL_URL } from '@/lib/scheduling';
 import { NOTA_IVA, PRECIOS_AGENTES, uf, usd } from '@/lib/precios';
 import VslAgentes from '@/components/VslAgentes';
+import { FAQ_AGENTES } from '@/lib/faq';
 
 /*
  * /agentes — landing de «Agentes como servicio» (3-nov-2026). También es la landing de Google Ads.
@@ -124,12 +124,8 @@ const FRENOS = [
   'Tú decides qué hace el agente solo y qué deja como borrador para revisar.',
 ];
 
-const FAQ = [
-  { q: '¿Es un chatbot?', a: 'No. Un chatbot conversa. Un agente hace tareas completas: lee, ordena, redacta y hace seguimiento, dentro de los límites que tú defines.' },
-  { q: '¿Mi equipo tiene que saber programar?', a: 'No. Está pensado para equipos de 3 a 15 personas sin perfil técnico. En la implementación acompaño a cada persona hasta que usa su agente en una tarea real.' },
-  { q: '¿Por qué en UF?', a: 'La UF se ajusta con la inflación, así el precio se mantiene parejo en el tiempo. A noviembre de 2026, 12 UF son unos $495.000 3 UF unos $124.000 y 6 UF unos $248.000. Son valores exentos de IVA: emitimos factura exenta.' },
-  { q: '¿Qué pasa si un agente no tiene sentido para mi equipo?', a: 'Te lo digo en la reunión de descubrimiento. Prefiero eso a venderte algo que no van a usar.' },
-];
+// 13-nov-2026: las preguntas viven en lib/faq.ts (la página arma el FAQPage con el mismo texto).
+const FAQ = FAQ_AGENTES;
 
 function Kicker({ children }: { children: React.ReactNode }) {
   return <p className="font-mono text-xs uppercase tracking-[0.2em] text-accent">{children}</p>;
@@ -161,20 +157,16 @@ function CtaReunion({ ubicacion, texto = 'Agenda tu reunión de descubrimiento' 
 }
 
 function Pregunta({ q, a }: { q: string; a: string }) {
-  const [abierta, setAbierta] = useState(false);
+  // 13-nov-2026 (AI SEO): <details> nativo. Se ve igual (cerrada, se abre al tocar), pero la respuesta queda en el HTML
+  // prerenderizado para buscadores y asistentes de IA, que antes solo veían la pregunta.
   return (
-    <div className="border-b border-white/10">
-      <button
-        type="button"
-        onClick={() => setAbierta(!abierta)}
-        className="flex min-h-[56px] w-full items-center justify-between gap-4 py-4 text-left text-base text-white sm:text-lg"
-        aria-expanded={abierta}
-      >
+    <details className="group border-b border-white/10">
+      <summary className="flex min-h-[56px] w-full cursor-pointer list-none items-center justify-between gap-4 py-4 text-left text-base text-white sm:text-lg [&::-webkit-details-marker]:hidden">
         {q}
-        <ChevronDown className={`h-5 w-5 shrink-0 text-slate-400 transition-transform ${abierta ? 'rotate-180' : ''}`} />
-      </button>
-      {abierta ? <p className="pb-5 pr-8 text-slate-300">{a}</p> : null}
-    </div>
+        <ChevronDown className="h-5 w-5 shrink-0 text-slate-400 transition-transform group-open:rotate-180" aria-hidden />
+      </summary>
+      <p className="pb-5 pr-8 text-slate-300">{a}</p>
+    </details>
   );
 }
 

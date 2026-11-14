@@ -4,8 +4,10 @@ import { mp4 } from './media';
 
 export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://villelab.com';
 
+// 13-nov-2026 (AI SEO): '@id' iguales a los del JSON-LD global (components/SEOHead.tsx) para que sea una sola entidad.
 export const ORGANIZACION = {
   '@type': 'Organization',
+  '@id': `${SITE_URL}/#organization`,
   name: 'Villelab',
   url: SITE_URL,
   logo: `${SITE_URL}/icon.png`,
@@ -13,6 +15,7 @@ export const ORGANIZACION = {
 
 export const AUTOR = {
   '@type': 'Person',
+  '@id': `${SITE_URL}/#alvaro`,
   name: 'Álvaro Villena',
   url: `${SITE_URL}/sobre-mi`,
 } as const;

@@ -19,15 +19,15 @@ const CURSO: Pregunta[] = [
   },
   {
     p: '¿Qué recibo al comprar?',
-    r: 'Los 7 módulos completos desde el primer día: 33 lecciones cortas con su ejercicio, 27 prompts listos para la IA y la planilla del sistema con las fórmulas listas. Avanzas a tu ritmo.',
+    r: 'Los 8 módulos completos desde el primer día: 38 lecciones cortas con su ejercicio, 34 prompts listos para la IA, la planilla del sistema con las fórmulas listas y, en el módulo 7, un agente de IA que trabaja con tu planilla: te arma los pedidos de WhatsApp y la cobranza del lunes, y tú revisas y envías. Avanzas a tu ritmo.',
   },
   {
     p: '¿Cuánto tiempo necesito?',
-    r: 'Cerca de 1 h 30 de lecciones cortas y unas 6 horas de práctica con tu negocio, a tu ritmo. Los módulos no se cierran: retomas cuando puedas.',
+    r: 'Menos de 2 horas de contenido (cerca de 1 h 45 de lecciones cortas) y unas 7 a 8 horas de práctica con tu negocio, a tu ritmo. Los módulos no se cierran: retomas cuando puedas.',
   },
   {
     p: '¿Sirve si no sé de tecnología?',
-    r: 'Sí. Todo se arma en Google Sheets (gratis) o en Excel, sin programar ni instalar nada. Cada módulo trae prompts listos para copiar en ChatGPT o Claude y armar tu hoja; no necesitas saber de IA.',
+    r: 'Sí. Todo se arma en Google Sheets (gratis) o en Excel, sin programar ni instalar nada. Cada módulo trae prompts listos para copiar en ChatGPT o Claude y armar tu hoja; no necesitas saber de IA. El agente del módulo 7 lo probamos en un proyecto de Claude con cuenta pagada y la planilla en Google Sheets.',
   },
 ];
 

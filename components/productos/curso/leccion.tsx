@@ -1,7 +1,7 @@
 'use client';
 
 /*
- * Piezas compartidas de los módulos 1–6 del curso «El sistema de tu negocio: tu primer CRM y ERP en Google Sheets»
+ * Piezas compartidas de los módulos 1–7 del curso «El sistema de tu negocio: tu primer CRM y ERP en Google Sheets»
  * (v1.0 «Tu negocio de punta a punta», 8-nov-2026; v1.1 con el enfoque CRM/ERP, mismo día).
  * Mismo formato que el módulo 0 (Modulo0Content.tsx, que no se tocó): una lección por pantalla, la página
  * en el hash (#leccion-2, #cierre) y en localStorage, checklist «Antes de seguir», video pendiente con su
@@ -30,8 +30,10 @@ import type { ImagenApoyo } from '@/lib/productos/apoyo';
 import { Foto, Kicker, PuntoSemaforo, VideoProximamente } from './piezas';
 import { VideoMarco } from '@/components/productos/VideoProducto';
 import { VIDEOS_CURSO } from '@/lib/productos/curso/videos';
-import { DescargaPlantilla } from './Plantilla';
-import { PROMPTS_CURSO, PROMPTS_POR_LECCION } from '@/lib/productos/curso/prompts';
+import { SigueConTuPlanilla } from './Plantilla';
+import { AVISO_PROMPTS, PROMPTS_CURSO, PROMPTS_POR_LECCION } from '@/lib/productos/curso/prompts';
+import { HUECOS_POR_MODULO } from '@/lib/productos/curso/datos-negocio';
+import { BloquePrompt } from './DatosNegocio';
 
 // ─── Tipos y constantes ───────────────────────────────────────────────────
 
@@ -241,25 +243,42 @@ export function BloqueCopiar({ titulo, texto, nota, className = 'mt-6' }: { titu
 /**
  * «Prompt para tu IA» (12-nov-2026): los prompts del curso dentro de cada lección, con botón copiar.
  * `leccion` = «m1-l1» (módulo 1, lección 1); los textos viven en lib/productos/curso/prompts.ts.
+ * 13-nov-2026: el módulo 7 trae su propio aviso (AVISO_PROMPTS.m7: probado en Claude, no «la versión gratis sirve») y cada
+ * prompt puede decir dónde va (PromptCurso.nota).
  */
 export function PromptsIA({ leccion, className = 'mt-8' }: { leccion: string; className?: string }) {
   const ids = PROMPTS_POR_LECCION[leccion] ?? [];
   if (!ids.length) return null;
+  const aviso = AVISO_PROMPTS[leccion.split('-')[0]];
+  // 13-nov-2026: si el módulo tiene mapa de huecos (hoy solo el 7), los prompts salen rellenados con «Los datos de tu negocio».
+  const huecos = HUECOS_POR_MODULO[leccion.split('-')[0]];
   return (
     <section aria-label="Prompt para tu IA" className={className}>
       <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-[#5fb2dd]">Prompt para tu IA</p>
       <p className="mt-2 text-sm text-slate-300">
-        Cópialo en ChatGPT o Claude (la versión gratis sirve) y cambia lo que está entre [corchetes] por los datos de tu negocio. Lo que te devuelva es un borrador: léelo y corrígelo antes de usarlo.
+        {aviso ?? 'Cópialo en ChatGPT o Claude (la versión gratis sirve) y cambia lo que está entre [corchetes] por los datos de tu negocio. Lo que te devuelva es un borrador: léelo y corrígelo antes de usarlo.'}
       </p>
       {ids.map((id) => {
         const pr = PROMPTS_CURSO[id];
+        if (pr && huecos) {
+          return (
+            <BloquePrompt
+              key={id}
+              titulo={`Prompt ${pr.id} · ${pr.titulo}`}
+              texto={pr.texto}
+              huecos={huecos}
+              className="mt-3"
+              nota={pr.nota ?? 'No pegues datos sensibles (RUT, claves, cuentas bancarias). Si no te sirve, escribe «hazlo más corto» o «hazlo más simple».'}
+            />
+          );
+        }
         return pr ? (
           <BloqueCopiar
             key={id}
             titulo={`Prompt ${pr.id} · ${pr.titulo}`}
             texto={pr.texto}
             className="mt-3"
-            nota="No pegues datos sensibles (RUT, claves, cuentas bancarias). Si no te sirve, escribe «hazlo más corto» o «hazlo más simple»."
+            nota={pr.nota ?? 'No pegues datos sensibles (RUT, claves, cuentas bancarias). Si no te sirve, escribe «hazlo más corto» o «hazlo más simple».'}
           />
         ) : null;
       })}
@@ -747,9 +766,9 @@ export function CierreModulo({
         <>
           <Subtitulo>4 · Tu planilla: {hoja}</Subtitulo>
           <p className="mt-2 text-slate-300">
-            Lo de esta semana vive en tu planilla del sistema, la misma que abriste en el módulo 0. Si todavía no la tienes, o te falta una hoja, descárgala aquí y copia la hoja que necesitas.
+            Lo de esta semana vive en tu planilla del sistema, la del módulo 0. Aquí llenas: {hoja}.
           </p>
-          <DescargaPlantilla className="mt-4" titulo="La planilla de tu sistema" />
+          <SigueConTuPlanilla className="mt-3" />
         </>
       ) : null}
       <PieModulos actual={numero} />

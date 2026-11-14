@@ -8,7 +8,11 @@ import { Ciclo, Comparacion, Diagrama, Flecha, Nodo, PIEZA } from './base';
 const AREAS_CORTAS = ['Clientes', 'Origen', 'Pedidos', 'Atención', 'Cobranza'];
 
 /** Estrella: todo pasa por el dueño vs áreas conectadas que leen lo mismo. */
-function Estrella({ centro, conectadas }: { centro: string; conectadas: boolean }) {
+// 13-nov-2026: animada para explicar (CSS .a-* de globals.css, la arma el marco Diagrama). Antes: las 5 líneas rojas se
+// dibujan hacia «Tú» y «Tú» pulsa (todo te llega a ti). Después (`base` = parte más tarde): el anillo entre áreas se dibuja
+// pieza a pieza (se hablan entre ellas), aparecen las líneas punteadas al centro y el tablero entra al final.
+function Estrella({ centro, conectadas, base = 0 }: { centro: string; conectadas: boolean; base?: number }) {
+  const o = (i: number) => ({ '--i': base + i }) as React.CSSProperties;
   const cx = 150;
   const cy = 120;
   const r = 92;
@@ -21,12 +25,15 @@ function Estrella({ centro, conectadas }: { centro: string; conectadas: boolean 
       {conectadas
         ? pts.map((p, i) => {
             const q = pts[(i + 1) % pts.length];
-            return <line key={`c${p.a}`} x1={p.x} y1={p.y} x2={q.x} y2={q.y} stroke="#5fb2dd" strokeOpacity="0.55" strokeWidth="2" />;
+            return <line key={`c${p.a}`} x1={p.x} y1={p.y} x2={q.x} y2={q.y} pathLength={1} className="a-trazo" style={o(i)} stroke="#5fb2dd" strokeOpacity="0.55" strokeWidth="2" />;
           })
         : null}
-      {pts.map((p) => (
+      {pts.map((p, i) => (
         <line
           key={`r${p.a}`}
+          pathLength={conectadas ? undefined : 1}
+          className={conectadas ? 'a-aparece' : 'a-trazo'}
+          style={o(conectadas ? 6 : i)}
           x1={p.x}
           y1={p.y}
           x2={cx}
@@ -37,12 +44,14 @@ function Estrella({ centro, conectadas }: { centro: string; conectadas: boolean 
           strokeDasharray={conectadas ? '3 4' : undefined}
         />
       ))}
+      <g className={conectadas ? 'a-escala' : 'a-pulso'} style={o(conectadas ? 7 : 5)}>
       <circle cx={cx} cy={cy} r="34" fill={conectadas ? '#2175a1' : '#3f1d2b'} fillOpacity={conectadas ? 0.35 : 0.9} stroke={conectadas ? '#5fb2dd' : '#fb7185'} strokeWidth="2" />
       {centro.split('\n').map((l, i, arr) => (
         <text key={l} x={cx} y={cy + (i - (arr.length - 1) / 2) * 15 + 5} textAnchor="middle" fill="#f1f5f9" fontSize="13">
           {l}
         </text>
       ))}
+      </g>
       {pts.map((p) => (
         <g key={p.a}>
           <rect x={p.x - 40} y={p.y - 14} width="80" height="28" rx="14" fill="#131c31" stroke="#24314d" strokeWidth="2" />
@@ -80,7 +89,7 @@ export function DiagramaCuelloBotella({ className = '' }: { className?: string }
           children: (
             <>
               <motion.div variants={PIEZA}>
-                <Estrella centro={'Tu\ntablero'} conectadas />
+                <Estrella centro={'Tu\ntablero'} conectadas base={7} />
               </motion.div>
               <p className="mt-2 text-[13px] text-slate-200">Tu equipo mira la planilla. A ti solo llega lo que decide siempre una persona.</p>
             </>
@@ -98,7 +107,7 @@ export function DiagramaComoSeAprende({ className = '' }: { className?: string }
       titulo="Así funciona cada módulo"
       className={className}
       aria="Ciclo de cada módulo en cuatro pasos: la idea, el ejemplo con el caso Grano Norte, tu hoja de la planilla y una prueba real. La hoja se suma a tu planilla y parte el módulo siguiente."
-      pie="Cada vuelta suma una hoja a tu planilla. Siete vueltas y tienes tu primer CRM y ERP, con su tablero."
+      pie="Cada vuelta llena una hoja de tu planilla. Siete vueltas y tienes tu primer CRM y ERP, con su tablero."
     >
       <Ciclo nodos={[['La idea'], ['Ejemplo con', 'Grano Norte'], ['Tu', 'hoja'], ['Prueba', 'real']]} centro={['Tu', 'planilla']} />
     </Diagrama>

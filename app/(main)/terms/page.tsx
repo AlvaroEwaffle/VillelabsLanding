@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 
 export default function TermsPage() {
   return (
-    <main className="min-h-screen bg-slate-950 text-white px-4 py-24 md:py-32" id="main">
+    <main lang="en" className="min-h-screen bg-slate-950 text-white px-4 py-24 md:py-32" id="main">
       <div className="max-w-2xl mx-auto">
         <Link
           href="/"

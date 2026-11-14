@@ -4,6 +4,7 @@ import { ArrowUpRight, Compass, Shield, Repeat, Users } from 'lucide-react';
 import ToptalBadge from '@/components/ToptalBadge';
 import { useTranslation } from '@/lib/i18n';
 import { PageHero, Seccion, CtaFinal } from '@/components/PageBits';
+import { MARCA_PERSONAL, PERFILES_ALVARO } from '@/lib/perfiles';
 
 /*
  * Sobre mí (26-oct-2026): es Álvaro. El equipo se menciona sin inventar nombres ni cantidades;
@@ -108,7 +109,19 @@ export default function SobreMiContent() {
           <a href="https://alvarovillena.cl" target="_blank" rel="noopener noreferrer" className="inline-flex min-h-[44px] items-center gap-1 text-slate-200 hover:text-white">
             alvarovillena.cl <ArrowUpRight className="h-4 w-4" />
           </a>
+          {/* 13-nov-2026 (AI SEO): las redes de la marca personal, para que un asistente una esta página con los perfiles. */}
+          <a href={PERFILES_ALVARO.instagram} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-[44px] items-center gap-1 text-slate-200 hover:text-white">
+            Instagram <ArrowUpRight className="h-4 w-4" />
+          </a>
+          <a href={PERFILES_ALVARO.youtube} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-[44px] items-center gap-1 text-slate-200 hover:text-white">
+            YouTube <ArrowUpRight className="h-4 w-4" />
+          </a>
         </div>
+        <p className="mt-4 text-sm text-slate-400">
+          {language === 'en' ? 'On social media I am ' : 'En redes soy '}
+          <span className="text-slate-200">{MARCA_PERSONAL.nombre}</span>
+          {language === 'en' ? ': I teach you to build, manage and optimize AI agents.' : `: ${MARCA_PERSONAL.promesa}.`}
+        </p>
       </PageHero>
 
       {/* Cómo trabajo */}

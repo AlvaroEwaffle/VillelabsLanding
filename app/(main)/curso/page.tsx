@@ -1,22 +1,25 @@
 import type { Metadata } from 'next';
 import { AUTOR, faqPage, JsonLd, ORGANIZACION, SITE_URL, videoObject } from '@/lib/productos/seo';
-import { CURSO, FAQ } from '@/lib/productos/curso/curso';
+import { CURSO, FAQ, MONEDA_PRECIO, PRECIO_FUNDADOR } from '@/lib/productos/curso/curso';
 import { VERSION_CURSO } from '@/lib/productos/curso/versiones';
 import CursoContent from '@/components/productos/curso/CursoContent';
 import { fraunces } from '@/lib/productos/fuente';
-import { EXP13 } from '@/lib/productos/curso/exp13';
+import { EXP15 } from '@/lib/productos/curso/exp15';
 import { SCRIPT_ANCLA } from '@/lib/productos/ancla';
 
 
 // 12-nov-2026 23:10 · el título social repite el H1 (el LinkedIn de las 18:30 lo comparte a diario); el nombre largo del curso
 // (CURSO.nombreCompleto) queda en el h2 bajo el hero y en el JSON-LD.
+// 13-nov-2026 · módulo 7: el título y la imagen siguen siendo los del H1 de control (EXP-15 mide el H1; el revisor objetó
+// «automatizar tu negocio» a secas). Solo la descripción suma el proyecto final con el agente, con lo que hizo en la prueba.
 const TITULO_OG = 'Ordena tu negocio en una planilla: clientes, pedidos y caja en un solo tablero, con ayuda de la IA';
-const DESCRIPCION_OG = 'El módulo 0 es gratis. Paso a paso y sin programar: tú armas la planilla y la IA te ayuda con las fórmulas y los mensajes.';
+const DESCRIPCION_OG =
+  'El módulo 0 es gratis. Paso a paso y sin programar: tú armas la planilla con ayuda de la IA y, al final, un agente que trabaja con ella. Tú revisas y tú envías.';
 
 export const metadata: Metadata = {
   title: { absolute: 'Construye con IA tu CRM y ERP, sin programar' },
   description:
-    'Curso online para pymes: construyes con IA el sistema de tu negocio en Google Sheets, sin programar, con prompts listos para ChatGPT o Claude. Clientes y ventas (CRM), origen, pedidos, atención, cobranza, caja y un tablero, sin pagar software.',
+    'Curso online para pymes: construyes con IA el sistema de tu negocio en Google Sheets, sin programar. Clientes y ventas (CRM), origen, pedidos, atención, cobranza, caja y un tablero, y como proyecto final un agente de IA que trabaja con tu planilla: pasa a una fila los pedidos que te llegan por WhatsApp y te avisa a quién cobrar, con el mensaje listo; tú revisas y tú envías.',
   alternates: { canonical: `${SITE_URL}/curso` },
   openGraph: {
     type: 'website',
@@ -43,8 +46,21 @@ const JSON_LD = [
     author: AUTOR,
     version: VERSION_CURSO.version,
     dateModified: VERSION_CURSO.fecha,
-    teaches: ['Armar un CRM y un ERP con prompts para ChatGPT o Claude', 'CRM en Google Sheets', 'ERP para pymes en una planilla', 'Seguimiento de clientes y propuestas', 'Control de pedidos', 'Cobranza y flujo de caja', 'Tablero de indicadores'],
+    teaches: ['Armar un CRM y un ERP con prompts para ChatGPT o Claude', 'CRM en Google Sheets', 'ERP para pymes en una planilla', 'Seguimiento de clientes y propuestas', 'Control de pedidos', 'Cobranza y flujo de caja', 'Tablero de indicadores', 'Configurar un asistente de IA con tu planilla como memoria'],
     hasCourseInstance: { '@type': 'CourseInstance', courseMode: 'online' },
+    // 13-nov-2026 (AI SEO): la oferta con el mismo precio y moneda que la tarjeta de precio («$29.990 CLP»). Sin precio tachado ni fechas.
+    ...(PRECIO_FUNDADOR === null
+      ? {}
+      : {
+          offers: {
+            '@type': 'Offer',
+            category: 'Paid',
+            price: PRECIO_FUNDADOR,
+            priceCurrency: MONEDA_PRECIO,
+            availability: 'https://schema.org/InStock',
+            url: `${SITE_URL}/curso`,
+          },
+        }),
   },
   faqPage(FAQ.map((f) => ({ q: f.p, a: f.r }))),
   videoObject({
@@ -60,8 +76,8 @@ const JSON_LD = [
 export default function CursoPage() {
   return (
     <div className={fraunces.variable}>
-      {/* EXP-13: elige la variante del hero antes de pintarlo (constante propia del repo, sin datos de usuarios). */}
-      <script dangerouslySetInnerHTML={{ __html: EXP13.script }} />
+      {/* EXP-15: elige la variante del hero antes de pintarlo (constante propia del repo, sin datos de usuarios). */}
+      <script dangerouslySetInnerHTML={{ __html: EXP15.script }} />
       {/* 13-nov-2026: ancla resistente a fbclid (#parte-gratis-hero?fbclid=…): limpia la URL antes del píxel (lib/productos/ancla.ts). */}
       <script dangerouslySetInnerHTML={{ __html: SCRIPT_ANCLA }} />
       <JsonLd data={JSON_LD} />

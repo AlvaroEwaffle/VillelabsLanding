@@ -57,6 +57,9 @@ export default function EsqueletoPage() {
     <div className={fraunces.variable}>
       {/* EXP-09: elige la variante del hero antes de pintarlo (constante propia del repo, sin datos de usuarios). */}
       <script dangerouslySetInnerHTML={{ __html: EXP14.script }} />
+      {/* 13-nov-2026 (velocidad): el póster del video es el elemento más grande del primer pantallazo (LCP) en celular. Con el CSS
+          en línea el <video> queda más abajo en el HTML, así que el póster se pide desde el <head> con prioridad alta (React lo sube). */}
+      <link rel="preload" as="image" href="/videos/v02-esqueleto-bienvenida.webp" fetchPriority="high" />
       <JsonLd data={JSON_LD} />
       <EsqueletoApp />
     </div>
