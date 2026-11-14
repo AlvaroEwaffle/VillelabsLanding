@@ -26,10 +26,10 @@
 
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { ArrowRight, Bot, Check, ChevronDown, ClipboardCheck, ClipboardList, Eye, FileSpreadsheet, FlaskConical, Gift, Handshake, LayoutDashboard, Map as MapIcon, Megaphone, MessageCircle, Sparkles, Wallet, X, type LucideIcon } from 'lucide-react';
+import { ArrowRight, Bot, Check, ChevronDown, ClipboardCheck, ClipboardList, Eye, FileSpreadsheet, FlaskConical, Gift, Handshake, LayoutDashboard, Map as MapIcon, Megaphone, MessageCircle, ShieldCheck, Sparkles, Wallet, X, type LucideIcon } from 'lucide-react';
 import { LINKS } from '@/lib/productos/links';
 import { ACCESO, AREAS, CASO, CURSO, FAQ, HOJAS, IA_OPCIONAL, MODULOS, PARA_QUIEN, PROYECTO_AGENTE, PROYECTO_FINAL, PRECIO_CURSO, QUE_ES, SISTEMA_AGENTE, textoPrecio, textoPrecioConMoneda, textoPrecioDetalle } from '@/lib/productos/curso/curso';
-import { PROMESA_EXP15 } from '@/lib/productos/curso/exp15';
+import { HERO_CURSO } from '@/lib/productos/curso/hero';
 import { EXP16 } from '@/lib/productos/curso/exp16';
 import { bajarAlAncla } from '@/lib/productos/ancla';
 import { VERSION_CURSO, VERSIONES_CURSO, fechaLarga } from '@/lib/productos/curso/versiones';
@@ -243,11 +243,17 @@ export default function CursoContent() {
             (sin hueco a la derecha en escritorio). Común a A y B. */}
         <div className="mx-auto max-w-3xl">
           <div>
-            {/* Titular = la B de EXP-15 (fija para todos desde el 14-nov). El antetítulo repite la pregunta del anuncio de Meta. */}
+            {/* 14-nov-2026 · cambio de base «oferta en clave agente» (lib/productos/curso/hero.ts), común a A y B de EXP-16. Antes: la
+                B de EXP-15 «Aprende a automatizar los números de tu negocio». El antetítulo repite la pregunta del anuncio X14. */}
             <div>
-              <p className="text-sm text-[#5fb2dd] sm:text-base">{PROMESA_EXP15.antetitulo}</p>
-              <h1 className="mt-3 max-w-3xl font-serif text-[1.9rem] leading-[1.1] text-white sm:text-5xl lg:text-[3.1rem]">{PROMESA_EXP15.titulo}</h1>
-              <p className="mt-3 max-w-xl text-base text-slate-300 sm:text-lg">{PROMESA_EXP15.bajada}</p>
+              <p className="text-sm text-[#5fb2dd] sm:text-base">{HERO_CURSO.antetitulo}</p>
+              <h1 className="mt-3 max-w-3xl font-serif text-[1.9rem] leading-[1.1] text-white sm:text-5xl lg:text-[3.1rem]">{HERO_CURSO.titulo}</h1>
+              <p className="mt-3 max-w-xl text-base text-slate-300 sm:text-lg">{HERO_CURSO.bajada}</p>
+              {/* Línea de confianza (14-nov 20:09, Álvaro): frenos y borradores, tú apruebas. */}
+              <p className="mt-3 flex max-w-xl items-start gap-2 text-sm text-slate-200">
+                <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-[#5fb2dd]" aria-hidden />
+                <span>{HERO_CURSO.confianza}</span>
+              </p>
             </div>
             <a href="#quien-lo-ensena" className="mt-3 inline-flex min-h-[44px] items-center gap-2.5 text-sm text-slate-400 hover:text-white">
               {/* 13-nov-2026 (velocidad): miniatura de 96 px (2,3 KB) en vez de la foto de 1080 px (292 KB), que React precargaba con prioridad alta. */}
@@ -267,12 +273,13 @@ export default function CursoContent() {
                 Mira gratis el módulo 0 <ArrowRight className="h-4 w-4" aria-hidden />
               </Link>
             </div>
-            {/* CRM y ERP como palabras clave (B de EXP-15, fija), bajo el botón para que el botón quepa en 360×560. */}
+            {/* Las piezas del agente (memoria, frenos, diagnóstico, tablero; CRM y ERP siguen como palabras clave), bajo el botón
+                para que el botón quepa en 360×560. */}
             <div>
-              <ul aria-label="Palabras clave" className="mt-4 flex flex-wrap gap-2">
-                {PROMESA_EXP15.chips.map((c) => (
+              <ul aria-label={HERO_CURSO.piezasEtiqueta} className="mt-4 flex flex-wrap gap-2">
+                {HERO_CURSO.piezas.map((c) => (
                   <li key={c.clave} className="rounded-full border border-[#5fb2dd]/40 bg-[#2175a1]/15 px-3 py-1 text-xs text-slate-200">
-                    <span className="font-mono font-semibold tracking-[0.12em] text-[#9fd3ee]">{c.clave}</span> = {c.texto}
+                    <span className="font-mono font-semibold uppercase tracking-[0.12em] text-[#9fd3ee]">{c.clave}</span> = {c.texto}
                   </li>
                 ))}
               </ul>

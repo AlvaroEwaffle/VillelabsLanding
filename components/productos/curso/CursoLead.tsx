@@ -76,8 +76,9 @@ export default function CursoLead({ ubicacion, className = '' }: { ubicacion: st
     <div id={`parte-gratis-${ubicacion}`} data-sin-barra className={`scroll-mt-28 rounded-2xl border border-[#5fb2dd]/35 bg-[#2175a1]/[0.12] p-4 sm:p-5 ${className}`}>
       {/* 14-nov-2026 · contexto al aterrizar (común a A y B de EXP-15). Los anuncios de Meta llegan a #parte-gratis-hero y en el
           navegador de Instagram (360×560) el primer pantallazo era solo este formulario: sin el título, sin decir de qué curso
-          es. Esta línea dice de qué es antes de pedir el correo. */}
-      {ubicacion === 'hero' ? <p className="mb-1.5 text-[13px] font-medium leading-snug text-[#5fb2dd]">Curso: tu negocio en una planilla, con IA</p> : null}
+          es. Esta línea dice de qué es antes de pedir el correo. 14-nov-2026 (cambio de base «oferta en clave agente», común a
+          A y B de EXP-16): antes «Curso: tu negocio en una planilla, con IA»; ahora responde al anuncio X14 (chat vs agente). */}
+      {ubicacion === 'hero' ? <p className="mb-1.5 text-[13px] font-medium leading-snug text-[#5fb2dd]">Curso: construye tu primer agente de IA, sin programar</p> : null}
       {/* EXP-16 B (14-nov-2026, dar antes de pedir): la lección 1 del módulo 0 a la vista, sin correo, arriba del formulario. El mp4
           no se baja hasta el play (VideoProducto, preload="none"); el póster webp pesa 16 KB. Play grande al centro (revisor). El play
           ya avisa a Slack con [EXP-16 B] y cuenta como interesada. */}
@@ -94,7 +95,8 @@ export default function CursoLead({ ubicacion, className = '' }: { ubicacion: st
           <span>Ya tienes acceso al módulo 0</span>
         ) : ubicacion === 'hero' ? (
           <>
-            <span className="exp16-A">Deja tu correo y mira el módulo 0</span>
+            {/* 14-nov-2026 (clave agente): antes «Deja tu correo y mira el módulo 0». El título de B es el tratamiento de EXP-16 y no cambia. */}
+            <span className="exp16-A">Parte gratis: el mapa, el diagnóstico y los frenos que tu agente necesita</span>
             <span className="exp16-B">Mira la lección 1 aquí arriba. Las 2 a 4, gratis con tu correo</span>
           </>
         ) : (
@@ -104,12 +106,13 @@ export default function CursoLead({ ubicacion, className = '' }: { ubicacion: st
       <p className="mt-1.5 text-sm text-slate-300">
         {ubicacion === 'hero' ? (
           <>
+            {/* 14-nov-2026 (clave agente, común a A y B): lo que se entrega es lo mismo (las 4 lecciones del módulo 0), dicho como piezas del agente. */}
             <span className="exp16-A">
-              4 lecciones cortas (~11 min): el mapa de tu negocio, un diagnóstico de 15 preguntas y tu planilla base (Google Sheets o Excel). Sin tarjeta y entras al tiro.
+              Es el módulo 0: 4 lecciones cortas (~11 min) con el mapa de tu negocio, un diagnóstico de 15 preguntas, tu planilla base (la memoria de tu agente) y las reglas de freno (sus límites). Sin tarjeta y entras al tiro.
             </span>
             {/* EXP-16 B (texto obligatorio del revisor): la lección 1 ya está arriba, así que se cuentan las otras 3. */}
             <span className="exp16-B">
-              3 lecciones cortas más: un diagnóstico de 15 preguntas, tu planilla base (Google Sheets o Excel) y las reglas de freno. Sin tarjeta y entras al tiro.
+              3 lecciones cortas más: un diagnóstico de 15 preguntas, tu planilla base (la memoria de tu agente) y las reglas de freno (sus límites). Sin tarjeta y entras al tiro.
             </span>
           </>
         ) : previo ? (

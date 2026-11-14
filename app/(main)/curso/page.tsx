@@ -15,14 +15,17 @@ const PACK_DESCRIPCION = `${PACK.titulo}. ${PACK.bonos.map((b) => `${b.clave}: $
 // (CURSO.nombreCompleto) queda en el h2 bajo el hero y en el JSON-LD.
 // 13-nov-2026 · módulo 7: el título y la imagen siguen siendo los del H1 de control (EXP-15 mide el H1; el revisor objetó
 // «automatizar tu negocio» a secas). Solo la descripción suma el proyecto final con el agente, con lo que hizo en la prueba.
-const TITULO_OG = 'Ordena tu negocio en una planilla: clientes, pedidos y caja en un solo tablero, con ayuda de la IA';
+// 14-nov-2026 · cambio de base «oferta en clave agente» (lib/productos/curso/hero.ts): title, OG y Twitter repiten el H1 nuevo; la
+// imagen pasa a og/curso-agente.jpg (ya publicada: «Tu CRM y ERP en una planilla, y un agente de IA que trabaja con ella»).
+// El nombre del producto (CURSO.nombreCompleto, igual que en Hotmart) no cambia: sigue en el h2 y en el JSON-LD.
+const TITULO_OG = 'Tu primer agente de IA trabajando para ti, sin programar';
 const DESCRIPCION_OG =
-  'El módulo 0 es gratis. Paso a paso y sin programar: tú armas la planilla con ayuda de la IA y, al final, un agente que trabaja con ella. Tú revisas y tú envías.';
+  'El módulo 0 es gratis. Sin programar y con menos de 2 horas de lecciones: le armas a tu agente su memoria (tu planilla) y sus frenos, y te prepara borradores de pedidos y cobranza. Tú apruebas y tú envías.';
 
 export const metadata: Metadata = {
-  title: { absolute: 'Construye con IA tu CRM y ERP, sin programar' },
+  title: { absolute: TITULO_OG },
   description:
-    'Curso online para pymes: construyes con IA el sistema de tu negocio en Google Sheets, sin programar. Clientes y ventas (CRM), origen, pedidos, atención, cobranza, caja y un tablero, y como proyecto final un agente de IA que trabaja con tu planilla: pasa a una fila los pedidos que te llegan por WhatsApp y te avisa a quién cobrar, con el mensaje listo; tú revisas y tú envías.',
+    'Curso online para pymes: construyes tu primer agente de IA, sin programar y con menos de 2 horas de lecciones. Le armas su memoria, el sistema de tu negocio en Google Sheets (clientes y ventas o CRM, pedidos, cobranza, caja y un tablero, tu ERP), y sus límites con tus reglas de freno. Después te prepara la fila de los pedidos que te llegan por WhatsApp y te avisa a quién cobrar, con el mensaje listo; tú apruebas y tú envías.',
   alternates: { canonical: `${SITE_URL}/curso` },
   openGraph: {
     type: 'website',
@@ -31,9 +34,9 @@ export const metadata: Metadata = {
     title: TITULO_OG,
     description: DESCRIPCION_OG,
     url: `${SITE_URL}/curso`,
-    images: [{ url: `${SITE_URL}/og/curso-planilla.jpg`, width: 1200, height: 630, alt: TITULO_OG }],
+    images: [{ url: `${SITE_URL}/og/curso-agente.jpg`, width: 1200, height: 630, alt: 'Tu CRM y ERP en una planilla, y un agente de IA que trabaja con ella' }],
   },
-  twitter: { card: 'summary_large_image', title: TITULO_OG, description: DESCRIPCION_OG, images: [`${SITE_URL}/og/curso-planilla.jpg`] },
+  twitter: { card: 'summary_large_image', title: TITULO_OG, description: DESCRIPCION_OG, images: [`${SITE_URL}/og/curso-agente.jpg`] },
 };
 
 const JSON_LD = [
