@@ -37,7 +37,11 @@ export default function Rastreo() {
     if (primera.current) {
       primera.current = false;
       const q = new URLSearchParams(location.search);
-      const utm = [q.get('utm_source'), q.get('utm_campaign')].filter(Boolean).join(' / ');
+      const base = [q.get('utm_source'), q.get('utm_campaign')].filter(Boolean).join(' / ');
+      // 14-nov-2026 (EXP-16): el anuncio va entre paréntesis, «meta / curso-nov26 (anuncio v17-m0-hero)», sin « · » para no
+      // correr los campos del mensaje que leen los scripts (dispositivo y lugar). real.mjs lo separa por anuncio.
+      const anuncio = (q.get('utm_content') || '').replace(/[()·]/g, '').trim().slice(0, 40);
+      const utm = base && anuncio ? `${base} (anuncio ${anuncio})` : base;
       registrarEvento('visita', { ref: document.referrer, utm: utm || (q.get('gclid') ? 'Google Ads' : '') });
     } else {
       registrarEvento('pagina');

@@ -20,6 +20,7 @@ import { ArrowRight, Eye } from 'lucide-react';
 import { LINKS } from '@/lib/productos/links';
 import { registrarLead } from '@/lib/productos/leads';
 import { guardarLead, type Lead } from '@/lib/productos/esqueleto/estado';
+import { VideoMarco } from '@/components/productos/VideoProducto';
 
 /** Lead que ya pasó la puerta del módulo 0 (no se vuelve a pedir). */
 export const CLAVE_LEAD_M0 = 'vl_curso_m0_lead';
@@ -77,19 +78,45 @@ export default function CursoLead({ ubicacion, className = '' }: { ubicacion: st
           navegador de Instagram (360×560) el primer pantallazo era solo este formulario: sin el título, sin decir de qué curso
           es. Esta línea dice de qué es antes de pedir el correo. */}
       {ubicacion === 'hero' ? <p className="mb-1.5 text-[13px] font-medium leading-snug text-[#5fb2dd]">Curso: tu negocio en una planilla, con IA</p> : null}
+      {/* EXP-16 B (14-nov-2026, dar antes de pedir): la lección 1 del módulo 0 a la vista, sin correo, arriba del formulario. El mp4
+          no se baja hasta el play (VideoProducto, preload="none"); el póster webp pesa 16 KB. Play grande al centro (revisor). El play
+          ya avisa a Slack con [EXP-16 B] y cuenta como interesada. */}
+      {ubicacion === 'hero' ? (
+        <div className="exp16-B">
+          <VideoMarco id="v09-m0-l1" titulo="Lección 1 gratis: por qué todo pasa por ti" duracion="57 s" playGrande className="mb-4" />
+        </div>
+      ) : null}
       <p className="flex items-center gap-2 font-serif text-lg leading-snug text-white sm:text-xl">
         <Eye className="h-5 w-5 shrink-0 text-[#5fb2dd]" aria-hidden />
-        {/* Desde el cierre de EXP-13 (13-nov, ganó B): en el hero, con el botón principal ya gratis, «¿Aún no?» no tiene sentido. */}
-        {ubicacion === 'hero' ? (
-          <span>Deja tu correo y mira el módulo 0</span>
+        {/* Desde el cierre de EXP-13 (13-nov, ganó B): en el hero, con el botón principal ya gratis, «¿Aún no?» no tiene sentido.
+            14-nov (revisor, común a A y B de EXP-16): quien ya dejó su correo no ve un título que se lo vuelva a pedir. */}
+        {previo ? (
+          <span>Ya tienes acceso al módulo 0</span>
+        ) : ubicacion === 'hero' ? (
+          <>
+            <span className="exp16-A">Deja tu correo y mira el módulo 0</span>
+            <span className="exp16-B">Mira la lección 1 aquí arriba. Las 2 a 4, gratis con tu correo</span>
+          </>
         ) : (
           <span>¿Aún no? Mira gratis el módulo 0</span>
         )}
       </p>
       <p className="mt-1.5 text-sm text-slate-300">
-        {ubicacion === 'hero'
-          ? '4 lecciones cortas (~11 min): el mapa de tu negocio, un diagnóstico de 15 preguntas y tu planilla base (Google Sheets o Excel). Sin tarjeta y entras al tiro.'
-          : 'El mapa de tu negocio, el diagnóstico y tu planilla base, completos. Deja tu correo y entras al tiro, sin tarjeta.'}
+        {ubicacion === 'hero' ? (
+          <>
+            <span className="exp16-A">
+              4 lecciones cortas (~11 min): el mapa de tu negocio, un diagnóstico de 15 preguntas y tu planilla base (Google Sheets o Excel). Sin tarjeta y entras al tiro.
+            </span>
+            {/* EXP-16 B (texto obligatorio del revisor): la lección 1 ya está arriba, así que se cuentan las otras 3. */}
+            <span className="exp16-B">
+              3 lecciones cortas más: un diagnóstico de 15 preguntas, tu planilla base (Google Sheets o Excel) y las reglas de freno. Sin tarjeta y entras al tiro.
+            </span>
+          </>
+        ) : previo ? (
+          'El mapa de tu negocio, el diagnóstico y tu planilla base, completos.'
+        ) : (
+          'El mapa de tu negocio, el diagnóstico y tu planilla base, completos. Deja tu correo y entras al tiro, sin tarjeta.'
+        )}
       </p>
 
       {previo ? (

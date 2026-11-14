@@ -14,6 +14,8 @@ export interface Utm {
   utm_source?: string;
   utm_medium?: string;
   utm_campaign?: string;
+  /** 14-nov-2026 (EXP-16): el anuncio (v17-m0-hero, x14-chat-vs-agente…), para leer la página por anuncio. */
+  utm_content?: string;
 }
 
 const limpiar = (s: string | null | undefined) => (s ?? '').trim().slice(0, 80);
@@ -28,6 +30,8 @@ function deLaUrl(): Utm {
   if (medium) utm.utm_medium = medium;
   const campaign = limpiar(q.get('utm_campaign'));
   if (campaign) utm.utm_campaign = campaign;
+  const content = limpiar(q.get('utm_content'));
+  if (content) utm.utm_content = content;
   return utm;
 }
 

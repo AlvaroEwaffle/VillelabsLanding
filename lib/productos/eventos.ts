@@ -4,7 +4,7 @@
 // Solo corre en villelab.com y sus previews: en localhost no se envía nada (como GTM).
 // Nunca lanza ni bloquea la página: si falla, se pierde ese evento y listo.
 
-import { EXP15 } from './curso/exp15';
+import { EXP16 } from './curso/exp16';
 import { EXP14 } from './esqueleto/exp14';
 import { EXP12 } from './guia/exp12';
 
@@ -20,9 +20,11 @@ export function experimento(): { exp?: string; variante?: string } {
   // 12-nov-2026 17:00: EXP-14 /esqueleto (dos variantes, 2-4 días) · EXP-12 /guia (versión única en curso).
   // 13-nov-2026: EXP-15 /curso «promesa automatizar» reemplaza a EXP-13 (cerrada: ganó B sin potencia).
   // Primero el de la página actual.
-  const todos = [EXP15, EXP14, EXP12];
+  // 14-nov-2026: EXP-16 /curso «lección 1 antes del correo» reemplaza a EXP-15 (cerrada sin conclusión; queda B fija para
+  // todos, sin script ni marca en los eventos, para que no compartan ?v= ni la etiqueta).
+  const todos = [EXP16, EXP14, EXP12];
   const p = location.pathname;
-  const actual = /^\/esqueleto(\/|$)/.test(p) ? EXP14 : /^\/guia(\/|$)/.test(p) ? EXP12 : EXP15;
+  const actual = /^\/esqueleto(\/|$)/.test(p) ? EXP14 : /^\/guia(\/|$)/.test(p) ? EXP12 : EXP16;
   const propio = [actual, ...todos.filter((e) => e !== actual)];
   for (const e of propio) {
     const v = e.variante();

@@ -34,7 +34,7 @@ function datos(): DatosParcial | null {
     whatsapp: campos.whatsapp.replace(/[^\d+]/g, '').slice(0, 20),
     paso,
     producto: 'esqueleto',
-    utm: { utm_source: utm.utm_source, utm_medium: utm.utm_medium, utm_campaign: utm.utm_campaign },
+    utm: { utm_source: utm.utm_source, utm_medium: utm.utm_medium, utm_campaign: utm.utm_campaign, utm_content: utm.utm_content },
   };
 }
 

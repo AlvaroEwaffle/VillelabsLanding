@@ -74,11 +74,7 @@ export default function QueTeLlevas() {
         <p className="mt-3 text-xs text-slate-400">{PACK.entrega}</p>
       </div>
 
-      {/* CRM y ERP explicados una sola vez por página: en la B de EXP-15 ya lo dicen los chips del hero. */}
-      <p data-aparece className="exp15-A mt-4 text-sm text-slate-400">
-        En simple: <span className="font-mono text-[#9fd3ee]">CRM</span> = tus clientes y lo que les vendes ·{' '}
-        <span className="font-mono text-[#9fd3ee]">ERP</span> = pedidos, cobranza y caja. En el curso los dos viven en tu planilla.
-      </p>
+      {/* CRM y ERP: desde el cierre de EXP-15 (14-nov, queda B para todos) los explican los chips del hero; aquí ya no se repite. */}
 
       {/* Qué vas a aprender: manda el tiempo, no la cantidad de módulos. */}
       <div className="mt-14 grid gap-8 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-12">

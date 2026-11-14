@@ -171,7 +171,7 @@ export const onRequestPost = async ({ request, env }: Ctx): Promise<Response> =>
   let texto = '';
   switch (tipo) {
     case 'visita':
-      texto = `👀 *Nueva visita* a \`${ruta}\` · desde ${fuente(limpio(d.ref, 200), limpio(d.utm, 60))} · ${disp} · ${lugar}`;
+      texto = `👀 *Nueva visita* a \`${ruta}\` · desde ${fuente(limpio(d.ref, 200), limpio(d.utm, 120))} · ${disp} · ${lugar}`;
       break;
     case 'pagina':
       texto = `→ pasó a \`${ruta}\``;
@@ -244,6 +244,7 @@ export const onRequestPost = async ({ request, env }: Ctx): Promise<Response> =>
         utm_source: limpio(utm.utm_source, 80),
         utm_medium: limpio(utm.utm_medium, 80),
         utm_campaign: limpio(utm.utm_campaign, 80),
+        utm_content: limpio(utm.utm_content, 80),
         sid,
         fecha: new Date().toISOString(),
       },

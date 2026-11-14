@@ -6,6 +6,8 @@
 // La primera reproducción de cada video se avisa al Slack de Villelabs (lib/productos/eventos.ts), y desde el 12-nov-2026
 // también cuánto se vio: 25, 50 y 100 %, una vez por video y por visita (sessionStorage).
 
+import { useEffect, useRef, useState } from 'react';
+import { Play } from 'lucide-react';
 import { registrarEvento } from '@/lib/productos/eventos';
 import { mp4 } from '@/lib/productos/media';
 
@@ -128,12 +130,56 @@ export default function VideoProducto({
   );
 }
 
-/** Video 16:9 con el marco de las páginas de producto y, opcionalmente, el guion desplegable. */
-export function VideoMarco({ id, titulo, duracion, className = '' }: { id: VideoId; titulo: string; duracion?: string; className?: string }) {
+/**
+ * Video 16:9 con el marco de las páginas de producto y, opcionalmente, el guion desplegable.
+ * `playGrande` (14-nov-2026, EXP-16 B en /curso): botón de play grande al centro del póster. Tocarlo reproduce el video (el mp4
+ * recién ahí se baja) y el botón desaparece; si el video arranca por los controles nativos, también se va.
+ */
+export function VideoMarco({
+  id,
+  titulo,
+  duracion,
+  className = '',
+  playGrande = false,
+}: {
+  id: VideoId;
+  titulo: string;
+  duracion?: string;
+  className?: string;
+  playGrande?: boolean;
+}) {
+  const marco = useRef<HTMLDivElement>(null);
+  const [tapado, setTapado] = useState(playGrande);
+
+  useEffect(() => {
+    if (!playGrande) return;
+    const v = marco.current?.querySelector('video');
+    if (!v) return;
+    const alPlay = () => setTapado(false);
+    v.addEventListener('play', alPlay);
+    return () => v.removeEventListener('play', alPlay);
+  }, [playGrande]);
+
   return (
     <figure className={className}>
-      <div className="overflow-hidden rounded-2xl border border-white/10 bg-[#0f172a] shadow-[0_24px_60px_rgba(0,0,0,0.35)]">
+      <div ref={marco} className="relative overflow-hidden rounded-2xl border border-white/10 bg-[#0f172a] shadow-[0_24px_60px_rgba(0,0,0,0.35)]">
         <VideoProducto id={id} titulo={titulo} />
+        {tapado ? (
+          <button
+            type="button"
+            aria-label={`Reproducir: ${titulo}`}
+            onClick={() => {
+              setTapado(false);
+              const v = marco.current?.querySelector('video');
+              v?.play().catch(() => {});
+            }}
+            className="absolute inset-0 flex items-center justify-center bg-black/15 transition hover:bg-black/5"
+          >
+            <span className="flex h-16 w-16 items-center justify-center rounded-full bg-[#FF3D8B] shadow-[0_10px_30px_rgba(255,61,139,0.45)] sm:h-20 sm:w-20">
+              <Play className="ml-1 h-8 w-8 fill-white text-white sm:h-9 sm:w-9" aria-hidden />
+            </span>
+          </button>
+        ) : null}
       </div>
       <figcaption className="mt-2 flex flex-wrap items-baseline justify-between gap-x-3 text-sm text-slate-400">
         <span className="font-medium text-slate-200">{titulo}</span>

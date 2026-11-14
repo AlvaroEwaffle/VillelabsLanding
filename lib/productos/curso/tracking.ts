@@ -1,8 +1,8 @@
-import { EXP15 } from './exp15';
+import { EXP16 } from './exp16';
 
 // Eventos del curso al dataLayer (GTM los reenvía a GA4). Mismo patrón que lib/ga4.ts.
-// 13-nov-2026: el nombre se mantiene (lo importan otros archivos), pero ahora lee la ronda vigente de /curso, EXP-15.
-export const etiquetaVarianteExp13 = () => { const v = EXP15.variante(); return v ? EXP15.etiqueta(v) : undefined; };
+// 13-nov-2026: el nombre se mantiene (lo importan otros archivos), pero lee la ronda vigente de /curso: EXP-16 desde el 14-nov.
+export const etiquetaVarianteExp13 = () => { const v = EXP16.variante(); return v ? EXP16.etiqueta(v) : undefined; };
 
 export function trackCursoClickCompra(ubicacion: string) {
   if (typeof window === 'undefined') return;

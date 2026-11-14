@@ -29,7 +29,8 @@ import { useEffect, useState } from 'react';
 import { ArrowRight, Bot, Check, ChevronDown, ClipboardCheck, ClipboardList, Eye, FileSpreadsheet, FlaskConical, Gift, Handshake, LayoutDashboard, Map as MapIcon, Megaphone, MessageCircle, Sparkles, Wallet, X, type LucideIcon } from 'lucide-react';
 import { LINKS } from '@/lib/productos/links';
 import { ACCESO, AREAS, CASO, CURSO, FAQ, HOJAS, IA_OPCIONAL, MODULOS, PARA_QUIEN, PROYECTO_AGENTE, PROYECTO_FINAL, PRECIO_CURSO, QUE_ES, SISTEMA_AGENTE, textoPrecio, textoPrecioConMoneda, textoPrecioDetalle } from '@/lib/productos/curso/curso';
-import { EXP15, PROMESA_EXP15 } from '@/lib/productos/curso/exp15';
+import { PROMESA_EXP15 } from '@/lib/productos/curso/exp15';
+import { EXP16 } from '@/lib/productos/curso/exp16';
 import { bajarAlAncla } from '@/lib/productos/ancla';
 import { VERSION_CURSO, VERSIONES_CURSO, fechaLarga } from '@/lib/productos/curso/versiones';
 import CursoLead from './CursoLead';
@@ -222,9 +223,10 @@ export default function CursoContent() {
   const [faqAbierta, setFaqAbierta] = useState<number | null>(null);
   const totalLecciones = MODULOS.reduce((s, m) => s + m.lecciones.length, 0);
 
-  // EXP-15: si se llegó navegando dentro del sitio el script en línea no corrió; se asigna aquí. Aviso a GA4 una vez.
+  // EXP-16 (14-nov-2026): si se llegó navegando dentro del sitio el script en línea no corrió; se asigna aquí. Aviso a GA4 una vez.
+  // EXP-15 cerró el 14-nov sin conclusión y quedó B fija para todos (sin script ni aviso).
   useEffect(() => {
-    EXP15.avisar(EXP15.asignar());
+    EXP16.avisar(EXP16.asignar());
   }, []);
 
   // 13-nov-2026: si el anuncio llegó con el fbclid pegado al ancla (#parte-gratis-hero?fbclid=…), baja al formulario.
@@ -232,24 +234,17 @@ export default function CursoContent() {
 
   return (
     <main className="relative w-full overflow-x-hidden bg-[#0f172a] text-slate-100">
-      {/* Hero · EXP-15 (13-nov-2026) «promesa automatizar». Base = la B de EXP-13 («módulo 0 primero», ganó sin potencia:
-          2 de 6 visitas bajaron ≥25 % contra 0 de 8 en A). A = control (H1 del anuncio v17 «Ordena tu negocio en una planilla»).
-          B = H1 «Aprende a automatizar…» con CRM y ERP como palabras clave. El CSS muestra lo que toca según <html data-exp15>
-          (script en línea antes de pintar). Sin JS se ve A. */}
+      {/* Hero · EXP-15 (13-nov-2026) «promesa automatizar» cerró el 14-nov sin conclusión (A 32 visitas reales / 0 interesadas,
+          B 37 / 2, 0 registros; el titular queda fuera de pantalla para el tráfico pagado): se deja B fija por dirección, sin
+          script. El H1 del anuncio v17 «Ordena tu negocio en una planilla» (la A) salió. Lo que se prueba ahora es EXP-16, en el
+          formulario del aterrizaje (CursoLead, lib/productos/curso/exp16.ts). */}
       <section className="mx-auto max-w-6xl px-4 pb-10 pt-24 sm:px-6 md:pt-32">
         {/* 13-nov-2026 (Álvaro: «quitando la foto grande en el Hero, ya que hay un mini avatar»): sin foto, una sola columna centrada
             (sin hueco a la derecha en escritorio). Común a A y B. */}
         <div className="mx-auto max-w-3xl">
           <div>
-            <div className="exp15-A">
-              <Kicker>Curso · Los 8 módulos listos</Kicker>
-              <h1 className="mt-3 max-w-3xl font-serif text-[1.9rem] leading-[1.1] text-white sm:text-5xl lg:text-[3.1rem]">
-                Ordena tu negocio en una planilla: clientes, pedidos y caja en un solo tablero, con ayuda de la IA
-              </h1>
-              <p className="mt-3 max-w-xl text-base text-slate-300 sm:text-lg">Paso a paso y sin programar: tú armas la planilla y la IA te ayuda con las fórmulas y los mensajes.</p>
-            </div>
-            {/* B · el antetítulo repite la pregunta del anuncio de Meta para que se sienta continuación. */}
-            <div className="exp15-B">
+            {/* Titular = la B de EXP-15 (fija para todos desde el 14-nov). El antetítulo repite la pregunta del anuncio de Meta. */}
+            <div>
               <p className="text-sm text-[#5fb2dd] sm:text-base">{PROMESA_EXP15.antetitulo}</p>
               <h1 className="mt-3 max-w-3xl font-serif text-[1.9rem] leading-[1.1] text-white sm:text-5xl lg:text-[3.1rem]">{PROMESA_EXP15.titulo}</h1>
               <p className="mt-3 max-w-xl text-base text-slate-300 sm:text-lg">{PROMESA_EXP15.bajada}</p>
@@ -262,7 +257,7 @@ export default function CursoContent() {
                 Te lo enseña <span className="text-slate-200 underline decoration-white/30 underline-offset-2">Álvaro Villena</span>, que usa este mismo orden en sus propios negocios
               </span>
             </a>
-            {/* Botón principal gratis (ganó en EXP-13); abajo, el formulario a la vista. Común a A y B de EXP-15. */}
+            {/* Botón principal gratis (ganó en EXP-13); abajo, el formulario a la vista. Común a A y B de EXP-16. */}
             <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
               <Link
                 href="#parte-gratis-hero"
@@ -272,8 +267,8 @@ export default function CursoContent() {
                 Mira gratis el módulo 0 <ArrowRight className="h-4 w-4" aria-hidden />
               </Link>
             </div>
-            {/* B · CRM y ERP como palabras clave, bajo el botón para que el botón quepa en 360×560 (navegador de Instagram). */}
-            <div className="exp15-B">
+            {/* CRM y ERP como palabras clave (B de EXP-15, fija), bajo el botón para que el botón quepa en 360×560. */}
+            <div>
               <ul aria-label="Palabras clave" className="mt-4 flex flex-wrap gap-2">
                 {PROMESA_EXP15.chips.map((c) => (
                   <li key={c.clave} className="rounded-full border border-[#5fb2dd]/40 bg-[#2175a1]/15 px-3 py-1 text-xs text-slate-200">
