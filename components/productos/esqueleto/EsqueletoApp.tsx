@@ -41,6 +41,7 @@ import { Kicker, botonPrimario, botonSecundario, claseInput } from './ui';
 import { EXP14 } from '@/lib/productos/esqueleto/exp14';
 import { cancelarParcial, campoParcial, correoValido, pasoParcial } from '@/lib/productos/esqueleto/parcial';
 import { VideoMarco } from '@/components/productos/VideoProducto';
+import { registrarEvento } from '@/lib/productos/eventos';
 
 // Secuencia: antes de cada paso, una pantalla corta «¿Te pasa esto?».
 type Pantalla = { tipo: 'id'; paso: number; ident: Identificacion } | { tipo: 'paso'; paso: number };
@@ -71,6 +72,35 @@ const DIAGRAMA_PASO: Record<number, () => React.ReactNode> = {
 };
 
 const avanceInicial = (): Avance => ({ esqueleto: esqueletoVacio(), pantalla: 0, respuestas: {}, terminadoEn: null });
+
+// 14-nov-2026 · retomar desde el correo de bienvenida. El avance vive en el navegador donde se empezó (no hay guardado de
+// respuestas en el servidor); si el correo se abre en otro navegador (p. ej. llegó por el de Instagram y abre el correo en
+// Chrome), la página parte vacía. Lo que sí se evita es volver a pedirle el correo: el link de la secuencia del esqueleto
+// (utm_source=email · utm_campaign=esqueleto, ver ~/.claude/marca-alvaro/secuencias/correos.mjs) marca este navegador como
+// «ya dejó su correo». No carga ni muestra datos de nadie: solo salta el formulario de correo (portada de la B y final de la A).
+const CLAVE_CORREO_DADO = 'villelab:esqueleto:correo-dado:v1';
+function vieneDelCorreo(): boolean {
+  try {
+    const q = new URLSearchParams(window.location.search);
+    if (q.get('utm_source') === 'email' && /^esqueleto/.test(q.get('utm_campaign') ?? '')) {
+      window.localStorage.setItem(CLAVE_CORREO_DADO, '1');
+      return true;
+    }
+    return window.localStorage.getItem(CLAVE_CORREO_DADO) === '1';
+  } catch {
+    return false;
+  }
+}
+
+// 14-nov-2026 · medición por paso: cada pantalla del recorrido avisa al hilo de la visita en Slack («🧭 esqueleto · …»), sin
+// datos personales (solo el número de paso y segundos). Así se lee en qué pantalla exacta se cae la gente.
+function nombrePantalla(p: Pantalla | null, pidiendoDatos: boolean, resultado: boolean): string | null {
+  if (pidiendoDatos) return 'datos de contacto';
+  if (resultado) return 'resultado';
+  if (!p) return null;
+  return p.tipo === 'id' ? `pregunta antes del paso ${p.paso}` : `paso ${p.paso}`;
+}
+const avisarPaso = (detalle: string) => registrarEvento('paso', { detalle: `esqueleto · ${detalle}` });
 
 function Progreso({ paso, antes }: { paso: number; antes?: boolean }) {
   const info = PASOS[paso - 1];
@@ -284,7 +314,14 @@ export default function EsqueletoApp() {
   const [avisoFaqs, setAvisoFaqs] = useState(false);
   // Pantalla donde quedó la persona al volver (se muestra la entrada con «Seguir donde quedé»).
   const [pantallaGuardada, setPantallaGuardada] = useState(0);
+  // Llegó por el link del correo del esqueleto (o ya llegó antes por ahí en este navegador): no se le vuelve a pedir el correo.
+  const [correoDado, setCorreoDado] = useState(false);
   const arriba = useRef<HTMLDivElement>(null);
+  // Barra fija «Siguiente» (14-nov-2026): visible en celular mientras la navegación del paso no está a la vista y no hay
+  // un campo con el teclado abierto.
+  const navPaso = useRef<HTMLElement>(null);
+  const [navDebajo, setNavDebajo] = useState(false);
+  const [escribiendo, setEscribiendo] = useState(false);
   const { esqueleto, pantalla } = avance;
 
   // EXP-14: si se llegó navegando dentro del sitio el script en línea no corrió; se asigna aquí. Aviso a GA4 una vez.
@@ -300,6 +337,7 @@ export default function EsqueletoApp() {
       setPantallaGuardada(guardado.pantalla);
     }
     setLead(cargarLead());
+    setCorreoDado(vieneDelCorreo());
     setCargado(true);
   }, []);
   /* eslint-enable react-hooks/set-state-in-effect */
@@ -350,16 +388,60 @@ export default function EsqueletoApp() {
     if (pasoActual > 0) pasoParcial(pasoActual);
   }, [pasoActual]);
 
+  // Medición por paso: «vista» una vez por pantalla y carga de página; «completado» con los segundos que tomó.
+  const vistas = useRef(new Set<string>());
+  const desde = useRef(0);
+  const pantallaActual = nombrePantalla(actual, pidiendoDatos, pantalla === RESULTADO);
+  useEffect(() => {
+    if (!pantallaActual) return;
+    desde.current = Date.now();
+    if (vistas.current.has(pantallaActual)) return;
+    vistas.current.add(pantallaActual);
+    const participio = pantallaActual.startsWith('pregunta') ? 'vista' : pantallaActual === 'datos de contacto' ? 'vistos' : 'visto';
+    avisarPaso(`${pantallaActual} ${participio}`);
+  }, [pantallaActual]);
+  const segundos = () => Math.max(0, Math.round((Date.now() - desde.current) / 1000));
+
   const faltanFaqs = Math.max(0, MIN_FAQS - faqsCompletas(esqueleto).length);
 
-  const siguiente = () => {
+  // Barra fija: se muestra mientras la navegación del paso está más abajo de la pantalla (no cuando ya quedó atrás, para
+  // no tapar el pie de página).
+  const esPaso = actual?.tipo === 'paso' && !pidiendoDatos;
+  useEffect(() => {
+    const el = navPaso.current;
+    if (!esPaso || !el || typeof IntersectionObserver === 'undefined') return;
+    const io = new IntersectionObserver(([e]) => setNavDebajo(!e.isIntersecting && e.boundingClientRect.top > 0), { threshold: 0 });
+    io.observe(el);
+    return () => {
+      io.disconnect();
+      setNavDebajo(false);
+    };
+  }, [esPaso, pantalla]);
+  useEffect(() => {
+    const campo = (t: EventTarget | null) => t instanceof HTMLElement && t.matches('input, textarea, select, [contenteditable="true"]');
+    const enFoco = (e: FocusEvent) => setEscribiendo(campo(e.target));
+    // focusout llega antes de que el foco caiga en el campo siguiente: se mira document.activeElement en el turno siguiente.
+    const fuera = () => setTimeout(() => setEscribiendo(campo(document.activeElement)), 0);
+    document.addEventListener('focusin', enFoco);
+    document.addEventListener('focusout', fuera);
+    return () => {
+      document.removeEventListener('focusin', enFoco);
+      document.removeEventListener('focusout', fuera);
+    };
+  }, []);
+
+  const siguiente = (desdeBarra = false) => {
     if (actual?.tipo === 'paso' && actual.paso === 2 && faltanFaqs > 0) {
       setAvisoFaqs(true);
+      avisarPaso(`paso 2: aviso «faltan ${faltanFaqs} de ${MIN_FAQS} preguntas»`);
+      // Desde la barra fija el aviso queda abajo, junto al botón del paso: se lleva la pantalla hasta él.
+      if (desdeBarra) requestAnimationFrame(() => navPaso.current?.scrollIntoView({ block: 'center' }));
       return;
     }
+    if (actual) avisarPaso(`${nombrePantalla(actual, false, false)} ${actual.tipo === 'id' ? 'respondida' : 'completado'} en ${segundos()} s${desdeBarra ? ' (barra fija)' : ''}`);
     if (actual?.tipo === 'paso') eventos.paso(actual.paso);
     if (pantalla < SECUENCIA.length) return irA(pantalla + 1);
-    if (lead) return mostrarResultado();
+    if (lead || correoDado) return mostrarResultado();
     setPidiendoDatos(true);
     requestAnimationFrame(subir);
   };
@@ -423,7 +505,7 @@ export default function EsqueletoApp() {
             <p className="mt-4 max-w-2xl text-lg text-slate-200 sm:text-xl">Qué responde, qué nunca promete y cuándo te avisa. Gratis, sin tarjeta.</p>
             {/* A · control; en la B solo si ya dejó su correo antes o tiene un avance guardado. */}
             <div className="exp14-A">{botonesPortada}</div>
-            <div className="exp14-B">{lead || pantallaGuardada > 0 ? botonesPortada : <PortadaCorreo deshabilitado={!cargado} onListo={alDejarCorreoEnPortada} />}</div>
+            <div className="exp14-B">{lead || correoDado || pantallaGuardada > 0 ? botonesPortada : <PortadaCorreo deshabilitado={!cargado} onListo={alDejarCorreoEnPortada} />}</div>
             <p className="mt-3 inline-flex items-center gap-1.5 text-sm text-slate-400">
               <Save className="h-4 w-4" /> {TEXTOS.guardar}
             </p>
@@ -479,6 +561,8 @@ export default function EsqueletoApp() {
                   <p className="mt-3 text-slate-300">
                     {lead ? `Listo, ${lead.nombre}. ` : ''}Esta es la estructura de tu asistente de WhatsApp, armada con lo que sabes de tu negocio.
                   </p>
+                  {/* 14-nov-2026 (revisor): con la barra fija se puede seguir sin tocar el ejemplo por rubro; que no se lleve precios ajenos. */}
+                  <p className="mt-2 text-sm text-slate-400">Si cargaste un ejemplo por rubro, cambia esos precios y datos por los tuyos antes de probarlo.</p>
                 </header>
                 <DiagramaProbarAjustar />
                 <Resultado esqueleto={esqueleto} terminadoEn={avance.terminadoEn} irAPaso={irAPaso} />
@@ -495,7 +579,7 @@ export default function EsqueletoApp() {
                   ident={actual.ident}
                   respuesta={avance.respuestas[actual.ident.id]}
                   responder={(r) => setAvance((a) => ({ ...a, respuestas: { ...a.respuestas, [actual.ident.id]: r } }))}
-                  seguir={siguiente}
+                  seguir={() => siguiente()}
                   volver={() => irA(pantalla - 1)}
                 />
               </>
@@ -516,7 +600,7 @@ export default function EsqueletoApp() {
                 </header>
                 {DIAGRAMA_PASO[infoPaso.n]?.()}
                 <Paso esqueleto={esqueleto} cambiar={cambiar} />
-                <nav className="flex flex-col-reverse gap-3 border-t border-white/10 pt-6 sm:flex-row sm:items-center sm:justify-between" aria-label="Navegación de pasos">
+                <nav ref={navPaso} className="flex flex-col-reverse gap-3 border-t border-white/10 pt-6 sm:flex-row sm:items-center sm:justify-between" aria-label="Navegación de pasos">
                   <button type="button" onClick={() => irA(pantalla - 1)} className={botonSecundario}>
                     <ArrowLeft className="h-4 w-4" /> Atrás
                   </button>
@@ -527,7 +611,7 @@ export default function EsqueletoApp() {
                         asistente te va a pasar casi todo a ti. Toca las sugerencias de arriba: se agregan con un clic y solo escribes la respuesta.
                       </p>
                     ) : null}
-                    <button type="button" onClick={siguiente} className={botonPrimario}>
+                    <button type="button" onClick={() => siguiente()} className={botonPrimario}>
                       {esUltimoPaso ? 'Ver el esqueleto de mi asistente' : 'Siguiente'} <ArrowRight className="h-4 w-4" />
                     </button>
                     <span className="inline-flex items-center justify-center gap-1.5 text-xs text-slate-500">
@@ -535,6 +619,22 @@ export default function EsqueletoApp() {
                     </span>
                   </div>
                 </nav>
+                {/* Barra fija (14-nov-2026, común a A y B de EXP-14): el paso 1 mide ~6 pantallas en un celular de 360 px y el botón
+                    quedaba ~3 pantallas más abajo de los ejemplos por rubro. Solo en celular; se esconde con el teclado abierto y
+                    cuando el botón del paso ya está a la vista o quedó atrás. */}
+                {navDebajo && !escribiendo ? (
+                  <div className="fixed inset-x-0 bottom-0 z-40 border-t border-white/10 bg-[#0f172a]/95 px-4 pb-[calc(env(safe-area-inset-bottom)+0.75rem)] pt-3 backdrop-blur sm:hidden">
+                    <div className="mx-auto flex max-w-3xl items-center gap-3">
+                      <span className="shrink-0 text-xs leading-tight text-slate-400">
+                        Paso {infoPaso.n} de {PASOS.length}
+                        <br />~{infoPaso.minutos} min
+                      </span>
+                      <button type="button" onClick={() => siguiente(true)} className={`${botonPrimario} flex-1`}>
+                        {esUltimoPaso ? 'Ver mi esqueleto' : 'Siguiente'} <ArrowRight className="h-4 w-4" />
+                      </button>
+                    </div>
+                  </div>
+                ) : null}
               </>
             ) : null}
           </div>

@@ -14,8 +14,9 @@
 //     compromete plata, alcance o una fecha»); revisión semanal (CLAUDE.md «reviewed weekly»; agentes de marketing «los lunes
 //     cierra la semana»); escribir antes de delegar (ViloAgent/context/PLAYBOOK-OPERACION.md:6 «desde este documento, no desde
 //     memoria tribal»).
-//   - Sin nombres de clientes ni de empresas donde trabajó (LATAM, PepsiCo y otros salieron el 13-nov: falta el OK expreso
-//     de Álvaro para mostrarlos). La franja de clientes queda construida y apagada con MOSTRAR_CLIENTES.
+//   - Franja de logos (14-nov-2026): Álvaro, por WhatsApp: «Tengo el ok para usarlos todos» (Toptal, PepsiCo, Kimberly-Clark,
+//     LATAM) y, el 13-nov, «mis empresas Ewaffle, Fidelidapp». El rótulo dice solo «he trabajado con»: no dice qué se hizo
+//     para cada una ni sugiere que avalan el curso. No sumar otras empresas sin su OK.
 
 /** BORRADOR — texto de Álvaro pendiente. Se reemplaza con sus palabras. Base: su frase del 7-nov («pensando desde la vista
  * al cliente es aprendo a estructurar y organizar mi negocio de punta a punta», VPM/Villelabs/productos-digitales/PLAN.md:8). */
@@ -59,7 +60,18 @@ export const EMPRESAS = [
   { nombre: 'Villelab', que: 'agentes de IA a medida', logo: '/icono-128.webp', ancho: 36, alto: 36 },
 ] as const;
 
-/** Clientes (PepsiCo, Kimberly-Clark, LATAM…): NO se muestran hasta que Álvaro confirme por escrito que se puede y cómo
- * describir la relación (KC es vía Toptal con confidencialidad). Con false no sale nada en el HTML. Sin logos descargados. */
-export const MOSTRAR_CLIENTES = false;
-export const CLIENTES: { nombre: string; logo?: string }[] = [];
+/** Franja de logos de «Quién lo enseña» (14-nov-2026). Solo estas cuatro; no agregar otras sin el OK de Álvaro.
+ * Las empresas propias (Ewaffle, Fidelidapp, Villelab) van en EMPRESAS, caja «Mis negocios», para no repetir logos.
+ * `alto` = alto en pantalla (px), ajustado a ojo para que pesen parecido; `ancho` sale de la proporción con que el navegador dibuja el archivo.
+ * Origen de cada archivo en public/logos (todos locales, nada de terceros):
+ *   - toptal.svg: Wikimedia Commons «File:Toptal Logo.svg».
+ *   - pepsico.svg: Wikimedia Commons «File:PepsiCo logo.svg» (mismo sha1 que el de Commons).
+ *   - kimberly-clark.svg: Wikimedia Commons «File:Kimberly-Clark logo.svg» (mismo sha1 que el de Commons).
+ *   - latam-wordmark.svg: Wikimedia Commons «File:Latam-logo -v.svg». */
+export type LogoFranja = { nombre: string; logo: string; ancho: number; alto: number };
+export const LOGOS_TRABAJADO: LogoFranja[] = [
+  { nombre: 'Toptal', logo: '/logos/toptal.svg', ancho: 78, alto: 24 },
+  { nombre: 'PepsiCo', logo: '/logos/pepsico.svg', ancho: 94, alto: 26 },
+  { nombre: 'Kimberly-Clark', logo: '/logos/kimberly-clark.svg', ancho: 120, alto: 15 },
+  { nombre: 'LATAM', logo: '/logos/latam-wordmark.svg', ancho: 93, alto: 22 },
+];
