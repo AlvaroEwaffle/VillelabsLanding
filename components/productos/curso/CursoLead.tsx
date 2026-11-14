@@ -78,7 +78,7 @@ export default function CursoLead({ ubicacion, className = '' }: { ubicacion: st
           navegador de Instagram (360×560) el primer pantallazo era solo este formulario: sin el título, sin decir de qué curso
           es. Esta línea dice de qué es antes de pedir el correo. 14-nov-2026 (cambio de base «oferta en clave agente», común a
           A y B de EXP-16): antes «Curso: tu negocio en una planilla, con IA»; ahora responde al anuncio X14 (chat vs agente). */}
-      {ubicacion === 'hero' ? <p className="mb-1.5 text-[13px] font-medium leading-snug text-[#5fb2dd]">Curso: construye tu primer agente de IA, sin programar</p> : null}
+      {ubicacion === 'hero' ? <p className="mb-1.5 text-[13px] font-medium leading-snug text-[#5fb2dd]">Curso: tu primer agente de IA, sin programar</p> : null}
       {/* EXP-16 B (14-nov-2026, dar antes de pedir): la lección 1 del módulo 0 a la vista, sin correo, arriba del formulario. El mp4
           no se baja hasta el play (VideoProducto, preload="none"); el póster webp pesa 16 KB. Play grande al centro (revisor). El play
           ya avisa a Slack con [EXP-16 B] y cuenta como interesada. */}
@@ -95,8 +95,9 @@ export default function CursoLead({ ubicacion, className = '' }: { ubicacion: st
           <span>Ya tienes acceso al módulo 0</span>
         ) : ubicacion === 'hero' ? (
           <>
-            {/* 14-nov-2026 (clave agente): antes «Deja tu correo y mira el módulo 0». El título de B es el tratamiento de EXP-16 y no cambia. */}
-            <span className="exp16-A">Parte gratis: el mapa, el diagnóstico y los frenos que tu agente necesita</span>
+            {/* 14-nov-2026 (revisor): el título A sigue siendo «Deja tu correo y mira el módulo 0»; el de clave agente ocupaba 3 líneas
+                y cortaba el botón a 360×560, y cambiar solo el brazo A ensuciaba EXP-16. El título de B es el tratamiento y no cambia. */}
+            <span className="exp16-A">Deja tu correo y mira el módulo 0</span>
             <span className="exp16-B">Mira la lección 1 aquí arriba. Las 2 a 4, gratis con tu correo</span>
           </>
         ) : (

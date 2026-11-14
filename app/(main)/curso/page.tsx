@@ -20,12 +20,12 @@ const PACK_DESCRIPCION = `${PACK.titulo}. ${PACK.bonos.map((b) => `${b.clave}: $
 // El nombre del producto (CURSO.nombreCompleto, igual que en Hotmart) no cambia: sigue en el h2 y en el JSON-LD.
 const TITULO_OG = 'Tu primer agente de IA trabajando para ti, sin programar';
 const DESCRIPCION_OG =
-  'El módulo 0 es gratis. Sin programar y con menos de 2 horas de lecciones: le armas a tu agente su memoria (tu planilla) y sus frenos, y te prepara borradores de pedidos y cobranza. Tú apruebas y tú envías.';
+  'El módulo 0 es gratis. Sin programar y con menos de 2 horas de lecciones y unas 7 a 8 de práctica: le armas a tu agente su memoria (tu planilla) y sus frenos, y te prepara borradores de pedidos y cobranza. Tú apruebas y tú envías.';
 
 export const metadata: Metadata = {
   title: { absolute: TITULO_OG },
   description:
-    'Curso online para pymes: construyes tu primer agente de IA, sin programar y con menos de 2 horas de lecciones. Le armas su memoria, el sistema de tu negocio en Google Sheets (clientes y ventas o CRM, pedidos, cobranza, caja y un tablero, tu ERP), y sus límites con tus reglas de freno. Después te prepara la fila de los pedidos que te llegan por WhatsApp y te avisa a quién cobrar, con el mensaje listo; tú apruebas y tú envías.',
+    'Curso online para pymes: construyes tu primer agente de IA, sin programar y con menos de 2 horas de lecciones y unas 7 a 8 de práctica. Le armas su memoria, el sistema de tu negocio en Google Sheets (clientes y ventas o CRM, pedidos, cobranza, caja y un tablero, tu ERP), y sus límites con tus reglas de freno. Después te prepara la fila de los pedidos que te llegan por WhatsApp y te avisa a quién cobrar, con el mensaje listo; tú apruebas y tú envías.',
   alternates: { canonical: `${SITE_URL}/curso` },
   openGraph: {
     type: 'website',

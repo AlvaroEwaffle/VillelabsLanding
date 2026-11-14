@@ -605,7 +605,7 @@ export const LECCIONES_M0: LeccionM0[] = [
     id: 'reglas',
     numero: 4,
     titulo: 'Las reglas de freno del negocio',
-    bajada: 'Qué decide siempre una persona: precios, plazos, plata, reclamos. Elige las tuyas de esta plantilla y ajústalas.',
+    bajada: 'Qué decide siempre una persona: precios, plazos, plata, reclamos. Elige las tuyas de esta plantilla y ajústalas. Estas reglas van dentro de tu agente en el módulo 7.',
     checklist: [
       { id: 'l4a', texto: 'Elegí al menos 5 reglas.' },
       { id: 'l4b', texto: 'Cambié los [corchetes] por montos, plazos y nombres reales.' },

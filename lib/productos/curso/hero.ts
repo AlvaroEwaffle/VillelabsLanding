@@ -33,7 +33,8 @@ export const HERO_CURSO = {
     // marcó «5 horas» como causal de reembolso). La hora del módulo 7 queda fuera del hero por lo mismo.
     'Lo armas tú, sin programar: menos de 2 horas de lecciones y unas 7 a 8 de práctica, a tu ritmo. Primero le das memoria (tu planilla de clientes, pedidos y caja) y frenos; después lo pones a prepararte pedidos y cobranza.',
   /** Línea de confianza (pedido de Álvaro 20:09: muchos dueños le tienen miedo a la IA). */
-  confianza: 'Parte con frenos y solo te prepara borradores: tú apruebas cada uno y le vas delegando tareas de a poco.',
+  // Texto exacto del revisor adversario (14-nov): «apruebas» y «delegando de a poco» prometían más de lo que hace el módulo 7.
+  confianza: 'Parte con frenos y 2 tareas, y solo te prepara borradores cuando se lo pides: tú revisas y envías cada uno.',
   /** Las piezas del agente. CRM y ERP siguen como palabras clave dentro de «Memoria». */
   piezasEtiqueta: 'Las piezas de tu agente',
   piezas: [
