@@ -241,7 +241,7 @@ export default function ChatChibi() {
 
   const abajo = ruta === '/cotizador'
     ? 'bottom-[calc(env(safe-area-inset-bottom)+5.5rem)]'
-    : enCurso
+    : enCurso || ruta === '/esqueleto' // 14-nov-2026: /esqueleto tiene barra fija «Siguiente» en celular (pasos 1–4)
     ? 'bottom-[calc(env(safe-area-inset-bottom)+5.5rem)] md:bottom-[calc(env(safe-area-inset-bottom)+1.5rem)]'
     : 'bottom-[calc(env(safe-area-inset-bottom)+1.5rem)]';
 
