@@ -561,6 +561,8 @@ export default function EsqueletoApp() {
                   <p className="mt-3 text-slate-300">
                     {lead ? `Listo, ${lead.nombre}. ` : ''}Esta es la estructura de tu asistente de WhatsApp, armada con lo que sabes de tu negocio.
                   </p>
+                  {/* 14-nov-2026 (revisor): con la barra fija se puede seguir sin tocar el ejemplo por rubro; que no se lleve precios ajenos. */}
+                  <p className="mt-2 text-sm text-slate-400">Si cargaste un ejemplo por rubro, cambia esos precios y datos por los tuyos antes de probarlo.</p>
                 </header>
                 <DiagramaProbarAjustar />
                 <Resultado esqueleto={esqueleto} terminadoEn={avance.terminadoEn} irAPaso={irAPaso} />

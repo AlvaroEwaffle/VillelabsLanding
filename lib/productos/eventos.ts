@@ -45,7 +45,7 @@ const MAX_LECTURA = 50;
 // 14-nov-2026: los avances dentro de una herramienta («paso», p. ej. cada pantalla del esqueleto) también llevan su propio
 // cupo. Un esqueleto completo suma ~15 avances y ~30 clics: con un solo cupo de 40 se perdía el final del recorrido.
 const CLAVE_N_PASO = 'vl_eventos_paso';
-const MAX_PASO = 40;
+const MAX_PASO = 25;
 
 let cadena: Promise<unknown> = Promise.resolve();
 
@@ -90,10 +90,13 @@ export function sid(): string {
 /** Registra un evento. Los eventos de una visita salen en orden para que todos caigan en el mismo hilo. */
 export function registrarEvento(tipo: Tipo, extra: Record<string, unknown> = {}): void {
   if (!eventosActivos()) return;
-  const clave = tipo === 'paso' ? CLAVE_N_PASO : CLAVE_N;
-  const n = Number(leer(clave) ?? '0');
-  if (n >= (tipo === 'paso' ? MAX_PASO : MAX_EVENTOS)) return;
-  escribir(clave, String(n + 1));
+  // El registro («lead») no pasa por ningún cupo: es el aviso que más importa y suele llegar al final de la visita.
+  if (tipo !== 'lead') {
+    const clave = tipo === 'paso' ? CLAVE_N_PASO : CLAVE_N;
+    const n = Number(leer(clave) ?? '0');
+    if (n >= (tipo === 'paso' ? MAX_PASO : MAX_EVENTOS)) return;
+    escribir(clave, String(n + 1));
+  }
 
   cadena = cadena
     .then(async () => {

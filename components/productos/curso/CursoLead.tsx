@@ -76,7 +76,7 @@ export default function CursoLead({ ubicacion, className = '' }: { ubicacion: st
       {/* 14-nov-2026 · contexto al aterrizar (común a A y B de EXP-15). Los anuncios de Meta llegan a #parte-gratis-hero y en el
           navegador de Instagram (360×560) el primer pantallazo era solo este formulario: sin el título, sin decir de qué curso
           es. Esta línea dice de qué es antes de pedir el correo. */}
-      {ubicacion === 'hero' ? <p className="mb-1.5 text-[13px] font-medium leading-snug text-[#5fb2dd]">Curso: ordena tu negocio con IA, sin programar</p> : null}
+      {ubicacion === 'hero' ? <p className="mb-1.5 text-[13px] font-medium leading-snug text-[#5fb2dd]">Curso: tu negocio en una planilla, con IA</p> : null}
       <p className="flex items-center gap-2 font-serif text-lg leading-snug text-white sm:text-xl">
         <Eye className="h-5 w-5 shrink-0 text-[#5fb2dd]" aria-hidden />
         {/* Desde el cierre de EXP-13 (13-nov, ganó B): en el hero, con el botón principal ya gratis, «¿Aún no?» no tiene sentido. */}
@@ -88,7 +88,7 @@ export default function CursoLead({ ubicacion, className = '' }: { ubicacion: st
       </p>
       <p className="mt-1.5 text-sm text-slate-300">
         {ubicacion === 'hero'
-          ? '4 lecciones cortas (~11 min): el mapa de tu negocio, un diagnóstico de 15 preguntas y tu planilla base (Google Sheets o Excel). Sin tarjeta.'
+          ? '4 lecciones cortas (~11 min): el mapa de tu negocio, un diagnóstico de 15 preguntas y tu planilla base (Google Sheets o Excel). Sin tarjeta y entras al tiro.'
           : 'El mapa de tu negocio, el diagnóstico y tu planilla base, completos. Deja tu correo y entras al tiro, sin tarjeta.'}
       </p>
 
