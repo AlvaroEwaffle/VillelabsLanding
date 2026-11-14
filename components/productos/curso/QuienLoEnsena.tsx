@@ -2,11 +2,13 @@
 // Bloque narrativo «Quién lo enseña» (13-nov-2026): reemplaza a «Quién lo enseña» + «En qué se basa». Tercera sección de
 // /curso, común a A y B de EXP-15. Tres tiempos que se arman al bajar: (1) para qué hice este curso (foto real al lado),
 // (2) lo que aprendí operando mis negocios (4 prácticas + logos propios), (3) lo que te vas a llevar (ancla a la sección 2
-// y botón del módulo 0). Textos y fuentes en lib/productos/curso/quien.ts. Animación: Armado (.a-pieza) + Contador.
+// y botón del módulo 0). Entre (1) y (2), franja de logos (14-nov-2026): «Empresas con las que he trabajado» (las propias
+// siguen en la caja «Mis negocios» del bloque 2, para no repetir logos).
+// Textos y fuentes en lib/productos/curso/quien.ts. Animación: Armado (.a-pieza) + Contador.
 import Link from 'next/link';
 import { ArrowRight, BookOpenCheck, CalendarCheck, Database, ShieldCheck, type LucideIcon } from 'lucide-react';
 import { FOTOS } from '@/lib/productos/fotos';
-import { BIO, CLIENTES, DATOS, EMPRESAS, MOSTRAR_CLIENTES, PARA_QUE, PRACTICAS } from '@/lib/productos/curso/quien';
+import { BIO, DATOS, EMPRESAS, LOGOS_TRABAJADO, PARA_QUE, PRACTICAS, type LogoFranja } from '@/lib/productos/curso/quien';
 import { Armado, orden } from './animados';
 import Contador from './Contador';
 import { Foto, Kicker } from './piezas';
@@ -19,6 +21,32 @@ function Tiempo({ n, titulo }: { n: number; titulo: string }) {
       <span className="flex h-7 w-7 items-center justify-center rounded-full border border-[#5fb2dd]/50 text-[11px]">{n}</span>
       {titulo}
     </p>
+  );
+}
+
+/** Grupo de la franja de logos: rótulo + logos en un solo tono (blanco al 70 %), misma altura visual, sin carrusel. */
+function GrupoLogos({ titulo, logos, desde }: { titulo: string; logos: LogoFranja[]; desde: number }) {
+  return (
+    <div>
+      <p className="a-pieza font-mono text-[11px] uppercase tracking-[0.18em] text-slate-400" style={orden(desde)}>{titulo}</p>
+      <ul className="mt-4 grid grid-cols-2 items-center gap-x-6 gap-y-5 sm:flex sm:flex-wrap sm:gap-x-10">
+        {logos.map((l, i) => (
+          <li key={l.nombre} className="a-pieza flex h-8 items-center" style={orden(desde + 1 + i)}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={l.logo}
+              alt={l.nombre}
+              width={l.ancho}
+              height={l.alto}
+              loading="lazy"
+              decoding="async"
+              style={{ height: l.alto, width: 'auto' }}
+              className="max-w-full opacity-70 brightness-0 invert transition-opacity duration-300 hover:opacity-100 motion-reduce:transition-none"
+            />
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }
 
@@ -62,6 +90,11 @@ export default function QuienLoEnsena() {
         </div>
       </Armado>
 
+      {/* Franja de logos (14-nov-2026, pedido de Álvaro). Rótulo solo «he trabajado con»: no afirma qué se hizo ni aval. */}
+      <Armado className="mt-12 rounded-2xl border border-white/10 bg-white/[0.02] p-5 sm:p-6">
+        <GrupoLogos titulo="Empresas con las que he trabajado" logos={LOGOS_TRABAJADO} desde={0} />
+      </Armado>
+
       {/* 2 · Lo que aprendí operando mis negocios */}
       <Armado className="mt-16">
         <Tiempo n={2} titulo="Lo que aprendí operando mis negocios" />
@@ -98,24 +131,6 @@ export default function QuienLoEnsena() {
             ))}
           </ul>
         </div>
-        {MOSTRAR_CLIENTES && CLIENTES.length > 0 ? (
-          // Franja lista para encender cuando Álvaro confirme (logos en gris monocromo).
-          <div className="mt-6">
-            <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-slate-400">Empresas con las que he trabajado</p>
-            <ul className="mt-4 flex flex-wrap items-center gap-6 opacity-70 grayscale">
-              {CLIENTES.map((c) => (
-                <li key={c.nombre} className="flex h-10 min-w-[96px] items-center justify-center rounded-lg bg-white/[0.04] px-3 text-sm text-slate-400">
-                  {c.logo ? (
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img src={c.logo} alt={c.nombre} loading="lazy" className="max-h-7 w-auto" />
-                  ) : (
-                    c.nombre
-                  )}
-                </li>
-              ))}
-            </ul>
-          </div>
-        ) : null}
       </Armado>
 
       {/* 3 · Lo que te vas a llevar */}
