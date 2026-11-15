@@ -75,8 +75,8 @@ export default function BonosContent() {
         <Link href="/curso/modulo-0" className="inline-flex min-h-[48px] items-center justify-center rounded-full border border-white/15 px-5 text-sm text-slate-300 hover:border-white/30">
           Ir al módulo 0
         </Link>
-        <Link href="/curso/modulo-1" className="inline-flex min-h-[48px] items-center justify-center rounded-full border border-white/15 px-5 text-sm text-slate-300 hover:border-white/30">
-          Ir al módulo 1
+        <Link href="/curso/modulo-7" className="inline-flex min-h-[48px] items-center justify-center rounded-full border border-white/15 px-5 text-sm text-slate-300 hover:border-white/30">
+          Ir al módulo 7 · tu agente
         </Link>
       </div>
       <p className="mt-6 text-sm text-slate-400">¿Problemas para descargar o entrar? Escríbeme por WhatsApp al +56 9 2011 5198.</p>

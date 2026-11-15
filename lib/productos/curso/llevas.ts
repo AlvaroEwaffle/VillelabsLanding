@@ -53,16 +53,16 @@ export const PACK = {
   entrega: 'Los dos bonos te esperan dentro del curso, en «Tus bonos», apenas entras con tu código.',
 } as const;
 
-/** Una por módulo (0–7), del objetivo real de cada uno, en lenguaje llano. */
+/** Una por módulo, en el orden recomendado (15-nov-2026: el agente, módulo 7, va justo después del 0), en lenguaje llano. */
 export const APRENDES = [
   { modulo: 0, texto: 'Ver tu negocio completo en un mapa: qué está en rojo y por dónde partir.' },
+  { modulo: 7, texto: 'Armar tu primer agente de IA con tus reglas: te arma la fila de cada pedido de WhatsApp y la cobranza del lunes. Tú revisas y envías.' },
   { modulo: 1, texto: 'Que ningún cliente se te pierda: cada uno con su próximo paso y su fecha.' },
   { modulo: 2, texto: 'Saber de dónde llegan tus clientes y armar una semana de publicaciones en una tarde.' },
   { modulo: 3, texto: 'Anotar cada pedido en una fila y ver qué está atrasado sin preguntarle a nadie.' },
   { modulo: 4, texto: 'Responder rápido lo que se repite y seguir cada reclamo hasta cerrarlo.' },
   { modulo: 5, texto: 'Cobrar a tiempo y ver la caja de tus próximas 4 semanas.' },
   { modulo: 6, texto: 'Leer tus números del lunes en un tablero que se calcula solo.' },
-  { modulo: 7, texto: 'Delegar a un agente de IA el trabajo que se repite: te arma la fila de cada pedido de WhatsApp y la cobranza del lunes. Tú revisas y envías.' },
 ] as const;
 
 /**

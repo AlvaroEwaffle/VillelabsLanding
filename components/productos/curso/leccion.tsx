@@ -17,6 +17,8 @@ import {
   AREAS,
   CLAVES_STORAGE,
   MODULOS,
+  MODULOS_EN_ORDEN,
+  ORDEN_RECOMENDADO,
   OPCIONES_DIAGNOSTICO,
   PREGUNTAS,
   semaforoDe,
@@ -595,7 +597,8 @@ export function NavModulos({ actual, className = '' }: { actual: number; classNa
   return (
     <nav aria-label="Módulos del curso" className={`flex flex-wrap items-center gap-1.5 ${className}`}>
       <span className="mr-1 font-mono text-[10px] uppercase tracking-[0.18em] text-slate-500">Módulos</span>
-      {MODULOS.map((m) => (
+      {/* 15-nov-2026: orden recomendado (0, 7, 1 … 6), con el número de siempre. */}
+      {MODULOS_EN_ORDEN.map((m) => (
         <Link
           key={m.numero}
           href={rutaModulo(m.numero)}
@@ -612,10 +615,15 @@ export function NavModulos({ actual, className = '' }: { actual: number; classNa
   );
 }
 
+/** Módulo anterior y siguiente en el orden recomendado (ORDEN_RECOMENDADO: 0 → 7 → 1 → … → 6), no por número. Los números visibles no cambian (plan B del temario, 15-nov-2026). */
+function vecinos(actual: number) {
+  const i = (ORDEN_RECOMENDADO as readonly number[]).indexOf(actual);
+  return { anterior: i > 0 ? MODULOS_EN_ORDEN[i - 1] : undefined, siguiente: i >= 0 ? MODULOS_EN_ORDEN[i + 1] : undefined };
+}
+
 /** Pie con los enlaces al módulo anterior y al siguiente. */
 export function PieModulos({ actual }: { actual: number }) {
-  const anterior = MODULOS.find((m) => m.numero === actual - 1);
-  const siguiente = MODULOS.find((m) => m.numero === actual + 1);
+  const { anterior, siguiente } = vecinos(actual);
   return (
     <>
     <div className="mt-10 flex flex-col-reverse gap-3 border-t border-white/10 pt-6 sm:flex-row sm:items-center sm:justify-between">
@@ -834,6 +842,7 @@ export function ModuloCurso({
   textoIrCierre?: string;
 }) {
   const modulo = MODULOS.find((m) => m.numero === numero)!;
+  const anteriorEnOrden = vecinos(numero).anterior?.numero ?? 0;
   const montado = useMontado();
   const [checks, setChecks] = usePersistido(claveModulo(numero, 'checklist'), CHECKS_VACIOS);
   const [paginaGuardada, setPaginaGuardada] = usePersistido(claveModulo(numero, 'pagina'), PAGINA_INICIAL);
@@ -878,11 +887,11 @@ export function ModuloCurso({
       <div className="mod-no-print sticky top-0 z-20 border-b border-white/10 bg-[#0f172a]/95 backdrop-blur">
         <div className="mx-auto flex max-w-3xl items-center gap-2 px-4 py-3 sm:gap-3 sm:px-6">
           <Link
-            href={rutaModulo(numero - 1)}
-            aria-label={`Volver al módulo ${numero - 1}`}
+            href={rutaModulo(anteriorEnOrden)}
+            aria-label={`Volver al módulo ${anteriorEnOrden}`}
             className="-ml-2 inline-flex min-h-[32px] shrink-0 items-center gap-1 rounded-full px-2 text-sm text-slate-400 hover:text-white"
           >
-            <ArrowLeft className="h-4 w-4" aria-hidden /> <span className="font-mono text-xs">M{numero - 1}</span>
+            <ArrowLeft className="h-4 w-4" aria-hidden /> <span className="font-mono text-xs">M{anteriorEnOrden}</span>
           </Link>
           <nav aria-label="Lecciones" className="flex min-w-0 flex-1 items-center justify-center gap-1 sm:gap-1.5">
             {lecciones.map((l, i) => {

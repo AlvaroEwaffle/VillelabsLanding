@@ -8,7 +8,7 @@
 import Link from 'next/link';
 import { ArrowRight, BookOpenCheck, CalendarCheck, Database, ShieldCheck, type LucideIcon } from 'lucide-react';
 import { FOTOS } from '@/lib/productos/fotos';
-import { BIO, DATOS, EMPRESAS, LOGOS_TRABAJADO, PARA_QUE, PRACTICAS, type LogoFranja } from '@/lib/productos/curso/quien';
+import { BIO, DATOS, EMPRESAS, LOGOS_TRABAJADO, PARA_QUE, PRACTICAS, PRUEBA_PROPIA, type LogoFranja } from '@/lib/productos/curso/quien';
 import { Armado, orden } from './animados';
 import Contador from './Contador';
 import { Foto, Kicker } from './piezas';
@@ -100,6 +100,10 @@ export default function QuienLoEnsena() {
         <Tiempo n={2} titulo="Lo que aprendí operando mis negocios" />
         <p className="a-pieza mt-4 max-w-2xl text-slate-300" style={orden(1)}>
           Esto no sale de un libro: es como opero mis propios negocios. El curso lleva esas mismas reglas a tu negocio, en una planilla.
+        </p>
+        {/* 15-nov-2026 · prueba propia con cifras de Ewaffle (Studio, 2025 vs 2026) y empresas solo nombradas (quien.ts). */}
+        <p className="a-pieza mt-4 max-w-3xl rounded-2xl border-l-2 border-[#5fb2dd] bg-white/[0.03] p-4 text-slate-200 sm:p-5" style={orden(1)}>
+          {PRUEBA_PROPIA}
         </p>
         <ul className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {PRACTICAS.map((p, i) => {

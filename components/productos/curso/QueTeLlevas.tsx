@@ -26,7 +26,9 @@ export default function QueTeLlevas() {
       {/* Qué te llevas */}
       <div data-aparece>
         <Kicker>Qué te llevas</Kicker>
-        <h2 className="mt-3 max-w-3xl font-serif text-3xl text-white sm:text-4xl">Lo que te llevas para ordenar tu negocio en una planilla.</h2>
+        {/* 15-nov-2026 (mensaje-dueno): el h2 hablaba solo de la planilla; ahora nombra al asistente. Nunca «automatiza». */}
+        <h2 className="mt-3 max-w-3xl font-serif text-3xl text-white sm:text-4xl">Lo que te llevas: tu planilla, tus reglas y tu primer asistente.</h2>
+        <p className="mt-4 max-w-2xl text-slate-300">Delega tu primera tarea repetida: la IA te prepara el borrador y tú lo envías.</p>
       </div>
       <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {LLEVAS.map((x, i) => {
@@ -99,7 +101,7 @@ export default function QueTeLlevas() {
                   <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-[#5fb2dd]">
                     Módulo {a.modulo}
                     {a.modulo === 0 ? <span className="ml-2 rounded-full bg-[#FF3D8B]/15 px-2 py-0.5 text-[10px] text-[#ff8fbd]">gratis</span> : null}
-                    {a.modulo === 7 ? <span className="ml-2 rounded-full bg-[#5fb2dd]/15 px-2 py-0.5 text-[10px] text-[#9fd3ee]">proyecto final</span> : null}
+                    {a.modulo === 7 ? <span className="ml-2 rounded-full bg-[#5fb2dd]/15 px-2 py-0.5 text-[10px] text-[#9fd3ee]">justo después del 0</span> : null}
                   </p>
                   <p className="mt-1 text-slate-100">{a.texto}</p>
                 </div>

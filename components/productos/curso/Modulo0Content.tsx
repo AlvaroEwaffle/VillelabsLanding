@@ -180,8 +180,9 @@ function CabeceraLeccion({ leccion }: { leccion: LeccionM0 }) {
 const VIDEO_LECCION: Partial<Record<string, { id: VideoId; duracion: string; nota?: string }>> = {
   mapa: { id: 'v09-m0-l1', duracion: '57 s' },
   diagnostico: { id: 'v10-m0-l2', duracion: '27 s' },
-  planilla: { id: 'v11-m0-l3', duracion: '33 s' },
-  reglas: { id: 'v12-m0-l4', duracion: '35 s' },
+  // 15-nov-2026 (temario-agente, revisor): notas mientras no se corten las frases desalineadas de v11 y v12.
+  planilla: { id: 'v11-m0-l3', duracion: '33 s', nota: 'En el video digo que la IA no la necesitas para llenar la planilla, y es así. Para tu agente, en cambio, esta ficha es lo primero que lee.' },
+  reglas: { id: 'v12-m0-l4', duracion: '35 s', nota: 'En el video digo «la próxima semana partimos con tu CRM». Cambiamos el orden: lo que sigue es armar tu agente (módulo 7), y la hoja Clientes viene después, en el módulo 1.' },
 };
 
 function NotaVideo({ children }: { children: React.ReactNode }) {
@@ -398,9 +399,14 @@ function Diagnostico({
             </ul>
             <h3 className="mt-6 font-serif text-xl text-white">Orden sugerido para hacer el curso</h3>
             <ol className="mt-3 space-y-2">
+              {/* 15-nov-2026 (temario-agente, plan B): primero tu agente (módulo 7); después, de lo más rojo a lo más verde. */}
+              <li className="flex items-center gap-3 text-slate-200">
+                <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#FF3D8B]/20 font-mono text-xs text-[#ff8fbd]">1</span>
+                <span>Módulo 7 · Arma tu primer agente</span>
+              </li>
               {resultado.orden.map((r, i) => (
                 <li key={r.area.id} className="flex items-center gap-3 text-slate-200">
-                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-white/10 font-mono text-xs">{i + 1}</span>
+                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-white/10 font-mono text-xs">{i + 2}</span>
                   <span>
                     Módulo {r.area.modulo} · {r.area.nombre}
                   </span>
@@ -408,12 +414,12 @@ function Diagnostico({
                 </li>
               ))}
               <li className="flex items-center gap-3 text-slate-400">
-                <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-white/5 font-mono text-xs">6</span>
+                <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-white/5 font-mono text-xs">{resultado.orden.length + 2}</span>
                 <span>Módulo 6 · El tablero, para juntarlo todo</span>
               </li>
             </ol>
             <p className="mt-4 text-sm text-slate-400">
-              Cada módulo llena una hoja de la misma planilla. Haz todos, pero cuando llegues a tu pieza más roja, dale más tiempo y haz su prueba real primero.
+              Primero armas tu agente con lo que hiciste hoy: tu ficha, tus productos y tus reglas de freno. Después, cada módulo llena una hoja de la misma planilla y es algo más que tu agente sabe. Cuando llegues a tu pieza más roja, dale más tiempo y haz su prueba real primero.
             </p>
             <button type="button" onClick={onReiniciar} className="mt-5 inline-flex min-h-[44px] items-center gap-2 text-sm text-slate-400 hover:text-white">
               <RotateCcw className="h-4 w-4" aria-hidden /> Volver a responder
@@ -734,7 +740,7 @@ function Portada({
         <Kicker>Entregable del módulo 0</Kicker>
         <h2 className="mt-3 font-serif text-3xl text-white sm:text-4xl">La portada de tu sistema</h2>
         <p className="mt-3 text-slate-300">
-          Junta tu semáforo, tu planilla base y tus reglas de freno en una hoja. Imprímela o guárdala como PDF junto a tu planilla: es la primera página de tu proyecto final, tu ERP en Google Sheets con su tablero.
+          Junta tu semáforo, tu planilla base y tus reglas de freno en una hoja. Imprímela o guárdala como PDF junto a tu planilla: es la primera página de tu sistema y justo lo que tu agente necesita para partir.
         </p>
         <figure className="relative mt-6 aspect-[16/7] overflow-hidden rounded-2xl border border-white/10">
           <Foto foto={APOYO.escritorioClaro} posicion="center" />
@@ -786,7 +792,7 @@ function Portada({
           <>
             <h3 className="mt-6 text-xs uppercase tracking-wider text-slate-400">2 · Orden sugerido</h3>
             <p className="mt-2 text-sm text-slate-200">
-              {resultado.orden.map((r) => r.area.nombre).join(' → ')} → El tablero
+              Tu primer agente → {resultado.orden.map((r) => r.area.nombre).join(' → ')} → El tablero
             </p>
           </>
         ) : null}
@@ -995,14 +1001,21 @@ export default function Modulo0Content() {
               if (a && !a.hasAttribute('data-compra') && a.getAttribute('href') === LINKS.cursoCompra) trackCursoClickCompra('modulo0');
             }}
           >
-            {/* Video 13 · cierre del módulo 0, sobre el siguiente paso (8-nov-2026) */}
-            <VideoMarco id="v13-m0-cierre" titulo="Lo que viene" duracion="18 s" />
+            {/* 15-nov-2026 (temario-agente): sale el video 13 («el curso suma una hoja por semana hasta tu tablero», ya no calza
+                con el orden nuevo) hasta cortarlo; en su lugar, el puente al módulo del agente (texto de planes/temario-agente §2). */}
+            <div className="rounded-2xl border border-[#FF3D8B]/40 bg-gradient-to-br from-[#FF3D8B]/10 via-[#111a2e] to-[#0f172a] p-5 sm:p-6">
+              <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-[#ff8fbd]">Lo que viene · módulo 7, en el curso completo</p>
+              <p className="mt-2 font-serif text-2xl leading-snug text-white">Ahora armas tu agente</p>
+              <p className="mt-3 text-slate-300">
+                Ya sabes dónde se te va el tiempo y tienes tu planilla con tu ficha y tus reglas de freno: justo lo que necesita un agente para partir. En el módulo que sigue lo armas: un asistente con tus reglas y tu planilla como memoria, que te prepara el pedido de un WhatsApp para que tú lo revises y lo envíes. Después vuelves al módulo 1 y le enseñas cada área de tu negocio.
+              </p>
+            </div>
             <div className="mb-10" />
             <SiguientePaso
               logro="Ya tienes el mapa, tu planilla base y la portada de tu sistema"
               pago={{
                 titulo: 'El curso completo: los 8 módulos están listos',
-                descripcion: `Entras hoy a los 7 módulos que siguen y avanzas a tu ritmo, cada uno con sus prompts: clientes y ventas (tu CRM), marketing y origen, pedidos, atención, cobranza y caja, el tablero y, al final, tu primer agente trabajando con tu planilla. ${textoPrecio()}.`,
+                descripcion: `Entras hoy a los 7 módulos que siguen y avanzas a tu ritmo, cada uno con sus prompts. Primero armas tu agente en Claude (con cuenta pagada y desde el computador) con lo que hiciste aquí; después le enseñas tus clientes, de dónde llegan, tus pedidos, tu atención, tu cobranza y caja, y cierras con tu tablero. ${textoPrecio()}. Tienes 7 días para pedir la devolución desde Hotmart si el curso no es para ti.`,
                 href: LINKS.cursoCompra,
                 cta: 'Quiero el curso',
               }}
@@ -1043,8 +1056,8 @@ export default function Modulo0Content() {
             </div>
             <p className="mt-4 text-sm text-slate-400 sm:text-right">
               ¿Ya lo compraste?{' '}
-              <a href="/curso/acceso?d=/curso/modulo-1" className="inline-block py-2 text-[#5fb2dd] underline underline-offset-2 hover:text-white">
-                Entra con tu código
+              <a href="/curso/acceso?d=/curso/modulo-7" className="inline-block py-2 text-[#5fb2dd] underline underline-offset-2 hover:text-white">
+                Entra con tu código y arma tu agente
               </a>
             </p>
           </div>

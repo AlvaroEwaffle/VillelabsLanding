@@ -195,7 +195,7 @@ function LeccionMemoria() {
         texto="Tu agente usa la planilla que vienes llenando desde el módulo 0. Si quieres probarlo antes con datos de muestra, abre el ejemplo de Grano Norte."
       />
       <Subtitulo>Ejercicio</Subtitulo>
-      <Instruccion>Sube tu planilla y hazle la pregunta de prueba. Si te responde con tus productos y tus clientes reales, tu agente ya tiene memoria.</Instruccion>
+      <Instruccion>Sube tu planilla y hazle la pregunta de prueba. Si te responde con tus productos reales y te dice qué hojas siguen vacías, tu agente ya tiene memoria.</Instruccion>
     </>
   );
 }
@@ -267,8 +267,12 @@ function LeccionCobranza() {
   return (
     <>
       <Explica>
-        <p>Es el módulo 5 hecho rutina: los mismos 3 recordatorios, pero tu agente decide cuál le toca a cada factura con la regla que tú le diste.</p>
+        <p>Es tu cobranza hecha rutina: 3 recordatorios con tu tono, y tu agente decide cuál le toca a cada factura con la regla que tú le diste.</p>
       </Explica>
+      {/* 15-nov-2026 (temario-agente): el agente va justo después del módulo gratis, antes de la hoja Cobranza. */}
+      <Aviso titulo="Si todavía no anotas tus facturas">
+        <p>Esta tarea necesita tus facturas en la hoja Cobranza. Si aún no las tienes, hazla ahora con el ejemplo de Grano Norte y repítela con las tuyas cuando llegues al módulo 5, «Tu cobranza y caja». Anota tus minutos cuando la hagas con las tuyas: esa es tu línea base.</p>
+      </Aviso>
       <Subtitulo>Paso a paso</Subtitulo>
       <Pasos
         items={[
@@ -412,7 +416,7 @@ function CierreAgente() {
 
   return (
     <section className="mx-auto max-w-3xl px-4 pb-24 pt-10 sm:px-6 sm:pt-14">
-      <Kicker>Cierre del módulo 7</Kicker>
+      <Kicker>Cierre · tu primer agente</Kicker>
       <h2 className="mt-3 font-serif text-3xl leading-tight text-white sm:text-4xl">Tu semana de prueba con tu agente</h2>
       <p className="mt-3 text-slate-300">Lo que armaste se prueba ahora con tu negocio, durante una semana. Al terminar, vuelve, marca tu semáforo y descarga tu entregable.</p>
 
@@ -458,7 +462,7 @@ function CierreAgente() {
         </ul>
       </div>
       <div className="mt-4">
-        <BotonDescarga principal etiqueta="Descargar mi entregable (.txt)" onClick={() => descargarArchivo('mi-primer-agente.txt', armarTxt('Tu primer agente · módulo 7', lineas, negocio))} />
+        <BotonDescarga principal etiqueta="Descargar mi entregable (.txt)" onClick={() => descargarArchivo('mi-primer-agente.txt', armarTxt('Tu primer agente', lineas, negocio))} />
       </div>
 
       <div className="mt-10 grid gap-5 overflow-hidden rounded-2xl border border-white/10 sm:grid-cols-[200px_1fr]">
@@ -492,7 +496,7 @@ const LECCIONES: LeccionDef[] = [
   {
     id: 'instrucciones',
     bajada:
-      'Tu agente parte con una hoja de instrucciones: qué hace, qué nunca hace y cuándo te pasa la pelota. Si hiciste el esqueleto o tus reglas de freno del módulo 0, ya tienes la mitad. Este módulo se hace en el computador: en el celular cuesta ajustar la configuración regional y pegar los bloques en la columna exacta.',
+      'Tu agente parte con una hoja de instrucciones: qué hace, qué nunca hace y cuándo te pasa la pelota. Con la ficha y las reglas de freno que armaste en el módulo gratis (o en el esqueleto), ya tienes la mitad. Este módulo se hace en el computador: en el celular cuesta ajustar la configuración regional y pegar los bloques en la columna exacta.',
     portada: APOYO.escritorioManos,
     contenido: <LeccionInstrucciones />,
     checklist: [
@@ -516,7 +520,7 @@ const LECCIONES: LeccionDef[] = [
   },
   {
     id: 'tarea-uno',
-    bajada: 'Te llega un pedido por WhatsApp. Lo pegas, y tu agente te devuelve la fila lista para la hoja Pedidos y la respuesta para tu cliente. Tú revisas, pegas y envías.',
+    bajada: 'Te llega un pedido por WhatsApp. Lo pegas, y tu agente te devuelve la fila lista para la hoja Pedidos y la respuesta para tu cliente. Solo necesita tu lista de productos: la hoja Pedidos ya viene armada en tu planilla. Tú revisas, pegas y envías.',
     portada: APOYO.celularMensajes,
     contenido: <LeccionTareaUno />,
     checklist: [
@@ -557,7 +561,7 @@ export default function Modulo7Content() {
   return (
     <ModuloCurso
       numero={7}
-      intro={`${PROMESA_AGENTE.definicion} Al terminar, tu agente pasa un WhatsApp a una fila de tu hoja Pedidos y te arma la cobranza del lunes, con los mensajes listos. No se conecta a tu WhatsApp ni escribe solo en tu planilla: tú copias, revisas y envías.`}
+      intro={`${PROMESA_AGENTE.definicion} ${PROMESA_AGENTE.orden} Al terminar, tu agente pasa un WhatsApp a una fila de tu hoja Pedidos y te arma la cobranza del lunes, con los mensajes listos. No se conecta a tu WhatsApp ni escribe solo en tu planilla: tú copias, revisas y envías.`}
       portada={APOYO.escritorioManos}
       lecciones={LECCIONES}
       cierre={<CierreAgente />}

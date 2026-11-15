@@ -18,14 +18,16 @@ const PACK_DESCRIPCION = `${PACK.titulo}. ${PACK.bonos.map((b) => `${b.clave}: $
 // 14-nov-2026 · cambio de base «oferta en clave agente» (lib/productos/curso/hero.ts): title, OG y Twitter repiten el H1 nuevo; la
 // imagen pasa a og/curso-agente.jpg (ya publicada: «Tu CRM y ERP en una planilla, y un agente de IA que trabaja con ella»).
 // El nombre del producto (CURSO.nombreCompleto, igual que en Hotmart) no cambia: sigue en el h2 y en el JSON-LD.
-const TITULO_OG = 'Tu primer agente de IA trabajando para ti, sin programar';
+// 15-nov-2026 · mensaje «en lenguaje de dueño» (planes/mensaje-dueno-2026-11-15.md §2.1): title/OG/Twitter repiten el H1 nuevo.
+// La imagen og/curso-agente.jpg se mantiene (no dice horas ni «trabajando para ti»). Las 2 horas, como estimación.
+const TITULO_OG = 'Tu primer asistente de IA, con tus reglas, sin programar';
 const DESCRIPCION_OG =
-  'El módulo 0 es gratis. Sin programar y con menos de 2 horas de lecciones y unas 7 a 8 de práctica: le armas a tu agente su memoria (tu planilla) y sus frenos, y te prepara borradores de pedidos y cobranza. Tú apruebas y tú envías.';
+  'El módulo 0 es gratis. En unas 2 horas de trabajo guiado (estimación nuestra) armas en Claude tu primer asistente, con tus reglas y tu planilla como memoria: te prepara pedidos y la cobranza del lunes, y tú revisas y envías.';
 
 export const metadata: Metadata = {
   title: { absolute: TITULO_OG },
   description:
-    'Curso online para pymes: construyes tu primer agente de IA, sin programar y con menos de 2 horas de lecciones y unas 7 a 8 de práctica. Le armas su memoria, el sistema de tu negocio en Google Sheets (clientes y ventas o CRM, pedidos, cobranza, caja y un tablero, tu ERP), y sus límites con tus reglas de freno. Después te prepara la fila de los pedidos que te llegan por WhatsApp y te avisa a quién cobrar, con el mensaje listo; tú apruebas y tú envías.',
+    'Curso online para dueños de pyme: armas tu primer asistente de IA en Claude, con tus reglas, sin programar. En unas 2 horas de trabajo guiado (estimación nuestra) le das su memoria, tu planilla de Google Sheets, y sus límites con tus reglas de freno; te prepara la fila de los pedidos que te llegan por WhatsApp y te avisa a quién cobrar, con el mensaje listo. Tú revisas y envías. Después le enseñas cada área: clientes y ventas (tu CRM), pedidos, cobranza, caja y un tablero (tu ERP). Menos de 2 horas de lecciones y unas 7 a 8 de práctica en todo el curso.',
   alternates: { canonical: `${SITE_URL}/curso` },
   openGraph: {
     type: 'website',
@@ -73,8 +75,9 @@ const JSON_LD = [
   faqPage(FAQ.map((f) => ({ q: f.p, a: f.r }))),
   videoObject({
     id: 'v08b-curso-venta',
-    nombre: 'Construye con IA tu sistema CRM y ERP',
-    descripcion: 'Álvaro Villena presenta el curso: armas con IA tu CRM y ERP en Google Sheets, una hoja a la vez con las fórmulas listas, hasta un tablero con lo que vendiste, lo que te deben y cuánta caja tienes. No es un software: es una planilla bien armada y rutinas cortas.',
+    // 15-nov-2026 (revisor): el video (v08b, 12-nov) presenta solo la planilla; la descripción dice eso, sin el agente que no muestra.
+    nombre: 'La planilla del curso: tu CRM y ERP en Google Sheets',
+    descripcion: 'Álvaro Villena presenta la planilla del curso: tus clientes, pedidos, cobranza y caja en Google Sheets, con las fórmulas listas, y un tablero con lo que vendiste, lo que te deben y cuánta caja tienes. No es un software: es una planilla bien armada y rutinas cortas.',
     segundos: 40,
     pagina: '/curso',
     subida: '2026-11-12',

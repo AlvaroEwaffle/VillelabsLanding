@@ -560,7 +560,7 @@ function ProyectoFinal() {
         <Kicker>Proyecto final</Kicker>
         <h2 className="mt-3 font-serif text-3xl leading-tight text-white sm:text-4xl">{PROYECTO_FINAL.titulo}</h2>
         <p className="mt-3 text-slate-300">
-          {PROYECTO_FINAL.texto} Aquí juntas lo que armaste en los módulos 0 a 6: compruebas que cada hoja tenga datos reales, comparas tu semáforo con el del módulo 0 y dejas escrito quién actualiza qué y cuándo.
+          {PROYECTO_FINAL.texto} Aquí juntas lo que armaste en el curso: compruebas que cada hoja tenga datos reales, comparas tu semáforo con el del módulo 0 y dejas escrito quién actualiza qué y cuándo.
         </p>
         <div className="mt-6">
           <VideoPendiente titulo={guion?.titulo ?? 'Tu negocio, antes y después'} guion={guion} portada={FOTOS.retrato} posicion="center 20%" clave="m6-final" />

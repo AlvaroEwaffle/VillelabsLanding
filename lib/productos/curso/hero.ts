@@ -22,16 +22,28 @@
 //   · «Cerca de una hora para armar el agente» (módulo 7: 60 a 77 min de práctica, criterio de modulo-7.md): verdad, pero no va
 //     en el hero: junto a «menos de 2 horas» suma ~3 h y esconde las 7 a 8 h de práctica. Puede ir más abajo, en el módulo 7.
 
+// 15-nov-2026 · mensaje «en lenguaje de dueño» (~/.claude/marca-alvaro/planes/mensaje-dueno-2026-11-15.md, opción 1, hero 2.1).
+// OK de Álvaro por WhatsApp (15-nov 01:53: «Delega me parece bien», «Si dale ok a todo») y garantía confirmada en el chat.
+// Por qué «asistente» y «con tus reglas»: el dueño que le teme a la IA teme perder el control; «con tus reglas» le dice que él
+// manda, y «asistente» es palabra que ya conoce («agente» queda en segundo nivel: las piezas, el módulo 7). Nunca «automatiza».
+// «Unas 2 horas de trabajo guiado»: solo vale porque desde este deploy el camino recomendado va del módulo 0 al módulo 7
+// (ORDEN_RECOMENDADO en curso.ts): 20 min de lecciones + 75 a 101 min de práctica (criterio, sin medir con alumnos; la nota
+// «Tiempos estimados por nosotros…» va bajo el formulario). Si ese camino se deshace, esta frase sale.
+// «Lo armas en Claude» no se quita: el agente solo está probado en un proyecto de Claude con cuenta pagada (PROMESA_AGENTE).
+// El antetítulo deja de repetir la pregunta del anuncio X14 (decisión del coordinador, 15-nov).
 export const HERO_CURSO = {
-  /** Repite la pregunta del anuncio X14 (el que más tráfico trae a /curso). */
-  antetitulo: '¿Chatear con ChatGPT o tener tu propio agente?',
-  // Candidatos: (a) «Construye tu primer agente de IA para tu negocio, sin programar» (fue la primera elección de esta propuesta);
-  // (b) «Tu primer agente trabajando en tu negocio en una semana» (descartado, ver arriba); (c) el preferido de Álvaro, elegido.
-  titulo: 'Tu primer agente de IA trabajando para ti',
+  antetitulo: '¿Ya conversas con ChatGPT o Claude? Este es el paso siguiente.',
+  titulo: 'Tu primer asistente de IA, con tus reglas',
   bajada:
-    // Con la práctica real a la vista: «menos de 2 horas» sola haría creer que todo toma 2 o 3 horas (la auditoría del 12-nov
-    // marcó «5 horas» como causal de reembolso). La hora del módulo 7 queda fuera del hero por lo mismo.
-    'Lo armas tú, sin programar: menos de 2 horas de lecciones y unas 7 a 8 de práctica, a tu ritmo. Primero le das memoria (tu planilla de clientes, pedidos y caja) y frenos; después lo pones a prepararte pedidos y cobranza.',
+    'En unas 2 horas de trabajo guiado lo armas en Claude, sin programar. Con tu planilla como memoria, te prepara pedidos y la cobranza del lunes; tú revisas y envías.',
+  /** Tercera frase de la bajada de la propuesta: baja bajo el botón para que el botón quepa en 360×560 (QA 15-nov: quedaba
+   * en 515–563 px). Corrección prevista en mensaje-dueno §4, falla 4. */
+  despues: 'Después le enseñas cada área de tu negocio, a tu ritmo.',
+  /** Garantía (Hotmart 8921667: plazo de reembolso 7 días, verificado en pantalla el 15-nov) y requisito, en la línea de compra. */
+  garantia: 'Tienes 7 días para pedir la devolución desde Hotmart si el curso no es para ti.',
+  requisito: 'Tu asistente se arma en Claude, con cuenta pagada y desde el computador.',
+  /** Letra chica bajo el formulario: las horas son criterio del curso, no medición. */
+  notaTiempos: 'Tiempos estimados por nosotros, todavía sin medir con alumnos.',
   /** Línea de confianza (pedido de Álvaro 20:09: muchos dueños le tienen miedo a la IA). */
   // Texto exacto del revisor adversario (14-nov): «apruebas» y «delegando de a poco» prometían más de lo que hace el módulo 7.
   confianza: 'Parte con frenos y 2 tareas, y solo te prepara borradores cuando se lo pides: tú revisas y envías cada uno.',

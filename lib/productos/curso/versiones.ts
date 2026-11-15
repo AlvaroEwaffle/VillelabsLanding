@@ -16,6 +16,18 @@ export const FECHA_PUBLICACION_M7 = '2026-11-13';
 
 export const VERSIONES_CURSO: VersionCurso[] = [
   {
+    // 15-nov-2026 · temario en clave agente (plan B: sin renumerar) + mensaje «en lenguaje de dueño».
+    version: '1.5',
+    fecha: '2026-11-15',
+    cambios: [
+      'Tu agente va justo después del módulo 0 gratis: al cerrar el 0 sigues con el módulo 7, y después vuelves al 1 para enseñarle cada área. Los números de los módulos y tu avance guardado no cambian.',
+      'La segunda tarea del agente (la cobranza del lunes) la puedes practicar con el ejemplo de Grano Norte si todavía no anotas tus facturas, y repetirla con las tuyas en el módulo 5.',
+      'Cada módulo se presenta como lo que le enseñas a tu agente: tus clientes, de dónde llegan, tus pedidos, tu atención, tu cobranza y caja, y tu tablero.',
+    ],
+    porque:
+      'Para armar el agente no hacía falta llenar antes las 6 hojas: con tu ficha, tus productos y tus reglas de freno del módulo 0 ya hace su primera tarea. Antes llegabas a él al final; ahora lo tienes al principio y cada hoja que llenas es algo más que sabe de tu negocio.',
+  },
+  {
     version: '1.4',
     fecha: FECHA_PUBLICACION_M7,
     cambios: [

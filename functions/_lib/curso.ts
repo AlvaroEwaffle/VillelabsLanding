@@ -28,7 +28,8 @@ export const PROTEGIDO_CURSO = /^\/curso\/(modulo-[1-7]|bonos)(\/|\.|$)/;
 /** Ruta del módulo o de «Tus bonos» (sin .txt ni subrutas) a la que se vuelve después de entrar; si no calza, el módulo 1. */
 export function destinoCurso(d: string | null | undefined): string {
   const m = d && !d.includes('//') ? /^\/curso\/(modulo-[1-7]|bonos)(?=\/|\.|$)/.exec(d) : null;
-  return m ? m[0] : '/curso/modulo-1';
+  // 15-nov-2026 (temario-agente, plan B): sin destino, quien entra con su código cae en el módulo del agente (orden recomendado 0 → 7 → 1 … 6).
+  return m ? m[0] : '/curso/modulo-7';
 }
 
 /** Valor de la cookie si el código es válido; si no, null. */

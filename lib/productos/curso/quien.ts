@@ -25,6 +25,17 @@ export const PARA_QUE = 'Hice este curso para que ordenes tu negocio de punta a 
 export const BIO =
   'Soy Álvaro Villena, ingeniero civil industrial y Product/Program Manager, y trabajo como consultor en la red de Toptal. Hoy opero tres negocios con agentes de IA. No soy gurú: soy un PM que programa, y las reglas que enseño las uso todos los días en mis negocios.';
 
+/**
+ * Prueba propia (15-nov-2026, mensaje-dueno §3; Álvaro por WA 15-nov 01:42: «Se puede nombrar todo»).
+ * Cifras: Studio al 14-nov (~/.claude/marca-alvaro/guiones/cifras-ewaffle-defendibles-2026-11-14.md): ventas 2026 $163,6M vs
+ * $153,9M en 2025 (+6,3 %), clientes 11 → 14, proyectos 13 → 36. Solo 2025 vs 2026 (regla de Álvaro). Verbo «vendimos», nunca
+ * «facturamos» ni «cobramos» (lo facturado 2026 todavía es menor que 2025). «No todo es mérito de la IA»: no se insinúa causa.
+ * Kimberly-Clark y Toptal: solo nombrados, el hecho a secas, sin cifras, sin procesos ni qué hace la IA ahí (trabajo vía
+ * Toptal con confidencialidad). VENCE: en enero de 2027 «este año» deja de ser 2026; cambiar a «en 2026 vendimos más que en 2025» con la cifra del cierre.
+ */
+export const PRUEBA_PROPIA =
+  'En Ewaffle, mi empresa de cursos online para empresas, este año ya vendimos más que en todo 2025, y el año todavía no termina. Pasamos de 11 a 14 clientes y de 13 a 36 proyectos. No todo es mérito de la IA, pero sí es mi forma de trabajar. También la uso en mi trabajo con Kimberly-Clark y con Toptal. En todos los casos la regla es la que vas a aprender: la IA me prepara el borrador y yo decido.';
+
 export const DATOS = [
   { valor: 3, sufijo: '', texto: 'negocios propios que opero' },
   { valor: 8, prefijo: '+', sufijo: '', texto: 'años liderando equipos de producto' },

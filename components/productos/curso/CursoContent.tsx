@@ -28,7 +28,7 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { ArrowRight, Bot, Check, ChevronDown, ClipboardCheck, ClipboardList, Eye, FileSpreadsheet, FlaskConical, Gift, Handshake, LayoutDashboard, Map as MapIcon, Megaphone, MessageCircle, ShieldCheck, Sparkles, Wallet, X, type LucideIcon } from 'lucide-react';
 import { LINKS } from '@/lib/productos/links';
-import { ACCESO, AREAS, CASO, CURSO, FAQ, HOJAS, IA_OPCIONAL, MODULOS, PARA_QUIEN, PROYECTO_AGENTE, PROYECTO_FINAL, PRECIO_CURSO, QUE_ES, SISTEMA_AGENTE, textoPrecio, textoPrecioConMoneda, textoPrecioDetalle } from '@/lib/productos/curso/curso';
+import { ACCESO, AREAS, CASO, CURSO, FAQ, HOJAS, IA_OPCIONAL, MODULOS, MODULOS_EN_ORDEN, PARA_QUIEN, PROYECTO_AGENTE, PROYECTO_FINAL, PRECIO_CURSO, QUE_ES, SISTEMA_AGENTE, textoPrecio, textoPrecioConMoneda, textoPrecioDetalle } from '@/lib/productos/curso/curso';
 import { HERO_CURSO } from '@/lib/productos/curso/hero';
 import { EXP16 } from '@/lib/productos/curso/exp16';
 import { bajarAlAncla } from '@/lib/productos/ancla';
@@ -276,7 +276,8 @@ export default function CursoContent() {
             {/* Las piezas del agente (memoria, frenos, diagnóstico, tablero; CRM y ERP siguen como palabras clave), bajo el botón
                 para que el botón quepa en 360×560. */}
             <div>
-              <ul aria-label={HERO_CURSO.piezasEtiqueta} className="mt-4 flex flex-wrap gap-2">
+              <p className="mt-4 text-sm text-slate-300">{HERO_CURSO.despues}</p>
+              <ul aria-label={HERO_CURSO.piezasEtiqueta} className="mt-3 flex flex-wrap gap-2">
                 {HERO_CURSO.piezas.map((c) => (
                   <li key={c.clave} className="rounded-full border border-[#5fb2dd]/40 bg-[#2175a1]/15 px-3 py-1 text-xs text-slate-200">
                     <span className="font-mono font-semibold uppercase tracking-[0.12em] text-[#9fd3ee]">{c.clave}</span> = {c.texto}
@@ -285,8 +286,10 @@ export default function CursoContent() {
               </ul>
             </div>
             <CursoLead ubicacion="hero" className="mt-6" />
+            {/* 15-nov-2026: las horas del hero son criterio del curso, no medición (mensaje-dueno 2.1). */}
+            <p className="mt-2 text-xs text-slate-500">{HERO_CURSO.notaTiempos}</p>
             <div>
-              <p className="mt-4 py-1 text-sm leading-7 text-slate-400">
+              <p className="mt-3 py-1 text-sm leading-7 text-slate-400">
                 ¿Prefieres comprarlo ya?{' '}
                 <a
                   href={LINKS.cursoCompra}
@@ -301,7 +304,7 @@ export default function CursoContent() {
                 >
                   Compra el curso
                 </a>{' '}
-                · {textoPrecio()}
+                · {textoPrecio()}. {HERO_CURSO.garantia} {HERO_CURSO.requisito}
               </p>
             </div>
             <p className="mt-4 text-xs text-slate-500">
@@ -336,7 +339,7 @@ export default function CursoContent() {
         <p className="mt-6 max-w-3xl text-slate-300">{CURSO.promesa}</p>
         <p className="mt-3 max-w-3xl text-sm text-slate-400">{CURSO.noEsSoftware}</p>
         {/* Video 8 · venta del curso (enfoque CRM/ERP, 8-nov-2026; 12-nov sin la frase de preventa: v08b). */}
-        <VideoMarco id="v08b-curso-venta" titulo="Construye con IA tu sistema CRM y ERP" duracion="40 s" className="mt-10" />
+        <VideoMarco id="v08b-curso-venta" titulo="La planilla del curso: tu CRM y ERP en Google Sheets" duracion="40 s" className="mt-10" />
       </section>
 
       {/* Para quién */}
@@ -393,7 +396,7 @@ export default function CursoContent() {
             </li>
           ))}
         </Armado>
-        <p className="mt-10 font-mono text-[11px] uppercase tracking-[0.18em] text-[#5fb2dd]">Paso 1 · Estructura</p>
+        <p className="mt-10 font-mono text-[11px] uppercase tracking-[0.18em] text-[#5fb2dd]">Su memoria · tu planilla</p>
         <Armado className="a-cascada mt-3 grid gap-3 md:grid-cols-2">
           <div className="rounded-2xl border border-[#5fb2dd]/40 bg-[#2175a1]/10 p-5">
             <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-[#5fb2dd]">Qué es un CRM</p>
@@ -425,7 +428,7 @@ export default function CursoContent() {
           Al centro: tu planilla, con el tablero del módulo 6 que lee todas las hojas y te muestra tus números del lunes. Abajo: tu agente del módulo 7, que toma esos datos. Y en el módulo 0, tus reglas de freno: lo que decide siempre una persona, también por encima del agente.
         </p>
         <div className="mt-10 rounded-2xl border border-[#FF3D8B]/35 bg-gradient-to-br from-[#FF3D8B]/[0.08] via-[#111a2e] to-[#0f172a] p-5 sm:p-6">
-          <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-[#ff8fbd]">Paso 2 · Delega</p>
+          <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-[#ff8fbd]">Lo que te prepara</p>
           <h3 className="mt-2 font-serif text-2xl text-white">{SISTEMA_AGENTE.gestion.titulo}</h3>
           <Armado as="ul" className="a-cascada mt-5 grid gap-3 md:grid-cols-3">
             {SISTEMA_AGENTE.gestion.items.map((g) => (
@@ -451,7 +454,7 @@ export default function CursoContent() {
           <>
             <span className="font-serif text-2xl text-white">{TIEMPO.grande}</span> {TIEMPO.detalle}{' '}
             <span className="mt-2 block text-sm text-slate-400">
-              {MODULOS.length} módulos · {totalLecciones} lecciones. Cada módulo cierra con una prueba real en tu negocio: del 1 al 6 llenas una hoja de tu planilla y en el 7, el proyecto final, tu agente trabaja con ella.
+              {MODULOS.length} módulos · {totalLecciones} lecciones. Cada módulo cierra con una prueba real en tu negocio. El orden que te proponemos: después del 0 gratis, armas tu agente en el módulo 7; del 1 al 6 le enseñas cada área, llenando una hoja de tu planilla.
             </span>
           </>
         }
@@ -459,7 +462,8 @@ export default function CursoContent() {
         {/* 13-nov-2026: los módulos como línea de tiempo que se dibuja al entrar en pantalla (.a-linea) y entran escalonados. */}
         <Armado className="relative mt-10 space-y-3 pl-5 sm:pl-7">
           <span aria-hidden className="a-linea absolute bottom-6 left-1.5 top-6 w-px bg-gradient-to-b from-[#5fb2dd] via-[#5fb2dd]/40 to-transparent sm:left-2.5" />
-          {MODULOS.map((m, im) => (
+          {/* 15-nov-2026: en el orden recomendado (0 → 7 → 1 … 6), con el número de siempre. */}
+          {MODULOS_EN_ORDEN.map((m, im) => (
             <div key={m.numero} className="a-pieza relative" style={orden(im)}>
             <span aria-hidden className={`absolute -left-[18px] top-7 h-2.5 w-2.5 rounded-full ring-4 transition-colors duration-300 sm:-left-[24px] ${moduloAbierto === m.numero || m.numero === 7 ? 'bg-[#FF3D8B] ring-[#FF3D8B]/20' : 'bg-[#5fb2dd] ring-[#5fb2dd]/15'}`} />
             <Acordeon
@@ -481,7 +485,7 @@ export default function CursoContent() {
                     <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-[#5fb2dd]">
                       Módulo {m.numero} · {m.area}
                       {m.numero === 0 ? <span className="ml-2 rounded-full bg-[#FF3D8B]/15 px-2 py-0.5 text-[10px] text-[#ff8fbd]">gratis</span> : null}
-                      {m.numero === 7 ? <span className="ml-2 rounded-full bg-[#FF3D8B]/15 px-2 py-0.5 text-[10px] text-[#ff8fbd]">proyecto final</span> : null}
+                      {m.numero === 7 ? <span className="ml-2 rounded-full bg-[#FF3D8B]/15 px-2 py-0.5 text-[10px] text-[#ff8fbd]">justo después del 0</span> : null}
                     </p>
                     <p className="mt-1.5 font-serif text-xl text-white sm:text-2xl">{m.titulo}</p>
                     <p className="mt-1 text-xs text-slate-400">{m.duracion}</p>
@@ -536,7 +540,7 @@ export default function CursoContent() {
         <Armado className="mt-6">
           <div className="a-pieza rounded-2xl border border-[#FF3D8B]/45 bg-gradient-to-br from-[#FF3D8B]/[0.12] via-[#111a2e] to-[#0f172a] p-5 sm:p-6" style={orden(0)}>
             <p className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.18em] text-[#ff8fbd]">
-              <LayoutDashboard className="h-4 w-4" aria-hidden /> {PROYECTO_AGENTE.kicker} · módulos 6 y 7
+              <LayoutDashboard className="h-4 w-4" aria-hidden /> {PROYECTO_AGENTE.kicker}
             </p>
             <h3 className="mt-2 font-serif text-2xl leading-snug text-white sm:text-3xl">{PROYECTO_AGENTE.titulo}</h3>
             <p className="mt-3 max-w-3xl text-slate-300">{PROYECTO_AGENTE.texto}</p>
@@ -738,7 +742,7 @@ export default function CursoContent() {
           <div className="p-6 sm:p-10">
           <h2 className="max-w-2xl font-serif text-3xl text-white sm:text-4xl">Empieza hoy con el mapa y tu planilla base.</h2>
           <p className="mt-4 max-w-2xl text-slate-300">
-            En 30 minutos sabes qué pieza de tu negocio está en rojo, por dónde partir y qué decisiones no deberían salir de tus manos, y te llevas la planilla donde vas a armar tu sistema. Los otros 7 módulos, con tu agente al final, ya están listos para seguir a tu ritmo.
+            En 30 minutos sabes qué pieza de tu negocio está en rojo, por dónde partir y qué decisiones no deberían salir de tus manos, y te llevas la planilla que va a ser la memoria de tu agente. Los otros 7 módulos ya están listos: el que sigue es el de tu agente, y después le enseñas cada área a tu ritmo.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
             <BotonCompra ubicacion="cta_final" />
