@@ -10,15 +10,17 @@ export function DiagramaRecorrido() {
   return (
     <Diagrama
       titulo="Lo que arma el esqueleto"
-      aria="Flujo: un cliente escribe, tu asistente responde con lo que dice tu esqueleto, y lo que no sabe o no puede prometer te llega a ti."
+      aria="Flujo: un cliente escribe, le pasas el mensaje a tu asistente, que lee tu esqueleto y te prepara la respuesta con tu tono, y tú la revisas y la envías; descuentos, reclamos y lo que no sabe los decides tú."
       className="mt-8"
     >
+      {/* 15-nov-2026 (corrección de verdad, común a A y B de EXP-14): antes «Responde lo de siempre · Al tiro, con tu tono», que
+          sugería un asistente contestando solo en WhatsApp. El esqueleto se usa en Claude o ChatGPT: prepara y la persona envía. */}
       <Flujo
         pasos={[
           { titulo: 'Un cliente escribe', texto: '«¿Cuánto cuesta? ¿Despachan?»' },
-          { titulo: 'Tu asistente lee tu esqueleto', texto: 'Lo que vendes, tus respuestas y tus reglas', tono: 'acento' },
-          { titulo: 'Responde lo de siempre', texto: 'Al tiro, con tu tono' },
-          { titulo: 'Lo importante te llega a ti', texto: 'Descuentos, reclamos, lo que no sabe', tono: 'claro' },
+          { titulo: 'Le pasas el mensaje a tu asistente', texto: 'Lee tu esqueleto: lo que vendes, tus respuestas y tus reglas', tono: 'acento' },
+          { titulo: 'Te prepara la respuesta', texto: 'Con tus datos y tu tono' },
+          { titulo: 'Tú la revisas y la envías', texto: 'En descuentos, reclamos o lo que no sabe, te avisa y decides tú', tono: 'claro' },
         ]}
       />
     </Diagrama>
@@ -55,7 +57,7 @@ export function DiagramaLoQueSabe() {
             <circle cx="24" cy="5" r="3" fill="#5fb2dd" />
           </svg>
           <p className="mt-2 font-serif text-lg text-white">Tu asistente</p>
-          <p className="text-[13px] text-slate-300">Responde solo con esto</p>
+          <p className="text-[13px] text-slate-300">Responde únicamente con esto</p>
         </motion.div>
       </div>
     </Diagrama>
@@ -93,7 +95,7 @@ export function DiagramaPreguntasRepetidas() {
         </div>
         <Flecha />
         <div className="grid gap-2">
-          <Nodo tono="acento" titulo="6 repetidas → las responde tu asistente" texto="Con la respuesta corta que escribes en este paso" />
+          <Nodo tono="acento" titulo="6 repetidas → te las prepara tu asistente" texto="Con la respuesta corta que escribes en este paso" />
           <Nodo titulo="4 distintas → siguen pasando por ti" texto="O el asistente te las deriva (paso 4)" />
         </div>
       </div>

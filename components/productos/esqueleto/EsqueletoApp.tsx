@@ -526,7 +526,9 @@ export default function EsqueletoApp() {
             </ol>
             <ul className="mt-10 space-y-2 border-t border-white/10 pt-6 text-sm text-slate-300">
               {[
-                'Te vas con tu asistente escrito: lo pruebas gratis en Claude o ChatGPT y después lo conectas a tu WhatsApp (te muestro cómo).',
+                // 15-nov-2026 (corrección de verdad, común a A y B de EXP-14): antes «…y después lo conectas a tu WhatsApp (te muestro cómo)».
+                // El esqueleto no se conecta a nada: el asistente prepara la respuesta y la persona la revisa y la envía.
+                'Te vas con tu asistente escrito: lo pegas gratis en Claude o ChatGPT, le pasas lo que te escribe tu cliente y te prepara la respuesta; tú la revisas y la envías por WhatsApp.',
                 '5 preguntas trampa para probarlo antes de usarlo con clientes.',
                 'En cada campo, un ejemplo listo: Grano Norte, una tostaduría de café inventada.',
               ].map((x) => (

@@ -21,11 +21,11 @@ export const metadata: Metadata = {
     locale: 'es_CL',
     siteName: 'Villelab',
     title: 'Te regalo el esqueleto de tu asistente de WhatsApp',
-    description: '4 pasos, 15 minutos y gratis: la base para que tu WhatsApp responda las preguntas de siempre sin inventar nada.',
+    description: 'Gratis, en 4 pasos y 15 minutos: deja escrito qué responde tu asistente, qué nunca promete y cuándo te pasa la conversación.',
     url: `${SITE_URL}/esqueleto`,
     images: [{ url: `${SITE_URL}/og/esqueleto.jpg`, width: 1200, height: 630, alt: 'Te regalo el esqueleto de tu asistente de WhatsApp' }],
   },
-  twitter: { card: 'summary_large_image', title: 'Te regalo el esqueleto de tu asistente de WhatsApp', description: '4 pasos, 15 minutos y gratis: la base para que tu WhatsApp responda las preguntas de siempre sin inventar nada.', images: [`${SITE_URL}/og/esqueleto.jpg`] },
+  twitter: { card: 'summary_large_image', title: 'Te regalo el esqueleto de tu asistente de WhatsApp', description: 'Gratis, en 4 pasos y 15 minutos: deja escrito qué responde tu asistente, qué nunca promete y cuándo te pasa la conversación.', images: [`${SITE_URL}/og/esqueleto.jpg`] },
 };
 
 const JSON_LD = [

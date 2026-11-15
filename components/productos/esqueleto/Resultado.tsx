@@ -151,9 +151,10 @@ export default function Resultado({
         <h3 id="esqueleto-titulo" className="font-serif text-2xl text-white">
           El esqueleto de tu asistente
         </h3>
+        {/* 15-nov-2026 (corrección de verdad): sale «Antes de conectarlo a tu WhatsApp,» del texto de abajo. */}
         <p className="mt-2 text-sm text-slate-400">
-          Es lo que tu asistente tiene que saber, escrito con tus datos: qué responde, qué nunca promete y cuándo te avisa. Antes de
-          conectarlo a tu WhatsApp, pruébalo gratis en Claude o ChatGPT: son chats parecidos a WhatsApp donde pegas este texto y le
+          Es lo que tu asistente tiene que saber, escrito con tus datos: qué responde, qué nunca promete y cuándo te avisa. Pruébalo
+          gratis en Claude o ChatGPT: son chats parecidos a WhatsApp donde pegas este texto y le
           escribes como si fueras un cliente.
         </p>
         <pre className="mt-4 max-h-[420px] overflow-auto whitespace-pre-wrap break-words rounded-2xl border border-white/10 bg-black/40 p-4 font-mono text-[13px] leading-relaxed text-slate-200 sm:p-5">
