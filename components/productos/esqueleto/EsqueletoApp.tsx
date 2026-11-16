@@ -3,6 +3,8 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { ArrowLeft, ArrowRight, Check, Clock, Gift, RotateCcw, Save } from 'lucide-react';
 import {
+  EJEMPLO,
+  EJEMPLOS_RUBRO,
   IDENTIFICACIONES,
   MIN_FAQS,
   OPCIONES_RESPUESTA,
@@ -248,62 +250,28 @@ function DatosContacto({ onListo, onVolver }: { onListo: (l: Lead) => void; onVo
   );
 }
 
-/**
- * EXP-14 · B · correo en la primera pantalla (12-nov-2026). Nombre + correo bajo el título; al enviar, el lead se registra
- * ahí mismo (Fidelidapp + Slack) y la persona entra al paso 1. Quien ya lo dejó antes no lo vuelve a ver.
- * Correo a medias: si escribe un correo válido y no toca el botón, se guarda igual (paso 0 = portada).
- */
-function PortadaCorreo({ onListo, deshabilitado }: { onListo: (l: Lead) => void; deshabilitado: boolean }) {
-  const [nombre, setNombre] = useState('');
-  const [correo, setCorreo] = useState('');
-  const [error, setError] = useState('');
-  const [enviando, setEnviando] = useState(false);
-  return (
-    <form
-      noValidate
-      onSubmit={(e) => {
-        e.preventDefault();
-        if (!nombre.trim()) return setError('Escribe tu nombre.');
-        if (!correoValido(correo)) return setError('Revisa tu correo: parece que le falta algo.');
-        setError('');
-        setEnviando(true);
-        cancelarParcial();
-        onListo({ nombre: nombre.trim(), correo: correo.trim(), whatsapp: '', fecha: new Date().toISOString() });
-      }}
-      onBlur={() => campoParcial({ nombre, correo, whatsapp: '' }, 0)}
-      className="mt-4 grid gap-3 sm:max-w-md"
-    >
-      <label htmlFor="portada-nombre" className="sr-only">
-        Tu nombre
-      </label>
-      <input id="portada-nombre" autoComplete="given-name" placeholder="Tu nombre" value={nombre} onChange={(e) => setNombre(e.target.value)} className={claseInput} />
-      <label htmlFor="portada-correo" className="sr-only">
-        Tu correo
-      </label>
-      <input
-        id="portada-correo"
-        type="email"
-        inputMode="email"
-        autoComplete="email"
-        placeholder="Tu correo"
-        value={correo}
-        onChange={(e) => setCorreo(e.target.value)}
-        className={claseInput}
-      />
-      {error ? (
-        <p role="alert" className="text-sm text-orange-300">
-          {error}
-        </p>
-      ) : null}
-      <button type="submit" disabled={deshabilitado || enviando} className={botonPrimario}>
-        {TEXTOS.boton} <ArrowRight className="h-4 w-4" />
-      </button>
-      <p className="text-xs text-slate-400">
-        Gratis, sin tarjeta. Lo armas aquí mismo, en unos 15 minutos, y lo copias o descargas. Usamos tu correo para mandarte contenido útil para tu negocio; te puedes dar de baja cuando quieras. Guardamos lo que escribes para no perder tu avance.
-      </p>
-    </form>
-  );
-}
+// 16-nov-2026 · rubro limpio para el lead. Los botones de rubro del paso 1 llenan «Rubro» con su ejemplo («Estudio contable»,
+// «Distribuidora de insumos de aseo»…) aunque la persona nunca abra ese campo (va plegado en «Agregar más detalle»). Si el
+// rubro que llega es idéntico a un ejemplo, no lo editó: no se manda como etiqueta rubro: a Fidelidapp (ensuciaba el dato:
+// el 15-nov dos registros reales quedaron con rubros del ejemplo). El esqueleto en sí no cambia.
+const RUBROS_DE_EJEMPLO = new Set([EJEMPLO.rubro, ...EJEMPLOS_RUBRO.map((r) => r.datos.rubro)].map((r) => r.trim().toLowerCase()));
+const paraLead = (e: Esqueleto): Esqueleto => (RUBROS_DE_EJEMPLO.has(e.rubro.trim().toLowerCase()) ? { ...e, rubro: '' } : e);
+
+// EXP-19 (16-nov-2026, corte de las 17:00) · /esqueleto · continuidad con el anuncio X14 («¿Chatear con ChatGPT o tener un
+// agente?», reel que termina en «un agente necesita reglas de lo que nunca puede hacer»). Solo para quien llega con
+// utm_content=x14-esqueleto: B cambia el titular y la bajada de la portada para seguir esa idea; A = portada ganadora de
+// EXP-14. Todo lo demás es igual. La variante es la misma de EXP-14 (localStorage vl_exp14, ?v=A|B, <html data-exp14>,
+// etiqueta «[EXP-14 X]» en Slack): esa mecánica vive en un chunk que comparte /curso y cambiarla movería /curso a mitad de
+// EXP-16. El script en línea de app/(main)/esqueleto/page.tsx marca <html data-x14> y su <style> muestra el titular que toca.
+// Sin JS, o sin el anuncio X14, se ve A.
+const ANUNCIO_X14 = 'x14-esqueleto';
+// Hipótesis: quien viene del reel llega pensando en «agente» y «reglas»; la A le habla de «asistente de WhatsApp» y se va
+// sin tocar nada (0 clics «Armar» en 120 visitas reales del 13 al 16-nov). Retomar la última idea del reel sube el clic.
+const X14_B = {
+  titular: 'Un agente necesita reglas. Escribe las de tu negocio, gratis',
+  // Revisor 16-nov (obligatorio): decir en el primer pantallazo dónde se usa, para no insinuar que se arma un agente.
+  bajada: 'Parte por tu WhatsApp: qué responde, qué nunca promete y cuándo te avisa. Las pegas en ChatGPT o Claude.',
+};
 
 export default function EsqueletoApp() {
   const [avance, setAvance] = useState<Avance>(avanceInicial);
@@ -324,9 +292,26 @@ export default function EsqueletoApp() {
   const [escribiendo, setEscribiendo] = useState(false);
   const { esqueleto, pantalla } = avance;
 
-  // EXP-14: si se llegó navegando dentro del sitio el script en línea no corrió; se asigna aquí. Aviso a GA4 una vez.
+  // EXP-14/EXP-19: si se llegó navegando dentro del sitio el script en línea no corrió; se asigna aquí. Aviso a GA4 una vez.
+  // EXP-19: el hilo de la visita anota que vio la portada del anuncio X14 y con qué variante (sin datos personales).
   useEffect(() => {
-    EXP14.avisar(EXP14.asignar());
+    const v = EXP14.asignar();
+    EXP14.avisar(v);
+    const html = document.documentElement;
+    try {
+      if (new URLSearchParams(window.location.search).get('utm_content') === ANUNCIO_X14) html.setAttribute('data-x14', '1');
+    } catch {
+      /* sin URL legible: queda como esté */
+    }
+    if (!html.hasAttribute('data-x14')) return;
+    try {
+      // Una vez por sesión (revisor 16-nov: se repetía en cada recarga).
+      if (sessionStorage.getItem('vl_x14_aviso') === v) return;
+      sessionStorage.setItem('vl_x14_aviso', v);
+    } catch {
+      /* sin almacenamiento: se avisa igual */
+    }
+    avisarPaso(`EXP-19 · portada del anuncio X14, variante ${v}`);
   }, []);
 
   /* eslint-disable react-hooks/set-state-in-effect -- lectura única de localStorage al montar */
@@ -457,15 +442,6 @@ export default function EsqueletoApp() {
     setPantallaGuardada(0);
   };
 
-  // EXP-14 · B: el correo se deja en la portada → se registra ahí y se entra al paso 1 (siguiente() ya no lo vuelve a pedir).
-  const alDejarCorreoEnPortada = (l: Lead) => {
-    guardarLead(l);
-    setLead(l);
-    void enviarLead(l, esqueleto);
-    eventos.inicio();
-    irA(1);
-  };
-
   const botonesPortada = (
     <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
       {pantallaGuardada > 0 ? (
@@ -495,17 +471,21 @@ export default function EsqueletoApp() {
       <div ref={arriba} className="relative mx-auto max-w-3xl scroll-mt-24 px-4 pb-24 pt-28 sm:px-6 md:pt-36">
         {pantalla === 0 ? (
           <section className="py-6 sm:py-10">
-            {/* Hero · EXP-14 (12-nov-2026, 17:00): A control (ex A de EXP-11, botón «Armar mi esqueleto»; el correo al final) ·
-                B correo en la primera pantalla. Mismo título en las dos; el CSS muestra lo que toca según <html data-exp14>
-                (script en línea antes de pintar). Sin JS se ve A. */}
+            {/* Hero · EXP-14 cerrada el 16-nov-2026 17:00: ganó A (correo al final; B «correo en la primera pantalla» se retiró).
+                EXP-19: titular y bajada distintos solo para el anuncio X14 en la B (ver ANUNCIO_X14). Sin JS se ve A. */}
             <p className="inline-flex items-center gap-2 rounded-full border border-[#5fb2dd]/40 bg-[#5fb2dd]/10 px-3 py-1 text-xs font-medium uppercase tracking-[0.18em] text-[#5fb2dd]">
               <Gift className="h-3.5 w-3.5" /> {TEXTOS.kicker}
             </p>
-            <h1 className="mt-4 font-serif text-[2.1rem] leading-[1.1] text-white sm:text-5xl lg:text-[3.1rem]">Tu asistente de WhatsApp, escrito en 15 minutos</h1>
-            <p className="mt-4 max-w-2xl text-lg text-slate-200 sm:text-xl">Qué responde, qué nunca promete y cuándo te avisa. Gratis, sin tarjeta.</p>
-            {/* A · control; en la B solo si ya dejó su correo antes o tiene un avance guardado. */}
-            <div className="exp14-A">{botonesPortada}</div>
-            <div className="exp14-B">{lead || correoDado || pantallaGuardada > 0 ? botonesPortada : <PortadaCorreo deshabilitado={!cargado} onListo={alDejarCorreoEnPortada} />}</div>
+            <div className="x14-A">
+              <h1 className="mt-4 font-serif text-[2.1rem] leading-[1.1] text-white sm:text-5xl lg:text-[3.1rem]">Tu asistente de WhatsApp, escrito en 15 minutos</h1>
+              <p className="mt-4 max-w-2xl text-lg text-slate-200 sm:text-xl">Qué responde, qué nunca promete y cuándo te avisa. Gratis, sin tarjeta.</p>
+            </div>
+            {/* EXP-19 · B, solo con utm_content=x14-esqueleto (ver ANUNCIO_X14). */}
+            <div className="x14-B">
+              <h1 className="mt-4 font-serif text-[2.1rem] leading-[1.1] text-white sm:text-5xl lg:text-[3.1rem]">{X14_B.titular}</h1>
+              <p className="mt-4 max-w-2xl text-lg text-slate-200 sm:text-xl">{X14_B.bajada}</p>
+            </div>
+            {botonesPortada}
             <p className="mt-3 inline-flex items-center gap-1.5 text-sm text-slate-400">
               <Save className="h-4 w-4" /> {TEXTOS.guardar}
             </p>
@@ -549,7 +529,7 @@ export default function EsqueletoApp() {
                   onListo={(l) => {
                     guardarLead(l);
                     setLead(l);
-                    void enviarLead(l, esqueleto);
+                    void enviarLead(l, paraLead(esqueleto));
                     mostrarResultado();
                   }}
                 />
