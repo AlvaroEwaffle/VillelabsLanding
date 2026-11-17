@@ -103,6 +103,17 @@ function nombrePantalla(p: Pantalla | null, pidiendoDatos: boolean, resultado: b
   return p.tipo === 'id' ? `pregunta antes del paso ${p.paso}` : `paso ${p.paso}`;
 }
 const avisarPaso = (detalle: string) => registrarEvento('paso', { detalle: `esqueleto · ${detalle}` });
+type Posicion = 'arriba' | 'final' | 'barra';
+const DESDE: Record<Posicion, string> = { arriba: 'arriba', final: 'el final', barra: 'la barra fija' };
+// Variable del dataLayer (sin evento propio): GTM la tiene a mano cuando llega el esqueleto_inicio que se empuja después.
+function posicionAlDataLayer(posicion: Posicion) {
+  try {
+    window.dataLayer = window.dataLayer ?? [];
+    window.dataLayer.push({ esqueleto_posicion: posicion });
+  } catch {
+    /* nunca rompe la página */
+  }
+}
 
 function Progreso({ paso, antes }: { paso: number; antes?: boolean }) {
   const info = PASOS[paso - 1];
@@ -290,6 +301,11 @@ export default function EsqueletoApp() {
   const navPaso = useRef<HTMLElement>(null);
   const [navDebajo, setNavDebajo] = useState(false);
   const [escribiendo, setEscribiendo] = useState(false);
+  // Barra fija de la portada (17-nov-2026): botones «Armar» de arriba y del final, para saber cuándo ninguno está a la vista.
+  const botonArriba = useRef<HTMLDivElement>(null);
+  const botonFinal = useRef<HTMLDivElement>(null);
+  const [arribaQuedoAtras, setArribaQuedoAtras] = useState(false);
+  const [finalMasAbajo, setFinalMasAbajo] = useState(true);
   const { esqueleto, pantalla } = avance;
 
   // EXP-14/EXP-19: si se llegó navegando dentro del sitio el script en línea no corrió; se asigna aquí. Aviso a GA4 una vez.
@@ -415,6 +431,32 @@ export default function EsqueletoApp() {
     };
   }, []);
 
+  // Barra fija de la portada (17-nov-2026, común a A y B de EXP-19): aparece solo cuando el botón de arriba ya salió por
+  // arriba de la pantalla y el del final todavía no llega; se esconde apenas uno de los dos está a la vista y, pasado el
+  // del final, no vuelve (para no tapar el pie de página).
+  useEffect(() => {
+    const a = botonArriba.current;
+    const f = botonFinal.current;
+    if (pantalla !== 0 || !a || !f || typeof IntersectionObserver === 'undefined') return;
+    const io = new IntersectionObserver(
+      (entradas) => {
+        for (const e of entradas) {
+          if (e.target === a) setArribaQuedoAtras(!e.isIntersecting && e.boundingClientRect.top < 0);
+          else setFinalMasAbajo(!e.isIntersecting && e.boundingClientRect.top > 0);
+        }
+      },
+      { threshold: 0 },
+    );
+    io.observe(a);
+    io.observe(f);
+    return () => {
+      io.disconnect();
+      setArribaQuedoAtras(false);
+      setFinalMasAbajo(true);
+    };
+  }, [pantalla, cargado]);
+  const barraPortada = pantalla === 0 && cargado && arribaQuedoAtras && finalMasAbajo && !escribiendo;
+
   const siguiente = (desdeBarra = false) => {
     if (actual?.tipo === 'paso' && actual.paso === 2 && faltanFaqs > 0) {
       setAvisoFaqs(true);
@@ -431,7 +473,13 @@ export default function EsqueletoApp() {
     requestAnimationFrame(subir);
   };
 
-  const empezar = () => {
+  // «Armar mi esqueleto» está en tres lugares de la portada (17-nov-2026): arriba, al final y en la barra fija del celular.
+  // Los tres disparan lo mismo que antes (clic «Armar mi esqueleto» en el hilo de Slack, esqueleto_inicio en el dataLayer)
+  // y además dicen desde dónde: «🧭 esqueleto · portada: «Armar mi esqueleto» desde arriba|el final|la barra fija» en el
+  // hilo, y esqueleto_posicion (arriba · final · barra) en el dataLayer justo antes de esqueleto_inicio.
+  const empezar = (posicion: Posicion) => {
+    posicionAlDataLayer(posicion);
+    avisarPaso(`portada: «${TEXTOS.boton}» desde ${DESDE[posicion]}`);
     eventos.inicio();
     irA(1);
   };
@@ -442,8 +490,8 @@ export default function EsqueletoApp() {
     setPantallaGuardada(0);
   };
 
-  const botonesPortada = (
-    <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
+  const botonesPortada = (posicion: Exclude<Posicion, 'barra'>) => (
+    <div ref={posicion === 'arriba' ? botonArriba : botonFinal} className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
       {pantallaGuardada > 0 ? (
         <>
           <button type="button" onClick={() => irA(pantallaGuardada)} className={botonPrimario}>
@@ -454,7 +502,7 @@ export default function EsqueletoApp() {
           </button>
         </>
       ) : (
-        <button type="button" onClick={empezar} disabled={!cargado} className={botonPrimario}>
+        <button type="button" onClick={() => empezar(posicion)} disabled={!cargado} className={botonPrimario}>
           {TEXTOS.boton} <ArrowRight className="h-4 w-4" />
         </button>
       )}
@@ -485,7 +533,7 @@ export default function EsqueletoApp() {
               <h1 className="mt-4 font-serif text-[2.1rem] leading-[1.1] text-white sm:text-5xl lg:text-[3.1rem]">{X14_B.titular}</h1>
               <p className="mt-4 max-w-2xl text-lg text-slate-200 sm:text-xl">{X14_B.bajada}</p>
             </div>
-            {botonesPortada}
+            {botonesPortada('arriba')}
             <p className="mt-3 inline-flex items-center gap-1.5 text-sm text-slate-400">
               <Save className="h-4 w-4" /> {TEXTOS.guardar}
             </p>
@@ -518,6 +566,33 @@ export default function EsqueletoApp() {
               ))}
             </ul>
             <DiagramaRecorrido />
+
+            {/* 17-nov-2026 (común a A y B de EXP-19): el mismo botón al final de la portada. 8 de las 11 visitas interesadas del
+                16-nov bajaron más de la mitad sin tener a la vista el único botón, que estaba arriba. */}
+            <div className="mt-10 border-t border-white/10 pt-6">
+              {botonesPortada('final')}
+              <p className="mt-3 inline-flex items-center gap-1.5 text-sm text-slate-400">
+                <Save className="h-4 w-4" /> {TEXTOS.guardar}
+              </p>
+            </div>
+
+            {/* Barra fija de la portada: solo en celular, mismas clases que la barra «Siguiente» de los pasos (sin CSS nuevo, que
+                se comparte con /curso mientras corre EXP-16). Deja libre el chat del chibi (sube a 5.5rem en /esqueleto). */}
+            {barraPortada ? (
+              <div className="fixed inset-x-0 bottom-0 z-40 border-t border-white/10 bg-[#0f172a]/95 px-4 pb-[calc(env(safe-area-inset-bottom)+0.75rem)] pt-3 backdrop-blur sm:hidden">
+                <div className="mx-auto flex max-w-3xl items-center gap-3">
+                  {pantallaGuardada > 0 ? (
+                    <button type="button" onClick={() => irA(pantallaGuardada)} className={`${botonPrimario} flex-1`}>
+                      Seguir donde quedé <ArrowRight className="h-4 w-4" />
+                    </button>
+                  ) : (
+                    <button type="button" onClick={() => empezar('barra')} className={`${botonPrimario} flex-1`}>
+                      {TEXTOS.boton} <ArrowRight className="h-4 w-4" />
+                    </button>
+                  )}
+                </div>
+              </div>
+            ) : null}
           </section>
         ) : (
           <div className="space-y-8">
