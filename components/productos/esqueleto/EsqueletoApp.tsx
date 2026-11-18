@@ -44,6 +44,7 @@ import { EXP14 } from '@/lib/productos/esqueleto/exp14';
 import { cancelarParcial, campoParcial, correoValido, pasoParcial } from '@/lib/productos/esqueleto/parcial';
 import { VideoMarco } from '@/components/productos/VideoProducto';
 import { registrarEvento } from '@/lib/productos/eventos';
+import FranjaTaller from './FranjaTaller';
 
 // Secuencia: antes de cada paso, una pantalla corta «¿Te pasa esto?».
 type Pantalla = { tipo: 'id'; paso: number; ident: Identificacion } | { tipo: 'paso'; paso: number };
@@ -575,6 +576,10 @@ export default function EsqueletoApp() {
                 <Save className="h-4 w-4" /> {TEXTOS.guardar}
               </p>
             </div>
+
+            {/* 18-nov-2026 (común a A y B de EXP-19, detrás de TALLER.franjaEsqueleto): salida al grupo del taller en vivo para quien
+                llegó al final sin armarlo. Va debajo del último «Armar», así no compite con el botón principal. */}
+            <FranjaTaller lugar="portada" className="mt-10" />
 
             {/* Barra fija de la portada: solo en celular, mismas clases que la barra «Siguiente» de los pasos (sin CSS nuevo, que
                 se comparte con /curso mientras corre EXP-16). Deja libre el chat del chibi (sube a 5.5rem en /esqueleto). */}

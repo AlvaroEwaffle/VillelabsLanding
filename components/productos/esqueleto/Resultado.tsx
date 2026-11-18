@@ -9,6 +9,7 @@ import { LINKS } from '@/lib/productos/links';
 import { CURSO, textoPrecio } from '@/lib/productos/curso/curso';
 import SiguientePaso from '../SiguientePaso';
 import { botonPrimario, botonSecundario } from './ui';
+import FranjaTaller, { useFranjaTaller } from './FranjaTaller';
 
 function empujar(event: string) {
   if (typeof window === 'undefined') return;
@@ -113,6 +114,10 @@ export default function Resultado({
     document.body.removeChild(a);
     window.setTimeout(() => URL.revokeObjectURL(url), 1000);
   };
+
+  // 18-nov-2026: con la franja del taller encendida sale la tarjeta «próximo workshop · 45 minutos, gratis» (/workshop pasa a
+  // ser el grupo del taller pago) y en su lugar va la grabación, que sí es gratis (mismo texto que en el certificado de la Guía).
+  const conTaller = useFranjaTaller();
 
   return (
     <div className="space-y-10">
@@ -261,6 +266,9 @@ export default function Resultado({
         </div>
       </section>
 
+      {/* 18-nov-2026: taller en vivo del 2-dic (detrás de TALLER.franjaEsqueleto). */}
+      <FranjaTaller lugar="fin" />
+
       {/* Segundo paso: la Guía, con su puente (de responder bien a que te escriban más clientes). */}
       <SiguientePaso
         logro="Ya armaste el esqueleto de tu asistente"
@@ -272,13 +280,21 @@ export default function Resultado({
           evento: 'esqueleto_click_guia',
         }}
         gratis={[
-          {
-            titulo: 'Trabájalo en vivo en el próximo workshop',
-            descripcion: 'Trae tu esqueleto y lo revisamos juntos. 45 minutos, gratis.',
-            href: LINKS.workshop,
-            cta: 'Inscribirme',
-            evento: 'esqueleto_click_workshop',
-          },
+          conTaller
+            ? {
+                titulo: 'Mira la grabación del último workshop',
+                descripcion: 'Que ningún cliente se te quede sin respuesta, paso a paso.',
+                href: LINKS.workshopGrabacion,
+                cta: 'Ver la grabación',
+                evento: 'esqueleto_click_grabacion',
+              }
+            : {
+                titulo: 'Trabájalo en vivo en el próximo workshop',
+                descripcion: 'Trae tu esqueleto y lo revisamos juntos. 45 minutos, gratis.',
+                href: LINKS.workshop,
+                cta: 'Inscribirme',
+                evento: 'esqueleto_click_workshop',
+              },
         ]}
       />
 

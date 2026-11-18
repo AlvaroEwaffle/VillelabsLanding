@@ -9,7 +9,8 @@ import { usePathname } from 'next/navigation';
 import { eventosActivos, registrarEvento, registrarLectura } from '@/lib/productos/eventos';
 import { capturarUtm } from '@/lib/productos/utm';
 
-const IGNORAR = /^\/reels(\/|$)/;
+// 18-nov-2026: /lista es una puerta al grupo del taller, no una visita: mide su propio clic («🧭 lista · src=…», app/lista).
+const IGNORAR = /^\/(reels|lista)(\/|$)/;
 const HITOS = [25, 50, 75, 100];
 
 // GA4 vía GTM-M7MHWVJ8: los eventos quedan en el dataLayer y GTM decide qué hacer con ellos.

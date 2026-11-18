@@ -14,3 +14,6 @@
 /services/automatizacion           /services  301
 /services/plataformas-a-medida     /services  301
 /services/chatbots-ia              /services  301
+# 18-nov-2026 temporal: la página vieja «Workshop gratis por YouTube» queda en el código (app/(main)/workshop); para volver, borrar estas 2 líneas.
+/workshop    /lista?src=workshop-viejo  302
+/workshop/   /lista?src=workshop-viejo  302
