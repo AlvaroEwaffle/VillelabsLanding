@@ -28,14 +28,18 @@ export default function ListaPage() {
       <div className="w-full max-w-sm text-center">
         {/* 18-nov-2026 (pedido de Álvaro): el chibi de la marca, para que la pantalla de paso no se vea vacía. */}
         <img
-          src="/chat/chibi-loop.webp"
+          src="/chat/chibi-feliz.webp"
           alt=""
-          width={112}
-          height={112}
-          className="mx-auto mb-6 h-28 w-28 rounded-full bg-[#162a44] ring-2 ring-[#2175a1]/60"
+          width={144}
+          height={144}
+          className="mx-auto mb-6 h-36 w-36 rounded-full bg-[#162a44] ring-2 ring-[#2175a1]/60"
         />
-        <p className="text-lg text-white">
-          Te llevo al grupo de WhatsApp del taller pagado del 2 de diciembre. Ahí te aviso cuando abran las inscripciones.
+        <h1 className="font-serif text-3xl leading-tight text-white">¡Felicidades!</h1>
+        <p className="mt-3 text-lg text-white">
+          Estás un paso más cerca de crear tu primer asistente para tu negocio.
+        </p>
+        <p className="mt-3 text-sm text-slate-300">
+          Te llevo al grupo de WhatsApp del taller pagado del 2 de diciembre. Ahí aviso primero cuando abran las inscripciones.
         </p>
         <a
           href={TALLER.grupo}
