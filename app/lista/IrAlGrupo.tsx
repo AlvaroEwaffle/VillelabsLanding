@@ -13,7 +13,8 @@ import { TALLER, srcLista } from '@/lib/productos/taller';
 // Nada de esto frena la redirección: a los 2 s se va igual (y antes, si GA4 confirma).
 
 const MEDICION_GA4 = 'G-8KYM943L8X';
-const ESPERA_MAX_MS = 2000;
+// 18-nov-2026: 4 s fijos para que alcance a leerse «¡Felicidades!» (antes: apenas GA4 confirmaba, o a los 2 s).
+const ESPERA_MAX_MS = 4000;
 
 type VentanaGtag = typeof window & {
   dataLayer?: unknown[];
@@ -60,7 +61,7 @@ export default function IrAlGrupo() {
       // Espera a que la etiqueta de Google (cargada por GTM, solo en villelab.com) registre la medición, y recién ahí manda
       // el evento con callback: así el hit sale antes de dejar la página.
       const enviar = () => {
-        w.gtag!('event', 'lista_click', { src, send_to: MEDICION_GA4, event_callback: ir, event_timeout: 1500 });
+        w.gtag!('event', 'lista_click', { src, send_to: MEDICION_GA4 });
       };
       if (w.google_tag_manager?.[MEDICION_GA4]) enviar();
       else
