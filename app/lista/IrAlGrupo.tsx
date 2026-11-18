@@ -13,8 +13,8 @@ import { TALLER, srcLista } from '@/lib/productos/taller';
 // Nada de esto frena la redirección: a los 2 s se va igual (y antes, si GA4 confirma).
 
 const MEDICION_GA4 = 'G-8KYM943L8X';
-// 18-nov-2026: 4 s fijos para que alcance a leerse «¡Felicidades!» (antes: apenas GA4 confirmaba, o a los 2 s).
-const ESPERA_MAX_MS = 4000;
+// 18-nov-2026: 7 s fijos para que alcance a leerse qué es el taller (antes: apenas GA4 confirmaba, o a los 2 s).
+const ESPERA_MAX_MS = 7000;
 
 type VentanaGtag = typeof window & {
   dataLayer?: unknown[];
