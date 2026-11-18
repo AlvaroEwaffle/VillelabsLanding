@@ -139,7 +139,7 @@ export const IDENTIFICACIONES: Identificacion[] = [
     antesDePaso: 2,
     pregunta: '¿Te escriben a las 11 de la noche preguntando el precio y cuando respondes ya compraron en otro lado?',
     respuestas: {
-      si: 'Esa venta no se perdió por precio, se perdió por tiempo. Ahora dejas escritas las respuestas de siempre para que tu asistente conteste al tiro, a cualquier hora.',
+      si: 'Esa venta no se perdió por precio, se perdió por tiempo. Ahora dejas escritas las respuestas de siempre para que tu asistente tenga la respuesta lista y tú no partas de cero cada vez.',
       aveces: 'Basta con que pase de vez en cuando para que duela. Ahora dejas escritas las respuestas de siempre para que nadie se quede esperando.',
       no: 'Buenísimo. Igual, tener las respuestas de siempre por escrito te ahorra tiempo todos los días. Vamos con eso.',
     },

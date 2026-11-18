@@ -20,7 +20,7 @@
 import { crearExperimento } from '../experimento';
 
 export const CLAVE_EXP21 = 'vl_exp21';
-export const EXP21 = crearExperimento('21', CLAVE_EXP21, {}, 'AB');
+export const EXP21 = crearExperimento('21', CLAVE_EXP21, {}, 'A');
 
 /** Qué retador corre como B. Cambiarlo es un deploy y abre una ronda nueva (no se mezclan). */
 export const RETADOR_EXP21: 1 | 2 = 1;
