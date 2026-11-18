@@ -42,6 +42,19 @@ export default function IrAlGrupo() {
       /* sigue como directo */
     }
 
+    // 18-nov-2026: las pruebas propias (?src=qa… o ?qa=1) no avisan ni cuentan; igual redirigen.
+    let esPrueba = false;
+    try {
+      const q = new URLSearchParams(window.location.search);
+      esPrueba = /^qa/i.test(q.get('src') ?? '') || q.has('qa');
+    } catch {
+      /* sin query no es prueba */
+    }
+    if (esPrueba) {
+      const t = setTimeout(ir, ESPERA_MAX_MS);
+      return () => clearTimeout(t);
+    }
+
     try {
       registrarEvento('paso', { detalle: `lista · src=${src}` });
     } catch {
