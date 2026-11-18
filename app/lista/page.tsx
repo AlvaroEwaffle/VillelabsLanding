@@ -13,7 +13,7 @@ import IrAlGrupo from './IrAlGrupo';
 
 export const metadata: Metadata = {
   title: { absolute: 'Grupo del taller · Villelab' },
-  description: 'Te llevamos al grupo de WhatsApp del taller en vivo.',
+  description: 'Te llevo al grupo de WhatsApp del taller en vivo.',
   robots: { index: false, follow: false },
 };
 
@@ -26,8 +26,16 @@ export default function ListaPage() {
       <script dangerouslySetInnerHTML={{ __html: RESPALDO }} />
       <IrAlGrupo />
       <div className="w-full max-w-sm text-center">
+        {/* 18-nov-2026 (pedido de Álvaro): el chibi de la marca, para que la pantalla de paso no se vea vacía. */}
+        <img
+          src="/chat/chibi-loop.webp"
+          alt=""
+          width={112}
+          height={112}
+          className="mx-auto mb-6 h-28 w-28 rounded-full bg-[#162a44] ring-2 ring-[#2175a1]/60"
+        />
         <p className="text-lg text-white">
-          Te llevamos al grupo de WhatsApp del taller pagado del 2 de diciembre. Ahí te aviso cuando abran las inscripciones.
+          Te llevo al grupo de WhatsApp del taller pagado del 2 de diciembre. Ahí te aviso cuando abran las inscripciones.
         </p>
         <a
           href={TALLER.grupo}
