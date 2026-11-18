@@ -45,7 +45,10 @@ export default function FranjaTaller({ lugar, className = '' }: { lugar: 'portad
   if (!visible) return null;
   return (
     <aside aria-label="Taller en vivo" className={`rounded-2xl border border-white/10 bg-white/[0.03] p-4 sm:p-5 ${className}`}>
-      <p className="text-base text-slate-200">¿Prefieres armarlo en vivo? Taller el miércoles 2 de diciembre, 17:00 de Chile</p>
+      <p className="text-base text-slate-200">
+        ¿Prefieres armarlo en vivo? Taller pagado el miércoles 2 de diciembre, 17:00 de Chile. Entra al grupo de WhatsApp y te aviso
+        cuando abran las inscripciones.
+      </p>
       <a
         href={`/lista?src=${prefijo}`}
         onClick={(e) => {
@@ -53,7 +56,7 @@ export default function FranjaTaller({ lugar, className = '' }: { lugar: 'portad
         }}
         className="mt-3 inline-flex min-h-[44px] items-center gap-2 rounded-full border border-white/20 px-5 text-base font-medium text-[#5fb2dd] transition hover:border-[#5fb2dd] hover:text-white"
       >
-        Únete al grupo <ArrowRight className="h-4 w-4" aria-hidden />
+        Únete al grupo de WhatsApp <ArrowRight className="h-4 w-4" aria-hidden />
       </a>
     </aside>
   );

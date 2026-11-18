@@ -208,11 +208,12 @@ export const GRATIS_GRABACION = {
   evento: 'siguiente_paso_grabacion',
 };
 
+// 18-nov-2026 (revisor): el próximo en vivo es el taller pagado del 2-dic → grupo de WhatsApp vía /lista. Antes «45 minutos, gratis» → /workshop.
 export const GRATIS_PROXIMO_WORKSHOP = {
-  titulo: 'Inscríbete al próximo en vivo',
-  descripcion: '45 minutos, gratis. Traes tu esqueleto y lo vemos funcionando con tus preguntas.',
-  href: LINKS.workshop,
-  cta: 'Reservar mi cupo',
+  titulo: 'Taller en vivo el miércoles 2 de diciembre',
+  descripcion: 'Taller pagado, 17:00 de Chile. Entra al grupo de WhatsApp y te aviso cuando abran las inscripciones.',
+  href: '/lista?src=grabacion',
+  cta: 'Unirme al grupo',
   evento: 'siguiente_paso_workshop',
 };
 

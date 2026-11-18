@@ -2,14 +2,14 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { ArrowRight, CalendarDays, Check, Copy, Download, ExternalLink, LayoutDashboard, Pencil, PlayCircle } from 'lucide-react';
+import { ArrowRight, CalendarDays, Check, Copy, Download, ExternalLink, LayoutDashboard, Pencil } from 'lucide-react';
 import { PASOS, PREGUNTAS_TRAMPA, TEXTOS, type Esqueleto } from '@/lib/productos/esqueleto/datos';
 import { completitud, generarEsqueleto, textoDescarga, type Semaforo } from '@/lib/productos/esqueleto/estructura';
 import { LINKS } from '@/lib/productos/links';
 import { CURSO, textoPrecio } from '@/lib/productos/curso/curso';
 import SiguientePaso from '../SiguientePaso';
 import { botonPrimario, botonSecundario } from './ui';
-import FranjaTaller, { useFranjaTaller } from './FranjaTaller';
+import FranjaTaller from './FranjaTaller';
 
 function empujar(event: string) {
   if (typeof window === 'undefined') return;
@@ -114,10 +114,6 @@ export default function Resultado({
     document.body.removeChild(a);
     window.setTimeout(() => URL.revokeObjectURL(url), 1000);
   };
-
-  // 18-nov-2026: con la franja del taller encendida sale la tarjeta «próximo workshop · 45 minutos, gratis» (/workshop pasa a
-  // ser el grupo del taller pago) y en su lugar va la grabación, que sí es gratis (mismo texto que en el certificado de la Guía).
-  const conTaller = useFranjaTaller();
 
   return (
     <div className="space-y-10">
@@ -237,7 +233,8 @@ export default function Resultado({
           ¿Lo quieres funcionando en tu WhatsApp?
         </h3>
         <p className="mt-2 text-base text-slate-200">
-          Este texto es lo que tu asistente necesita saber. Para que conteste solo en tu WhatsApp hay que conectarlo, y eso lo hace
+          {/* 18-nov-2026 (revisor, común a A y B de EXP-19): antes «Para que conteste solo en tu WhatsApp hay que conectarlo, y eso lo hace». */}
+          Este texto es lo que tu asistente necesita saber. Para que responda en tu WhatsApp con este texto, eso lo hace
           Fidelidapp: le cargas este mismo texto y responde por ti en tu número, desde $40.000 + IVA al mes. En 30 minutos lo
           dejamos conectado contigo y vemos si te conviene.
         </p>
@@ -249,7 +246,7 @@ export default function Resultado({
             onClick={() => empujar('esqueleto_click_agendar')}
             className={botonPrimario}
           >
-            <CalendarDays className="h-4 w-4" /> Conectarlo a mi WhatsApp (30 min)
+            <CalendarDays className="h-4 w-4" /> Verlo en mi WhatsApp (30 min)
           </a>
           <a
             href={LINKS.fidelidappWhatsapp}
@@ -260,14 +257,8 @@ export default function Resultado({
           >
             <ExternalLink className="h-4 w-4" /> Ver Fidelidapp
           </a>
-          <a href={LINKS.workshopGrabacion} onClick={() => empujar('esqueleto_click_grabacion')} className={botonSecundario}>
-            <PlayCircle className="h-4 w-4" /> Ver la grabación gratis
-          </a>
         </div>
       </section>
-
-      {/* 18-nov-2026: taller en vivo del 2-dic (detrás de TALLER.franjaEsqueleto). */}
-      <FranjaTaller lugar="fin" />
 
       {/* Segundo paso: la Guía, con su puente (de responder bien a que te escriban más clientes). */}
       <SiguientePaso
@@ -280,21 +271,15 @@ export default function Resultado({
           evento: 'esqueleto_click_guia',
         }}
         gratis={[
-          conTaller
-            ? {
-                titulo: 'Mira la grabación del último workshop',
-                descripcion: 'Que ningún cliente se te quede sin respuesta, paso a paso.',
-                href: LINKS.workshopGrabacion,
-                cta: 'Ver la grabación',
-                evento: 'esqueleto_click_grabacion',
-              }
-            : {
-                titulo: 'Trabájalo en vivo en el próximo workshop',
-                descripcion: 'Trae tu esqueleto y lo revisamos juntos. 45 minutos, gratis.',
-                href: LINKS.workshop,
-                cta: 'Inscribirme',
-                evento: 'esqueleto_click_workshop',
-              },
+          // 18-nov-2026 (revisor): sale «próximo workshop · 45 minutos, gratis» (/workshop ahora lleva al grupo del taller pagado).
+          // La grabación queda solo aquí: se quitó el botón «Ver la grabación gratis» del puente para no repetirla.
+          {
+            titulo: 'Mira la grabación del último workshop',
+            descripcion: 'Que ningún cliente se te quede sin respuesta, paso a paso.',
+            href: LINKS.workshopGrabacion,
+            cta: 'Ver la grabación',
+            evento: 'esqueleto_click_grabacion',
+          },
         ]}
       />
 
@@ -314,6 +299,9 @@ export default function Resultado({
           Ver el curso <ArrowRight className="h-4 w-4" aria-hidden />
         </Link>
       </section>
+
+      {/* 18-nov-2026: taller en vivo del 2-dic, al final del resultado (detrás de TALLER.franjaEsqueleto). */}
+      <FranjaTaller lugar="fin" />
     </div>
   );
 }

@@ -26,7 +26,9 @@ export default function ListaPage() {
       <script dangerouslySetInnerHTML={{ __html: RESPALDO }} />
       <IrAlGrupo />
       <div className="w-full max-w-sm text-center">
-        <p className="text-lg text-white">Te estamos llevando al grupo de WhatsApp del taller…</p>
+        <p className="text-lg text-white">
+          Te llevamos al grupo de WhatsApp del taller pagado del 2 de diciembre. Ahí te aviso cuando abran las inscripciones.
+        </p>
         <a
           href={TALLER.grupo}
           className="mt-6 inline-flex min-h-[48px] w-full items-center justify-center gap-2 rounded-full bg-[#FF3D8B] px-6 text-base font-semibold text-white transition hover:bg-[#ff5c9f]"

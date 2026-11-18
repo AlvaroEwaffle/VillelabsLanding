@@ -170,10 +170,11 @@ function ModalCelebracion({ onCerrar }: { onCerrar: () => void }) {
                 cta: 'Ver la grabación',
               },
               {
-                titulo: 'Únete al próximo workshop en vivo',
-                descripcion: 'Gratis, con preguntas en directo.',
-                href: LINKS.workshop,
-                cta: 'Inscribirme',
+                // 18-nov-2026 (revisor): el próximo en vivo es el taller pagado del 2-dic; antes «Gratis, con preguntas en directo» → /workshop.
+                titulo: 'Taller en vivo el miércoles 2 de diciembre',
+                descripcion: 'Taller pagado. Entra al grupo de WhatsApp y te aviso cuando abran las inscripciones.',
+                href: '/lista?src=guia-cert',
+                cta: 'Unirme al grupo',
               },
             ]}
           />

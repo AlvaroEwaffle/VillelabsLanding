@@ -38,7 +38,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // Productos digitales (8-nov-2026): imán gratis, venta de la Guía 1, workshop y curso. La guía (/guia/prospeccion), el módulo 0, las diapositivas y /reels van con noindex.
     entry('/esqueleto', 0.9),
     entry('/guia', 0.9),
-    entry('/workshop', 0.9, 'weekly'),
+    // 18-nov-2026: /workshop sale del sitemap (302 temporal a /lista?src=workshop-viejo, ver public/_redirects).
     entry('/workshop/grabacion', 0.7),
     entry('/curso', 0.9, 'weekly', VERSION_CURSO.fecha),
     // Productos propios (el índice /products redirige al catálogo)
