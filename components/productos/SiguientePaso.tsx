@@ -77,7 +77,7 @@ export default function SiguientePaso({
 
         <div className="grid gap-3">
           <p className="flex items-center gap-2 text-sm font-medium text-slate-300">
-            <Gift className="h-4 w-4 text-[#5fb2dd]" aria-hidden /> O sigue aprendiendo gratis
+            <Gift className="h-4 w-4 text-[#5fb2dd]" aria-hidden /> O sigue aprendiendo
           </p>
           {gratis.map((g, i) => (
             <motion.a
