@@ -2,24 +2,21 @@
 // (curso.ts, venta.ts de la guía, EsqueletoApp): si cambia un precio, un plazo o la garantía allá, cambiarlo aquí.
 // Nada de promesas que la página no haga.
 
-import { PRECIO_FUNDADOR, PRECIO_NORMAL, PRECIO_CURSO } from './curso/curso';
+import { PRECIO_CURSO, textoPrecio } from './curso/curso';
 import { PRECIO_GUIA } from './guia/venta';
 import { NOTA_IVA, PRECIOS_AGENTES, uf } from '../precios';
 
 export type Pregunta = { p: string; r: string };
 
-const clp = (n: number) => `$${n.toLocaleString('es-CL')}`;
-
 const CURSO: Pregunta[] = [
   {
     p: '¿Cuánto cuesta?',
-    r: PRECIO_FUNDADOR
-      ? `${clp(PRECIO_FUNDADOR)} precio de lanzamiento. Pago único o en cuotas en Hotmart, con ${PRECIO_CURSO.garantiaDias} días de garantía.`
-      : `${clp(PRECIO_NORMAL)}, pago único o en cuotas en Hotmart, con ${PRECIO_CURSO.garantiaDias} días de garantía.`,
+    // 18-nov-2026: USD 87 (antes «$29.990 precio de lanzamiento»; el precio normal de $59.990 ya no existe).
+    r: `${textoPrecio()}, pago único o en cuotas en Hotmart, con ${PRECIO_CURSO.garantiaDias} días de garantía.`,
   },
   {
     p: '¿Qué recibo al comprar?',
-    r: `Los 8 módulos completos desde el primer día: 38 lecciones cortas con su ejercicio, 34 prompts listos para la IA, la planilla del sistema con las fórmulas listas y, en el módulo 7, un agente de IA que trabaja con tu planilla: te arma los pedidos de WhatsApp y la cobranza del lunes, y tú revisas y envías. Además, dos bonos incluidos: la planilla lista (la misma planilla, con 5 pasos y avisos adentro para usarla sola desde hoy) y la Guía «Tus próximos 20 clientes», que se vende sola a ${PRECIO_GUIA.texto} CLP. Avanzas a tu ritmo.`,
+    r: `Los 8 módulos completos desde el primer día: 38 lecciones cortas con su ejercicio, 34 prompts listos para la IA, la planilla del sistema con las fórmulas listas y, en el módulo 7, un agente de IA que trabaja con tu planilla: te arma los pedidos de WhatsApp y la cobranza del lunes, y tú revisas y envías. Además, dos bonos incluidos: la planilla lista (la misma planilla, con 5 pasos y avisos adentro para usarla sola desde hoy) y la Guía «Tus próximos 20 clientes», que se vende sola a ${PRECIO_GUIA.texto}. Avanzas a tu ritmo.`,
   },
   {
     p: '¿Cuánto tiempo necesito?',

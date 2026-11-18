@@ -167,7 +167,7 @@ export default function GuiaVenta() {
             </ul>
             <div className="mt-6 flex flex-wrap items-baseline gap-x-3 gap-y-1">
               <p className="font-serif text-4xl text-white">{PRECIO_GUIA.texto}</p>
-              <p className="text-sm text-slate-400">CLP · pago único o {PRECIO_GUIA.cuotas}</p>
+              <p className="text-sm text-slate-400">Pago único o en {PRECIO_GUIA.cuotas}</p>
             </div>
             <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               <BotonCompra />
@@ -266,7 +266,7 @@ export default function GuiaVenta() {
           <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
             <BotonCompra />
             <p className="text-sm text-slate-400">
-              {PRECIO_GUIA.texto} CLP · o {PRECIO_GUIA.cuotas}
+              {PRECIO_GUIA.texto} · o en {PRECIO_GUIA.cuotas}
             </p>
           </div>
           {/* Pack (13-nov-2026): la Guía es bono del curso. Una línea; no cambia el precio ni el botón de la Guía. */}
@@ -494,7 +494,7 @@ export default function GuiaVenta() {
               te dice a quién le toca.
             </p>
             <p className="mt-6 text-sm text-slate-400">
-              <span className="font-serif text-2xl text-white">{PRECIO_GUIA.texto}</span> CLP · o {PRECIO_GUIA.cuotas} · garantía de{' '}
+              <span className="font-serif text-2xl text-white">{PRECIO_GUIA.texto}</span> · o en {PRECIO_GUIA.cuotas} · garantía de{' '}
               {PRECIO_GUIA.garantiaDias} días
             </p>
             <div className="mt-6">

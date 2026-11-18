@@ -5,7 +5,7 @@
  * v1.0 (7-nov-2026) «Tu negocio de punta a punta»; v1.1 (8-nov-2026) reposicionado como «construye tu primer CRM y ERP»
  * con la investigación de demanda (persona Rodrigo) y la base de evidencia. Hero compacto (corrección de Álvaro, 8-nov):
  * cabe en el primer viewport de escritorio y «El curso en corto» queda como franja bajo el hero.
- * Precio: PRECIO_FUNDADOR en lib/productos/curso/curso.ts (null = se oculta la cifra).
+ * Precio: PRECIO_FUNDADOR en lib/productos/curso/precio.ts, en USD (null = se oculta la cifra).
  * Medición: todo clic a la compra emite curso_click_compra al dataLayer.
  * v1.2 (9-nov-2026) captura del correo antes del pago: bloque «¿Aún no?» (CursoLead) en el hero y antes de la preventa,
  * y el link de Hotmart lleva src/sck con los UTM de la visita (lib/productos/utm.ts).
@@ -667,7 +667,8 @@ export default function CursoContent() {
               <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-[#13213a] via-transparent to-transparent" />
             </div>
             <div className="p-6 pt-3">
-            <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-[#5fb2dd]">Precio de lanzamiento</p>
+            {/* 18-nov-2026: antes «Precio de lanzamiento» (el precio sube a USD 87: ya no es verdad). */}
+            <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-[#5fb2dd]">Precio del curso</p>
             <p className="mt-3 font-serif text-2xl text-white">
               {textoPrecioConMoneda()}
             </p>

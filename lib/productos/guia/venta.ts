@@ -1,13 +1,17 @@
 // Página de venta de la Guía 1 (/guia, 8-nov-2026). Lo que incluye se describe desde contenido-v2.ts
 // y los componentes de components/productos/guia/v2: si la guía cambia, revisar estos textos.
-// Venta en Hotmart (producto 8918629): CLP 14.990, pago único o 12 cuotas, garantía de 7 días.
+// Venta en Hotmart (producto 8918629): pago único o en cuotas, garantía de 7 días.
+// 18-nov-2026 (Álvaro, chat de la sesión): el precio pasa a USD 17 (antes CLP 14.990 ≈ USD 15). La página muestra solo USD:
+// el CLP estaba escrito a mano y no se inventa una conversión. Las cuotas se dicen sin monto (el valor de cada cuota lo
+// calcula Hotmart; antes «12 cuotas de $1.249»).
 // v1.2 (8-nov-2026): copy con las palabras del comprador (investigacion/demanda-mercado-2026-11-08.html): «clientes
 // nuevos», «tu primer CRM», «sin envío masivo»; la IA es ayuda, no gancho. Sin cupón ni cuenta regresiva.
 
 export const PRECIO_GUIA = {
-  clp: 14990,
-  texto: '$14.990',
-  cuotas: '12 cuotas de $1.249',
+  usd: 17,
+  moneda: 'USD',
+  texto: 'USD\u00a017', // espacio que no se corta (a 360 px «USD» quedaba solo al final de la línea)
+  cuotas: 'cuotas',
   garantiaDias: 7,
 } as const;
 

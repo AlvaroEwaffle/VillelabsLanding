@@ -41,7 +41,7 @@ const PRODUCTOS: Enlace[] = [
   {
     href: bio(LINKS.guiaVenta, 'guia'),
     titulo: 'Guía: tus próximos 20 clientes',
-    bajada: 'Tu lista, el primer mensaje y los seguimientos, en una tarde · $14.990',
+    bajada: 'Tu lista, el primer mensaje y los seguimientos, en una tarde · USD 17',
     Icono: BookOpen,
   },
   {

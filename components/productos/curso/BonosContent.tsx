@@ -58,7 +58,7 @@ export default function BonosContent() {
         </p>
         <h2 id="bono-guia" className="mt-2 font-serif text-2xl text-white sm:text-3xl">La Guía «Tus próximos 20 clientes»</h2>
         <p className="mt-3 text-slate-300">
-          En una tarde armas tu lista de 20 posibles clientes, el primer mensaje para cada uno y los seguimientos con fecha. Se vende sola a {PRECIO_GUIA.texto} CLP; con tu curso viene incluida.
+          En una tarde armas tu lista de 20 posibles clientes, el primer mensaje para cada uno y los seguimientos con fecha. Se vende sola a {PRECIO_GUIA.texto}; con tu curso viene incluida.
         </p>
         <a
           href="/curso/bonos/guia"

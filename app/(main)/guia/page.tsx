@@ -11,13 +11,13 @@ import { EXP12 } from '@/lib/productos/guia/exp12';
 // Copy v1.2 (8-nov-2026) con las palabras que busca el comprador: «conseguir clientes», «CRM», «WhatsApp».
 const TITULO_OG = 'Deja de vender solo cuando te llega un referido';
 const DESCRIPCION_OG =
-  'En una tarde armas tu lista de 20 posibles clientes, el primer mensaje y los seguimientos, con tu primer CRM en Google Sheets. Sin envío masivo. $14.990 CLP.';
+  'En una tarde armas tu lista de 20 posibles clientes, el primer mensaje y los seguimientos, con tu primer CRM en Google Sheets. Sin envío masivo. USD 17.';
 const IMAGEN_OG = `${SITE_URL}/og/guia.jpg`;
 
 export const metadata: Metadata = {
   title: { absolute: 'Cómo conseguir clientes para tu pyme: tu lista de 20 y el primer mensaje' },
   description:
-    'Arma en una tarde tu lista de 20 posibles clientes, el primer mensaje y los seguimientos, con tu primer CRM en Google Sheets o Excel. Uno a uno, sin envío masivo. $14.990 CLP.',
+    'Arma en una tarde tu lista de 20 posibles clientes, el primer mensaje y los seguimientos, con tu primer CRM en Google Sheets o Excel. Uno a uno, sin envío masivo. USD 17.',
   alternates: { canonical: `${SITE_URL}${LINKS.guiaVenta}` },
   openGraph: {
     type: 'website',
@@ -44,8 +44,9 @@ const JSON_LD = [
     author: AUTOR,
     offers: {
       '@type': 'Offer',
-      price: String(PRECIO_GUIA.clp),
-      priceCurrency: 'CLP',
+      // 18-nov-2026: USD 17 (antes CLP 14.990). Misma cifra y moneda que la página.
+      price: String(PRECIO_GUIA.usd),
+      priceCurrency: PRECIO_GUIA.moneda,
       availability: 'https://schema.org/InStock',
       url: `${SITE_URL}${LINKS.guiaVenta}`,
       seller: ORGANIZACION,

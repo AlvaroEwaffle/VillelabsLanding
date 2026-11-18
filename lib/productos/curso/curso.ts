@@ -8,28 +8,32 @@
  * queda en ~$19.990). Hotmart: producto 8921667, garantía 7 días, pago único o en cuotas.
  * 12-nov-2026 (Álvaro, «haz todos los ajustes»): se dice «precio de lanzamiento», sin fecha, sin cupos y sin «sube
  * después». Ya no se dice «preventa»: los módulos están grabados y abiertos para quien compra (8 desde el módulo 7).
+ * 18-nov-2026 (Álvaro, chat de la sesión): el curso pasa a USD 87 y la Guía a USD 17. Sale «precio de lanzamiento»
+ * (el precio sube, no baja: ya no es verdad) y sale el precio normal de $59.990 (era menor que el nuevo). Se muestra
+ * solo USD: el CLP estaba escrito a mano y no se inventa conversión. El cupón GUIA1CURSO se dice como porcentaje, sin
+ * monto final (el monto en Hotmart estaba «sin verificar» y lo fija Hotmart al cambiar el precio).
  */
 // 13-nov-2026: vive en ./precio (módulo chico) para que el píxel lo lea sin cargar este archivo en todas las páginas.
-import { PRECIO_FUNDADOR } from './precio';
+import { MONEDA_CURSO, PRECIO_FUNDADOR } from './precio';
 import { PRECIO_GUIA } from '../guia/venta';
 export { PRECIO_FUNDADOR };
-export const PRECIO_NORMAL = 59990;
 export const CUPOS_FUNDADOR = 20;
-export const MONEDA_PRECIO = 'CLP';
-export const PRECIO_CURSO = { cuponGuia: 'GUIA1CURSO', precioConCupon: 19990, garantiaDias: 7 };
+export const MONEDA_PRECIO = MONEDA_CURSO;
+export const PRECIO_CURSO = { cuponGuia: 'GUIA1CURSO', descuentoCupon: '33 %', garantiaDias: 7 };
 
-const clp = (n: number) => '$' + n.toLocaleString('es-CL');
+const usd = (n: number) => `USD\u00a0${n}`; // espacio que no se corta: a 360 px «USD» quedaba solo al final de la línea
 
 export function textoPrecio(): string {
-  return PRECIO_FUNDADOR === null ? 'Precio de lanzamiento' : `${clp(PRECIO_FUNDADOR)} precio de lanzamiento`;
+  return PRECIO_FUNDADOR === null ? 'Pago único o en cuotas' : usd(PRECIO_FUNDADOR);
 }
 
 /**
  * 13-nov-2026 (auditoría AI SEO, arreglo 5): la misma cifra con la moneda escrita («$29.990 CLP»), para que un asistente
  * no la lea como dólares. Solo en la tarjeta de precio, fuera del primer pantallazo: el hero (EXP-15) sigue con textoPrecio().
+ * 18-nov-2026: con «USD 87» la moneda ya va escrita; queda igual a textoPrecio() y sin «precio de lanzamiento».
  */
 export function textoPrecioConMoneda(): string {
-  return PRECIO_FUNDADOR === null ? 'Precio de lanzamiento' : `${clp(PRECIO_FUNDADOR)} ${MONEDA_PRECIO} precio de lanzamiento`;
+  return textoPrecio();
 }
 
 /** Variante B de EXP-13 (12-nov-2026): sin «primeros 20 alumnos» (cupo sin respaldo verificable en la página). */
@@ -39,11 +43,12 @@ export function textoPrecioSinCupo(): string {
 
 /** Variante B de EXP-13: solo el cupón (el «después sube» va atado al cupo, que en B no se muestra). */
 export function textoPrecioDetalleSinCupo(): string {
-  return `Si compraste la guía, con el cupón ${PRECIO_CURSO.cuponGuia} te queda en ${clp(PRECIO_CURSO.precioConCupon)}.`;
+  return textoPrecioDetalle();
 }
 
+// 18-nov-2026: antes «te queda en $19.990». El porcentaje es el de la nota del 8-nov (33,34 %); el monto final lo calcula Hotmart.
 export function textoPrecioDetalle(): string {
-  return `Si compraste la guía, con el cupón ${PRECIO_CURSO.cuponGuia} te queda en ${clp(PRECIO_CURSO.precioConCupon)}.`;
+  return `Si compraste la guía, con el cupón ${PRECIO_CURSO.cuponGuia} tienes un ${PRECIO_CURSO.descuentoCupon} de descuento en Hotmart.`;
 }
 
 /**
@@ -487,7 +492,7 @@ export const FAQ: { p: string; r: string }[] = [
   },
   {
     p: '¿Qué recibo al comprar?',
-    r: `Los 8 módulos completos desde el primer día: 38 lecciones cortas con su video y su ejercicio, 34 prompts listos para la IA, la planilla del sistema (Excel o Google Sheets) con las fórmulas listas y el ejemplo de Grano Norte, y el módulo para armar tu primer agente, que va justo después del gratis. Además, dos bonos incluidos: la planilla lista (la misma planilla, en blanco y con 5 pasos y avisos adentro para usarla sola desde hoy) y la Guía «Tus próximos 20 clientes», que se vende sola a ${PRECIO_GUIA.texto} CLP. Los dos te esperan en «Tus bonos», dentro del curso. Tu código de acceso está en tu área de miembros de Hotmart.`,
+    r: `Los 8 módulos completos desde el primer día: 38 lecciones cortas con su video y su ejercicio, 34 prompts listos para la IA, la planilla del sistema (Excel o Google Sheets) con las fórmulas listas y el ejemplo de Grano Norte, y el módulo para armar tu primer agente, que va justo después del gratis. Además, dos bonos incluidos: la planilla lista (la misma planilla, en blanco y con 5 pasos y avisos adentro para usarla sola desde hoy) y la Guía «Tus próximos 20 clientes», que se vende sola a ${PRECIO_GUIA.texto}. Los dos te esperan en «Tus bonos», dentro del curso. Tu código de acceso está en tu área de miembros de Hotmart.`,
   },
   {
     p: '¿Qué es tu agente y con qué IA funciona?',

@@ -46,8 +46,8 @@ export const PACK = {
     {
       clave: 'Bono 2',
       titulo: 'La Guía «Tus próximos 20 clientes»',
-      texto: `En una tarde armas tu lista de 20 posibles clientes, el primer mensaje y los seguimientos con fecha. Se vende sola a ${PRECIO_GUIA.texto} CLP; con el curso viene incluida.`,
-      corto: `Se vende sola a ${PRECIO_GUIA.texto} CLP; aquí viene incluida.`,
+      texto: `En una tarde armas tu lista de 20 posibles clientes, el primer mensaje y los seguimientos con fecha. Se vende sola a ${PRECIO_GUIA.texto}; con el curso viene incluida.`,
+      corto: `Se vende sola a ${PRECIO_GUIA.texto}; aquí viene incluida.`,
     },
   ],
   entrega: 'Los dos bonos te esperan dentro del curso, en «Tus bonos», apenas entras con tu código.',

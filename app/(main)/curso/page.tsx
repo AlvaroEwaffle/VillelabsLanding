@@ -56,7 +56,8 @@ const JSON_LD = [
     dateModified: VERSION_CURSO.fecha,
     teaches: ['Armar un CRM y un ERP con prompts para ChatGPT o Claude', 'CRM en Google Sheets', 'ERP para pymes en una planilla', 'Seguimiento de clientes y propuestas', 'Control de pedidos', 'Cobranza y flujo de caja', 'Tablero de indicadores', 'Configurar un asistente de IA con tu planilla como memoria'],
     hasCourseInstance: { '@type': 'CourseInstance', courseMode: 'online' },
-    // 13-nov-2026 (AI SEO): la oferta con el mismo precio y moneda que la tarjeta de precio («$29.990 CLP»). Sin precio tachado ni fechas.
+    // 13-nov-2026 (AI SEO): la oferta con el mismo precio y moneda que la tarjeta de precio. Sin precio tachado ni fechas.
+    // 18-nov-2026: USD 87 (antes «$29.990 CLP»); price y priceCurrency salen de lib/productos/curso/precio.ts.
     ...(PRECIO_FUNDADOR === null
       ? {}
       : {

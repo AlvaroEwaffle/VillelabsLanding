@@ -7,6 +7,7 @@ import { PASOS, PREGUNTAS_TRAMPA, TEXTOS, type Esqueleto } from '@/lib/productos
 import { completitud, generarEsqueleto, textoDescarga, type Semaforo } from '@/lib/productos/esqueleto/estructura';
 import { LINKS } from '@/lib/productos/links';
 import { CURSO, textoPrecio } from '@/lib/productos/curso/curso';
+import { PRECIO_GUIA } from '@/lib/productos/guia/venta';
 import SiguientePaso from '../SiguientePaso';
 import { botonPrimario, botonSecundario } from './ui';
 import FranjaTaller from './FranjaTaller';
@@ -265,7 +266,8 @@ export default function Resultado({
         logro="Ya armaste el esqueleto de tu asistente"
         pago={{
           titulo: TEXTOS.cierreTitulo,
-          descripcion: `${TEXTOS.cierreGuia} $14.990, pago único, con garantía de 7 días.`,
+          // 18-nov-2026: el precio sale de PRECIO_GUIA (USD 17; antes «$14.990» escrito a mano).
+          descripcion: `${TEXTOS.cierreGuia} ${PRECIO_GUIA.texto}, pago único, con garantía de ${PRECIO_GUIA.garantiaDias} días.`,
           href: LINKS.guiaVenta,
           cta: 'Ver la guía',
           evento: 'esqueleto_click_guia',

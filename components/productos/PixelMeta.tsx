@@ -8,7 +8,7 @@ import { useEffect, useRef } from 'react';
 import Script from 'next/script';
 import { usePathname } from 'next/navigation';
 import { eventoPixel, PIXEL_ID } from '@/lib/productos/pixel';
-import { PRECIO_FUNDADOR } from '@/lib/productos/curso/precio';
+import { MONEDA_CURSO, PRECIO_FUNDADOR } from '@/lib/productos/curso/precio';
 
 const IGNORAR = /^\/reels(\/|$)/;
 
@@ -37,10 +37,11 @@ export default function PixelMeta() {
       const a = (e.target as HTMLElement | null)?.closest('a') as HTMLAnchorElement | null;
       if (!a || !/pay\.hotmart\.com/.test(a.href)) return;
       const producto = /H108396355K/.test(a.href) ? 'Guía 1' : 'Curso';
-      // 13-nov-2026 (pedido de ads-villelab para la campaña de ventas): el curso lleva su valor en CLP (PRECIO_FUNDADOR,
-      // hoy 29990). Con utm_source=qa o navegador automatizado no sale (eventoPixel, lib/productos/pixel.ts).
+      // 13-nov-2026 (pedido de ads-villelab para la campaña de ventas): el curso lleva su valor (PRECIO_FUNDADOR). Con
+      // utm_source=qa o navegador automatizado no sale (eventoPixel, lib/productos/pixel.ts).
+      // 18-nov-2026: el precio pasa a USD 87 (antes CLP 29990), así que la moneda del evento pasa a USD.
       const valor = producto === 'Curso' && PRECIO_FUNDADOR ? { value: PRECIO_FUNDADOR } : {};
-      eventoPixel('InitiateCheckout', { content_name: producto, currency: 'CLP', ...valor });
+      eventoPixel('InitiateCheckout', { content_name: producto, currency: MONEDA_CURSO, ...valor });
     };
     document.addEventListener('click', alClic, { capture: true, passive: true });
     return () => document.removeEventListener('click', alClic, { capture: true });
