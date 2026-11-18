@@ -40,7 +40,7 @@ import {
   DiagramaSinConReglas,
 } from '@/components/productos/diagramas/esqueleto';
 import { Kicker, botonPrimario, botonSecundario, claseInput } from './ui';
-import { EXP14 } from '@/lib/productos/esqueleto/exp14';
+import { EXP22, RETADOR_EXP22 } from '@/lib/productos/esqueleto/exp22';
 import { cancelarParcial, campoParcial, correoValido, pasoParcial } from '@/lib/productos/esqueleto/parcial';
 import { VideoMarco } from '@/components/productos/VideoProducto';
 import { registrarEvento } from '@/lib/productos/eventos';
@@ -269,21 +269,10 @@ function DatosContacto({ onListo, onVolver }: { onListo: (l: Lead) => void; onVo
 const RUBROS_DE_EJEMPLO = new Set([EJEMPLO.rubro, ...EJEMPLOS_RUBRO.map((r) => r.datos.rubro)].map((r) => r.trim().toLowerCase()));
 const paraLead = (e: Esqueleto): Esqueleto => (RUBROS_DE_EJEMPLO.has(e.rubro.trim().toLowerCase()) ? { ...e, rubro: '' } : e);
 
-// EXP-19 (16-nov-2026, corte de las 17:00) · /esqueleto · continuidad con el anuncio X14 («¿Chatear con ChatGPT o tener un
-// agente?», reel que termina en «un agente necesita reglas de lo que nunca puede hacer»). Solo para quien llega con
-// utm_content=x14-esqueleto: B cambia el titular y la bajada de la portada para seguir esa idea; A = portada ganadora de
-// EXP-14. Todo lo demás es igual. La variante es la misma de EXP-14 (localStorage vl_exp14, ?v=A|B, <html data-exp14>,
-// etiqueta «[EXP-14 X]» en Slack): esa mecánica vive en un chunk que comparte /curso y cambiarla movería /curso a mitad de
-// EXP-16. El script en línea de app/(main)/esqueleto/page.tsx marca <html data-x14> y su <style> muestra el titular que toca.
-// Sin JS, o sin el anuncio X14, se ve A.
-const ANUNCIO_X14 = 'x14-esqueleto';
-// Hipótesis: quien viene del reel llega pensando en «agente» y «reglas»; la A le habla de «asistente de WhatsApp» y se va
-// sin tocar nada (0 clics «Armar» en 120 visitas reales del 13 al 16-nov). Retomar la última idea del reel sube el clic.
-const X14_B = {
-  titular: 'Un agente necesita reglas. Escribe las de tu negocio, gratis',
-  // Revisor 16-nov (obligatorio): decir en el primer pantallazo dónde se usa, para no insinuar que se arma un agente.
-  bajada: 'Parte por tu WhatsApp: qué responde, qué nunca promete y cuándo te avisa. Las pegas en ChatGPT o Claude.',
-};
+// EXP-19 (16-nov-2026) · titular que seguía al anuncio X14, solo en la B: cerrada el 18-nov 17:00 (queda A, sale del código).
+// EXP-22 (18-nov-2026) · ver lib/productos/esqueleto/exp22.ts. Retador 1: «Armar» va directo al paso 1 (sin la pregunta «¿Te
+// pasa esto?» de antes del paso 1). Retador 2: bajada «cuándo te pasa la conversación». RETADOR_EXP22 elige cuál corre como B.
+const saltaPregunta1 = () => RETADOR_EXP22 === 1 && EXP22.variante() === 'B';
 
 export default function EsqueletoApp() {
   const [avance, setAvance] = useState<Avance>(avanceInicial);
@@ -309,26 +298,9 @@ export default function EsqueletoApp() {
   const [finalMasAbajo, setFinalMasAbajo] = useState(true);
   const { esqueleto, pantalla } = avance;
 
-  // EXP-14/EXP-19: si se llegó navegando dentro del sitio el script en línea no corrió; se asigna aquí. Aviso a GA4 una vez.
-  // EXP-19: el hilo de la visita anota que vio la portada del anuncio X14 y con qué variante (sin datos personales).
+  // EXP-22: si se llegó navegando dentro del sitio el script en línea no corrió; se asigna aquí. Aviso a GA4 una vez.
   useEffect(() => {
-    const v = EXP14.asignar();
-    EXP14.avisar(v);
-    const html = document.documentElement;
-    try {
-      if (new URLSearchParams(window.location.search).get('utm_content') === ANUNCIO_X14) html.setAttribute('data-x14', '1');
-    } catch {
-      /* sin URL legible: queda como esté */
-    }
-    if (!html.hasAttribute('data-x14')) return;
-    try {
-      // Una vez por sesión (revisor 16-nov: se repetía en cada recarga).
-      if (sessionStorage.getItem('vl_x14_aviso') === v) return;
-      sessionStorage.setItem('vl_x14_aviso', v);
-    } catch {
-      /* sin almacenamiento: se avisa igual */
-    }
-    avisarPaso(`EXP-19 · portada del anuncio X14, variante ${v}`);
+    EXP22.avisar(EXP22.asignar());
   }, []);
 
   /* eslint-disable react-hooks/set-state-in-effect -- lectura única de localStorage al montar */
@@ -482,7 +454,8 @@ export default function EsqueletoApp() {
     posicionAlDataLayer(posicion);
     avisarPaso(`portada: «${TEXTOS.boton}» desde ${DESDE[posicion]}`);
     eventos.inicio();
-    irA(1);
+    // EXP-22 retador 1 (B): directo al paso 1, sin la pregunta de antes.
+    irA(saltaPregunta1() ? pantallaDePaso(1) : 1);
   };
 
   const deCero = () => {
@@ -521,19 +494,22 @@ export default function EsqueletoApp() {
         {pantalla === 0 ? (
           <section className="py-6 sm:py-10">
             {/* Hero · EXP-14 cerrada el 16-nov-2026 17:00: ganó A (correo al final; B «correo en la primera pantalla» se retiró).
-                EXP-19: titular y bajada distintos solo para el anuncio X14 en la B (ver ANUNCIO_X14). Sin JS se ve A. */}
+                EXP-19 (titular del anuncio X14) cerrada el 18-nov: queda A. EXP-22 retador 2 cambia solo la bajada. Sin JS se ve A. */}
             <p className="inline-flex items-center gap-2 rounded-full border border-[#5fb2dd]/40 bg-[#5fb2dd]/10 px-3 py-1 text-xs font-medium uppercase tracking-[0.18em] text-[#5fb2dd]">
               <Gift className="h-3.5 w-3.5" /> {TEXTOS.kicker}
             </p>
-            <div className="x14-A">
-              <h1 className="mt-4 font-serif text-[2.1rem] leading-[1.1] text-white sm:text-5xl lg:text-[3.1rem]">Tu asistente de WhatsApp, escrito en 15 minutos</h1>
-              <p className="mt-4 max-w-2xl text-lg text-slate-200 sm:text-xl">Qué responde, qué nunca promete y cuándo te avisa. Gratis, sin tarjeta.</p>
-            </div>
-            {/* EXP-19 · B, solo con utm_content=x14-esqueleto (ver ANUNCIO_X14). */}
-            <div className="x14-B">
-              <h1 className="mt-4 font-serif text-[2.1rem] leading-[1.1] text-white sm:text-5xl lg:text-[3.1rem]">{X14_B.titular}</h1>
-              <p className="mt-4 max-w-2xl text-lg text-slate-200 sm:text-xl">{X14_B.bajada}</p>
-            </div>
+            <h1 className="mt-4 font-serif text-[2.1rem] leading-[1.1] text-white sm:text-5xl lg:text-[3.1rem]">Tu asistente de WhatsApp, escrito en 15 minutos</h1>
+            <p className="mt-4 max-w-2xl text-lg text-slate-200 sm:text-xl">
+              {RETADOR_EXP22 === 2 ? (
+                <>
+                  <span className="exp22-A">Qué responde, qué nunca promete y cuándo te avisa.</span>
+                  <span className="exp22-B">Qué responde, qué nunca promete y cuándo te pasa la conversación.</span>
+                </>
+              ) : (
+                'Qué responde, qué nunca promete y cuándo te avisa.'
+              )}{' '}
+              Gratis, sin tarjeta.
+            </p>
             {botonesPortada('arriba')}
             <p className="mt-3 inline-flex items-center gap-1.5 text-sm text-slate-400">
               <Save className="h-4 w-4" /> {TEXTOS.guardar}
@@ -663,7 +639,8 @@ export default function EsqueletoApp() {
                 {DIAGRAMA_PASO[infoPaso.n]?.()}
                 <Paso esqueleto={esqueleto} cambiar={cambiar} />
                 <nav ref={navPaso} className="flex flex-col-reverse gap-3 border-t border-white/10 pt-6 sm:flex-row sm:items-center sm:justify-between" aria-label="Navegación de pasos">
-                  <button type="button" onClick={() => irA(pantalla - 1)} className={botonSecundario}>
+                  {/* EXP-22 retador 1 (B): sin la pregunta de antes del paso 1, «Atrás» en el paso 1 vuelve a la portada. */}
+                  <button type="button" onClick={() => irA(infoPaso.n === 1 && saltaPregunta1() ? 0 : pantalla - 1)} className={botonSecundario}>
                     <ArrowLeft className="h-4 w-4" /> Atrás
                   </button>
                   <div className="flex flex-col gap-2 sm:items-end">

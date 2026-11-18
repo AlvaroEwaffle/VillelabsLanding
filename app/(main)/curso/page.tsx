@@ -4,7 +4,7 @@ import { CURSO, FAQ, MONEDA_PRECIO, PRECIO_FUNDADOR } from '@/lib/productos/curs
 import { VERSION_CURSO } from '@/lib/productos/curso/versiones';
 import CursoContent from '@/components/productos/curso/CursoContent';
 import { fraunces } from '@/lib/productos/fuente';
-import { EXP16 } from '@/lib/productos/curso/exp16';
+import { EXP21 } from '@/lib/productos/curso/exp21';
 import { SCRIPT_ANCLA } from '@/lib/productos/ancla';
 import { PACK } from '@/lib/productos/curso/llevas';
 
@@ -88,9 +88,9 @@ const JSON_LD = [
 export default function CursoPage() {
   return (
     <div className={fraunces.variable}>
-      {/* EXP-16 (14-nov-2026, cierre de EXP-15, que queda fija en B sin script): la lección 1 sobre el formulario del aterrizaje.
-          Elige la variante antes de pintar (constante propia del repo, sin datos de usuarios). */}
-      <script dangerouslySetInnerHTML={{ __html: EXP16.script }} />
+      {/* EXP-21 (18-nov-2026, cierre de EXP-16, que queda fija en B sin script). Elige la variante antes de pintar (constante
+          propia del repo, sin datos de usuarios). */}
+      <script dangerouslySetInnerHTML={{ __html: EXP21.script }} />
       {/* 13-nov-2026: ancla resistente a fbclid (#parte-gratis-hero?fbclid=…): limpia la URL antes del píxel (lib/productos/ancla.ts). */}
       <script dangerouslySetInnerHTML={{ __html: SCRIPT_ANCLA }} />
       <JsonLd data={JSON_LD} />

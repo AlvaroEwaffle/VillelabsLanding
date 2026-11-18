@@ -2,12 +2,12 @@
 
 import { useSyncExternalStore } from 'react';
 import { ArrowRight } from 'lucide-react';
-import { EXP14 } from '@/lib/productos/esqueleto/exp14';
+import { EXP22 } from '@/lib/productos/esqueleto/exp22';
 import { leerUtm } from '@/lib/productos/utm';
 import { TALLER, srcLista } from '@/lib/productos/taller';
 
 // Franja del taller en vivo (18-nov-2026, propuesta del embudo-analista): salida a /lista para quien prefiere armarlo en
-// vivo y no solo. Sin precio. Cambio común a A y B de EXP-19, detrás de TALLER.franjaEsqueleto (lib/productos/taller.ts).
+// vivo y no solo. Sin precio. Cambio común a A y B de EXP-19 (y desde el 18-nov de EXP-22), detrás de TALLER.franjaEsqueleto (lib/productos/taller.ts).
 // src = esq-<utm_content> o, sin anuncio, esq-<variante>; en el resultado, esq-fin-<…>, para separar las dos posiciones.
 
 const sinSuscripcion = () => () => {};
@@ -31,7 +31,7 @@ export function useFranjaTaller(): boolean {
 /** src del clic, calculado al tocar (la variante y el anuncio ya están en la página). */
 function srcAlTocar(prefijo: string): string {
   try {
-    const origen = leerUtm().utm_content || EXP14.variante() || '';
+    const origen = leerUtm().utm_content || EXP22.variante() || '';
     return srcLista(origen ? `${prefijo}-${origen}` : prefijo);
   } catch {
     return prefijo;

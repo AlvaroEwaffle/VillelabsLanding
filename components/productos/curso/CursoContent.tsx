@@ -30,7 +30,7 @@ import { ArrowRight, Bot, Check, ChevronDown, ClipboardCheck, ClipboardList, Eye
 import { LINKS } from '@/lib/productos/links';
 import { ACCESO, AREAS, CASO, CURSO, FAQ, HOJAS, IA_OPCIONAL, MODULOS, MODULOS_EN_ORDEN, PARA_QUIEN, PROYECTO_AGENTE, PROYECTO_FINAL, PRECIO_CURSO, QUE_ES, SISTEMA_AGENTE, textoPrecio, textoPrecioConMoneda, textoPrecioDetalle } from '@/lib/productos/curso/curso';
 import { HERO_CURSO } from '@/lib/productos/curso/hero';
-import { EXP16 } from '@/lib/productos/curso/exp16';
+import { EXP21, RETADOR_EXP21 } from '@/lib/productos/curso/exp21';
 import { bajarAlAncla } from '@/lib/productos/ancla';
 import { VERSION_CURSO, VERSIONES_CURSO, fechaLarga } from '@/lib/productos/curso/versiones';
 import CursoLead from './CursoLead';
@@ -223,10 +223,10 @@ export default function CursoContent() {
   const [faqAbierta, setFaqAbierta] = useState<number | null>(null);
   const totalLecciones = MODULOS.reduce((s, m) => s + m.lecciones.length, 0);
 
-  // EXP-16 (14-nov-2026): si se llegó navegando dentro del sitio el script en línea no corrió; se asigna aquí. Aviso a GA4 una vez.
-  // EXP-15 cerró el 14-nov sin conclusión y quedó B fija para todos (sin script ni aviso).
+  // EXP-21 (18-nov-2026): si se llegó navegando dentro del sitio el script en línea no corrió; se asigna aquí. Aviso a GA4 una vez.
+  // EXP-16 cerró el 18-nov (ganó B: la lección 1 arriba del formulario, ahora fija para todos, sin script ni aviso).
   useEffect(() => {
-    EXP16.avisar(EXP16.asignar());
+    EXP21.avisar(EXP21.asignar());
   }, []);
 
   // 13-nov-2026: si el anuncio llegó con el fbclid pegado al ancla (#parte-gratis-hero?fbclid=…), baja al formulario.
@@ -237,7 +237,7 @@ export default function CursoContent() {
       {/* Hero · EXP-15 (13-nov-2026) «promesa automatizar» cerró el 14-nov sin conclusión (A 32 visitas reales / 0 interesadas,
           B 37 / 2, 0 registros; el titular queda fuera de pantalla para el tráfico pagado): se deja B fija por dirección, sin
           script. El H1 del anuncio v17 «Ordena tu negocio en una planilla» (la A) salió. Lo que se prueba ahora es EXP-16, en el
-          formulario del aterrizaje (CursoLead, lib/productos/curso/exp16.ts). */}
+          formulario del aterrizaje (CursoLead, lib/productos/curso/exp16.ts). Desde el 18-nov: EXP-21 (lib/productos/curso/exp21.ts). */}
       <section className="mx-auto max-w-6xl px-4 pb-10 pt-24 sm:px-6 md:pt-32">
         {/* 13-nov-2026 (Álvaro: «quitando la foto grande en el Hero, ya que hay un mini avatar»): sin foto, una sola columna centrada
             (sin hueco a la derecha en escritorio). Común a A y B. */}
@@ -270,7 +270,16 @@ export default function CursoContent() {
                 data-sin-barra
                 className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full bg-[#FF3D8B] px-6 text-sm font-semibold text-white shadow-rosa transition hover:bg-[#ff5c9f]"
               >
-                Mira gratis el módulo 0 <ArrowRight className="h-4 w-4" aria-hidden />
+                {/* EXP-21 retador 2 (solo si RETADOR_EXP21 = 2): el botón promete la lección 1 sin pedir nada. Con el retador 1, igual en A y B. */}
+                {RETADOR_EXP21 === 2 ? (
+                  <>
+                    <span className="exp21-A">Mira gratis el módulo 0</span>
+                    <span className="exp21-B">Mira la lección 1, sin correo</span>
+                  </>
+                ) : (
+                  'Mira gratis el módulo 0'
+                )}{' '}
+                <ArrowRight className="h-4 w-4" aria-hidden />
               </Link>
             </div>
             {/* Las piezas del agente (memoria, frenos, diagnóstico, tablero; CRM y ERP siguen como palabras clave), bajo el botón

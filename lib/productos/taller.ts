@@ -9,8 +9,10 @@ export const TALLER = {
    * Franja «¿Prefieres armarlo en vivo?» en la portada y el resultado de /esqueleto. Es un cambio común a A y B de EXP-19:
    * se enciende en un deploy (true) y se apaga en otro (false). Con false, `?taller=1` la muestra solo a quien trae el
    * parámetro (QA o vista previa), sin tocar a las demás visitas.
+   * 18-nov-2026 17:00 (corte del experimentador): true. Se enciende tras cerrar EXP-19, como pidió el revisor el 18-nov 09:50;
+   * común a A y B de EXP-22. Corte del analista: si al vie 20 12:00 hay ≥100 reales expuestas y 0 clics a la lista, vuelve a false.
    */
-  franjaEsqueleto: false,
+  franjaEsqueleto: true,
 } as const;
 
 /** `src` limpio para /lista: minúsculas, letras, números y guiones, máx. 60. Vacío → «directo». */

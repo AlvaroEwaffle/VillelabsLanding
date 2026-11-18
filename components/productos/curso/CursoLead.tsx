@@ -21,6 +21,7 @@ import { LINKS } from '@/lib/productos/links';
 import { registrarLead } from '@/lib/productos/leads';
 import { guardarLead, type Lead } from '@/lib/productos/esqueleto/estado';
 import { VideoMarco } from '@/components/productos/VideoProducto';
+import { EXP21, RETADOR_EXP21 } from '@/lib/productos/curso/exp21';
 
 /** Lead que ya pasó la puerta del módulo 0 (no se vuelve a pedir). */
 export const CLAVE_LEAD_M0 = 'vl_curso_m0_lead';
@@ -38,6 +39,13 @@ function guardarLeadM0(l: Lead) {
   } catch {
     /* sin almacenamiento: se pide de nuevo la próxima vez */
   }
+}
+
+/** EXP-21 retador 1: «juan.perez@…» → «Juan». Si ningún trozo tiene 2 letras, se usa lo que va antes de la @ completo. */
+function nombreDesdeCorreo(c: string): string {
+  const local = c.trim().split('@')[0] ?? '';
+  const primero = local.split(/[._\-+\d]+/).find((x) => x.length >= 2) ?? local;
+  return primero ? primero.charAt(0).toUpperCase() + primero.slice(1).toLowerCase() : 'Hola';
 }
 
 const correoValido = (c: string) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(c.trim());
@@ -70,6 +78,8 @@ export default function CursoLead({ ubicacion, className = '' }: { ubicacion: st
   /* eslint-enable react-hooks/set-state-in-effect */
 
   const id = (campo: string) => `curso-lead-${ubicacion}-${campo}`;
+  // EXP-21 retador 1: nombre y WhatsApp solo en la A del aterrizaje (en la B queda el correo y el botón). Sin JS se ve A.
+  const soloA = ubicacion === 'hero' && RETADOR_EXP21 === 1 ? 'exp21-A' : undefined;
 
   return (
     // data-sin-barra: la barra fija de compra de /curso (EXP-08) se esconde mientras este bloque está a la vista.
@@ -79,13 +89,11 @@ export default function CursoLead({ ubicacion, className = '' }: { ubicacion: st
           es. Esta línea dice de qué es antes de pedir el correo. 14-nov-2026 (cambio de base «oferta en clave agente», común a
           A y B de EXP-16): antes «Curso: tu negocio en una planilla, con IA»; ahora responde al anuncio X14 (chat vs agente). */}
       {ubicacion === 'hero' ? <p className="mb-1.5 text-[13px] font-medium leading-snug text-[#5fb2dd]">Curso: tu primer agente de IA, sin programar</p> : null}
-      {/* EXP-16 B (14-nov-2026, dar antes de pedir): la lección 1 del módulo 0 a la vista, sin correo, arriba del formulario. El mp4
-          no se baja hasta el play (VideoProducto, preload="none"); el póster webp pesa 16 KB. Play grande al centro (revisor). El play
-          ya avisa a Slack con [EXP-16 B] y cuenta como interesada. */}
+      {/* La lección 1 del módulo 0 a la vista, sin correo, arriba del formulario. Era la B de EXP-16 (14-nov-2026, dar antes de
+          pedir); ganó por desempate en el corte del 18-nov y queda fija para todos. El mp4 no se baja hasta el play (VideoProducto,
+          preload="none"); el póster webp pesa 16 KB. Play grande al centro (revisor). */}
       {ubicacion === 'hero' ? (
-        <div className="exp16-B">
-          <VideoMarco id="v09-m0-l1" titulo="Lección 1 gratis: por qué todo pasa por ti" duracion="57 s" playGrande className="mb-4" />
-        </div>
+        <VideoMarco id="v09-m0-l1" titulo="Lección 1 gratis: por qué todo pasa por ti" duracion="57 s" playGrande className="mb-4" />
       ) : null}
       <p className="flex items-center gap-2 font-serif text-lg leading-snug text-white sm:text-xl">
         <Eye className="h-5 w-5 shrink-0 text-[#5fb2dd]" aria-hidden />
@@ -95,10 +103,8 @@ export default function CursoLead({ ubicacion, className = '' }: { ubicacion: st
           <span>Ya tienes acceso al módulo 0</span>
         ) : ubicacion === 'hero' ? (
           <>
-            {/* 14-nov-2026 (revisor): el título A sigue siendo «Deja tu correo y mira el módulo 0»; el de clave agente ocupaba 3 líneas
-                y cortaba el botón a 360×560, y cambiar solo el brazo A ensuciaba EXP-16. El título de B es el tratamiento y no cambia. */}
-            <span className="exp16-A">Deja tu correo y mira el módulo 0</span>
-            <span className="exp16-B">Mira la lección 1 aquí arriba. Las 2 a 4, gratis con tu correo</span>
+            {/* Título de la B de EXP-16 (ganó el 18-nov), fijo para todos. */}
+            <span>Mira la lección 1 aquí arriba. Las 2 a 4, gratis con tu correo</span>
           </>
         ) : (
           <span>¿Aún no? Mira gratis el módulo 0</span>
@@ -107,12 +113,8 @@ export default function CursoLead({ ubicacion, className = '' }: { ubicacion: st
       <p className="mt-1.5 text-sm text-slate-300">
         {ubicacion === 'hero' ? (
           <>
-            {/* 14-nov-2026 (clave agente, común a A y B): lo que se entrega es lo mismo (las 4 lecciones del módulo 0), dicho como piezas del agente. */}
-            <span className="exp16-A">
-              Es el módulo 0: 4 lecciones cortas (~11 min) con el mapa de tu negocio, un diagnóstico de 15 preguntas, tu planilla base (la memoria de tu agente) y las reglas de freno (sus límites). Sin tarjeta y entras al tiro.
-            </span>
-            {/* EXP-16 B (texto obligatorio del revisor): la lección 1 ya está arriba, así que se cuentan las otras 3. */}
-            <span className="exp16-B">
+            {/* Texto de la B de EXP-16 (obligatorio del revisor, 14-nov): la lección 1 ya está arriba, así que se cuentan las otras 3. */}
+            <span>
               3 lecciones cortas más: un diagnóstico de 15 preguntas, tu planilla base (la memoria de tu agente) y las reglas de freno (sus límites). Sin tarjeta y entras al tiro.
             </span>
           </>
@@ -135,20 +137,23 @@ export default function CursoLead({ ubicacion, className = '' }: { ubicacion: st
           noValidate
           onSubmit={(e) => {
             e.preventDefault();
-            if (!nombre.trim()) return setError('Escribe tu nombre.');
+            // EXP-21 retador 1 (18-nov-2026): en la B del aterrizaje solo se pide el correo; el nombre sale de lo que va antes de la @.
+            const unCampo = ubicacion === 'hero' && RETADOR_EXP21 === 1 && EXP21.variante() === 'B';
+            if (!unCampo && !nombre.trim()) return setError('Escribe tu nombre.');
             if (!correoValido(correo)) return setError('Revisa tu correo: parece que le falta algo.');
             setError('');
             setEnviando(true);
-            const lead: Lead = { nombre: nombre.trim(), correo: correo.trim(), whatsapp: whatsapp.trim(), fecha: new Date().toISOString() };
+            const nombreLead = unCampo ? nombreDesdeCorreo(correo) : nombre.trim();
+            const lead: Lead = { nombre: nombreLead, correo: correo.trim(), whatsapp: unCampo ? '' : whatsapp.trim(), fecha: new Date().toISOString() };
             guardarLeadM0(lead);
             guardarLead(lead); // el esqueleto tampoco se lo vuelve a pedir
             pushCursoLead(ubicacion);
-            void registrarLead({ nombre: lead.nombre, correo: lead.correo, whatsapp: lead.whatsapp, producto: 'curso-modulo0', detalles: { origen: `curso-${ubicacion}` } });
+            void registrarLead({ nombre: lead.nombre, correo: lead.correo, whatsapp: lead.whatsapp, producto: 'curso-modulo0', detalles: { origen: `curso-${ubicacion}`, nombre: unCampo ? 'desde-correo' : undefined } });
             router.push(LINKS.cursoModulo0);
           }}
           className="mt-4 grid gap-3 sm:grid-cols-2"
         >
-          <div>
+          <div className={soloA}>
             <label htmlFor={id('nombre')} className="sr-only">
               Tu nombre
             </label>
@@ -169,7 +174,7 @@ export default function CursoLead({ ubicacion, className = '' }: { ubicacion: st
               className={claseInput}
             />
           </div>
-          <div>
+          <div className={soloA}>
             <label htmlFor={id('wa')} className="sr-only">
               WhatsApp (opcional)
             </label>
