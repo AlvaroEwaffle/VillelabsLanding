@@ -86,7 +86,7 @@ const CIFRAS = [
   { valor: '13 → 36', texto: 'proyectos en mi agencia (2025 a 2026), mientras los agentes corrían a diario' },
   { valor: '11 → 14', texto: 'clientes de mi agencia en el mismo período' },
   { valor: '581', texto: 'conversaciones en 5 negocios con Fidelidapp, la versión gestionada' },
-  { valor: '41', texto: 'reservas desde el chat en esos 5 negocios' },
+  { valor: '41', texto: 'reservas en esos 5 negocios: 35 por WhatsApp y 6 por Instagram' },
 ];
 
 const PREGUNTAS: Pregunta[] = [
