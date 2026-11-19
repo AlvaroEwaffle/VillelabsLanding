@@ -11,7 +11,7 @@ import IrAlGrupo from './IrAlGrupo';
 // llegó al grupo. Ahora el botón es el único camino y queda en el primer pantallazo a 360×640.
 
 const OG_TITULO = 'Taller en vivo: arma el asistente de IA de tu WhatsApp · miércoles 2 de diciembre';
-const OG_DESCRIPCION = '90 minutos en vivo, 17:00 de Chile. Entra al grupo donde aviso primero cuando abren las inscripciones.';
+const OG_DESCRIPCION = '90 minutos en vivo, 17:00 de Chile. Entra al grupo donde aviso primero cuando abran las inscripciones.';
 const OG_ALT = 'Taller en vivo: arma el asistente de IA de tu WhatsApp. Miércoles 2 de diciembre, 17:00 de Chile, 90 minutos';
 
 export const metadata: Metadata = {
@@ -46,7 +46,7 @@ export default function ListaPage() {
           height={80}
           className="mx-auto mb-3 h-20 w-20 rounded-full bg-[#162a44] ring-2 ring-[#2175a1]/60"
         />
-        <h1 className="font-serif text-3xl leading-tight text-white">¡Felicidades!</h1>
+        <h1 className="font-serif text-3xl leading-tight text-white">Grupo del taller en vivo</h1>
         <p className="mt-2 text-base text-white">
           Estás un paso más cerca de crear tu primer asistente para tu negocio.
         </p>

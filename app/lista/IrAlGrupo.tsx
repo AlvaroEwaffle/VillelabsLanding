@@ -160,7 +160,7 @@ export default function IrAlGrupo() {
       </a>
       {enAppMeta && (
         <p className="mt-3 text-sm text-slate-200">
-          ¿No se abre WhatsApp? Toca ··· arriba a la derecha y elige «Abrir en el navegador».
+          ¿No se abre WhatsApp? Toca los tres puntos de arriba a la derecha y elige abrir en el navegador.
         </p>
       )}
       <p className="mt-2 text-sm text-slate-400">Puedes salirte del grupo cuando quieras.</p>
