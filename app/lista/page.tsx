@@ -1,8 +1,10 @@
 import type { Metadata } from 'next';
 import { Fraunces } from 'next/font/google';
 import { SITE_URL } from '@/lib/productos/seo';
-import { Bell, Bot, CheckCheck, Link2, PencilLine, Receipt, ShieldCheck, Sheet } from 'lucide-react';
+import { Bell, Bot, Building2, Link2, MessageSquareText, Receipt, ShieldCheck, Sheet } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
+import AnimarLista from './AnimarLista';
+import { CSS_ANIMAR } from './animar';
 import BarraFija from './BarraFija';
 import IrAlGrupo from './IrAlGrupo';
 import MedirLista from './MedirLista';
@@ -23,7 +25,7 @@ import { NOTA_GRUPO } from './textos';
 // medición con versión y posición (medicion.ts). Segundo camino en A y B: «avísame por correo» (PorCorreo.tsx).
 // 19-nov-2026 ~20:00 (Álvaro, tras ver las capturas: «demasiado texto, más apoyos visuales, más jerarquías»): rediseño. Pantalla 1
 // con etiqueta + datos en chips, título más corto (90 minutos pasa a un chip), razón para entrar en cajita. Cola en bandas con
-// antetítulo: 3 pasos de los 90 minutos, tarjetas con ícono, prueba del 18-nov en 3 pasos, cifras grandes, foto, preguntas,
+// antetítulo: 3 pasos de los 90 minutos, tarjetas con ícono, «Lo uso a diario» (foto + 2 negocios + cifras), preguntas,
 // cierre, y barra fija inferior con el botón (solo B, «botón fijo»). Los textos corregidos por el revisor mandan: solo se acortan.
 
 const OG_TITULO = 'Taller en vivo: arma el asistente de IA de tu WhatsApp · miércoles 2 de diciembre';
@@ -50,7 +52,7 @@ export const metadata: Metadata = {
 const fraunces = Fraunces({ variable: '--font-fraunces', subsets: ['latin'], weight: ['400', '600'] });
 
 // La cola nace oculta y solo se muestra con data-exp24="B" en <html> (lo pone SCRIPT_EXP24 antes de pintarla): sin parpadeo.
-const CSS_EXP24 = '.cola-b{display:none}html[data-exp24="B"] .cola-b{display:block}';
+const CSS_EXP24 = `.cola-b{display:none}html[data-exp24="B"] .cola-b{display:block}${CSS_ANIMAR}`;
 
 type Item = { icono: LucideIcon; titulo: string; texto: string };
 
@@ -70,11 +72,12 @@ const PASOS_TALLER = [
   { n: 3, titulo: 'Reglas', texto: 'qué contesta y qué deja para ti' },
 ];
 
-// 19-nov-2026 18:30 (Álvaro): sin tiempos. Revisor: segundo número y tres mensajes de prueba (2 con la hoja, 1 derivado).
-const PRUEBA_18: Item[] = [
-  { icono: PencilLine, titulo: 'Lo armé', texto: 'con mis respuestas' },
-  { icono: Link2, titulo: 'Lo conecté', texto: 'a WhatsApp Web con un segundo número' },
-  { icono: CheckCheck, titulo: 'Contestó 3 mensajes de prueba', texto: 'dos con mi hoja y un pedido de descuento derivado con mi frase' },
+// 19-nov-2026 20:06 (audio de Álvaro): fuera todo lo del 18 de noviembre («suena como que lo probé recién»). La sección habla de
+// lo que usa a diario en sus dos negocios. Ojo con la verdad: no decir ni insinuar que el asistente de WhatsApp Web del taller
+// es el que él usa, ni que estos resultados salen del taller.
+const A_DIARIO: Item[] = [
+  { icono: Building2, titulo: 'Ewaffle, mi agencia', texto: 'Los agentes corren a diario en la operación.' },
+  { icono: MessageSquareText, titulo: 'Fidelidapp, mi herramienta', texto: 'La versión gestionada, atendiendo el WhatsApp de negocios.' },
 ];
 
 // Cifras: ESTRATEGIA-2DIC §3 (Ewaffle 13→36 proyectos y 11→14 clientes, 2025 a 2026) y OFERTA-CENTRAL (Fidelidapp, versión
@@ -94,7 +97,8 @@ const PREGUNTAS: Pregunta[] = [
   },
   {
     p: '¿Queda funcionando todo el día?',
-    r: 'No. Contesta mientras tienes Chrome abierto y se lo pides: en mi prueba del 18 revisó unos minutos seguidos, no el día entero. Si prefieres que no dependa de tu computador, al final te muestro la versión gestionada.',
+    // 19-nov 20:07 (audio de Álvaro, decisión sobre lo que enseña el taller): sí. Sin «24/7», «solo», «automático» ni «mientras duermes».
+    r: 'Sí. En el taller te enseño cómo dejarlo funcionando durante el día. Los requisitos son básicos: un computador encendido y una conexión a internet constante.',
   },
   {
     p: '¿Contesta cualquier cosa por mí?',
@@ -105,12 +109,36 @@ const PREGUNTAS: Pregunta[] = [
   { p: '¿Me van a llenar de mensajes?', r: `Uno o dos mensajes al día hasta el taller. ${NOTA_GRUPO}` },
 ];
 
+/** «13 → 36»: el último número lleva data-cuenta (cuenta desde el primero); «581»: cuenta desde 0. Sin JS se ve el valor final. */
+function Cifra({ valor }: { valor: string }) {
+  const m = valor.match(/^(?:(\d+) → )?(\d+)(.*)$/);
+  if (!m) return <>{valor}</>;
+  const [, desde, hasta, resto] = m;
+  return (
+    <>
+      {desde ? `${desde} → ` : ''}
+      <span data-cuenta={hasta} data-desde={desde ?? '0'}>
+        {hasta}
+      </span>
+      {resto}
+    </>
+  );
+}
+
 function Antetitulo({ children }: { children: React.ReactNode }) {
-  return <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#5fb2dd]">{children}</p>;
+  return (
+    <p data-aparece="" className="text-xs font-semibold uppercase tracking-[0.16em] text-[#5fb2dd]">
+      {children}
+    </p>
+  );
 }
 
 function Titulo({ children }: { children: React.ReactNode }) {
-  return <h2 className="mt-2 font-serif text-[1.65rem] leading-tight text-white">{children}</h2>;
+  return (
+    <h2 data-aparece="" className="mt-2 font-serif text-[1.65rem] leading-tight text-white">
+      {children}
+    </h2>
+  );
 }
 
 /** Banda de ancho completo con su contenido en la columna del celular; `alterna` le da el fondo suave. */
@@ -167,8 +195,8 @@ export default function ListaPage() {
           <Antetitulo>Cómo son los 90 minutos</Antetitulo>
           <Titulo>Con qué sales el 2 de diciembre</Titulo>
           <ol className="mt-6 grid grid-cols-3 gap-2">
-            {PASOS_TALLER.map((p) => (
-              <li key={p.n} className="flex flex-col items-center text-center">
+            {PASOS_TALLER.map((p, i) => (
+              <li key={p.n} data-aparece={i} className="flex flex-col items-center text-center">
                 <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#2175a1] text-base font-bold text-white" aria-hidden>
                   {p.n}
                 </span>
@@ -181,8 +209,8 @@ export default function ListaPage() {
             ))}
           </ol>
           <ul className="mt-8 space-y-3">
-            {SALES_CON.map(({ icono: Icono, titulo, texto }) => (
-              <li key={titulo} className="flex gap-3 rounded-2xl border border-white/10 bg-[#0f172a]/70 p-4">
+            {SALES_CON.map(({ icono: Icono, titulo, texto }, i) => (
+              <li key={titulo} data-aparece={i} className="flex gap-3 rounded-2xl border border-white/10 bg-[#0f172a]/70 p-4">
                 <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#2175a1]/25 text-[#5fb2dd]">
                   <Icono className="h-5 w-5" aria-hidden />
                 </span>
@@ -195,32 +223,49 @@ export default function ListaPage() {
           </ul>
         </Banda>
 
+        {/* 19-nov 20:06 (Álvaro): «Lo que ya probé» y «Quién lo enseña» se funden en «Lo uso a diario» (sin el 18-nov). */}
         <Banda>
-          <Antetitulo>Lo que ya probé</Antetitulo>
-          <Titulo>El 18 de noviembre lo probé yo mismo</Titulo>
-          <ol className="mt-6">
-            {PRUEBA_18.map(({ icono: Icono, titulo, texto }, i) => (
-              <li key={titulo} className="relative flex gap-3 pb-5 last:pb-0">
-                {i < PRUEBA_18.length - 1 && <span className="absolute left-5 top-11 h-[calc(100%-2.75rem)] w-px bg-[#2175a1]/60" aria-hidden />}
-                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[#2175a1]/70 bg-[#162a44] text-[#5fb2dd]">
+          <Antetitulo>Lo uso a diario</Antetitulo>
+          <Titulo>Agentes de IA trabajando todos los días en mis dos negocios</Titulo>
+          <div data-aparece="" className="mt-6 flex items-center gap-4">
+            <img
+              src="/fotos/alvaro-portrait.webp"
+              alt="Álvaro Villena"
+              width={72}
+              height={72}
+              loading="lazy"
+              decoding="async"
+              className="h-[72px] w-[72px] shrink-0 rounded-full object-cover object-[center_30%] ring-2 ring-[#2175a1]/60"
+            />
+            <div>
+              <p className="text-lg font-semibold text-white">Álvaro Villena</p>
+              <p className="text-[15px] leading-snug text-slate-300">Fui PM en grandes compañías.</p>
+            </div>
+          </div>
+          <ul className="mt-6 space-y-3">
+            {A_DIARIO.map(({ icono: Icono, titulo, texto }, i) => (
+              <li key={titulo} data-aparece={i} className="flex gap-3 rounded-2xl border border-white/10 bg-white/[0.04] p-4">
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#2175a1]/25 text-[#5fb2dd]">
                   <Icono className="h-5 w-5" aria-hidden />
                 </span>
-                <span className="pt-1.5">
+                <span>
                   <span className="block text-base font-semibold leading-snug text-white">{titulo}</span>
-                  <span className="block text-[15px] leading-snug text-slate-300">{texto}</span>
+                  <span className="mt-0.5 block text-[15px] leading-snug text-slate-300">{texto}</span>
                 </span>
               </li>
             ))}
-          </ol>
-          <dl className="mt-8 grid grid-cols-2 gap-3">
-            {CIFRAS.map((c) => (
-              <div key={c.valor} className="flex flex-col rounded-2xl border border-white/10 bg-white/[0.04] p-4">
+          </ul>
+          <dl className="mt-6 grid grid-cols-2 gap-3">
+            {CIFRAS.map((c, i) => (
+              <div key={c.valor} data-aparece={i} className="flex flex-col rounded-2xl border border-white/10 bg-white/[0.04] p-4">
                 <dt className="order-2 mt-1 text-[13px] leading-snug text-slate-300">{c.texto}</dt>
-                <dd className="order-1 font-serif text-[1.9rem] font-semibold leading-none text-white">{c.valor}</dd>
+                <dd className="order-1 font-serif text-[1.9rem] font-semibold leading-none tabular-nums text-white">
+                  <Cifra valor={c.valor} />
+                </dd>
               </div>
             ))}
           </dl>
-          <p className="mt-4 text-[13px] leading-snug text-slate-400">
+          <p data-aparece="" className="mt-4 text-[13px] leading-snug text-slate-400">
             Los 5 negocios usan Fidelidapp, la versión gestionada; datos de los 30 días al 17 de noviembre. Cifras de mis negocios y de
             clientes, sin nombres. No son una promesa de lo que vas a obtener.
           </p>
@@ -228,39 +273,16 @@ export default function ListaPage() {
         </Banda>
 
         <Banda alterna>
-          <Antetitulo>Quién lo enseña</Antetitulo>
-          <div className="mt-4 flex items-center gap-4">
-            <img
-              src="/fotos/alvaro-portrait.webp"
-              alt="Álvaro Villena"
-              width={80}
-              height={80}
-              loading="lazy"
-              decoding="async"
-              className="h-20 w-20 shrink-0 rounded-full object-cover object-[center_30%] ring-2 ring-[#2175a1]/60"
-            />
-            <div>
-              <p className="text-lg font-semibold text-white">Álvaro Villena</p>
-              <p className="text-[15px] leading-snug text-slate-300">Fui PM en grandes compañías.</p>
-            </div>
-          </div>
-          <p className="mt-4 text-base leading-relaxed text-slate-200">
-            Llevé eso a mis dos negocios: Ewaffle, una agencia donde los agentes de IA corren a diario, y Fidelidapp, una herramienta lista
-            para usar.
-          </p>
-        </Banda>
-
-        <Banda>
           <Antetitulo>Antes de entrar</Antetitulo>
           <Titulo>Preguntas frecuentes</Titulo>
-          <div className="mt-6">
+          <div data-aparece="" className="mt-6">
             <Preguntas preguntas={PREGUNTAS} />
           </div>
           <PorCorreo lugar={2} className="mt-8" />
         </Banda>
 
         <section className="mx-auto max-w-sm px-4 pb-6">
-          <div className="rounded-3xl border border-[#FF3D8B]/30 bg-gradient-to-b from-[#FF3D8B]/10 to-transparent px-5 py-6 text-center">
+          <div data-aparece="" className="rounded-3xl border border-[#FF3D8B]/30 bg-gradient-to-b from-[#FF3D8B]/10 to-transparent px-5 py-6 text-center">
             <p className="font-serif text-[1.4rem] leading-snug text-white">El jueves 26 abro las inscripciones.</p>
             <p className="mt-1 text-base text-slate-300">Quien está en el grupo se entera primero.</p>
           </div>
@@ -269,6 +291,7 @@ export default function ListaPage() {
         </section>
 
         <BarraFija />
+        <AnimarLista />
       </div>
     </main>
   );
