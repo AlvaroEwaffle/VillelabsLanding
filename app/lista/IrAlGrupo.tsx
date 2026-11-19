@@ -4,6 +4,7 @@ import { useSyncExternalStore } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { TALLER } from '@/lib/productos/taller';
 import { medirToque } from './medicion';
+import { NOTA_GRUPO } from './textos';
 
 // Botón al grupo del taller (ver app/lista/page.tsx). EXP-24 (19-nov-2026): hay hasta tres (1 en la pantalla 1, 2 y 3
 // en la cola de B); cada toque se mide con su posición («lista · v=B · botón 2 · src=…»).
@@ -35,7 +36,7 @@ export default function IrAlGrupo({ boton, nota = false, className = 'mt-4' }: {
       >
         Entrar al grupo de WhatsApp <ArrowRight className="h-4 w-4" aria-hidden />
       </a>
-      {nota && <p className="mt-2 text-center text-sm text-slate-300">Es un grupo de avisos: solo escribo yo. Sales cuando quieras.</p>}
+      {nota && <p className="mt-2 text-center text-sm text-slate-300">{NOTA_GRUPO}</p>}
       {enAppMeta && (
         <p className="mt-2 text-center text-sm text-slate-200">
           ¿No se abre WhatsApp? Toca los tres puntos de arriba a la derecha y elige abrir en el navegador.

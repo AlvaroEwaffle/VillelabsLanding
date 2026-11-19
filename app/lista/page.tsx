@@ -7,6 +7,7 @@ import MedirLista from './MedirLista';
 import PorCorreo from './PorCorreo';
 import Preguntas, { type Pregunta } from './Preguntas';
 import { SCRIPT_EXP24 } from './sorteo';
+import { NOTA_GRUPO } from './textos';
 
 // /lista?src=<origen> — puerta medida al grupo de WhatsApp del taller del mié 2-dic-2026 (18-nov-2026, propuesta del
 // embudo-analista). Mide la carga («🧭 lista · src=…» en #revenue-villelab y GA4 lista_click con src) y el toque del botón
@@ -47,8 +48,8 @@ const CSS_EXP24 = '.cola-b{display:none}html[data-exp24="B"] .cola-b{display:blo
 
 const SALES_TENIENDO = [
   'Tu asistente escrito con tus precios, horarios y respuestas, y probado en Claude con 3 mensajes.',
-  'Conectado a tu WhatsApp Web desde Chrome, con un número de prueba, contestando un mensaje en vivo.',
-  'Sus reglas: qué puede contestar y qué te tiene que pasar a ti (descuentos, reclamos, lo que no está en tu hoja).',
+  'Conectado a WhatsApp Web desde Chrome con un número de prueba, y contestando en vivo un mensaje de prueba cuando tú se lo pides.',
+  'Sus reglas: qué puede contestar y qué deja para que lo contestes tú (descuentos, reclamos, lo que no está en tu hoja).',
   'La planilla para hacer seguimiento a cada cliente, lista para usar.',
   'Lo que cuesta de verdad: la cuenta de IA, el computador encendido y cómo cuidar tu número.',
 ];
@@ -56,7 +57,7 @@ const SALES_TENIENDO = [
 // 19-nov-2026 18:30 (Álvaro): el dato de los minutos con cronómetro no va; el bullet del 18-nov queda sin tiempos.
 // La cifra de Fidelidapp lleva su corte (30 días al 17-nov, OFERTA-CENTRAL.md) y «de noche» (ESTRATEGIA-2DIC §3 no fija la hora).
 const YA_PROBE = [
-  'El 18 de noviembre lo probé yo mismo: armé un asistente con mis respuestas, lo conecté a WhatsApp Web con un número de prueba y contestó tres mensajes.',
+  'El 18 de noviembre lo probé yo mismo: armé un asistente con mis respuestas, lo conecté a WhatsApp Web con un segundo número y contestó tres mensajes de prueba: dos con lo que estaba en mi hoja y uno, un pedido de descuento, con mi frase para derivar.',
   'En mi agencia pasé de 13 a 36 proyectos y de 11 a 14 clientes (2025 a 2026) mientras los agentes corrían a diario.',
   'Con la versión gestionada, Fidelidapp: 5 negocios, 581 conversaciones y 41 reservas en los 30 días al 17 de noviembre. En uno, casi la mitad de los mensajes llega de noche.',
 ];
@@ -69,14 +70,15 @@ const PREGUNTAS: Pregunta[] = [
   },
   {
     p: '¿Queda funcionando todo el día?',
-    r: 'Funciona mientras tu computador y Chrome estén abiertos. Si prefieres que no dependa de eso, al final te muestro la versión gestionada.',
+    r: 'No. Contesta mientras tienes Chrome abierto y se lo pides: en mi prueba del 18 revisó unos minutos seguidos, no el día entero. Si prefieres que no dependa de tu computador, al final te muestro la versión gestionada.',
   },
   {
     p: '¿Contesta cualquier cosa por mí?',
-    r: 'No. Le escribes qué puede contestar. Lo que no está en tu hoja, como un descuento o un reclamo, lo deriva con la frase que tú elijas para que lo tomes tú.',
+    r: 'No. Le escribes qué puede contestar. Lo que no está en tu hoja, como un descuento o un reclamo, lo deriva con la frase que tú elijas y queda para que lo contestes tú.',
   },
   // 19-nov-2026 18:31 (Álvaro): el grupo es solo de avisos. No se dice nada sobre si los demás ven tu número.
-  { p: '¿Me van a llenar de mensajes?', r: 'Uno o dos mensajes al día hasta el taller. Es un grupo de avisos: solo escribo yo. Sales cuando quieras.' },
+  // Revisor 19-nov: «solo escribo yo» fuera hasta que Álvaro confirme el ajuste del grupo (ver app/lista/textos.ts).
+  { p: '¿Me van a llenar de mensajes?', r: `Uno o dos mensajes al día hasta el taller. ${NOTA_GRUPO}` },
 ];
 
 function Lista({ items }: { items: string[] }) {
@@ -123,7 +125,7 @@ export default function ListaPage() {
             Para clínicas, estudios y agencias que responden a mano las mismas preguntas por WhatsApp.
           </p>
           <p className="mt-3 text-sm text-slate-300">
-            Entra al grupo de WhatsApp: el jueves 26 aviso ahí primero cuando abran las inscripciones.
+            Entra al grupo de WhatsApp: el jueves 26 aviso ahí primero cuando abra las inscripciones.
           </p>
           <IrAlGrupo boton={1} nota />
           <PorCorreo lugar={1} className="mt-3" />
@@ -132,7 +134,7 @@ export default function ListaPage() {
         {/* Cola · solo B (EXP-24). */}
         <div className="cola-b">
           <section className="mt-10 border-t border-white/10 pt-8">
-            <h2 className="font-serif text-2xl leading-tight text-white">Lo que sales teniendo el 2 de diciembre</h2>
+            <h2 className="font-serif text-2xl leading-tight text-white">Con qué sales el 2 de diciembre</h2>
             <Lista items={SALES_TENIENDO} />
           </section>
 
@@ -148,7 +150,7 @@ export default function ListaPage() {
             <h2 className="font-serif text-2xl leading-tight text-white">Quién lo enseña</h2>
             <p className="mt-4 text-base text-slate-200">
               Soy Álvaro Villena. Fui PM en grandes compañías y llevé eso a mis dos negocios: Ewaffle, una agencia donde los agentes de IA
-              trabajan a diario, y Fidelidapp, una herramienta lista para usar.
+              corren a diario, y Fidelidapp, una herramienta lista para usar.
             </p>
           </section>
 

@@ -7,7 +7,7 @@ import { correoValido } from '@/lib/productos/esqueleto/parcial';
 import { medirCorreo, visitaLista } from './medicion';
 
 // Segundo camino de /lista (19-nov-2026, Álvaro 18:31): para quien no quiere entrar al grupo, nombre + correo y le aviso
-// por correo cuando abran las inscripciones. Secundario: un enlace plegado bajo el botón 1 (A y B) y antes del cierre (B).
+// por correo cuando abra las inscripciones. Secundario: un enlace plegado bajo el botón 1 (A y B) y antes del cierre (B).
 //
 // Registro: el mismo de /esqueleto y /curso (lib/productos/leads.ts → Fidelidapp POST /api/landing/register, cuenta
 // «Alvaro Villena»), con producto «lista-taller» → etiquetas villelab-productos, producto:lista-taller, origen:lista-taller,
@@ -78,7 +78,7 @@ export default function PorCorreo({ lugar, className = '' }: { lugar: 1 | 2; cla
       <div id={`${id}-panel`} hidden={!abierto} className="mt-2 rounded-2xl border border-white/10 bg-white/[0.04] p-4">
         {estado === 'listo' ? (
           <p role="status" className="text-base text-white">
-            Listo. Te escribo al correo cuando abran las inscripciones.
+            Listo. Te escribo al correo cuando abra las inscripciones.
           </p>
         ) : (
           <form noValidate onSubmit={enviar} className="space-y-3">
@@ -122,6 +122,13 @@ export default function PorCorreo({ lugar, className = '' }: { lugar: 1 | 2; cla
             >
               {estado === 'enviando' ? 'Enviando…' : 'Avísame por correo'}
             </button>
+            {/* Revisor 19-nov: para qué se usa el correo y cómo darse de baja, junto al botón. */}
+            <p className="text-xs leading-relaxed text-slate-400">
+              Solo uso tu correo para escribirte sobre este taller: la apertura y los recordatorios. Cada correo trae cómo darte de baja.{' '}
+              <a href="/privacidad" className="text-[#5fb2dd] underline underline-offset-2 hover:text-white">
+                Privacidad
+              </a>
+            </p>
           </form>
         )}
       </div>

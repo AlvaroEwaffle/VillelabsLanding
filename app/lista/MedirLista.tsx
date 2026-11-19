@@ -1,9 +1,11 @@
 'use client';
 
 import { useEffect } from 'react';
+import { reintentarPendientes } from '@/lib/productos/leads';
 import { medirCarga, medirScroll, visitaLista } from './medicion';
 
 // Carga de /lista (una vez) y, solo en B, scroll 25/50/75 % (una vez cada uno). Ver app/lista/medicion.ts.
+// Revisor 19-nov: al cargar reintenta los registros que quedaron en la cola local (p. ej. un 500 de Fidelidapp), como /cotizador.
 
 const HITOS = [25, 50, 75] as const;
 
@@ -11,6 +13,7 @@ export default function MedirLista() {
   useEffect(() => {
     const { v, prueba } = visitaLista();
     medirCarga();
+    void reintentarPendientes();
     if (v !== 'B' || prueba) return;
 
     const vistos = new Set<number>();
