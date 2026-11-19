@@ -27,7 +27,7 @@ import { NOTA_GRUPO } from './textos';
 // cierre, y barra fija inferior con el botón (solo B, «botón fijo»). Los textos corregidos por el revisor mandan: solo se acortan.
 
 const OG_TITULO = 'Taller en vivo: arma el asistente de IA de tu WhatsApp · miércoles 2 de diciembre';
-const OG_DESCRIPCION = '90 minutos en vivo, 17:00 de Chile. Entra al grupo donde aviso primero cuando abran las inscripciones.';
+const OG_DESCRIPCION = '90 minutos en vivo, 17:00 de Chile. Entra al grupo donde aviso primero cuando abra las inscripciones.';
 const OG_ALT = 'Taller en vivo: arma el asistente de IA de tu WhatsApp. Miércoles 2 de diciembre, 17:00 de Chile, 90 minutos';
 
 export const metadata: Metadata = {
@@ -57,7 +57,7 @@ type Item = { icono: LucideIcon; titulo: string; texto: string };
 // «Con qué sales» (revisor 19-nov, acortado por el rediseño sin cambiar el sentido).
 const SALES_CON: Item[] = [
   { icono: Bot, titulo: 'Tu asistente escrito', texto: 'Con tus precios, horarios y respuestas, probado en Claude con 3 mensajes.' },
-  { icono: Link2, titulo: 'Conectado con un número de prueba', texto: 'A WhatsApp Web desde Chrome, contestando cuando tú se lo pides.' },
+  { icono: Link2, titulo: 'Conectado con un número de prueba', texto: 'A WhatsApp Web desde Chrome, contestando un mensaje de prueba cuando tú se lo pides.' },
   { icono: ShieldCheck, titulo: 'Sus reglas', texto: 'Qué contesta y qué deja para que lo contestes tú: descuentos, reclamos, lo que no está en tu hoja.' },
   { icono: Sheet, titulo: 'Planilla de seguimiento', texto: 'Lista para usar con cada cliente.' },
   { icono: Receipt, titulo: 'Lo que cuesta de verdad', texto: 'Cuenta de IA, computador encendido y cómo cuidar tu número.' },
@@ -80,11 +80,10 @@ const PRUEBA_18: Item[] = [
 // Cifras: ESTRATEGIA-2DIC §3 (Ewaffle 13→36 proyectos y 11→14 clientes, 2025 a 2026) y OFERTA-CENTRAL (Fidelidapp, versión
 // gestionada, 30 días al 17-nov; 46 % de noche en un negocio). Sin nombres de clientes.
 const CIFRAS = [
-  { valor: '13 → 36', texto: 'proyectos en mi agencia, con agentes a diario (2025 a 2026)' },
+  { valor: '13 → 36', texto: 'proyectos en mi agencia (2025 a 2026), mientras los agentes corrían a diario' },
   { valor: '11 → 14', texto: 'clientes de mi agencia en el mismo período' },
-  { valor: '581', texto: 'conversaciones en 5 negocios' },
-  { valor: '41', texto: 'reservas en esos 5 negocios' },
-  { valor: '46 %', texto: 'de los mensajes llega de noche, en uno de ellos' },
+  { valor: '581', texto: 'conversaciones en 5 negocios con Fidelidapp, la versión gestionada' },
+  { valor: '41', texto: 'reservas desde el chat en esos 5 negocios' },
 ];
 
 const PREGUNTAS: Pregunta[] = [
@@ -215,7 +214,7 @@ export default function ListaPage() {
           </ol>
           <dl className="mt-8 grid grid-cols-2 gap-3">
             {CIFRAS.map((c) => (
-              <div key={c.valor} className="flex flex-col rounded-2xl border border-white/10 bg-white/[0.04] p-4 last:col-span-2">
+              <div key={c.valor} className="flex flex-col rounded-2xl border border-white/10 bg-white/[0.04] p-4">
                 <dt className="order-2 mt-1 text-[13px] leading-snug text-slate-300">{c.texto}</dt>
                 <dd className="order-1 font-serif text-[1.9rem] font-semibold leading-none text-white">{c.valor}</dd>
               </div>
