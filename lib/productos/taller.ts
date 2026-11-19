@@ -1,6 +1,7 @@
 // Taller en vivo del miércoles 2-dic-2026, 17:00 de Chile (18-nov-2026, ~/.claude/marca-alvaro/ESTRATEGIA-2DIC.md).
 // Todo el contenido cierra en el grupo de WhatsApp del taller. La puerta medida es villelab.com/lista?src=<origen>
-// (app/lista): registra el clic (Slack «🧭 lista · src=…» + GA4 lista_click) y redirige al grupo.
+// (app/lista): registra la carga (Slack «🧭 lista · src=…» + GA4 lista_click) y el toque del botón al grupo
+// (Slack «🧭 lista · botón · src=…» + GA4 lista_boton). Desde el 19-nov-2026 no redirige sola: el botón es el único camino.
 
 export const TALLER = {
   /** Link del grupo de WhatsApp del taller. Cambiarlo aquí cambia /lista y todo lo que apunta al grupo. */
