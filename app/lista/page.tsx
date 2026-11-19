@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Fraunces } from 'next/font/google';
 import { ArrowRight } from 'lucide-react';
 import { TALLER } from '@/lib/productos/taller';
+import { SITE_URL } from '@/lib/productos/seo';
 import IrAlGrupo from './IrAlGrupo';
 
 // /lista?src=<origen> — puerta medida al grupo de WhatsApp del taller del mié 2-dic-2026 (18-nov-2026, propuesta del
@@ -12,10 +13,25 @@ import IrAlGrupo from './IrAlGrupo';
 //   3) <meta refresh> a los 10 s: sin JavaScript.
 // Además, el botón visible lleva directo al grupo.
 
+const OG_TITULO = 'Taller en vivo: arma el asistente de IA de tu WhatsApp · miércoles 2 de diciembre';
+const OG_DESCRIPCION = '90 minutos en vivo, 17:00 de Chile. Entra al grupo donde aviso primero cuando abren las inscripciones.';
+const OG_ALT = 'Taller en vivo: arma el asistente de IA de tu WhatsApp. Miércoles 2 de diciembre, 17:00 de Chile, 90 minutos';
+
 export const metadata: Metadata = {
   title: { absolute: 'Grupo del taller · Villelab' },
   description: 'Te llevo al grupo de WhatsApp del taller en vivo.',
   robots: { index: false, follow: false },
+  // 19-nov-2026: tarjeta propia para el DM de Instagram (antes heredaba la del sitio y no se entendía que era el taller).
+  openGraph: {
+    type: 'website',
+    locale: 'es_CL',
+    siteName: 'Villelab',
+    title: OG_TITULO,
+    description: OG_DESCRIPCION,
+    url: `${SITE_URL}/lista`,
+    images: [{ url: `${SITE_URL}/og/lista-taller.jpg`, width: 1200, height: 630, alt: OG_ALT }],
+  },
+  twitter: { card: 'summary_large_image', title: OG_TITULO, description: OG_DESCRIPCION, images: [`${SITE_URL}/og/lista-taller.jpg`] },
 };
 
 const fraunces = Fraunces({ variable: '--font-fraunces', subsets: ['latin'], weight: ['400', '600'] });
