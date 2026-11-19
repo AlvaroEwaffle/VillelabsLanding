@@ -23,7 +23,8 @@ const CLAVE_COLA = 'villelab_leads_pendientes';
 /** «curso-lead»: dejó el correo en /curso sin comprar y partió por el esqueleto gratis (9-nov-2026). */
 /** «curso-modulo0»: dejó el correo en /curso para ver el módulo 0 gratis (11-nov-2026). */
 /** «cotizador-agentes»: pidió que le manden su cotización de agentes desde /cotizador (borrador 12-nov-2026). */
-export type ProductoLead = 'esqueleto' | 'workshop' | 'guia-1' | 'curso' | 'curso-lead' | 'curso-modulo0' | 'cotizador-agentes';
+/** «lista-taller»: pidió en /lista que le avisen por correo cuando abran las inscripciones del taller del 2-dic (19-nov-2026). */
+export type ProductoLead = 'esqueleto' | 'workshop' | 'guia-1' | 'curso' | 'curso-lead' | 'curso-modulo0' | 'cotizador-agentes' | 'lista-taller';
 
 export interface DatosLead {
   nombre: string;
