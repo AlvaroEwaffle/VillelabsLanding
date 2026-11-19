@@ -28,13 +28,15 @@ export default function IrAlGrupo({ boton, nota = false, className = 'mt-4' }: {
   const enAppMeta = useSyncExternalStore(sinSuscripcion, esAppMeta, () => false);
 
   return (
-    <div className={className}>
+    <div id={`boton-${boton}`} className={className}>
       <a
         href={TALLER.grupo}
         onClick={() => medirToque(boton)}
-        className="inline-flex min-h-[52px] w-full items-center justify-center gap-2 rounded-full bg-[#FF3D8B] px-6 text-base font-semibold text-white transition hover:bg-[#ff5c9f]"
+        // Texto de ~19 px en negrita (18,7 px a 360 de ancho): con blanco sobre el rosa de la marca (3,3:1) cumple AA de texto
+        // grande. En pantallas de 320 px baja a ~17 px para que entre en una línea.
+        className="inline-flex min-h-[56px] w-full cursor-pointer items-center justify-center gap-1.5 whitespace-nowrap rounded-full bg-[#FF3D8B] px-3 text-[length:clamp(16px,5.2vw,19px)] font-bold text-white shadow-rosa transition-colors duration-200 hover:bg-[#ff5c9f] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-white/70"
       >
-        Entrar al grupo de WhatsApp <ArrowRight className="h-4 w-4" aria-hidden />
+        Entrar al grupo de WhatsApp <ArrowRight className="h-5 w-5" aria-hidden />
       </a>
       {nota && <p className="mt-2 text-center text-sm text-slate-300">{NOTA_GRUPO}</p>}
       {enAppMeta && (

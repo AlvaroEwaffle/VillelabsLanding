@@ -70,12 +70,12 @@ export default function PorCorreo({ lugar, className = '' }: { lugar: 1 | 2; cla
         aria-expanded={abierto}
         aria-controls={`${id}-panel`}
         onClick={alternar}
-        className="mx-auto flex min-h-[44px] items-center justify-center gap-1.5 px-2 text-sm font-medium text-[#5fb2dd] underline decoration-[#5fb2dd]/40 underline-offset-4 transition hover:text-white"
+        className="mx-auto flex min-h-[44px] cursor-pointer items-center justify-center gap-1.5 px-2 text-[15px] font-medium text-[#5fb2dd] underline decoration-[#5fb2dd]/40 underline-offset-4 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#5fb2dd]"
       >
         Prefiero que me avises por correo
-        <ChevronDown className={`h-4 w-4 transition-transform ${abierto ? 'rotate-180' : ''}`} aria-hidden />
+        <ChevronDown className={`h-4 w-4 transition-transform motion-reduce:transition-none ${abierto ? 'rotate-180' : ''}`} aria-hidden />
       </button>
-      <div id={`${id}-panel`} hidden={!abierto} className="mt-2 rounded-2xl border border-white/10 bg-white/[0.04] p-4">
+      <div id={`${id}-panel`} hidden={!abierto} data-sin-barra={abierto ? '' : undefined} className="mt-2 rounded-2xl border border-white/10 bg-white/[0.04] p-4">
         {estado === 'listo' ? (
           <p role="status" className="text-base text-white">
             Listo. Te escribo al correo cuando abra las inscripciones.

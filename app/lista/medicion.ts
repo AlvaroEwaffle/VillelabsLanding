@@ -3,6 +3,7 @@
 //
 //   - Carga  → «lista · v=A · src=X»                 + GA4 lista_click  { src, v }
 //   - Toque  → «lista · v=B · botón 2 · src=X»       + GA4 lista_boton  { src, v, boton }   (sendBeacon, sin esperar)
+//              (la barra fija inferior de B es «botón fijo»)
 //   - Scroll → «lista · v=B · scroll 50 % · src=X»   + GA4 lista_scroll { src, v, pct }     (solo B, 25/50/75 una vez)
 //   - FAQ    → «lista · v=B · faq 2 «¿…?» · src=X»  + GA4 lista_faq    { src, v, pregunta } (cada pregunta, la 1.ª vez)
 //   - Correo → «lista · v=A · correo abierto|enviado · src=X» + GA4 lista_correo_abierto|enviado { src, v, lugar }
@@ -123,7 +124,7 @@ export function medirCorreo(paso: 'abierto' | 'enviado', lugar: 1 | 2) {
  * Toque de un botón al grupo. Sale en el mismo toque con sendBeacon (o fetch keepalive) y sin preventDefault: la
  * navegación al grupo no espera a nada. No pasa por la cola de eventos (que espera la respuesta de la carga).
  */
-export function medirToque(boton: 1 | 2 | 3) {
+export function medirToque(boton: 1 | 2 | 3 | 'fijo') {
   const { src, prueba, v } = visitaLista();
   if (prueba) return;
   const detalle = `lista · v=${v} · botón ${boton} · src=${src}`;

@@ -45,10 +45,10 @@ export default function Preguntas({ preguntas }: { preguntas: Pregunta[] }) {
                 aria-expanded={abierta}
                 aria-controls={`${id}-r${i}`}
                 onClick={() => alternar(i)}
-                className="flex min-h-[52px] w-full items-center justify-between gap-3 px-4 py-3 text-left text-base font-medium text-white"
+                className="flex min-h-[56px] w-full cursor-pointer items-center justify-between gap-3 px-4 py-3 text-left text-base font-medium text-white transition-colors duration-200 hover:bg-white/[0.04] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#5fb2dd]"
               >
                 {q.p}
-                <ChevronDown className={`h-5 w-5 shrink-0 text-[#5fb2dd] transition-transform ${abierta ? 'rotate-180' : ''}`} aria-hidden />
+                <ChevronDown className={`h-5 w-5 shrink-0 text-[#5fb2dd] transition-transform motion-reduce:transition-none ${abierta ? 'rotate-180' : ''}`} aria-hidden />
               </button>
             </h3>
             <div id={`${id}-r${i}`} role="region" aria-labelledby={`${id}-b${i}`} hidden={!abierta} className="px-4 pb-4 text-base text-slate-300">
