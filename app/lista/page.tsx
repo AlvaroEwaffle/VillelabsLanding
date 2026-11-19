@@ -167,7 +167,7 @@ export default function ListaPage() {
           height={56}
           className="mx-auto h-14 w-14 rounded-full bg-[#162a44] ring-2 ring-[#2175a1]/60"
         />
-        <p className="mt-3 text-xs font-semibold uppercase tracking-[0.16em] text-[#5fb2dd]">Taller pagado en vivo</p>
+        <p className="mt-3 text-xs font-semibold uppercase tracking-[0.16em] text-[#5fb2dd]">Taller en vivo</p>
         <ul className="mt-2 flex flex-wrap justify-center gap-1.5 text-[13px] font-medium text-white" aria-label="Cuándo y cuánto dura">
           <li className="rounded-full border border-white/15 bg-white/[0.06] px-3 py-1">Mié 2 dic</li>
           <li className="rounded-full border border-white/15 bg-white/[0.06] px-3 py-1">17:00 Chile</li>
