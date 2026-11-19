@@ -59,7 +59,7 @@ type Item = { icono: LucideIcon; titulo: string; texto: string };
 // «Con qué sales» (revisor 19-nov, acortado por el rediseño sin cambiar el sentido).
 const SALES_CON: Item[] = [
   { icono: Bot, titulo: 'Tu asistente escrito', texto: 'Con tus precios, horarios y respuestas, probado en Claude con 3 mensajes.' },
-  { icono: Link2, titulo: 'Conectado con un número de prueba', texto: 'A WhatsApp Web desde Chrome, contestando un mensaje de prueba cuando tú se lo pides.' },
+  { icono: Link2, titulo: 'Conectado con un número de prueba', texto: 'A WhatsApp Web desde Chrome: lo pruebas con un mensaje y te enseño a dejarlo funcionando durante el día.' },
   { icono: ShieldCheck, titulo: 'Sus reglas', texto: 'Qué contesta y qué deja para que lo contestes tú: descuentos, reclamos, lo que no está en tu hoja.' },
   { icono: Sheet, titulo: 'Planilla de seguimiento', texto: 'Lista para usar con cada cliente.' },
   { icono: Receipt, titulo: 'Lo que cuesta de verdad', texto: 'Cuenta de IA, computador encendido y cómo cuidar tu número.' },
@@ -77,7 +77,7 @@ const PASOS_TALLER = [
 // es el que él usa, ni que estos resultados salen del taller.
 const A_DIARIO: Item[] = [
   { icono: Building2, titulo: 'Ewaffle, mi agencia', texto: 'Los agentes corren a diario en la operación.' },
-  { icono: MessageSquareText, titulo: 'Fidelidapp, mi herramienta', texto: 'La versión gestionada, atendiendo el WhatsApp de negocios.' },
+  { icono: MessageSquareText, titulo: 'Fidelidapp, mi herramienta', texto: 'La versión gestionada, atendiendo el WhatsApp de 5 negocios.' },
 ];
 
 // Cifras: ESTRATEGIA-2DIC §3 (Ewaffle 13→36 proyectos y 11→14 clientes, 2025 a 2026) y OFERTA-CENTRAL (Fidelidapp, versión
@@ -98,7 +98,7 @@ const PREGUNTAS: Pregunta[] = [
   {
     p: '¿Queda funcionando todo el día?',
     // 19-nov 20:07 (audio de Álvaro, decisión sobre lo que enseña el taller): sí. Sin «24/7», «solo», «automático» ni «mientras duermes».
-    r: 'Sí. En el taller te enseño cómo dejarlo funcionando durante el día. Los requisitos son básicos: un computador encendido y una conexión a internet constante.',
+    r: 'Sí. En el taller te enseño cómo dejarlo funcionando durante el día. Necesitas un computador encendido con Chrome abierto y una conexión a internet constante.',
   },
   {
     p: '¿Contesta cualquier cosa por mí?',
@@ -266,7 +266,7 @@ export default function ListaPage() {
             ))}
           </dl>
           <p data-aparece="" className="mt-4 text-[13px] leading-snug text-slate-400">
-            Los 5 negocios usan Fidelidapp, la versión gestionada; datos de los 30 días al 17 de noviembre. Cifras de mis negocios y de
+            Los 5 negocios usan Fidelidapp, la versión gestionada, que no es el asistente de WhatsApp Web que armas en el taller; datos de los 30 días al 17 de noviembre. Cifras de mis negocios y de
             clientes, sin nombres. No son una promesa de lo que vas a obtener.
           </p>
           <IrAlGrupo boton={2} className="mt-8" />
